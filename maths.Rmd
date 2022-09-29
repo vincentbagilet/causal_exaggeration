@@ -56,6 +56,8 @@ The full proof is available here.
 
 ## Simulations
 
+### Modeling choices
+
 We then run simulations to both illustrate and check these results. The structure of the code is similar to our other simulations: we first set baseline parameters, define the set of parameters to consider and then run the simulations. A simpler code could be written (with a simple for loop) but we chose this coding practice for consistency.
 
 The DGP is described in the following DAG:
@@ -85,66 +87,24 @@ As in the math section we have:
 $$y_{i} = \alpha_y + \beta x_{i} + \delta w_{i} + u_{i}$$
 $$x_{i} = \alpha_x + \eta d_{i} + \gamma w_{i} + \epsilon_{i}$$
 
+For simplicity, we consider that $w$ is normally distributed and that $d_i$ is a draw from a Bernoulli distirbution. We also consider normally distributed error terms.
 
-### Baseline parameters
+### Generate the data
 
-We first define the baseline parameters values. They are chosen in order to mimic a study with low statistical power.
+As in the method specific simulations, we create three function, one to generate the data, one to run the estimation and one to compute a simulation (just bundling together the two previous functions).
 
-```{r param_maths}
-baseline_param_maths <- tibble(
-  N = 500,
-  mu_x = 0.3,
-  mu_y = 0.2,
-  beta = 0.1,
-  delta = 0.5,
-  gamma = 0.5,
-  eta = 1,
-  sigma_epsilon = 1,
-  sigma_u = 1,
-  sigma_w = 1,
-)
-
-baseline_param_maths %>% kable()
-
-n_iter <- 1000
-
-param_maths <- baseline_param_maths %>% 
-  crossing(rep_id = 1:n_iter) %>% 
-  select(-rep_id)
-```
-
-### Compute simulation
-
-For simplicity and conciseness, instead of creating three separates function to generate the data, run the estimation and compute a simulation as we do in the method specific simulations, we bundle it together into one function.
-
-We consider four separate models:
-- Unbiased: the true model, regressing $y$ on $x$ and $w$, therefore without omitted variable
-- Biased: the "naive" regression of $y$ on $x$, therefore omitting for $w$
-- IV: the 2SLS regression of $y$ on $x$ instrumented by $z$
-- Reduced form: regressing $y$ on $d$
-
-```{r}
-lint_reg <- function(reg_out) {
-  name_model <- deparse(substitute(reg_out)) %>% 
-    str_extract("(?<=reg_).+")
-  reg_out %>%
-    tidy() %>%
-    filter(term == "x" | term == "DTRUE") %>% 
-    mutate(model = name_model) %>% 
-    select(model, everything())
-}
-
-compute_sim_maths <- function(N,
-                              mu_x,
-                              mu_y,
-                              beta,
-                              delta, 
-                              gamma,
-                              eta = 1,
-                              sigma_epsilon,
-                              sigma_u,
-                              sigma_w) {
-  # generate data
+```{r generate_data_maths}
+generate_data_maths <- function(N,
+                                mu_x,
+                                mu_y,
+                                beta,
+                                delta, 
+                                gamma,
+                                eta = 1,
+                                sigma_epsilon,
+                                sigma_u,
+                                sigma_w) {
+  
   data <- tibble(id = 1:N) %>%
     mutate(
       mu_x = mu_x,
@@ -160,32 +120,89 @@ compute_sim_maths <- function(N,
       x = mu_x + eta*D + gamma*w +  epsilon,
       y = mu_y + beta*x + delta*w + u
     )
-
-  #estimation
-  reg_unbiased <- lm(data = data, y ~ x + u)
-  reg_biased <- lm(data = data, y ~ x)
-  reg_reduced <- lm(data = data, y ~ D)
-  reg_iv <- ivreg(data = data, y ~ x | D)
-
-  #wranglin results
-  results <- lint_reg(reg_unbiased) %>%
-    rbind(lint_reg(reg_biased)) %>%
-    rbind(lint_reg(reg_reduced)) %>%
-    rbind(lint_reg(reg_iv)) %>%
-    mutate(signif = (p.value < 0.05))
-
-  return(results)
 }
 ```
 
-Running one simulation yields
+We then define the baseline parameters values. They are chosen in order to mimic a study with low statistical power.
+
+```{r param_maths, echo=FALSE}
+baseline_param_maths <- tibble(
+  N = 500,
+  mu_x = 0.3,
+  mu_y = 0.2,
+  beta = 0.1,
+  delta = 0.5,
+  gamma = 0.5,
+  eta = 1,
+  sigma_epsilon = 1,
+  sigma_u = 1,
+  sigma_w = 1,
+)
+
+baseline_param_maths %>% kable()
+
+n_iter <- 3000
+
+param_maths <- baseline_param_maths %>% 
+  crossing(rep_id = 1:n_iter) %>% 
+  select(-rep_id)
+```
+
+We then run the estimatations. We consider four separate models:
+
+- Unbiased: the true model, regressing $y$ on $x$ and $w$, therefore without omitted variable
+- Biased: the "naive" regression of $y$ on $x$, therefore omitting for $w$
+- IV: the 2SLS regression of $y$ on $x$ instrumented by $z$
+- Reduced form: regressing $y$ on $d$
+
+We also write a short function to wrangle the regression output to a convenient format, `lint_reg_maths`.
+
+```{r estimate_maths}
+lint_reg_maths <- function(reg_out) {
+  name_model <- deparse(substitute(reg_out)) %>% 
+    str_extract("(?<=reg_).+") %>% 
+    str_to_title() %>% 
+    str_replace_all("_", " ") %>% 
+    str_c(., " model")
+    
+  reg_out %>%
+    tidy() %>%
+    filter(term == "x" | term == "DTRUE") %>% 
+    mutate(model = name_model) %>% 
+    select(model, everything())
+}
+
+estimate_maths <- function(data) {
+  #estimation
+  reg_unbiased <- lm(data = data, y ~ x + w)
+  reg_biased <- lm(data = data, y ~ x)
+  reg_reduced_form <- lm(data = data, y ~ D)
+  reg_iv <- ivreg(data = data, y ~ x | D)
+
+  #wranglin results
+  results <- lint_reg_maths(reg_unbiased) %>%
+    rbind(lint_reg_maths(reg_biased)) %>%
+    rbind(lint_reg_maths(reg_reduced_form)) %>%
+    rbind(lint_reg_maths(reg_iv)) %>%
+    mutate(signif = (p.value < 0.05))
+}
+```
+
+We then bundle these two functions to compute a simulation.
+
+```{r compute_sim_maths}
+compute_sim_maths <- function(...) {
+  generate_data_maths(...) %>% 
+    estimate_maths()
+}
+```
+
+The output of one simulation is:
 
 ```{r one_sim, echo=FALSE}
 pmap_dfr(baseline_param_maths, compute_sim_maths) %>% 
   kable()
 ```
-
-### Runing all the simulations
 
 We then run all the simulations and save the results.
 
@@ -198,29 +215,58 @@ toc()
 # saveRDS(sim_maths, here("Outputs/sim_maths.RDS"))
 ```
 
+### Analysis of the results
 
+First, we plot the distribution of the estim
+
+```{r graph_maths, echo=FALSE, fig.asp=1.2}
+sim_maths <-readRDS(here("Outputs/sim_maths.RDS"))
+
+sim_maths %>% 
+  mutate(
+    signif_name = ifelse(signif, "Significant", "Non significant")
+  ) %>% 
+  ggplot() +
+  geom_histogram(aes(x = estimate, fill = signif_name), bins = 50) +
+  facet_wrap(~ model, nrow = 4) +
+  geom_vline(xintercept = 0, linetype = "solid", size = 0.1) +
+  geom_vline(xintercept = baseline_param_maths$beta) +
+  labs(
+    title = "Distribution of estimates produced in the simulation",
+    subtitle = "Comparison across models",
+    fill = "",
+    x = "Estimate",
+    y = "Count",
+    caption = "The vertical dotted line represents the true effect size"
+  ) 
+```
+
+We then look at the mean of the estimates and of the statistically significant ones for each model:
 
 ```{r}
-#we run simulations to compare the distributions of the estimates
-out_sim <- map_dfr(rep(1000, 1000), sim_event, 
-                   mu_x = mu_x, mu_y = mu_y, beta = beta, delta = delta, gamma = gamma)
-
-out_sim %>% 
-  ggplot() +
-  geom_histogram(aes(x = estimate, fill = signif)) +
-  geom_vline(xintercept = beta) +
-  facet_wrap(~ model, nrow = 3)
-
-out_sim %>% 
+sim_maths %>% 
   mutate(est_sign = ifelse(signif, estimate, NA)) %>% 
   group_by(model) %>% 
   summarise(
     mean_sign = mean(est_sign, na.rm = TRUE),
     mean_all = mean(estimate)
   ) %>%  
-  mutate(true_effect = beta)
+  mutate(true_effect = baseline_param_maths$beta) %>% 
+  kable()
+```
 
+Visible both on the graph and the table, we get that:
+- The unbiased model is indeed unbiased as the estimates are centered on the true effect
+- The IV and the reduced form are unbiased, *ie* centered on the true effect. However, statistically significant estimates are of average exaggerating the true effect size. In if there is publication bias, published estimates would in this case overestimate the true effect.
+- The biased model is indeed biased but more precise than the IV and reduced form
 
+Of course these results depend on the choice of parameters but this simulation has an illustrative purpose only.
+
+## Checking the maths
+
+Using the simulations, we can check the maths
+
+```{r eval=FALSE, include=FALSE}
 #Just checking stuff on the variance of x and D based on the math formula I got (p25 of my notebook)
 N <- 1000
 

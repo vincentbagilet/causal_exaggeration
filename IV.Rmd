@@ -59,11 +59,11 @@ In the case of the IV, the unconfoundedness / exaggeration trade-off is  mediate
 
 To illustrate this loss in power, we could consider a large variety of settings, distribution of the parameters or parameter values. We narrow this down to an example setting, considering only one setting and one set of parameter values. We examine an analysis of the impact of voter turnout on election results, instrumenting voter turnout with rainfall on the day of the election. Our point should stand in more general settings and the choice of values is mostly for illustration. 
 
-A threat of confounders often arises when analyzing the link between voter turnout and election results. To estimate such an effect causally, one can consider exogeneous shocks to voter turnout such as rainfall. Some potential exclusion restriction problems [have been highlighted](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3715610) in this instance but we abstract from them and simulate no exclusion restriction violations here.
+A threat of confounders often arises when analyzing the link between voter turnout and election results. To estimate such an effect causally, one can consider exogenous shocks to voter turnout such as rainfall. Some potential exclusion restriction problems [have been highlighted](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3715610) in this instance but we abstract from them and simulate no exclusion restriction violations here.
 
 ### Modeling choices
 
-For simplicity, we consider several assumptions. This illustreation is not representative of the existing literature but the objective is only to calibrate our simulation with somehow realistic parameter values. Again, this illustration is very simplistic. The high level assumptions are:
+For simplicity, we consider several assumptions. This illustration is not representative of the existing literature but the objective is only to calibrate our simulation with somehow realistic parameter values. Again, this illustration is very simplistic. The high level assumptions are:
 
 - We abstract from the panel dimension in this analysis and consider only one time period. This is could be considered as looking at the outcomes of a unique election.
 - We only consider the impact of rain on the day of the election.
@@ -334,38 +334,18 @@ estimate_IV <- function(data) {
 
 ### One simulation
 
-We can now run a simulation, combining `generate_data_IV` and `estimate_IV`. To do so we create the function `compute_sim_IV`. This simple function takes as input the various parameters. It returns a table with the estimate of the treatment, its p-value and standard error, the F-statistic for the IV, the true effect, the IV strength and the intensity of the OVB considered (ovb_intensity). Note for now, that we do not store the values of the other parameters for simplicity because we consider them fixed over the study.
+We can now run a simulation, combining `generate_data_IV` and `estimate_IV`. To do so we create the function `compute_sim_IV`. This simple function takes as input the various parameters. It returns a table with the estimate of the treatment, its p-value and standard error, the F-statistic for the IV, the true effect, the IV strength and the intensity of the OVB considered (ovb_intensity). Note for now, that we do not store the values of the other parameters since we consider them fixed over the study.
 
 ```{r compute_sim_IV}
-compute_sim_IV <- function(N,
-                           type_rain,
-                           param_rain,
-                           sigma_u,
-                           sigma_es,
-                           sigma_et,
-                           alpha,
-                           gamma,
-                           treatment_effect,
-                           iv_strength,
-                           ovb_intensity) {
-  generate_data_IV(
-    N = N,
-    type_rain = type_rain,
-    sigma_u = sigma_u,
-    param_rain = param_rain,
-    sigma_es = sigma_es,
-    sigma_et = sigma_et,
-    alpha = alpha,
-    gamma = gamma,
-    treatment_effect = treatment_effect,
-    iv_strength = iv_strength,
-    ovb_intensity = ovb_intensity
-  ) %>%
+compute_sim_IV <- function(...) {
+  args <- list(...)
+  
+  generate_data_IV(...) %>%
     estimate_IV() %>%
     mutate(
-      iv_strength = iv_strength,
-      ovb_intensity = ovb_intensity,
-      true_effect = treatment_effect
+      iv_strength = args$iv_strength,
+      ovb_intensity = args$ovb_intensity,
+      true_effect = args$treatment_effect
     )
 } 
 ```

@@ -46,17 +46,17 @@ set_mediocre_all(pal = "coty")
 
 ## Plain language summary
 
-*In this paper, we show that, combined with current academic publication practices, front line empirical methods, while efficient to identify how a factor causes another, may be more likely to face a statistical issue that leads reported effects to larger than what they should be.*
+*In this paper, we show that, combined with current academic publication practices, front line empirical methods, while efficient to measure how a factor causes another, might in some cases produce effects larger than what they should be.*
 
 Empirical studies often aim to get a sense of how a factor *causes* another. For instance, one may want to evaluate the impact of a professional training program on wages. Such effects are often challenging to estimate. A simple difference between the wages of people who participated in the program or not may not reflect the actual wage increase brought by the program. It might be the case that people who participated in the program would have earned higher wages even if they did not take the training. To measure the actual magnitude of the effect of the program, researchers use a particular set of methods. These methods while convincing may be imprecise. On average, if one could reproduce the analysis many times, they would yield the true effect of the training program. Yet, analyses are often only carried out once for cost reasons. The lack of precision of the methods means that a particular study can produce results that are quite far away from the true effect.
 <!-- In this paper, we show how academic publication practices can lead these otherwise effective methods to yield incorrect estimates of the effect size.  -->
 
-On the other hand, previous research has shown that publication practices favor results that are very clearly different from zero; published results are often far away from zero. Now, if the true effect is close to zero and the study imprecise, the published result will not only be far away from zero but also from the true effect. 
+On the other hand, previous research has shown that publication practices favor results that are very clearly different from zero; that is to say far away from zero. Now, if the true effect is close to zero and the study imprecise, the published result will not only be far away from zero but also from the true effect. 
 <!-- Effects that are too small to -->
 
-The set of methods mentioned above enables to convincingly measure the effect of a factor on another. However, they are also more subject to the publication problem and may be more likely to exaggerate effect sizes. In this paper, we show that there is a trade-off between measuring an actual causal impact and exaggerating efffect sizes due to the publication problem discussed above.
+The set of methods mentioned above enables to convincingly measure how a factor causes another. However, these methods are also more subject to the publication issue discussed above. In some cases, they may be more likely than conventional methods to produce effect sizes that are too large. In this paper, we show that there is a trade-off between measuring an actual causal impact and exaggerating effect sizes due to the publication problem discussed above.
 
-To do so we build simulations, generating fake data representative of real life situations. We have to rely on simulations because to evaluate how far the result of an analysis is from the true effect, one needs to know this true effect. In real life cases, the true effect is never known (otherwise we would not build a study to estimate it).
+To do so we build simulations, generating fake data representative of real life situations. We have to rely on simulations because to evaluate how far the result of an analysis is from the true effect, one needs to know this true effect. In real life cases, the true effect is never known (otherwise we would not build a study to estimate it). In a simulation we set the "true effect" ourselves.
 
 To avoid published effects to exaggerate true effect sizes, we advocate computing and reporting a very simple calculation that may help evaluate the risk of exaggeration.
 

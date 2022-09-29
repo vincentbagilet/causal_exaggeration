@@ -37,4 +37,5 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
-Script/
+Script/*
+Misc/*

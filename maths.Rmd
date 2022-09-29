@@ -1,0 +1,275 @@
+---
+title: "Mathematical derivation"
+description: "In this document, we summarise the math derivation described in appendix of the paper and run simple simulations to both illustrate and check our closed form solution."
+author:
+  - name: Vincent Bagilet 
+    url: https://vincentbagilet.github.io/
+    affiliation: Columbia University
+    affiliation_url: https://www.columbia.edu/
+  - name: Léo Zabrocki 
+    url: https://www.parisschoolofeconomics.eu/en/
+    affiliation: Paris School of Economics
+    affiliation_url: https://www.parisschoolofeconomics.eu/en/
+date: "`r Sys.Date()`"
+output: 
+  distill::distill_article:
+    toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+<style>
+body {
+text-align: justify}
+</style>
+
+```{r setup_RDD, include=FALSE, results='hide', warning=FALSE}
+library(knitr)
+opts_chunk$set(fig.path = "images/",
+               cache.path = "cache/",
+               cache = FALSE,
+               echo = TRUE, #set to false to hide code
+               message = FALSE,
+               warning = FALSE,
+               out.width = "85%",
+               dpi = 300,
+               fig.align = "center",
+               dev.args = list(bg="transparent"))  
+```  
+
+```{r packages_maths, message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+library(mediocrethemes)
+library(broom)
+library(ggdag)
+library(AER)
+library(tictoc)
+library(beepr)
+library(here)
+
+set_mediocre_all(pal = "coty")
+```
+
+The full proof is available here.
+
+
+
+## Simulations
+
+We then run simulations to both illustrate and check these results. The structure of the code is similar to our other simulations: we first set baseline parameters, define the set of parameters to consider and then run the simulations. A simpler code could be written (with a simple for loop) but we chose this coding practice for consistency.
+
+The DGP is described in the following DAG:
+
+```{r DAG_maths, echo=FALSE, fig.asp=0.25, out.width='70%'}
+dagify(Y ~ X + W,
+       X ~ W + D,
+       outcome = "Y",
+       latent = "W",
+       coords = list(x = c(Y = 3, X = 2, W = 2.5, D = 1),
+                     y = c(Y = 1, X = 1, W = 0, D = 1))) %>% 
+  # ggdag() +
+  ggplot(ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+  geom_dag_point(alpha = 0, stroke = TRUE) +
+  geom_dag_edges(edge_colour = mediocrethemes::colors_table$base[6]) +
+  geom_dag_text(
+    
+    colour = mediocrethemes::colors_table$base[6], 
+    size = 3,
+    family = "Lora"
+  ) +
+  theme_void()
+```
+
+As in the math section we have:
+
+$$y_{i} = \alpha_y + \beta x_{i} + \delta w_{i} + u_{i}$$
+$$x_{i} = \alpha_x + \eta d_{i} + \gamma w_{i} + \epsilon_{i}$$
+
+
+### Baseline parameters
+
+We first define the baseline parameters values. They are chosen in order to mimic a study with low statistical power.
+
+```{r param_maths}
+baseline_param_maths <- tibble(
+  N = 500,
+  mu_x = 0.3,
+  mu_y = 0.2,
+  beta = 0.1,
+  delta = 0.5,
+  gamma = 0.5,
+  eta = 1,
+  sigma_epsilon = 1,
+  sigma_u = 1,
+  sigma_w = 1,
+)
+
+baseline_param_maths %>% kable()
+
+n_iter <- 1000
+
+param_maths <- baseline_param_maths %>% 
+  crossing(rep_id = 1:n_iter) %>% 
+  select(-rep_id)
+```
+
+### Compute simulation
+
+For simplicity and conciseness, instead of creating three separates function to generate the data, run the estimation and compute a simulation as we do in the method specific simulations, we bundle it together into one function.
+
+We consider four separate models:
+- Unbiased: the true model, regressing $y$ on $x$ and $w$, therefore without omitted variable
+- Biased: the "naive" regression of $y$ on $x$, therefore omitting for $w$
+- IV: the 2SLS regression of $y$ on $x$ instrumented by $z$
+- Reduced form: regressing $y$ on $d$
+
+```{r}
+lint_reg <- function(reg_out) {
+  name_model <- deparse(substitute(reg_out)) %>% 
+    str_extract("(?<=reg_).+")
+  reg_out %>%
+    tidy() %>%
+    filter(term == "x" | term == "DTRUE") %>% 
+    mutate(model = name_model) %>% 
+    select(model, everything())
+}
+
+compute_sim_maths <- function(N,
+                              mu_x,
+                              mu_y,
+                              beta,
+                              delta, 
+                              gamma,
+                              eta = 1,
+                              sigma_epsilon,
+                              sigma_u,
+                              sigma_w) {
+  # generate data
+  data <- tibble(id = 1:N) %>%
+    mutate(
+      mu_x = mu_x,
+      mu_y = mu_y,
+      beta = beta,
+      delta = delta,
+      gamma = gamma,
+      eta = eta,
+      D = rbernoulli(nrow(.)),
+      u = rnorm(nrow(.), 0, sigma_u),
+      w = rnorm(nrow(.), 0, sigma_w),
+      epsilon = rnorm(nrow(.), sigma_epsilon),
+      x = mu_x + eta*D + gamma*w +  epsilon,
+      y = mu_y + beta*x + delta*w + u
+    )
+
+  #estimation
+  reg_unbiased <- lm(data = data, y ~ x + u)
+  reg_biased <- lm(data = data, y ~ x)
+  reg_reduced <- lm(data = data, y ~ D)
+  reg_iv <- ivreg(data = data, y ~ x | D)
+
+  #wranglin results
+  results <- lint_reg(reg_unbiased) %>%
+    rbind(lint_reg(reg_biased)) %>%
+    rbind(lint_reg(reg_reduced)) %>%
+    rbind(lint_reg(reg_iv)) %>%
+    mutate(signif = (p.value < 0.05))
+
+  return(results)
+}
+```
+
+Running one simulation yields
+
+```{r one_sim, echo=FALSE}
+pmap_dfr(baseline_param_maths, compute_sim_maths) %>% 
+  kable()
+```
+
+### Runing all the simulations
+
+We then run all the simulations and save the results.
+
+```{r run_sim_maths, eval=FALSE, echo=FALSE}
+tic()
+sim_maths <- pmap_dfr(param_maths, compute_sim_maths)
+beep()
+toc()
+
+# saveRDS(sim_maths, here("Outputs/sim_maths.RDS"))
+```
+
+
+
+```{r}
+#we run simulations to compare the distributions of the estimates
+out_sim <- map_dfr(rep(1000, 1000), sim_event, 
+                   mu_x = mu_x, mu_y = mu_y, beta = beta, delta = delta, gamma = gamma)
+
+out_sim %>% 
+  ggplot() +
+  geom_histogram(aes(x = estimate, fill = signif)) +
+  geom_vline(xintercept = beta) +
+  facet_wrap(~ model, nrow = 3)
+
+out_sim %>% 
+  mutate(est_sign = ifelse(signif, estimate, NA)) %>% 
+  group_by(model) %>% 
+  summarise(
+    mean_sign = mean(est_sign, na.rm = TRUE),
+    mean_all = mean(estimate)
+  ) %>%  
+  mutate(true_effect = beta)
+
+
+#Just checking stuff on the variance of x and D based on the math formula I got (p25 of my notebook)
+N <- 1000
+
+test_data <- tibble(id = 1:N) %>% 
+  mutate(
+    sigma_epsilon = sigma_epsilon,
+    sigma_v = sigma_v,
+    sigma_u = sigma_u,
+    epsilon = rnorm(nrow(.)),
+    mu_x = mu_x,
+    mu_y = mu_y,
+    beta = beta,
+    delta = delta, 
+    gamma = gamma,
+    eta = eta,
+    D = rbernoulli(nrow(.)), 
+    v = rnorm(nrow(.), 0, sigma_v),
+    u = rnorm(nrow(.), 0, sigma_u),
+    x = mu_x + eta*D + gamma*u +  epsilon,
+    y = mu_y + beta*x + delta*u + v
+  )
+
+beta + delta*cov(test_data$x, test_data$u)/var(test_data$x)
+beta + delta*gamma*sigma_u^2/var(test_data$x)
+lm(y ~ x, test_data) %>% summary()
+sqrt((delta^2*var(test_data$u) + var(test_data$v))/var(test_data$x)/N)
+sqrt((delta^2*sigma_u^2 + sigma_v^2)/var(test_data$x)/N)
+
+var(test_data$x)
+var(test_data$D)
+#ratio between var event and var OLS
+(1/var(test_data$D))/(1/var(test_data$x))
+
+out_sim %>% 
+  group_by(model) %>% 
+  summarise(var_est = var(estimate))
+
+0.00124/0.000252
+
+#test distribution normal errors
+out_sim %>% 
+  filter(model == "reg_bias") %>% 
+  .$estimate %>% 
+  qqnorm()
+
+out_sim %>% 
+  filter(model == "reg_bias") %>% 
+  .$estimate %>% 
+  mean()
+
+```
+

@@ -1,0 +1,237 @@
+\documentclass[a4paper, 11pt]{article}
+ 
+\usepackage{VB}
+
+%\doublespacing
+
+\begin{document}
+
+%\lhead{\textsc{Virtual paper - Public economics and development - Vincent Bagilet}}
+
+\selectlanguage{english}
+	
+	\title{Unconfounded but inflated causal estimates}
+	\subtitle{Mathematical description}
+
+	\author{Vincent Bagilet, Léo Zabrocki}
+	
+	%\institution{Columbia University}
+
+	\date{\today}
+	
+	\maketitle
+	
+	\section{Setting}
+	
+		\subsection{Objectives}\label{maths_objectives}
+	
+		This document aims to provide a mathematical derivation to illustrate the trade-off underlined in this paper. Such a derivation may provide some intuition regarding the various mechanisms at play. It does not aim in any way to provide a general proof but merely a specific one, tied to the setting considered. While we keep this setting as general as possible, as in most cases, we have to make certain assumptions, in particular regarding the data generating process considered. 
+		
+		The objective here is to compare the exaggeration ratio for a naive regression with omitted variable bias (OVB) to that of a reduced form analysis of the impact of an exogenous shock on the explanatory variable of interest. We also compare it to the corresponding IV estimate. We expect the naive regression to be biased but more precise than the reduced form and the IV and therefore less subject to exaggeration problems. Roughly, we aim to derive the conditions under which the exaggeration due to the loss in precision is greater than the OVB. %The following simulation illustrates this in the case of the 
+		Thus, the objective is to compare the following quantities:
+			\begin{gather*}
+				\mathbb{E}\left[ \hat{\beta}_{\textsc{ovb}} | \beta_{0}, b_{\textsc{ovb}}, \sigma_{\textsc{ovb}}, \hat{\beta}_{\textsc{ovb}} > z_{\alpha} \cdot \sigma_{\textsc{ovb}} \right] \\
+				\mathbb{E}\left[ \hat{\beta}_{\textsc{r}} | \beta_{0}, \sigma_{\textsc{r}}, \hat{\beta}_{\textsc{r}} > z_{\alpha} \cdot \sigma_{\textsc{r}} \right]\\
+				\mathbb{E}\left[ \hat{\beta}_{\textsc{iv}} | \beta_{0}, \sigma_{\textsc{iv}}, \hat{\beta}_{\textsc{iv}} > z_{\alpha} \cdot \sigma_{\textsc{iv}} \right]
+			\end{gather*} 
+			
+			where \textsc{ovb}, \textsc{r} and \textsc{iv} denote respectively the naive regression, the reduced form and the IV. $\beta$ represents the true effect of interest, $\hat{\beta_{..}}$ its estimate, $\sigma_{..}$ the standard error of the estimate, $z_{\alpha}$ the threshold value of a two-sided test of size $\alpha$ and $b_{\textsc{..}}$ the bias in the naive regression. Note that due to the exogeneity assumption $b_{\textsc{r}} = b_{\textsc{iv}} = 0$. 
+			
+			To compute these values, we need to know the distribution of the estimates. After describing the data generating process, we thus derive these asymptotic distribution of these estimates. We then compute and compare these quantities as a function of the parameters of interests. The main parameter of interest is linked the proportion of the variance in the explanatory variable of interest retained for identification. 
+				
+		\subsection{Data generating process}\label{maths_dgp}
+			%I build this using the notation used by Dong Woo in his lecture notes
+		
+			Consider the usual linear regression model to which we add omitted variables. We limit the number of covariates considered to a constant, an observed variable and an omitted variable:
+			
+				\begin{equation}\label{maths_true_dgp}
+					y_i = \text{x}_i' \bm{\beta} + \delta w_{i} + u_i
+				\end{equation}
+				
+				where $\text{x}_i \in \mathbb{R}^2$ is a vector including the constant and the observed explanatory variable such that $\text{x}_i = (1, x_i)'$, $w_i \in \mathbb{R}$ the omitted variable, $y_i \in \mathbb{R}$ the outcome of interest, $u_i \in \mathbb{R}$ an error term. $\bm{\beta} \in \mathbb{R}^{2}$ and $\delta \in \mathbb{R}$ are unknown parameters. $\bm{\beta} = (\alpha_0, \beta_0)'$ and $\beta_0$ is the parameter of interest. For readability, we introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$. 
+			
+			We further assume that the usual OLS assumptions hold: iid observations, finite second moments, positive-definiteness of $\mathbb{E}[\text{x}_i \text{x}_i']$, $u_{i}$ is mean zero and is uncorrelated with $x_i$. We however assume that $w_{i}$ is unobserved, correlated with $x_{i}$ but not $u_{i}$ and $\delta \neq 0$. 
+			We further assume the existence of a binary exogenous shock $d_{i}$ affecting $x_i$ when $d_{i}$ takes the value 1. 
+			
+				\begin{equation}\label{maths_dgp_x}
+					x_i = 1 \cdot d_i + \gamma w_{i} + \epsilon_i
+				\end{equation}
+				
+				Here too we assume that $\gamma \neq 0$. We assumed that the coefficient for $d$ in equation \ref{maths_dgp_x} is unitary to be able to compare $\beta_{\textsc{R}}$, the coefficient for $d$ in the reduced form regression (regressing $y$ on $d$), to $\beta_{\textsc{ovb}}$, the coefficient for $x$ in the naive regression (regressing $y$ on $x$).  Roughly, $\beta_{\textsc{ovb}}$ can be interpreted as the variation in $y$ associated with a variation of $x$ by one. Similarly, $\beta_{\textsc{R}}$ can be interpreted as the variation in $y$ associated with a variation of $d$ by one. A variation in $d$ by one causes a variation of $x$ by one. Thus, both $\beta_{\textsc{ovb}}$ and $\beta_{\textsc{R}}$ can be interpreted as the variation in $y$ associated with a variation of $x$ by one. They are however different since this variation is orthogonal to the unobserved variable in the case of the reduced form but not in the case of the naive regression.\\
+				
+				The following Directed Acyclic Graph (DAG) sums up the relationship between the variables in the data generating process.
+				
+				\begin{figure}[!h] 
+            					\begin{center}
+            						\includegraphics[width=7cm]{dag_dgp.pdf}
+            						\caption{DAG of the data generating process}
+            						\label{maths_dag_dgp}
+            					\end{center}
+            				\end{figure} 
+				
+				
+			
+				
+						
+%		\subsection{Summary of the assumptions}
+%		
+%			\begin{itemize}
+%				\item The data generating process is as described in section \ref{maths_dgp},
+%				\item 
+%			\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section{Asymptotic distribution of the estimates}
+	
+		As discussed above, the goal is to compare the exaggeration ration in the case of the naive regression to that of the corresponding reduced form and IV. In this section, we \textbf{derive the asymptotic distributions of these estimates}.
+		
+		\subsection{Naive regression (OVB)}
+			
+			The true DGP is given by equation \ref{maths_true_dgp}. Yet, we do not observe $W$ and in the naive regression case, we regress $y$ on $X$ and estimate the following equation:
+				
+				\begin{equation}\label{maths_eq_ovb}
+					y = X\bm{\beta}_{\textsc{ovb}} + v
+				\end{equation}
+				
+				where $v = (v_{1}, ... , v_{n})' \in \mathbb{R}^{n}$. As this equation corresponds to the projection of $y$ on $X$, we have $\mathbb{E}[X'v] = 0$.
+				
+			\subsubsection{Expected value}
+				
+				From equation  \ref{maths_eq_ovb} we get: 
+				~
+				\begin{align*}
+					& X'y = X'X\bm{\beta}_{\textsc{ovb}} + X'v\\
+					\Rightarrow \quad & \mathbb{E}[X'y] = \underbrace{\mathbb{E}[X'X]}_{\text{pos. def.}}\bm{\beta}_{\textsc{ovb}} + \underbrace{\mathbb{E}[X'v]}_{0} \\
+					\Leftrightarrow \quad & \bm{\beta}_{\textsc{ovb}} = \mathbb{E}[X'X]^{-1} \mathbb{E}[X'y]\\
+					\Leftrightarrow \quad & \bm{\beta}_{\textsc{ovb}} = \mathbb{E}[X'X]^{-1} \mathbb{E}[X'(X\bm{\beta} + \delta w + u)] & \text{cf eq. \ref{maths_true_dgp}}\\
+					\Leftrightarrow \quad & \bm{\beta}_{\textsc{ovb}} = \bm{\beta} + \mathbb{E}[X'X]^{-1} \mathbb{E}[X'w] \delta + \underbrace{\mathbb{E}[X'u]}_{0}\\
+					\Leftrightarrow \quad & \bm{\beta}_{\textsc{ovb}} = \bm{\beta} + \mathbb{E}[X'X]^{-1} \mathbb{E}[X'w] \delta
+				\end{align*}		
+				
+				Since $X$ and $w$ correlated and $\delta \neq 0$, $\boxed{\bm{\beta}_{\textsc{ovb}} \neq \bm{\beta}}$. Let $\hat{\bm{\beta}}_{\textsc{ovb}}$ denote the least square estimator of $\bm{\beta}_{\textsc{ovb}}$. We thus have:
+				~
+				\begin{equation}
+					\hat{\bm{\beta}}_{\textsc{ovb}} = (X'X)^{-1}X'y
+				\end{equation}
+				\begin{align*}
+					\Rightarrow \quad  & \hat{\bm{\beta}}_{\textsc{ovb}} = (X'X)^{-1}X'(X\bm{\beta}_{\textsc{ovb}} + v) & \text{cf eq. \ref{maths_eq_ovb}}\\
+					\Rightarrow \quad  & \mathbb{E}[\hat{\bm{\beta}}_{\textsc{ovb}} | X] = \bm{\beta}_{\textsc{ovb}} + (X'X)^{-1}\underbrace{\mathbb{E}[X'v]}_{0} \\
+					\Rightarrow \quad  & \mathbb{E}[\hat{\bm{\beta}}_{\textsc{ovb}}] = \mathbb{E}[\mathbb{E}[\hat{\bm{\beta}}_{\textsc{ovb}} | X]] = \bm{\bm{\beta}}_{\textsc{ovb}}& \text{by the Law of Iterated Expect. (LIE)} 
+				\end{align*}
+				
+				Thus, $\hat{\bm{\beta}}_{\textsc{ovb}}$ is an unbiased estimator of $\bm{\beta}_{\textsc{ovb}}$ but a biased estimator of $\bm{\beta}$. We then compute its asymptotic distribution. 
+				
+			\subsubsection{Asymptotic distribution}	
+				
+				\begin{align*}
+					\sqrt{n}(\hat{\bm{\beta}}_{\textsc{ovb}} - \bm{\beta}_{\textsc{ovb}}) &  = \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{x}_{i} \text{x}_{i}' \right)^{-1} \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{x}_{i} v_{i} \right)
+				\end{align*}	
+				
+				By the Weak Law of Large Numbers (WLLN), we have $\dfrac{1}{n} \sum_{i = 1}^{n} \text{x}_{i} \text{x}_{i}'  \overset{p}{\to}  \mathbb{E}[\text{x}_{i}\text{x}_{i}']$. 
+				Since $\mathbb{E}[\text{x}_{i}v_{i}] = 0$, by the Central Limit Theorem (CLT), we have $\sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{x}_{i} v_{i} \right) \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}]$). 
+				Now, since we assumed homoskedasticity such that $\mathbb{E}[u_{i}^{2} | \text{x}_{i}] = \sigma_{u}^{2}$, we have $\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \overset{LIE}{=} \mathbb{E}[\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2} | \text{x}_{i}]] = \mathbb{E}[\text{x}_{i}\text{x}_{i}'\mathbb{E}[\sigma_{v}^{2}]] = \sigma_{v}^{2} \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1}$. 
+				Applying Slutsky's theorem then yields:
+				
+				\[ \sqrt{n}(\hat{\bm{\beta}}_{\textsc{ovb}} - \bm{\beta}_{\textsc{ovb}}) \overset{d}{\to} \mathcal{N}(0, \sigma_{v}^{2} \cdot \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1}) \]
+				
+				And therefore, we get that:
+				
+				\begin{equation}
+					\hat{\bm{\beta}}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \bm{\beta} + \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i} w_{i}] \delta , \ \frac{\sigma_{v}^{2}}{n} \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \right) 
+				\end{equation}
+				
+			\subsubsection{Coefficient of interest}
+				
+				We are interested in the second component of this vector and to retrieve it we compute $\mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1}$ and $ \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i} w_{i}] $.  
+				
+				\[ 
+				\mathbb{E}[\text{x}_{i}\text{x}_i'] 
+				= \mathbb{E} \begin{bmatrix}
+					1 & x\\ 
+					x & x^{2}
+				\end{bmatrix} 
+				=
+				\begin{bmatrix}
+					1 & \mu_{x}\\ 
+					\mu_{x} & \sigma_{x}^{2} + \mu_{x}^2
+				\end{bmatrix} 
+				\quad \Rightarrow \quad
+				     \mathbb{E}[\text{x}_{i}\text{x}_i']^{-1} = \dfrac{1}{\sigma_{x}^{2}} \mathbb{E} \begin{bmatrix}
+														 \sigma_{x}^{2} + \mu_{x}^2 & -\mu_{x}\\ 
+														-\mu_{x} & 1
+													\end{bmatrix} 
+				\]
+				
+				\begin{align*} 
+				\mathbb{E}[\text{x}_{i}w_i] = &
+				\begin{bmatrix}
+					\mu_{w}\\ 
+					\mathbb{E}[x_iw_i]
+				\end{bmatrix} 
+%				=
+%				\begin{bmatrix}
+%				    	\mu_{w}\\ 
+%					\mathbb{E}[(d_{i} + w_{i}\gamma + \epsilon_{i})w_i]
+%				\end{bmatrix}
+				=
+				\begin{bmatrix}
+				    	\mu_{w}\\ 
+					\mathbb{E}[x_{i}]\mathbb{E}[w_{i}] + \text{cov}(x_{i}, w_{i}) 
+				\end{bmatrix} \\
+				= &
+				\begin{bmatrix}
+				    	\mu_{w}\\ 
+					\mu_{x}\mu_{w} + \underbrace{\text{cov}(d_{i}, w_{i})}_{0} + \gamma  \underbrace{\text{cov}(w_{i}, w_{i})}_{\sigma_{w}^{2}} + \underbrace{\text{cov}(\epsilon_{i}, w_{i})}_{0} 
+				\end{bmatrix} 
+				=
+				\begin{bmatrix}
+				    	\mu_{w}\\ 
+					\mu_{x}\mu_{w} + \gamma \sigma_{w}^{2}
+				\end{bmatrix} 
+				\end{align*}
+				
+				
+				
+				\[ 
+				\Rightarrow \quad
+				\mathbb{E}[\text{x}_{i}\text{x}_i']^{-1}\mathbb{E}[\text{x}_{i}w_i] 
+				=
+				\dfrac{1}{\sigma_{x}^{2}}
+				\begin{bmatrix}
+				    	\mu_{w}\sigma_{x}^{2} - \gamma \sigma_{w}^{2}\mu_{x} \\
+					\gamma\sigma_{w}^{2}
+				\end{bmatrix} 
+				\]
+				
+				Thus, for $\hat{\beta}_{\textsc{ovb}}$, the second component of $\hat{\bm{\beta}}_{\textsc{ovb}}$, we have:
+				\begin{equation}
+					\boxed{
+						\hat{\beta}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \beta_0 + \delta \gamma \dfrac{\sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{\sigma_{v}^{2}}{n \cdot \sigma_{x}^{2}} \right) 
+					}
+				\end{equation}
+				
+				Using the notations introduced in section \ref{maths_objectives}, we have:
+				~
+				\begin{align*}
+					b_{\textsc{ovb}} & =  \delta \gamma \dfrac{\sigma_{w}^{2}}{\sigma_{x}^{2}}\\
+					\sigma_{\textsc{ovb}} & = \dfrac{\sigma_{v}^{2}}{n \cdot \sigma_{x}^{2}}
+				\end{align*}				
+				
+		
+	
+	\section{Exaggeration ratio and its properties}
+
+	
+						
+	
+%\bibliographystyle{agsm}
+%\bibliography{Peers-vegetarianism.bib}	
+	
+	
+	
+	
+	
+	
+		
+\end{document}

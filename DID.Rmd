@@ -394,37 +394,17 @@ compute_true_effect_DID <- function(data) {
 We can now run a simulation, combining `generate_data_DID` and `estimate_DID`. To do so we create the function `compute_sim_DID`. This simple function takes as input the various parameters. It returns a table with the estimate of the treatment, its p-value and standard error, the true effect, the proportion of treated units and whether the treatment was staggered or not. Note that for now, we do not store the values of the other parameters for simplicity because we consider them fixed over the study.
 
 ```{r compute_sim_DID, echo=FALSE}
-compute_sim_DID <- function(N_z,
-                            N_t,
-                            sigma_e,
-                            p_treat,
-                            staggered,
-                            alpha,
-                            beta,
-                            mu_zip_fe,
-                            sigma_zip_fe,
-                            mu_time_fe,
-                            sigma_time_fe) {
-  data <- generate_data_DID(
-    N_z = N_z,
-    N_t = N_t,
-    sigma_e = sigma_e,
-    p_treat = p_treat,
-    staggered = staggered,
-    alpha = alpha,
-    beta = beta,
-    mu_zip_fe = mu_zip_fe,
-    sigma_zip_fe = sigma_zip_fe,
-    mu_time_fe = mu_time_fe,
-    sigma_time_fe = sigma_time_fe
-  ) 
+compute_sim_DID <- function(...) {
+  args <- list(...)
+  
+  data <- generate_data_DID(...) 
   
   data %>%
     estimate_DID() %>% 
     mutate(
-      N_z = N_z,
-      N_t = N_t,
-      p_treat = p_treat,
+      N_z = args$N_z,
+      N_t = args$N_t,
+      p_treat = args$p_treat,
       true_effect = compute_true_effect_DID(data)
     )
 } 

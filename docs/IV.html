@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-06-22"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-06-22"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-09-29"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-09-29"/>
   <meta name="article:author" content="Vincent Bagilet"/>
   <meta name="article:author" content="Léo Zabrocki"/>
 
@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations IV"]},{"type":"character","attributes":{},"value":["In this document, we run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Léo Zabrocki"]},{"type":"character","attributes":{},"value":["https://www.parisschoolofeconomics.eu/en/"]},{"type":"character","attributes":{},"value":["Paris School of Economics"]},{"type":"character","attributes":{},"value":["https://www.parisschoolofeconomics.eu/en/"]}]}]},{"type":"character","attributes":{},"value":["2022-06-22"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations IV"]},{"type":"character","attributes":{},"value":["In this document, we run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Léo Zabrocki"]},{"type":"character","attributes":{},"value":["https://www.parisschoolofeconomics.eu/en/"]},{"type":"character","attributes":{},"value":["Paris School of Economics"]},{"type":"character","attributes":{},"value":["https://www.parisschoolofeconomics.eu/en/"]}]}]},{"type":"character","attributes":{},"value":["2022-09-29"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -534,6 +534,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1606,15 +1607,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
         }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -2155,7 +2162,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2175,7 +2182,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Simulations IV","description":"In this document, we run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""},{"author":"Léo Zabrocki","authorURL":"https://www.parisschoolofeconomics.eu/en/","affiliation":"Paris School of Economics","affiliationURL":"https://www.parisschoolofeconomics.eu/en/","orcidID":""}],"publishedDate":"2022-06-22T00:00:00.000+02:00","citationText":"Bagilet & Zabrocki, 2022"}
+{"title":"Simulations IV","description":"In this document, we run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""},{"author":"Léo Zabrocki","authorURL":"https://www.parisschoolofeconomics.eu/en/","affiliation":"Paris School of Economics","affiliationURL":"https://www.parisschoolofeconomics.eu/en/","orcidID":""}],"publishedDate":"2022-09-29T00:00:00.000-04:00","citationText":"Bagilet & Zabrocki, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2219,23 +2226,15 @@ Simulations
 <h1>Simulations IV</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p>In this document, we run a simulation exercise to illustrate how
-using an Instrumental Variable (IV) strategy to avoid confounders may
-lead to a loss in power and inflated effect sizes.</p>
+<p>In this document, we run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.</p>
 </div>
 
 <div class="d-byline">
-  Vincent Bagilet <a href="https://vincentbagilet.github.io/"
-class="uri">https://vincentbagilet.github.io/</a> (Columbia
-University)<a href="https://www.columbia.edu/"
-class="uri">https://www.columbia.edu/</a>
+  Vincent Bagilet <a href="https://vincentbagilet.github.io/" class="uri">https://vincentbagilet.github.io/</a> (Columbia University)<a href="https://www.columbia.edu/" class="uri">https://www.columbia.edu/</a>
   
-,   Léo Zabrocki <a href="https://www.parisschoolofeconomics.eu/en/"
-class="uri">https://www.parisschoolofeconomics.eu/en/</a> (Paris School
-of Economics)<a href="https://www.parisschoolofeconomics.eu/en/"
-class="uri">https://www.parisschoolofeconomics.eu/en/</a>
+,   Léo Zabrocki <a href="https://www.parisschoolofeconomics.eu/en/" class="uri">https://www.parisschoolofeconomics.eu/en/</a> (Paris School of Economics)<a href="https://www.parisschoolofeconomics.eu/en/" class="uri">https://www.parisschoolofeconomics.eu/en/</a>
   
-<br/>2022-06-22
+<br/>2022-09-29
 </div>
 
 <div class="d-article">
@@ -2243,25 +2242,23 @@ class="uri">https://www.parisschoolofeconomics.eu/en/</a>
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#summary-and-intuition">Summary and intuition</a></li>
-<li><a href="#an-illustrative-example">An illustrative example</a>
+<li><a href="#summary-and-intuition" id="toc-summary-and-intuition">Summary and intuition</a></li>
+<li><a href="#an-illustrative-example" id="toc-an-illustrative-example">An illustrative example</a>
 <ul>
-<li><a href="#modeling-choices">Modeling choices</a></li>
-<li><a href="#data-generation">Data generation</a></li>
-<li><a href="#estimation">Estimation</a></li>
-<li><a href="#one-simulation">One simulation</a></li>
-<li><a href="#all-simulations">All simulations</a></li>
+<li><a href="#modeling-choices" id="toc-modeling-choices">Modeling choices</a></li>
+<li><a href="#data-generation" id="toc-data-generation">Data generation</a></li>
+<li><a href="#estimation" id="toc-estimation">Estimation</a></li>
+<li><a href="#one-simulation" id="toc-one-simulation">One simulation</a></li>
+<li><a href="#all-simulations" id="toc-all-simulations">All simulations</a></li>
 </ul></li>
-<li><a href="#analysis-of-the-results">Analysis of the results</a>
+<li><a href="#analysis-of-the-results" id="toc-analysis-of-the-results">Analysis of the results</a>
 <ul>
-<li><a href="#quick-exploration">Quick exploration</a></li>
-<li><a href="#computing-bias-and-exaggeration-ratios">Computing bias and
-exaggeration ratios</a></li>
-<li><a href="#graph">Graph</a></li>
-<li><a href="#f-statistic-analysis">F-statistic analysis</a></li>
+<li><a href="#quick-exploration" id="toc-quick-exploration">Quick exploration</a></li>
+<li><a href="#computing-bias-and-exaggeration-ratios" id="toc-computing-bias-and-exaggeration-ratios">Computing bias and exaggeration ratios</a></li>
+<li><a href="#graph" id="toc-graph">Graph</a></li>
+<li><a href="#f-statistic-analysis" id="toc-f-statistic-analysis">F-statistic analysis</a></li>
 </ul></li>
-<li><a href="#standard-parameter-values">Standard parameter
-values</a></li>
+<li><a href="#standard-parameter-values" id="toc-standard-parameter-values">Standard parameter values</a></li>
 </ul>
 </nav>
 </div>
@@ -2273,230 +2270,106 @@ text-align: justify}
 
 </div>
 <h2 id="summary-and-intuition">Summary and intuition</h2>
-<p>In the case of the IV, the unconfoundedness / exaggeration trade-off
-is mediated by the ‘strength’ of the instrument considered. When the
-instrument only explains a limited portion of the variation in the
-explanatory variable, the IV can still be successful in avoiding
-confounders but power can low, potentially leading to exaggeration
-issues to arise.</p>
+<p>In the case of the IV, the unconfoundedness / exaggeration trade-off is mediated by the ‘strength’ of the instrument considered. When the instrument only explains a limited portion of the variation in the explanatory variable, the IV can still be successful in avoiding confounders but power can low, potentially leading to exaggeration issues to arise.</p>
 <h2 id="an-illustrative-example">An illustrative example</h2>
-<p>To illustrate this loss in power, we could consider a large variety
-of settings, distribution of the parameters or parameter values. We
-narrow this down to an example setting, considering only one setting and
-one set of parameter values. We examine an analysis of the impact of
-voter turnout on election results, instrumenting voter turnout with
-rainfall on the day of the election. Our point should stand in more
-general settings and the choice of values is mostly for
-illustration.</p>
-<p>A threat of confounders often arises when analyzing the link between
-voter turnout and election results. To estimate such an effect causally,
-one can consider exogeneous shocks to voter turnout such as rainfall.
-Some potential exclusion restriction problems <a
-href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3715610">have
-been highlighted</a> in this instance but we abstract from them and
-simulate no exclusion restriction violations here.</p>
+<p>To illustrate this loss in power, we could consider a large variety of settings, distribution of the parameters or parameter values. We narrow this down to an example setting, considering only one setting and one set of parameter values. We examine an analysis of the impact of voter turnout on election results, instrumenting voter turnout with rainfall on the day of the election. Our point should stand in more general settings and the choice of values is mostly for illustration.</p>
+<p>A threat of confounders often arises when analyzing the link between voter turnout and election results. To estimate such an effect causally, one can consider exogenous shocks to voter turnout such as rainfall. Some potential exclusion restriction problems <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3715610">have been highlighted</a> in this instance but we abstract from them and simulate no exclusion restriction violations here.</p>
 <h3 id="modeling-choices">Modeling choices</h3>
-<p>For simplicity, we consider several assumptions. This illustreation
-is not representative of the existing literature but the objective is
-only to calibrate our simulation with somehow realistic parameter
-values. Again, this illustration is very simplistic. The high level
-assumptions are:</p>
+<p>For simplicity, we consider several assumptions. This illustration is not representative of the existing literature but the objective is only to calibrate our simulation with somehow realistic parameter values. Again, this illustration is very simplistic. The high level assumptions are:</p>
 <ul>
-<li>We abstract from the panel dimension in this analysis and consider
-only one time period. This is could be considered as looking at the
-outcomes of a unique election.</li>
+<li>We abstract from the panel dimension in this analysis and consider only one time period. This is could be considered as looking at the outcomes of a unique election.</li>
 <li>We only consider the impact of rain on the day of the election.</li>
-<li>We assume no correlation in rainfall between locations. This could
-be equivalent to considering only a set of remote locations.</li>
-<li>We assume simplify the data generating process and thus do not add
-any exclusion restriction violations.</li>
+<li>We assume no correlation in rainfall between locations. This could be equivalent to considering only a set of remote locations.</li>
+<li>We assume simplify the data generating process and thus do not add any exclusion restriction violations.</li>
 </ul>
-<p>The DGP can be represented using the following Directed Acyclic Graph
-(DAG):</p>
+<p>The DGP can be represented using the following Directed Acyclic Graph (DAG):</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/DAG_IV-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <!-- ```{r DAG_RDD, echo=FALSE, out.width='70%'} -->
 <!-- include_graphics(here("images/DAGs/DAGs.001.png")) -->
 <!-- ``` -->
-<p>The DGP for the vote share of let’s say the republican party in
-location <span class="math inline">\(i\)</span>, <span
-class="math inline">\(Share_i\)</span>, is defined as follows:</p>
-<p><span class="math display">\[Share_{i} = \alpha + \beta Turnout_{i} +
-\delta u_{i} + e^{(S)}_{i}\]</span></p>
-<p>Where <span class="math inline">\(\alpha\)</span> is a constant,
-<span class="math inline">\(u\)</span> represents an unobserved variable
-and <span class="math inline">\(e^{(S)} \sim \mathcal{N}(0,
-\sigma_{e_S})\)</span> noise. <span class="math inline">\(\beta\)</span>
-is the parameter of interest. We call it ‘treatment effect’.</p>
+<p>The DGP for the vote share of let’s say the republican party in location <span class="math inline">\(i\)</span>, <span class="math inline">\(Share_i\)</span>, is defined as follows:</p>
+<p><span class="math display">\[Share_{i} = \alpha + \beta Turnout_{i} + \delta u_{i} + e^{(S)}_{i}\]</span></p>
+<p>Where <span class="math inline">\(\alpha\)</span> is a constant, <span class="math inline">\(u\)</span> represents an unobserved variable and <span class="math inline">\(e^{(S)} \sim \mathcal{N}(0, \sigma_{e_S})\)</span> noise. <span class="math inline">\(\beta\)</span> is the parameter of interest. We call it ‘treatment effect’.</p>
 <p>The DGP for the turnout data is as follows:</p>
-<p><span class="math display">\[Turnout_{i} = \gamma + \lambda Rain_{i}
-+ \eta u_{i} + e^{(T)}_{i}\]</span></p>
-<p>Where <span class="math inline">\(\mu\)</span> is a constant, <span
-class="math inline">\(Rain\)</span> is either a continuous variable
-(amount of rain in location <span class="math inline">\(i\)</span> on
-the day of the election) or a dummy variable (whether it rained or not)
-and <span class="math inline">\(e^{(T)} \sim \mathcal{N}(0,
-\sigma_{e_T})\)</span> noise. We refer to <span
-class="math inline">\(\lambda\)</span> as “IV strength”.</p>
-<p>The impact on voter turnout on election outcome (share of the
-republican party) is estimated using 2 Stages Least Squares.</p>
+<p><span class="math display">\[Turnout_{i} = \gamma + \lambda Rain_{i} + \eta u_{i} + e^{(T)}_{i}\]</span></p>
+<p>Where <span class="math inline">\(\mu\)</span> is a constant, <span class="math inline">\(Rain\)</span> is either a continuous variable (amount of rain in location <span class="math inline">\(i\)</span> on the day of the election) or a dummy variable (whether it rained or not) and <span class="math inline">\(e^{(T)} \sim \mathcal{N}(0, \sigma_{e_T})\)</span> noise. We refer to <span class="math inline">\(\lambda\)</span> as “IV strength”.</p>
+<p>The impact on voter turnout on election outcome (share of the republican party) is estimated using 2 Stages Least Squares.</p>
 <p>More precisely, we set:</p>
 <ul>
-<li><span class="math inline">\(N\)</span> the number of
-observations</li>
-<li><span class="math inline">\(Rain \sim \text{Gamma}(k,
-\theta)\)</span>, <span class="math inline">\(Rain \sim \mathcal{N}(0,
-\sigma_{R}^{2})\)</span> or <span class="math inline">\(Rain \sim
-\text{Bernoulli}(p_R)\)</span> the instrument</li>
-<li><span class="math inline">\(u \sim \mathcal{N}(0,
-\sigma_{u}^{2})\)</span> the unobserved variable</li>
-<li><span class="math inline">\(e^{(S)} \sim \mathcal{N}(0,
-\sigma_{e_S}^{2})\)</span></li>
-<li><span class="math inline">\(e^{(T)} \sim \mathcal{N}(0,
-\sigma_{e_T}^{2})\)</span></li>
-<li>We assume that <span class="math inline">\(\delta = -\eta\)</span>
-for simplicity. There is no actual basis for that and we may change that
-in the future. The opposite sign is just to get an upward bias, which
-makes the comparison between OLS and IV easier since the bias and the
-exaggeration go in the same direction.</li>
+<li><span class="math inline">\(N\)</span> the number of observations</li>
+<li><span class="math inline">\(Rain \sim \text{Gamma}(k, \theta)\)</span>, <span class="math inline">\(Rain \sim \mathcal{N}(0, \sigma_{R}^{2})\)</span> or <span class="math inline">\(Rain \sim \text{Bernoulli}(p_R)\)</span> the instrument</li>
+<li><span class="math inline">\(u \sim \mathcal{N}(0, \sigma_{u}^{2})\)</span> the unobserved variable</li>
+<li><span class="math inline">\(e^{(S)} \sim \mathcal{N}(0, \sigma_{e_S}^{2})\)</span></li>
+<li><span class="math inline">\(e^{(T)} \sim \mathcal{N}(0, \sigma_{e_T}^{2})\)</span></li>
+<li>We assume that <span class="math inline">\(\delta = -\eta\)</span> for simplicity. There is no actual basis for that and we may change that in the future. The opposite sign is just to get an upward bias, which makes the comparison between OLS and IV easier since the bias and the exaggeration go in the same direction.</li>
 </ul>
-<p>If one abstract from the name of the variable, they can notice that
-this setting is actually very general.</p>
+<p>If one abstract from the name of the variable, they can notice that this setting is actually very general.</p>
 <h3 id="data-generation">Data generation</h3>
 <h4 id="generating-function">Generating function</h4>
-<p>We write a simple function that generates the data. It takes as input
-the values of the different parameters and returns a data frame
-containing all the variables for this analysis.</p>
-<p>Note that the parameter <code>type_rain</code> describes whether
-<span class="math inline">\(Rain\)</span> is a random sample from a
-normal or Bernoulli distribution. The distributions of rainfall heights
-can be approximated with a gamma distribution. The Bernoulli
-distribution is used if one only consider the impact of rain or no rain
-on voter turnout. A normal distribution does not represent actual
-rainfall distributions but is added to run these simulations in other
-contexts than linking rainfall, voter turnout and election outcomes.</p>
-<p><code>type_rain</code> can take the values <code>gamma</code>,
-<code>bernoulli</code> or <code>normal</code>. <code>param_rain</code>
-represents either <span class="math inline">\(\sigma_R\)</span> if <span
-class="math inline">\(Rain\)</span> is normal, <span
-class="math inline">\(p_R\)</span> if it is Bernoulli or a vector of
-shape and scale parameters for the gamma distribution.</p>
-<p>Note that, for readability, in this document, we only display the
-chunks of code that may be important to understand the assumptions
-behind our simulations and the way we built our simulation. We do not
-display all the arguably “technical” code, in particular the one used to
-generate tables and graphs. All this code is however openly available on
-the GitHub of the project.</p>
+<p>We write a simple function that generates the data. It takes as input the values of the different parameters and returns a data frame containing all the variables for this analysis.</p>
+<p>Note that the parameter <code>type_rain</code> describes whether <span class="math inline">\(Rain\)</span> is a random sample from a normal or Bernoulli distribution. The distributions of rainfall heights can be approximated with a gamma distribution. The Bernoulli distribution is used if one only consider the impact of rain or no rain on voter turnout. A normal distribution does not represent actual rainfall distributions but is added to run these simulations in other contexts than linking rainfall, voter turnout and election outcomes.</p>
+<p><code>type_rain</code> can take the values <code>gamma</code>, <code>bernoulli</code> or <code>normal</code>. <code>param_rain</code> represents either <span class="math inline">\(\sigma_R\)</span> if <span class="math inline">\(Rain\)</span> is normal, <span class="math inline">\(p_R\)</span> if it is Bernoulli or a vector of shape and scale parameters for the gamma distribution.</p>
+<p>Note that, for readability, in this document, we only display the chunks of code that may be important to understand the assumptions behind our simulations and the way we built our simulation. We do not display all the arguably “technical” code, in particular the one used to generate tables and graphs. All this code is however openly available on the GitHub of the project.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>generate_data_IV</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>N</span>,
-                             <span class='va'>type_rain</span>, <span class='co'>#"gamma", "normal" or "bernoulli"</span>
-                             <span class='va'>param_rain</span>,
-                             <span class='va'>sigma_u</span>,
-                             <span class='va'>sigma_es</span>,
-                             <span class='va'>sigma_et</span>,
-                             <span class='va'>alpha</span>,
-                             <span class='va'>gamma</span>,
-                             <span class='va'>treatment_effect</span>,
-                             <span class='va'>iv_strength</span>,
-                             <span class='va'>ovb_intensity</span>
-                             <span class='op'>)</span> <span class='op'>{</span>
-  
-  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>type_rain</span> <span class='op'>==</span> <span class='st'>"bernoulli"</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='va'>rain_gen</span> <span class='op'>&lt;-</span> <span class='fu'>rbernoulli</span><span class='op'>(</span><span class='va'>N</span>, <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
-  <span class='op'>}</span> <span class='kw'>else</span> <span class='kw'>if</span> <span class='op'>(</span><span class='va'>type_rain</span> <span class='op'>==</span> <span class='st'>"normal"</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='va'>rain_gen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>0</span>, <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
-  <span class='op'>}</span> <span class='kw'>else</span> <span class='kw'>if</span> <span class='op'>(</span><span class='va'>type_rain</span> <span class='op'>==</span> <span class='st'>"gamma"</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='va'>rain_gen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/GammaDist.html'>rgamma</a></span><span class='op'>(</span><span class='va'>N</span>, shape <span class='op'>=</span> <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, scale <span class='op'>=</span> <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
-  <span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span>
-    <span class='kw'><a href='https://rdrr.io/r/base/stop.html'>stop</a></span><span class='op'>(</span><span class='st'>"type_rain must be either 'bernoulli', 'gamma' or 'normal'"</span><span class='op'>)</span>
-  <span class='op'>}</span>
-  
-  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>mutate</span><span class='op'>(</span>
-      rain <span class='op'>=</span> <span class='va'>rain_gen</span>,
-      u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_u</span><span class='op'>)</span>,
-      e_s <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_es</span><span class='op'>)</span>,
-      e_t <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_et</span><span class='op'>)</span>,
-      turnout <span class='op'>=</span> <span class='va'>gamma</span> <span class='op'>+</span> <span class='va'>iv_strength</span><span class='op'>*</span><span class='va'>rain</span> <span class='op'>-</span> <span class='va'>ovb_intensity</span><span class='op'>*</span><span class='va'>u</span> <span class='op'>+</span> <span class='va'>e_t</span>,
-      share <span class='op'>=</span> <span class='va'>alpha</span> <span class='op'>+</span> <span class='va'>treatment_effect</span><span class='op'>*</span><span class='va'>turnout</span> <span class='op'>+</span> <span class='va'>ovb_intensity</span><span class='op'>*</span><span class='va'>u</span> <span class='op'>+</span> <span class='va'>e_s</span>
-    <span class='op'>)</span>
-
-  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
-<span class='op'>}</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>generate_data_IV</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>N</span>,</span>
+<span>                             <span class='va'>type_rain</span>, <span class='co'>#"gamma", "normal" or "bernoulli"</span></span>
+<span>                             <span class='va'>param_rain</span>,</span>
+<span>                             <span class='va'>sigma_u</span>,</span>
+<span>                             <span class='va'>sigma_es</span>,</span>
+<span>                             <span class='va'>sigma_et</span>,</span>
+<span>                             <span class='va'>alpha</span>,</span>
+<span>                             <span class='va'>gamma</span>,</span>
+<span>                             <span class='va'>treatment_effect</span>,</span>
+<span>                             <span class='va'>iv_strength</span>,</span>
+<span>                             <span class='va'>ovb_intensity</span></span>
+<span>                             <span class='op'>)</span> <span class='op'>{</span></span>
+<span>  </span>
+<span>  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>type_rain</span> <span class='op'>==</span> <span class='st'>"bernoulli"</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>    <span class='va'>rain_gen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/rbernoulli.html'>rbernoulli</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span>
+<span>  <span class='op'>}</span> <span class='kw'>else</span> <span class='kw'>if</span> <span class='op'>(</span><span class='va'>type_rain</span> <span class='op'>==</span> <span class='st'>"normal"</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>    <span class='va'>rain_gen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>0</span>, <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span>
+<span>  <span class='op'>}</span> <span class='kw'>else</span> <span class='kw'>if</span> <span class='op'>(</span><span class='va'>type_rain</span> <span class='op'>==</span> <span class='st'>"gamma"</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>    <span class='va'>rain_gen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/GammaDist.html'>rgamma</a></span><span class='op'>(</span><span class='va'>N</span>, shape <span class='op'>=</span> <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, scale <span class='op'>=</span> <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span></span>
+<span>  <span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span></span>
+<span>    <span class='kw'><a href='https://rdrr.io/r/base/stop.html'>stop</a></span><span class='op'>(</span><span class='st'>"type_rain must be either 'bernoulli', 'gamma' or 'normal'"</span><span class='op'>)</span></span>
+<span>  <span class='op'>}</span></span>
+<span>  </span>
+<span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      rain <span class='op'>=</span> <span class='va'>rain_gen</span>,</span>
+<span>      u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_u</span><span class='op'>)</span>,</span>
+<span>      e_s <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_es</span><span class='op'>)</span>,</span>
+<span>      e_t <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_et</span><span class='op'>)</span>,</span>
+<span>      turnout <span class='op'>=</span> <span class='va'>gamma</span> <span class='op'>+</span> <span class='va'>iv_strength</span><span class='op'>*</span><span class='va'>rain</span> <span class='op'>-</span> <span class='va'>ovb_intensity</span><span class='op'>*</span><span class='va'>u</span> <span class='op'>+</span> <span class='va'>e_t</span>,</span>
+<span>      share <span class='op'>=</span> <span class='va'>alpha</span> <span class='op'>+</span> <span class='va'>treatment_effect</span><span class='op'>*</span><span class='va'>turnout</span> <span class='op'>+</span> <span class='va'>ovb_intensity</span><span class='op'>*</span><span class='va'>u</span> <span class='op'>+</span> <span class='va'>e_s</span></span>
+<span>    <span class='op'>)</span></span>
+<span></span>
+<span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
 </div>
 </div>
 <h4 id="baseline-parameters-values">Baseline parameters’ values</h4>
-<p>We set baseline values for the parameters to emulate a somehow
-realistic observational study.</p>
-<p>We get “inspiration” for the values of parameters from <a
-href="https://www.aeaweb.org/articles?id=10.1257/app.20140533">Fujiwara
-et al.</a> and <a
-href="https://www.cambridge.org/core/journals/political-analysis/article/randomization-inference-with-rainfall-data-using-historical-weather-patterns-for-variance-estimation/2F86BE9EB79FDFF9FF97C8C5CC4A2ED3">Cooperman</a>
-who replicates a work by <a
-href="https://www.jstor.org/stable/10.1111/j.1468-2508.2007.00565.x?pq-origsite=360link&amp;seq=1#metadata_info_tab_contents">Gomez
-et al.</a>.</p>
+<p>We set baseline values for the parameters to emulate a somehow realistic observational study.</p>
+<p>We get “inspiration” for the values of parameters from
+<a href="https://www.aeaweb.org/articles?id=10.1257/app.20140533">Fujiwara et al.</a>
+and
+<a href="https://www.cambridge.org/core/journals/political-analysis/article/randomization-inference-with-rainfall-data-using-historical-weather-patterns-for-variance-estimation/2F86BE9EB79FDFF9FF97C8C5CC4A2ED3">Cooperman</a>
+who replicates a work by
+<a href="https://www.jstor.org/stable/10.1111/j.1468-2508.2007.00565.x?pq-origsite=360link&amp;seq=1#metadata_info_tab_contents">Gomez et al.</a>.</p>
 <p>We consider that:</p>
 <ul>
 <li>Turnout and vote share are expressed in percent</li>
-<li>Fujiwara et al. find that “The trends specifications suggest that 1
-millimeter of rainfall decreases turnout by 0.05–0.07 percentage points”
-and Gomez et al. (and thus Cooperman) find “a county that receives one
-inch of rainfall on election day is likely to have approximately 1
-percentage point lower voter turnout” which is equivalent to a 1mm
-increase in rainfall is associated with about a 0.04 percentage points
-decrease in voter turnout. For simplicity in interpretation, when
-rainfall is not a dummy, it is expressed in centimeters. So, we will
-consider iv_strength in the range -0.1 and -1.3</li>
-<li>We calibrate the distribution parameters to fit a mix if information
-from table 1 from both Fujiwara et al. and Cooperman (converting the
-rainfall into centimeters):
+<li>Fujiwara et al. find that “The trends specifications suggest that 1 millimeter of rainfall decreases turnout by 0.05–0.07 percentage points” and Gomez et al. (and thus Cooperman) find “a county that receives one inch of rainfall on election day is likely to have approximately 1 percentage point lower voter turnout” which is equivalent to a 1mm increase in rainfall is associated with about a 0.04 percentage points decrease in voter turnout. For simplicity in interpretation, when rainfall is not a dummy, it is expressed in centimeters. So, we will consider iv_strength in the range -0.1 and -1.3</li>
+<li>We calibrate the distribution parameters to fit a mix if information from table 1 from both Fujiwara et al. and Cooperman (converting the rainfall into centimeters):
 <ul>
-<li>A gamma distribution represents well the distribution of rainfall.
-Gamma distribution can have two parameters a shape and a scale. The mean
-is <span class="math inline">\(shape \times scale\)</span> and the
-variance <span class="math inline">\(shape \times scale^{2}\)</span>.
-The parameters of the distribution of rainfall are comparable in both
-papers (mean 2.4 and standard deviation 6.6). We solve the system of
-mean and variance for shape and scale and get 0.13 and 18.</li>
-<li>The magnitude of the effect of turnout on vote share is subject to
-intense debate in the literature (cf <a
-href="https://oxford.universitypressscholarship.com/view/10.1093/oso/9780190089450.001.0001/oso-9780190089450">Shaw
-and Petrocik (2020)</a> for instance). As underlined by Shaw and
-Petrocik and in <a
-href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1816649">Fowler
-(2013)</a>, some studies find large effects, others no effects or small
-effects. Fowler (2013) falls into the large effects category as <a
-href="https://www.cambridge.org/core/journals/political-science-research-and-methods/article/regular-voters-marginal-voters-and-the-electoral-effects-of-turnout/F835F3CAE47B7ACB5D49AAE5B97FBD79">described
-by the author himself</a>. The study, for an extremely large shock in
-voter turnout, compulsory voting, finds “that the policy increased voter
-turnout by 24 percentage points which in turn increased the vote shares
-and seat shares of the Labor Party by 7 to 10 percentage points.” This
-correspond to a decrease in Republican vote share of approximately
-0.3-0.4 when turnout increases by 1% (considering that his result is
-causal). These results being large, we consider effects that are smaller
-but of a similar magnitude: we simulate that when turnout increases by
-1%, Republican vote share decreases by 0.1. This enable to test whether
-the design would be good enough to detect an effect that is not
-particularly large.</li>
-<li>We set the intercepts and standard deviations of the errors to
-produce turnouts and vote shares consistent with the papers. Voter
-turnout parameters are roughly similar in both papers (mean 58 sd 14).
-The mean and standard deviation of Republican vote share are given in
-Fujiwara et al. (mean 55.3 and sd 14.2). We may actually take values
-from a recent election (<em>eg</em> the last presidential election)</li>
-<li>We set the standard deviation of the omitted variable bias to be of
-the order of magnitude of the error terms. Being conservative, we set
-its intensity to be twice as large as the treatment effect.</li>
-<li>We consider 10000 observations. This corresponds to data as the US
-county level as used in <a
-href="https://www.cambridge.org/core/journals/american-political-science-review/article/estimating-the-electoral-effects-of-voter-turnout/8A880C28E79BE770A5CA1A9BB6CF933C">Hansford
-and Gomez (2010)</a> for instance but here for 3 presidential elections.
-We could have chosen a larger sample size but this sample size is
-already particularly large and makes it easier to illustrate our
-point.</li>
+<li>A gamma distribution represents well the distribution of rainfall. Gamma distribution can have two parameters a shape and a scale. The mean is <span class="math inline">\(shape \times scale\)</span> and the variance <span class="math inline">\(shape \times scale^{2}\)</span>. The parameters of the distribution of rainfall are comparable in both papers (mean 2.4 and standard deviation 6.6). We solve the system of mean and variance for shape and scale and get 0.13 and 18.</li>
+<li>The magnitude of the effect of turnout on vote share is subject to intense debate in the literature (cf <a href="https://oxford.universitypressscholarship.com/view/10.1093/oso/9780190089450.001.0001/oso-9780190089450">Shaw and Petrocik (2020)</a> for instance). As underlined by Shaw and Petrocik and in <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1816649">Fowler (2013)</a>, some studies find large effects, others no effects or small effects. Fowler (2013) falls into the large effects category as <a href="https://www.cambridge.org/core/journals/political-science-research-and-methods/article/regular-voters-marginal-voters-and-the-electoral-effects-of-turnout/F835F3CAE47B7ACB5D49AAE5B97FBD79">described by the author himself</a>. The study, for an extremely large shock in voter turnout, compulsory voting, finds “that the policy increased voter turnout by 24 percentage points which in turn increased the vote shares and seat shares of the Labor Party by 7 to 10 percentage points.” This correspond to a decrease in Republican vote share of approximately 0.3-0.4 when turnout increases by 1% (considering that his result is causal). These results being large, we consider effects that are smaller but of a similar magnitude: we simulate that when turnout increases by 1%, Republican vote share decreases by 0.1. This enable to test whether the design would be good enough to detect an effect that is not particularly large.</li>
+<li>We set the intercepts and standard deviations of the errors to produce turnouts and vote shares consistent with the papers. Voter turnout parameters are roughly similar in both papers (mean 58 sd 14). The mean and standard deviation of Republican vote share are given in Fujiwara et al. (mean 55.3 and sd 14.2). We may actually take values from a recent election (<em>eg</em> the last presidential election)</li>
+<li>We set the standard deviation of the omitted variable bias to be of the order of magnitude of the error terms. Being conservative, we set its intensity to be twice as large as the treatment effect.</li>
+<li>We consider 10000 observations. This corresponds to data as the US county level as used in <a href="https://www.cambridge.org/core/journals/american-political-science-review/article/estimating-the-electoral-effects-of-voter-turnout/8A880C28E79BE770A5CA1A9BB6CF933C">Hansford and Gomez (2010)</a> for instance but here for 3 presidential elections. We could have chosen a larger sample size but this sample size is already particularly large and makes it easier to illustrate our point.</li>
 </ul></li>
 </ul>
 <p>We thus consider the following parameters:</p>
@@ -2547,16 +2420,15 @@ point.</li>
 </tbody>
 </table>
 </div>
-<p>Here is an example of data created with our data generating
-process:</p>
+<p>Here is an example of data created with our data generating process:</p>
 <div class="layout-chunk" data-layout="l-body">
-<table style="width:100%;">
+<table>
 <colgroup>
 <col style="width: 4%" />
 <col style="width: 16%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
 <col style="width: 16%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
 <col style="width: 13%" />
 <col style="width: 13%" />
 </colgroup>
@@ -2574,102 +2446,99 @@ process:</p>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.0103708</td>
-<td style="text-align: right;">-7.423998</td>
-<td style="text-align: right;">4.5728607</td>
-<td style="text-align: right;">-10.8287331</td>
-<td style="text-align: right;">49.65088</td>
-<td style="text-align: right;">58.12297</td>
+<td style="text-align: right;">0.0148188</td>
+<td style="text-align: right;">-4.8344531</td>
+<td style="text-align: right;">-22.1604347</td>
+<td style="text-align: right;">-7.092571</td>
+<td style="text-align: right;">52.86691</td>
+<td style="text-align: right;">31.58598</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">0.0084862</td>
-<td style="text-align: right;">2.660521</td>
-<td style="text-align: right;">-0.0521447</td>
-<td style="text-align: right;">-22.0124280</td>
-<td style="text-align: right;">36.45122</td>
-<td style="text-align: right;">56.83484</td>
+<td style="text-align: right;">2.5416439</td>
+<td style="text-align: right;">-10.6936263</td>
+<td style="text-align: right;">-2.7584445</td>
+<td style="text-align: right;">-2.094037</td>
+<td style="text-align: right;">57.77387</td>
+<td style="text-align: right;">49.32544</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">0.1828705</td>
-<td style="text-align: right;">-20.385579</td>
-<td style="text-align: right;">12.1063800</td>
-<td style="text-align: right;">-0.9847507</td>
-<td style="text-align: right;">62.00093</td>
-<td style="text-align: right;">61.82917</td>
+<td style="text-align: right;">0.7567049</td>
+<td style="text-align: right;">-11.7939762</td>
+<td style="text-align: right;">34.7309359</td>
+<td style="text-align: right;">5.189823</td>
+<td style="text-align: right;">66.17027</td>
+<td style="text-align: right;">85.75511</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">0.0000004</td>
-<td style="text-align: right;">-23.394099</td>
-<td style="text-align: right;">17.7007207</td>
-<td style="text-align: right;">-1.8144005</td>
-<td style="text-align: right;">61.86442</td>
-<td style="text-align: right;">66.83546</td>
+<td style="text-align: right;">0.0501494</td>
+<td style="text-align: right;">-16.6106324</td>
+<td style="text-align: right;">2.9699760</td>
+<td style="text-align: right;">4.915573</td>
+<td style="text-align: right;">67.21262</td>
+<td style="text-align: right;">52.92659</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">2.5073859</td>
-<td style="text-align: right;">20.212311</td>
-<td style="text-align: right;">-3.9948460</td>
-<td style="text-align: right;">-9.9239661</td>
-<td style="text-align: right;">43.77988</td>
-<td style="text-align: right;">55.66963</td>
+<td style="text-align: right;">0.5757433</td>
+<td style="text-align: right;">-11.5434257</td>
+<td style="text-align: right;">0.4119331</td>
+<td style="text-align: right;">-4.039780</td>
+<td style="text-align: right;">56.98103</td>
+<td style="text-align: right;">52.40514</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">1.0297901</td>
-<td style="text-align: right;">-3.567036</td>
-<td style="text-align: right;">35.9295957</td>
-<td style="text-align: right;">6.7320729</td>
-<td style="text-align: right;">65.93058</td>
-<td style="text-align: right;">88.62313</td>
+<td style="text-align: right;">0.0064891</td>
+<td style="text-align: right;">-6.0939352</td>
+<td style="text-align: right;">27.8464197</td>
+<td style="text-align: right;">14.930170</td>
+<td style="text-align: right;">75.14571</td>
+<td style="text-align: right;">79.11306</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">7</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">-16.935399</td>
-<td style="text-align: right;">-13.9061948</td>
-<td style="text-align: right;">-3.6876907</td>
-<td style="text-align: right;">58.69939</td>
-<td style="text-align: right;">36.83679</td>
+<td style="text-align: right;">0.0000026</td>
+<td style="text-align: right;">-1.8759114</td>
+<td style="text-align: right;">5.4881347</td>
+<td style="text-align: right;">5.906232</td>
+<td style="text-align: right;">65.28141</td>
+<td style="text-align: right;">58.58481</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">8</td>
-<td style="text-align: right;">0.0640384</td>
-<td style="text-align: right;">-2.225288</td>
-<td style="text-align: right;">-16.2612461</td>
-<td style="text-align: right;">-3.0499541</td>
-<td style="text-align: right;">56.36308</td>
-<td style="text-align: right;">37.65739</td>
+<td style="text-align: right;">0.0023477</td>
+<td style="text-align: right;">-3.1507302</td>
+<td style="text-align: right;">-22.0069812</td>
+<td style="text-align: right;">11.032189</td>
+<td style="text-align: right;">70.66116</td>
+<td style="text-align: right;">30.29676</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">44.9881595</td>
-<td style="text-align: right;">8.344579</td>
-<td style="text-align: right;">-4.5728867</td>
-<td style="text-align: right;">-15.5490303</td>
-<td style="text-align: right;">19.28797</td>
-<td style="text-align: right;">55.16723</td>
+<td style="text-align: right;">0.0790005</td>
+<td style="text-align: right;">13.3114423</td>
+<td style="text-align: right;">9.6475679</td>
+<td style="text-align: right;">-2.434331</td>
+<td style="text-align: right;">53.86388</td>
+<td style="text-align: right;">66.92347</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">10</td>
-<td style="text-align: right;">1.1109978</td>
-<td style="text-align: right;">20.543894</td>
-<td style="text-align: right;">-5.9604539</td>
-<td style="text-align: right;">-25.0376474</td>
-<td style="text-align: right;">29.29808</td>
-<td style="text-align: right;">55.21852</td>
+<td style="text-align: right;">11.9867447</td>
+<td style="text-align: right;">-0.5992303</td>
+<td style="text-align: right;">1.2164771</td>
+<td style="text-align: right;">-12.574079</td>
+<td style="text-align: right;">40.55239</td>
+<td style="text-align: right;">57.04139</td>
 </tr>
 </tbody>
 </table>
 </div>
-<h4 id="exploring-the-distribution-of-the-data">Exploring the
-distribution of the data</h4>
-<p>We just quickly explore the distribution of the data for a baseline
-set of parameters. For this, we consider a mid range value for IV
-strength (-0.5).</p>
+<h4 id="exploring-the-distribution-of-the-data">Exploring the distribution of the data</h4>
+<p>We just quickly explore the distribution of the data for a baseline set of parameters. For this, we consider a mid range value for IV strength (-0.5).</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/explore_data_IV-1.png" width="85%" style="display: block; margin: auto;" /><img src="images/explore_data_IV-2.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
@@ -2687,135 +2556,95 @@ strength (-0.5).</p>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Mean</td>
-<td style="text-align: right;">54.22253</td>
-<td style="text-align: right;">57.81844</td>
-<td style="text-align: right;">2.411339</td>
+<td style="text-align: right;">54.37572</td>
+<td style="text-align: right;">57.85338</td>
+<td style="text-align: right;">2.348283</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Standard Deviation</td>
-<td style="text-align: right;">14.51176</td>
-<td style="text-align: right;">13.74300</td>
-<td style="text-align: right;">6.655824</td>
+<td style="text-align: right;">14.52006</td>
+<td style="text-align: right;">13.48378</td>
+<td style="text-align: right;">6.319678</td>
 </tr>
 </tbody>
 </table>
 </div>
 <h3 id="estimation">Estimation</h3>
-<p>After generating the data, we can run an estimation. We want to
-compare the IV and the OLS for different IV strength values. Hence, we
-need to estimate both an IV and an OLS and return both set of outcomes
-of interest.</p>
+<p>After generating the data, we can run an estimation. We want to compare the IV and the OLS for different IV strength values. Hence, we need to estimate both an IV and an OLS and return both set of outcomes of interest.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>estimate_IV</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>reg_IV</span> <span class='op'>&lt;-</span> <span class='fu'>AER</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/AER/man/ivreg.html'>ivreg</a></span><span class='op'>(</span>
-    data <span class='op'>=</span> <span class='va'>data</span>, 
-    formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span> <span class='op'>|</span> <span class='va'>rain</span>
-    <span class='op'>)</span> 
-  
-  <span class='va'>fstat_IV</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span>
-    <span class='va'>reg_IV</span>, 
-    diagnostics <span class='op'>=</span> <span class='cn'>TRUE</span>
-  <span class='op'>)</span><span class='op'>$</span><span class='va'>diagnostics</span><span class='op'>[</span><span class='st'>"Weak instruments"</span>, <span class='st'>"statistic"</span><span class='op'>]</span>
-  
-  <span class='va'>reg_IV</span> <span class='op'>&lt;-</span> <span class='va'>reg_IV</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>mutate</span><span class='op'>(</span>
-      model <span class='op'>=</span> <span class='st'>"IV"</span>,
-      fstat <span class='op'>=</span> <span class='va'>fstat_IV</span>
-    <span class='op'>)</span>
-  
-  <span class='va'>reg_OLS</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>
-    data <span class='op'>=</span> <span class='va'>data</span>, 
-    formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span>
-    <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>mutate</span><span class='op'>(</span>
-      model <span class='op'>=</span> <span class='st'>"OLS"</span>,
-      fstat <span class='op'>=</span> <span class='cn'>NA</span>
-    <span class='op'>)</span>
-  
-  <span class='va'>reg_OLS_unbiased</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>
-    data <span class='op'>=</span> <span class='va'>data</span>, 
-    formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span> <span class='op'>+</span> <span class='va'>u</span>
-    <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>mutate</span><span class='op'>(</span>
-      model <span class='op'>=</span> <span class='st'>"OLS unbiased"</span>,
-      fstat <span class='op'>=</span> <span class='cn'>NA</span>
-    <span class='op'>)</span>
-  
-  <span class='va'>reg</span> <span class='op'>&lt;-</span> <span class='va'>reg_IV</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>reg_OLS</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>reg_OLS_unbiased</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>term</span> <span class='op'>==</span> <span class='st'>"turnout"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>rename</span><span class='op'>(</span>p_value <span class='op'>=</span> <span class='va'>p.value</span>, se <span class='op'>=</span> <span class='va'>std.error</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>select</span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>p_value</span>, <span class='va'>se</span>, <span class='va'>fstat</span>, <span class='va'>model</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  
-  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>reg</span><span class='op'>)</span>
-<span class='op'>}</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>estimate_IV</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>reg_IV</span> <span class='op'>&lt;-</span> <span class='fu'>AER</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/AER/man/ivreg.html'>ivreg</a></span><span class='op'>(</span></span>
+<span>    data <span class='op'>=</span> <span class='va'>data</span>, </span>
+<span>    formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span> <span class='op'>|</span> <span class='va'>rain</span></span>
+<span>    <span class='op'>)</span> </span>
+<span>  </span>
+<span>  <span class='va'>fstat_IV</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span></span>
+<span>    <span class='va'>reg_IV</span>, </span>
+<span>    diagnostics <span class='op'>=</span> <span class='cn'>TRUE</span></span>
+<span>  <span class='op'>)</span><span class='op'>$</span><span class='va'>diagnostics</span><span class='op'>[</span><span class='st'>"Weak instruments"</span>, <span class='st'>"statistic"</span><span class='op'>]</span></span>
+<span>  </span>
+<span>  <span class='va'>reg_IV</span> <span class='op'>&lt;-</span> <span class='va'>reg_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      model <span class='op'>=</span> <span class='st'>"IV"</span>,</span>
+<span>      fstat <span class='op'>=</span> <span class='va'>fstat_IV</span></span>
+<span>    <span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='va'>reg_OLS</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span></span>
+<span>    data <span class='op'>=</span> <span class='va'>data</span>, </span>
+<span>    formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span></span>
+<span>    <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      model <span class='op'>=</span> <span class='st'>"OLS"</span>,</span>
+<span>      fstat <span class='op'>=</span> <span class='cn'>NA</span></span>
+<span>    <span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='va'>reg_OLS_unbiased</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span></span>
+<span>    data <span class='op'>=</span> <span class='va'>data</span>, </span>
+<span>    formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span> <span class='op'>+</span> <span class='va'>u</span></span>
+<span>    <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      model <span class='op'>=</span> <span class='st'>"OLS unbiased"</span>,</span>
+<span>      fstat <span class='op'>=</span> <span class='cn'>NA</span></span>
+<span>    <span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='va'>reg</span> <span class='op'>&lt;-</span> <span class='va'>reg_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>reg_OLS</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>reg_OLS_unbiased</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>term</span> <span class='op'>==</span> <span class='st'>"turnout"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>p_value <span class='op'>=</span> <span class='va'>p.value</span>, se <span class='op'>=</span> <span class='va'>std.error</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>p_value</span>, <span class='va'>se</span>, <span class='va'>fstat</span>, <span class='va'>model</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>reg</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
 </div>
 </div>
 <h3 id="one-simulation">One simulation</h3>
-<p>We can now run a simulation, combining <code>generate_data_IV</code>
-and <code>estimate_IV</code>. To do so we create the function
-<code>compute_sim_IV</code>. This simple function takes as input the
-various parameters. It returns a table with the estimate of the
-treatment, its p-value and standard error, the F-statistic for the IV,
-the true effect, the IV strength and the intensity of the OVB considered
-(ovb_intensity). Note for now, that we do not store the values of the
-other parameters for simplicity because we consider them fixed over the
-study.</p>
+<p>We can now run a simulation, combining <code>generate_data_IV</code> and <code>estimate_IV</code>. To do so we create the function <code>compute_sim_IV</code>. This simple function takes as input the various parameters. It returns a table with the estimate of the treatment, its p-value and standard error, the F-statistic for the IV, the true effect, the IV strength and the intensity of the OVB considered (ovb_intensity). Note for now, that we do not store the values of the other parameters since we consider them fixed over the study.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>compute_sim_IV</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>N</span>,
-                           <span class='va'>type_rain</span>,
-                           <span class='va'>param_rain</span>,
-                           <span class='va'>sigma_u</span>,
-                           <span class='va'>sigma_es</span>,
-                           <span class='va'>sigma_et</span>,
-                           <span class='va'>alpha</span>,
-                           <span class='va'>gamma</span>,
-                           <span class='va'>treatment_effect</span>,
-                           <span class='va'>iv_strength</span>,
-                           <span class='va'>ovb_intensity</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'>generate_data_IV</span><span class='op'>(</span>
-    N <span class='op'>=</span> <span class='va'>N</span>,
-    type_rain <span class='op'>=</span> <span class='va'>type_rain</span>,
-    sigma_u <span class='op'>=</span> <span class='va'>sigma_u</span>,
-    param_rain <span class='op'>=</span> <span class='va'>param_rain</span>,
-    sigma_es <span class='op'>=</span> <span class='va'>sigma_es</span>,
-    sigma_et <span class='op'>=</span> <span class='va'>sigma_et</span>,
-    alpha <span class='op'>=</span> <span class='va'>alpha</span>,
-    gamma <span class='op'>=</span> <span class='va'>gamma</span>,
-    treatment_effect <span class='op'>=</span> <span class='va'>treatment_effect</span>,
-    iv_strength <span class='op'>=</span> <span class='va'>iv_strength</span>,
-    ovb_intensity <span class='op'>=</span> <span class='va'>ovb_intensity</span>
-  <span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>estimate_IV</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>mutate</span><span class='op'>(</span>
-      iv_strength <span class='op'>=</span> <span class='va'>iv_strength</span>,
-      ovb_intensity <span class='op'>=</span> <span class='va'>ovb_intensity</span>,
-      true_effect <span class='op'>=</span> <span class='va'>treatment_effect</span>
-    <span class='op'>)</span>
-<span class='op'>}</span> 
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>compute_sim_IV</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>args</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='fu'>generate_data_IV</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'>estimate_IV</span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      iv_strength <span class='op'>=</span> <span class='va'>args</span><span class='op'>$</span><span class='va'>iv_strength</span>,</span>
+<span>      ovb_intensity <span class='op'>=</span> <span class='va'>args</span><span class='op'>$</span><span class='va'>ovb_intensity</span>,</span>
+<span>      true_effect <span class='op'>=</span> <span class='va'>args</span><span class='op'>$</span><span class='va'>treatment_effect</span></span>
+<span>    <span class='op'>)</span></span>
+<span><span class='op'>}</span> </span></code></pre>
 </div>
 </div>
 <h3 id="all-simulations">All simulations</h3>
-<p>We will run the simulations for different sets of parameters by
-mapping our <code>compute_sim_IV</code> function on each set of
-parameters. We thus create a table with all the values of the parameters
-we want to test, <code>param_IV</code>. Note that in this table each set
-of parameters appears <code>n_iter</code> times as we want to run the
-analysis <span class="math inline">\(n_{iter}\)</span> times for each
-set of parameters.</p>
+<p>We will run the simulations for different sets of parameters by mapping our <code>compute_sim_IV</code> function on each set of parameters. We thus create a table with all the values of the parameters we want to test, <code>param_IV</code>. Note that in this table each set of parameters appears <code>n_iter</code> times as we want to run the analysis <span class="math inline">\(n_{iter}\)</span> times for each set of parameters.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>We then run the simulations by mapping our
-<code>compute_sim_IV</code> function on <code>param_IV</code>.</p>
+<p>We then run the simulations by mapping our <code>compute_sim_IV</code> function on <code>param_IV</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
@@ -2825,40 +2654,30 @@ set of parameters.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/exploration_results_IV-1.png" width="85%" style="display: block; margin: auto;" /><img src="images/exploration_results_IV-2.png" width="85%" style="display: block; margin: auto;" /><img src="images/exploration_results_IV-3.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<p>We notice that the OLS is always biased and that the IV is never
-biased. However, for limited IV strengths, the distribution of the
-estimates flattens. The smaller the IV strength, the most like it is to
-get an estimate away from the true value, even though the expected value
-remains equal to the true effect size.
+<p>We notice that the OLS is always biased and that the IV is never biased. However, for limited IV strengths, the distribution of the estimates flattens. The smaller the IV strength, the most like it is to get an estimate away from the true value, even though the expected value remains equal to the true effect size.
 <!-- We can notice that statistically significant estimates are on average located further away from zero that  --></p>
-<h3 id="computing-bias-and-exaggeration-ratios">Computing bias and
-exaggeration ratios</h3>
-<p>We want to compare <span
-class="math inline">\(\mathbb{E}[\beta_0/\widehat{\beta_{IV}}]\)</span>
-and <span class="math inline">\(\mathbb{E}[\beta_0/
-\widehat{\beta_{IV}}|\text{signif}]\)</span>. The first term represents
-the bias and the second term represents the exaggeration ratio.</p>
+<h3 id="computing-bias-and-exaggeration-ratios">Computing bias and exaggeration ratios</h3>
+<p>We want to compare <span class="math inline">\(\mathbb{E}[\beta_0/\widehat{\beta_{IV}}]\)</span> and <span class="math inline">\(\mathbb{E}[\beta_0/ \widehat{\beta_{IV}}|\text{signif}]\)</span>. The first term represents the bias and the second term represents the exaggeration ratio.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>summarise_simulations</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>data</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>mutate</span><span class='op'>(</span>significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>ovb_intensity</span>, <span class='va'>iv_strength</span>, <span class='va'>model</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>summarise</span><span class='op'>(</span>
-      power <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>significant</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>100</span>, 
-      type_m <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span><span class='op'>)</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
-      bias_signif <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
-      bias_all <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
-      bias_all_median <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
-      median_fstat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>fstat</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
-      .groups  <span class='op'>=</span> <span class='st'>"drop"</span>
-    <span class='op'>)</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'>ungroup</span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>}</span> 
-
-<span class='va'>summary_sim_IV</span> <span class='op'>&lt;-</span> <span class='fu'>summarise_simulations</span><span class='op'>(</span><span class='va'>sim_IV</span><span class='op'>)</span>
-<span class='co'># saveRDS(summary_sim_IV, here("Outputs/summary_sim_IV.RDS"))</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summarise_simulations</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>ovb_intensity</span>, <span class='va'>iv_strength</span>, <span class='va'>model</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span></span>
+<span>      power <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>significant</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>100</span>, </span>
+<span>      type_m <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span><span class='op'>)</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>      bias_signif <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>      bias_all <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>      bias_all_median <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>      median_fstat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>fstat</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>      .groups  <span class='op'>=</span> <span class='st'>"drop"</span></span>
+<span>    <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='op'>}</span> </span>
+<span></span>
+<span><span class='va'>summary_sim_IV</span> <span class='op'>&lt;-</span> <span class='fu'>summarise_simulations</span><span class='op'>(</span><span class='va'>sim_IV</span><span class='op'>)</span></span>
+<span><span class='co'># saveRDS(summary_sim_IV, here("Outputs/summary_sim_IV.RDS"))</span></span></code></pre>
 </div>
 </div>
 <h3 id="graph">Graph</h3>
@@ -2866,14 +2685,9 @@ the bias and the second term represents the exaggeration ratio.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/main_graph_IV-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<p>We notice that, if the IV strength is low, on average, statistically
-significant estimates overestimate the true effect. If the IV strength
-is too low, it might even be the case that the benefit of the IV is
-overturned by the exaggeration issue. The IV yields an unbiased estimate
-and enables to get rid of the OVB but such statistically significant
-estimates fall, on average, even further from the true effect.</p>
-<p>Of course, if one considers all estimates, as the IV is unbiased,
-this issue does not arise.</p>
+<p>We notice that, if the IV strength is low, on average, statistically significant estimates overestimate the true effect. If the IV strength is too low, it might even be the case that the benefit of the IV is overturned by the exaggeration issue. The IV yields an unbiased estimate and enables to get rid of the OVB
+but such statistically significant estimates fall, on average, even further from the true effect.</p>
+<p>Of course, if one considers all estimates, as the IV is unbiased, this issue does not arise.</p>
 <!-- ```{r graph_results_all_IV, echo=FALSE, fig.asp=0.7} -->
 <!-- summary_sim_IV %>%  -->
 <!--   mutate( -->
@@ -2893,38 +2707,21 @@ this issue does not arise.</p>
 <!--   ylim(c(0.9, 1.4)) -->
 <!-- ``` -->
 <h3 id="f-statistic-analysis">F-statistic analysis</h3>
-<p>We then run some exploratory analysis to see the link between type M
-and F-stat (under construction).</p>
+<p>We then run some exploratory analysis to see the link between type M and F-stat (under construction).</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/IV_strength_fstat_graph-1.png" width="85%" style="display: block; margin: auto;" /><img src="images/IV_strength_fstat_graph-2.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<p>Unsurprisingly, there is a clear positive correlation between what we
-call IV strength and the F-statistic. We then investigate the link
-between exaggeration ratios and F-statistics.</p>
+<p>Unsurprisingly, there is a clear positive correlation between what we call IV strength and the F-statistic. We then investigate the link between exaggeration ratios and F-statistics.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/fstat_bias_graph-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<p>We notice that, even when the F-statistic is greater than the usual
-but arbitrary threshold of 10, statistically significant estimates may,
-on average overestimate the true effect.</p>
-<p>We cannot compute directly the bias of interest against the
-F-statistic because the F-statistic is not a parameter of the
-simulations and we do not control them, only the IV strength. To
-overcome this, we compute the median power by binned F-statistic.
-However, this is not correct as we end up comparing and pulling together
-simulations with different parameter values. We still display the graph,
-keeping this limitation in mind:</p>
+<p>We notice that, even when the F-statistic is greater than the usual but arbitrary threshold of 10, statistically significant estimates may, on average overestimate the true effect.</p>
+<p>We cannot compute directly the bias of interest against the F-statistic because the F-statistic is not a parameter of the simulations and we do not control them, only the IV strength. To overcome this, we compute the median power by binned F-statistic. However, this is not correct as we end up comparing and pulling together simulations with different parameter values. We still display the graph, keeping this limitation in mind:</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/binned_fstat-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <h1 id="standard-parameter-values">Standard parameter values</h1>
-<p>For simplicity and for communication purposes, we considered an
-applied example. However, our results can also hold in general settings.
-We illustrate this, considering that most of the variables are
-distributed according to standard normal distributions. We keep the same
-DAG as it is the classic IV DAG. We also keep the same variable names
-but one should abstract from their meaning as they do not represent the
-same measure any longer.</p>
+<p>For simplicity and for communication purposes, we considered an applied example. However, our results can also hold in general settings. We illustrate this, considering that most of the variables are distributed according to standard normal distributions. We keep the same DAG as it is the classic IV DAG. We also keep the same variable names but one should abstract from their meaning as they do not represent the same measure any longer.</p>
 <p>We define the following parameters:</p>
 <div class="layout-chunk" data-layout="l-body">
 <table style="width:100%;">
@@ -2970,21 +2767,18 @@ same measure any longer.</p>
 </tbody>
 </table>
 </div>
-<p>We then run the whole analysis as before, with an OVB intensity of
-0.4 so that it is not extremely large.</p>
+<p>We then run the whole analysis as before, with an OVB intensity of 0.4 so that it is not extremely large.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>The results and the overall illustration are comparable with the
-political economy example.</p>
+<p>The results and the overall illustration are comparable with the political economy example.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/bined_fstat_simple-1.png" width="85%" style="display: block; margin: auto;" /><img src="images/bined_fstat_simple-2.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/fstat_bias_simple_graph-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

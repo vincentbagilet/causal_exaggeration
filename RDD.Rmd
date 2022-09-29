@@ -358,33 +358,11 @@ estimate_RDD <- function(data, bw) {
 We can now run a simulation, combining `generate_data_RDD` and `estimate_RDD`. To do so we create the function `compute_sim_RDD`. This simple function takes as input the various parameters along with a vector of bandwidth sizes, `vect_bw`. If we want to run several simulations with different bandwidths, we can reuse the same data, hence why we allow to passing a vector of bandwidths and not only one bandwidth. The function returns a table with the estimate of the treatment, its p-value and standard error, the true effect and the bandwidth and intensity of the OVB considered (delta). Note for now, that we do not store the values of the other parameters for simplicity because we consider them fixed over the study.
 
 ```{r compute_sim_RDD}
-compute_sim_RDD <- function(N,
-                            bound_u,
-                            alpha_q,
-                            sigma_q,
-                            sigma_f,
-                            alpha_f,
-                            beta,
-                            gamma,
-                            delta,
-                            q_c,
-                            vect_bw) {
-  
-  data <- generate_data_RDD(
-    N = N,
-    bound_u = bound_u,
-    alpha_q = alpha_q,
-    sigma_q = sigma_q,
-    sigma_f = sigma_f,
-    alpha_f = alpha_f,
-    beta = beta,
-    gamma = gamma,
-    delta = delta,
-    q_c = q_c
-  ) 
+compute_sim_RDD <- function(vect_bw, ...) {
+  data <- generate_data_RDD(...) 
   
   map_dfr(vect_bw, estimate_RDD, data = data) %>%
-    mutate(delta = delta)
+    mutate(delta = list(...)$delta)
 } 
 ```
 

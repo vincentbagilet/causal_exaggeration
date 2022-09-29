@@ -355,7 +355,7 @@ compute_sim_IV <- function(...) {
 We will run the simulations for different sets of parameters by mapping our `compute_sim_IV` function on each set of parameters. We thus create a table with all the values of the parameters we want to test, `param_IV`. Note that in this table each set of parameters appears `n_iter` times as we want to run the analysis $n_{iter}$ times for each set of parameters.
 
 ```{r set_param_IV, echo=FALSE}
-vect_iv_strength <- -c(seq(0.1, 0.4, 0.05), seq(0.4, 0.8, 0.1))
+vect_iv_strength <- c(seq(0.1, 0.4, 0.05), seq(0.4, 0.8, 0.1))
 n_iter <- 1000
 
 param_IV <- baseline_param_IV %>% 
@@ -431,7 +431,7 @@ sim_IV %>%
 
 data_one_sim_IV <- sim_IV %>% 
   filter(between(estimate, -3, 1)) %>%
-  filter(iv_strength == 0.3) %>% 
+  filter(iv_strength == 0.4) %>% 
   # filter(ovb_intensity == sample(vect_ovb_intensity, 1)) %>% 
   mutate(significant = ifelse(p_value < 0.05, "Significant", "Non significant")) 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  28 SEP 2022 15:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  4 OCT 2022 11:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1289,7 +1289,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 237.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 251.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1298,18 +1298,25 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 237.
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[5]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 251.
  (./math_causal_exaggeration.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 237.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 237.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 251.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 251.
 Package rerunfilecheck Info: File `math_causal_exaggeration.out' has not change
 d.
 (rerunfilecheck)             Checksum: 30707909EC42124A3819CFE2220367C5;621.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 237.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 251.
  ) 
 Here is how much of TeX's memory you used:
- 13971 strings out of 492995
- 198412 string characters out of 6132704
+ 13972 strings out of 492995
+ 198418 string characters out of 6132704
  333067 words of memory out of 5000000
  17223 multiletter control sequences out of 15000+600000
  24140 words of font info for 62 fonts, out of 8000000 for 9000
@@ -1336,10 +1343,10 @@ ve/2017/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive
 texmf-dist/fonts/type1/public/cm-super/sfxc1200.pfb></usr/local/texlive/2017/te
 xmf-dist/fonts/type1/public/cm-super/sfxc1440.pfb></usr/local/texlive/2017/texm
 f-dist/fonts/type1/public/cm-super/sfxc1728.pfb>
-Output written on math_causal_exaggeration.pdf (4 pages, 257360 bytes).
+Output written on math_causal_exaggeration.pdf (5 pages, 259410 bytes).
 PDF statistics:
- 179 PDF objects out of 1000 (max. 8388607)
- 135 compressed objects within 2 object streams
- 21 named destinations out of 1000 (max. 500000)
+ 183 PDF objects out of 1000 (max. 8388607)
+ 138 compressed objects within 2 object streams
+ 22 named destinations out of 1000 (max. 500000)
  78 words of extra memory for PDF output out of 10000 (max. 10000000)
 

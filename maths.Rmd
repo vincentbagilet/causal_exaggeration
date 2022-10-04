@@ -72,11 +72,10 @@ dagify(Y ~ X + W,
   # ggdag() +
   ggplot(ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
   geom_dag_point(alpha = 0, stroke = TRUE) +
-  geom_dag_edges(edge_colour = mediocrethemes::colors_table$base[6]) +
+  geom_dag_edges() +
   geom_dag_text(
-    
-    colour = mediocrethemes::colors_table$base[6], 
-    size = 3,
+    colour = "black", 
+    size = 7,
     family = "Lora"
   ) +
   theme_void()
@@ -103,7 +102,8 @@ generate_data_maths <- function(N,
                                 eta = 1,
                                 sigma_epsilon,
                                 sigma_u,
-                                sigma_w) {
+                                sigma_w,
+                                ptreat) {
   
   data <- tibble(id = 1:N) %>%
     mutate(
@@ -113,30 +113,45 @@ generate_data_maths <- function(N,
       delta = delta,
       gamma = gamma,
       eta = eta,
-      D = rbernoulli(nrow(.)),
-      u = rnorm(nrow(.), 0, sigma_u),
-      w = rnorm(nrow(.), 0, sigma_w),
-      epsilon = rnorm(nrow(.), sigma_epsilon),
+      D = rbernoulli(N, ptreat),
+      u = rnorm(N, 0, sigma_u),
+      w = rnorm(N, 0, sigma_w),
+      epsilon = rnorm(N, 0, sigma_epsilon),
       x = mu_x + eta*D + gamma*w +  epsilon,
       y = mu_y + beta*x + delta*w + u
     )
 }
 ```
 
-We then define the baseline parameters values. They are chosen in order to mimic a study with low statistical power.
+We then define the baseline parameters values. The numbers chosen are not the usual round ones. We build the present simulations to check our mathematical derivations and non-round numbers fulfill this role better than round numbers. Yet, the magnitudes are chosen in order to mimic a study with low statistical power. 
 
 ```{r param_maths, echo=FALSE}
+# baseline_param_maths <- tibble(
+#   N = 500,
+#   mu_x = 0.3,
+#   mu_y = 0.2,
+#   beta = 0.1,
+#   delta = 0.5,
+#   gamma = 0.5,
+#   eta = 1,
+#   sigma_epsilon = 1,
+#   sigma_u = 1,
+#   sigma_w = 1,
+#   ptreat = 0.5
+# )
+
 baseline_param_maths <- tibble(
   N = 500,
   mu_x = 0.3,
   mu_y = 0.2,
   beta = 0.1,
-  delta = 0.5,
-  gamma = 0.5,
+  delta = 0.3,
+  gamma = 0.2,
   eta = 1,
-  sigma_epsilon = 1,
-  sigma_u = 1,
-  sigma_w = 1,
+  sigma_epsilon = 1.2,
+  sigma_u = 0.8,
+  sigma_w = 1.1,
+  ptreat = 0.23
 )
 
 baseline_param_maths %>% kable()
@@ -160,10 +175,7 @@ We also write a short function to wrangle the regression output to a convenient 
 ```{r estimate_maths}
 lint_reg_maths <- function(reg_out) {
   name_model <- deparse(substitute(reg_out)) %>% 
-    str_extract("(?<=reg_).+") %>% 
-    str_to_title() %>% 
-    str_replace_all("_", " ") %>% 
-    str_c(., " model")
+    str_extract("(?<=reg_).+") 
     
   reg_out %>%
     tidy() %>%
@@ -224,11 +236,16 @@ sim_maths <-readRDS(here("Outputs/sim_maths.RDS"))
 
 sim_maths %>% 
   mutate(
-    signif_name = ifelse(signif, "Significant", "Non significant")
+    signif_name = ifelse(signif, "Significant", "Non significant"),
+    model_name = model %>% 
+      str_to_title() %>% 
+      str_replace_all("_", " ") %>% 
+      str_c(., " model")
   ) %>% 
-  ggplot() +
-  geom_histogram(aes(x = estimate, fill = signif_name), bins = 50) +
-  facet_wrap(~ model, nrow = 4) +
+  ggplot(aes(x = estimate, fill = signif_name)) +
+  geom_histogram(bins = 50) +
+  # geom_area(stat ="bin", bins = 50) +
+  facet_wrap(~ model_name, nrow = 4) +
   geom_vline(xintercept = 0, linetype = "solid", size = 0.1) +
   geom_vline(xintercept = baseline_param_maths$beta) +
   labs(
@@ -243,7 +260,7 @@ sim_maths %>%
 
 We then look at the mean of the estimates and of the statistically significant ones for each model:
 
-```{r}
+```{r mean_estimates_maths, echo=FALSE}
 sim_maths %>% 
   mutate(est_sign = ifelse(signif, estimate, NA)) %>% 
   group_by(model) %>% 
@@ -252,7 +269,7 @@ sim_maths %>%
     mean_all = mean(estimate)
   ) %>%  
   mutate(true_effect = baseline_param_maths$beta) %>% 
-  kable()
+  kable(col.names = str_to_title(str_replace(names(.), "_", " ")))
 ```
 
 Visible both on the graph and the table, we get that:
@@ -264,7 +281,46 @@ Of course these results depend on the choice of parameters but this simulation h
 
 ## Checking the maths
 
-Using the simulations, we can check the maths
+Using the simulations, we can check the maths. Based on our derivations, we expect to have:
+
+$$ \hat{\beta}_{ovb} \overset{d}{\to} \mathcal{N}\left( \beta_0 + \delta \gamma \dfrac{\sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{\sigma_{v}^{2}}{n \cdot \sigma_{x}^{2}} \right) $$
+First, we need to compute the variance of $v$ and $x$. We verify that our formulas are correct: 
+
+- We expect to have $\sigma_x^2 = p_T(1 - p_T) + \gamma^2\sigma_w^2 + \sigma_{\epsilon}^2$ since $\text{Var}(d) = p_T(1 - p_T)$. For our parameters values, it corresponds to `r  baseline_param_maths %>% mutate(th_var_x = ptreat*(1-ptreat) + gamma^2*sigma_w^2 + sigma_epsilon^2) %>% .$th_var_x`. In an example dataset with 20000 observations, the observed variance of $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 2000000), generate_data_maths) %>% .$x %>% var()`. The simple formula for the variance of $x$ seems to be correct.
+- We expect to have $\sigma_v^2 = \delta^2\sigma_w^2 + \sigma_u^2$. For our parameters values, it corresponds to 
+`r  baseline_param_maths %>% mutate(th_var_v = delta^2*sigma_w^2 + sigma_u^2) %>% .$th_var_v`. In an example dataset with 20000 observations, the observed variance of the residuals of the regression of $y$ on $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 20000), generate_data_maths) %>% lm(data = ., y ~ x) %>% .$residuals %>% var`. The simple formula for the variance of $v$ seems to be correct.
+
+Then, we can compute the theoretical variance for the mean and the variance of the estimator:
+
+```{r th_distrib, echo=FALSE}
+baseline_param_maths %>% 
+  mutate(
+    th_sigma_x = sqrt(ptreat*(1-ptreat) + gamma^2*sigma_w^2 + sigma_epsilon^2),
+    th_sigma_v = sqrt(delta^2*sigma_w^2 + sigma_u^2),
+    th_mean = beta + delta*gamma*sigma_w^2/th_sigma_x^2,
+    th_var = th_sigma_v^2/(N*th_sigma_x^2)
+  ) %>% 
+  select(th_mean, th_var) %>%
+  kable()
+```
+
+The observed mean and variance as computed by in the simulations are:
+
+```{r sim_distrib, echo=FALSE}
+sim_maths %>% 
+  # filter(model == "biased") %>%
+  group_by(model) %>%
+  summarise(
+    sim_mean = mean(estimate),
+    sim_var = var(estimate)
+  ) %>% 
+  kable()
+```
+
+
+
+
+Based on this, we expect the mean of the biased model to be $\beta_0 + \delta \gamma \dfrac{\sigma_{w}^{2}}{\sigma_{x}^{2}}$, *ie* `r baseline_param_maths %>% mutate()`
 
 ```{r eval=FALSE, include=FALSE}
 #Just checking stuff on the variance of x and D based on the math formula I got (p25 of my notebook)

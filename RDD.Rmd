@@ -379,20 +379,6 @@ baseline_param_RDD %>%
 We will run the simulations for different sets of parameters by mapping our `compute_sim_RDD` function on each set of parameters. We thus create a table with all the values of the parameters we want to test `param_rdd`. Note that in this table each set of parameters appears `n_iter` times as we want to run the analysis $n_{iter}$ times for each set of parameters.
 
 ```{r set_param_RDD}
-# simple_param_RDD <- tibble(
-#   N = 1000,
-#   bound_u = 1,
-#   alpha_q = 0,
-#   sigma_q = 1,
-#   sigma_f = 0.5,
-#   alpha_f = 1,
-#   beta = 0.7,
-#   gamma = 0.7,
-#   q_c = 0.5,
-#   delta = 3,
-#   vect_bw = 0.1
-# )
-
 fixed_param_RDD <- baseline_param_RDD %>% #%>% rbind(...)
   mutate(vect_bw = 0.1)
 # vect_bw <- seq(0.05, 0.4, 0.05)

@@ -96,26 +96,21 @@ As in the method specific simulations, we create three function, one to generate
 generate_data_maths <- function(N,
                                 mu_x,
                                 mu_y,
+                                mu_w,
+                                sigma_w,
                                 beta,
                                 delta, 
                                 gamma,
                                 eta = 1,
                                 sigma_epsilon,
                                 sigma_u,
-                                sigma_w,
                                 ptreat) {
   
   data <- tibble(id = 1:N) %>%
     mutate(
-      mu_x = mu_x,
-      mu_y = mu_y,
-      beta = beta,
-      delta = delta,
-      gamma = gamma,
-      eta = eta,
       D = rbernoulli(N, ptreat),
       u = rnorm(N, 0, sigma_u),
-      w = rnorm(N, 0, sigma_w),
+      w = rnorm(N, mu_w, sigma_w),
       epsilon = rnorm(N, 0, sigma_epsilon),
       x = mu_x + eta*D + gamma*w +  epsilon,
       y = mu_y + beta*x + delta*w + u
@@ -144,13 +139,14 @@ baseline_param_maths <- tibble(
   N = 500,
   mu_x = 0.3,
   mu_y = 0.2,
+  mu_w = 0.1,
+  sigma_w = 1.1,
   beta = 0.1,
   delta = 0.3,
   gamma = 0.2,
   eta = 1,
   sigma_epsilon = 1.2,
   sigma_u = 0.8,
-  sigma_w = 1.1,
   ptreat = 0.23
 )
 
@@ -163,7 +159,7 @@ param_maths <- baseline_param_maths %>%
   select(-rep_id)
 ```
 
-We then run the estimatations. We consider four separate models:
+We then run the estimations. We consider four separate models:
 
 - Unbiased: the true model, regressing $y$ on $x$ and $w$, therefore without omitted variable
 - Biased: the "naive" regression of $y$ on $x$, therefore omitting for $w$
@@ -229,7 +225,7 @@ toc()
 
 ### Analysis of the results
 
-First, we plot the distribution of the estim
+First, we plot the distribution of the estimates
 
 ```{r graph_maths, echo=FALSE, fig.asp=1.2}
 sim_maths <-readRDS(here("Outputs/sim_maths.RDS"))
@@ -242,19 +238,32 @@ sim_maths %>%
       str_replace_all("_", " ") %>% 
       str_c(., " model")
   ) %>% 
+  group_by(model) %>% 
+  mutate(
+    estimate_sign = ifelse(signif, estimate, NA),
+    mean_signif = mean(estimate_sign, na.rm = TRUE)
+  ) %>% 
+  ungroup() %>% 
   ggplot(aes(x = estimate, fill = signif_name)) +
   geom_histogram(bins = 50) +
   # geom_area(stat ="bin", bins = 50) +
   facet_wrap(~ model_name, nrow = 4) +
   geom_vline(xintercept = 0, linetype = "solid", size = 0.1) +
   geom_vline(xintercept = baseline_param_maths$beta) +
+  geom_vline(
+    aes(xintercept = mean_signif), 
+    color = "#976B21", 
+    linetype = "solid", 
+    size = 0.3
+  ) +
   labs(
     title = "Distribution of estimates produced in the simulation",
     subtitle = "Comparison across models",
     fill = "",
     x = "Estimate",
     y = "Count",
-    caption = "The vertical dotted line represents the true effect size"
+    caption = "The green vertical dashed line represents the true effect size
+      The brown vertical solid line represents the average of significant estimates"
   ) 
 ```
 
@@ -281,6 +290,8 @@ Of course these results depend on the choice of parameters but this simulation h
 
 ## Checking the maths
 
+### Biased model
+
 Using the simulations, we can check the maths. Based on our derivations, we expect to have:
 
 $$ \hat{\beta}_{ovb} \overset{d}{\to} \mathcal{N}\left( \beta_0 + \delta \gamma \dfrac{\sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{\sigma_{v}^{2}}{n \cdot \sigma_{x}^{2}} \right) $$
@@ -290,88 +301,80 @@ First, we need to compute the variance of $v$ and $x$. We verify that our formul
 - We expect to have $\sigma_v^2 = \delta^2\sigma_w^2 + \sigma_u^2$. For our parameters values, it corresponds to 
 `r  baseline_param_maths %>% mutate(th_var_v = delta^2*sigma_w^2 + sigma_u^2) %>% .$th_var_v`. In an example dataset with 20000 observations, the observed variance of the residuals of the regression of $y$ on $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 20000), generate_data_maths) %>% lm(data = ., y ~ x) %>% .$residuals %>% var`. The simple formula for the variance of $v$ seems to be correct.
 
-Then, we can compute the theoretical variance for the mean and the variance of the estimator:
+Then, we can compute the theoretical variance for the mean and the variance of the estimator and compare them to the ones observed in the simulations
 
-```{r th_distrib, echo=FALSE}
-baseline_param_maths %>% 
+```{r check_moments_biased, echo=FALSE}
+th_moments_biased <- baseline_param_maths %>% 
   mutate(
     th_sigma_x = sqrt(ptreat*(1-ptreat) + gamma^2*sigma_w^2 + sigma_epsilon^2),
     th_sigma_v = sqrt(delta^2*sigma_w^2 + sigma_u^2),
-    th_mean = beta + delta*gamma*sigma_w^2/th_sigma_x^2,
-    th_var = th_sigma_v^2/(N*th_sigma_x^2)
+    mean = beta + delta*gamma*sigma_w^2/th_sigma_x^2,
+    variance = th_sigma_v^2/(N*th_sigma_x^2)
   ) %>% 
-  select(th_mean, th_var) %>%
-  kable()
-```
+  select(mean, variance) %>% 
+  mutate(type = "Theoretical")
 
-The observed mean and variance as computed by in the simulations are:
-
-```{r sim_distrib, echo=FALSE}
-sim_maths %>% 
-  # filter(model == "biased") %>%
-  group_by(model) %>%
+sim_moments_biased <- sim_maths %>% 
+  filter(model == "biased") %>%
+  # group_by(model) %>%
   summarise(
-    sim_mean = mean(estimate),
-    sim_var = var(estimate)
+    mean = mean(estimate),
+    variance = var(estimate)
   ) %>% 
-  kable()
+  mutate(type = "Simulated")
+
+rbind(th_moments_biased, sim_moments_biased) %>% 
+  select(type, mean, variance) %>%
+  mutate(model = "Biased") %>% 
+  kable(col.names = str_to_title(names(.)))
 ```
 
 
-
-
-Based on this, we expect the mean of the biased model to be $\beta_0 + \delta \gamma \dfrac{\sigma_{w}^{2}}{\sigma_{x}^{2}}$, *ie* `r baseline_param_maths %>% mutate()`
-
-```{r eval=FALSE, include=FALSE}
-#Just checking stuff on the variance of x and D based on the math formula I got (p25 of my notebook)
-N <- 1000
-
-test_data <- tibble(id = 1:N) %>% 
+```{r check_moments_iv, echo=FALSE}
+th_moments_iv <- baseline_param_maths %>% 
   mutate(
-    sigma_epsilon = sigma_epsilon,
-    sigma_v = sigma_v,
-    sigma_u = sigma_u,
-    epsilon = rnorm(nrow(.)),
-    mu_x = mu_x,
-    mu_y = mu_y,
-    beta = beta,
-    delta = delta, 
-    gamma = gamma,
-    eta = eta,
-    D = rbernoulli(nrow(.)), 
-    v = rnorm(nrow(.), 0, sigma_v),
-    u = rnorm(nrow(.), 0, sigma_u),
-    x = mu_x + eta*D + gamma*u +  epsilon,
-    y = mu_y + beta*x + delta*u + v
-  )
+    th_sigma_x = sqrt(ptreat*(1-ptreat) + gamma^2*sigma_w^2 + sigma_epsilon^2),
+    th_sigma_v = sqrt(delta^2*sigma_w^2 + sigma_u^2),
+    mean = beta,
+    variance = th_sigma_v^2/(N*ptreat*(1-ptreat))
+  ) %>% 
+  select(mean, variance) %>% 
+  mutate(type = "Theoretical")
 
-beta + delta*cov(test_data$x, test_data$u)/var(test_data$x)
-beta + delta*gamma*sigma_u^2/var(test_data$x)
-lm(y ~ x, test_data) %>% summary()
-sqrt((delta^2*var(test_data$u) + var(test_data$v))/var(test_data$x)/N)
-sqrt((delta^2*sigma_u^2 + sigma_v^2)/var(test_data$x)/N)
+sim_moments_iv <- sim_maths %>% 
+  filter(model == "iv") %>%
+  # group_by(model) %>%
+  summarise(
+    mean = mean(estimate),
+    variance = var(estimate)
+  ) %>% 
+  mutate(type = "Simulated")
 
-var(test_data$x)
-var(test_data$D)
-#ratio between var event and var OLS
-(1/var(test_data$D))/(1/var(test_data$x))
-
-out_sim %>% 
-  group_by(model) %>% 
-  summarise(var_est = var(estimate))
-
-0.00124/0.000252
-
-#test distribution normal errors
-out_sim %>% 
-  filter(model == "reg_bias") %>% 
-  .$estimate %>% 
-  qqnorm()
-
-out_sim %>% 
-  filter(model == "reg_bias") %>% 
-  .$estimate %>% 
-  mean()
-
+rbind(th_moments_iv, sim_moments_iv) %>% 
+  select(type, mean, variance) %>% 
+  mutate(model = "IV") %>% 
+  kable(col.names = str_to_title(names(.)))
 ```
+
+
+
+```{r var_estimates_maths, echo=FALSE}
+var_est <- sim_maths %>% 
+  group_by(model) %>% 
+  summarise(var_estimate = var(estimate))
+
+var_est %>% 
+  kable(col.names = str_to_title(str_replace(names(.), "_", " ")))
+
+var_est[[which(var_est$model == "iv") , "var_estimate"]]/var_est[[which(var_est$model == "biased") , "var_estimate"]]
+
+baseline_param_maths %>% 
+  mutate(
+    ratio_var = 1 + (gamma^2*sigma_w^2+sigma_epsilon^2)/(eta^2*ptreat*(1-ptreat)),
+    var_beta_iv = (delta^2*(sigma_w^2 + mu_w^2) + sigma_u^2)*((0 + delta*mu_w)^2+1/(N*eta^2*ptreat*(1-ptreat)))
+  ) %>% 
+  select(var_beta_iv, ratio_var)
+```
+
+
 

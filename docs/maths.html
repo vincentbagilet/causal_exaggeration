@@ -2248,7 +2248,10 @@ Simulations
 <li><a href="#generate-the-data" id="toc-generate-the-data">Generate the data</a></li>
 <li><a href="#analysis-of-the-results" id="toc-analysis-of-the-results">Analysis of the results</a></li>
 </ul></li>
-<li><a href="#checking-the-maths" id="toc-checking-the-maths">Checking the maths</a></li>
+<li><a href="#checking-the-maths" id="toc-checking-the-maths">Checking the maths</a>
+<ul>
+<li><a href="#biased-model" id="toc-biased-model">Biased model</a></li>
+</ul></li>
 </ul>
 </nav>
 </div>
@@ -2423,37 +2426,37 @@ text-align: justify}
 <tr class="odd">
 <td style="text-align: left;">unbiased</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">0.0853861</td>
-<td style="text-align: right;">0.0278928</td>
-<td style="text-align: right;">3.0612267</td>
-<td style="text-align: right;">0.0023236</td>
+<td style="text-align: right;">0.1007421</td>
+<td style="text-align: right;">0.0279571</td>
+<td style="text-align: right;">3.6034569</td>
+<td style="text-align: right;">0.0003456</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">biased</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">0.1363506</td>
-<td style="text-align: right;">0.0298459</td>
-<td style="text-align: right;">4.5684927</td>
-<td style="text-align: right;">0.0000062</td>
+<td style="text-align: right;">0.1323563</td>
+<td style="text-align: right;">0.0293191</td>
+<td style="text-align: right;">4.5143333</td>
+<td style="text-align: right;">0.0000079</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">reduced_form</td>
 <td style="text-align: left;">DTRUE</td>
-<td style="text-align: right;">0.0398075</td>
-<td style="text-align: right;">0.0975262</td>
-<td style="text-align: right;">0.4081724</td>
-<td style="text-align: right;">0.6833226</td>
+<td style="text-align: right;">0.0588498</td>
+<td style="text-align: right;">0.0904240</td>
+<td style="text-align: right;">0.6508206</td>
+<td style="text-align: right;">0.5154624</td>
 <td style="text-align: left;">FALSE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">iv</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">0.0345777</td>
-<td style="text-align: right;">0.0839695</td>
-<td style="text-align: right;">0.4117885</td>
-<td style="text-align: right;">0.6806716</td>
+<td style="text-align: right;">0.0533151</td>
+<td style="text-align: right;">0.0809116</td>
+<td style="text-align: right;">0.6589306</td>
+<td style="text-align: right;">0.5102449</td>
 <td style="text-align: left;">FALSE</td>
 </tr>
 </tbody>
@@ -2513,66 +2516,39 @@ text-align: justify}
 - The biased model is indeed biased but more precise than the IV and reduced form</p>
 <p>Of course these results depend on the choice of parameters but this simulation has an illustrative purpose only.</p>
 <h2 id="checking-the-maths">Checking the maths</h2>
+<h3 id="biased-model">Biased model</h3>
 <p>Using the simulations, we can check the maths. Based on our derivations, we expect to have:</p>
 <p><span class="math display">\[ \hat{\beta}_{ovb} \overset{d}{\to} \mathcal{N}\left( \beta_0 + \delta \gamma \dfrac{\sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{\sigma_{v}^{2}}{n \cdot \sigma_{x}^{2}} \right) \]</span>
 First, we need to compute the variance of <span class="math inline">\(v\)</span> and <span class="math inline">\(x\)</span>. We verify that our formulas are correct:</p>
 <ul>
-<li>We expect to have <span class="math inline">\(\sigma_x^2 = p_T(1 - p_T) + \gamma^2\sigma_w^2 + \sigma_{\epsilon}^2\)</span> since <span class="math inline">\(\text{Var}(d) = p_T(1 - p_T)\)</span>. For our parameters values, it corresponds to 1.6655. In an example dataset with 20000 observations, the observed variance of <span class="math inline">\(x\)</span> is 1.662892. The simple formula for the variance of <span class="math inline">\(x\)</span> seems to be correct.</li>
+<li>We expect to have <span class="math inline">\(\sigma_x^2 = p_T(1 - p_T) + \gamma^2\sigma_w^2 + \sigma_{\epsilon}^2\)</span> since <span class="math inline">\(\text{Var}(d) = p_T(1 - p_T)\)</span>. For our parameters values, it corresponds to 1.6655. In an example dataset with 20000 observations, the observed variance of <span class="math inline">\(x\)</span> is 1.6641705. The simple formula for the variance of <span class="math inline">\(x\)</span> seems to be correct.</li>
 <li>We expect to have <span class="math inline">\(\sigma_v^2 = \delta^2\sigma_w^2 + \sigma_u^2\)</span>. For our parameters values, it corresponds to
-0.7489. In an example dataset with 20000 observations, the observed variance of the residuals of the regression of <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> is 0.7471775. The simple formula for the variance of <span class="math inline">\(v\)</span> seems to be correct.</li>
+0.7489. In an example dataset with 20000 observations, the observed variance of the residuals of the regression of <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> is 0.7371482. The simple formula for the variance of <span class="math inline">\(v\)</span> seems to be correct.</li>
 </ul>
-<p>Then, we can compute the theoretical variance for the mean and the variance of the estimator:</p>
+<p>Then, we can compute the theoretical variance for the mean and the variance of the estimator and compare them to the ones observed in the simulations</p>
 <div class="layout-chunk" data-layout="l-body">
 <table>
 <thead>
 <tr class="header">
-<th style="text-align: right;">th_mean</th>
-<th style="text-align: right;">th_var</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Var</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;">Theoretical</td>
 <td style="text-align: right;">0.1435905</td>
 <td style="text-align: right;">0.0008993</td>
 </tr>
-</tbody>
-</table>
-</div>
-<p>The observed mean and variance as computed by in the simulations are:</p>
-<div class="layout-chunk" data-layout="l-body">
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">model</th>
-<th style="text-align: right;">sim_mean</th>
-<th style="text-align: right;">sim_var</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">biased</td>
+<tr class="even">
+<td style="text-align: left;">Simulated</td>
 <td style="text-align: right;">0.1429970</td>
 <td style="text-align: right;">0.0009028</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">iv</td>
-<td style="text-align: right;">0.0949923</td>
-<td style="text-align: right;">0.0091915</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">reduced_form</td>
-<td style="text-align: right;">0.0958873</td>
-<td style="text-align: right;">0.0090409</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">unbiased</td>
-<td style="text-align: right;">0.0992370</td>
-<td style="text-align: right;">0.0008050</td>
-</tr>
 </tbody>
 </table>
 </div>
-<p>Based on this, we expect the mean of the biased model to be <span class="math inline">\(\beta_0 + \delta \gamma \dfrac{\sigma_{w}^{2}}{\sigma_{x}^{2}}\)</span>, <em>ie</em> 500, 0.3, 0.2, 0.1, 0.3, 0.2, 1, 1.2, 0.8, 1.1, 0.23</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

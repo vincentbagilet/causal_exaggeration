@@ -130,7 +130,7 @@
 				
 				By the Weak Law of Large Numbers (WLLN), we have $\dfrac{1}{n} \sum_{i = 1}^{n} \text{x}_{i} \text{x}_{i}'  \overset{p}{\to}  \mathbb{E}[\text{x}_{i}\text{x}_{i}']$. 
 				Since $\mathbb{E}[\text{x}_{i}v_{i}] = 0$, by the Central Limit Theorem (CLT), we have $\sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{x}_{i} v_{i} \right) \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}]$). 
-				Now, since we assumed homoskedasticity such that $\mathbb{E}[u_{i}^{2} | \text{x}_{i}] = \sigma_{u}^{2}$, we have $\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \overset{LIE}{=} \mathbb{E}[\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2} | \text{x}_{i}]] = \mathbb{E}[\text{x}_{i}\text{x}_{i}'\mathbb{E}[\sigma_{v}^{2}]] = \sigma_{v}^{2} \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1}$. 
+				Now, since we assumed homoskedasticity such that $\mathbb{E}[u_{i}^{2} | \text{x}_{i}] = \mathbb{E}[u_{i}^{2}] = \sigma_{u}^{2}$, we have $\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \overset{LIE}{=} \mathbb{E}[\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2} | \text{x}_{i}]] = \mathbb{E}[\text{x}_{i}\text{x}_{i}'\mathbb{E}[v_{i}^{2} | \text{x}_{i}]] = \sigma_{v}^{2} \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1}$. 
 				Applying Slutsky's theorem then yields:
 				
 				\[ \sqrt{n}(\hat{\bm{\beta}}_{\textsc{ovb}} - \bm{\beta}_{\textsc{ovb}}) \overset{d}{\to} \mathcal{N}(0, \sigma_{v}^{2} \cdot \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1}) \]

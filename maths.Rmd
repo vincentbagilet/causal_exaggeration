@@ -108,7 +108,10 @@ generate_data_maths <- function(N,
   
   data <- tibble(id = 1:N) %>%
     mutate(
-      D = rbernoulli(N, ptreat),
+      # D = rbernoulli(N, ptreat),
+      D = rnorm(N, 0, ptreat), #I keep the name D but it is actually more a Z. 
+      #And to avoid changing everything, I set ptreat = sd(Z) = sd(D). 
+      #It's just a bad variable name
       u = rnorm(N, 0, sigma_u),
       w = rnorm(N, mu_w, sigma_w),
       epsilon = rnorm(N, 0, sigma_epsilon),
@@ -139,24 +142,26 @@ baseline_param_maths <- tibble(
   N = 500,
   mu_x = 0.3,
   mu_y = 0.2,
-  mu_w = 0.1,
-  sigma_w = 1.1,
+  mu_w = 0,
+  sigma_w = 0.6,
   beta = 0.1,
   delta = 0.3,
   gamma = 0.2,
-  eta = 1,
+  eta = 0.2,
   sigma_epsilon = 1.2,
   sigma_u = 0.8,
-  ptreat = 0.23
+  ptreat = 0.72
 )
 
 baseline_param_maths %>% kable()
 
-n_iter <- 3000
+n_iter <- 1000
 
 param_maths <- baseline_param_maths %>% 
   crossing(rep_id = 1:n_iter) %>% 
   select(-rep_id)
+
+test_data <- pmap_dfr(baseline_param_maths, generate_data_maths)
 ```
 
 We then run the estimations. We consider four separate models:
@@ -175,7 +180,7 @@ lint_reg_maths <- function(reg_out) {
     
   reg_out %>%
     tidy() %>%
-    filter(term == "x" | term == "DTRUE") %>% 
+    filter(term == "x" | term == "DTRUE" | term == "D") %>% #modify this when change to Z
     mutate(model = name_model) %>% 
     select(model, everything())
 }
@@ -220,7 +225,7 @@ sim_maths <- pmap_dfr(param_maths, compute_sim_maths)
 beep()
 toc()
 
-# saveRDS(sim_maths, here("Outputs/sim_maths.RDS"))
+saveRDS(sim_maths, here("Outputs/sim_maths.RDS"))
 ```
 
 ### Analysis of the results
@@ -244,6 +249,7 @@ sim_maths %>%
     mean_signif = mean(estimate_sign, na.rm = TRUE)
   ) %>% 
   ungroup() %>% 
+  filter(dplyr::between(estimate, -0.5, 0.7)) %>% 
   ggplot(aes(x = estimate, fill = signif_name)) +
   geom_histogram(bins = 50) +
   # geom_area(stat ="bin", bins = 50) +
@@ -297,7 +303,7 @@ Using the simulations, we can check the maths. Based on our derivations, we expe
 $$ \hat{\beta}_{ovb} \overset{d}{\to} \mathcal{N}\left( \beta_0 + \delta \gamma \dfrac{\sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{\sigma_{v}^{2}}{n \cdot \sigma_{x}^{2}} \right) $$
 First, we need to compute the variance of $v$ and $x$. We verify that our formulas are correct: 
 
-- We expect to have $\sigma_x^2 = p_T(1 - p_T) + \gamma^2\sigma_w^2 + \sigma_{\epsilon}^2$ since $\text{Var}(d) = p_T(1 - p_T)$. For our parameters values, it corresponds to `r  baseline_param_maths %>% mutate(th_var_x = ptreat*(1-ptreat) + gamma^2*sigma_w^2 + sigma_epsilon^2) %>% .$th_var_x`. In an example dataset with 20000 observations, the observed variance of $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 2000000), generate_data_maths) %>% .$x %>% var()`. The simple formula for the variance of $x$ seems to be correct.
+- We expect to have $\sigma_x^2 = \eta^{2}\sigma_{z}^{2} + \gamma^2\sigma_w^2 + \sigma_{\epsilon}^2$ since $\text{Var}(d) = p_T(1 - p_T)$. For our parameters values, it corresponds to `r  baseline_param_maths %>% mutate(th_var_x = eta^2*ptreat^2 + gamma^2*sigma_w^2 + sigma_epsilon^2) %>% .$th_var_x`. In an example dataset with 20000 observations, the observed variance of $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 2000000), generate_data_maths) %>% .$x %>% var()`. The simple formula for the variance of $x$ seems to be correct.
 - We expect to have $\sigma_v^2 = \delta^2\sigma_w^2 + \sigma_u^2$. For our parameters values, it corresponds to 
 `r  baseline_param_maths %>% mutate(th_var_v = delta^2*sigma_w^2 + sigma_u^2) %>% .$th_var_v`. In an example dataset with 20000 observations, the observed variance of the residuals of the regression of $y$ on $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 20000), generate_data_maths) %>% lm(data = ., y ~ x) %>% .$residuals %>% var`. The simple formula for the variance of $v$ seems to be correct.
 
@@ -306,7 +312,7 @@ Then, we can compute the theoretical variance for the mean and the variance of t
 ```{r check_moments_biased, echo=FALSE}
 th_moments_biased <- baseline_param_maths %>% 
   mutate(
-    th_sigma_x = sqrt(ptreat*(1-ptreat) + gamma^2*sigma_w^2 + sigma_epsilon^2),
+    th_sigma_x = sqrt(eta^2*ptreat^2 + gamma^2*sigma_w^2 + sigma_epsilon^2),
     th_sigma_v = sqrt(delta^2*sigma_w^2 + sigma_u^2),
     mean = beta + delta*gamma*sigma_w^2/th_sigma_x^2,
     variance = th_sigma_v^2/(N*th_sigma_x^2)
@@ -333,10 +339,10 @@ rbind(th_moments_biased, sim_moments_biased) %>%
 ```{r check_moments_iv, echo=FALSE}
 th_moments_iv <- baseline_param_maths %>% 
   mutate(
-    th_sigma_x = sqrt(ptreat*(1-ptreat) + gamma^2*sigma_w^2 + sigma_epsilon^2),
+    th_sigma_x = sqrt(eta^2*ptreat^2 + gamma^2*sigma_w^2 + sigma_epsilon^2),
     th_sigma_v = sqrt(delta^2*sigma_w^2 + sigma_u^2),
     mean = beta,
-    variance = th_sigma_v^2/(N*ptreat*(1-ptreat))
+    variance = th_sigma_v^2/(N*eta^2*ptreat^2)
   ) %>% 
   select(mean, variance) %>% 
   mutate(type = "Theoretical")
@@ -370,8 +376,8 @@ var_est[[which(var_est$model == "iv") , "var_estimate"]]/var_est[[which(var_est$
 
 baseline_param_maths %>% 
   mutate(
-    ratio_var = 1 + (gamma^2*sigma_w^2+sigma_epsilon^2)/(eta^2*ptreat*(1-ptreat)),
-    var_beta_iv = (delta^2*(sigma_w^2 + mu_w^2) + sigma_u^2)*((0 + delta*mu_w)^2+1/(N*eta^2*ptreat*(1-ptreat)))
+    ratio_var = 1 + (gamma^2*sigma_w^2+sigma_epsilon^2)/(eta^2*ptreat^2),
+    var_beta_iv = (delta^2*(sigma_w^2 + mu_w^2) + sigma_u^2)*((0 + delta*mu_w)^2+1/(N*eta^2*ptreat^2))
   ) %>% 
   select(var_beta_iv, ratio_var)
 ```

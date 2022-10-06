@@ -30,9 +30,9 @@
 		The objective here is to compare the exaggeration ratio for a naive regression with omitted variable bias (OVB) to that of a reduced form analysis of the impact of an exogenous shock on the explanatory variable of interest. We also compare it to the corresponding IV estimate. We expect the naive regression to be biased but more precise than the reduced form and the IV and therefore less subject to exaggeration problems. Roughly, we aim to derive the conditions under which the exaggeration due to the loss in precision is greater than the OVB. %The following simulation illustrates this in the case of the 
 		Thus, the objective is to compare the following quantities:
 			\begin{gather*}
-				\mathbb{E}\left[ \hat{\beta}_{\textsc{ovb}} | \beta_{0}, b_{\textsc{ovb}}, \sigma_{\textsc{ovb}}, \hat{\beta}_{\textsc{ovb}} > z_{\alpha} \cdot \sigma_{\textsc{ovb}} \right] \\
-				\mathbb{E}\left[ \hat{\beta}_{\textsc{r}} | \beta_{0}, \sigma_{\textsc{r}}, \hat{\beta}_{\textsc{r}} > z_{\alpha} \cdot \sigma_{\textsc{r}} \right]\\
-				\mathbb{E}\left[ \hat{\beta}_{\textsc{iv}} | \beta_{0}, \sigma_{\textsc{iv}}, \hat{\beta}_{\textsc{iv}} > z_{\alpha} \cdot \sigma_{\textsc{iv}} \right]
+				\mathbb{E}\left[ \hat{\beta}_{\textsc{ovb}} | \beta_{0}, b_{\textsc{ovb}}, \sigma_{\textsc{ovb}}, \hat{\beta}_{\textsc{ovb}} > z_{\alpha} \sigma_{\textsc{ovb}} \right] \\
+				\mathbb{E}\left[ \hat{\beta}_{\textsc{r}} | \beta_{0}, \sigma_{\textsc{r}}, \hat{\beta}_{\textsc{r}} > z_{\alpha} \sigma_{\textsc{r}} \right]\\
+				\mathbb{E}\left[ \hat{\beta}_{\textsc{iv}} | \beta_{0}, \sigma_{\textsc{iv}}, \hat{\beta}_{\textsc{iv}} > z_{\alpha} \sigma_{\textsc{iv}} \right]
 			\end{gather*} 
 			
 			where \textsc{ovb}, \textsc{r} and \textsc{iv} denote respectively the naive regression, the reduced form and the IV. $\beta$ represents the true effect of interest, $\hat{\beta_{..}}$ its estimate, $\sigma_{..}$ the standard error of the estimate, $z_{\alpha}$ the threshold value of a two-sided test of size $\alpha$ and $b_{\textsc{..}}$ the bias in the naive regression. Note that due to the exogeneity assumption $b_{\textsc{r}} = b_{\textsc{iv}} = 0$. 
@@ -42,24 +42,29 @@
 		\subsection{Data generating process}\label{maths_dgp}
 			%I build this using the notation used by Dong Woo in his lecture notes
 		
-			Consider the usual linear regression model to which we add omitted variables. We limit the number of covariates considered to a constant, an observed variable and an omitted variable:
+			Consider the usual linear regression model to which we add omitted variables. We limit the number of covariates considered to a constant, an observed variable and an omitted variable. For all individual $i \in {1, ..., n}$, we make the following assumptions: 
 			
 				\begin{equation}\label{maths_true_dgp}
 					y_i = \text{x}_i' \bm{\beta} + \delta w_{i} + u_i
 				\end{equation}
 				
-				where $\text{x}_i \in \mathbb{R}^2$ is a vector including a constant and the observed explanatory variable such that $\text{x}_i = (1, x_i)'$, $w_i \in \mathbb{R}$ the omitted variable, $y_i \in \mathbb{R}$ the outcome of interest, $u_i \in \mathbb{R}$ an error term. $\bm{\beta} \in \mathbb{R}^{2}$ and $\delta \in \mathbb{R}$ are unknown parameters. $\bm{\beta} = (\alpha_0, \beta_0)'$ and $\beta_0$ is the parameter of interest. For readability, we introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$. 
+				where $\text{x}_i \in \mathbb{R}^2$ is a vector including a constant and the observed explanatory variable such that $\text{x}_i = (1, x_i)'$, $y_i \in \mathbb{R}$ the observed outcome of interest, $w_i \in \mathbb{R}$ an unobserved omitted variable, $u_i \in \mathbb{R}$ an unobserved error term. $\bm{\beta} \in \mathbb{R}^{2}$ and $\delta \in \mathbb{R}$ are unknown parameters. $\bm{\beta} = (\beta_0, \beta_1)'$ and $\beta_1$ is the parameter of interest. For readability, we introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$. 
 			
-			We further assume that the usual OLS assumptions hold: iid observations, finite second moments, positive-definiteness of $\mathbb{E}[\text{x}_i \text{x}_i']$, $u_{i}$ is mean zero and is uncorrelated with $x_i$. We however assume that $w_{i}$ is unobserved, correlated with $x_{i}$ but not $u_{i}$ and $\delta \neq 0$. 
-			We further assume the existence of a binary exogenous shock $d_{i}$ affecting $x_i$ when $d_{i}$ takes the value 1. 
+			We further assume that the usual OLS assumptions hold: ($y_i, \text{x}_i, w_{i}, u_{i}$) are iid, finite second moments, \textit{ie} $\mathbb{E}[y_{i}^{2}] < \infty$, $\mathbb{E}[w_{i}^{2}] < \infty$, $\mathbb{E}[x_{i}^{2}] < \infty$, positive-definiteness of $\mathbb{E}[\text{x}_i \text{x}_i']$, $u_{i}$ is conditional mean-zero, \textit{ie} $\mathbb{E}[u_{i} | x_{i}] = 0$, and is uncorrelated with $x_i$, \textit{ie} $\mathbb{E}[x_{i}u_{i}] = 0$. We also assume homoskedasticity such that $\mathbb{E}[u_i^{2} | x_{i}] = \sigma_{u}^{2}$ is constant.
 			
+			We however assume that $w_{i}$ is unobserved, correlated with $x_{i}$ but not $u_{i}$, \textit{ie} $\mathbb{E}[w_{i}u_{i}] = 0$, and that $\delta \neq 0$. To simplify the derivations, we further assume that the unobserved variable is centred, \textit{ie} $\mathbb{E}[w_i] = 0$. 
+			
+			We further assume that there exists a valid instrumental variable $z_i$ for $x_i$. Let $\text{z} = (1, z_i)' \in \mathbb{R}^{2}$. Note that the model is just-identified. Since the instrument is valid, it satisfies exogeneity, \textit{ie} $\mathbb{E}[\text{z}_{i}u_{i}] = 0$ and  $\mathbb{E}[z_{i}w_{i}] = 0$, relevance, \textit{ie} $\text{rank}(\mathbb{E}[\text{z}_{i}\text{x}_i']) = 2$,  and positive-definiteness of $\mathbb{E}[\text{z}_i \text{z}_i']$. To simplify interpretation, we further assume a data generating process for $x_i$:			
+				~
 				\begin{equation}\label{maths_dgp_x}
-					x_i = 1 \cdot d_i + \gamma w_{i} + \epsilon_i
+					x_i = \eta z_i + \gamma w_{i} + \epsilon_i
 				\end{equation}
 				
-				Here too we assume that $\gamma \neq 0$. We assumed that the coefficient for $d$ in equation \ref{maths_dgp_x} is unitary to be able to compare $\beta_{\textsc{R}}$, the coefficient for $d$ in the reduced form regression (regressing $y$ on $d$), to $\beta_{\textsc{ovb}}$, the coefficient for $x$ in the naive regression (regressing $y$ on $x$).  Roughly, $\beta_{\textsc{ovb}}$ can be interpreted as the variation in $y$ associated with a variation of $x$ by one. Similarly, $\beta_{\textsc{R}}$ can be interpreted as the variation in $y$ associated with a variation of $d$ by one. A variation in $d$ by one causes a variation of $x$ by one. Thus, both $\beta_{\textsc{ovb}}$ and $\beta_{\textsc{R}}$ can be interpreted as the variation in $y$ associated with a variation of $x$ by one. They are however different since this variation is orthogonal to the unobserved variable in the case of the reduced form but not in the case of the naive regression.\\
+				where $(\eta, \gamma) \in \mathbb{R}^{2}$ are unknown parameters. We assume that $\epsilon_i$ is uncorrelated with $z_i$ and $w_{i}$, \textit{ie} $\mathbb{E}[z_i\epsilon_i] = 0$ and $\mathbb{E}[w_i\epsilon_i] = 0$. Note that, since $x_i$ and $w_i$ are correlated, $\gamma \neq 0$.\\
 				
-				The following Directed Acyclic Graph (DAG) sums up the relationship between the variables in the data generating process. It also helps underline the independence, or not, of some variables. 
+				%We assumed that the coefficient for $d$ in equation \ref{maths_dgp_x} is unitary to be able to compare $\beta_{\textsc{R}}$, the coefficient for $d$ in the reduced form regression (regressing $y$ on $d$), to $\beta_{\textsc{ovb}}$, the coefficient for $x$ in the naive regression (regressing $y$ on $x$).  Roughly, $\beta_{\textsc{ovb}}$ can be interpreted as the variation in $y$ associated with a variation of $x$ by one. Similarly, $\beta_{\textsc{R}}$ can be interpreted as the variation in $y$ associated with a variation of $d$ by one. A variation in $d$ by one causes a variation of $x$ by one. Thus, both $\beta_{\textsc{ovb}}$ and $\beta_{\textsc{R}}$ can be interpreted as the variation in $y$ associated with a variation of $x$ by one. They are however different since this variation is orthogonal to the unobserved variable in the case of the reduced form but not in the case of the naive regression.\\
+				
+				The following Directed Acyclic Graph (DAG) sums up the relationships between the variables. It also helps underline the independence, or not, of some variables. 
 				
 				\begin{figure}[!h] 
             					\begin{center}
@@ -68,9 +73,8 @@
             						\label{maths_dag_dgp}
             					\end{center}
             				\end{figure} 
-				
-				
-				
+				\vspace{-0.8cm}
+	
 			
 				
 						
@@ -91,15 +95,15 @@
 		
 		\subsection{Naive regression (OVB)}
 			
-			The true DGP is given by equation \ref{maths_true_dgp}. Yet, we do not observe $W$ and in the naive regression case, we regress $y$ on $X$ and estimate the following equation:
+			The true DGP is given by equation \ref{maths_true_dgp}. Since, we do not observe $W$, we consider the projection of $y$ on $X$ only:
 				
 				\begin{equation}\label{maths_eq_ovb}
 					y = X\bm{\beta}_{\textsc{ovb}} + v
 				\end{equation}
 				
-				where $v = (v_{1}, ... , v_{n})' \in \mathbb{R}^{n}$. As this equation corresponds to the projection of $y$ on $X$, we have $\mathbb{E}[X'v] = 0$.
+				where $v = (v_{1}, ... , v_{n})' \in \mathbb{R}^{n}$ and by definition of the projection, $\mathbb{E}[X'v] = 0$.
 				
-			\subsubsection{Expected value}
+			\subsubsection{Bias of the estimator}
 				
 				From equation  \ref{maths_eq_ovb} we get: 
 				~
@@ -112,7 +116,9 @@
 					\Leftrightarrow \quad & \bm{\beta}_{\textsc{ovb}} = \bm{\beta} + \mathbb{E}[X'X]^{-1} \mathbb{E}[X'w] \delta
 				\end{align*}		
 				
-				Since $X$ and $w$ are correlated and $\delta \neq 0$, $\boxed{\bm{\beta}_{\textsc{ovb}} \neq \bm{\beta}}$. Let $\hat{\bm{\beta}}_{\textsc{ovb}}$ denote the least square estimator of $\bm{\beta}_{\textsc{ovb}}$. We thus have:
+				Since $X$ and $w$ are correlated and $\delta \neq 0$, $\boxed{\bm{\beta}_{\textsc{ovb}} \neq \bm{\beta}}$.\\
+				
+				Let $\hat{\bm{\beta}}_{\textsc{ovb}}$ denote the least square estimator of $\bm{\beta}_{\textsc{ovb}}$. We thus have:
 				~
 				\begin{equation}
 					\hat{\bm{\beta}}_{\textsc{ovb}} = (X'X)^{-1}X'y
@@ -135,28 +141,19 @@
 				
 				By the Weak Law of Large Numbers (WLLN), $\dfrac{1}{n} \sum_{i = 1}^{n} \text{x}_{i} \text{x}_{i}'  \overset{p}{\to}  \mathbb{E}[\text{x}_{i}\text{x}_{i}']$. 
 				
-				Since $\mathbb{E}[\text{x}_{i}v_{i}] = 0$, by the Central Limit Theorem (CLT), $\sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{x}_{i} v_{i} \right) \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}]$). 
+				Since $\mathbb{E}[\text{x}_{i}v_{i}] = 0$, by the Central Limit Theorem (CLT), $\sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{x}_{i} v_{i} \right) \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}])$. 
 				
 				Applying Slutsky's theorem then yields:
 				
-				\[ \sqrt{n}(\hat{\bm{\beta}}_{\textsc{ovb}} - \bm{\beta}_{\textsc{ovb}}) \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \cdot \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-2}) \]
+				\[ \sqrt{n}(\hat{\bm{\beta}}_{\textsc{ovb}} - \bm{\beta}_{\textsc{ovb}}) \overset{d}{\to} \mathcal{N}\left(0,  \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1}\right) \]
 				
-				Note that  $\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \overset{LIE}{=} \mathbb{E}[\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2} | \text{x}_{i}]] = \mathbb{E}[\text{x}_{i}\text{x}_{i}'\mathbb{E}[v_{i}^{2} | \text{x}_{i}]]$. Now,  
-				
+				And thus,
+				~
 				\begin{equation*}
-					\mathbb{E}[v_{i}^{2} | \text{x}_{i}] = \mathbb{E}[(\delta w_{i} + u_{i})^{2} | \text{x}_{i}] = \delta^{2}\mathbb{E}[w_{i}^{2} | \text{x}_{i}] + 2\delta \underbrace{\mathbb{E}[w_{i} u_{i} | \text{x}_{i}]}_{0} + \underbrace{\mathbb{E}[u_{i}^{2} | \text{x}_{i}]}_{\mathbb{E}[u_{i}^{2}] \text{ by homosked.}} = \delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}
+					\hat{\bm{\beta}}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \bm{\beta} + \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i} w_{i}] \delta ,  \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \right) 
 				\end{equation*}
 				
-				Thus, $\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}]  = (\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}) \mathbb{E}[\text{x}_{i}\text{x}_{i}']$ and :
-				~
-				\begin{align*}
-					& \sqrt{n}(\hat{\bm{\beta}}_{\textsc{ovb}} - \bm{\beta}_{\textsc{ovb}}) \overset{d}{\to} \mathcal{N}(0, (\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}) \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1})\\~\\
-					\Rightarrow \quad & \hat{\bm{\beta}}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \bm{\beta} + \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i} w_{i}] \delta , \ \frac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n} \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \right) 
-				\end{align*}
-				
-			\subsubsection{Coefficient of interest}
-				
-				We are interested in the second component of this vector and to retrieve it we compute $\mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1}$ and $ \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i} w_{i}] $.  
+				We are interested in the second component of $\hat{\bm{\beta}}_{\textsc{ovb}}$. To retrieve it we need to compute $\mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1}$, $ \mathbb{E}[\text{x}_{i} w_{i}] $ and $\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}]$.  
 				
 				\[ 
 				\mathbb{E}[\text{x}_{i}\text{x}_i'] 
@@ -176,51 +173,58 @@
 													\end{bmatrix} 
 				\]
 				
-				\begin{align*} 
-				\mathbb{E}[\text{x}_{i}w_i] = &
-				\begin{bmatrix}
-					\mu_{w}\\ 
-					\mathbb{E}[x_iw_i]
-				\end{bmatrix} 
-%				=
-%				\begin{bmatrix}
-%				    	\mu_{w}\\ 
-%					\mathbb{E}[(d_{i} + w_{i}\gamma + \epsilon_{i})w_i]
-%				\end{bmatrix}
-				=
-				\begin{bmatrix}
-				    	\mu_{w}\\ 
-					\mathbb{E}[x_{i}]\mathbb{E}[w_{i}] + \text{cov}(x_{i}, w_{i}) 
-				\end{bmatrix} \\
-				= &
-				\begin{bmatrix}
-				    	\mu_{w}\\ 
-					\mu_{x}\mu_{w} + \underbrace{\text{cov}(d_{i}, w_{i})}_{0} + \gamma  \underbrace{\text{cov}(w_{i}, w_{i})}_{\sigma_{w}^{2}} + \underbrace{\text{cov}(\epsilon_{i}, w_{i})}_{0} 
-				\end{bmatrix} 
-				=
-				\begin{bmatrix}
-				    	\mu_{w}\\ 
-					\mu_{x}\mu_{w} + \gamma \sigma_{w}^{2}
-				\end{bmatrix} 
-				\end{align*}
-				
-				
+				\begin{equation*} 
+            				\mathbb{E}[\text{x}_{i}w_i] = 
+            				\mathbb{E}
+            					\begin{bmatrix}
+            						w_i\\ 
+            						x_iw_i
+            					\end{bmatrix} 
+            				=
+            				\begin{bmatrix}
+            				    	0\\ 
+            					\mathbb{E}[x_{i}]\underbrace{\mathbb{E}[w_{i}]}_{0} + \text{cov}(x_{i}, w_{i}) 
+            				\end{bmatrix} 
+            				= 
+            				\begin{bmatrix}
+            				    	0\\ 
+            					\underbrace{\text{cov}(z_{i}, w_{i})}_{0} + \gamma  \underbrace{\text{cov}(w_{i}, w_{i})}_{\sigma_{w}^{2}} + \underbrace{\text{cov}(\epsilon_{i}, w_{i})}_{0} 
+            				\end{bmatrix} 
+            				=
+            				\begin{bmatrix}
+            				    	0\\ 
+            					\gamma \sigma_{w}^{2}
+            				\end{bmatrix} 
+				\end{equation*}
 				
 				\[ 
 				\Rightarrow \quad
 				\mathbb{E}[\text{x}_{i}\text{x}_i']^{-1}\mathbb{E}[\text{x}_{i}w_i] 
 				=
-				\dfrac{1}{\sigma_{x}^{2}}
+				\dfrac{\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}}
 				\begin{bmatrix}
-				    	\mu_{w}\sigma_{x}^{2} - \gamma \sigma_{w}^{2}\mu_{x} \\
-					\gamma\sigma_{w}^{2}
+				    	- \mu_{x} \\
+					1
 				\end{bmatrix} 
 				\]
+				
+				Note that $\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \overset{\textsc{lie}}{=} \mathbb{E}[\text{x}_{i}\text{x}_{i}'\mathbb{E}[v_{i}^{2} | \text{x}_{i}]]$. We thus first compute $\mathbb{E}[v_{i}^{2} | \text{x}_{i}]$, noting that:
+				~
+				\begin{align*}
+            				v_i & =  y_i - \text{x}_i'\bm{\beta}_{\textsc{ovb}} \\
+            					& = \text{x}_i' (\bm{\beta} - \bm{\beta}_{\textsc{ovb}}) + \delta w_{i} + u_i \\
+            					& = - \text{x}_{i} (\mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i}w_{i}] \delta)  + \delta w_{i} + u_i \\
+            					& = - \dfrac{\delta\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} (x_{i} - \mu_{x})+ \delta w_{i} + u_i\\
+            				\Rightarrow \quad v_{i}^{2} &= \left( \delta w_{i} + u_i - \dfrac{\delta\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} (x_{i} - \mu_{x}) \right)^{2} \\
+            					& = \delta^{2}w_{i}^{2} + u_{i}^{2} + \left( \dfrac{\delta\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)^{2} (x_{i} - \mu_{x})^{2} + 2 \delta w_{i} u_i + 2\left( \dfrac{\delta\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)(x_{i} - \mu_{x})(\delta w_{i} + u_i) \\
+            				\Rightarrow \quad \mathbb{E}[v_{i}^{2} | \text{x}_{i}] & = \delta^{2} \mathbb{E}[w_{i}^{2} | \text{x}_{i}] + \underbrace{\mathbb{E}[u_{i}^{2} | \text{x}_{i}]}_{\sigma_u^{2}} + \left( \dfrac{\delta\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)^{2}  \underbrace{\mathbb{E}[(x_{i} - \mu_{x})^{2} | \text{x}_{i}]}_{}\\
+				 & \quad +  2 \delta \underbrace{\mathbb{E}[w_{i}u_{i} | \text{x}_{i}]}_{}  + 2\left( \dfrac{\delta\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)(x_{i} - \mu_{x})(\delta \underbrace{\mathbb{E}[w_{i} | \text{x}_{i}]}_{} + \underbrace{\mathbb{E}[u_i | \text{x}_{i}]}_{0}) 
+				\end{align*}
 				
 				Thus, for $\hat{\beta}_{\textsc{ovb}}$, the second component of $\hat{\bm{\beta}}_{\textsc{ovb}}$, we have:
 				\begin{equation}
 					\boxed{
-						\hat{\beta}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \beta_0 + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \cdot \sigma_{x}^{2}} \right) 
+						\hat{\beta}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \beta_1 + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \sigma_{x}^{2}} \right) 
 					}
 				\end{equation}
 				
@@ -228,23 +232,23 @@
 				~
 				\begin{align*}
 					b_{\textsc{ovb}} & = \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}}\\
-					\sigma_{\textsc{ovb}} & = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \cdot \sigma_{x}^{2}}
+					\sigma_{\textsc{ovb}} & = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \sigma_{x}^{2}}
 				\end{align*}				
 				
 				
 			Now, note that we have :
 				~
 				\begin{align*}
-					\sigma_x^2 & =  \text{Var}(x) = \text{Var}(d_i + \gamma w_i + \epsilon_i) \\
-						& = \text{Var}(d_i) + \gamma^{2} \text{Var}(w_i) + \text{Var}(\epsilon_{i}) + 2 \gamma \underbrace{\text{cov}(d_i, w_i)}_{0} + 2 \gamma \underbrace{\text{cov}(\epsilon_i, w_i)}_{0} + 2  \underbrace{\text{cov}(\epsilon_i, w_i)}_{0}\\
-						& = \sigma_{d}^{2} + \gamma^{2} \sigma_{w}^{2} + \sigma_{\epsilon}^{2}
+					\sigma_x^2 & =  \text{Var}(x) = \text{Var}(z_i + \gamma w_i + \epsilon_i) \\
+						& = \text{Var}(z_i) + \gamma^{2} \text{Var}(w_i) + \text{Var}(\epsilon_{i}) + 2 \gamma \underbrace{\text{cov}(z_i, w_i)}_{0} + 2 \gamma \underbrace{\text{cov}(\epsilon_i, w_i)}_{0} + 2  \underbrace{\text{cov}(\epsilon_i, z_i)}_{0}\\
+						& = \sigma_{z}^{2} + \gamma^{2} \sigma_{w}^{2} + \sigma_{\epsilon}^{2}
 				\end{align*}
 				
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 		
 		\subsection{Instrumental Variable}
 			
-			The true DGP for $y$ is given by equation \ref{maths_true_dgp}. Here, we instrument $x$ with $z$, or more precisely $\text{x} = (1, x)'$ with $\text{z} = (1, z)'$. We are therefore in a just-identified case and $\hat{\bm{\beta}}_{\textsc{2sls}} = \hat{\bm{\beta}}_{\textsc{iv}}$. And:
+			The true DGP for $y$ is given by equation \ref{maths_true_dgp}. Here, we instrument $x_{i}$ with $z_{i}$, or more precisely $\text{x}_{i} = (1, x_{i})'$ with $\text{z}_{i} = (1, z_{i})'$. We are therefore in a just-identified case and $\hat{\bm{\beta}}_{\textsc{2sls}} = \hat{\bm{\beta}}_{\textsc{iv}}$. And:
 			~
 			\begin{align*}
 				 \hat{\bm{\beta}}_{\textsc{iv}} & =  (Z'X)^{-1}Z'y\\
@@ -257,6 +261,19 @@
 			\begin{equation*}
 				\mathbb{E}[ \hat{\bm{\beta}}_{\textsc{iv}} | X, Z]  =  \bm{\beta} + (Z'X)^{-1}\underbrace{\mathbb{E}[Z'w]}_{0} \delta + (Z'X)^{-1}\underbrace{\mathbb{E}[Z'u]}_{0} = \bm{\beta}
 			\end{equation*}
+			
+			$\hat{\bm{\beta}}_{\textsc{iv}}$ is therefore an unbiased estimator of $\bm{\beta}$. We then derive its asymptotic distribution, noting that:
+			~
+				\begin{equation*}
+					\sqrt{n}(\hat{\bm{\beta}}_{\textsc{iv}} - \bm{\beta}) 
+						= \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{z}_{i} \text{x}_{i}' \right)^{-1}  \delta  \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{z}_{i} w_{i} \right) 
+							+ \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{z}_{i} \text{x}_{i}' \right)^{-1}  \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{z}_{i} u_{i} \right) 
+				\end{equation*}	
+				
+			The WLLN gives $\dfrac{1}{n} \sum_{i = 1}^{n} \text{z}_{i} \text{x}_{i}'  \overset{p}{\to}  \mathbb{E}[\text{z}_{i}\text{x}_{i}']$ and since $\mathbb{E}[\text{z}_{i}w_{i}] = 0$ and $\mathbb{E}[\text{z}_{i}u_{i}] = 0$, the Central Limit Theorem (CLT) gives $\sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{z}_{i} w_{i} \right) \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\text{z}_{i}\text{z}_{i}'w_{i}^{2}])$ and $\sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{z}_{i} u_{i} \right) \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\text{z}_{i}\text{z}_{i}'u_{i}^{2}])$.  
+			
+			Now, $\mathbb{E}[\text{z}_{i}\text{z}_{i}'w_{i}^{2}]  = \mathbb{E}[\text{z}_{i}\text{z}_{i}'\mathbb{E}[w_{i}^{2} | \text{z}_{i}]] = \mathbb{E}[\text{z}_{i}\text{z}_{i}'\mathbb{E}[w_{i}^{2}]] = \sigma_{w}^{2}\mathbb{E}[\text{z}_{i}\text{z}_{i}']$ and similarly, $\mathbb{E}[\text{z}_{i}\text{z}_{i}'u_{i}^{2}]  =  \sigma_{u}^{2}\mathbb{E}[\text{z}_{i}\text{z}_{i}']$ since 
+			
 			
 				
 

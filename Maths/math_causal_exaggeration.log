@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  6 OCT 2022 18:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  6 OCT 2022 19:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1269,11 +1269,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 63--64
 
  []
 
-<dag_dgp.pdf, id=63, 429.605pt x 131.49126pt>
-File: dag_dgp.pdf Graphic file (type pdf)
- <use dag_dgp.pdf>
-Package pdftex.def Info: dag_dgp.pdf used on input line 71.
-(pdftex.def)             Requested size: 199.16928pt x 60.9602pt.
+<../images/DAG_maths-1.png, id=63, 3914.625pt x 978.65625pt>
+File: ../images/DAG_maths-1.png Graphic file (type png)
+
+<use ../images/DAG_maths-1.png>
+Package pdftex.def Info: ../images/DAG_maths-1.png used on input line 71.
+(pdftex.def)             Requested size: 227.62204pt x 56.895pt.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1281,7 +1282,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[2 <./dag_dgp.pdf>]
+[2 <../images/DAG_maths-1.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 119--120
 
  []
@@ -1324,8 +1325,8 @@ d.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 296.
  ) 
 Here is how much of TeX's memory you used:
- 13973 strings out of 492995
- 198421 string characters out of 6132704
+ 13975 strings out of 492995
+ 198495 string characters out of 6132704
  338067 words of memory out of 5000000
  17224 multiletter control sequences out of 15000+600000
  24829 words of font info for 63 fonts, out of 8000000 for 9000
@@ -1353,10 +1354,10 @@ texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></usr/local/texlive/2017/te
 xmf-dist/fonts/type1/public/cm-super/sfxc1200.pfb></usr/local/texlive/2017/texm
 f-dist/fonts/type1/public/cm-super/sfxc1440.pfb></usr/local/texlive/2017/texmf-
 dist/fonts/type1/public/cm-super/sfxc1728.pfb>
-Output written on math_causal_exaggeration.pdf (5 pages, 279135 bytes).
+Output written on math_causal_exaggeration.pdf (5 pages, 292895 bytes).
 PDF statistics:
- 186 PDF objects out of 1000 (max. 8388607)
- 140 compressed objects within 2 object streams
+ 185 PDF objects out of 1000 (max. 8388607)
+ 139 compressed objects within 2 object streams
  21 named destinations out of 1000 (max. 500000)
  78 words of extra memory for PDF output out of 10000 (max. 10000000)
 

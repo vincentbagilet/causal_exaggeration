@@ -64,7 +64,7 @@ The DGP is described in the following DAG:
 
 ```{r DAG_maths, echo=FALSE, fig.asp=0.25, out.width='70%'}
 dagify(Y ~ X + W,
-       X ~ W + Z,
+       X ~ W + Z + e,
        outcome = "Y",
        latent = "W",
        coords = list(x = c(Y = 3, X = 2, W = 2.5, Z = 1),
@@ -84,7 +84,7 @@ dagify(Y ~ X + W,
 As in the math section we have:
 
 $$y_{i} = \beta_{0} + \beta_1 x_{i} + \delta w_{i} + u_{i}$$
-$$x_{i} = \mu_x + \eta z_{i} + \gamma w_{i} + \epsilon_{i}$$
+$$x_{i} = \eta_0 + \eta_1 z_{i} + \gamma w_{i} + \epsilon_{i}$$
 
 ### Generate the data
 
@@ -98,8 +98,8 @@ generate_data_maths <- function(N,
                                 sigma_z,
                                 sigma_w,
                                 sigma_epsilon,
-                                alpha,
-                                eta,
+                                eta_0,
+                                eta_1,
                                 gamma,
                                 sigma_u,
                                 beta_0,
@@ -112,7 +112,7 @@ generate_data_maths <- function(N,
       z = rnorm(N, mu_z, sigma_z),
       w = rnorm(N, 0, sigma_w),
       epsilon = rnorm(N, 0, sigma_epsilon),
-      x = alpha + eta*z + gamma*w +  epsilon,
+      x = eta_0 + eta_1*z + gamma*w +  epsilon,
       u = rnorm(N, 0, sigma_u),
       y = beta_0 + beta_1*x + delta*w + u
     )
@@ -138,12 +138,12 @@ We then define the baseline parameters values. The numbers chosen are not the us
 
 baseline_param_maths <- tibble(
   N = 1000,
-  mu_z = 0, 
+  mu_z = 0.7, 
   sigma_z = 0.72,
   sigma_w = 0.6,
   sigma_epsilon = 1.2,
-  mu_x = 0.4,
-  eta = 1.2,
+  eta_0 = 0.3,
+  eta_1 = 1.1,
   gamma = 0.2,
   sigma_u = 0.8,
   beta_0 = 0.2,
@@ -167,7 +167,7 @@ We then run the estimations. We consider four separate models:
 - Unbiased: the true model, regressing $y$ on $x$ and $w$, therefore without omitted variable
 - Biased: the "naive" regression of $y$ on $x$, therefore omitting for $w$
 - IV: the 2SLS regression of $y$ on $x$ instrumented by $z$
-- Reduced form: regressing $y$ on $d$
+- Reduced form: regressing $y$ on $z$
 
 We also write a short function to wrangle the regression output to a convenient format, `lint_reg_maths`.
 
@@ -301,7 +301,7 @@ Using the simulations, we can check the maths. Based on our derivations, we expe
 $$ \hat{\beta}_{ovb} \overset{d}{\to} \mathcal{N}\left( \beta_1 + \delta \gamma \dfrac{\sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{\sigma_{v}^{2}}{n \cdot \sigma_{x}^{2}} \right) $$
 First, we need to compute the variance of $v$ and $x$. We verify that our formulas are correct: 
 
-- We expect to have $\sigma_x^2 = \eta^{2}\sigma_{z}^{2} + \gamma^2\sigma_w^2 + \sigma_{\epsilon}^2$ since $\text{Var}(d) = p_T(1 - p_T)$. For our parameters values, it corresponds to `r  baseline_param_maths %>% mutate(th_var_x = eta^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2) %>% .$th_var_x`. In an example dataset with 20000 observations, the observed variance of $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 2000000), generate_data_maths) %>% .$x %>% var()`. The simple formula for the variance of $x$ seems to be correct.
+- We expect to have $\sigma_x^2 = \eta_1^{2}\sigma_{z}^{2} + \gamma^2\sigma_w^2 + \sigma_{\epsilon}^2$. For our parameters values, it corresponds to `r  baseline_param_maths %>% mutate(th_var_x = eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2) %>% .$th_var_x`. In an example data set with 20000 observations, the observed variance of $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 2000000), generate_data_maths) %>% .$x %>% var()`. The simple formula for the variance of $x$ seems to be correct.
 - We expect to have $\sigma_v^2 = \delta^2\sigma_w^2 + \sigma_u^2$. For our parameters values, it corresponds to 
 `r  baseline_param_maths %>% mutate(th_var_v = delta^2*sigma_w^2 + sigma_u^2) %>% .$th_var_v`. In an example dataset with 20000 observations, the observed variance of the residuals of the regression of $y$ on $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 20000), generate_data_maths) %>% lm(data = ., y ~ x) %>% .$residuals %>% var`. The simple formula for the variance of $v$ seems to be correct.
 
@@ -310,12 +310,13 @@ Then, we can compute the theoretical variance for the mean and the variance of t
 ```{r check_moments_biased, echo=FALSE}
 th_moments_biased <- baseline_param_maths %>% 
   mutate(
-    th_sigma_x = sqrt(eta^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2),
+    th_sigma_x = sqrt(eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2),
     th_sigma_v = sqrt(delta^2*sigma_w^2 + sigma_u^2),
     mean = beta_1 + delta*gamma*sigma_w^2/th_sigma_x^2,
-    variance = th_sigma_v^2/(N*th_sigma_x^2)
+    variance = th_sigma_v^2/(N*th_sigma_x^2),
+    sd = sqrt(variance)
   ) %>% 
-  select(mean, variance) %>% 
+  select(mean, sd) %>% 
   mutate(type = "Theoretical")
 
 sim_moments_biased <- sim_maths %>% 
@@ -323,12 +324,12 @@ sim_moments_biased <- sim_maths %>%
   # group_by(model) %>%
   summarise(
     mean = mean(estimate),
-    variance = var(estimate)
+    sd = sd(estimate)
   ) %>% 
   mutate(type = "Simulated")
 
 rbind(th_moments_biased, sim_moments_biased) %>% 
-  select(type, mean, variance) %>%
+  select(type, mean, sd) %>%
   mutate(model = "Biased") %>% 
   kable(col.names = str_to_title(names(.)))
 ```
@@ -339,22 +340,22 @@ rbind(th_moments_biased, sim_moments_biased) %>%
 th_moments_iv <- baseline_param_maths %>% 
   mutate(
     mean = beta_1,
-    variance = (delta^2*sigma_w^2 + sigma_u^2)*((1-eta)*mu_z^2 - alpha*mu_z + sigma_z^2)/(N*eta^2*sigma_z^4)
+    variance = (delta^2*sigma_w^2 + sigma_u^2)/(N*(eta_1^2)*sigma_z^2),
+    sd = sqrt(variance)
   ) %>% 
-  select(mean, variance) %>% 
+  select(mean, sd) %>% 
   mutate(type = "Theoretical")
 
 sim_moments_iv <- sim_maths %>% 
   filter(model == "iv") %>%
-  # group_by(model) %>%
   summarise(
     mean = mean(estimate),
-    variance = var(estimate)
+    sd = sd(estimate)
   ) %>% 
   mutate(type = "Simulated")
 
 rbind(th_moments_iv, sim_moments_iv) %>% 
-  select(type, mean, variance) %>% 
+  select(type, mean, sd) %>% 
   mutate(model = "IV") %>% 
   kable(col.names = str_to_title(names(.)))
 ```
@@ -373,11 +374,20 @@ var_est[[which(var_est$model == "iv") , "var_estimate"]]/var_est[[which(var_est$
 
 baseline_param_maths %>% 
   mutate(
-    ratio_var = 1 + (gamma^2*sigma_w^2+sigma_epsilon^2)/(eta^2*sigma_z^2),
-    var_beta_iv = (delta^2*(sigma_w^2) + sigma_u^2)*((0)^2+1/(N*eta^2*sigma_z^2))
+    ratio_var = 1 + (gamma^2*sigma_w^2+sigma_epsilon^2)/(eta_1^2*sigma_z^2),
+    var_beta_iv = (delta^2*(sigma_w^2) + sigma_u^2)*((0)^2+1/(N*eta_1^2*sigma_z^2))
   ) %>% 
   select(var_beta_iv, ratio_var)
 ```
+
+
+
+
+
+
+
+
+
 
 
 

@@ -57,10 +57,10 @@
 			We further assume that there exists a valid instrumental variable $z_i$ for $x_i$. Let $\text{z} = (1, z_i)' \in \mathbb{R}^{2}$. Note that the model is just-identified. Since the instrument is valid, it satisfies exogeneity, \textit{ie} $\mathbb{E}[\text{z}_{i}u_{i}] = 0$ and  $\mathbb{E}[z_{i}w_{i}] = 0$, relevance, \textit{ie} $\text{rank}(\mathbb{E}[\text{z}_{i}\text{x}_i']) = 2$,  and positive-definiteness of $\mathbb{E}[\text{z}_i \text{z}_i']$. To simplify interpretation, we further assume a data generating process for $x_i$:			
 				~
 				\begin{equation}\label{maths_dgp_x}
-					x_i = \eta z_i + \gamma w_{i} + \epsilon_i
+					x_i = \eta_0 + \eta_1 z_i + \gamma w_{i} + \epsilon_i
 				\end{equation}
 				
-				where $(\eta, \gamma) \in \mathbb{R}^{2}$ are unknown parameters. We assume that $\epsilon_i$ is uncorrelated with $z_i$ and $w_{i}$, \textit{ie} $\mathbb{E}[z_i\epsilon_i] = 0$ and $\mathbb{E}[w_i\epsilon_i] = 0$. Note that, since $x_i$ and $w_i$ are correlated, $\gamma \neq 0$.\\
+				where $(\eta_0, \eta_1, \gamma) \in \mathbb{R}^{3}$ are unknown parameters. We assume that $\epsilon_i$ is uncorrelated with $z_i$ and $w_{i}$, \textit{ie} $\mathbb{E}[z_i\epsilon_i] = 0$ and $\mathbb{E}[w_i\epsilon_i] = 0$. Note that, since $x_i$ and $w_i$ are correlated, $\gamma \neq 0$.\\
 				
 				%We assumed that the coefficient for $d$ in equation \ref{maths_dgp_x} is unitary to be able to compare $\beta_{\textsc{R}}$, the coefficient for $d$ in the reduced form regression (regressing $y$ on $d$), to $\beta_{\textsc{ovb}}$, the coefficient for $x$ in the naive regression (regressing $y$ on $x$).  Roughly, $\beta_{\textsc{ovb}}$ can be interpreted as the variation in $y$ associated with a variation of $x$ by one. Similarly, $\beta_{\textsc{R}}$ can be interpreted as the variation in $y$ associated with a variation of $d$ by one. A variation in $d$ by one causes a variation of $x$ by one. Thus, both $\beta_{\textsc{ovb}}$ and $\beta_{\textsc{R}}$ can be interpreted as the variation in $y$ associated with a variation of $x$ by one. They are however different since this variation is orthogonal to the unobserved variable in the case of the reduced form but not in the case of the naive regression.\\
 				
@@ -191,7 +191,7 @@
             				= 
             				\begin{bmatrix}
             				    	0\\ 
-            					\underbrace{\text{cov}(z_{i}, w_{i})}_{0} + \gamma  \underbrace{\text{cov}(w_{i}, w_{i})}_{\sigma_{w}^{2}} + \underbrace{\text{cov}(\epsilon_{i}, w_{i})}_{0} 
+            					\eta_1 \underbrace{\text{cov}(z_{i}, w_{i})}_{0} + \gamma  \underbrace{\text{var}(w_{i})}_{\sigma_{w}^{2}} + \underbrace{\text{cov}(\epsilon_{i}, w_{i})}_{0} 
             				\end{bmatrix} 
             				=
             				\begin{bmatrix}
@@ -286,7 +286,7 @@
 				~
 				\begin{equation*}
 					\boxed{
-						\hat{\bm{\beta}}_{\textsc{ovb}} \overset{d}{\to} 
+						\hat{\bm{\beta}}_{\textsc{iv}} \overset{d}{\to} 
 							\mathcal{N}\left(\bm{\beta},  \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n} \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{z}_{i}\text{z}_{i}'] \left( \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1}\right)' \right)
 					}
 				\end{equation*}
@@ -315,40 +315,42 @@
 				\end{bmatrix} 
 				=
 				\begin{bmatrix}
-					1 & \eta \mathbb{E}[z_{i}] + \gamma \underbrace{\mathbb{E}[w_{i}]}_{0} + \underbrace{\mathbb{E}[\epsilon_{i}]}_{0}\\ 
-					\mu_{z} & \eta \mathbb{E}[z_{i}^{2}] + \gamma \underbrace{\mathbb{E}[z_{i}w_{i}]}_{0} + \underbrace{\mathbb{E}[z_{i}\epsilon_{i}]}_{0}
+					1 & \eta_0 + \eta_1 \mathbb{E}[z_{i}] + \gamma \underbrace{\mathbb{E}[w_{i}]}_{0} + \underbrace{\mathbb{E}[\epsilon_{i}]}_{0}\\ 
+					\mu_{z} & \eta_0 \mathbb{E}[z_{i}] + \eta_1 \mathbb{E}[z_{i}^{2}] + \gamma \underbrace{\mathbb{E}[z_{i}w_{i}]}_{0} + \underbrace{\mathbb{E}[z_{i}\epsilon_{i}]}_{0}
 				\end{bmatrix} =
 				\begin{bmatrix}
-					1 & \eta \mu_{z}\\ 
-					\mu_{z} & \eta (\sigma_{z}^{2} + \mu_{z}^{2})
+					1 & \eta_0 + \eta_1 \mu_{z}\\ 
+					\mu_{z} & \eta_0\mu_z + \eta_1 (\sigma_{z}^{2} + \mu_{z}^{2})
 				\end{bmatrix} 
 			\]
 			\[
 				 \Rightarrow \quad
-				     \mathbb{E}[\text{z}_{i}\text{x}_i']^{-1} = \dfrac{1}{\eta \sigma_{z}^{2}} 
+				     \mathbb{E}[\text{z}_{i}\text{x}_i']^{-1} = \dfrac{1}{\eta_1 \sigma_{z}^{2}} 
 				     			\begin{bmatrix}
-								\eta (\sigma_{z}^{2} + \mu_{z}^{2}) & -\eta \mu_{z}\\ 
+								 \eta_0 \mu_z + \eta_1 (\sigma_{z}^{2} + \mu_{z}^{2})& - \eta_0 - \eta_1 \mu_{z}\\ 
 								 -\mu_{z} & 1
 							\end{bmatrix} 
-				\quad \text{and} \quad
-					  \left( \mathbb{E}[\text{z}_{i}\text{x}_i']^{-1} \right)' = \dfrac{1}{\eta \sigma_{z}^{2}} 
+			\]
+			\[
+				 \text{and} \quad
+					  \left( \mathbb{E}[\text{z}_{i}\text{x}_i']^{-1} \right)' = \dfrac{1}{\eta_1 \sigma_{z}^{2}} 
 				     			\begin{bmatrix}
-								\eta (\sigma_{z}^{2} + \mu_{z}^{2}) & -\mu_{z}\\ 
-								 -\eta \mu_{z} & 1
+								 \eta_0 \mu_z + \eta_1 (\sigma_{z}^{2} + \mu_{z}^{2})& -\mu_{z}\\ 
+								  - \eta_0 - \eta_1 \mu_{z} & 1
 							\end{bmatrix} 
 			\]
 			
 		Thus, 
 			\[
 				     \mathbb{E}[\text{z}_{i}\text{x}_i']^{-1}\mathbb{E}[\text{z}_{i}\text{z}_i']  
-				     		= \dfrac{1}{\eta \sigma_{z}^{2}} 
+				     		= \dfrac{1}{\eta_1 \sigma_{z}^{2}} 
 				     			\begin{bmatrix}
-								\eta \sigma_{z}^{2} & 0\\ 
+								\eta_1 \sigma_{z}^{2} & -\eta_0 \sigma_z^{2}\\ 
 								 0 & \sigma_{z}^{2}
 							\end{bmatrix} 
 						=
 						\begin{bmatrix}
-							1 & 0\\ 
+							1 & -\frac{\eta_0}{\eta_1}\\ 
 							 0 & \frac{1}{\eta}
 						\end{bmatrix} 
 			\]
@@ -356,22 +358,18 @@
 		And finally, 
 			\[
 				     \mathbb{E}[\text{z}_{i}\text{x}_i']^{-1}\mathbb{E}[\text{z}_{i}\text{z}_i']  \left( \mathbb{E}[\text{z}_{i}\text{x}_i']^{-1} \right)' 
-				     		= \dfrac{1}{\eta \sigma_{z}^{2}} 
+				     		= \dfrac{1}{\eta_1 \sigma_{z}^{2}} 
 				     			\begin{bmatrix}
-								\eta (\sigma_{z}^{2} + \mu_{z}^{2}) & -\mu_{z}\\ 
-								  -\mu_{z} & \frac{1}{\eta}
+								2 \eta_0 \mu_z + \eta_1(\sigma_{z}^{2} + \mu_{z}^{2}) + \frac{\eta_0^2}{\eta_1}&   -\mu_{z} -  \frac{\eta_0}{\eta_1} \\ 
+								  -\mu_{z} -  \frac{\eta_0}{\eta_1} & \frac{1}{\eta_1}
 							\end{bmatrix} 
-						= \begin{bmatrix}
-							\dfrac{\sigma_{z}^{2} + \mu_{z}^{2}}{ \sigma_{z}^{2}} & -\dfrac{\mu_{z}}{\eta \sigma_{z}^{2}}\\~\\
-							 -\dfrac{\mu_{z}}{\eta \sigma_{z}^{2}} & \dfrac{1}{\eta^{2} \sigma_{z}^{2}} 
-						\end{bmatrix} 
 			\]
 			
 			Thus, for $\hat{\beta}_{\textsc{iv}}$, the second component of $\hat{\bm{\beta}}_{\textsc{iv}}$, we have:
 				\begin{equation}
 					\boxed{
-						\hat{\beta}_{\textsc{ovb}} \overset{d}{\to}
-							 \mathcal{N}\left( \beta_1 , \ \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \eta^{2}\sigma_{z}^{2}} \right) 
+						\hat{\beta}_{\textsc{iv}} \overset{d}{\to}
+							 \mathcal{N}\left( \beta_1 , \ \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \eta_{1}^{2}\sigma_{z}^{2}} \right) 
 					}
 				\end{equation}
 				
@@ -379,16 +377,16 @@
 				~
 				\begin{align*}
 					b_{\textsc{iv}} & = 0\\
-					\sigma_{\textsc{iv}}^{2} & = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \eta^{2}\sigma_{z}^{2}}
+					\sigma_{\textsc{iv}}^{2} & = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \eta_{1}^{2}\sigma_{z}^{2}}
 				\end{align*}
 			
-			This variance is close to the one obtained in the case of the naive regression with $\eta^{2}\sigma_{z}^{2}$ instead of $\sigma_{x}^{2}$ in the denominator. Note that, the following holds:
+			This variance is close to the one obtained in the case of the naive regression with $\eta_{1}^{2}\sigma_{z}^{2}$ instead of $\sigma_{x}^{2}$ in the denominator. Note that, the following holds:
 				~
 				\begin{align*}
-					\sigma_x^2 & =  \text{Var}(x_{i}) = \text{Var}(\eta z_i + \gamma w_i + \epsilon_i) \\
-						& = \eta^{2} \text{Var}(z_i) + \gamma^{2} \text{Var}(w_i) + \text{Var}(\epsilon_{i}) + 2\eta \gamma \underbrace{\text{cov}(z_i, w_i)}_{0} + 2 \gamma \underbrace{\text{cov}(\epsilon_i, w_i)}_{0} + 2 \eta \underbrace{\text{cov}(\epsilon_i, z_i)}_{0}\\
-						& = \eta^{2} \sigma_{z}^{2} + \gamma^{2} \sigma_{w}^{2} + \sigma_{\epsilon}^{2} \\
-						& < \eta^{2} \sigma_{z}^{2} 
+					\sigma_x^2 & =  \text{Var}(x_{i}) = \text{Var}(\eta_0 + \eta_{1} z_i + \gamma w_i + \epsilon_i) \\
+						& = \eta_{1}^{2} \text{Var}(z_i) + \gamma^{2} \text{Var}(w_i) + \text{Var}(\epsilon_{i}) + 2\eta_{1} \gamma \underbrace{\text{cov}(z_i, w_i)}_{0} + 2 \gamma \underbrace{\text{cov}(\epsilon_i, w_i)}_{0} + 2 \eta_{1} \underbrace{\text{cov}(\epsilon_i, z_i)}_{0}\\
+						& = \eta_{1}^{2} \sigma_{z}^{2} + \gamma^{2} \sigma_{w}^{2} + \sigma_{\epsilon}^{2} \\
+						& < \eta_{1}^{2} \sigma_{z}^{2} 
 				\end{align*}
 				
 				As a consequence, $\sigma_{\textsc{iv}}^{2} > \sigma_{\textsc{ovb}}^{2}$. The IV estimator is less precise than the naive estimator. This is a well known and intuitive result that we recovered in a particular setting, tied to the modelling assumptions we made. This result is due to the fact that the IV only uses part of the variation in the endogenous dependent variable, the part that is explained by the instrument. 

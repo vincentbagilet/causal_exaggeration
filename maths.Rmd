@@ -94,26 +94,26 @@ For simplicity, we consider that $w$ and $z$ is normally distributed. We also co
 
 ```{r generate_data_maths}
 generate_data_maths <- function(N,
-                                mu_x,
-                                beta_0,
-                                mu_w,
-                                sigma_w,
-                                beta_1,
+                                mu_z,
                                 sigma_z,
-                                delta, 
-                                gamma,
-                                eta = 1,
+                                sigma_w,
                                 sigma_epsilon,
-                                sigma_u) {
+                                alpha,
+                                eta,
+                                gamma,
+                                sigma_u,
+                                beta_0,
+                                beta_1,
+                                delta) {
   
   data <- tibble(id = 1:N) %>%
     mutate(
       # D = rbernoulli(N, ptreat),
-      z = rnorm(N, 0, sigma_z),
-      u = rnorm(N, 0, sigma_u),
-      w = rnorm(N, mu_w, sigma_w),
+      z = rnorm(N, mu_z, sigma_z),
+      w = rnorm(N, 0, sigma_w),
       epsilon = rnorm(N, 0, sigma_epsilon),
-      x = mu_x + eta*z + gamma*w +  epsilon,
+      x = alpha + eta*z + gamma*w +  epsilon,
+      u = rnorm(N, 0, sigma_u),
       y = beta_0 + beta_1*x + delta*w + u
     )
 }
@@ -137,18 +137,18 @@ We then define the baseline parameters values. The numbers chosen are not the us
 # )
 
 baseline_param_maths <- tibble(
-  N = 500,
-  mu_x = 0.3,
-  beta_0 = 0.2,
-  mu_w = 0,
+  N = 1000,
+  mu_z = 0, 
+  sigma_z = 0.72,
   sigma_w = 0.6,
-  beta_1 = 0.1,
-  delta = 0.3,
-  gamma = 0.2,
-  eta = 0.2,
   sigma_epsilon = 1.2,
+  mu_x = 0.4,
+  eta = 1.2,
+  gamma = 0.2,
   sigma_u = 0.8,
-  sigma_z = 0.72
+  beta_0 = 0.2,
+  beta_1 = 0.1,
+  delta = 0.3
 )
 
 baseline_param_maths %>% kable()
@@ -333,14 +333,13 @@ rbind(th_moments_biased, sim_moments_biased) %>%
   kable(col.names = str_to_title(names(.)))
 ```
 
+### IV
 
 ```{r check_moments_iv, echo=FALSE}
 th_moments_iv <- baseline_param_maths %>% 
   mutate(
-    th_sigma_x = sqrt(eta^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2),
-    th_sigma_v = sqrt(delta^2*sigma_w^2 + sigma_u^2),
     mean = beta_1,
-    variance = th_sigma_v^2/(N*eta^2*sigma_z^2)
+    variance = (delta^2*sigma_w^2 + sigma_u^2)*((1-eta)*mu_z^2 - alpha*mu_z + sigma_z^2)/(N*eta^2*sigma_z^4)
   ) %>% 
   select(mean, variance) %>% 
   mutate(type = "Theoretical")
@@ -375,7 +374,7 @@ var_est[[which(var_est$model == "iv") , "var_estimate"]]/var_est[[which(var_est$
 baseline_param_maths %>% 
   mutate(
     ratio_var = 1 + (gamma^2*sigma_w^2+sigma_epsilon^2)/(eta^2*sigma_z^2),
-    var_beta_iv = (delta^2*(sigma_w^2 + mu_w^2) + sigma_u^2)*((0 + delta*mu_w)^2+1/(N*eta^2*sigma_z^2))
+    var_beta_iv = (delta^2*(sigma_w^2) + sigma_u^2)*((0)^2+1/(N*eta^2*sigma_z^2))
   ) %>% 
   select(var_beta_iv, ratio_var)
 ```

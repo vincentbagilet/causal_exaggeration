@@ -68,7 +68,7 @@
 				
 				\begin{figure}[!h] 
             					\begin{center}
-            						\includegraphics[width=7cm]{dag_dgp.pdf}
+            						\includegraphics[width=8cm]{../images/DAG_maths-1.png}
             						\caption{DAG of the data generating process}
             						\label{maths_dag_dgp}
             					\end{center}
@@ -129,7 +129,7 @@
 					\Rightarrow \quad  & \mathbb{E}[\hat{\bm{\beta}}_{\textsc{ovb}}] = \mathbb{E}[\mathbb{E}[\hat{\bm{\beta}}_{\textsc{ovb}} | X]] = \bm{\bm{\beta}}_{\textsc{ovb}}& \text{by the Law of Iterated Expect. (LIE)} 
 				\end{align*}
 				
-				Thus, $\hat{\bm{\beta}}_{\textsc{ovb}}$ is an unbiased estimator of $\bm{\beta}_{\textsc{ovb}}$ but a biased estimator of $\bm{\beta}$. We then compute its asymptotic distribution. 
+				Thus, \underline{$\hat{\bm{\beta}}_{\textsc{ovb}}$ is an unbiased estimator of $\bm{\beta}_{\textsc{ovb}}$ but a biased estimator of $\bm{\beta}$}. We then compute its asymptotic distribution. 
 				
 			\subsubsection{Asymptotic distribution}	
 				
@@ -150,7 +150,9 @@
 				And thus,
 				~
 				\begin{equation*}
-					\hat{\bm{\beta}}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \bm{\beta} + \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i} w_{i}] \delta ,  \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \right) 
+					\boxed{
+						\hat{\bm{\beta}}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \bm{\beta} + \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i} w_{i}] \delta ,  \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \right) 
+					}
 				\end{equation*}
 				
 				We are interested in the second component of $\hat{\bm{\beta}}_{\textsc{ovb}}$. To retrieve it we need to compute $\mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1}$, $ \mathbb{E}[\text{x}_{i} w_{i}] $ and $\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}]$.  
@@ -167,7 +169,8 @@
 					\mu_{x} & \sigma_{x}^{2} + \mu_{x}^2
 				\end{bmatrix} 
 				\quad \Rightarrow \quad
-				     \mathbb{E}[\text{x}_{i}\text{x}_i']^{-1} = \dfrac{1}{\sigma_{x}^{2}} \mathbb{E} \begin{bmatrix}
+				     \mathbb{E}[\text{x}_{i}\text{x}_i']^{-1} = \dfrac{1}{\sigma_{x}^{2}} 
+				     									\begin{bmatrix}
 														 \sigma_{x}^{2} + \mu_{x}^2 & -\mu_{x}\\ 
 														-\mu_{x} & 1
 													\end{bmatrix} 
@@ -232,17 +235,9 @@
 				~
 				\begin{align*}
 					b_{\textsc{ovb}} & = \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}}\\
-					\sigma_{\textsc{ovb}} & = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \sigma_{x}^{2}}
+					\sigma_{\textsc{ovb}}^{2} & = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \sigma_{x}^{2}}
 				\end{align*}				
 				
-				
-			Now, note that we have :
-				~
-				\begin{align*}
-					\sigma_x^2 & =  \text{Var}(x) = \text{Var}(z_i + \gamma w_i + \epsilon_i) \\
-						& = \text{Var}(z_i) + \gamma^{2} \text{Var}(w_i) + \text{Var}(\epsilon_{i}) + 2 \gamma \underbrace{\text{cov}(z_i, w_i)}_{0} + 2 \gamma \underbrace{\text{cov}(\epsilon_i, w_i)}_{0} + 2  \underbrace{\text{cov}(\epsilon_i, z_i)}_{0}\\
-						& = \sigma_{z}^{2} + \gamma^{2} \sigma_{w}^{2} + \sigma_{\epsilon}^{2}
-				\end{align*}
 				
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 		
@@ -272,9 +267,133 @@
 				
 			The WLLN gives $\dfrac{1}{n} \sum_{i = 1}^{n} \text{z}_{i} \text{x}_{i}'  \overset{p}{\to}  \mathbb{E}[\text{z}_{i}\text{x}_{i}']$ and since $\mathbb{E}[\text{z}_{i}w_{i}] = 0$ and $\mathbb{E}[\text{z}_{i}u_{i}] = 0$, the Central Limit Theorem (CLT) gives $\sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{z}_{i} w_{i} \right) \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\text{z}_{i}\text{z}_{i}'w_{i}^{2}])$ and $\sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{z}_{i} u_{i} \right) \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\text{z}_{i}\text{z}_{i}'u_{i}^{2}])$.  
 			
-			Now, $\mathbb{E}[\text{z}_{i}\text{z}_{i}'w_{i}^{2}]  = \mathbb{E}[\text{z}_{i}\text{z}_{i}'\mathbb{E}[w_{i}^{2} | \text{z}_{i}]] = \mathbb{E}[\text{z}_{i}\text{z}_{i}'\mathbb{E}[w_{i}^{2}]] = \sigma_{w}^{2}\mathbb{E}[\text{z}_{i}\text{z}_{i}']$ and similarly, $\mathbb{E}[\text{z}_{i}\text{z}_{i}'u_{i}^{2}]  =  \sigma_{u}^{2}\mathbb{E}[\text{z}_{i}\text{z}_{i}']$ since 
+			Now, $\mathbb{E}[\text{z}_{i}\text{z}_{i}'u_{i}^{2}]  = 
+				\mathbb{E}[\text{z}_{i}\text{z}_{i}'\mathbb{E}[u_{i}^{2} | \text{z}_{i}]] = 
+				\mathbb{E}[\text{z}_{i}\text{z}_{i}'\mathbb{E}(\mathbb{E}[u_{i}^{2} | \text{x}_{i}] | \text{z}_{i})] = 
+				\mathbb{E}[\text{z}_{i}\text{z}_{i}'\mathbb{E}[\sigma_{u}^{2} | \text{z}_{i}]] = 
+				\mathbb{E}[\text{z}_{i}\text{z}_{i}'[\sigma_{u}^{2}] = 
+				\sigma_{u}^{2}\mathbb{E}[\text{z}_{i}\text{z}_{i}']$.
+			Now, since $\text{z}_{i}$ is a valid instrument, it makes sense to have $\mathbb{E}[w_{i}^{2} | \text{z}_{i}] = \sigma_{w}^{2}$. Thus, $\mathbb{E}[\text{z}_{i}\text{z}_{i}'w_{i}^{2}]  = 
+				\mathbb{E}[\text{z}_{i}\text{z}_{i}'\mathbb{E}[w_{i}^{2} | \text{z}_{i}]] = 
+				\sigma_{w}^{2}\mathbb{E}[\text{z}_{i}\text{z}_{i}']$.
+				
+			Applying Slutsky's theorem then yields:
+				
+				\[ \sqrt{n}(\hat{\bm{\beta}}_{\textsc{iv}} - \bm{\beta}) \overset{d}{\to} 
+					\mathcal{N}\left(0,  (\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}) \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{z}_{i}\text{z}_{i}'] \left( \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1}\right)' \right) \]
 			
+			And thus,
+				~
+				\begin{equation*}
+					\boxed{
+						\hat{\bm{\beta}}_{\textsc{ovb}} \overset{d}{\to} 
+							\mathcal{N}\left(\bm{\beta},  \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n} \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{z}_{i}\text{z}_{i}'] \left( \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1}\right)' \right)
+					}
+				\end{equation*}
+				
+			We are interested in the second component of $\hat{\bm{\beta}}_{\textsc{iv}}$. To retrieve it we need to compute $\mathbb{E}[\text{z}_{i} \text{z}_{i}]$, $\mathbb{E}[\text{x}_{i}\text{z}_{i}']^{-1}$ and its transpose.  
+			~
+			\[ 
+				\mathbb{E}[\text{z}_{i}\text{z}_i'] 
+				= \mathbb{E} \begin{bmatrix}
+					1 & z\\ 
+					z & z^{2}
+				\end{bmatrix} 
+				=
+				\begin{bmatrix}
+					1 & \mu_{z}\\ 
+					\mu_{z} & \sigma_{z}^{2} + \mu_{z}^2
+				\end{bmatrix} 
+				\]
 			
+			\[ 
+				\mathbb{E}[\text{z}_{i}\text{x}_i'] 
+				=
+				\begin{bmatrix}
+					1 & \mathbb{E}[x_{i}]\\ 
+					\mathbb{E}[z_{i}] & \mathbb{E}[z_{i}x_{i}]
+				\end{bmatrix} 
+				=
+				\begin{bmatrix}
+					1 & \eta \mathbb{E}[z_{i}] + \gamma \underbrace{\mathbb{E}[w_{i}]}_{0} + \underbrace{\mathbb{E}[\epsilon_{i}]}_{0}\\ 
+					\mu_{z} & \eta \mathbb{E}[z_{i}^{2}] + \gamma \underbrace{\mathbb{E}[z_{i}w_{i}]}_{0} + \underbrace{\mathbb{E}[z_{i}\epsilon_{i}]}_{0}
+				\end{bmatrix} =
+				\begin{bmatrix}
+					1 & \eta \mu_{z}\\ 
+					\mu_{z} & \eta (\sigma_{z}^{2} + \mu_{z}^{2})
+				\end{bmatrix} 
+			\]
+			\[
+				 \Rightarrow \quad
+				     \mathbb{E}[\text{z}_{i}\text{x}_i']^{-1} = \dfrac{1}{\eta \sigma_{z}^{2}} 
+				     			\begin{bmatrix}
+								\eta (\sigma_{z}^{2} + \mu_{z}^{2}) & -\eta \mu_{z}\\ 
+								 -\mu_{z} & 1
+							\end{bmatrix} 
+				\quad \text{and} \quad
+					  \left( \mathbb{E}[\text{z}_{i}\text{x}_i']^{-1} \right)' = \dfrac{1}{\eta \sigma_{z}^{2}} 
+				     			\begin{bmatrix}
+								\eta (\sigma_{z}^{2} + \mu_{z}^{2}) & -\mu_{z}\\ 
+								 -\eta \mu_{z} & 1
+							\end{bmatrix} 
+			\]
+			
+		Thus, 
+			\[
+				     \mathbb{E}[\text{z}_{i}\text{x}_i']^{-1}\mathbb{E}[\text{z}_{i}\text{z}_i']  
+				     		= \dfrac{1}{\eta \sigma_{z}^{2}} 
+				     			\begin{bmatrix}
+								\eta \sigma_{z}^{2} & 0\\ 
+								 0 & \sigma_{z}^{2}
+							\end{bmatrix} 
+						=
+						\begin{bmatrix}
+							1 & 0\\ 
+							 0 & \frac{1}{\eta}
+						\end{bmatrix} 
+			\]
+		
+		And finally, 
+			\[
+				     \mathbb{E}[\text{z}_{i}\text{x}_i']^{-1}\mathbb{E}[\text{z}_{i}\text{z}_i']  \left( \mathbb{E}[\text{z}_{i}\text{x}_i']^{-1} \right)' 
+				     		= \dfrac{1}{\eta \sigma_{z}^{2}} 
+				     			\begin{bmatrix}
+								\eta (\sigma_{z}^{2} + \mu_{z}^{2}) & -\mu_{z}\\ 
+								  -\mu_{z} & \frac{1}{\eta}
+							\end{bmatrix} 
+						= \begin{bmatrix}
+							\dfrac{\sigma_{z}^{2} + \mu_{z}^{2}}{ \sigma_{z}^{2}} & -\dfrac{\mu_{z}}{\eta \sigma_{z}^{2}}\\~\\
+							 -\dfrac{\mu_{z}}{\eta \sigma_{z}^{2}} & \dfrac{1}{\eta^{2} \sigma_{z}^{2}} 
+						\end{bmatrix} 
+			\]
+			
+			Thus, for $\hat{\beta}_{\textsc{iv}}$, the second component of $\hat{\bm{\beta}}_{\textsc{iv}}$, we have:
+				\begin{equation}
+					\boxed{
+						\hat{\beta}_{\textsc{ovb}} \overset{d}{\to}
+							 \mathcal{N}\left( \beta_1 , \ \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \eta^{2}\sigma_{z}^{2}} \right) 
+					}
+				\end{equation}
+				
+				Using the notations introduced in section \ref{maths_objectives}, we have:
+				~
+				\begin{align*}
+					b_{\textsc{iv}} & = 0\\
+					\sigma_{\textsc{iv}}^{2} & = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \eta^{2}\sigma_{z}^{2}}
+				\end{align*}
+			
+			This variance is close to the one obtained in the case of the naive regression with $\eta^{2}\sigma_{z}^{2}$ instead of $\sigma_{x}^{2}$ in the denominator. Note that, the following holds:
+				~
+				\begin{align*}
+					\sigma_x^2 & =  \text{Var}(x_{i}) = \text{Var}(\eta z_i + \gamma w_i + \epsilon_i) \\
+						& = \eta^{2} \text{Var}(z_i) + \gamma^{2} \text{Var}(w_i) + \text{Var}(\epsilon_{i}) + 2\eta \gamma \underbrace{\text{cov}(z_i, w_i)}_{0} + 2 \gamma \underbrace{\text{cov}(\epsilon_i, w_i)}_{0} + 2 \eta \underbrace{\text{cov}(\epsilon_i, z_i)}_{0}\\
+						& = \eta^{2} \sigma_{z}^{2} + \gamma^{2} \sigma_{w}^{2} + \sigma_{\epsilon}^{2} \\
+						& < \eta^{2} \sigma_{z}^{2} 
+				\end{align*}
+				
+				As a consequence, $\sigma_{\textsc{iv}}^{2} > \sigma_{\textsc{ovb}}^{2}$. The IV estimator is less precise than the naive estimator. This is a well known and intuitive result that we recovered in a particular setting, tied to the modelling assumptions we made. This result is due to the fact that the IV only uses part of the variation in the endogenous dependent variable, the part that is explained by the instrument. 
+
+
 				
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -140,11 +140,11 @@ baseline_param_maths <- tibble(
   N = 1000,
   mu_z = 0.7, 
   sigma_z = 0.72,
-  sigma_w = 0.6,
+  sigma_w = 1.1,
   sigma_epsilon = 1.2,
   eta_0 = 0.3,
   eta_1 = 1.1,
-  gamma = 0.2,
+  gamma = 2,
   sigma_u = 0.8,
   beta_0 = 0.2,
   beta_1 = 0.1,
@@ -302,8 +302,8 @@ $$ \hat{\beta}_{ovb} \overset{d}{\to} \mathcal{N}\left( \beta_1 + \delta \gamma 
 First, we need to compute the variance of $v$ and $x$. We verify that our formulas are correct: 
 
 - We expect to have $\sigma_x^2 = \eta_1^{2}\sigma_{z}^{2} + \gamma^2\sigma_w^2 + \sigma_{\epsilon}^2$. For our parameters values, it corresponds to `r  baseline_param_maths %>% mutate(th_var_x = eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2) %>% .$th_var_x`. In an example data set with 20000 observations, the observed variance of $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 2000000), generate_data_maths) %>% .$x %>% var()`. The simple formula for the variance of $x$ seems to be correct.
-- We expect to have $\sigma_v^2 = \delta^2\sigma_w^2 + \sigma_u^2$. For our parameters values, it corresponds to 
-`r  baseline_param_maths %>% mutate(th_var_v = delta^2*sigma_w^2 + sigma_u^2) %>% .$th_var_v`. In an example dataset with 20000 observations, the observed variance of the residuals of the regression of $y$ on $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 20000), generate_data_maths) %>% lm(data = ., y ~ x) %>% .$residuals %>% var`. The simple formula for the variance of $v$ seems to be correct.
+- We expect to have $\sigma_v^2 = \sigma_u^2 + \delta^2\sigma_w^2 \left( 1- \dfrac{\gamma^2\sigma_w^2}{\sigma_x^2}\right)$. For our parameters values, it corresponds to 
+`r  baseline_param_maths %>% mutate(th_var_v = sigma_u^2 + delta^2*sigma_w^2*(1-gamma^2*sigma_w^2/(eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2))) %>% .$th_var_v`. In an example dataset with 20000 observations, the observed variance of the residuals of the regression of $y$ on $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 20000), generate_data_maths) %>% lm(data = ., y ~ x) %>% .$residuals %>% var`. The simple formula for the variance of $v$ seems to be correct.
 
 Then, we can compute the theoretical variance for the mean and the variance of the estimator and compare them to the ones observed in the simulations
 
@@ -311,7 +311,7 @@ Then, we can compute the theoretical variance for the mean and the variance of t
 th_moments_biased <- baseline_param_maths %>% 
   mutate(
     th_sigma_x = sqrt(eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2),
-    th_sigma_v = sqrt(delta^2*sigma_w^2 + sigma_u^2),
+    th_sigma_v = sqrt(sigma_u^2 + delta^2*sigma_w^2*(1 - gamma^2*sigma_w^2/th_sigma_x^2)),
     mean = beta_1 + delta*gamma*sigma_w^2/th_sigma_x^2,
     variance = th_sigma_v^2/(N*th_sigma_x^2),
     sd = sqrt(variance)
@@ -327,6 +327,7 @@ sim_moments_biased <- sim_maths %>%
     sd = sd(estimate)
   ) %>% 
   mutate(type = "Simulated")
+
 
 rbind(th_moments_biased, sim_moments_biased) %>% 
   select(type, mean, sd) %>%

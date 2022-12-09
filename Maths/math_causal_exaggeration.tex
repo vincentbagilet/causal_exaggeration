@@ -625,36 +625,39 @@
 				 \lambda \left( \dfrac{ \sigma_{x}\sqrt{n} \left( \beta_{1} + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} \right)  }{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}} - z_{\alpha} \right)
 			\end{align*}
 			
-			Keeping in mind that $\lambda$ is a decreasing function, we notice that $E_\text{ovb}$ decreases with $\beta_{1}, \sigma_{x}$ and $n$ and increases with $\sigma_{u}$. Analytically deriving the evolution of this quantity with the omitted variable bias, \textit{ie}, with $\delta$, $\gamma$ and $\sigma_{w}$ is more challenging. The direction of this evolution is likely to depend on the value of the parameters. Since this is not the focus of the present paper, we do not dive into this. We however expect that, if the bias is upward ($\delta$ and $\gamma$ of the same sign), we expect the exaggeration to increase with $\delta$, $\gamma$ and $\sigma_{w}^{2}$, for realistic values of the various parameters since the usual omitted variable bias $\left( \frac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} \right)$ is a major component of the exaggeration. 
+				Keeping in mind that $\lambda$ is a decreasing function, we notice that $E_\text{ovb}$ decreases with $\beta_{1}, \sigma_{x}$ and $n$ and increases with $\sigma_{u}$. Analytically deriving the evolution of this quantity with the omitted variable bias, \textit{ie}, with $\delta$, $\gamma$ and $\sigma_{w}$ is more challenging. The direction of this evolution is likely to depend on the value of the parameters. Since this is not the focus of the present paper, we do not dive into this. We however expect that, if the bias is upward ($\delta$ and $\gamma$ of the same sign), we expect the exaggeration to increase with $\delta$, $\gamma$ and $\sigma_{w}^{2}$, for realistic values of the various parameters since the usual omitted variable bias $\left( \frac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} \right)$ is a major component of the exaggeration. 
 			
-		\subsection{The exaggeration/confounders trade-off}
+                		\subsection{The exaggeration/confounders trade-off}
+                		
+                			The objective of this paper is to compare ``biases'' resulting from exaggeration and confounders. In this document, we thus aim to compare $E_{\textsc{ovb}}$ to $E_{\textsc{iv}}$. We thus define $\varDelta = E_{\textsc{iv}} - E_{\textsc{ovb}}$ and analyse whether and for which parameters values $\varDelta > 0$. In particular, we focus on the strength of the IV (or the correlation between the instrument and the endogenous variable). 
+                    		~
+                    		\begin{multline*}
+                    			\varDelta = 
+                    				\dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}
+                    					 \lambda \left( \dfrac{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right) - 
+                    				\dfrac{\delta \gamma \sigma_{w}^{2}}{\beta_{1}\sigma_{x}^{2}} \\
+                    				- \dfrac{\sqrt{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}}{\beta_{1} \sigma_{x} \sqrt{n}}
+                    				 \lambda \left( \dfrac{ \sigma_{x}\sqrt{n} \left( \beta_{1} + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} \right)  }{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}} - z_{\alpha} \right)
+                    		\end{multline*}
+                    				
+                    		First, note that only $E_{\textsc{iv}}$ depends on $\rho_{xz}$. Since $E_{\textsc{iv}}$ decreases with $\rho_{xz}$, $\varDelta$ also decreases with $\rho_{xz}$. Now, for fixed and finite values of the other parameters, and since we assumed that $\beta_{1} > 0$,
+                    		~
+                    		\begin{align*}
+                    			\lim_{\rho_{xz} \to 0^{+}} & \dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}} = + \infty \\
+                    			\lim_{\rho_{xz} \to 0^{+}} & \lambda \left( \dfrac{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right) = \lambda (- z_{\alpha}) \in \mathbb{R}_{+}
+                    		\end{align*}
+                    			
+                    		Since the other components of $\varDelta$ are finite and do not depend on $\rho_{xz}$, $\lim_{\rho_{xz} \to 0^{+}} \varDelta = + \infty$. Since $\varDelta$ is a continuous function of $\rho_{xz}$ on $(0, 1]$, for any set of parameter values consistent with our hypotheses, $\exists \rho_{xz} \in (0, 1] \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$. Since $\eta_{1}\sigma_{z} = \rho_{xz}\sigma_{x}$, it is also straigthforward to show, for any set of parameter values consistent with our hypotheses, $\exists \eta_{1} \in (0, +\infty) \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$. 
+                    		
+                    		We thus have shown that, \ul{if the correlation between the instrument and the endogenous variable is low, the exaggeration bias of the IV can be larger than that of the ``naive'' regression, even in the presence of confounders}. The trade-off, \textit{ie} the value of $\varDelta$, is affected by this correlation, or the strength of the instrument. 
 		
-			The objective of this paper is to compare ``biases'' resulting from exaggeration and confounders. In this document, we thus aim to compare $E_{\textsc{ovb}}$ to $E_{\textsc{iv}}$. We thus define $\varDelta = E_{\textsc{iv}} - E_{\textsc{ovb}}$ and analyse whether and for which parameters values $\varDelta > 0$. In addition, we study how $\varDelta$ varies with parameter values. 
-		~
-		\begin{multline*}
-			\varDelta = 
-				\dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}
-					 \lambda \left( \dfrac{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right) - 
-				\dfrac{\delta \gamma \sigma_{w}^{2}}{\beta_{1}\sigma_{x}^{2}} \\
-				- \dfrac{\sqrt{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}}{\beta_{1} \sigma_{x} \sqrt{n}}
-				 \lambda \left( \dfrac{ \sigma_{x}\sqrt{n} \left( \beta_{1} + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} \right)  }{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}} - z_{\alpha} \right)
-		\end{multline*}
-				
-		First, note that only $E_{\textsc{iv}}$ directly depends on this quantity. Since $E_{\textsc{iv}}$ decreases with $\rho_{xz}$, $\varDelta$ also decreases with $\rho_{xz}$. Now, for fixed and finite values of the other parameters, and since we assumed that $\beta_{1} > 0$,
-		~
-		\begin{align*}
-			\lim_{\rho_{xz} \to 0^{+}} & \dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}} = + \infty \\
-			\lim_{\rho_{xz} \to 0^{+}} & \lambda \left( \dfrac{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right) = \lambda (- z_{\alpha}) \in \mathbb{R}_{+}
-		\end{align*}
-			
-		Since the other components of $\varDelta$ are finite and do not depend on $\rho_{xz}$, $\lim_{\rho_{xz} \to 0^{+}} \varDelta = + \infty$. Since $\varDelta$ is a continuous function of $\rho_{xz}$ on $\mathbb{R}_{+}^{*}$, for any set of parameter values consistent with our hypotheses, $\exists \rho_{xz} \in (0, 1] \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$. It is also straigthforward to show that since $\eta_{1}\sigma_{z} = \rho_{xz}\sigma_{x}$, for any set of parameter values consistent with our hypotheses, $\exists \eta_{1} \in (0, +\infty) \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$. 
 		
-		\ul{If the correlation between the instrument and the endogenous variable is limited, the exaggeration bias of the IV will be larger than that of the ``naive'' regression, even in the presence of confounders}.
-		
-		
-		
-						
-				
+		Yet, the value and the sign of $\varDelta$ depend on the value of the other parameters in a non-trivial maner. In a concrete setting, it might therefore be difficult to identify how ``low'' the correlation has to be for $\varDelta$ to be positive. 
+                    		
+                    		
+    		
+    						
+    				
 	
 \bibliographystyle{agsm}
 \bibliography{causal_inflation.bib}	

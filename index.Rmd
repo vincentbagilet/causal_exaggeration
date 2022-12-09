@@ -22,12 +22,4 @@ Hi and welcome!
 
 This website gathers code and additional material for the [CEEP working paper](https://ceep.columbia.edu/content/research#!#%2Ffilter%2Ffield_cu_publish_type%2FWorking%20Paper) "[Unconfounded but Inflated Causal Estimates](https://ceep.columbia.edu/sites/default/files/content/causal_inflation_paper.pdf)" by [Vincent Bagilet](https://vincentbagilet.github.io/) and [Léo Zabrocki](https://lzabrocki.github.io/).
 
-The website is still under construction and the project still in progress. The website is structured as follows: 
-
-- A PDF version of the current version of the paper is accessible through the "[Paper](causal_inflation_paper.pdf)" tab.
-- A plain language summary is available in the "[Summary](summary.html)" tab.
-- The "[Intuition](intuition.html)" tab describes, though an example, how inflation of statistically estimates may arise.
-- The "Simulations" tab describes the simulations for each identification strategy. 
-- In the tab "[Reporting](reporting.html)" we will describe how to run power calculations.
-<!-- - In the tab "[Avoiding traps](traps.html)", we put ourselves in the shoes of a researcher interested in running a study on the short term health effects of air pollution and through an example, we suggest a methodology to address the issues raised in our paper. -->
-- All the R code for this project is available in [its GitHub directory](https://github.com/vincentbagilet/causal_inflation).
+In this paper we show that the use of causal identification strategies creates a trade-off between confounding and exaggerating true effect sizes due to a loss in statistical power.

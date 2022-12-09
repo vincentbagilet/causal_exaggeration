@@ -848,7 +848,7 @@ sim_IV_simple %>%
   ggplot(aes(x = iv_strength, y = bias_signif, color = model)) + 
   # geom_point() +
   geom_line(size = 0.8) +
-  facet_wrap(~ ovb_intensity_name) +
+  facet_wrap(~ ovb_intensity_name) +
   labs(
     x = "IV strength", 
     y = expression(paste("Average  ", frac("Estimate", "True Effect"))),

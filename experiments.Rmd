@@ -45,7 +45,7 @@ library(haven)
 library(here)
 library(readxl)
 library(retrodesign)
-library(gganimate)
+# library(gganimate)
 
 set.seed(3)
 

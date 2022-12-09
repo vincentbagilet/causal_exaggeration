@@ -50,9 +50,7 @@ library(here)
 set_mediocre_all(pal = "coty")
 ```
 
-The full proof is available here.
-
-
+The full proof is available [here](Maths/math_causal_exaggeration.pdf).
 
 ## Simulations
 

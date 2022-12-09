@@ -25,19 +25,19 @@
 	
 		\subsection{Objectives}\label{maths_objectives}
 	
-		This document aims to provide a mathematical derivation to illustrate the trade-off underlined in this paper. Such a derivation may provide some intuition regarding the various mechanisms at play. It does not aim in any way to provide a general proof but merely a specific one, tied to the setting considered. While we keep this setting as general as possible, as in most cases, we have to make certain assumptions, in particular regarding the data generating process considered. 
+			The objective of our article is to compare ``biases'' resulting from exaggeration in causal identification strategies on the one hand and from confounders in ``naive'' regression analysis on the other hand.  This document aims to provide a mathematical derivation to illustrate this trade-off. Such a derivation may provide some intuition regarding the various mechanisms at play. It does not aim in any way to provide a general proof but merely a specific one, tied to the setting considered. As in most analyses similar to this one, while we keep this setting as general as possible, we have to make certain assumptions, in particular regarding the data generating process considered. 
 		
 		The objective here is to compare the exaggeration ratio for a naive regression with omitted variable bias (OVB) to that of an Instrumental Variable (IV) model in which we instrument the variable affected by the omitted variable. We expect the naive regression to be biased but more precise than the IV and therefore less subject to exaggeration problems. Roughly, we aim to derive the conditions under which the exaggeration due to the loss in precision is greater than the OVB. %The following simulation illustrates this in the case of the 
 		Thus, the objective is to compare the following quantities:
 			\begin{gather*}
-				\mathbb{E}\left[ \hat{\beta}_{\textsc{ovb}} | \beta_{1}, b_{\textsc{ovb}}, \sigma_{\textsc{ovb}}, \hat{\beta}_{\textsc{ovb}} > z_{\alpha} \sigma_{\textsc{ovb}} \right] \\
+				\mathbb{E}\left[ \hat{\beta}_{\textsc{ovb}} | \beta_{1}, \sigma_{\textsc{ovb}}, \hat{\beta}_{\textsc{ovb}} > z_{\alpha} \sigma_{\textsc{ovb}} \right] \\
 				%\mathbb{E}\left[ \hat{\beta}_{\textsc{r}} | \beta_{0}, \sigma_{\textsc{r}}, \hat{\beta}_{\textsc{r}} > z_{\alpha} \sigma_{\textsc{r}} \right]\\
 				\mathbb{E}\left[ \hat{\beta}_{\textsc{iv}} | \beta_{1}, \sigma_{\textsc{iv}}, \hat{\beta}_{\textsc{iv}} > z_{\alpha} \sigma_{\textsc{iv}} \right]
 			\end{gather*} 
 			
-			where \textsc{ovb} and \textsc{iv} denote the naive regression and the IV respectively. $\beta_{1}$ represents the true effect of interest, $\hat{\beta_{..}}$ its estimate, $\sigma_{..}$ the standard error of the estimate and $z_{\alpha}$ the threshold value of a two-sided test of size $\alpha$.% and $b_{\textsc{..}}$ the bias in the naive regression. Note that due to the exogeneity assumption $b_{\textsc{iv}} = 0$. 
+			where \textsc{ovb} and \textsc{iv} denote the naive regression and the IV respectively. $\beta_{1}$ represents the true effect of interest, $\hat{\beta_{..}}$ its estimate, $\sigma_{..}$ the standard error of the estimate and $z_{\alpha}$ the threshold value of a two-sided test of size $\alpha$. In all of our analyses, we consider tests of size 5\%. One can thus think of $z_{\alpha}$ as being equal to 1.96. % and $b_{\textsc{..}}$ the bias in the naive regression. Note that due to the exogeneity assumption $b_{\textsc{iv}} = 0$. 
 			
-			To compute these values, we need to know the distribution of the estimates. After describing the data generating process, we thus derive the asymptotic distribution of these estimates. We then compute and compare these quantities as a function of the parameters of interests. The main parameter of interest is linked the proportion of the variance in the explanatory variable of interest retained for identification. 
+			To compute these values, we need to know the distribution of the estimates. After describing the data generating process, we thus derive the asymptotic distribution of these estimates. We then compute these quantities and analyse how they evolve as a function of the parameters of interests. We then analyse the drivers of the difference between those two quantities. The main parameter of interest is linked the proportion of the variance in the explanatory variable of interest retained for identification. 
 				
 		\subsection{Data generating process}\label{maths_dgp}
 			%I build this using the notation used by Dong Woo in his lecture notes
@@ -50,9 +50,9 @@
 				
 				where $\text{x}_i \in \mathbb{R}^2$ is a vector including a constant and the observed explanatory variable such that $\text{x}_i = (1, x_i)'$, $y_i \in \mathbb{R}$ the observed outcome of interest, $w_i \in \mathbb{R}$ an unobserved omitted variable, $u_i \in \mathbb{R}$ an unobserved error term. $\bm{\beta} \in \mathbb{R}^{2}$ and $\delta \in \mathbb{R}$ are unknown parameters. $\bm{\beta} = (\beta_0, \beta_1)'$ and $\beta_1$ is the parameter of interest. For readability, we introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$. 
 			
-			We further assume that the usual OLS assumptions hold: ($y_i, \text{x}_i, w_{i}, u_{i}$) are iid, finite second moments, \textit{ie} $\mathbb{E}[y_{i}^{2}] < \infty$, $\mathbb{E}[w_{i}^{2}] < \infty$, $\mathbb{E}[x_{i}^{2}] < \infty$, positive-definiteness of $\mathbb{E}[\text{x}_i \text{x}_i']$, $u_{i}$ is conditional mean-zero, \textit{ie} $\mathbb{E}[u_{i} | x_{i}] = 0$, and is uncorrelated with $x_i$, \textit{ie} $\mathbb{E}[x_{i}u_{i}] = 0$. We also assume homoskedasticity such that $\mathbb{E}[u_i^{2} | x_{i}] = \sigma_{u}^{2}$ is constant.
+			We further assume that the usual OLS assumptions hold: ($y_i, \text{x}_i, w_{i}, u_{i}$) are iid, finite second moments, \textit{ie} $\mathbb{E}[y_{i}^{2}] < \infty$, $\mathbb{E}[w_{i}^{2}] < \infty$, $\mathbb{E}[x_{i}^{2}] < \infty$, positive-definiteness of $\mathbb{E}[\text{x}_i \text{x}_i']$, $u_{i}$ is conditional mean-zero, \textit{ie} $\mathbb{E}[u_{i} | x_{i}, w_{i}] = 0$, and is uncorrelated with $x_i$ and $w_i$, \textit{ie} $\mathbb{E}[x_{i}u_{i}] = 0$ and $\mathbb{E}[w_{i}u_{i}] = 0$. Note that conditional mean-zero implies that $\mathbb{E}[u_{i} | x_{i}] = 0$ (since $\mathbb{E}[u_{i} | x_{i}] = \mathbb{E}[\mathbb{E}[u_{i} | x_{i}, w_{i}| x_{i}]]  = \mathbb{E}[0 | x_{i}] = 0$). We further assume homoskedasticity such that $\mathbb{E}[u_i^{2} | x_{i}, w_{i}] = \sigma_{u}^{2}$ is constant. It implies that  $\mathbb{E}[u_i^{2} | x_{i}] = \sigma_{u}^{2}$ (since $\mathbb{E}[u_i^{2} | x_{i}] =  \mathbb{E}[\mathbb{E}[u_i^{2} | x_{i}, w_{i}]|x_{i}] = \mathbb{E}[\sigma_{u}^{2} | x_{i}] = \sigma_{u}^{2})$.
 			
-			We however assume that $w_{i}$ is unobserved, correlated with $x_{i}$ but not $u_{i}$, \textit{ie} $\mathbb{E}[w_{i}u_{i}] = 0$, and that $\delta \neq 0$. To simplify the derivations, we further assume that the unobserved variable is centred, \textit{ie} $\mathbb{E}[w_i] = 0$. 
+			We however assume that $w_{i}$ is unobserved, correlated with $x_{i}$ and that $\delta \neq 0$. To simplify the derivations, we further assume that the unobserved variable is centred, \textit{ie} $\mathbb{E}[w_i] = 0$. We also assume that the variance of the component of $w_{i}$ that is orthogonal to $x_{i}$ (denoted $w_{i}^{\perp}$) does not vary with $x_{i}$. Thus, $\text{Var}(w_{i}^{\perp}|x_{i}) = \text{Var}(w_{i}^{\perp})$.
 			
 			We further assume that there exists a valid instrumental variable $z_i$ for $x_i$. Let $\text{z} = (1, z_i)' \in \mathbb{R}^{2}$. Note that the model is just-identified. Since the instrument is valid, it satisfies exogeneity, \textit{ie} $\mathbb{E}[\text{z}_{i}u_{i}] = 0$ and  $\mathbb{E}[z_{i}w_{i}] = 0$, relevance, \textit{ie} $\text{rank}(\mathbb{E}[\text{z}_{i}\text{x}_i']) = 2$,  and positive-definiteness of $\mathbb{E}[\text{z}_i \text{z}_i']$. To simplify interpretation, we further assume a data generating process for $x_i$:			
 				~
@@ -78,12 +78,20 @@
 			
 				
 						
-%		\subsection{Summary of the assumptions}
-%		
-%			\begin{itemize}
-%				\item The data generating process is as described in section \ref{maths_dgp},
-%				\item 
-%			\end{itemize}
+		\subsection{Summary of the key assumptions}
+		
+			To ease the use of assumptions in the following sections, we summarize some that we will explicitly mobilize:
+		 
+			\begin{itemize}
+				\item $y_i = \text{x}_i' \bm{\beta} + \delta w_{i} + u_i$
+				\item $x_i = \eta_0 + \eta_1 z_i + \gamma w_{i} + \epsilon_i$
+				\item $\mathbb{E}[u_{i} | x_{i}, w_{i}] = 0$ and $\mathbb{E}[u_{i} | x_{i}] = 0$
+				\item $\mathbb{E}[u_i^{2} | x_{i}, w_{i}] = \sigma_{u}^{2}$ and $\mathbb{E}[u_i^{2} | x_{i}] = \sigma_{u}^{2}$
+				\item $\mathbb{E}[w_i] = 0$
+				\item $\mathbb{E}[z_{i}u_{i}] = 0$ and $\mathbb{E}[z_{i}w_{i}] = 0$
+				\item $\mathbb{E}[z_i\epsilon_i] = 0$ and $\mathbb{E}[w_i\epsilon_i] = 0$
+				\item $\text{Var}(w_{i}^{\perp}|x_{i}) = \text{Var}(w_{i}^{\perp})$
+			\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -149,11 +157,11 @@
 				
 				And thus,
 				~
-				\begin{equation*}
+				\begin{equation}\label{asympt_ovb}
 					\boxed{
-						\hat{\bm{\beta}}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \bm{\beta} + \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i} w_{i}] \delta ,  \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \right) 
+						\hat{\bm{\beta}}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \bm{\beta} + \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i} w_{i}] \delta ,  \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} / n \right) 
 					}
-				\end{equation*}
+				\end{equation}
 				
 				We are interested in the second component of $\hat{\bm{\beta}}_{\textsc{ovb}}$. To retrieve it we need to compute $\mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1}$, $ \mathbb{E}[\text{x}_{i} w_{i}] $ and $\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}]$.  
 				
@@ -200,45 +208,79 @@
             				\end{bmatrix} 
 				\end{equation*}
 				
-				\[ 
-				\Rightarrow \quad
-				\mathbb{E}[\text{x}_{i}\text{x}_i']^{-1}\mathbb{E}[\text{x}_{i}w_i] 
-				=
-				\dfrac{\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}}
-				\begin{bmatrix}
-				    	- \mu_{x} \\
-					1
-				\end{bmatrix} 
-				\]
+				\begin{equation}\label{bias_ovb}
+					\Rightarrow \quad
+					\mathbb{E}[\text{x}_{i}\text{x}_i']^{-1}\mathbb{E}[\text{x}_{i}w_i] 
+					=
+					\dfrac{\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}}
+					\begin{bmatrix}
+				    		- \mu_{x} \\
+						1
+					\end{bmatrix} 
+				\end{equation}
 				
 				Note that $\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \overset{\textsc{lie}}{=} \mathbb{E}[\text{x}_{i}\text{x}_{i}'\mathbb{E}[v_{i}^{2} | \text{x}_{i}]]$. We thus first compute $\mathbb{E}[v_{i}^{2} | \text{x}_{i}]$, noting that:
 				~
 				\begin{align*}
             				v_i & =  y_i - \text{x}_i'\bm{\beta}_{\textsc{ovb}} \\
             					& = \delta w_{i} + u_i + \text{x}_i' (\bm{\beta} - \bm{\beta}_{\textsc{ovb}})\\
-            					& = \delta w_{i} + u_i - \underbrace{\text{x}_{i}' \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i}w_{i}]}_{\text{projection of $w$ on $X$}} \delta\\
-            					& =  u_i + \underbrace{\delta w_{i} - \dfrac{\delta\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} (x_{i} - \mu_{x})}_{\text{Part of $w$ that is orthogonal to $X$}}\\
-            				\Rightarrow \quad v_{i}^{2} &= \left( \delta w_{i} + u_i - \dfrac{\delta\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} (x_{i} - \mu_{x}) \right)^{2} \\
-            					& = \delta^{2}w_{i}^{2} + u_{i}^{2} + \left( \dfrac{\delta\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)^{2} (x_{i} - \mu_{x})^{2} + 2 \delta w_{i} u_i - 2\left( \dfrac{\delta\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)(x_{i} - \mu_{x})(\delta w_{i} + u_i) \\
-            				\Rightarrow \quad \mathbb{E}[v_{i}^{2} | \text{x}_{i}] & = \delta^{2} \mathbb{E}[w_{i}^{2} | \text{x}_{i}] + \underbrace{\mathbb{E}[u_{i}^{2} | \text{x}_{i}]}_{\sigma_u^{2}} + \left( \dfrac{\delta\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)^{2}  \underbrace{\mathbb{E}[(x_{i} - \mu_{x})^{2} | \text{x}_{i}]}_{(x_{i} - \mu_{x})^{2}}\\
-				& \quad +  2 \delta \underbrace{\mathbb{E}[w_{i}u_{i} | \text{x}_{i}]}_{} - 2\left( \dfrac{\delta\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)(x_{i} - \mu_{x})(\delta \underbrace{\mathbb{E}[w_{i} | \text{x}_{i}]}_{} + \underbrace{\mathbb{E}[u_i | \text{x}_{i}]}_{0}) 
+            					& = \delta w_{i} + u_i - \underbrace{\text{x}_{i}' \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i}w_{i}]}_{\text{projection of $w_i$ on $x_i$}} \delta\\
+            					& =  u_i + \delta \underbrace{\left(w_{i} - \dfrac{\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} (x_{i} - \mu_{x})\right)}_{\text{part of $w_i$ orthogonal to $x_i$}}\\
+						& = u_i + \delta w_{i}^{\perp} & \text{where } w_{i}^{\perp} = w_{i} - \dfrac{\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} (x_{i} - \mu_{x})
 				\end{align*}
 				
-				\textit{~\\Proof to be continued/modified here but I think I should get to $\mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} = \frac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{\sigma_{x}^{2}}$. This relation seems to hold in simulations.\\}
+				And thus,
+				\begin{align*}
+            				\mathbb{E}[v_{i}^{2} | \text{x}_{i}] & = \mathbb{E}[(u_i + \delta w_{i}^{\perp})^{2}| x_{i}]\\
+					& = \mathbb{E}[u_{i}^{2} | x_{i}] + 2\delta \mathbb{E}[u_{i}w_{i}^{\perp} | x_{i}] + \delta^{2}\mathbb{E}[(w_{i}^{\perp})^{2} | x_{i}]\\
+					& = \sigma_{u}^{2} + 2\delta \left( \mathbb{E}[u_{i}w_{i} | x_{i}] -  \dfrac{\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} (x_{i} - \mu_{x})\underbrace{\mathbb{E}[u_{i}|x_{i}]}_{0} \right) + \delta^{2}\mathbb{E}[(w_{i}^{\perp})^{2} | x_{i}]\\
+					& \overset{\textsc{lie}}{=} \sigma_{u}^{2} + 2\delta \mathbb{E}[w_{i} \underbrace{\mathbb{E}[u_{i} | x_{i}, w_{i}]}_{0} | x_{i}] + \delta^{2}\mathbb{E}[(w_{i}^{\perp})^{2} | x_{i}]\\
+					& = \sigma_{u}^{2} +  \delta^{2}\mathbb{E}[(w_{i}^{\perp})^{2} | x_{i}]
+				\end{align*}
 				
-				Thus, for $\hat{\beta}_{\textsc{ovb}}$, the second component of $\hat{\bm{\beta}}_{\textsc{ovb}}$, we have:
+				Notice that, by the law of total variance, $\mathbb{E}[(w_{i}^{\perp})^{2} | x_{i}] = \text{Var}(w_{i}^{\perp} | x_{i}) + \mathbb{E}[w_{i}^{\perp} | x_{i}]^{2}$. Now, since $w_{i}^{\perp}$ is the component of $w_{i}$ that is orthogonal to $x_{i}$ and by the projection interpretation of the conditional variance,  $\mathbb{E}[w_{i}^{\perp} | x_{i}] = 0$. And thus, since by assumption $\text{Var}(w_{i}^{\perp} | x_{i}) = \text{Var}(w_{i}^{\perp})$, 
+				~
+				\begin{align*}
+					\mathbb{E}[(w_{i}^{\perp})^{2} | x_{i}] & = \text{Var}(w_{i}^{\perp} | x_{i})\\
+					& = \text{Var}(w_{i}^{\perp}) \\
+					& = \mathbb{E}[(w_{i}^{\perp})^{2}] - \mathbb{E}[w_{i}^{\perp}]^{2}\\
+					& = \mathbb{E}\left[ \left(w_{i} - \dfrac{\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} (x_{i} - \mu_{x})\right)^{2} \right] - \left(\underbrace{\mathbb{E}[w_{i}]}_{0} + \dfrac{\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} \underbrace{\mathbb{E}[x_{i} - \mu_{x}]}_{0} \right)^{2}\\
+					& = \underbrace{\mathbb{E}[w_{i}^{2}]}_{\sigma_{w}^{2}} - 2 \dfrac{\gamma\sigma_{w}^{2}}{\sigma_{x}^{2}} \left( \underbrace{\mathbb{E}[x_{i}w_{i}]}_{\gamma \sigma_{w}^{2}} - \mu_{x}\underbrace{\mathbb{E}[w_{i}]}_{0} \right) + \dfrac{\gamma^{2}\sigma_{w}^{4}}{\sigma_{x}^{4}} \underbrace{\mathbb{E}[(x_{i} - \mu_{x})^{2}]}_{\sigma_{x}^{2}}\\
+					& = \sigma_{w}^{2} - 2 \dfrac{\gamma^{2}\sigma_{w}^{4}}{\sigma_{x}^{2}} + \dfrac{\gamma^{2}\sigma_{w}^{4}}{\sigma_{x}^{2}}\\
+					& = \sigma_{w}^{2} - \dfrac{\gamma^{2}\sigma_{w}^{4}}{\sigma_{x}^{2}} \\
+					& = \sigma_{w}^{2} \left(1 - \dfrac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)
+				\end{align*}
+				
+				Note that this variance is well defined (positive) only if $\sigma_{x}^{2} \geq \gamma^{2}\sigma_{w}^{2}$. Under this condition, 
+				~
+				\begin{equation}
+					\mathbb{E}[v_{i}^{2} | \text{x}_{i}] =  \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \dfrac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)
+				\end{equation}
+				
+				Thus, under our set of assumptions, $\mathbb{E}[v_{i}^{2} | \text{x}_{i}]$ does not depend on $x_{i}$ and $\mathbb{E}[v_{i}^{2} | \text{x}_{i}] =  \mathbb{E}[v_{i}^{2}]$. We denote this quantity $\sigma_{v}^{2}$.\\
+				
+				We can now compute the variance of the estimator $\hat{\bm{\beta}}_{\textsc{ovb}}$, noting that $\mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] = \mathbb{E}[\text{x}_{i}\text{x}_{i}'\mathbb{E}[v_{i}^{2} | \text{x}_{i}]] =  \mathbb{E}[\text{x}_{i}\text{x}_{i}' \sigma_{v}^{2}] = \sigma_{v}^{2} \mathbb{E}[\text{x}_{i}\text{x}_{i}']$. And thus $\mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{x}_{i}\text{x}_{i}'v_{i}^{2}] \mathbb{E}[\text{x}_{i}\text{x}_{i}']^{-1} = \sigma_{v}^{2} \mathbb{E}[\text{x}_{i}\text{x}_{i}']$.\\
+				
+				Plugin this and equation \ref{bias_ovb} into equation \ref{asympt_ovb}, we get, for $\hat{\beta}_{\textsc{ovb}}$, the second component of $\hat{\bm{\beta}}_{\textsc{ovb}}$:
+				\begin{equation*}
+						\hat{\beta}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \beta_1 + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{\sigma_{v}^{2}}{n \ \sigma_{x}^{2}} \right) 
+				\end{equation*}
+				
+				And substituting for $\sigma_{v}^{2}$,
 				\begin{equation}
 					\boxed{
-						\hat{\beta}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \beta_1 + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \sigma_{x}^{2}} \right) 
+						\hat{\beta}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \beta_1 + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}{n \ \sigma_{x}^{2}} \right) 
 					}
 				\end{equation}
 				
 				Using the notations introduced in section \ref{maths_objectives}, we have:
 				~
-				\begin{align*}
-					b_{\textsc{ovb}} & = \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}}\\
-					\sigma_{\textsc{ovb}}^{2} & = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \sigma_{x}^{2}}
-				\end{align*}				
+				\begin{equation}\label{b_sigma_ovb}
+					\begin{array}{lll}
+						b_{\textsc{ovb}} & = \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}}\\
+						\sigma_{\textsc{ovb}}^{2} & = \dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}{n \ \sigma_{x}^{2}}
+					\end{array}				
+				\end{equation}
 				
 				
 				% LOOK AT DEMEANED VERSION IN HANSEN p 71!!!!!!
@@ -379,23 +421,25 @@
 				
 				Using the notations introduced in section \ref{maths_objectives}, we have:
 				~
-				\begin{align}
-					b_{\textsc{iv}} & = 0\\
-					\sigma_{\textsc{iv}}^{2} & = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \eta_{1}^{2}\sigma_{z}^{2}}
-				\end{align}
-			
-			This variance is close to the one obtained in the case of the naive regression with $\eta_{1}^{2}\sigma_{z}^{2}$ instead of $\sigma_{x}^{2}$ in the denominator. Note that, the following holds:
-				~
-				\begin{align*}
-					\sigma_x^2 & =  \text{Var}(x_{i}) = \text{Var}(\eta_0 + \eta_{1} z_i + \gamma w_i + \epsilon_i) \\
-						& = \eta_{1}^{2} \text{Var}(z_i) + \gamma^{2} \text{Var}(w_i) + \text{Var}(\epsilon_{i}) + 2\eta_{1} \gamma \underbrace{\text{cov}(z_i, w_i)}_{0} + 2 \gamma \underbrace{\text{cov}(\epsilon_i, w_i)}_{0} + 2 \eta_{1} \underbrace{\text{cov}(\epsilon_i, z_i)}_{0}\\
-						& = \eta_{1}^{2} \sigma_{z}^{2} + \gamma^{2} \sigma_{w}^{2} + \sigma_{\epsilon}^{2} \\
-						& < \eta_{1}^{2} \sigma_{z}^{2} 
-				\end{align*}
 				
-				As a consequence, $\boxed{\sigma_{\textsc{iv}}^{2} > \sigma_{\textsc{ovb}}^{2}}$. While unbiased, the IV estimator is less precise than the naive estimator. This is a well known and intuitive result that we recovered in a particular setting, tied to the modelling assumptions we made. This result is due to the fact that the IV only uses part of the variation in the endogenous dependent variable, the part that is explained by the instrument. 
+				\begin{equation}\label{b_sigma_iv}
+					\begin{array}{lll}
+						b_{\textsc{iv}} & = 0\\
+					\sigma_{\textsc{iv}}^{2} & = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \eta_{1}^{2}\sigma_{z}^{2}}
+					\end{array}				
+				\end{equation}
 				
 				Note that, since $z_{i}$ is uncorrelated with $w_{i}$ and $\epsilon_{i}$, 
+				~
+				\begin{align*}
+					\sigma_{x}^{2} & =  \text{var}(x_{i}) = \text{var}(\eta_{0} + \eta_{1}z_{i} + \gamma w_{i} + \epsilon_{i})\\
+						& = \eta_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon}^{2} + 2\eta_{1}\gamma \underbrace{\text{cov}(z_{i}, w_{i})}_{0} + 2 \eta_{1}  \underbrace{\text{cov}(z_{i}, \epsilon_{i})}_{0} + 2\gamma \underbrace{\text{cov}(w_{i}, \epsilon_{i})}_{0} \\
+						& = \underbrace{\eta_{1}^{2}\sigma_{z}^{2}}_{V_{z}^{x}} + \underbrace{\gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon}^{2}}_{V_{\text{non-}z}^{x}}
+				\end{align*}
+				
+				For a given variance of $x$, \ul{the larger the proportion of this variance that depends on $z$, $V_{z}^{x}$, (and the smaller the non-$z$ component $V_{\text{non-}z}^{x}$), the more precise the estimate}.
+				
+				Also note that,
 				~
 				\begin{align*}
 					 &\text{cov}(x_i , z_i) =  \text{cov}( \eta_0 + \eta_1 z_i + \gamma w_{i} + \epsilon_i , z_i) = \eta_1 \sigma_{z}^{2}\\
@@ -406,19 +450,214 @@
 				
 				One can therefore rewrite the formula for the variance of our IV estimator as 
 				~
-				\begin{equation}
-					\sigma_{\textsc{iv}}^{2}  = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \sigma_{x}^{2} \rho_{xz}^{2}} \quad \text{and thus} \quad \boxed{\sigma_{\textsc{iv}}^{2}  = \dfrac{\sigma_{\textsc{ovb}}^{2}}{\rho_{xz}^{2}}}
-				\end{equation}
+				\begin{equation*}
+					\sigma_{\textsc{iv}}^{2}  = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \sigma_{x}^{2} \rho_{xz}^{2}}
+				\end{equation*}
 				
-				These variance formula enable to retrieve the usual results regarding the determinant of the 2SLS variance as discussed in \cite{hansen_econometrics_2022} for instance. %p354
-				 The variance of the estimator increases when the variance of the error $\sigma_u^{2}$ increases. It decreases with the correlation between $x$ and $z$, $\rho_{xz}$ and with the variance of $x$, $\sigma_{x}^{2}$, for a given omitted variable. %Also note that, as for the naive regression, the variance of the estimator increases with the correlation between $x$ and the omitted variable as  
+				This variance formula enables to retrieve the usual result regarding the determinant of the 2SLS variance as discussed in \cite{hansen_econometrics_2022} for instance. %p354
+				 The variance of the estimator increases when $\sigma_u^{2}$, the variance of the error, increases. It decreases with  $\rho_{xz}$, the correlation between $x$ and $z$, and with $\sigma_{x}^{2}$, the variance of $x$, assuming the omitted variable fixed. %Also note that, as for the naive regression, the variance of the estimator increases with the correlation between $x$ and the omitted variable as  
+				
+		\subsection{Comparison of efficiencies}
+			
+			The IV and naive regression variances are rather similar. Note that $\sigma_x^2 \rho_{xz}^{2} < \sigma_x^2$ and,
+				~
+				\begin{align*}
+					  \dfrac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} > 0
+						 \quad \Leftrightarrow \quad  
+					 1 - \dfrac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} < 1
+						\quad \Leftrightarrow \quad  
+					\sigma_{u}^{2} + \delta^{2} \sigma_{w}^{2} \left( 1 - \dfrac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right) <  \sigma_{u}^{2} + \delta^{2} \sigma_{w}^{2} 
+				\end{align*}
+				
+				Both these inequalities imply that $\boxed{\sigma_{\textsc{iv}}^{2} > \sigma_{\textsc{ovb}}^{2}}$. While unbiased, the IV estimator is less precise than the naive estimator. This is a well known and intuitive result that we recovered in a particular setting, tied to the modelling assumptions we made. This result is due to the fact that the IV only uses part of the variation in the endogenous dependent variable, the part that is explained by the instrument. 
+				
+				
 				
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\section{Exaggeration ratio and its properties}
-
-		\textit{Under construction.}						
+	
+		 We now want to compute the exaggeration ratio for each identification strategy in order to understand how they evolve with the values of the parameters of the model and how these quantities compare across identification strategy.
+		 
+		  \subsection{A general expression for the exaggeration ratio}
+		 
+		 	In this subsection, we derive a general expression for the exaggeration ratio. For an estimator $\hat{\beta} \sim \mathcal{N}(\beta, \sigma^{2})$ of a true effect of magnitude $\beta_1$, we define the exaggeration ratio $E$ as the ratio expected value of the estimate conditional on the estimate being statistically significant over the true effect:
+		 
+			 \[
+			 	E(\beta, \sigma, \beta_{1}, z_{\alpha}) = \dfrac{\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]}{\beta_{1}}
+			\]
+		
+			Note that \cite{gelman_beyond_2014} consider the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}\left[ | \hat{\beta}| | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right] / \beta_{1}$. To simplify the derivation, we abstract from the absolute value. Our exaggeration ratio therefore depends on the well-known expected value of a truncated normal distribution instead of on the expected value of a truncated \textit{folded} normal distribution. To avoid using the two terms interchangeably, in this document, we refer to $E$ as the ``exaggeration ratio'' and $\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]$ as ``exaggeration''.\\
+			
+			Since $\hat{\beta} \sim \mathcal{N}(\beta, \sigma^{2})$, its support is $\mathbb{R}$ and pdf is $f_{\hat{\beta}}: x \mapsto \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{(x -\beta)^{2}}{2\sigma^{2}}}$. Thus, by definition of the conditional expectation,
+			~
+			\begin{align*}
+				\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]  
+					& =  \dfrac{1}{\text{Pr}(\hat{\beta} > z_{\alpha}\sigma)} \int_{z_{\alpha}\sigma}^{\infty}x \times f_{\hat{\beta}} (x)\text{d}x
+			\end{align*}
+			
+			Now,
+			~
+			\begin{align*}
+				\text{Pr}(\hat{\beta} > z_{\alpha}\sigma) 
+					& = \int_{z_{\alpha}\sigma}^{\infty} f_{\hat{\beta}} (x) \text{d}x\\
+					& =  \dfrac{1}{\sqrt{2\pi \sigma^{2}}}\int_{z_{\alpha}\sigma}^{\infty} e^{-\frac{(x -\beta)^{2}}{2\sigma^{2}}} \text{d}x\\
+					& =  \dfrac{1}{\sqrt{2\pi }}\int_{z_{\alpha} - \frac{\beta}{\sigma}}^{\infty} e^{-\frac{t^{2}}{2}} \text{d}t & \text{by the change of variable } x = \sigma t + \beta\\
+					& =  1 - \Phi\left( z_{\alpha} - \frac{\beta}{\sigma} \right) & \text{with $\Phi$ the cdf of the std. normal} \\
+					& = \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right) & \text{since } \forall x \in  \mathbb{R}, \ \Phi(-x) = 1 - \Phi(x)
+			\end{align*}
+			
+			and,
+			~
+			\begin{align*}
+				 \int_{z_{\alpha}\sigma}^{\infty}x \times f_{\hat{\beta}} (x)\text{d}x
+					& =  \dfrac{1}{\sqrt{2\pi \sigma^{2}}}\int_{z_{\alpha}\sigma}^{\infty} x  e^{-\frac{(x -\beta)^{2}}{2\sigma^{2}}} \text{d}x\\~\\
+					& =  \dfrac{1}{\sqrt{2\pi }}\int_{z_{\alpha} - \frac{\beta}{\sigma}}^{\infty} ( \sigma t + \beta ) e^{-\frac{t^{2}}{2}} \text{d}t & \text{by the same change of variable}\\~\\
+					& = \beta \times \dfrac{1}{\sqrt{2\pi }}\int_{z_{\alpha} - \frac{\beta}{\sigma}}^{\infty} e^{-\frac{t^{2}}{2}} \text{d}t  + \sigma \dfrac{1}{\sqrt{2\pi }}\int_{z_{\alpha} - \frac{\beta}{\sigma}}^{\infty} t e^{-\frac{t^{2}}{2}} \text{d}t 
+					 \\~\\
+					 & = \beta \left( 1 - \Phi\left( z_{\alpha} - \frac{\beta}{\sigma} \right)\right) + \sigma \dfrac{1}{\sqrt{2\pi }} \left[ - e^{-\frac{t^{2}}{2}}\right]^{\infty}_{z_{\alpha} - \frac{\beta}{\sigma} }\\
+					& =  \beta \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right) + \sigma \dfrac{1}{\sqrt{2\pi }} e^{-\frac{(z_{\alpha} - \beta)^{2}}{2\sigma^{2}}}\\
+					& =  \beta \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right) + \sigma \phi\left(z_{\alpha} - \frac{\beta}{\sigma} \right) & \text{with $\phi$ the pdf of the std. norm.}\\
+					& =  \beta \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right) + \sigma \phi\left(\frac{\beta}{\sigma} - z_{\alpha} \right) & \text{since } \forall x \in  \mathbb{R}, \ \phi(-x) = \phi(x)
+			\end{align*}
+			
+			Thus, we have, 
+			~
+			\begin{equation*}
+				E(\beta, \sigma, \beta_{1}, z_{\alpha}) = \dfrac{\beta}{\beta_{1}} + \dfrac{\sigma}{\beta_1} \dfrac{\phi\left( \dfrac{\beta}{\sigma} - z_{\alpha} \right)}{\Phi\left( \dfrac{\beta}{\sigma} - z_{\alpha} \right)}
+			\end{equation*}
+		
+			where $\phi$ and $\Phi$ are respectively the pdf and the cdf of the standard normal distribution. We then introduce the inverse Mills ratio, the function $\lambda : x \mapsto \phi(x) / \Phi(x)$. We also consider an estimator whose mean can be decomposed in $\beta = \beta_{1} + b$, with $\beta_{1}$ the true effect and $b$ a bias independent of $\beta_{1}$. We can then write the exaggeration ratio as:
+			
+			\begin{equation}\label{exagg_general}
+				\boxed{
+					E(\beta, \sigma, \beta_{1}, z_{\alpha}) = 1 + \dfrac{b}{\beta_{1}}+ \dfrac{\sigma}{\beta_1} \lambda\left( \dfrac{\beta_{1} + b}{\sigma} - z_{\alpha} \right) 
+				}
+			\end{equation}
+			
+			Note that since this document is a thorough description of the analysis, we chose to derive this expression analytically. We could have obtained it directly using properties of a truncated normal or directly using the expression of the inverse Mills ratio.\\
+			
+			Another important metric in this paper is statistical power. It defined as the probability of rejecting the null of no effect when it is actually true. Hence, for a usual two-sided t-test with $n \gg k$, with $k$ the number of covariates, the statistical power $p$ is given by:
+			~
+			\begin{align*}
+				p(\beta, \sigma, \beta_{1}, z_{\alpha}) & = \text{Pr}(\hat{\beta} < - z_{\alpha}\sigma ) + \text{Pr}(\hat{\beta} > z_{\alpha}\sigma)\\
+				  & = \text{Pr}\left(\frac{\hat{\beta} - \beta}{\sigma} < - z_{\alpha} - \frac{\beta}{\sigma} \right) + \text{Pr}\left(\frac{\hat{\beta} - \beta}{\sigma} > z_{\alpha} - \frac{\beta}{\sigma} \right)\\
+				  & =  \Phi \left( - z_{\alpha} - \dfrac{\beta}{\sigma} \right) + 1 -  \Phi \left( z_{\alpha} - \dfrac{\beta}{\sigma} \right)  &  \text{since } \frac{\hat{\beta} - \beta}{\sigma} \sim \mathcal{N}(0,1)
+			\end{align*}
+			
+			And thus, since $\forall x \in  \mathbb{R}, \ \Phi(-x) = 1 - \Phi(x)$,
+			~
+			\begin{equation}
+				\boxed{
+					p(\beta, \sigma, \beta_{1}, z_{\alpha})  =  1 - \Phi \left( \dfrac{\beta}{\sigma} + z_{\alpha} \right) + \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right)
+				}
+			\end{equation}
+				
+			
+		\subsection{Evolution of the exaggeration ratio with $\sigma$,  $\beta$ and $b$}
+			
+			For simplicity, we focus on the case of $\beta_{1} > 0$ and $b > 0$. The inverse Mills ratio is a decreasing function. %\citep{sampford_inequalities_1953}
+			It thus easily follows that \ul{$E$ increases with $\sigma$, the standard error of the estimator}. The more precise the estimator, the less exaggeration. In the case of an unbiased estimator or of 
+			, it also easily follows that \ul{$E$ is a decreasing function of $\beta_{1}$, the true effect size}. These two results have been proven by \cite{lu_note_2019} and \cite{zwet_significance_2021} in the case of an exaggeration defined as the expected value of the absolute value of the estimate, as in  \cite{gelman_beyond_2014}. These results are rather intuitive if one considers graphs describing exaggeration.
+			
+			%%% ADD GRAAAAAAAPPPPPHHHSSSS
+			
+		 \subsection{Evolution of the exaggeration ratio with the value of model parameters}
+		 
+		 	We then focus on the OVB and IV estimators whose distributions we derived in the previous section in order to understand how their respective exaggeration ratios, $E_{\textsc{ovb}}$ and $E_{\textsc{iv}}$, evolve with the values of the model parameters described in section \ref{maths_dgp}. In particular, we want to understand how exaggeration evolves with the correlation between $x$ and $z$, $\rho_{xz}$ and the intensity of the OVB, \textit{ie}, $\delta$ and $\gamma$.
+			
+			\subsubsection{IV}
+			
+				Plugging in the values for $\beta_{\textsc{iv}}$, $\sigma_{\textsc{iv}}$ and $b_{\textsc{iv}}$, from equation \ref{b_sigma_iv} into equation \ref{exagg_general}, we get:
+				~
+				\begin{align*}
+					E_{\textsc{iv}} & = 
+					1 + 
+					 \dfrac{\sqrt{\dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }{n \ \eta_{1}^{2} \sigma_{z}^{2}}}}{\beta_{1}}
+					 \lambda \left( \dfrac{\beta_{1} }{\sqrt{\dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }{n \ \eta_{1}^{2} \sigma_{z}^{2}}}} - z_{\alpha} \right)\\
+					  & = 
+					1 + 
+					\dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}\eta_{1} \sigma_{z}\sqrt{n}}
+					 \lambda \left( \dfrac{\beta_{1}\eta_{1} \sigma_{z}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right)
+				\end{align*}
+				
+				Since there is no bias, the only factor varying with the values of the model parameters is the standard error of the estimator. Since the exaggeration ratio increases with this standard error, any model parameter positively associated with the later will increase the former. Hence, the exaggeration ratio of the IV estimator, $E_{\textsc{iv}}$, increases with $\sigma_{u}$, $\sigma_{w}$ and $\delta$ and decreases with $\sigma_{z}$, $\eta_{1}$ and $n$. It also decreases with $\beta_{1}$. We thus showed that \ul{exaggeration decreases with the strength of the instrument}. Now, note that:
+				~
+				\begin{align*}
+					\sigma_{y}^{2} & =  \text{var}(y_{i}) = \text{var}(\beta_{0} + \beta_{1}x_{i} + \delta w_{i} + u_{i})\\
+						& = \beta_{1}^{2}\sigma_{x}^{2} + \delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2} + 2\beta_{1}\delta \underbrace{\text{cov}(x_{i}, w_{i})}_{\gamma \sigma_{w}^{2}} + 2 \beta_{1}  \underbrace{\text{cov}(x_{i}, u_{i})}_{0} + 2\delta \underbrace{\text{cov}(w_{i}, u_{i})}_{0} \\
+						& = \beta_{1}^{2}\sigma_{x}^{2} + (\delta^{2} + 2\beta_{1}\gamma\delta)\sigma_{w}^{2} + \sigma_{u}^{2}\\
+						%& = \underbrace{\beta_{1}^{2}\sigma_{x}^{2}}_{V_{x}^{y}} + \underbrace{\delta (\delta + 2\beta_{1}\gamma)\sigma_{w}^{2} + \sigma_{u}^{2}}_{V_{\text{non-}x}^{y}}
+						& = \beta_{1}^{2}(\eta_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon}^{2}) + (\delta^{2} + 2\beta_{1}\gamma\delta)\sigma_{w}^{2} + \sigma_{u}^{2}\\
+						& = \underbrace{\beta_{1}^{2}\eta_{1}^{2}\sigma_{z}^{2}}_{V_{z}^{y}} + \underbrace{(\beta_{1}\gamma + \delta)^{2}\sigma_{w}^{2} + (\beta_{1}^{2}\sigma_{\epsilon}^{2} + \sigma_{u}^{2})}_{V_{\text{non-}z}^{y}}
+						%& = \beta_{1}^{2}\eta_{1}^{2}\sigma_{z}^{2} + (\beta_{1}\gamma + \delta)^{2}\sigma_{w}^{2} + (\beta_{1}^{2}\sigma_{\epsilon}^{2} + \sigma_{u}^{2})
+				\end{align*}
+				
+				The larger the parameters that are positively associated with $E_{\textsc{iv}}$ ($\sigma_{u}$, $\sigma_{w}$ and $\delta$), the larger the proportion of the variance of $y$ that does not depend on $z$, $V_{\text{non-}z}^{y}$. Hence, for a given variance of $y$, the smaller the proportion of  this variance that depends on $z$, $V_{z}^{y}$, (and the larger the non-$z$ component $V_{\text{non-}z}^{y}$), the less precise the estimate and the larger the exaggeration. \ul{The smaller the proportion of the variance in $y$ that depends on $z$, the larger the exaggeration of the IV estimator}.\\
+				
+				%The smaller the parameters that are positively associated with $E_{\textsc{iv}}$ ($\sigma_{u}$, $\sigma_{w}$ and $\delta$), the smaller the proportion of the variance of $y$ that does not depend on $x$, $V_{\text{non-}x}^{y}$. Hence, for a given variance of $y$, the larger the proportion of  this variance that depends on $x$, $V_{x}^{y}$, (and the smaller the non-$x$ component $V_{\text{non-}x}^{y}$), $\sigma_{x}$, the more precise the estimate and the lower exaggeration. The larger the proportion of the variance in $y$ that depends on $x$, the smaller the exaggeration. Now, since $\sigma_{x}^{2} = \eta_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon}^{2}$ and as mentioned above, for a fixed proportion of the variance of $y$ explained by $x$, \ul{the smaller the proportion of the variance in $x$ that depends on $z$, the larger the exaggeration}.
+				
+				Since $\eta_{1}\sigma_{z} = \rho_{xz}\sigma_{x}$, we can also express this exaggeration ratio as:
+				~
+				\begin{align*}
+					E_{\textsc{iv}} & = 
+					1 + 
+					\dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}
+					 \lambda \left( \dfrac{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right)
+				\end{align*}
+				
+				Note that $E_{\textsc{iv}}$ decreases with $\rho_{xz}$, the correlation between the endogenous variable $x$ and the instrument $z$.	 
+				
+				\subsubsection{OVB}
+			
+				Plugging in the values for $\beta_{\textsc{ovb}}$, $\sigma_{\textsc{ovb}}$ and $b_{\textsc{ovb}}$, from equation \ref{b_sigma_ovb} into equation \ref{exagg_general}, we get:
+			~
+			\begin{align*}
+				E_{\textsc{ovb}} 
+				   & = 1 + 
+				\dfrac{\delta \gamma \sigma_{w}^{2}}{\beta_{1}\sigma_{x}^{2}} +
+				 \dfrac{\sqrt{\dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}{n \ \sigma_{x}^{2}}}}{\beta_{1}}
+				 \lambda \left( \dfrac{\beta_{1} + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} }{\sqrt{\dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}{n \ \sigma_{x}^{2}}}} - z_{\alpha} \right)\\
+				 & = 1 + 
+				\dfrac{\delta \gamma \sigma_{w}^{2}}{\beta_{1}\sigma_{x}^{2}} +
+				 \dfrac{\sqrt{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}}{\beta_{1} \sigma_{x} \sqrt{n}}
+				 \lambda \left( \dfrac{ \sigma_{x}\sqrt{n} \left( \beta_{1} + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} \right)  }{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}} - z_{\alpha} \right)
+			\end{align*}
+			
+				Keeping in mind that $\lambda$ is a decreasing function, we notice that $E_\text{ovb}$ decreases with $\beta_{1}, \sigma_{x}$ and $n$ and increases with $\sigma_{u}$. Analytically deriving the evolution of this quantity with the omitted variable bias, \textit{ie}, with $\delta$, $\gamma$ and $\sigma_{w}$ is more challenging. The direction of this evolution is likely to depend on the value of the parameters. Since this is not the focus of the present paper, we do not dive into this. We however expect that, if the bias is upward ($\delta$ and $\gamma$ of the same sign), we expect the exaggeration to increase with $\delta$, $\gamma$ and $\sigma_{w}^{2}$, for realistic values of the various parameters since the usual omitted variable bias $\left( \frac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} \right)$ is a major component of the exaggeration. 
+			
+                		\subsection{The exaggeration/confounders trade-off}
+                		
+                			The objective of this paper is to compare ``biases'' resulting from exaggeration and confounders. In this document, we thus aim to compare $E_{\textsc{ovb}}$ to $E_{\textsc{iv}}$. We thus define $\varDelta = E_{\textsc{iv}} - E_{\textsc{ovb}}$ and analyse whether and for which parameters values $\varDelta > 0$. In particular, we focus on the strength of the IV (or the correlation between the instrument and the endogenous variable). 
+                    		~
+                    		\begin{multline*}
+                    			\varDelta = 
+                    				\dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}
+                    					 \lambda \left( \dfrac{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right) - 
+                    				\dfrac{\delta \gamma \sigma_{w}^{2}}{\beta_{1}\sigma_{x}^{2}} \\
+                    				- \dfrac{\sqrt{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}}{\beta_{1} \sigma_{x} \sqrt{n}}
+                    				 \lambda \left( \dfrac{ \sigma_{x}\sqrt{n} \left( \beta_{1} + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} \right)  }{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}} - z_{\alpha} \right)
+                    		\end{multline*}
+                    				
+                    		First, note that only $E_{\textsc{iv}}$ depends on $\rho_{xz}$. Since $E_{\textsc{iv}}$ decreases with $\rho_{xz}$, $\varDelta$ also decreases with $\rho_{xz}$. Now, for fixed and finite values of the other parameters, and since we assumed that $\beta_{1} > 0$,
+                    		~
+                    		\begin{align*}
+                    			\lim_{\rho_{xz} \to 0^{+}} & \dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}} = + \infty \\
+                    			\lim_{\rho_{xz} \to 0^{+}} & \lambda \left( \dfrac{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right) = \lambda (- z_{\alpha}) \in \mathbb{R}_{+}
+                    		\end{align*}
+                    			
+                    		Since the other components of $\varDelta$ are finite and do not depend on $\rho_{xz}$, $\lim_{\rho_{xz} \to 0^{+}} \varDelta = + \infty$. Since $\varDelta$ is a continuous function of $\rho_{xz}$ on $(0, 1]$, for any set of parameter values consistent with our hypotheses, $\exists \rho_{xz} \in (0, 1] \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$. Since $\eta_{1}\sigma_{z} = \rho_{xz}\sigma_{x}$, it is also straigthforward to show, for any set of parameter values consistent with our hypotheses, $\exists \eta_{1} \in (0, +\infty) \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$. 
+                    		
+                    		We thus have shown that, \ul{if the correlation between the instrument and the endogenous variable is low, the exaggeration bias of the IV can be larger than that of the ``naive'' regression, even in the presence of confounders}. The trade-off, \textit{ie} the value of $\varDelta$, is affected by this correlation, or the strength of the instrument. 
+		
+		
+		Yet, the value and the sign of $\varDelta$ depend on the value of the other parameters in a non-trivial maner. In a concrete setting, it might therefore be difficult to identify how ``low'' the correlation has to be for $\varDelta$ to be positive. 
+                    		
+                    		
+    		
+    						
+    				
 	
 \bibliographystyle{agsm}
 \bibliography{causal_inflation.bib}	

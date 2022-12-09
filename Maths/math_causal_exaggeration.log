@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  28 NOV 2022 19:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  28 NOV 2022 20:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1432,8 +1432,6 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 \tf@brf=\write5
 \openout5 = `math_causal_exaggeration.brf'.
 
-)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 668.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1441,27 +1439,36 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[13]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 668.
+[13])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 671.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[14]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 671.
  (./math_causal_exaggeration.aux (./bu.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 668.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 668.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 671.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 671.
 Package rerunfilecheck Info: File `math_causal_exaggeration.out' has not change
 d.
 (rerunfilecheck)             Checksum: 0D8EF6DCB98DCE5356A34BC065DDD2EA;1296.
 Package rerunfilecheck Info: File `math_causal_exaggeration.brf' has not change
 d.
 (rerunfilecheck)             Checksum: 201AD95EAC772459B08D22A6116531C7;377.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 668.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 671.
  ) 
 Here is how much of TeX's memory you used:
- 14247 strings out of 492995
- 202218 string characters out of 6132704
+ 14248 strings out of 492995
+ 202225 string characters out of 6132704
  341633 words of memory out of 5000000
  17443 multiletter control sequences out of 15000+600000
  29497 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,18n,56p,1074b,525s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,18n,56p,1074b,548s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
 /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
@@ -1487,10 +1494,10 @@ mf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2017/texmf
 ist/fonts/type1/public/cm-super/sfxc1200.pfb></usr/local/texlive/2017/texmf-dis
 t/fonts/type1/public/cm-super/sfxc1440.pfb></usr/local/texlive/2017/texmf-dist/
 fonts/type1/public/cm-super/sfxc1728.pfb>
-Output written on math_causal_exaggeration.pdf (13 pages, 393799 bytes).
+Output written on math_causal_exaggeration.pdf (14 pages, 394393 bytes).
 PDF statistics:
- 311 PDF objects out of 1000 (max. 8388607)
- 253 compressed objects within 3 object streams
- 50 named destinations out of 1000 (max. 500000)
+ 315 PDF objects out of 1000 (max. 8388607)
+ 256 compressed objects within 3 object streams
+ 51 named destinations out of 1000 (max. 500000)
  142 words of extra memory for PDF output out of 10000 (max. 10000000)
 

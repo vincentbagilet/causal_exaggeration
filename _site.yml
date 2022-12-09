@@ -1,5 +1,5 @@
 name: "."
-title: "Unconfounded but Inflated Causal Estimates"
+title: "Causal exaggeration"
 theme: causal_inflation_website.css
 description: |
   Causal Inflation
@@ -13,6 +13,8 @@ navbar:
       href: summary.html
     - text: "Intuition"
       href: experiments.html
+    - text: "Maths"
+      href: maths.html
     - text: "Simulations"
       menu:
         - text: "RDD"

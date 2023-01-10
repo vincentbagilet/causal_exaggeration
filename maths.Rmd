@@ -68,7 +68,7 @@ dagify(Y ~ X + W,
        coords = list(x = c(Y = 3, X = 2, W = 2.5, Z = 1),
                      y = c(Y = 1, X = 1, W = 0, Z = 1))) %>% 
   # ggdag() +
-  ggplot(ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
   geom_dag_point(alpha = 0, stroke = TRUE) +
   geom_dag_edges() +
   geom_dag_text(
@@ -141,17 +141,17 @@ baseline_param_maths <- tibble(
   sigma_w = 1.1,
   sigma_epsilon = 1.2,
   eta_0 = 0.3,
-  eta_1 = 1.1,
-  gamma = 2,
-  sigma_u = 0.8,
+  eta_1 = 1,
+  gamma = 0.2,
+  sigma_u = 0.81,
   beta_0 = 0.2,
-  beta_1 = 0.1,
-  delta = 0.3
+  beta_1 = 0.07,
+  delta = 0.2
 )
 
 baseline_param_maths %>% kable()
 
-n_iter <- 1000
+n_iter <- 3000
 
 param_maths <- baseline_param_maths %>% 
   crossing(rep_id = 1:n_iter) %>% 
@@ -226,18 +226,31 @@ saveRDS(sim_maths, here("Outputs/sim_maths.RDS"))
 
 ### Analysis of the results
 
-First, we plot the distribution of the estimates
+First, we plot the distribution of the estimates.
 
 ```{r graph_maths, echo=FALSE, fig.asp=1.2}
-sim_maths <-readRDS(here("Outputs/sim_maths.RDS"))
+sim_maths <- readRDS(here("Outputs/sim_maths.RDS"))
 
 sim_maths %>% 
   mutate(
     signif_name = ifelse(signif, "Significant", "Non significant"),
-    model_name = model %>% 
-      str_to_title() %>% 
-      str_replace_all("_", " ") %>% 
-      str_c(., " model")
+    # model_name = model %>% 
+    #   str_to_title() %>% 
+    #   str_replace_all("_", " ") %>% 
+    #   str_c(., " model"),
+    model = fct_relevel(model, c("unbiased", "biased", "iv", "reduced_form")),
+    model_name = case_when(
+      model == "biased" ~ "Biased model \n y = a + b.x + u",
+      model == "iv" ~ "IV model \n y = a + b.x + u, x instrumented by z",
+      model == "reduced_form" ~ "Reduced form model \n y = a + b.z + u",
+      model == "unbiased" ~ "Unbiased model \n y = a + b.x + c.w + u",
+      TRUE ~ "other" 
+      ),
+    model_name = fct_relevel(model_name, c(
+      "Unbiased model \n y = a + b.x + c.w + u", 
+      "Biased model \n y = a + b.x + u",
+      "IV model \n y = a + b.x + u, x instrumented by z",
+      "Reduced form model \n y = a + b.z + u")),
   ) %>% 
   group_by(model) %>% 
   mutate(
@@ -247,8 +260,8 @@ sim_maths %>%
   ungroup() %>% 
   filter(dplyr::between(estimate, -0.5, 0.7)) %>% 
   ggplot(aes(x = estimate, fill = signif_name)) +
-  geom_histogram(bins = 50) +
-  # geom_area(stat ="bin", bins = 50) +
+  geom_histogram(bins = 70) +
+  # geom_area(stat = "bin", bins = 30) +
   facet_wrap(~ model_name, nrow = 4) +
   geom_vline(xintercept = 0, linetype = "solid", size = 0.1) +
   geom_vline(xintercept = baseline_param_maths$beta_1) +
@@ -259,14 +272,17 @@ sim_maths %>%
     size = 0.3
   ) +
   labs(
-    title = "Distribution of estimates produced in the simulation",
-    subtitle = "Comparison across models",
-    fill = "",
+    # title = "Distribution of estimates across models",
+    title = "Estimates from the causal strategies are unbiased on average \n but significant ones are biased",
+    fill = NULL,
     x = "Estimate",
     y = "Count",
-    caption = "The green vertical dashed line represents the true effect size
-      The brown vertical solid line represents the average of significant estimates"
-  ) 
+    # caption = "The green dashed line represents the true effect size
+    #   The brown solid line represents the average of significant estimates"
+  ) +
+  xlim(c(-0.05, 0.2))
+
+ggsave(here("images", "graph_maths_paper.pdf"), width = 6, height = 8)
 ```
 
 We then look at the mean of the estimates and of the statistically significant ones for each model:

@@ -578,8 +578,8 @@
 					 \lambda \left( \dfrac{\beta_{1} }{\sqrt{\dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }{n \ \eta_{1}^{2} \sigma_{z}^{2}}}} - z_{\alpha} \right)\\
 					  & = 
 					1 + 
-					\dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}\eta_{1} \sigma_{z}\sqrt{n}}
-					 \lambda \left( \dfrac{\beta_{1}\eta_{1} \sigma_{z}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right)
+					\dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}|\eta_{1}| \sigma_{z}\sqrt{n}}
+					 \lambda \left( \dfrac{\beta_{1}|\eta_{1}| \sigma_{z}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right)
 				\end{align*}
 				
 				Since there is no bias, the only factor varying with the values of the model parameters is the standard error of the estimator. Since the exaggeration ratio increases with this standard error, any model parameter positively associated with the later will increase the former. Hence, the exaggeration ratio of the IV estimator, $E_{\textsc{iv}}$, increases with $\sigma_{u}$, $\sigma_{w}$ and $\delta$ and decreases with $\sigma_{z}$, $\eta_{1}$ and $n$. It also decreases with $\beta_{1}$. We thus showed that \ul{exaggeration decreases with the strength of the instrument}. Now, note that:
@@ -598,7 +598,7 @@
 				
 				%The smaller the parameters that are positively associated with $E_{\textsc{iv}}$ ($\sigma_{u}$, $\sigma_{w}$ and $\delta$), the smaller the proportion of the variance of $y$ that does not depend on $x$, $V_{\text{non-}x}^{y}$. Hence, for a given variance of $y$, the larger the proportion of  this variance that depends on $x$, $V_{x}^{y}$, (and the smaller the non-$x$ component $V_{\text{non-}x}^{y}$), $\sigma_{x}$, the more precise the estimate and the lower exaggeration. The larger the proportion of the variance in $y$ that depends on $x$, the smaller the exaggeration. Now, since $\sigma_{x}^{2} = \eta_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon}^{2}$ and as mentioned above, for a fixed proportion of the variance of $y$ explained by $x$, \ul{the smaller the proportion of the variance in $x$ that depends on $z$, the larger the exaggeration}.
 				
-				Since $\eta_{1}\sigma_{z} = \rho_{xz}\sigma_{x}$, we can also express this exaggeration ratio as:
+				Since $\eta_{1}^{2}\sigma_{z}^{2} = \rho_{xz}^{2}\sigma_{x}^{2}$, we can also express this exaggeration ratio as:
 				~
 				\begin{align*}
 					E_{\textsc{iv}} & = 
@@ -647,7 +647,7 @@
                     			\lim_{\rho_{xz} \to 0^{+}} & \lambda \left( \dfrac{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right) = \lambda (- z_{\alpha}) \in \mathbb{R}_{+}
                     		\end{align*}
                     			
-                    		Since the other components of $\varDelta$ are finite and do not depend on $\rho_{xz}$, $\lim_{\rho_{xz} \to 0^{+}} \varDelta = + \infty$. Since $\varDelta$ is a continuous function of $\rho_{xz}$ on $(0, 1]$, for any set of parameter values consistent with our hypotheses, $\exists \rho_{xz} \in (0, 1] \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$. Since $\eta_{1}\sigma_{z} = \rho_{xz}\sigma_{x}$, it is also straigthforward to show, for any set of parameter values consistent with our hypotheses, $\exists \eta_{1} \in (0, +\infty) \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$. 
+                    		Since the other components of $\varDelta$ are finite and do not depend on $\rho_{xz}$, $\lim_{\rho_{xz} \to 0^{+}} \varDelta = + \infty$. Since $\varDelta$ is a continuous function of $\rho_{xz}$ on $(0, 1]$, for any set of parameter values consistent with our hypotheses, $\exists \rho_{xz} \in (0, 1] \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$. Since $\eta_{1}^{2}\sigma_{z}^{2} = \rho_{xz}^{2}\sigma_{x}^{2}$, it is also straigthforward to show, for any set of parameter values consistent with our hypotheses, $\exists \eta_{1} \in \mathbb{R}_{+}^{*} \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$. 
                     		
                     		We thus have shown that, \ul{if the correlation between the instrument and the endogenous variable is low, the exaggeration bias of the IV can be larger than that of the ``naive'' regression, even in the presence of confounders}. The trade-off, \textit{ie} the value of $\varDelta$, is affected by this correlation, or the strength of the instrument. 
 		

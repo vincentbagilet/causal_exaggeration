@@ -1,6 +1,6 @@
 ---
 title: "Intuition, experimental studies and replication crisis"
-description: "In this document, we analyze replications of experimental studies to illustrate the consequences of low statistical power in economics."
+description: "In this document, we analyze replications of experimental studies to illustrate the consequences of low statistical power in economics and give intuition for the trade-off we underline."
 author:
   - name: Vincent Bagilet 
     url: https://vincentbagilet.github.io/
@@ -52,11 +52,12 @@ set.seed(3)
 set_mediocre_all(pal = "coty")
 ```
 
-<!-- ## Laboratory experiments -->
+
+## Intuition for exaggeration
 
 To illustrate the consequences of low power, we analyze the results from [Camerer et al (2016)](https://www.science.org/doi/10.1126/science.aaf0918) through the prism of statistical power. The authors of this paper replicated laboratory experiments in economics.
 
-They report their replication results, alongside the original results, on the [project website](http://experimentaleconreplications.com/scripts.html), we only need to run their Stata script `create_studydetails.do` to recover all the infomation. 
+They report their replication results, alongside the original results, on the [project website](http://experimentaleconreplications.com/scripts.html), we only need to run their Stata script `create_studydetails.do` to recover all the information. 
 
 We then compute the power of the initial analysis if the true effect is in fact equal to the replication's.
 
@@ -75,7 +76,7 @@ retro_camerer <- rep_camerer %>%
   as_tibble()
 ```
 
-## Analyzing all studies
+### Analyzing all studies
 
 We quickly plot and analyze the results obtained, *ie* the distribution of the exaggeration ratio and power.
 
@@ -175,7 +176,7 @@ retro_camerer %>%
   )
 ```
 
-## Focus on one particular study
+### Focus on one particular study
 
 Here, we focus on one particular study in order to illustrate in more details the problem at play. We want to simulate what could have yielded replication of the initial study if the true effect was equal to the replication estimate.
 
@@ -265,18 +266,6 @@ graph_rep_original
 - If the study had more power, the sd would be smaller and most estimates would be statistically significative (because there is indeed a non null effect)
 - But since the power is low, if by chance the sample of individuals we get yields a statistically significant estimate, this estimate will overestimate the true effect
 
-<!-- ```{r} -->
-<!-- data_graph_distrib %>%  -->
-<!--   group_by(significant) %>%  -->
-<!--   summarise( -->
-<!--     prop = n()/nrow(.), -->
-<!--     mean = mean(value) -->
-<!--   ) -->
-<!-- ``` -->
-
-
-
-
 
 <!-- ## Randomized Control Trials -->
 
@@ -291,6 +280,70 @@ graph_rep_original
 <!-- #   filter((RCT == "Yes") & (Replicated == "Replicated")) %>%  -->
 <!-- #   .$ReplicationPaperTitle -->
 <!-- ``` -->
+
+## Intuition for the role of precision
+
+The trade-off between we describe exaggeration and confounders arises due to differences in precision between estimators. To illustrate this, we generate estimates from two unbiased estimators with identical mean but different variances and plot their distributions, distinguishing between estimates that are and are not significant.
+
+```{r intuition_trade_off, echo=FALSE, fig.asp=1.2}
+N <- 10000
+sd_precise <- 0.23
+sd_imprecise <- 0.7
+true_effect <- 1
+
+data_intuition <- 
+  tibble(
+    estimate = rnorm(N, true_effect, sd_precise), 
+    precise = "Precise estimator"
+  ) %>% 
+  rbind(
+    tibble(
+      estimate = rnorm(N, true_effect, sd_imprecise), 
+      precise = "Imprecise estimator"
+    )
+  ) %>% 
+  group_by(precise) %>% 
+  mutate(sd = sd(estimate)) %>% 
+  ungroup() %>% 
+  mutate(
+    signif = abs(estimate) > sd*1.96,
+    signif_name = ifelse(signif, "Significant", "Non significant"),
+    signif_estimate = ifelse(signif, estimate, NA)
+  ) %>% 
+  group_by(precise) %>% 
+  mutate(
+    estimate_sign = ifelse(signif, estimate, NA),
+    mean_signif = mean(estimate_sign, na.rm = TRUE)
+  ) %>% 
+  ungroup()
+
+data_intuition %>% 
+  ggplot(aes(x = estimate, fill = signif_name)) +
+  geom_histogram(bins = 100) +
+  # geom_area(stat = "bin", bins = 40) +
+  facet_wrap(~ precise, nrow = 2) +
+  geom_vline(xintercept = 0, linetype = "solid", linewidth = 0.1) +
+  geom_vline(xintercept = true_effect) +
+  geom_vline(
+    aes(xintercept = mean_signif), 
+    color = "#976B21", 
+    linetype = "solid", 
+    size = 0.3
+  ) + 
+  labs(
+    x = "Estimate",
+    y = "Count",
+    title = "Exaggeration of an imprecise estimator",
+    subtitle = "Distribution of two estimators with same mean and different variance",
+    fill = NULL,
+    caption = "The green dashed line represents the true effect size
+      The brown solid line represents the average of significant estimates"
+  )
+
+ggsave(here("images", "graph_intuition_precision.pdf"), width = 6, height = 5)
+```
+
+In the case of the precise estimator, the mean of statistically significant estimates is almost equal to the true effect. The estimator is unbiased and almost all estimates are significant. However, in the case of the imprecise estimator, only a sub-sample of the estimates are significant: those that are far away enough from 0 (at least 1.96 s.d.). As a consequence, the mean of  statistically significant estimates is different from the true effect, even if the estimator is unbiased. This hints to the trade-off between biased estimates from naive regressions and less precise causal inference estimates.
 
 
 

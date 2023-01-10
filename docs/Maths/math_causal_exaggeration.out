@@ -2,16 +2,15 @@
 \BOOKMARK [2][]{subsection.1.1}{Objectives}{section.1}% 2
 \BOOKMARK [2][]{subsection.1.2}{Data generating process}{section.1}% 3
 \BOOKMARK [2][]{subsection.1.3}{Summary of the key assumptions}{section.1}% 4
-\BOOKMARK [1][]{section.2}{Asymptotic distribution of the estimates}{}% 5
-\BOOKMARK [2][]{subsection.2.1}{Naive regression \(OVB\)}{section.2}% 6
-\BOOKMARK [3][]{subsubsection.2.1.1}{Bias of the estimator}{subsection.2.1}% 7
-\BOOKMARK [3][]{subsubsection.2.1.2}{Asymptotic distribution}{subsection.2.1}% 8
-\BOOKMARK [2][]{subsection.2.2}{Instrumental Variable}{section.2}% 9
-\BOOKMARK [2][]{subsection.2.3}{Comparison of efficiencies}{section.2}% 10
-\BOOKMARK [1][]{section.3}{Exaggeration ratio and its properties}{}% 11
-\BOOKMARK [2][]{subsection.3.1}{A general expression for the exaggeration ratio}{section.3}% 12
-\BOOKMARK [2][]{subsection.3.2}{Evolution of the exaggeration ratio with , \040and b}{section.3}% 13
-\BOOKMARK [2][]{subsection.3.3}{Evolution of the exaggeration ratio with the value of model parameters}{section.3}% 14
-\BOOKMARK [3][]{subsubsection.3.3.1}{IV}{subsection.3.3}% 15
-\BOOKMARK [3][]{subsubsection.3.3.2}{OVB}{subsection.3.3}% 16
-\BOOKMARK [2][]{subsection.3.4}{The exaggeration/confounders trade-off}{section.3}% 17
+\BOOKMARK [2][]{subsection.1.4}{The models to estimate}{section.1}% 5
+\BOOKMARK [1][]{section.2}{Exaggeration ratio and its properties}{}% 6
+\BOOKMARK [2][]{subsection.2.1}{A general expression for the Exaggeration ratio}{section.2}% 7
+\BOOKMARK [2][]{subsection.2.2}{Evolution of the exaggeration ratio with , \040and b}{section.2}% 8
+\BOOKMARK [2][]{subsection.2.3}{Evolution of the exaggeration ratio with the value of model parameters}{section.2}% 9
+\BOOKMARK [1][]{section.3}{Asymptotic distribution of the estimates}{}% 10
+\BOOKMARK [2][]{subsection.3.1}{Naive regression \(OVB\)}{section.3}% 11
+\BOOKMARK [2][]{subsection.3.2}{Instrumental Variable}{section.3}% 12
+\BOOKMARK [2][]{subsection.3.3}{Comparison of efficiencies}{section.3}% 13
+\BOOKMARK [3][]{subsubsection.3.3.1}{Instrumental Variable}{subsection.3.3}% 14
+\BOOKMARK [3][]{subsubsection.3.3.2}{Omitted Variable}{subsection.3.3}% 15
+\BOOKMARK [2][]{subsection.3.4}{The exaggeration/confounders trade-off}{section.3}% 16

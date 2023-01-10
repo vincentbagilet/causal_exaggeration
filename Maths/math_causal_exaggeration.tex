@@ -5,9 +5,11 @@
 %\doublespacing
 
 \usepackage{amsthm}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposition}
+\usepackage{mdframed}
+
+\newmdtheoremenv{theorem}{Theorem}
+\newmdtheoremenv{lemma}{Lemma}
+\newmdtheoremenv{proposition}{Proposition}
 
 \begin{document}
 
@@ -30,19 +32,19 @@
 	
 		\subsection{Objectives}\label{maths_objectives}
 	
-			The objective of our article is to compare ``biases'' resulting from exaggeration in causal identification strategies on the one hand and from confounders in ``naive'' regression analysis on the other hand.  This document aims to provide a mathematical derivation to illustrate this trade-off. Such a derivation may provide some intuition regarding the various mechanisms at play. It does not aim in any way to provide a general proof but merely a specific one, tied to the setting considered. As in most analyses similar to this one, while we keep this setting as general as possible, we have to make certain assumptions, in particular regarding the data generating process considered. 
+			The objective of our article is to compare ``biases'' resulting from exaggeration in causal identification strategies on the one hand and from confounders in ``naive'' regression analysis on the other hand.  This document aims to provide a mathematical derivation to illustrate this trade-off. Such a derivation may provide some intuition regarding the various mechanisms at play. It does not aim in any way to provide a general proof but merely a specific one, tied to the setting considered. Following a framework common to most analyses similar to this present one, while we keep the setting as general as possible, we have to make certain assumptions, in particular regarding the data generating process considered.\\
 		
-		The objective here is to compare the exaggeration ratio for a naive regression with omitted variable bias (OVB) to that of an Instrumental Variable (IV) model in which we instrument the variable affected by the omitted variable. We expect the naive regression to be biased but more precise than the IV and therefore less subject to exaggeration problems. Roughly, we aim to derive the conditions under which the exaggeration due to the loss in precision is greater than the OVB. %The following simulation illustrates this in the case of the 
-		Thus, the objective is to compare the following quantities:
+		The objective in this mathematical derivation is to compare the exaggeration ratio for a naive regression with omitted variable bias (OVB) to that of an Instrumental Variable (IV) model in which we instrument the variable affected by the omitted variable and of a reduced form (RED) estimation in which we directly regress the outcome on the instrument. We expect the naive regression to be biased but more precise than the IV and the reduced form and therefore less subject to exaggeration problems. Roughly, we aim to derive the conditions under which the exaggeration due to the loss in precision is greater than the omitted variable bias. %The following simulation illustrates this in the case of the 
+		The objective is to compare the following quantities:
 			\begin{gather*}
 				\mathbb{E}\left[ \hat{\beta}_{\textsc{ovb}} | \beta_{1}, \sigma_{\textsc{ovb}}, \hat{\beta}_{\textsc{ovb}} > z_{\alpha} \sigma_{\textsc{ovb}} \right] \\
 				\mathbb{E}\left[ \hat{\beta}_{\textsc{iv}} | \beta_{1}, \sigma_{\textsc{iv}}, \hat{\beta}_{\textsc{iv}} > z_{\alpha} \sigma_{\textsc{iv}} \right] \\
 				\mathbb{E}\left[ \hat{\beta}_{\textsc{red}} | \beta_{1}, \sigma_{\textsc{red}}, \hat{\beta}_{\textsc{red}} > z_{\alpha} \sigma_{\textsc{red}} \right]
 			\end{gather*} 
 			
-			where \textsc{ovb} and \textsc{iv} denote the naive regression and the IV respectively. $\beta_{1}$ represents the true effect of interest, $\hat{\beta_{..}}$ its estimate, $\sigma_{..}$ the standard error of the estimate and $z_{\alpha}$ the threshold value of a two-sided test of size $\alpha$. In all of our analyses, we consider tests of size 5\%. One can thus think of $z_{\alpha}$ as being equal to 1.96. % and $b_{\textsc{..}}$ the bias in the naive regression. Note that due to the exogeneity assumption $b_{\textsc{iv}} = 0$. 
+			where \textsc{ovb}, \textsc{iv} and \textsc{red} denote the naive regression, the IV  and the reduced form respectively. $\beta_{1}$ represents the true effect of interest, $\hat{\beta_{..}}$ its estimate, $\sigma_{..}$ the standard error of the estimate and $z_{\alpha}$ the threshold value of a two-sided test of size $\alpha$. In all of our analyses, we consider tests of size 5\%. One can thus think of $z_{\alpha}$ as being equal to 1.96. % and $b_{\textsc{..}}$ the bias in the naive regression. Note that due to the exogeneity assumption $b_{\textsc{iv}} = 0$. 
 			
-			To compute these values, we need to know the distribution of the estimates. After describing the data generating process, we thus derive the asymptotic distribution of these estimates. We then compute these quantities and analyse how they evolve as a function of the parameters of interests. We then analyse the drivers of the difference between those two quantities. The main parameter of interest is linked the proportion of the variance in the explanatory variable of interest retained for identification. 
+			To compute the exaggeration ratios, we need to know the distribution of the estimates. We first describe a general equation for the exaggeration of a normally distributed estimator. After describing the data generating process, we thus derive the asymptotic distribution of these estimates. We then compute these quantities and analyse how they evolve as a function of the parameters of interests. We then analyse the drivers of the difference between those two quantities. The main parameter of interest is linked the proportion of the variance in the explanatory variable of interest retained for identification. 
 				
 		\subsection{Data generating process}\label{maths_dgp}
 			%I build this using the notation used by Dong Woo in his lecture notes
@@ -66,8 +68,6 @@
 				\end{equation}
 				
 				where $(\eta_0, \eta_1, \gamma) \in \mathbb{R}^{3}$ are unknown parameters. We assume that $\epsilon_i$ is uncorrelated with $z_i$ and $w_{i}$, \textit{ie} $\mathbb{E}[z_i\epsilon_i] = 0$ and $\mathbb{E}[w_i\epsilon_i] = 0$. Note that, since $x_i$ and $w_i$ are correlated, $\gamma \neq 0$.\\
-				
-				%We assumed that the coefficient for $d$ in equation \ref{maths_dgp_x} is unitary to be able to compare $\beta_{\textsc{R}}$, the coefficient for $d$ in the reduced form regression (regressing $y$ on $d$), to $\beta_{\textsc{ovb}}$, the coefficient for $x$ in the naive regression (regressing $y$ on $x$).  Roughly, $\beta_{\textsc{ovb}}$ can be interpreted as the variation in $y$ associated with a variation of $x$ by one. Similarly, $\beta_{\textsc{R}}$ can be interpreted as the variation in $y$ associated with a variation of $d$ by one. A variation in $d$ by one causes a variation of $x$ by one. Thus, both $\beta_{\textsc{ovb}}$ and $\beta_{\textsc{R}}$ can be interpreted as the variation in $y$ associated with a variation of $x$ by one. They are however different since this variation is orthogonal to the unobserved variable in the case of the reduced form but not in the case of the naive regression.\\
 				
 				The following Directed Acyclic Graph (DAG) sums up the relationships between the variables. It also helps underline the independence, or not, of some variables. 
 				
@@ -120,12 +120,113 @@
 					where $e = (e_{1}, ... , e_{n})' \in \mathbb{R}^{n}$ and by the exogeneity assumption $\mathbb{E}[D'e] = 0$.
 									
 				\end{enumerate}
+				
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section{Exaggeration ratio and its properties}\label{general_exagg}
+	
+		 We first compute the exaggeration ratio for a normally distributed estimator and study its general properties. This then enables us to illustrate the intuition behind the trade-off discussed in this paper.
+		 
+		 \subsection{A general expression for the exaggeration ratio}
+		 
+		 	\begin{lemma}\label{lemma_exagg}
+		 		For an estimator $\hat{\beta} \sim \mathcal{N}(\beta, \sigma^{2})$ of a true effect of magnitude $\beta_1$ and such that $\beta = \beta_{1} + b$, the exaggeration ratio $E$ defined as the ratio expected value of the estimate conditional on the estimate being statistically significant over the true effect is:
+		 
+				 \[
+				 	E(\beta, \sigma, \beta_{1}, z_{\alpha}) = \dfrac{\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]}{\beta_{1}} = 1 + \dfrac{b}{\beta_{1}}+ \dfrac{\sigma}{\beta_1} \lambda\left( \dfrac{\beta_{1} + b}{\sigma} - z_{\alpha} \right) 
+				\]
+			\end{lemma}
+		
+			Note that \cite{gelman_beyond_2014} consider the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}\left[ | \hat{\beta}| | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right] / \beta_{1}$. To simplify the derivation, we abstract from the absolute value. Our exaggeration ratio therefore depends on the well-known expected value of a truncated normal distribution instead of on the expected value of a truncated \textit{folded} normal distribution. To avoid using the two terms interchangeably, in this document, we refer to $E$ as the ``exaggeration ratio'' and $\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]$ as ``exaggeration''.\\
+			
+		\begin{proof}
+			
+			Since $\hat{\beta} \sim \mathcal{N}(\beta, \sigma^{2})$, its support is $\mathbb{R}$ and pdf is $f_{\hat{\beta}}: x \mapsto \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{(x -\beta)^{2}}{2\sigma^{2}}}$. Thus, by definition of the conditional expectation,
+			~
+			\begin{align*}
+				\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]  
+					& =  \dfrac{1}{\text{Pr}(\hat{\beta} > z_{\alpha}\sigma)} \int_{z_{\alpha}\sigma}^{\infty}x \times f_{\hat{\beta}} (x)\text{d}x
+			\end{align*}
+			
+			Now,
+			~
+			\begin{align*}
+				\text{Pr}(\hat{\beta} > z_{\alpha}\sigma) 
+					& = \int_{z_{\alpha}\sigma}^{\infty} f_{\hat{\beta}} (x) \text{d}x\\
+					& =  \dfrac{1}{\sqrt{2\pi \sigma^{2}}}\int_{z_{\alpha}\sigma}^{\infty} e^{-\frac{(x -\beta)^{2}}{2\sigma^{2}}} \text{d}x\\
+					& =  \dfrac{1}{\sqrt{2\pi }}\int_{z_{\alpha} - \frac{\beta}{\sigma}}^{\infty} e^{-\frac{t^{2}}{2}} \text{d}t & \text{by the change of variable } x = \sigma t + \beta\\
+					& =  1 - \Phi\left( z_{\alpha} - \frac{\beta}{\sigma} \right) & \text{with $\Phi$ the cdf of the std. normal} \\
+					& = \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right) & \text{since } \forall x \in  \mathbb{R}, \ \Phi(-x) = 1 - \Phi(x)
+			\end{align*}
+			
+			and,
+			~
+			\begin{align*}
+				 \int_{z_{\alpha}\sigma}^{\infty}x \times f_{\hat{\beta}} (x)\text{d}x
+					& =  \dfrac{1}{\sqrt{2\pi \sigma^{2}}}\int_{z_{\alpha}\sigma}^{\infty} x  e^{-\frac{(x -\beta)^{2}}{2\sigma^{2}}} \text{d}x\\~\\
+					& =  \dfrac{1}{\sqrt{2\pi }}\int_{z_{\alpha} - \frac{\beta}{\sigma}}^{\infty} ( \sigma t + \beta ) e^{-\frac{t^{2}}{2}} \text{d}t & \text{by the same change of variable}\\~\\
+					& = \beta \times \dfrac{1}{\sqrt{2\pi }}\int_{z_{\alpha} - \frac{\beta}{\sigma}}^{\infty} e^{-\frac{t^{2}}{2}} \text{d}t  + \sigma \dfrac{1}{\sqrt{2\pi }}\int_{z_{\alpha} - \frac{\beta}{\sigma}}^{\infty} t e^{-\frac{t^{2}}{2}} \text{d}t 
+					 \\~\\
+					 & = \beta \left( 1 - \Phi\left( z_{\alpha} - \frac{\beta}{\sigma} \right)\right) + \sigma \dfrac{1}{\sqrt{2\pi }} \left[ - e^{-\frac{t^{2}}{2}}\right]^{\infty}_{z_{\alpha} - \frac{\beta}{\sigma} }\\
+					& =  \beta \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right) + \sigma \dfrac{1}{\sqrt{2\pi }} e^{-\frac{(z_{\alpha} - \beta)^{2}}{2\sigma^{2}}}\\
+					& =  \beta \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right) + \sigma \phi\left(z_{\alpha} - \frac{\beta}{\sigma} \right) & \text{with $\phi$ the pdf of the std. norm.}\\
+					& =  \beta \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right) + \sigma \phi\left(\frac{\beta}{\sigma} - z_{\alpha} \right) & \text{since } \forall x \in  \mathbb{R}, \ \phi(-x) = \phi(x)
+			\end{align*}
+			
+			Thus, we have, 
+			~
+			\begin{equation*}
+				E(\beta, \sigma, \beta_{1}, z_{\alpha}) = \dfrac{\beta}{\beta_{1}} + \dfrac{\sigma}{\beta_1} \dfrac{\phi\left( \dfrac{\beta}{\sigma} - z_{\alpha} \right)}{\Phi\left( \dfrac{\beta}{\sigma} - z_{\alpha} \right)}
+			\end{equation*}
+		
+			where $\phi$ and $\Phi$ are respectively the pdf and the cdf of the standard normal distribution. We then introduce the inverse Mills ratio, the function $\lambda : x \mapsto \phi(x) / \Phi(x)$. We also consider an estimator whose mean can be decomposed in $\beta = \beta_{1} + b$, with $\beta_{1}$ the true effect and $b$ a bias independent of $\beta_{1}$. We can then write the exaggeration ratio as:
+			
+			\begin{equation}\label{exagg_general}
+				\boxed{
+					E(\beta, \sigma, \beta_{1}, z_{\alpha}) = 1 + \dfrac{b}{\beta_{1}}+ \dfrac{\sigma}{\beta_1} \lambda\left( \dfrac{\beta_{1} + b}{\sigma} - z_{\alpha} \right) 
+				}
+			\end{equation}
+		\end{proof}
+			
+			Note that since this document is a thorough description of the analysis, we chose to derive this expression analytically. We could have obtained it directly using properties of a truncated normal or directly using the expression of the inverse Mills ratio.\\
+			
+			Another important metric in this paper is statistical power. It defined as the probability of rejecting the null of no effect when it is actually true. Hence, for a usual two-sided t-test with $n \gg k$, with $k$ the number of covariates, the statistical power $p$ is given by:
+			~
+			\begin{align*}
+				p(\beta, \sigma, \beta_{1}, z_{\alpha}) & = \text{Pr}(\hat{\beta} < - z_{\alpha}\sigma ) + \text{Pr}(\hat{\beta} > z_{\alpha}\sigma)\\
+				  & = \text{Pr}\left(\frac{\hat{\beta} - \beta}{\sigma} < - z_{\alpha} - \frac{\beta}{\sigma} \right) + \text{Pr}\left(\frac{\hat{\beta} - \beta}{\sigma} > z_{\alpha} - \frac{\beta}{\sigma} \right)\\
+				  & =  \Phi \left( - z_{\alpha} - \dfrac{\beta}{\sigma} \right) + 1 -  \Phi \left( z_{\alpha} - \dfrac{\beta}{\sigma} \right)  &  \text{since } \frac{\hat{\beta} - \beta}{\sigma} \sim \mathcal{N}(0,1)
+			\end{align*}
+			
+			And thus, since $\forall x \in  \mathbb{R}, \ \Phi(-x) = 1 - \Phi(x)$,
+			~
+			\begin{equation}
+				\boxed{
+					p(\beta, \sigma, \beta_{1}, z_{\alpha})  =  1 - \Phi \left( \dfrac{\beta}{\sigma} + z_{\alpha} \right) + \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right)
+				}
+			\end{equation}
+				
+			
+		\subsection{Evolution of the exaggeration ratio with $\sigma$,  $\beta$ and $b$}
+			
+			For simplicity, we focus on the case of $\beta_{1} > 0$ and $b > 0$. The inverse Mills ratio is a decreasing function. %\citep{sampford_inequalities_1953}
+			It thus easily follows that \ul{$E$ increases with $\sigma$, the standard error of the estimator}. The more precise the estimator, the less exaggeration. In the case of an unbiased estimator or of 
+			, it also easily follows that \ul{$E$ is a decreasing function of $\beta_{1}$, the true effect size}. These two results have been proven by \cite{lu_note_2019} and \cite{zwet_significance_2021} in the case of an exaggeration defined as the expected value of the absolute value of the estimate, as in  \cite{gelman_beyond_2014}. Figure \ref{graph_intution_precision} gives an intuition for the relationship between the precision of an estimator and exaggeration by ploting the distribution of estimates for two unbiased estimators with identical mean but different variances and plot their distributions, distinguishing between estimates that are and are not significant.
+			
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width=0.7\linewidth]{../images/graph_intuition_precision.pdf}
+       				\caption{Intuition for exaggeration of imprecise estimates}
+            			\label{graph_intution_precision}
+			 \end{figure}
+			 
+			 In the case of the precise estimator, the mean of statistically significant estimates is almost equal to the true effect. The estimator is unbiased and almost all estimates are significant. However, in the case of the imprecise estimator, only a sub-sample of the estimates are significant: those that are far away enough from 0 (at least 1.96 s.d.). As a consequence, the mean of  statistically significant estimates is different from the true effect, even if the estimator is unbiased. This hints to the trade-off between biased estimates from naive regressions and less precise causal inference estimates.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\section{Asymptotic distribution of the estimates}
 	
-		As discussed above, the goal is to compare the exaggeration ration in the case of the naive regression to that of the corresponding reduced form and IV. In this section, we \textbf{derive the asymptotic distributions of these estimates}.
+		As discussed in section \ref{maths_objectives}, the goal is to compare the exaggeration ratios in the case of the naive regression to that of the corresponding reduced form and IV. As discussed in section \ref{general_exagg}, in order to compute the exaggeration ratios for the various estimators, we need to know their distributions. In this section, we thus \textbf{derive the asymptotic distributions of the various estimators of interest}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 		
@@ -137,8 +238,6 @@
 						\sqrt{n}\left( \hat{\beta}_{\textsc{ovb}} - \beta_{1} \right)
 						 \overset{d}{\to} \mathcal{N}\left(\dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}{\sigma_{x}^{2}} \right) 
 				\]
-				
-				\centering\rule{6cm}{0.4pt}
 			\end{lemma}
 			
 			\begin{proof} 
@@ -327,7 +426,6 @@
 							 \mathcal{N}\left( 0 , \ \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{ \eta_{1}^{2}\sigma_{z}^{2}} \right) 
 				\]
 				
-				\centering\rule{6cm}{0.4pt}
 			\end{lemma}
 			
 			\begin{proof}
@@ -514,111 +612,22 @@
 				\end{align*}
 				
 				Both these inequalities imply that $\boxed{\sigma_{\textsc{iv}}^{2} > \sigma_{\textsc{ovb}}^{2}}$. While unbiased, the IV estimator is less precise than the naive estimator. This is a well known and intuitive result that we recovered in a particular setting, tied to the modelling assumptions we made. This result is due to the fact that the IV only uses part of the variation in the endogenous dependent variable, the part that is explained by the instrument. 
+			
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section{Comparison of exaggeration ratios}
+	
+		Now that we have computed the asymptotic distributions of the various estimators, we can compute their exaggeration ratios. We study how they evolve with the values of model parameters and prove the existence of the exaggeration/confounder trade-off in our specific case.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 				
-				
-				
+		\subsection{Evolution of the exaggeration ratio with the value of model parameters}
+		 
+		 	We focus on the OVB and IV estimators whose distributions we derived in the previous section in order to understand how their respective exaggeration ratios, $E_{\textsc{ovb}}$ and $E_{\textsc{iv}}$, evolve with the values of the model parameters described in section \ref{maths_dgp}. In particular, we want to understand how exaggeration evolves with the correlation between $x$ and $z$, $\rho_{xz}$ and the intensity of the OVB, \textit{ie}, $\delta$ and $\gamma$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
-	\section{Exaggeration ratio and its properties}
-	
-		 We now want to compute the exaggeration ratio for each identification strategy in order to understand how they evolve with the values of the parameters of the model and how these quantities compare across identification strategy.
-		 
-		  \subsection{A general expression for the exaggeration ratio}
-		 
-		 	\begin{lemma}\label{lemma_exagg}
-		 		For an estimator $\hat{\beta} \sim \mathcal{N}(\beta, \sigma^{2})$ of a true effect of magnitude $\beta_1$ and such that $\beta = \beta_{1} + b$, the exaggeration ratio $E$ defined as the ratio expected value of the estimate conditional on the estimate being statistically significant over the true effect is:
-		 
-				 \[
-				 	E(\beta, \sigma, \beta_{1}, z_{\alpha}) = \dfrac{\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]}{\beta_{1}} = 1 + \dfrac{b}{\beta_{1}}+ \dfrac{\sigma}{\beta_1} \lambda\left( \dfrac{\beta_{1} + b}{\sigma} - z_{\alpha} \right) 
-				\]
-				
-				\centering\rule{6cm}{0.4pt}
-			\end{lemma}
-		
-			Note that \cite{gelman_beyond_2014} consider the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}\left[ | \hat{\beta}| | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right] / \beta_{1}$. To simplify the derivation, we abstract from the absolute value. Our exaggeration ratio therefore depends on the well-known expected value of a truncated normal distribution instead of on the expected value of a truncated \textit{folded} normal distribution. To avoid using the two terms interchangeably, in this document, we refer to $E$ as the ``exaggeration ratio'' and $\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]$ as ``exaggeration''.\\
 			
-		\begin{proof}
-			
-			Since $\hat{\beta} \sim \mathcal{N}(\beta, \sigma^{2})$, its support is $\mathbb{R}$ and pdf is $f_{\hat{\beta}}: x \mapsto \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{(x -\beta)^{2}}{2\sigma^{2}}}$. Thus, by definition of the conditional expectation,
-			~
-			\begin{align*}
-				\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]  
-					& =  \dfrac{1}{\text{Pr}(\hat{\beta} > z_{\alpha}\sigma)} \int_{z_{\alpha}\sigma}^{\infty}x \times f_{\hat{\beta}} (x)\text{d}x
-			\end{align*}
-			
-			Now,
-			~
-			\begin{align*}
-				\text{Pr}(\hat{\beta} > z_{\alpha}\sigma) 
-					& = \int_{z_{\alpha}\sigma}^{\infty} f_{\hat{\beta}} (x) \text{d}x\\
-					& =  \dfrac{1}{\sqrt{2\pi \sigma^{2}}}\int_{z_{\alpha}\sigma}^{\infty} e^{-\frac{(x -\beta)^{2}}{2\sigma^{2}}} \text{d}x\\
-					& =  \dfrac{1}{\sqrt{2\pi }}\int_{z_{\alpha} - \frac{\beta}{\sigma}}^{\infty} e^{-\frac{t^{2}}{2}} \text{d}t & \text{by the change of variable } x = \sigma t + \beta\\
-					& =  1 - \Phi\left( z_{\alpha} - \frac{\beta}{\sigma} \right) & \text{with $\Phi$ the cdf of the std. normal} \\
-					& = \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right) & \text{since } \forall x \in  \mathbb{R}, \ \Phi(-x) = 1 - \Phi(x)
-			\end{align*}
-			
-			and,
-			~
-			\begin{align*}
-				 \int_{z_{\alpha}\sigma}^{\infty}x \times f_{\hat{\beta}} (x)\text{d}x
-					& =  \dfrac{1}{\sqrt{2\pi \sigma^{2}}}\int_{z_{\alpha}\sigma}^{\infty} x  e^{-\frac{(x -\beta)^{2}}{2\sigma^{2}}} \text{d}x\\~\\
-					& =  \dfrac{1}{\sqrt{2\pi }}\int_{z_{\alpha} - \frac{\beta}{\sigma}}^{\infty} ( \sigma t + \beta ) e^{-\frac{t^{2}}{2}} \text{d}t & \text{by the same change of variable}\\~\\
-					& = \beta \times \dfrac{1}{\sqrt{2\pi }}\int_{z_{\alpha} - \frac{\beta}{\sigma}}^{\infty} e^{-\frac{t^{2}}{2}} \text{d}t  + \sigma \dfrac{1}{\sqrt{2\pi }}\int_{z_{\alpha} - \frac{\beta}{\sigma}}^{\infty} t e^{-\frac{t^{2}}{2}} \text{d}t 
-					 \\~\\
-					 & = \beta \left( 1 - \Phi\left( z_{\alpha} - \frac{\beta}{\sigma} \right)\right) + \sigma \dfrac{1}{\sqrt{2\pi }} \left[ - e^{-\frac{t^{2}}{2}}\right]^{\infty}_{z_{\alpha} - \frac{\beta}{\sigma} }\\
-					& =  \beta \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right) + \sigma \dfrac{1}{\sqrt{2\pi }} e^{-\frac{(z_{\alpha} - \beta)^{2}}{2\sigma^{2}}}\\
-					& =  \beta \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right) + \sigma \phi\left(z_{\alpha} - \frac{\beta}{\sigma} \right) & \text{with $\phi$ the pdf of the std. norm.}\\
-					& =  \beta \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right) + \sigma \phi\left(\frac{\beta}{\sigma} - z_{\alpha} \right) & \text{since } \forall x \in  \mathbb{R}, \ \phi(-x) = \phi(x)
-			\end{align*}
-			
-			Thus, we have, 
-			~
-			\begin{equation*}
-				E(\beta, \sigma, \beta_{1}, z_{\alpha}) = \dfrac{\beta}{\beta_{1}} + \dfrac{\sigma}{\beta_1} \dfrac{\phi\left( \dfrac{\beta}{\sigma} - z_{\alpha} \right)}{\Phi\left( \dfrac{\beta}{\sigma} - z_{\alpha} \right)}
-			\end{equation*}
-		
-			where $\phi$ and $\Phi$ are respectively the pdf and the cdf of the standard normal distribution. We then introduce the inverse Mills ratio, the function $\lambda : x \mapsto \phi(x) / \Phi(x)$. We also consider an estimator whose mean can be decomposed in $\beta = \beta_{1} + b$, with $\beta_{1}$ the true effect and $b$ a bias independent of $\beta_{1}$. We can then write the exaggeration ratio as:
-			
-			\begin{equation}\label{exagg_general}
-				\boxed{
-					E(\beta, \sigma, \beta_{1}, z_{\alpha}) = 1 + \dfrac{b}{\beta_{1}}+ \dfrac{\sigma}{\beta_1} \lambda\left( \dfrac{\beta_{1} + b}{\sigma} - z_{\alpha} \right) 
-				}
-			\end{equation}
-		\end{proof}
-			
-			Note that since this document is a thorough description of the analysis, we chose to derive this expression analytically. We could have obtained it directly using properties of a truncated normal or directly using the expression of the inverse Mills ratio.\\
-			
-			Another important metric in this paper is statistical power. It defined as the probability of rejecting the null of no effect when it is actually true. Hence, for a usual two-sided t-test with $n \gg k$, with $k$ the number of covariates, the statistical power $p$ is given by:
-			~
-			\begin{align*}
-				p(\beta, \sigma, \beta_{1}, z_{\alpha}) & = \text{Pr}(\hat{\beta} < - z_{\alpha}\sigma ) + \text{Pr}(\hat{\beta} > z_{\alpha}\sigma)\\
-				  & = \text{Pr}\left(\frac{\hat{\beta} - \beta}{\sigma} < - z_{\alpha} - \frac{\beta}{\sigma} \right) + \text{Pr}\left(\frac{\hat{\beta} - \beta}{\sigma} > z_{\alpha} - \frac{\beta}{\sigma} \right)\\
-				  & =  \Phi \left( - z_{\alpha} - \dfrac{\beta}{\sigma} \right) + 1 -  \Phi \left( z_{\alpha} - \dfrac{\beta}{\sigma} \right)  &  \text{since } \frac{\hat{\beta} - \beta}{\sigma} \sim \mathcal{N}(0,1)
-			\end{align*}
-			
-			And thus, since $\forall x \in  \mathbb{R}, \ \Phi(-x) = 1 - \Phi(x)$,
-			~
-			\begin{equation}
-				\boxed{
-					p(\beta, \sigma, \beta_{1}, z_{\alpha})  =  1 - \Phi \left( \dfrac{\beta}{\sigma} + z_{\alpha} \right) + \Phi\left( \frac{\beta}{\sigma} - z_{\alpha} \right)
-				}
-			\end{equation}
-				
-			
-		\subsection{Evolution of the exaggeration ratio with $\sigma$,  $\beta$ and $b$}
-			
-			For simplicity, we focus on the case of $\beta_{1} > 0$ and $b > 0$. The inverse Mills ratio is a decreasing function. %\citep{sampford_inequalities_1953}
-			It thus easily follows that \ul{$E$ increases with $\sigma$, the standard error of the estimator}. The more precise the estimator, the less exaggeration. In the case of an unbiased estimator or of 
-			, it also easily follows that \ul{$E$ is a decreasing function of $\beta_{1}$, the true effect size}. These two results have been proven by \cite{lu_note_2019} and \cite{zwet_significance_2021} in the case of an exaggeration defined as the expected value of the absolute value of the estimate, as in  \cite{gelman_beyond_2014}. These results are rather intuitive if one considers graphs describing exaggeration.
-			
-			%%% ADD GRAAAAAAAPPPPPHHHSSSS
-			
-		 \subsection{Evolution of the exaggeration ratio with the value of model parameters}
-		 
-		 	We then focus on the OVB and IV estimators whose distributions we derived in the previous section in order to understand how their respective exaggeration ratios, $E_{\textsc{ovb}}$ and $E_{\textsc{iv}}$, evolve with the values of the model parameters described in section \ref{maths_dgp}. In particular, we want to understand how exaggeration evolves with the correlation between $x$ and $z$, $\rho_{xz}$ and the intensity of the OVB, \textit{ie}, $\delta$ and $\gamma$.
-			
-			\subsubsection{IV}
+			\subsubsection{Instrumental Variable}
 			
 				\begin{proposition}
 					 $E_{\textsc{iv}}$, the exaggeration ratio of the instrumental variable estimator, decreases with the strength of the instrument $\eta_{1}$ (or equivalently with the correlation between the endegoneous variable $x$ and the instrument $z$).
@@ -668,7 +677,7 @@
 				
 			\end{proof}
 				
-				\subsubsection{OVB}
+				\subsubsection{Omitted Variable}
 			
 				Plugging in the values for $\beta_{\textsc{ovb}}$, $\sigma_{\textsc{ovb}}$ and $b_{\textsc{ovb}}$, from equation \ref{b_sigma_ovb} into equation \ref{exagg_general}, we get:
 			~

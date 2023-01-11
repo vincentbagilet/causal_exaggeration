@@ -4,13 +4,15 @@
 \BOOKMARK [2][]{subsection.1.3}{Summary of the key assumptions}{section.1}% 4
 \BOOKMARK [2][]{subsection.1.4}{The models to estimate}{section.1}% 5
 \BOOKMARK [1][]{section.2}{Exaggeration ratio and its properties}{}% 6
-\BOOKMARK [2][]{subsection.2.1}{A general expression for the Exaggeration ratio}{section.2}% 7
+\BOOKMARK [2][]{subsection.2.1}{A general expression for the exaggeration ratio}{section.2}% 7
 \BOOKMARK [2][]{subsection.2.2}{Evolution of the exaggeration ratio with , \040and b}{section.2}% 8
-\BOOKMARK [2][]{subsection.2.3}{Evolution of the exaggeration ratio with the value of model parameters}{section.2}% 9
-\BOOKMARK [1][]{section.3}{Asymptotic distribution of the estimates}{}% 10
-\BOOKMARK [2][]{subsection.3.1}{Naive regression \(OVB\)}{section.3}% 11
-\BOOKMARK [2][]{subsection.3.2}{Instrumental Variable}{section.3}% 12
-\BOOKMARK [2][]{subsection.3.3}{Comparison of efficiencies}{section.3}% 13
-\BOOKMARK [3][]{subsubsection.3.3.1}{Instrumental Variable}{subsection.3.3}% 14
-\BOOKMARK [3][]{subsubsection.3.3.2}{Omitted Variable}{subsection.3.3}% 15
-\BOOKMARK [2][]{subsection.3.4}{The exaggeration/confounders trade-off}{section.3}% 16
+\BOOKMARK [1][]{section.3}{Asymptotic distribution of the estimates}{}% 9
+\BOOKMARK [2][]{subsection.3.1}{Naive regression \(OVB\)}{section.3}% 10
+\BOOKMARK [2][]{subsection.3.2}{Instrumental Variable}{section.3}% 11
+\BOOKMARK [2][]{subsection.3.3}{Reduced form}{section.3}% 12
+\BOOKMARK [2][]{subsection.3.4}{Comparison of efficiencies of the IV and naive regression}{section.3}% 13
+\BOOKMARK [1][]{section.4}{Comparison of exaggeration ratios}{}% 14
+\BOOKMARK [2][]{subsection.4.1}{Evolution of the exaggeration ratio with the value of model parameters}{section.4}% 15
+\BOOKMARK [3][]{subsubsection.4.1.1}{Omitted Variable}{subsection.4.1}% 16
+\BOOKMARK [3][]{subsubsection.4.1.2}{Instrumental Variable}{subsection.4.1}% 17
+\BOOKMARK [2][]{subsection.4.2}{The exaggeration/confounders trade-off}{section.4}% 18

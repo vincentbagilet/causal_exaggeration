@@ -10,6 +10,7 @@
 \newmdtheoremenv{theorem}{Theorem}
 \newmdtheoremenv{lemma}{Lemma}
 \newmdtheoremenv{proposition}{Proposition}
+\newmdtheoremenv{corollary}{Corollary}
 
 \begin{document}
 
@@ -55,7 +56,7 @@
 					y_i = \text{x}_i' \bm{\beta} + \delta w_{i} + u_i
 				\end{equation}
 				
-				where $\text{x}_i \in \mathbb{R}^2$ is a vector including a constant and the observed explanatory variable such that $\text{x}_i = (1, x_i)'$, $y_i \in \mathbb{R}$ the observed outcome of interest, $w_i \in \mathbb{R}$ an unobserved omitted variable, $u_i \in \mathbb{R}$ an unobserved error term. $\bm{\beta} \in \mathbb{R}^{2}$ and $\delta \in \mathbb{R}$ are unknown parameters. $\bm{\beta} = (\beta_0, \beta_1)'$ and $\beta_1$ is the parameter of interest. For readability, we introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$. 
+				where $\text{x}_i \in \mathbb{R}^2$ is a vector including a constant and the observed explanatory variable such that $\text{x}_i = (1, x_i)'$, $y_i \in \mathbb{R}$ the observed outcome of interest, $w_i \in \mathbb{R}$ an unobserved omitted variable, $u_i \in \mathbb{R}$ an unobserved error term. $\bm{\beta} \in \mathbb{R}^{2}$ and $\delta \in \mathbb{R}$ are unknown parameters. $\bm{\beta} = (\beta_0, \beta_1)'$ and $\beta_1$ is the parameter of interest. We consider homogeneous treatment effects. For readability, we introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$. 
 			
 			We further assume that the usual OLS assumptions hold: ($y_i, \text{x}_i, w_{i}, u_{i}$) are iid, finite second moments, \textit{ie} $\mathbb{E}[y_{i}^{2}] < \infty$, $\mathbb{E}[w_{i}^{2}] < \infty$, $\mathbb{E}[x_{i}^{2}] < \infty$, positive-definiteness of $\mathbb{E}[\text{x}_i \text{x}_i']$, $u_{i}$ is conditional mean-zero, \textit{ie} $\mathbb{E}[u_{i} | x_{i}, w_{i}] = 0$, and is uncorrelated with $x_i$ and $w_i$, \textit{ie} $\mathbb{E}[x_{i}u_{i}] = 0$ and $\mathbb{E}[w_{i}u_{i}] = 0$. Note that conditional mean-zero implies that $\mathbb{E}[u_{i} | x_{i}] = 0$ (since $\mathbb{E}[u_{i} | x_{i}] = \mathbb{E}[\mathbb{E}[u_{i} | x_{i}, w_{i}| x_{i}]]  = \mathbb{E}[0 | x_{i}] = 0$). We further assume homoskedasticity such that $\mathbb{E}[u_i^{2} | x_{i}, w_{i}] = \sigma_{u}^{2}$ is constant. It implies that  $\mathbb{E}[u_i^{2} | x_{i}] = \sigma_{u}^{2}$ (since $\mathbb{E}[u_i^{2} | x_{i}] =  \mathbb{E}[\mathbb{E}[u_i^{2} | x_{i}, w_{i}]|x_{i}] = \mathbb{E}[\sigma_{u}^{2} | x_{i}] = \sigma_{u}^{2})$.
 			
@@ -80,7 +81,7 @@
             				\end{figure} 
 				\vspace{-0.3cm}
 	
-				In the reduced form case, we consider an analogous DGP to that of the IV. Yet, since we will directly regress $y$ on $z$, the resulting estimand will be different. To make them comparable, for the reduced form case, in equation \ref{maths_dgp_x}, we set $\eta_{1}$ to 1. An increase of 1 in $z$ causes to an increase of $\beta_{1}$ in $y$ and the estimands become comparable. Further, we focus on the case where $z$ is an exogenous discrete shock. For clarity, we denote this discrete shock $\text{d}_{i} = (1, d_{i})'$. All other assumptions and features of the DGP remain unchanged. Under these assumptions, plugging equation \ref{maths_dgp_x} into equation \ref{maths_true_dgp} yields:
+				In the reduced form case, we consider an analogous DGP to that of the IV. Yet, since we will directly regress $y$ on $z$, the resulting estimand will be different. To make them comparable, for the reduced form case, in equation \ref{maths_dgp_x}, we set $\eta_{1}$ to 1. An increase of 1 in $z$ causes an increase of $\beta_{1}$ in $y$ and the estimands become comparable. Further, we focus on the case where $z$ is an exogenous discrete shock. For clarity, we denote this discrete shock $\text{d}_{i} = (1, d_{i})'$. All other assumptions and features of the DGP remain unchanged. Under these assumptions, plugging equation \ref{maths_dgp_x} into equation \ref{maths_true_dgp} yields:
 				
 				\[
 					y_{i} = \underbrace{\beta_{0} + \beta_{1}\eta_{0}}_{b_{0}} + \beta_{1}d_{i} + \underbrace{(\delta + \beta_{1}\gamma)}_{\kappa}w_{i} + \underbrace{u_{i} + \beta_{1}\epsilon_{i}}_{\nu_{i}}
@@ -107,6 +108,7 @@
 				\item $\mathbb{E}[z_i\epsilon_i] = 0$ and $\mathbb{E}[w_i\epsilon_i] = 0$
 				\item $\mathbb{E}[\epsilon_i^{2} | z_{i}, w_{i}] = \sigma_{\epsilon}^{2}$ and $\mathbb{E}[\epsilon_i^{2} | z_{i}] = \sigma_{\epsilon}^{2}$
 				\item $\text{Var}(w_{i}^{\perp}|x_{i}) = \text{Var}(w_{i}^{\perp})$
+				\item $\beta_{1} > 0$ and $\delta\gamma > 0$ (which implies that the OVB is an upward bias).
 			\end{itemize}
 			
 		\subsection{The models to estimate}
@@ -142,14 +144,16 @@
 		 \subsection{A general expression for the exaggeration ratio}
 		 
 		 	\begin{lemma}\label{lemma_exagg}
-		 		For an estimator $\hat{\beta} \sim \mathcal{N}(\beta, \sigma^{2})$ of a true effect of magnitude $\beta_1$ and such that $\beta = \beta_{1} + b$, the exaggeration ratio $E$ defined as the ratio expected value of the estimate conditional on the estimate being statistically significant over the true effect is:
+		 		For an estimator $\hat{\beta} \sim \mathcal{N}(\beta, \sigma^{2})$ of a true effect of magnitude $\beta_1$ > 0 and such that $\beta = \beta_{1} + b$, the exaggeration ratio $E$ defined as the ratio expected value of the estimate conditional on the estimate being statistically significant over the true effect is:
 		 
-				 \[
+				 \begin{equation}\label{exagg_general}
 				 	E(\beta, \sigma, \beta_{1}, z_{\alpha}) = \dfrac{\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]}{\beta_{1}} = 1 + \dfrac{b}{\beta_{1}}+ \dfrac{\sigma}{\beta_1} \lambda\left( \dfrac{\beta_{1} + b}{\sigma} - z_{\alpha} \right) 
-				\]
+				\end{equation}
 			\end{lemma}
 		
-			Note that \cite{gelman_beyond_2014} consider the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}\left[ | \hat{\beta}| | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right] / \beta_{1}$. To simplify the derivation, we abstract from the absolute value. Our exaggeration ratio therefore depends on the well-known expected value of a truncated normal distribution instead of on the expected value of a truncated \textit{folded} normal distribution. To avoid using the two terms interchangeably, in this document, we refer to $E$ as the ``exaggeration ratio'' and $\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]$ as ``exaggeration''.\\
+			Note that \cite{gelman_beyond_2014} consider the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}\left[ | \hat{\beta}| | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right] / \beta_{1}$. To simplify the derivation, we abstract from the absolute value. Our exaggeration ratio therefore depends on the well-known expected value of a truncated normal distribution instead of on the expected value of a truncated \textit{folded} normal distribution. Since  the objective of this project is mostly to analyze when the exaggeration is greater than the OVB, it makes sense to focus on cases in which they bias the estimate in the same direction \textit{i.e.} $\beta_{1}$ and $b$ of the same sign. We focus on the case where the true effect is positive and the OVB upward, \textit{i.e.}, $\beta_{1} > 0$ and $b \geq 0$. The reasoning for negative true effect and bias are is analogous but with signs flipped. 
+
+			Also note that in this document, we refer to $E$ as the ``exaggeration ratio'' and $\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]$ as ``exaggeration'' to avoid using the two terms interchangeably.\\
 			
 		\begin{proof}
 			
@@ -193,11 +197,11 @@
 		
 			where $\phi$ and $\Phi$ are respectively the pdf and the cdf of the standard normal distribution. We then introduce the inverse Mills ratio, the function $\lambda : x \mapsto \phi(x) / \Phi(x)$. We also consider an estimator whose mean can be decomposed in $\beta = \beta_{1} + b$, with $\beta_{1}$ the true effect and $b$ a bias independent of $\beta_{1}$. We can then write the exaggeration ratio as:
 			
-			\begin{equation}\label{exagg_general}
+			\begin{equation*}
 				\boxed{
 					E(\beta, \sigma, \beta_{1}, z_{\alpha}) = 1 + \dfrac{b}{\beta_{1}}+ \dfrac{\sigma}{\beta_1} \lambda\left( \dfrac{\beta_{1} + b}{\sigma} - z_{\alpha} \right) 
 				}
-			\end{equation}
+			\end{equation*}
 		\end{proof}
 			
 			Note that since this document is a thorough description of the analysis, we chose to derive this expression analytically. We could have obtained it directly using properties of a truncated normal or directly using the expression of the inverse Mills ratio.\\
@@ -220,10 +224,40 @@
 				
 			
 		\subsection{Evolution of the exaggeration ratio with $\sigma$,  $\beta$ and $b$}
+		
+			\begin{corollary}\label{corollary_evol_exagg}
+				For  $\beta_{1} > 0$ and $b > 0$, the exaggeration ratio increases with $\sigma$, the standard error of the estimator and decreases with $\beta_{1}$, the true effect size. It thus decreases with the Signal to Noise Ratio (SNR) of the estimator $\frac{\beta_{1}}{\sigma}$.
+			\end{corollary}
 			
-			For simplicity, we focus on the case of $\beta_{1} > 0$ and $b > 0$. The inverse Mills ratio is a decreasing function. %\citep{sampford_inequalities_1953}
-			It thus easily follows that \ul{$E$ increases with $\sigma$, the standard error of the estimator}. The more precise the estimator, the less exaggeration. In the case of an unbiased estimator or of 
-			, it also easily follows that \ul{$E$ is a decreasing function of $\beta_{1}$, the true effect size}. These two results have been proven by \cite{lu_note_2019} and \cite{zwet_significance_2021} in the case of an exaggeration defined as the expected value of the absolute value of the estimate, as in  \cite{gelman_beyond_2014}. Figure \ref{graph_intution_precision} gives an intuition for the relationship between the precision of an estimator and exaggeration by ploting the distribution of estimates for two unbiased estimators with identical mean but different variances and plot their distributions, distinguishing between estimates that are and are not significant.
+			\begin{proof}
+				From equation \ref{exagg_general}, $\forall (\beta, \sigma, \beta_{1}, z_{\alpha}) \in \mathbb{R}_{+}^{4}$,
+				~				
+					\[
+						\dfrac{\partial E}{\partial \sigma}(\beta, \sigma, \beta_{1}, z_{\alpha}) = 
+							\dfrac{1}{\beta_{1}}\lambda\left( \dfrac{\beta_{1} + b}{\sigma}  - z_{\alpha} \right) - \dfrac{\beta_{1} + b}{\sigma}\lambda'\left( \dfrac{\beta_{1} + b}{\sigma} - z_{\alpha} \right)
+					\]
+					
+				Since the inverse Mills ratio being a positive, decreasing function, $\forall x \in \mathbb{R}, \lambda(x) > 0 \text{ and } \lambda'(x) < 0$%\citep{sampford_inequalities_1953}
+				. Thus, $\forall (\beta, \sigma, \beta_{1}, z_{\alpha}) \in \mathbb{R}_{+}^{4}, \frac{1}{\beta_{1}}\lambda\left( \frac{\beta_{1} + b}{\sigma} - z_{\alpha} \right) > 0$ and $- \frac{\beta_{1} + b}{\sigma}\lambda'\left( \frac{\beta_{1} + b}{\sigma} - z_{\alpha} \right) > 0$ and $\dfrac{\partial E}{\partial \sigma} > 0$. \ul{The exaggeration ratio is an increasing function of $\sigma$, the variance of the estimator}.\\
+				
+				Similarly, from equation \ref{exagg_general}, $\forall (\beta, \sigma, \beta_{1}, z_{\alpha}) \in \mathbb{R}_{+}^{4}$,
+				~		
+					\[
+						\dfrac{\partial E}{\partial \beta_{1}}(\beta, \sigma, \beta_{1}, z_{\alpha}) = 
+						- \dfrac{b}{\beta_{1}^{2}} 
+						+ \dfrac{1}{\beta_{1}}\lambda'\left( \dfrac{\beta_{1} + b}{\sigma}  - z_{\alpha} \right) 
+						- \dfrac{\sigma}{\beta_{1}^{2}}\lambda\left( \dfrac{\beta_{1} + b}{\sigma} - z_{\alpha} \right)
+					\]
+					
+					$\forall (\beta, \sigma, \beta_{1}, z_{\alpha}) \in \mathbb{R}_{+}^{4}$, each term of this partial derivative is negative and thus $\dfrac{\partial E}{\partial \sigma} < 0$. \ul{The exaggeration ratio is a decreasing function of $\beta_{1}$, the true effect size}.\\
+					
+					Combining these two results implies that \ul{the exaggeration ratio is a decreasing function of $\beta_{1}/\sigma$, the signal to noise ratio}.
+			~
+			\end{proof}
+				
+				Note that these two results have been proven by \cite{lu_note_2019} and \cite{zwet_significance_2021} in the case of an exaggeration defined as the expected value of the absolute value of the estimate, as in  \cite{gelman_beyond_2014}.\\
+					
+			 Figure \ref{graph_intution_precision} gives an intuition for the relationship between the precision of an estimator and exaggeration by ploting the distribution of two unbiased estimators (that therefore have identical means) but different variances and distinguishing between estimates that are and are not significant.
 			
 			\begin{figure}[h!]
 				\centering
@@ -405,11 +439,11 @@
 				\end{equation*}
 				
 				And substituting for $\sigma_{v}^{2}$,
-				\begin{equation}
+				\begin{equation*}
 					\boxed{
 						\hat{\beta}_{\textsc{ovb}} \overset{d}{\to} \mathcal{N}\left( \beta_1 + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}{n \ \sigma_{x}^{2}} \right) 
 					}
-				\end{equation}
+				\end{equation*}
 			\end{proof}
 				
 				Using the notations introduced in section \ref{maths_objectives}, we have:
@@ -420,6 +454,14 @@
 						\sigma_{\textsc{ovb}}^{2} & = \dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}{n \ \sigma_{x}^{2}}
 					\end{array}				
 				\end{equation}
+				
+				Note, in the absence of omitted variable bias, we retrieve the usual asymptotic distribution of the OLS estimator. To do so, we can:
+					
+					\begin{itemize}
+						\item Set $\delta = 0$. In this case $b = 0$ and $\sigma_{\textsc{ovb}}^{2} = \dfrac{\sigma_{u}^{2}}{n \sigma_{x}^{2}}$, the usual variance.
+						\item Set $\sigma_{w} = 0$ yields the same bias and variance.
+						\item Set $\gamma = 0$. In this case $b = 0$ and $\sigma_{\textsc{ovb}}^{2} = \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{n \sigma_{x}^{2}}$. The numerator of this variance differs because the variance of $y$ not explained by $x$ includes the effect of $w$. It is therefore equivalent to the usual variance.
+					\end{itemize}
 				
 				
 				
@@ -570,7 +612,7 @@
 							 \mathcal{N}\left( \beta_1 , \ \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \eta_{1}^{2}\sigma_{z}^{2}} \right) 
 					}
 				\end{equation}
-				
+				~
 				\end{proof}
 				
 				Using the notations introduced in section \ref{maths_objectives}, we have:
@@ -620,10 +662,10 @@
 				\[
 						\sqrt{n}\left( \hat{\beta}_{\textsc{red}} - \beta_{1} \right)
 						\overset{d}{\to}
-							 \mathcal{N}\left( 0 , \ \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{n \times p_{1} (1-p_{1})} \right) 
+							 \mathcal{N}\left( 0 , \ \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{\sigma_{d}^{2}} \right) 
 				\]
 				
-				where $p_{1}$ is the proportion of 1 in $d$.	
+				with $\sigma_{d}^{2} = p_{1}(1-p_{1})$, $p_{1}$ being the proportion of treated observations, \textit{i.e.}, the proportion of 1 in $d$.	
 				
 			\end{lemma}
 			
@@ -687,25 +729,6 @@
 			
 			\[ \sqrt{n}(\hat{\bm{\beta}}_{\textsc{red}} - \bm{\beta}) \overset{d}{\to} 
 					\mathcal{N}\left(0,  \{(\delta + \beta \gamma)^{2}\sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}\} \mathbb{E}[\text{d}_{i}\text{d}_{i}']^{-1} \right) \]
-			
-			Notice that, as expected, the term factored in front of $\mathbb{E}[\text{d}_{i}\text{d}_{i}']^{-1}$ corresponds to the part of the variance in $y$ that is orthogonal to $\text{d}$, \textit{i.e.}, the variance of the error term of the regression of $y$ on $\text{d}$:
-			~
-			\begin{align*}
-				\text{Var} \left( y_{i}^{\perp d}\right) 
-					& = \text{Var} \left( (\delta + \beta_{1}\gamma) w_{i} + u_{i} + \beta_{1} \epsilon_{i} \right) \\
-					&  = (\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}\\
-						& \qquad + 2(\delta + \beta_{1}\gamma) \underbrace{\text{cov}(w_{i}, u_{i})}_{0} + 2\beta_{1} \underbrace{\text{cov}(u_{i}, \epsilon_{i})}_{0} + 2(\delta + \beta_{1}\gamma) \beta_{1} \underbrace{\text{cov}(w_{i}, \epsilon_{i})}_{0}\\
-					& = (\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}
-			\end{align*}
-					
-			The previous relation can also be written as,
-				~
-				\begin{equation*}
-					\boxed{
-						\hat{\bm{\beta}}_{\textsc{red}} \overset{d}{\to} 
-							\mathcal{N}\left(\bm{\beta},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{n} \mathbb{E}[\text{d}_{i}\text{d}_{i}']^{-1}  \right)
-					}
-				\end{equation*}
 				
 			We are interested in the second component of $\hat{\bm{\beta}}_{\textsc{red}}$. To retrieve it we need to compute $\mathbb{E}[\text{d}_{i} \text{d}_{i}']^{-1}$.  
 			~
@@ -720,25 +743,12 @@
 					1 & \mu_{d}\\ 
 					\mu_{d} & \sigma_{d}^{2} + \mu_{d}^2
 				\end{bmatrix} 
-				\]
-				
-				Since $d$ is a vector of dummies, denoting $p_{1}$ the proportion of 1 in this vector, $\sigma_{d}^{2} = p_{1}(1 - p_{1})$ and $\mu_{d} = p_{1}$. Thus, $ \sigma_{d}^{2} + \mu_{d}^2 = p_{1}$. As a consequence,
-				
-				\[ 
-				\mathbb{E}[\text{d}_{i}\text{d}_i'] 
-				=
-				\begin{bmatrix}
-					1 & p_{1}\\ ~\\
-					p_{1} & p_{1}
-				\end{bmatrix} 
-				\]
-				
-				\[
-				 \Rightarrow \quad
-				     \mathbb{E}[\text{d}_{i}\text{d}_i']^{-1} = \dfrac{1}{p_{1}(1 - p_{1})} 
-				     			\begin{bmatrix}
-								p_{1} & - p_{1}\\ 
-								 -p_{1} & 1
+				\quad \Rightarrow \quad
+				     \mathbb{E}[\text{d}_{i}\text{d}_i']^{-1} = 
+				     		\dfrac{1}{\sigma_{d}^{2}} 
+							\begin{bmatrix}
+								 \sigma_{d}^{2} + \mu_{d}^2 & -\mu_{d}\\ 
+								 -\mu_{d} & 1
 							\end{bmatrix} 
 				\]
 				
@@ -747,25 +757,44 @@
 				\begin{equation*}
 					\boxed{
 						\hat{\bm{\beta}}_{\textsc{red}} \overset{d}{\to} 
-							\mathcal{N}\left(\bm{\beta},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{n \times p_{1} (1-p_{1})}  \right)
+							\mathcal{N}\left(\bm{\beta},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{n \sigma_{d}^{2}}  \right)
 					}
 				\end{equation*}
-				
-				\end{proof}
-				
+			~	
+			\end{proof}
+			
 				Using the notations introduced in section \ref{maths_objectives}, we have:
 				~
 				
 				\begin{equation}\label{b_sigma_red}
 					\begin{array}{lll}
 						b_{\textsc{red}} & = 0\\
-					\sigma_{\textsc{red}}^{2} & =  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{n \times p_{1} (1-p_{1})}
+					\sigma_{\textsc{red}}^{2} & =  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{n \sigma_{d}^{2}}
 					\end{array}				
 				\end{equation}
 				
+				Notice that, as expected, the numerator of the variance corresponds to the part of the variance in $y$ that is orthogonal to $\text{d}$, \textit{i.e.}, the variance of the error term of the regression of $y$ on $\text{d}$:
+			~
+			\begin{align*}
+				\text{Var} \left( y_{i}^{\perp d}\right) 
+					& = \text{Var} \left( (\delta + \beta_{1}\gamma) w_{i} + u_{i} + \beta_{1} \epsilon_{i} \right) \\
+					&  = (\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}\\
+						& \qquad + 2(\delta + \beta_{1}\gamma) \underbrace{\text{cov}(w_{i}, u_{i})}_{0} + 2\beta_{1} \underbrace{\text{cov}(u_{i}, \epsilon_{i})}_{0} + 2(\delta + \beta_{1}\gamma) \beta_{1} \underbrace{\text{cov}(w_{i}, \epsilon_{i})}_{0}\\
+					& = (\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}
+			\end{align*}
+				
+				Further, since $d$ is a vector of dummies, denoting $p_{1}$ the proportion of 1 in this vector, $\sigma_{d}^{2} = p_{1}(1 - p_{1})$ and thus:		
+				~
+				\begin{equation}\label{distrib_red_prop}
+						\hat{\bm{\beta}}_{\textsc{red}} \overset{d}{\to} 
+							\mathcal{N}\left(\bm{\beta},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{n \times p_{1}(1-p_{1})}  \right)
+				\end{equation}		
+				
+			For all other parameters fixed, including the number of observations $n$ and the true effect size $\beta_{1}$, $\sigma_{\textsc{red}}^{2}$ increases when the proportion of treated observations $p_{1}$ gets further from 0.5 as $p_{1} (1-p_{1})$ is a parabolic function with maximum reached for $p_{1} = 0.5$. When most observations have the same treatment status, \textit{i.e.}, $p_{1}$ close to 0 or 1, the variance shoots up. There is not enough variation in the treatment status to precisely identify the effect of interest. 
+				
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 				
-		\subsection{Comparison of efficiencies of the IV and naive regression}
+		\subsection{Comparison of efficiencies}
 			
 			The IV and naive regression variances are rather similar. Note that $\sigma_x^2 \rho_{xz}^{2} < \sigma_x^2$ and,
 				~
@@ -777,7 +806,17 @@
 					\sigma_{u}^{2} + \delta^{2} \sigma_{w}^{2} \left( 1 - \dfrac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right) <  \sigma_{u}^{2} + \delta^{2} \sigma_{w}^{2} 
 				\end{align*}
 				
-				Both these inequalities imply that $\boxed{\sigma_{\textsc{iv}}^{2} > \sigma_{\textsc{ovb}}^{2}}$. While unbiased, the IV estimator is less precise than the naive estimator. This is a well known and intuitive result that we recovered in a particular setting, tied to the modelling assumptions we made. This result is due to the fact that the IV only uses part of the variation in the endogenous dependent variable, the part that is explained by the instrument. 
+				Both these inequalities imply that $\boxed{\sigma_{\textsc{iv}}^{2} > \sigma_{\textsc{ovb}}^{2}}$. While unbiased, the IV estimator is less precise than the naive estimator. This is a well known and intuitive result that we recovered in a particular setting, tied to the modeling assumptions we made. This result is due to the fact that the IV only uses part of the variation in the endogenous dependent variable, the part that is explained by the instrument.\\
+			
+			Focusing on the setting considered for the reduced form estimation, \textit{i.e.}, with $\eta_{0} = 0, \ \eta_{1} = 1$ and $z$ denoted with $d$, the asymptotic distribution of the IV estimate in this setting would be: 
+			~
+			\[
+				\sqrt{n}\left( \hat{\beta}_{\textsc{iv(red)}} - \beta_{1} \right)
+					\overset{d}{\to}
+					 \mathcal{N}\left( 0 , \ \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{ \sigma_{d}^{2}} \right) 
+			\]
+			
+			We can notice that $\sigma_{\textsc{red}}^{2} =\sigma_{\textsc{iv(red)}}^{2} + \dfrac{2\beta_{1}\gamma \sigma_{w}^{2} + \beta_{1}^{2}\gamma^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{\sigma_{d}^{2}}$. We assumed $\beta_{1} > 0$. It makes sense to focus on the case for which $\gamma > 0$ and  $\delta > 0$, \textit{i.e.}, the OVB described in equation \ref{b_sigma_ovb} is an upward bias and causes the same types of issues as the exaggeration. In this case $\sigma_{\textsc{red}}^{2} > \sigma_{\textsc{iv(red)}}^{2}$. In the special setting considered for the reduced form estimation and under these assumptions, we thus have $\boxed{\sigma_{\textsc{red}}^{2} > \sigma_{\textsc{iv(red)}}^{2} > \sigma_{\textsc{ovb(red)}}^{2}}$.
 			
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -789,11 +828,11 @@
 				
 		\subsection{Evolution of the exaggeration ratio with the value of model parameters}
 		 
-		 	We focus on the OVB and IV estimators whose distributions we derived in the previous section in order to understand how their respective exaggeration ratios, $E_{\textsc{ovb}}$ and $E_{\textsc{iv}}$, evolve with the values of the model parameters described in section \ref{maths_dgp}. In particular, we want to understand how exaggeration evolves with the correlation between $x$ and $z$, $\rho_{xz}$ and the intensity of the OVB, \textit{ie}, $\delta$ and $\gamma$.
+		 	In this section, we aim to understand how the exaggeration ratios of the naive regression, the IV and the reduced form evolves with $\delta$  and $\gamma$, the intensity of the OVB, $\rho_{xz}$, the correlation between $x$ and $z$, and $p_{1}$ the proportion of  treated observations, respectively.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-			\subsubsection{Omitted Variable}
+			\subsubsection{Naive regression}
 			
 				Plugging in the values for $\beta_{\textsc{ovb}}$, $\sigma_{\textsc{ovb}}$ and $b_{\textsc{ovb}}$, from equation \ref{b_sigma_ovb} into equation \ref{exagg_general}, we get:
 			~
@@ -813,12 +852,6 @@
 			
 			\subsubsection{Instrumental Variable}
 			
-				\begin{proposition}
-					 $E_{\textsc{iv}}$, the exaggeration ratio of the instrumental variable estimator, decreases with the strength of the instrument $\eta_{1}$ (or equivalently with the correlation between the endegoneous variable $x$ and the instrument $z$).
-				\end{proposition}
-				
-			\begin{proof}
-			
 				Plugging in the values for $\beta_{\textsc{iv}}$, $\sigma_{\textsc{iv}}$ and $b_{\textsc{iv}}$, from equation \ref{b_sigma_iv} into equation \ref{exagg_general}, we get:
 				~
 				\begin{align*}
@@ -832,7 +865,17 @@
 					 \lambda \left( \dfrac{\beta_{1}|\eta_{1}| \sigma_{z}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right)
 				\end{align*}
 				
-				Since there is no bias, the only factor varying with the values of the model parameters is the standard error of the estimator. Since the exaggeration ratio increases with this standard error, any model parameter positively associated with the later will increase the former. Hence, the exaggeration ratio of the IV estimator, $E_{\textsc{iv}}$, increases with $\sigma_{u}$, $\sigma_{w}$ and $\delta$ and decreases with $\sigma_{z}$, $\eta_{1}$ and $n$. It also decreases with $\beta_{1}$. We thus showed that \ul{exaggeration decreases with the strength of the instrument}. Now, note that:
+			
+				\begin{proposition}
+					 $E_{\textsc{iv}}$, the exaggeration ratio of the instrumental variable estimator, decreases with the strength of the instrument $\eta_{1}$ (or equivalently with the correlation between the endegoneous variable $x$ and the instrument $z$).
+				\end{proposition}
+				
+			\begin{proof}
+				Since there is no bias, the only factor varying with the values of the model parameters is the standard error of the estimator. Corollary \ref{corollary_evol_exagg} showed the exaggeration ratio increases with this standard error. Thus, any model parameter positively associated with the later will increase the former. Hence, the exaggeration ratio of the IV estimator, $E_{\textsc{iv}}$, increases with $\sigma_{u}$, $\sigma_{w}$ and $\delta$ and decreases with $\sigma_{z}$, $\eta_{1}$ and $n$. It also decreases with $\beta_{1}$. We thus showed that \ul{exaggeration decreases with the strength of the instrument}. 
+			~
+			\end{proof}
+				
+				Now, note that:
 				~
 				\begin{align*}
 					\sigma_{y}^{2} & =  \text{var}(y_{i}) = \text{var}(\beta_{0} + \beta_{1}x_{i} + \delta w_{i} + u_{i})\\
@@ -859,45 +902,93 @@
 				
 				Note that \ul{$E_{\textsc{iv}}$ decreases with $\rho_{xz}$, the correlation between the endogenous variable $x$ and the instrument $z$}.	 
 				
-			\end{proof}
-				
+			\subsubsection{Reduced form}
 			
-                		\subsection{The exaggeration/confounders trade-off}
-                		
-                			The objective of this paper is to compare ``biases'' resulting from exaggeration and confounders. In this document, we thus aim to compare $E_{\textsc{ovb}}$ to $E_{\textsc{iv}}$. We thus define $\varDelta = E_{\textsc{iv}} - E_{\textsc{ovb}}$ and analyse whether and for which parameters values $\varDelta > 0$. In particular, we focus on the strength of the IV (or the correlation between the instrument and the endogenous variable). 
+				Plugging in the values for $\beta_{\textsc{re}}$, $\sigma_{\textsc{re}}$ and $b_{\textsc{red}}$, from equation \ref{b_sigma_red} into equation \ref{exagg_general}, we get:
+				~
+				\begin{align*}
+					E_{\textsc{red}} & = 
+					1 + 
+					\dfrac{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon}^{2}}}{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}
+					 \lambda \left( \dfrac{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon}^{2}}} - z_{\alpha} \right)
+				\end{align*}
 			
 				\begin{proposition}
-					Under the data generating process described in equation \ref{maths_true_dgp}, for some parameter values, $E_{\textsc{iv}} > E_{\textsc{ovb}}$.
+					 $E_{\textsc{red}}$, the exaggeration ratio of the reduced form estimator, increases when the proportion of treated observations moves away from 0.5.
 				\end{proposition}
 				
 			\begin{proof}
-				
-				Combining lemmas \ref{lemma_ovb}, \ref{lemma_iv} and \ref{lemma_exagg}, we get:
-				
-                    		\begin{multline*}
-                    			\varDelta = E_{\textsc{iv}} - E_{\textsc{ovb}} = 
-                    				\dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}
-                    					 \lambda \left( \dfrac{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right) - 
-                    				\dfrac{\delta \gamma \sigma_{w}^{2}}{\beta_{1}\sigma_{x}^{2}} \\
-                    				- \dfrac{\sqrt{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}}{\beta_{1} \sigma_{x} \sqrt{n}}
-                    				 \lambda \left( \dfrac{ \sigma_{x}\sqrt{n} \left( \beta_{1} + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} \right)  }{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}} - z_{\alpha} \right)
-                    		\end{multline*}
-		                    				
-                    		First, note that only $E_{\textsc{iv}}$ depends on $\rho_{xz}$. Since $E_{\textsc{iv}}$ decreases with $\rho_{xz}$, $\varDelta$ also decreases with $\rho_{xz}$. Now, for fixed and finite values of the other parameters, and since we assumed that $\beta_{1} > 0$,
-                    		~
-                    		\begin{align*}
-                    			\lim_{\rho_{xz} \to 0^{+}} & \dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}} = + \infty \\
-                    			\lim_{\rho_{xz} \to 0^{+}} & \lambda \left( \dfrac{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right) = \lambda (- z_{\alpha}) \in \mathbb{R}_{+}
-                    		\end{align*}
-                    			
-                    		Since the other components of $\varDelta$ are finite and do not depend on $\rho_{xz}$, $\lim_{\rho_{xz} \to 0^{+}} \varDelta = + \infty$. Since $\varDelta$ is a continuous function of $\rho_{xz}$ on $(0, 1]$, for any set of parameter values consistent with our hypotheses, $\exists \rho_{xz} \in (0, 1] \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$. Since $\eta_{1}^{2}\sigma_{z}^{2} = \rho_{xz}^{2}\sigma_{x}^{2}$, it is also straigthforward to show, for any set of parameter values consistent with our hypotheses, $\exists \eta_{1} \in \mathbb{R}_{+}^{*} \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$. 
-		
+				Equation \ref{distrib_red_prop} showed that $\sigma_{\textsc{red}}^{2}$ increases when the proportion of treated observations moves away from 0.5. Applying corollary \ref{corollary_evol_exagg} directly proves the proposition.
 			\end{proof}
-                    		
-                    		We thus have shown that, \ul{if the correlation between the instrument and the endogenous variable is low, the exaggeration bias of the IV can be larger than that of the ``naive'' regression, even in the presence of confounders}. The trade-off, \textit{ie} the value of $\varDelta$, is affected by this correlation, or the strength of the instrument. 
+
+			
+                		\subsection{The exaggeration/confounders trade-off}
+                		
+                			The objective of this paper is to compare ``biases'' resulting from exaggeration and confounders. In this document, we thus aim to compare $E_{\textsc{ovb}}$ to $E_{\textsc{iv}}$ and $E_{\textsc{red}}$. We thus define $\varDelta_{\textsc{iv}} = E_{\textsc{iv}} - E_{\textsc{ovb}}$ and $\varDelta_{\textsc{red}} = E_{\textsc{red}} - E_{\textsc{ovb}}$ and analyse whether and for which parameters values these quantities are positive. In particular, we focus on the strength of the IV (or the correlation between the instrument and the endogenous variable) and the proportion of treated observations in the reduced form case. 
+			
+				\subsubsection{Instrumental variable}
+			
+            				\begin{proposition}\label{proof_trade_off_iv}
+            					Under the data generating process described in equation \ref{maths_true_dgp}, for some parameter values, $E_{\textsc{iv}} > E_{\textsc{ovb}}$. More specifically, $\exists \eta_{1} \in \mathbb{R}_{+}^{*} \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$.
+            				\end{proposition}
+            				
+            				\begin{proof}
+            				
+            				Combining lemmas \ref{lemma_ovb}, \ref{lemma_iv} and \ref{lemma_exagg}, we get:
+            				
+                                		\begin{multline*}
+                                			\varDelta_{\textsc{iv}} = E_{\textsc{iv}} - E_{\textsc{ovb}} = 
+                                				\dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}
+                                					 \lambda \left( \dfrac{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right) - 
+                                				\dfrac{\delta \gamma \sigma_{w}^{2}}{\beta_{1}\sigma_{x}^{2}} \\
+                                				- \dfrac{\sqrt{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}}{\beta_{1} \sigma_{x} \sqrt{n}}
+                                				 \lambda \left( \dfrac{ \sigma_{x}\sqrt{n} \left( \beta_{1} + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} \right)  }{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}} - z_{\alpha} \right)
+                                		\end{multline*}
+            		                    				
+                                		We want to show that $\exists \eta_{1} \in \mathbb{R}_{+}^{*} \text{ s.t. } \varDelta_{\textsc{iv}} > 0$. First, note that only $E_{\textsc{iv}}$ depends on $\rho_{xz}$. Since $E_{\textsc{iv}}$ decreases with $\rho_{xz}$, $\varDelta_{\textsc{iv}}$ also decreases with $\rho_{xz}$. Now, for fixed and finite values of the other parameters, and since we assumed that $\beta_{1} > 0$,
+                                		~
+                                		\begin{align*}
+                                			\lim_{\rho_{xz} \to 0^{+}} & \dfrac{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}}{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}} = + \infty \\
+                                			\lim_{\rho_{xz} \to 0^{+}} & \lambda \left( \dfrac{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right) = \lambda (- z_{\alpha}) \in \mathbb{R}_{+}
+                                		\end{align*}
+                                			
+                                		Since the other components of $\varDelta_{\textsc{iv}}$ are finite and do not depend on $\rho_{xz}$, $\lim_{\rho_{xz} \to 0^{+}} \varDelta_{\textsc{iv}} = + \infty$. Since $\varDelta_{\textsc{iv}}$ is a continuous function of $\rho_{xz}$ on $(0, 1]$, for any set of parameter values consistent with our hypotheses, $\exists \rho_{xz} \in (0, 1] \text{ s.t. } \varDelta_{\textsc{iv}} > 0, \text{ \textit{i.e.} s.t. }E_{\textsc{iv}} > E_{\textsc{ovb}}$. Since $\eta_{1}^{2}\sigma_{z}^{2} = \rho_{xz}^{2}\sigma_{x}^{2}$, it is also straigthforward to show, for any set of parameter values consistent with our hypotheses, $\exists \eta_{1} \in \mathbb{R}_{+}^{*} \text{ s.t. } E_{\textsc{iv}} > E_{\textsc{ovb}}$. 
+            			~
+            			\end{proof}
+                                		
+                                		We thus have shown that, \ul{if the correlation between the instrument and the endogenous variable is low, the exaggeration bias of the IV can be larger than that of the ``naive'' regression, even in the presence of confounders}. The trade-off, \textit{ie} the value of $\varDelta$, is affected by this correlation, or the strength of the instrument. 
+            		
+            		
+            		Yet, the value and the sign of $\varDelta$ depend on the value of the other parameters in a non-trivial maner. In a concrete setting, it might therefore be difficult to identify how ``low'' the correlation has to be for $\varDelta$ to be positive. 
 		
-		
-		Yet, the value and the sign of $\varDelta$ depend on the value of the other parameters in a non-trivial maner. In a concrete setting, it might therefore be difficult to identify how ``low'' the correlation has to be for $\varDelta$ to be positive. 
+			\subsubsection{Reduced form}
+			
+            				\begin{proposition}
+            					Under the data generating process described in equation \ref{maths_true_dgp}, for some parameter values, $E_{\textsc{red}} > E_{\textsc{ovb}}$. More specifically, $\exists p_{1} \in (0, 1) \text{ s.t. } E_{\textsc{red}} > E_{\textsc{ovb}}$.
+            				\end{proposition}
+            				
+            				\begin{proof}
+				
+					For clarity, we focus on a small number of treated observations, \textit{i.e.} $p_{1}$ close to 0. The exact same reasoning applies for a small number of non-treated observations, \textit{i.e.} $p_{1}$ close to 1 since $x \mapsto x(1-x)$ is symmetric around 0.5 and takes the value 0 in 0 and 1. Combining lemmas \ref{lemma_ovb}, \ref{lemma_iv} and \ref{lemma_exagg}, we get:
+            				
+                                		\begin{multline*}
+                                			\varDelta_{\textsc{red}} = E_{\textsc{red}} - E_{\textsc{ovb}} = 
+                                				\dfrac{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon}^{2}}}{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}
+					 \lambda \left( \dfrac{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon}^{2}}} - z_{\alpha} \right)\\
+                                				- \dfrac{\sqrt{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}}{\beta_{1} \sigma_{x} \sqrt{n}}
+                                				 \lambda \left( \dfrac{ \sigma_{x}\sqrt{n} \left( \beta_{1} + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} \right)  }{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}} - z_{\alpha} \right)
+                                		\end{multline*}
+            		                    				
+                                		The proof is analogous to that of proposition \ref{proof_trade_off_iv}. We want to show that $\exists p_{1} \in (0,1) \text{ s.t. } \varDelta_{\textsc{red}} > 0$. First, note that only $E_{\textsc{red}}$ depends on $p_{1}$. Since $E_{\textsc{red}}$ increases when $p_{1}$ gets further away from 0, $\varDelta_{\textsc{red}}$ also increases when $p_{1} \to 0^{+}$ (or equivalently $p_{1} \to 1^{-}$). Now, for fixed and finite values of the other parameters, and since we assumed that $\beta_{1} > 0$,
+                                		~
+                                		\begin{align*}
+                                			\lim_{p_{1} \to 0^{+}} & \dfrac{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon}^{2}}}{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}} = + \infty \\
+                                			\lim_{p_{1} \to 0^{+}} & \lambda \left( \dfrac{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon}^{2}}} - z_{\alpha} \right) = \lambda (- z_{\alpha}) \in \mathbb{R}_{+}
+                                		\end{align*}
+                                			
+                                		Since the other components of $\varDelta_{\textsc{red}}$ are finite and do not depend on $p_{1}$, $\lim_{p_{1} \to 0^{+}} \varDelta_{\textsc{red}} = + \infty \ (= lim_{p_{1} \to 1^{-}} \varDelta_{\textsc{red}} )$. Since $\varDelta_{\textsc{red}}$ is a continuous function of $p_{1}$ on $(0, 1)$, for any set of parameter values consistent with our hypotheses, $\exists p_{1} \in (0, 1) \text{ s.t. } \varDelta_{\textsc{red}} > 0, \text{ \textit{i.e.} s.t. }E_{\textsc{red}} > E_{\textsc{ovb}}$. 
+            			~
+            			\end{proof}
                     		
                     		
     		

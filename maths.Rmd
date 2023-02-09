@@ -54,9 +54,67 @@ The full proof is available [here](Maths/math_causal_exaggeration.pdf).
 
 ## Simulations
 
-### Modeling choices
+We run simulations to both illustrate and check these results. The structure of the code is based on the `purrr` package and is similar to our other simulations: we first set baseline parameters, define the set of parameters to consider and then run the simulations. It follows the framework described [here](https://vincentbagilet.github.io/posts/2022-10-13-running-simulations/). A simpler code could be written (with a simple for loop) but we chose this coding practice for consistency.
 
-We then run simulations to both illustrate and check these results. The structure of the code is similar to our other simulations: we first set baseline parameters, define the set of parameters to consider and then run the simulations. A simpler code could be written (with a simple for loop) but we chose this coding practice for consistency.
+### Intuition
+
+First, we build a graph that gives the intuition for exaggeration of imprecise estimates:
+
+```{r intuition, echo=FALSE, fig.asp=6/8}
+N <- 10000
+beta <- 1
+sigma_precise <- 0.25
+sigma_imprecise <- 0.6
+
+data_intuition <- 
+  tibble(
+    precise = TRUE,
+    estimate = rnorm(N, beta, sigma_precise),
+    signif = estimate > qnorm(0.975)*sd(estimate)
+  ) %>% 
+  rbind(tibble(
+    precise = FALSE,
+    estimate = rnorm(N, beta, sigma_imprecise),
+    signif = estimate > qnorm(0.975)*sd(estimate)
+  )) %>% 
+  mutate(
+    precise_name = ifelse(precise, "Precise estimate", "Imprecise estimate"),
+    signif_name = ifelse(signif, "Significant", "Non significant")
+  ) 
+
+data_intuition %>% 
+  group_by(precise) %>% 
+  mutate(mean_signif = mean(ifelse(signif, estimate, NA), na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = estimate, fill = signif_name)) +
+  geom_histogram(bins = 100) +
+  # geom_area(stat = "bin", bins = 30) +
+  facet_wrap(~ precise_name, nrow = 2) +
+  geom_vline(xintercept = beta) +
+  geom_vline(xintercept = 0, linewidth = 0.1, color = "black", linetype = "solid") +
+  geom_vline(
+    aes(xintercept = mean_signif), 
+    color = "#976B21", 
+    linetype = "solid", 
+    size = 0.3
+  ) +
+  labs(
+    title = "Exaggeration of an imprecise estimator",
+    subtitle = "Distribution of two estimators with the same mean but different variance",
+    fill = NULL,
+    x = "Estimate",
+    y = "Count",
+    caption = "The green dashed line represents the true effect size
+      The brown solid line represents the average of significant estimates"
+  ) +
+  xlim(c(-1, 3))
+
+# ggsave(here("images", "graph_intuition_precision.pdf"), width = 6, height = 5)
+# ggsave(here("images", "graph_intuition_precision.png"), width = 8, height = 6)
+```
+
+
+### Modeling choices
 
 The DGP is described in the following DAG:
 
@@ -84,11 +142,13 @@ As in the math section we have:
 $$y_{i} = \beta_{0} + \beta_1 x_{i} + \delta w_{i} + u_{i}$$
 $$x_{i} = \eta_0 + \eta_1 z_{i} + \gamma w_{i} + \epsilon_{i}$$
 
+For simplicity, we consider that $w$ and $z$ are normally distributed. We also consider normally distributed error terms. As a linear combination of normally distributed variables, $x$ and $y$ will also be normally distributed.
+
 ### Generate the data
 
-As in the method specific simulations, we create three function, one to generate the data, one to run the estimation and one to compute a simulation (just bundling together the two previous functions).
+We create three functions, one to generate the data, one to run the estimation and one to compute a simulation (just bundling together the two previous functions).
 
-For simplicity, we consider that $w$ and $z$ is normally distributed. We also consider normally distributed error terms. As a linear combination of normally distributed variables, $x$ and $y$ will also be normally distributed.
+The function to generate the data is the following:
 
 ```{r generate_data_maths}
 generate_data_maths <- function(N,
@@ -117,7 +177,7 @@ generate_data_maths <- function(N,
 }
 ```
 
-We then define the baseline parameters values. The numbers chosen are not the usual round ones. We build the present simulations to check our mathematical derivations and non-round numbers fulfill this role better than round numbers. Yet, the magnitudes are chosen in order to mimic a study with low statistical power. 
+We then define the baseline parameters values. The numbers chosen are not the slick 0 and 1 usually used in fake data simulations. We built the present simulations to check our mathematical derivations and thus chose specific parameter values in order to mimic a study with low statistical power. 
 
 ```{r param_maths, echo=FALSE}
 # baseline_param_maths <- tibble(
@@ -215,11 +275,9 @@ pmap_dfr(baseline_param_maths, compute_sim_maths) %>%
 
 We then run all the simulations and save the results.
 
-```{r run_sim_maths, eval=FALSE, echo=FALSE}
-tic()
+```{r run_sim_maths, eval=FALSE}
 sim_maths <- pmap_dfr(param_maths, compute_sim_maths)
 beep()
-toc()
 
 saveRDS(sim_maths, here("Outputs/sim_maths.RDS"))
 ```
@@ -259,6 +317,7 @@ sim_maths %>%
   ) %>% 
   ungroup() %>% 
   filter(dplyr::between(estimate, -0.5, 0.7)) %>% 
+  filter(model != "reduced_form") %>% 
   ggplot(aes(x = estimate, fill = signif_name)) +
   geom_histogram(bins = 70) +
   # geom_area(stat = "bin", bins = 30) +
@@ -280,9 +339,11 @@ sim_maths %>%
     # caption = "The green dashed line represents the true effect size
     #   The brown solid line represents the average of significant estimates"
   ) +
+  scale_y_continuous(breaks = scales::breaks_pretty(3)) +
   xlim(c(-0.05, 0.2))
 
-ggsave(here("images", "graph_maths_paper.pdf"), width = 6, height = 8)
+# ggsave(here("images", "graph_maths_paper.pdf"), width = 6, height = 8)
+ggsave(here("images", "graph_maths_paper.png"), width = 6, height = 6.5)
 ```
 
 We then look at the mean of the estimates and of the statistically significant ones for each model:
@@ -396,6 +457,59 @@ baseline_param_maths %>%
 ```
 
 
+## Ploting the results
+
+I plot the exaggeration ratio for the IV. I use the baseline params from the IV section. I just renamed them.
+
+```{r plot_theory}
+baseline_param_IV <- tibble(
+  n = 10000,
+  # type_rain = "bernoulli",
+  # param_rain = 0.4,
+  # type_rain = "gamma",
+  # param_rain = list(c(0.13, 18)),
+  sigma_z = 0.13*18^2,
+  sigma_w = 14,
+  sigma_u = 14,
+  sigma_epsilon = 13,
+  beta_0 = 60,
+  eta_0 = 59,
+  beta_1 = 0.1,
+  eta_1 = 0.5, 
+  delta = 0.2,
+  gamma = delta
+)
+
+lambda <- function(x) {dnorm(x)/pnorm(x)}
+
+exagg_iv <- function(n, 
+                     sigma_z,
+                     sigma_w,
+                     sigma_u,
+                     sigma_epsilon,
+                     beta_0,
+                     eta_0, 
+                     beta_1,
+                     eta_1,
+                     delta,
+                     gamma) {
+  # sigma_x <-  eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon
+  A <- sqrt(sigma_u + delta^2*sigma_w^2)/(beta_1*abs(eta_1)*sigma_z*sqrt(n))
+  E_iv = 1 + A*lambda(1/A - qnorm(0.975))
+  
+  tibble(E_iv = E_iv, eta_1 = eta_1)
+}
+
+evol_exagg_iv <- baseline_param_IV %>% 
+  select(-eta_1) %>% 
+  crossing(eta_1 = seq(0.005, 0.06, 0.001)) %>% 
+  pmap_dfr(exagg_iv)
+
+evol_exagg_iv %>% 
+  ggplot(aes(x = eta_1, y = E_iv)) + 
+  geom_line()
+
+```
 
 
 

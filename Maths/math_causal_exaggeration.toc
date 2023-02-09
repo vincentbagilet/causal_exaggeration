@@ -1,0 +1,27 @@
+\select@language {french}
+\select@language {english}
+\contentsline {section}{\numberline {I}Setting}{2}{section.0.1}
+\contentsline {subsection}{\numberline {I. 1}Objectives}{2}{subsection.0.1.1}
+\contentsline {subsection}{\numberline {I. 2}Data generating process}{2}{subsection.0.1.2}
+\contentsline {subsection}{\numberline {I. 3}Summary of the key assumptions}{4}{subsection.0.1.3}
+\contentsline {subsection}{\numberline {I. 4}The models to estimate}{4}{subsection.0.1.4}
+\contentsline {section}{\numberline {II}Exaggeration ratio and its properties}{5}{section.0.2}
+\contentsline {subsection}{\numberline {II. 1}A general expression for the exaggeration ratio}{5}{subsection.0.2.1}
+\contentsline {subsection}{\numberline {II. 2}Evolution of the exaggeration ratio with $\sigma $, $\beta $ and $b$}{7}{subsection.0.2.2}
+\contentsline {section}{\numberline {III}Intuition for controls and exaggeration}{8}{section.0.3}
+\contentsline {subsection}{\numberline {III. 1}Controlling can increase exaggeration}{9}{subsection.0.3.1}
+\contentsline {subsubsection}{\numberline {III. 1.1}Controlling can increase variance...}{9}{subsubsection.0.3.1.1}
+\contentsline {subsubsection}{\numberline {III. 1.2}... and exaggeration}{10}{subsubsection.0.3.1.2}
+\contentsline {section}{\numberline {IV}Asymptotic distribution of the estimators}{11}{section.0.4}
+\contentsline {subsection}{\numberline {IV. 1}Naive regression (OVB)}{11}{subsection.0.4.1}
+\contentsline {subsection}{\numberline {IV. 2}Instrumental Variable}{14}{subsection.0.4.2}
+\contentsline {subsection}{\numberline {IV. 3}Reduced form}{16}{subsection.0.4.3}
+\contentsline {subsection}{\numberline {IV. 4}Comparison of efficiencies}{19}{subsection.0.4.4}
+\contentsline {section}{\numberline {V}Comparison of exaggeration ratios}{19}{section.0.5}
+\contentsline {subsection}{\numberline {V. 1}Evolution of the exaggeration ratio with the value of model parameters}{19}{subsection.0.5.1}
+\contentsline {subsubsection}{\numberline {V. 1.1}Naive regression}{20}{subsubsection.0.5.1.1}
+\contentsline {subsubsection}{\numberline {V. 1.2}Instrumental Variable}{20}{subsubsection.0.5.1.2}
+\contentsline {subsubsection}{\numberline {V. 1.3}Reduced form}{21}{subsubsection.0.5.1.3}
+\contentsline {subsection}{\numberline {V. 2}The exaggeration/confounders trade-off}{21}{subsection.0.5.2}
+\contentsline {subsubsection}{\numberline {V. 2.1}Instrumental variable}{22}{subsubsection.0.5.2.1}
+\contentsline {subsubsection}{\numberline {V. 2.2}Reduced form}{22}{subsubsection.0.5.2.2}

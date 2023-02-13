@@ -2,7 +2,7 @@
 # library(mediocrethemes)
 # library(AER)
 # 
-# set_mediocre_all()
+set_mediocre_all()
 
 n <- 10000
 n_iter <- 200

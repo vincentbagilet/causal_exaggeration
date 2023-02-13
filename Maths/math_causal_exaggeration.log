@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  9 FEB 2023 16:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  13 FEB 2023 11:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1388,12 +1388,16 @@ Package zref Info: New property: mdf@pagevalue on input line 895.
 \c@lemma=\count279
 \c@proposition=\count280
 \c@corollary=\count281
+\c@definition=\count282
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'french'.
 
 (./math_causal_exaggeration.aux
+
+LaTeX Warning: Label `exagg_general' multiply defined.
+
 
 LaTeX Warning: Label `maths_eq_ovb' multiply defined.
 
@@ -1403,34 +1407,34 @@ LaTeX Warning: Label `bias_ovb' multiply defined.
 (./bu.aux))
 \openout1 = `math_causal_exaggeration.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 21.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 23.
  (/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Info: Redefining \degres on input line 21.
-LaTeX Info: Redefining \dots on input line 21.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Info: Redefining \degres on input line 23.
+LaTeX Info: Redefining \dots on input line 23.
 
 
 Package frenchb.ldf Warning: Please load the "natbib" package
-(frenchb.ldf)                BEFORE babel/frenchb; reported on input line 21.
+(frenchb.ldf)                BEFORE babel/frenchb; reported on input line 23.
 
-LaTeX Info: Redefining \up on input line 21.
+LaTeX Info: Redefining \up on input line 23.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1467,16 +1471,16 @@ LaTeX Info: Redefining \up on input line 21.
 
 (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count282
+\scratchcounter=\count283
 \scratchdimen=\dimen263
 \scratchbox=\box86
-\nofMPsegments=\count283
-\nofMParguments=\count284
+\nofMPsegments=\count284
+\nofMParguments=\count285
 \everyMPshowfont=\toks48
-\MPscratchCnt=\count285
+\MPscratchCnt=\count286
 \MPscratchDim=\dimen264
-\MPnumerator=\count286
-\makeMPintoPDFobject=\count287
+\MPnumerator=\count287
+\makeMPintoPDFobject=\count288
 \everyMPtoPDFconversion=\toks49
 ) (/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -1501,17 +1505,17 @@ e
 Package: pdflscape 2016/05/14 v0.11 Display of landscape pages in PDF (HO)
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
-Package backref Info: ** backref set up for natbib ** on input line 21.
-Package hyperref Info: Link coloring OFF on input line 21.
-LaTeX Info: Redefining \ref on input line 21.
-LaTeX Info: Redefining \pageref on input line 21.
-LaTeX Info: Redefining \nameref on input line 21.
+Package backref Info: ** backref set up for natbib ** on input line 23.
+Package hyperref Info: Link coloring OFF on input line 23.
+LaTeX Info: Redefining \ref on input line 23.
+LaTeX Info: Redefining \pageref on input line 23.
+LaTeX Info: Redefining \nameref on input line 23.
 
 (./math_causal_exaggeration.out) (./math_causal_exaggeration.out)
 \@outlinefile=\write4
 \openout4 = `math_causal_exaggeration.out'.
 
-\c@lstlisting=\count288
+\c@lstlisting=\count289
  [1
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
@@ -1534,19 +1538,14 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 \tf@toc=\write5
 \openout5 = `math_causal_exaggeration.toc'.
 
-
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 13.59999pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.42 	\newpage
-               [1]
+               [1
+
+]
 Underfull \hbox (badness 10000) in paragraph at lines 48--49
 
  []
@@ -1558,30 +1557,25 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 79--80
+Underfull \hbox (badness 10000) in paragraph at lines 81--82
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--88
+Underfull \hbox (badness 10000) in paragraph at lines 89--90
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 90--91
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 100--101
-
- []
-
-<../images/DAG_maths-1.png, id=125, 3914.625pt x 978.65625pt>
+<../images/DAG_maths-1.png, id=130, 3914.625pt x 978.65625pt>
 File: ../images/DAG_maths-1.png Graphic file (type png)
 
 <use ../images/DAG_maths-1.png>
-Package pdftex.def Info: ../images/DAG_maths-1.png used on input line 106.
+Package pdftex.def Info: ../images/DAG_maths-1.png used on input line 104.
 (pdftex.def)             Requested size: 227.62204pt x 56.895pt.
 
 
@@ -1603,12 +1597,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 [4 <../images/DAG_maths-1.png>]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 175.
-
-Underfull \hbox (badness 10000) in paragraph at lines 187--188
-
- []
-
+(mdframed)              on input line 165.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 181.
 
 Underfull \hbox (badness 10000) in paragraph at lines 191--192
 
@@ -1684,7 +1676,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 289--290
 
  []
 
-<../images/graph_intuition_precision.pdf, id=182, 433.62pt x 361.35pt>
+<../images/graph_intuition_precision.pdf, id=189, 433.62pt x 361.35pt>
 File: ../images/graph_intuition_precision.pdf Graphic file (type pdf)
 
 <use ../images/graph_intuition_precision.pdf>
@@ -1720,17 +1712,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 389--390
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 403--404
+
+ []
+
+
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [10]
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 421.
+Underfull \hbox (badness 10000) in paragraph at lines 430--431
 
-Underfull \hbox (badness 10000) in paragraph at lines 443--444
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 432--433
 
  []
 
@@ -1741,6 +1739,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [11]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 459.
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 13.59999pt.
@@ -1748,13 +1750,15 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [12]
-Underfull \hbox (badness 10000) in paragraph at lines 574--575
+Underfull \hbox (badness 10000) in paragraph at lines 481--482
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 576--577
-
+Underfull \hbox (badness 1189) in paragraph at lines 504--505
+[]\T1/cmr/m/n/10.95 Since $\U/msb/m/n/10.95 E\OT1/cmr/m/n/10.95 [[][]\OML/cmm/m
+/it/10.95 u[]\OT1/cmr/m/n/10.95 ] = 0$\T1/cmr/m/n/10.95 , by the Cen-tral Limit
+ The-o-rem (CLT), $[] [] []
  []
 
 
@@ -1764,10 +1768,6 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [13]
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 617.
-
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 13.59999pt.
@@ -1775,8 +1775,20 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [14]
-Overfull \hbox (8.45543pt too wide) detected at line 710
- \U/msb/m/n/10.95 E\OT1/cmr/m/n/10.95 [[][][][]] = [] = [] = []
+Underfull \hbox (badness 10000) in paragraph at lines 612--613
+
+ []
+
+
+Underfull \hbox (badness 1603) in paragraph at lines 614--615
+[]\T1/cmr/m/n/10.95 We can now com-pute the vari-ance of the es-ti-ma-tor $[]$,
+ not-ing that $\U/msb/m/n/10.95 E\OT1/cmr/m/n/10.95 [[][][][]\OML/cmm/m/it/10.9
+5 u[]\OT1/cmr/m/n/10.95 ] =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 614--615
+
  []
 
 
@@ -1786,12 +1798,9 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [15]
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 805.
-Package mdframed Info: Box was splittet wrong
- starting loop to iterate the splitting point
-(mdframed)              on input line 815.
+Underfull \hbox (badness 10000) in paragraph at lines 677--678
+
+ []
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1800,6 +1809,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [16]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 682.
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 13.59999pt.
@@ -1807,6 +1820,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [17]
+Overfull \hbox (8.45543pt too wide) detected at line 775
+ \U/msb/m/n/10.95 E\OT1/cmr/m/n/10.95 [[][][][]] = [] = [] = []
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 13.59999pt.
@@ -1814,9 +1831,9 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [18]
-Underfull \hbox (badness 10000) in paragraph at lines 954--955
-
- []
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 882.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1825,10 +1842,13 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [19]
+Underfull \hbox (badness 10000) in paragraph at lines 903--904
+
+ []
+
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1014.
-
+(mdframed)              on input line 924.
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 13.59999pt.
@@ -1836,13 +1856,6 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [20]
-Underfull \hbox (badness 10000) in paragraph at lines 1035--1036
-
- []
-
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 1061.
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 13.59999pt.
@@ -1852,10 +1865,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 [21]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1076.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 1111.
+(mdframed)              on input line 1070.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1864,6 +1874,31 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [22]
+Underfull \hbox (badness 10000) in paragraph at lines 1099--1100
+
+ []
+
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1120.
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[23]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1155.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[24]
 \openout3 = `bu.aux'.
 
  (./math_causal_exaggeration.bbl (./math_causal_exaggeration.brf)
@@ -1877,38 +1912,44 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[23])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1152.
- [24
+[25])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1196.
+ [26
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1152.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1196.
  (./math_causal_exaggeration.aux (./bu.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1152.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1152.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1196.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1196.
 
 Package rerunfilecheck Info: File `math_causal_exaggeration.out' has not change
 d.
-(rerunfilecheck)             Checksum: 5628A2482FA7D3F437BF896C9C284D5C;1434.
+(rerunfilecheck)             Checksum: 5DB817D8FC0C6E0768C4A94ECB412FA1;1429.
 Package rerunfilecheck Info: File `math_causal_exaggeration.brf' has not change
 d.
-(rerunfilecheck)             Checksum: D25FDCB36DED5109971CD15B1FD0FA15;421.
+(rerunfilecheck)             Checksum: 6D628862FFB0EE00381542C2359F75A0;423.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1152.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1196.
  ) 
 Here is how much of TeX's memory you used:
- 22499 strings out of 492995
- 369898 string characters out of 6132704
- 493670 words of memory out of 5000000
- 25593 multiletter control sequences out of 15000+600000
- 38442 words of font info for 100 fonts, out of 8000000 for 9000
+ 22522 strings out of 492995
+ 370241 string characters out of 6132704
+ 494929 words of memory out of 5000000
+ 25605 multiletter control sequences out of 15000+600000
+ 39218 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,18n,56p,10413b,581s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exi
+ 44i,18n,56p,10413b,552s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exi
 st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
+, replaced by a fixed one
 
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</
 usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
@@ -1929,26 +1970,27 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2017/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2017/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2017/texmf-dis
 t/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/texmf
--dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2017/texmf-d
-ist/fonts/type1/public/cm-super/sfcc0600.pfb></usr/local/texlive/2017/texmf-dis
-t/fonts/type1/public/cm-super/sfcc0800.pfb></usr/local/texlive/2017/texmf-dist/
-fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2017/texmf-dist/fo
-nts/type1/public/cm-super/sfcc1440.pfb></usr/local/texlive/2017/texmf-dist/font
-s/type1/public/cm-super/sfcc2488.pfb></usr/local/texlive/2017/texmf-dist/fonts/
-type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2017/texmf-dist/fonts/ty
-pe1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2017/texmf-dist/fonts/type
-1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
-public/cm-super/sfrm1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pu
-blic/cm-super/sfrm1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publ
-ic/cm-super/sfti0900.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public
-/cm-super/sfti1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/c
-m-super/sfxc1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-
-super/sfxc1440.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-su
-per/sfxc2074.pfb>
-Output written on math_causal_exaggeration.pdf (25 pages, 896439 bytes).
+-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2017/texmf-d
+ist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2017/texmf-dis
+t/fonts/type1/public/cm-super/sfcc0600.pfb></usr/local/texlive/2017/texmf-dist/
+fonts/type1/public/cm-super/sfcc0800.pfb></usr/local/texlive/2017/texmf-dist/fo
+nts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2017/texmf-dist/font
+s/type1/public/cm-super/sfcc1440.pfb></usr/local/texlive/2017/texmf-dist/fonts/
+type1/public/cm-super/sfcc2488.pfb></usr/local/texlive/2017/texmf-dist/fonts/ty
+pe1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2017/texmf-dist/fonts/type
+1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
+public/cm-super/sfrm0900.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pu
+blic/cm-super/sfrm1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publ
+ic/cm-super/sfrm1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public
+/cm-super/sfti0900.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/c
+m-super/sfti1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-
+super/sfxc1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-su
+per/sfxc1440.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-supe
+r/sfxc2074.pfb>
+Output written on math_causal_exaggeration.pdf (27 pages, 919510 bytes).
 PDF statistics:
- 496 PDF objects out of 1000 (max. 8388607)
- 416 compressed objects within 5 object streams
- 92 named destinations out of 1000 (max. 500000)
+ 520 PDF objects out of 1000 (max. 8388607)
+ 437 compressed objects within 5 object streams
+ 102 named destinations out of 1000 (max. 500000)
  155 words of extra memory for PDF output out of 10000 (max. 10000000)
 

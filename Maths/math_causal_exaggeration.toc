@@ -3,28 +3,29 @@
 \contentsline {section}{\numberline {I}Setting}{2}{section.0.1}
 \contentsline {subsection}{\numberline {I. 1}Objectives}{2}{subsection.0.1.1}
 \contentsline {subsection}{\numberline {I. 2}Data generating process}{3}{subsection.0.1.2}
-\contentsline {subsection}{\numberline {I. 3}Summary of the key assumptions}{4}{subsection.0.1.3}
-\contentsline {subsection}{\numberline {I. 4}The models to estimate}{4}{subsection.0.1.4}
-\contentsline {section}{\numberline {II}Exaggeration ratio and its properties}{5}{section.0.2}
-\contentsline {subsection}{\numberline {II. 1}A general expression for the exaggeration ratio}{5}{subsection.0.2.1}
-\contentsline {subsection}{\numberline {II. 2}Evolution of the exaggeration ratio with $\sigma $, $\beta $ and $b$}{7}{subsection.0.2.2}
-\contentsline {section}{\numberline {III}Intuition for controls and exaggeration}{8}{section.0.3}
-\contentsline {subsection}{\numberline {III. 1}Controlling can increase exaggeration}{9}{subsection.0.3.1}
-\contentsline {subsubsection}{\numberline {III. 1.1}Controlling can increase variance...}{9}{subsubsection.0.3.1.1}
-\contentsline {subsubsection}{\numberline {III. 1.2}... and exaggeration}{10}{subsubsection.0.3.1.2}
-\contentsline {subsection}{\numberline {III. 2}Causal identification strategies as control strategies}{11}{subsection.0.3.2}
-\contentsline {section}{\numberline {IV}Exaggeration ratios for each identification strategy}{12}{section.0.4}
-\contentsline {subsection}{\numberline {IV. 1}Naive regression (OVB)}{12}{subsection.0.4.1}
-\contentsline {subsubsection}{\numberline {IV. 1.1}Asymptotic distribution}{12}{subsubsection.0.4.1.1}
-\contentsline {subsubsection}{\numberline {IV. 1.2}Exaggeration ratio and its evolution}{16}{subsubsection.0.4.1.2}
-\contentsline {subsection}{\numberline {IV. 2}Instrumental Variable}{16}{subsection.0.4.2}
-\contentsline {subsubsection}{\numberline {IV. 2.1}Asymptotic distribution}{17}{subsubsection.0.4.2.1}
-\contentsline {subsubsection}{\numberline {IV. 2.2}Exaggeration ratio and its evolution}{19}{subsubsection.0.4.2.2}
+\contentsline {subsection}{\numberline {I. 3}Summary of the key assumptions}{3}{subsection.0.1.3}
+\contentsline {section}{\numberline {II}Exaggeration ratio and its properties}{4}{section.0.2}
+\contentsline {subsection}{\numberline {II. 1}A general expression for the exaggeration ratio}{4}{subsection.0.2.1}
+\contentsline {subsection}{\numberline {II. 2}Evolution of the exaggeration ratio with $\sigma $, $\beta $ and $b$}{6}{subsection.0.2.2}
+\contentsline {section}{\numberline {III}Intuition for controls and exaggeration}{7}{section.0.3}
+\contentsline {subsection}{\numberline {III. 1}Controlling can increase exaggeration}{8}{subsection.0.3.1}
+\contentsline {subsubsection}{\numberline {III. 1.1}Controlling can increase variance...}{8}{subsubsection.0.3.1.1}
+\contentsline {subsubsection}{\numberline {III. 1.2}... and exaggeration}{9}{subsubsection.0.3.1.2}
+\contentsline {subsection}{\numberline {III. 2}Causal identification strategies as control strategies}{10}{subsection.0.3.2}
+\contentsline {section}{\numberline {IV}Exaggeration ratios for each identification strategy}{11}{section.0.4}
+\contentsline {subsection}{\numberline {IV. 1}Naive regression (OVB)}{11}{subsection.0.4.1}
+\contentsline {subsubsection}{\numberline {IV. 1.1}Asymptotic distribution}{11}{subsubsection.0.4.1.1}
+\contentsline {subsubsection}{\numberline {IV. 1.2}Exaggeration ratio and its evolution}{15}{subsubsection.0.4.1.2}
+\contentsline {subsection}{\numberline {IV. 2}Instrumental Variable}{15}{subsection.0.4.2}
+\contentsline {subsubsection}{\numberline {IV. 2.1}Setting}{16}{subsubsection.0.4.2.1}
+\contentsline {subsubsection}{\numberline {IV. 2.2}Asymptotic distribution}{16}{subsubsection.0.4.2.2}
+\contentsline {subsubsection}{\numberline {IV. 2.3}Exaggeration ratio and its evolution}{19}{subsubsection.0.4.2.3}
 \contentsline {subsection}{\numberline {IV. 3}Reduced form}{20}{subsection.0.4.3}
-\contentsline {subsubsection}{\numberline {IV. 3.1}Asymptotic distribution}{20}{subsubsection.0.4.3.1}
-\contentsline {subsubsection}{\numberline {IV. 3.2}Exaggeration ratio and its evolution}{22}{subsubsection.0.4.3.2}
+\contentsline {subsubsection}{\numberline {IV. 3.1}Setting}{20}{subsubsection.0.4.3.1}
+\contentsline {subsubsection}{\numberline {IV. 3.2}Asymptotic distribution}{20}{subsubsection.0.4.3.2}
+\contentsline {subsubsection}{\numberline {IV. 3.3}Exaggeration ratio and its evolution}{23}{subsubsection.0.4.3.3}
 \contentsline {section}{\numberline {V}Comparison of exaggeration ratios}{23}{section.0.5}
 \contentsline {subsection}{\numberline {V. 1}Comparison of efficiencies}{23}{subsection.0.5.1}
-\contentsline {subsection}{\numberline {V. 2}The exaggeration/confounders trade-off}{23}{subsection.0.5.2}
-\contentsline {subsubsection}{\numberline {V. 2.1}Instrumental variable}{23}{subsubsection.0.5.2.1}
-\contentsline {subsubsection}{\numberline {V. 2.2}Reduced form}{24}{subsubsection.0.5.2.2}
+\contentsline {subsection}{\numberline {V. 2}The exaggeration/confounders trade-off}{24}{subsection.0.5.2}
+\contentsline {subsubsection}{\numberline {V. 2.1}Instrumental variable}{24}{subsubsection.0.5.2.1}
+\contentsline {subsubsection}{\numberline {V. 2.2}Reduced form}{25}{subsubsection.0.5.2.2}

@@ -97,64 +97,26 @@
 					x_i = \mu_{x} + \gamma w_{i} + \epsilon_i
 				\end{equation}
 							
-				The following Directed Acyclic Graph (DAG) sums up the relationships between the variables. It also helps underline the independence, or not, of some variables. 
-				
-				\begin{figure}[!h] 
-            					\begin{center}
-            						\includegraphics[width=8cm]{../images/DAG_maths-1.png}
-            						\caption{DAG of the data generating process}
-            						\label{maths_dag_dgp}
-            					\end{center}
-            				\end{figure} 
-				%\vspace{-0.3cm}
+			
 	
-				In the reduced form case, we consider an analogous DGP to that of the IV. Yet, since we will directly regress $y$ on $z$, the resulting estimand will be different. To make them comparable, for the reduced form case, in equation \ref{maths_dgp_x}, we set $\pi_{1}$ to 1. An increase of 1 in $z$ causes an increase of $\beta_{1}$ in $y$ and the estimands become comparable. Further, we focus on the case where $z$ is an exogenous discrete shock. For clarity, we denote this discrete shock $\text{d}_{i} = (1, d_{i})'$. All other assumptions and features of the DGP remain unchanged. Under these assumptions, plugging equation \ref{maths_dgp_x} into equation \ref{maths_true_dgp} yields:
-				
-				\[
-					y_{i} = \underbrace{\beta_{0} + \beta_{1}\pi_{0}}_{b_{0}} + \beta_{1}d_{i} + \underbrace{(\delta + \beta_{1}\gamma)}_{\kappa}w_{i} + \underbrace{u_{i} + \beta_{1}\epsilon_{i}}_{\nu_{i}}
-				\]
-				
-				The second component of the parameter vector associated with d$_{i}$ is thus identical to the second component of $\bm{\beta}$. For the sake of clarity, we also assume that $\pi_{0} = 0$ such that $b_{0} = \beta_{0}$ and thus $(b_{0}, \beta_{1}) = \bm{\beta}'$. This assumption is not necessary but clarifies the analysis. Dropping does not change the results for the second component of $\bm{\beta}$, the component of interest. Thus, in the reduced form case, we have:
-				
-				\begin{equation}
-					y_{i} =  \text{d}_{i}'\bm{\beta} + \kappa w_{i} + \nu_{i}
-				\end{equation}
-					
+									
 									
 		\subsection{Summary of the key assumptions}
 		
 			To ease the use of assumptions in the following sections, we summarize some that we will explicitly mobilize:
 		 
 			\begin{itemize}
-				\item $y_i = \text{x}_i' \bm{\beta} + \delta w_{i} + u_i$ ($y_i = \text{d}_i' \bm{\beta} + \kappa w_{i} + \nu_i$ in the reduced form case).
-				\item $x_i = \pi_0 + \pi_1 z_i + \gamma w_{i} + \epsilon_i$ (with $x_i = 1\cdot d_i + \gamma w_{i} + \epsilon_i$ in the reduced form case).
+				\item $y_i = \text{x}_i' \bm{\beta} + \delta w_{i} + u_i$
+				\item $x_i = \mu_x \gamma w_{i} + \epsilon_i$
 				\item $\mathbb{E}[u_{i} | x_{i}, w_{i}] = 0$ and $\mathbb{E}[u_{i} | x_{i}] = 0$
 				\item $\mathbb{E}[u_i^{2} | x_{i}, w_{i}] = \sigma_{u}^{2}$ and $\mathbb{E}[u_i^{2} | x_{i}] = \sigma_{u}^{2}$
 				\item $\mathbb{E}[w_i] = 0$
-				\item $\mathbb{E}[z_{i}u_{i}] = 0$ and $\mathbb{E}[z_{i}w_{i}] = 0$
-				\item $\mathbb{E}[z_i\epsilon_i] = 0$ and $\mathbb{E}[w_i\epsilon_i] = 0$
-				\item $\mathbb{E}[\epsilon_i^{2} | z_{i}, w_{i}] = \sigma_{\epsilon}^{2}$ and $\mathbb{E}[\epsilon_i^{2} | z_{i}] = \sigma_{\epsilon}^{2}$
+				%\item $\mathbb{E}[z_{i}u_{i}] = 0$ and $\mathbb{E}[z_{i}w_{i}] = 0$
+				%\item $\mathbb{E}[z_i\epsilon_i] = 0$ and $\mathbb{E}[w_i\epsilon_i] = 0$
+				%\item $\mathbb{E}[\epsilon_i^{2} | z_{i}, w_{i}] = \sigma_{\epsilon}^{2}$ and $\mathbb{E}[\epsilon_i^{2} | z_{i}] = \sigma_{\epsilon}^{2}$
 				\item $\text{Var}(w_{i}^{\perp}|x_{i}) = \text{Var}(w_{i}^{\perp})$
 				\item $\beta_{1} > 0$ and $\delta\gamma > 0$ (the latter implies that the OVB is an upward bias).
 			\end{itemize}
-			
-		\subsection{The models to estimate}
-		
-			We consider 3 models: 
-			
-				\begin{enumerate}
-					\item 
-				
-					\item An IV regression in which we regress $y$ on $x$ instrumented by $z$. More precisely, we instrument $\text{x}_{i} = (1, x_{i})'$ with $\text{z}_{i} = (1, z_{i})'$. We thus consider a just-identified case and $\hat{\bm{\beta}}_{\textsc{2sls}} = \hat{\bm{\beta}}_{\textsc{iv}}$. 
-					\item A reduced form equation in which we regress $y$ on the exogenous shock $D$:
-						~
-						\[
-							y = D \bm{\beta_{\textsc{red}}} + e
-						\]
-					
-					where $e = (e_{1}, ... , e_{n})' \in \mathbb{R}^{n}$ and by the exogeneity assumption $\mathbb{E}[D'e] = 0$.
-									
-				\end{enumerate}
 				
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -667,15 +629,31 @@
 		
 		\subsection{Instrumental Variable}
 		
+			Now, let's assume that there exists a valid instrumental variable $z_i$ for $x_i$. We want to estimate an IV regression in which we regress $y$ on $x$ instrumented by $z$. More precisely, we instrument $\text{x}_{i} = (1, x_{i})'$ with $\text{z}_{i} = (1, z_{i})'$. We thus consider a just-identified case and $\hat{\bm{\beta}}_{\textsc{2sls}} = \hat{\bm{\beta}}_{\textsc{iv}}$.
 		
-			We further assume that there exists a valid instrumental variable $z_i$ for $x_i$. Let $\text{z} = (1, z_i)' \in \mathbb{R}^{2}$. Note that the model is just-identified. Since the instrument is valid, it satisfies exogeneity, \textit{ie} $\mathbb{E}[\text{z}_{i}u_{i}] = 0$ and  $\mathbb{E}[z_{i}w_{i}] = 0$, relevance, \textit{ie} $\text{rank}(\mathbb{E}[\text{z}_{i}\text{x}_i']) = 2$,  and positive-definiteness of $\mathbb{E}[\text{z}_i \text{z}_i']$. To simplify interpretation, we further assume a data generating process for $x_i$:			
+			\subsubsection{Setting}
+		
+				Assume that $\mu_x + \epsilon_{i} = \pi_0 + \pi_1 z_i + \epsilon_{\textsc{iv}, i}$. Since the instrument is valid, it satisfies exogeneity, \textit{ie} $\mathbb{E}[\text{z}_{i}u_{i}] = 0$ and  $\mathbb{E}[z_{i}w_{i}] = 0$, relevance, \textit{ie} $\text{rank}(\mathbb{E}[\text{z}_{i}\text{x}_i']) = 2$,  and positive-definiteness of $\mathbb{E}[\text{z}_i \text{z}_i']$. The data generating process for $x_i$ becomes:			
 				~
 				\begin{equation}\label{maths_dgp_x_iv}
-					x_i = \pi_0 + \pi_1 z_i + \gamma w_{i} + \epsilon_i
+					x_i = \pi_0 + \pi_1 z_i + \gamma w_{i} + \epsilon_{\textsc{iv}, i}
 				\end{equation}
 				
-				where $(\pi_0, \pi_1, \gamma) \in \mathbb{R}^{3}$ are unknown parameters. We assume that $\epsilon_i$ is uncorrelated with $z_i$ and $w_{i}$, \textit{ie} $\mathbb{E}[z_i\epsilon_i] = 0$ and $\mathbb{E}[w_i\epsilon_i] = 0$. Note that, since $x_i$ and $w_i$ are correlated, $\gamma \neq 0$. We also assume homoskedasticity for this term, such that $\mathbb{E}[\epsilon_i^{2} | z_{i}, w_{i}] = \sigma_{\epsilon}^{2}$ is constant. It implies that  $\mathbb{E}[\epsilon_{i}^{2} | z_{i}] = \sigma_{\epsilon}^{2}$ (since $\mathbb{E}[\epsilon_{i}^{2} | z_{i}] =  \mathbb{E}[\mathbb{E}[\epsilon_i^{2} | z_{i}, w_{i}] | z_{i}] = \mathbb{E}[\sigma_{\epsilon}^{2} | z_{i}] = \sigma_{\epsilon}^{2})$.\\
+				where $(\pi_0, \pi_1, \gamma) \in \mathbb{R}^{3}$ are unknown parameters. We assume that $\epsilon_{\textsc{iv}, i}$ is uncorrelated with $z_i$ and $w_{i}$, \textit{ie} $\mathbb{E}[z_i\epsilon_{\textsc{iv}, i}] = 0$ and $\mathbb{E}[w_i\epsilon_{\textsc{iv}, i}] = 0$. Note that, since $x_i$ and $w_i$ are correlated, $\gamma \neq 0$. We also assume homoskedasticity for this term, such that $\mathbb{E}[\epsilon_{\textsc{iv}, i}^{2} | z_{i}, w_{i}] = \sigma_{\epsilon_{\textsc{iv}}}^{2}$ is constant. It implies that  $\mathbb{E}[\epsilon_{\textsc{iv}, i}^{2} | z_{i}] = \sigma_{\epsilon_{\textsc{iv}}}^{2}$ (since $\mathbb{E}[\epsilon_{\textsc{iv}, i}^{2} | z_{i}] =  \mathbb{E}[\mathbb{E}[\epsilon_{\textsc{iv}, i}^{2} | z_{i}, w_{i}] | z_{i}] = \mathbb{E}[\sigma_{\epsilon_{\textsc{iv}}}^{2} | z_{i}] = \sigma_{\epsilon_{\textsc{iv}}}^{2})$.\\
 
+				The following Directed Acyclic Graph (DAG) sums up the relationships between the variables. It also helps underline the independence, or not, of some variables. 
+				
+				\begin{figure}[!h] 
+            					\begin{center}
+            						\includegraphics[width=8cm]{../images/DAG_maths-1.png}
+            						\caption{DAG of the data generating process for the IV}
+            						\label{maths_dag_dgp}
+            					\end{center}
+            				\end{figure} 
+				%\vspace{-0.3cm}
+				
+				
+			
 		
 			\subsubsection{Asymptotic distribution}
 		
@@ -765,8 +743,8 @@
 				\end{bmatrix} 
 				=
 				\begin{bmatrix}
-					1 & \pi_0 + \pi_1 \mathbb{E}[z_{i}] + \gamma \underbrace{\mathbb{E}[w_{i}]}_{0} + \underbrace{\mathbb{E}[\epsilon_{i}]}_{0}\\ 
-					\mu_{z} & \pi_0 \mathbb{E}[z_{i}] + \pi_1 \mathbb{E}[z_{i}^{2}] + \gamma \underbrace{\mathbb{E}[z_{i}w_{i}]}_{0} + \underbrace{\mathbb{E}[z_{i}\epsilon_{i}]}_{0}
+					1 & \pi_0 + \pi_1 \mathbb{E}[z_{i}] + \gamma \underbrace{\mathbb{E}[w_{i}]}_{0} + \underbrace{\mathbb{E}[\epsilon_{\textsc{iv}, i}]}_{0}\\ 
+					\mu_{z} & \pi_0 \mathbb{E}[z_{i}] + \pi_1 \mathbb{E}[z_{i}^{2}] + \gamma \underbrace{\mathbb{E}[z_{i}w_{i}]}_{0} + \underbrace{\mathbb{E}[z_{i}\epsilon_{\textsc{iv}, i}]}_{0}
 				\end{bmatrix} =
 				\begin{bmatrix}
 					1 & \pi_0 + \pi_1 \mu_{z}\\ 
@@ -835,12 +813,12 @@
 					\end{array}				
 				\end{equation}
 				
-				Note that, since $z_{i}$ is uncorrelated with $w_{i}$ and $\epsilon_{i}$, 
+				Note that, since $z_{i}$ is uncorrelated with $w_{i}$ and $\epsilon_{\textsc{iv}, i}$, 
 				~
 				\begin{align*}
-					\sigma_{x}^{2} & =  \text{var}(x_{i}) = \text{var}(\pi_{0} + \pi_{1}z_{i} + \gamma w_{i} + \epsilon_{i})\\
-						& = \pi_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon}^{2} + 2\pi_{1}\gamma \underbrace{\text{cov}(z_{i}, w_{i})}_{0} + 2 \pi_{1}  \underbrace{\text{cov}(z_{i}, \epsilon_{i})}_{0} + 2\gamma \underbrace{\text{cov}(w_{i}, \epsilon_{i})}_{0} \\
-						& = \underbrace{\pi_{1}^{2}\sigma_{z}^{2}}_{V_{z}^{x}} + \underbrace{\gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon}^{2}}_{V_{\text{non-}z}^{x}}
+					\sigma_{x}^{2} & =  \text{var}(x_{i}) = \text{var}(\pi_{0} + \pi_{1}z_{i} + \gamma w_{i} + \epsilon_{\textsc{iv}, i})\\
+						& = \pi_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon_{\textsc{iv}}}^{2} + 2\pi_{1}\gamma \underbrace{\text{cov}(z_{i}, w_{i})}_{0} + 2 \pi_{1}  \underbrace{\text{cov}(z_{i}, \epsilon_{\textsc{iv}, i})}_{0} + 2\gamma \underbrace{\text{cov}(w_{i}, \epsilon_{\textsc{iv}, i})}_{0} \\
+						& = \underbrace{\pi_{1}^{2}\sigma_{z}^{2}}_{V_{z}^{x}} + \underbrace{\gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon_{\textsc{iv}}}^{2}}_{V_{\text{non-}z}^{x}}
 				\end{align*}
 				
 				For a given variance of $x$, \ul{the larger the proportion of this variance that depends on $z$, $V_{z}^{x}$, (and the smaller the non-$z$ component $V_{\text{non-}z}^{x}$), the more precise the estimate}.
@@ -848,7 +826,7 @@
 				Also note that,
 				~
 				\begin{align*}
-					 &\text{cov}(x_i , z_i) =  \text{cov}( \pi_0 + \pi_1 z_i + \gamma w_{i} + \epsilon_i , z_i) = \pi_1 \sigma_{z}^{2}\\
+					 &\text{cov}(x_i , z_i) =  \text{cov}( \pi_0 + \pi_1 z_i + \gamma w_{i} + \epsilon_{\textsc{iv}, i} , z_i) = \pi_1 \sigma_{z}^{2}\\
 					\Rightarrow \quad & 
 					 \rho_{xz} = \text{corr}(x_{i}, z_{i}) = \dfrac{\text{cov}(x_{i}, z_{i})}{\sigma_x \sigma_z} = \pi_1 \dfrac{\sigma_z}{\sigma_x}\\
 					\Rightarrow \quad & \pi_1^{2} \sigma_z^{2} = \rho_{xz}^{2}\sigma_{x}^{2}
@@ -895,14 +873,14 @@
 						& = \beta_{1}^{2}\sigma_{x}^{2} + \delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2} + 2\beta_{1}\delta \underbrace{\text{cov}(x_{i}, w_{i})}_{\gamma \sigma_{w}^{2}} + 2 \beta_{1}  \underbrace{\text{cov}(x_{i}, u_{i})}_{0} + 2\delta \underbrace{\text{cov}(w_{i}, u_{i})}_{0} \\
 						& = \beta_{1}^{2}\sigma_{x}^{2} + (\delta^{2} + 2\beta_{1}\gamma\delta)\sigma_{w}^{2} + \sigma_{u}^{2}\\
 						%& = \underbrace{\beta_{1}^{2}\sigma_{x}^{2}}_{V_{x}^{y}} + \underbrace{\delta (\delta + 2\beta_{1}\gamma)\sigma_{w}^{2} + \sigma_{u}^{2}}_{V_{\text{non-}x}^{y}}
-						& = \beta_{1}^{2}(\pi_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon}^{2}) + (\delta^{2} + 2\beta_{1}\gamma\delta)\sigma_{w}^{2} + \sigma_{u}^{2}\\
-						& = \underbrace{\beta_{1}^{2}\pi_{1}^{2}\sigma_{z}^{2}}_{V_{z}^{y}} + \underbrace{(\beta_{1}\gamma + \delta)^{2}\sigma_{w}^{2} + (\beta_{1}^{2}\sigma_{\epsilon}^{2} + \sigma_{u}^{2})}_{V_{\text{non-}z}^{y}}
-						%& = \beta_{1}^{2}\pi_{1}^{2}\sigma_{z}^{2} + (\beta_{1}\gamma + \delta)^{2}\sigma_{w}^{2} + (\beta_{1}^{2}\sigma_{\epsilon}^{2} + \sigma_{u}^{2})
+						& = \beta_{1}^{2}(\pi_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon_{\textsc{iv}}}^{2}) + (\delta^{2} + 2\beta_{1}\gamma\delta)\sigma_{w}^{2} + \sigma_{u}^{2}\\
+						& = \underbrace{\beta_{1}^{2}\pi_{1}^{2}\sigma_{z}^{2}}_{V_{z}^{y}} + \underbrace{(\beta_{1}\gamma + \delta)^{2}\sigma_{w}^{2} + (\beta_{1}^{2}\sigma_{\epsilon_{\textsc{iv}}}^{2} + \sigma_{u}^{2})}_{V_{\text{non-}z}^{y}}
+						%& = \beta_{1}^{2}\pi_{1}^{2}\sigma_{z}^{2} + (\beta_{1}\gamma + \delta)^{2}\sigma_{w}^{2} + (\beta_{1}^{2}\sigma_{\epsilon_{\textsc{iv}}}^{2} + \sigma_{u}^{2})
 				\end{align*}
 				
 				The larger the parameters that are positively associated with $E_{\textsc{iv}}$ ($\sigma_{u}$, $\sigma_{w}$ and $\delta$), the larger the proportion of the variance of $y$ that does not depend on $z$, $V_{\text{non-}z}^{y}$. Hence, for a given variance of $y$, the smaller the proportion of  this variance that depends on $z$, $V_{z}^{y}$, (and the larger the non-$z$ component $V_{\text{non-}z}^{y}$), the less precise the estimate and the larger the exaggeration. \ul{The smaller the proportion of the variance in $y$ that depends on $z$, the larger the exaggeration of the IV estimator}.\\
 				
-				%The smaller the parameters that are positively associated with $E_{\textsc{iv}}$ ($\sigma_{u}$, $\sigma_{w}$ and $\delta$), the smaller the proportion of the variance of $y$ that does not depend on $x$, $V_{\text{non-}x}^{y}$. Hence, for a given variance of $y$, the larger the proportion of  this variance that depends on $x$, $V_{x}^{y}$, (and the smaller the non-$x$ component $V_{\text{non-}x}^{y}$), $\sigma_{x}$, the more precise the estimate and the lower exaggeration. The larger the proportion of the variance in $y$ that depends on $x$, the smaller the exaggeration. Now, since $\sigma_{x}^{2} = \pi_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon}^{2}$ and as mentioned above, for a fixed proportion of the variance of $y$ explained by $x$, \ul{the smaller the proportion of the variance in $x$ that depends on $z$, the larger the exaggeration}.
+				%The smaller the parameters that are positively associated with $E_{\textsc{iv}}$ ($\sigma_{u}$, $\sigma_{w}$ and $\delta$), the smaller the proportion of the variance of $y$ that does not depend on $x$, $V_{\text{non-}x}^{y}$. Hence, for a given variance of $y$, the larger the proportion of  this variance that depends on $x$, $V_{x}^{y}$, (and the smaller the non-$x$ component $V_{\text{non-}x}^{y}$), $\sigma_{x}$, the more precise the estimate and the lower exaggeration. The larger the proportion of the variance in $y$ that depends on $x$, the smaller the exaggeration. Now, since $\sigma_{x}^{2} = \pi_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon_{\textsc{iv}}}^{2}$ and as mentioned above, for a fixed proportion of the variance of $y$ explained by $x$, \ul{the smaller the proportion of the variance in $x$ that depends on $z$, the larger the exaggeration}.
 				
 				Since $\pi_{1}^{2}\sigma_{z}^{2} = \rho_{xz}^{2}\sigma_{x}^{2}$, we can also express this exaggeration ratio as:
 				~
@@ -913,11 +891,37 @@
 					 \lambda \left( \dfrac{\beta_{1}\rho_{xz} \sigma_{x}\sqrt{n}}{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} }} - z_{\alpha} \right)
 				\end{align*}
 				
-				Note that \ul{$E_{\textsc{iv}}$ decreases with $\rho_{xz}$, the correlation between the endogenous variable $x$ and the instrument $z$}.	 
+				Note that \ul{$E_{\textsc{iv}}$ decreases with $\rho_{xz}$, the correlation between the endogenous variable $x$ and the instrument $z$}.	\\
+				
+			Finally, note that if $z$ is a binary variable, we have $\sigma_z = p_{1}(1-p_{1})$ where $p_{1}$ the proportion of 1 in the vector $z$, $\sigma_{z}^{2} = p_{1}(1 - p_{1})$ and thus, for all other parameters fixed, including the number of observations $n$ and the true effect size $\beta_{1}$, $E_{\textsc{iv}}$ increases when the proportion of treated observations $p_{1}$ gets further from 0.5.  $p_{1} (1-p_{1})$ is a parabolic function with maximum reached for $p_{1} = 0.5$. When most observations have the same treatment status, \textit{i.e.}, $p_{1}$ close to 0 or 1, the $\sigma_z$ and thus $E_{\textsc{iv}}$ shoot up. There is not enough variation in the treatment status to precisely identify the effect of interest. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	 
 				 
 		\subsection{Reduced form}
+		
+			Let's now assume that we want to directly estimate the effect of the instrument on the outcome of interest. Such a reduced form approach is often used when the instrument is binary, as described at the end of the IV section. Here, I focus on this binary case but note that most of the analysis carries to a continuous case. I thus consider a reduced form equation in which we regress $y$ on an exogenous shock $D$:
+						~
+						\[
+							y = D \bm{\beta_{\textsc{red}}} + u_{\textsc{red}}
+						\]
+					
+					where $u_{\textsc{red}} = (u_{\textsc{red}, 1}, ... , u_{\textsc{red}, n})' \in \mathbb{R}^{n}$ and by the exogeneity assumption $\mathbb{E}[D'u_{\textsc{red}}] = 0$.
+		
+			\subsubsection{Setting}
+			
+				I also consider a DGP analogous to that of the IV. Since we will directly regress $y$ on $z$, the resulting estimand will be different. To make them comparable, for the reduced form case, in equation \ref{maths_dgp_x_iv}, I set $\pi_{1}$ to 1. An increase of 1 in $z$ causes an increase of $\beta_{1}$ in $y$ and the estimands become comparable. For clarity, I denote the discrete shock $\text{d}_{i} = (1, d_{i})'$. All other assumptions and features of the DGP remain unchanged. Under these assumptions, plugging equation \ref{maths_dgp_x_iv} into equation \ref{maths_true_dgp} yields:
+				
+				\[
+					y_{i} = \underbrace{\beta_{0} + \beta_{1}\pi_0}_{\beta_{0, \textsc{red}}} + \beta_{1}d_{i} + \underbrace{(\delta + \beta_{1}\gamma)}_{\delta_{\textsc{red}}}w_{i} + \underbrace{u_{i} + \beta_{1}\epsilon_{\textsc{red}, i}}_{u_{\textsc{red}, i}}
+				\]
+				
+				where $\epsilon_{\textsc{red}}$ is equivalent to $\epsilon_{\textsc{iv}}$ in the IV. The second component of the parameter vector associated with d$_{i}$ is thus identical to the second component of $\bm{\beta}$. For the sake of clarity, we also assume that $\pi_{0} = 0$ such that $b_{0} = \beta_{0}$ and thus $(b_{0}, \beta_{1}) = \bm{\beta}'$. This assumption is not necessary but clarifies the analysis. Dropping it does not change the results for the second component of $\bm{\beta}$, the component of interest. %if variables centered, we do not need to assume that
+				Thus, in the reduced form case, we have:
+				
+				\begin{equation}
+					y_{i} =  \text{d}_{i}'\bm{\beta} + \delta_{\textsc{red}} w_{i} + u_{\textsc{red}, i}
+				\end{equation}
+
 		
 			\subsubsection{Asymptotic distribution}
 		
@@ -926,7 +930,7 @@
 				\[
 						\sqrt{n}\left( \hat{\beta}_{\textsc{red}} - \beta_{1} \right)
 						\overset{d}{\to}
-							 \mathcal{N}\left( 0 , \ \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{\sigma_{d}^{2}} \right) 
+							 \mathcal{N}\left( 0 , \ \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}}{\sigma_{d}^{2}} \right) 
 				\]
 				
 				with $\sigma_{d}^{2} = p_{1}(1-p_{1})$, $p_{1}$ being the proportion of treated observations, \textit{i.e.}, the proportion of 1 in $d$.	
@@ -938,36 +942,36 @@
 			~
 			\begin{align*}
 				 \hat{\bm{\beta}}_{\textsc{red}} & =  (D'D)^{-1}D'y\\
-				 	& = (D'D)^{-1}D'(D\bm{\beta} + \kappa w + \nu)\\
-				 	& = \bm{\beta} + \kappa (D'D)^{-1}D'w  + (D'D)^{-1}D'\nu
+				 	& = (D'D)^{-1}D'(D\bm{\beta} + \delta_{\textsc{red}} w + u_{\textsc{red}})\\
+				 	& = \bm{\beta} + \delta_{\textsc{red}} (D'D)^{-1}D'w  + (D'D)^{-1}D'u_{\textsc{red}}
 			\end{align*}
 			
 			Thus,
 			~
 			\begin{equation*}
 				\mathbb{E}[ \hat{\bm{\beta}}_{\textsc{red}} | D]  =  
-					\bm{\beta} + (D'D)^{-1}\underbrace{\mathbb{E}[D'w]}_{0} \kappa + (D'D)^{-1}\underbrace{\mathbb{E}[D'\nu]}_{\substack{\beta_{1}\mathbb{E}[D'\epsilon] + \mathbb{E}[D'u] \\ = \  \beta_{1} 0 + 0 \ = \ 0}} = \bm{\beta}
+					\bm{\beta} + (D'D)^{-1}\underbrace{\mathbb{E}[D'w]}_{0} \delta_{\textsc{red}} + (D'D)^{-1}\underbrace{\mathbb{E}[D'u_{\textsc{red}}]}_{\substack{\beta_{1}\mathbb{E}[D'\epsilon_{\textsc{red}}] + \mathbb{E}[D'u] \\ = \  \beta_{1} 0 + 0 \ = \ 0}} = \bm{\beta}
 			\end{equation*}
 			
 			By the Law of Iterated Expectations, we get that $\mathbb{E}[ \hat{\bm{\beta}}_{\textsc{red}}] = \mathbb{E}[\mathbb{E}[ \hat{\bm{\beta}}_{\textsc{red}}| D]] = \beta$ and thus $\hat{\bm{\beta}}_{\textsc{red}}$ is an unbiased estimator of $\bm{\beta}$. We then derive its asymptotic distribution, noting that:
 			~
 				\begin{align*}
 					\sqrt{n}(\hat{\bm{\beta}}_{\textsc{red}} - \bm{\beta}) 
-						& = \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \text{d}_{i}' \right)^{-1}  \kappa  \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} w_{i} \right) 
-							+ \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \text{d}_{i}' \right)^{-1}  \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \nu_{i} \right) \\
-						& = \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \text{d}_{i}' \right)^{-1}  \kappa  \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} w_{i} \right) \\
-							& \qquad + \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \text{d}_{i}' \right)^{-1}  \left[ \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} u_{i} \right) +  \beta_{1} \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \epsilon_{i} \right)  \right]
+						& = \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \text{d}_{i}' \right)^{-1}  \delta_{\textsc{red}}  \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} w_{i} \right) 
+							+ \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \text{d}_{i}' \right)^{-1}  \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} u_{\textsc{red}, i} \right) \\
+						& = \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \text{d}_{i}' \right)^{-1}  \delta_{\textsc{red}}  \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} w_{i} \right) \\
+							& \qquad + \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \text{d}_{i}' \right)^{-1}  \left[ \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} u_{i} \right) +  \beta_{1} \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \epsilon_{\textsc{red}, i} \right)  \right]
 				\end{align*}	
 				
-			The WLLN gives $\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \text{d}_{i}'  \overset{p}{\to}  \mathbb{E}[\text{d}_{i}\text{d}_{i}']$ and since $\mathbb{E}[\text{d}_{i}w_{i}] = 0$,$\mathbb{E}[\text{d}_{i}u_{i}] = 0$ and $\mathbb{E}[\text{d}_{i}\epsilon_{i}] = 0$, the Central Limit Theorem (CLT) gives:
+			The WLLN gives $\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \text{d}_{i}'  \overset{p}{\to}  \mathbb{E}[\text{d}_{i}\text{d}_{i}']$ and since $\mathbb{E}[\text{d}_{i}w_{i}] = 0$,$\mathbb{E}[\text{d}_{i}u_{i}] = 0$ and $\mathbb{E}[\text{d}_{i}\epsilon_{\textsc{red}, i}] = 0$, the Central Limit Theorem (CLT) gives:
 			~
 			\begin{align*}
 				\sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} w_{i} \right)
 					& \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\text{d}_{i}\text{d}_{i}'w_{i}^{2}])\\
 				\sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} u_{i} \right) 
 					& \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\text{d}_{i}\text{d}_{i}'u_{i}^{2}])\\
-				\sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \epsilon_{i} \right)
-					& \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\text{d}_{i}\text{d}_{i}'\epsilon_{i}^{2}])
+				\sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{d}_{i} \epsilon_{\textsc{red}, i} \right)
+					& \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\text{d}_{i}\text{d}_{i}'\epsilon_{\textsc{red}, i}^{2}])
 			\end{align*}
 			
 			As for the IV, $\mathbb{E}[\text{d}_{i}\text{d}_{i}'u_{i}^{2}]  = 
@@ -976,10 +980,10 @@
 				\mathbb{E}[\text{d}_{i}\text{d}_{i}'\mathbb{E}[\sigma_{u}^{2} | \text{d}_{i}]] = 
 				\mathbb{E}[\text{d}_{i}\text{d}_{i}'\sigma_{u}^{2}] = 
 				\sigma_{u}^{2}\mathbb{E}[\text{d}_{i}\text{d}_{i}']$.
-			In addition, $\mathbb{E}[\text{d}_{i}\text{d}_{i}'\epsilon_{i}^{2}]  = 
-				\mathbb{E}[\text{d}_{i}\text{d}_{i}'\mathbb{E}[\epsilon_{i}^{2} | \text{d}_{i}]] = 
-				\mathbb{E}[\text{d}_{i}\text{d}_{i}'\sigma_{\epsilon}^{2}] = 
-				\sigma_{\epsilon}^{2} \mathbb{E}[\text{d}_{i}\text{d}_{i}']$.
+			In addition, $\mathbb{E}[\text{d}_{i}\text{d}_{i}'\epsilon_{\textsc{red}, i}^{2}]  = 
+				\mathbb{E}[\text{d}_{i}\text{d}_{i}'\mathbb{E}[\epsilon_{\textsc{red}, i}^{2} | \text{d}_{i}]] = 
+				\mathbb{E}[\text{d}_{i}\text{d}_{i}'\sigma_{\epsilon_{\textsc{red}}}^{2}] = 
+				\sigma_{\epsilon_{\textsc{red}}}^{2} \mathbb{E}[\text{d}_{i}\text{d}_{i}']$.
 			Now, since $\text{d}_{i}$ is exogenous, it makes sense to have $\mathbb{E}[w_{i}^{2} | \text{d}_{i}] = \sigma_{w}^{2}$. Thus, $\mathbb{E}[\text{d}_{i}\text{d}_{i}'w_{i}^{2}]  = 
 				\mathbb{E}[\text{d}_{i}\text{d}_{i}'\mathbb{E}[w_{i}^{2} | \text{d}_{i}]] = 
 				\sigma_{w}^{2}\mathbb{E}[\text{d}_{i}\text{d}_{i}']$.
@@ -987,12 +991,12 @@
 			Applying Slutsky's theorem then yields:
 				
 				\[ \sqrt{n}(\hat{\bm{\beta}}_{\textsc{red}} - \bm{\beta}) \overset{d}{\to} 
-					\mathcal{N}\left(0,  (\kappa^{2}\sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}) \mathbb{E}[\text{d}_{i}\text{d}_{i}']^{-1} \right) \]
+					\mathcal{N}\left(0,  (\delta_{\textsc{red}}^{2}\sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}) \mathbb{E}[\text{d}_{i}\text{d}_{i}']^{-1} \right) \]
 			
-			Now, since $\kappa = \delta + \beta \gamma$, 
+			Now, since $\delta_{\textsc{red}} = \delta + \beta_{1} \gamma$, 
 			
 			\[ \sqrt{n}(\hat{\bm{\beta}}_{\textsc{red}} - \bm{\beta}) \overset{d}{\to} 
-					\mathcal{N}\left(0,  \{(\delta + \beta \gamma)^{2}\sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}\} \mathbb{E}[\text{d}_{i}\text{d}_{i}']^{-1} \right) \]
+					\mathcal{N}\left(0,  \{(\delta + \beta_{1} \gamma)^{2}\sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}\} \mathbb{E}[\text{d}_{i}\text{d}_{i}']^{-1} \right) \]
 				
 			We are interested in the second component of $\hat{\bm{\beta}}_{\textsc{red}}$. To retrieve it we need to compute $\mathbb{E}[\text{d}_{i} \text{d}_{i}']^{-1}$.  
 			~
@@ -1021,7 +1025,7 @@
 				\begin{equation*}
 					\boxed{
 						\hat{\bm{\beta}}_{\textsc{red}} \overset{d}{\to} 
-							\mathcal{N}\left(\bm{\beta},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{n \sigma_{d}^{2}}  \right)
+							\mathcal{N}\left(\bm{\beta},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}}{n \sigma_{d}^{2}}  \right)
 					}
 				\end{equation*}
 			~	
@@ -1033,7 +1037,7 @@
 				\begin{equation}\label{b_sigma_red}
 					\begin{array}{lll}
 						b_{\textsc{red}} & = 0\\
-					\sigma_{\textsc{red}}^{2} & =  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{n \sigma_{d}^{2}}
+					\sigma_{\textsc{red}}^{2} & =  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}}{n \sigma_{d}^{2}}
 					\end{array}				
 				\end{equation}
 				
@@ -1041,20 +1045,20 @@
 			~
 			\begin{align*}
 				\text{Var} \left( y_{i}^{\perp d}\right) 
-					& = \text{Var} \left( (\delta + \beta_{1}\gamma) w_{i} + u_{i} + \beta_{1} \epsilon_{i} \right) \\
-					&  = (\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}\\
-						& \qquad + 2(\delta + \beta_{1}\gamma) \underbrace{\text{cov}(w_{i}, u_{i})}_{0} + 2\beta_{1} \underbrace{\text{cov}(u_{i}, \epsilon_{i})}_{0} + 2(\delta + \beta_{1}\gamma) \beta_{1} \underbrace{\text{cov}(w_{i}, \epsilon_{i})}_{0}\\
-					& = (\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}
+					& = \text{Var} \left( (\delta + \beta_{1}\gamma) w_{i} + u_{i} + \beta_{1} \epsilon_{\textsc{red}, i} \right) \\
+					&  = (\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}\\
+						& \qquad + 2(\delta + \beta_{1}\gamma) \underbrace{\text{cov}(w_{i}, u_{i})}_{0} + 2\beta_{1} \underbrace{\text{cov}(u_{i}, \epsilon_{\textsc{red}, i})}_{0} + 2(\delta + \beta_{1}\gamma) \beta_{1} \underbrace{\text{cov}(w_{i}, \epsilon_{\textsc{red}, i})}_{0}\\
+					& = (\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}
 			\end{align*}
 				
 				Further, since $d$ is a vector of dummies, denoting $p_{1}$ the proportion of 1 in this vector, $\sigma_{d}^{2} = p_{1}(1 - p_{1})$ and thus:		
 				~
 				\begin{equation}\label{distrib_red_prop}
 						\hat{\bm{\beta}}_{\textsc{red}} \overset{d}{\to} 
-							\mathcal{N}\left(\bm{\beta},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{n \times p_{1}(1-p_{1})}  \right)
+							\mathcal{N}\left(\bm{\beta},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}}{n \times p_{1}(1-p_{1})}  \right)
 				\end{equation}		
 				
-			For all other parameters fixed, including the number of observations $n$ and the true effect size $\beta_{1}$, $\sigma_{\textsc{red}}^{2}$ increases when the proportion of treated observations $p_{1}$ gets further from 0.5 as $p_{1} (1-p_{1})$ is a parabolic function with maximum reached for $p_{1} = 0.5$. When most observations have the same treatment status, \textit{i.e.}, $p_{1}$ close to 0 or 1, the variance shoots up. There is not enough variation in the treatment status to precisely identify the effect of interest. 
+			As discussed in the IV case, when most observations have the same treatment status, \textit{i.e.}, $p_{1}$ close to 0 or 1, the variance shoots up. There is not enough variation in the treatment status to precisely identify the effect of interest. 
 			
 			\subsubsection{Exaggeration ratio and its evolution}
 			
@@ -1063,8 +1067,8 @@
 				\begin{align*}
 					E_{\textsc{red}} & = 
 					1 + 
-					\dfrac{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon}^{2}}}{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}
-					 \lambda \left( \dfrac{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon}^{2}}} - z_{\alpha} \right)
+					\dfrac{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon_{\textsc{red}}}^{2}}}{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}
+					 \lambda \left( \dfrac{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon_{\textsc{red}}}^{2}}} - z_{\alpha} \right)
 				\end{align*}
 			
 				\begin{proposition}
@@ -1106,7 +1110,7 @@
 					 \mathcal{N}\left( 0 , \ \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{ \sigma_{d}^{2}} \right) 
 			\]
 			
-			We can notice that $\sigma_{\textsc{red}}^{2} =\sigma_{\textsc{iv(red)}}^{2} + \dfrac{2\beta_{1}\gamma \sigma_{w}^{2} + \beta_{1}^{2}\gamma^{2} + \beta_{1}^{2}\sigma_{\epsilon}^{2}}{\sigma_{d}^{2}}$. We assumed $\beta_{1} > 0$. It makes sense to focus on the case for which $\gamma > 0$ and  $\delta > 0$, \textit{i.e.}, the OVB described in equation \ref{b_sigma_ovb} is an upward bias and causes the same types of issues as the exaggeration. In this case $\sigma_{\textsc{red}}^{2} > \sigma_{\textsc{iv(red)}}^{2}$. In the special setting considered for the reduced form estimation and under these assumptions, we thus have $\boxed{\sigma_{\textsc{red}}^{2} > \sigma_{\textsc{iv(red)}}^{2} > \sigma_{\textsc{ovb(red)}}^{2}}$.
+			We can notice that $\sigma_{\textsc{red}}^{2} =\sigma_{\textsc{iv(red)}}^{2} + \dfrac{2\beta_{1}\gamma \sigma_{w}^{2} + \beta_{1}^{2}\gamma^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}}{\sigma_{d}^{2}}$. We assumed $\beta_{1} > 0$. It makes sense to focus on the case for which $\gamma > 0$ and  $\delta > 0$, \textit{i.e.}, the OVB described in equation \ref{b_sigma_ovb} is an upward bias and causes the same types of issues as the exaggeration. In this case $\sigma_{\textsc{red}}^{2} > \sigma_{\textsc{iv(red)}}^{2}$. In the special setting considered for the reduced form estimation and under these assumptions, we thus have $\boxed{\sigma_{\textsc{red}}^{2} > \sigma_{\textsc{iv(red)}}^{2} > \sigma_{\textsc{ovb(red)}}^{2}}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1162,8 +1166,8 @@
             				
                                 		\begin{multline*}
                                 			\varDelta_{\textsc{red}} = E_{\textsc{red}} - E_{\textsc{ovb}} = 
-                                				\dfrac{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon}^{2}}}{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}
-					 \lambda \left( \dfrac{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon}^{2}}} - z_{\alpha} \right)\\
+                                				\dfrac{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon_{\textsc{red}}}^{2}}}{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}
+					 \lambda \left( \dfrac{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon_{\textsc{red}}}^{2}}} - z_{\alpha} \right)\\
                                 				- \dfrac{\sqrt{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}}{\beta_{1} \sigma_{x} \sqrt{n}}
                                 				 \lambda \left( \dfrac{ \sigma_{x}\sqrt{n} \left( \beta_{1} + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} \right)  }{\sqrt{\sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}} - z_{\alpha} \right)
                                 		\end{multline*}
@@ -1171,8 +1175,8 @@
                                 		The proof is analogous to that of proposition \ref{proof_trade_off_iv}. We want to show that $\exists p_{1} \in (0,1) \text{ s.t. } \varDelta_{\textsc{red}} > 0$. First, note that only $E_{\textsc{red}}$ depends on $p_{1}$. Since $E_{\textsc{red}}$ increases when $p_{1}$ gets further away from 0, $\varDelta_{\textsc{red}}$ also increases when $p_{1} \to 0^{+}$ (or equivalently $p_{1} \to 1^{-}$). Now, for fixed and finite values of the other parameters, and since we assumed that $\beta_{1} > 0$,
                                 		~
                                 		\begin{align*}
-                                			\lim_{p_{1} \to 0^{+}} & \dfrac{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon}^{2}}}{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}} = + \infty \\
-                                			\lim_{p_{1} \to 0^{+}} & \lambda \left( \dfrac{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon}^{2}}} - z_{\alpha} \right) = \lambda (- z_{\alpha}) \in \mathbb{R}_{+}
+                                			\lim_{p_{1} \to 0^{+}} & \dfrac{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon_{\textsc{red}}}^{2}}}{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}} = + \infty \\
+                                			\lim_{p_{1} \to 0^{+}} & \lambda \left( \dfrac{\beta_{1}\sqrt{n \times p_{1}(1-p_{1})}}{\sqrt{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2} \sigma_{\epsilon_{\textsc{red}}}^{2}}} - z_{\alpha} \right) = \lambda (- z_{\alpha}) \in \mathbb{R}_{+}
                                 		\end{align*}
                                 			
                                 		Since the other components of $\varDelta_{\textsc{red}}$ are finite and do not depend on $p_{1}$, $\lim_{p_{1} \to 0^{+}} \varDelta_{\textsc{red}} = + \infty \ (= lim_{p_{1} \to 1^{-}} \varDelta_{\textsc{red}} )$. Since $\varDelta_{\textsc{red}}$ is a continuous function of $p_{1}$ on $(0, 1)$, for any set of parameter values consistent with our hypotheses, $\exists p_{1} \in (0, 1) \text{ s.t. } \varDelta_{\textsc{red}} > 0, \text{ \textit{i.e.} s.t. }E_{\textsc{red}} > E_{\textsc{ovb}}$. 

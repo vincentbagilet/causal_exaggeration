@@ -2,17 +2,16 @@
 \BOOKMARK [2][]{subsection.0.1.1}{Objectives}{section.0.1}% 2
 \BOOKMARK [2][]{subsection.0.1.2}{Data generating process}{section.0.1}% 3
 \BOOKMARK [2][]{subsection.0.1.3}{Summary of the key assumptions}{section.0.1}% 4
-\BOOKMARK [2][]{subsection.0.1.4}{The models to estimate}{section.0.1}% 5
-\BOOKMARK [1][]{section.0.2}{Exaggeration ratio and its properties}{}% 6
-\BOOKMARK [2][]{subsection.0.2.1}{A general expression for the exaggeration ratio}{section.0.2}% 7
-\BOOKMARK [2][]{subsection.0.2.2}{Evolution of the exaggeration ratio with , \040and b}{section.0.2}% 8
-\BOOKMARK [1][]{section.0.3}{Intuition for controls and exaggeration}{}% 9
-\BOOKMARK [2][]{subsection.0.3.1}{Controlling can increase exaggeration}{section.0.3}% 10
-\BOOKMARK [2][]{subsection.0.3.2}{Causal identification strategies as control strategies}{section.0.3}% 11
-\BOOKMARK [1][]{section.0.4}{Exaggeration ratios for each identification strategy}{}% 12
-\BOOKMARK [2][]{subsection.0.4.1}{Naive regression \(OVB\)}{section.0.4}% 13
-\BOOKMARK [2][]{subsection.0.4.2}{Instrumental Variable}{section.0.4}% 14
-\BOOKMARK [2][]{subsection.0.4.3}{Reduced form}{section.0.4}% 15
-\BOOKMARK [1][]{section.0.5}{Comparison of exaggeration ratios}{}% 16
-\BOOKMARK [2][]{subsection.0.5.1}{Comparison of efficiencies}{section.0.5}% 17
-\BOOKMARK [2][]{subsection.0.5.2}{The exaggeration/confounders trade-off}{section.0.5}% 18
+\BOOKMARK [1][]{section.0.2}{Exaggeration ratio and its properties}{}% 5
+\BOOKMARK [2][]{subsection.0.2.1}{A general expression for the exaggeration ratio}{section.0.2}% 6
+\BOOKMARK [2][]{subsection.0.2.2}{Evolution of the exaggeration ratio with , \040and b}{section.0.2}% 7
+\BOOKMARK [1][]{section.0.3}{Intuition for controls and exaggeration}{}% 8
+\BOOKMARK [2][]{subsection.0.3.1}{Controlling can increase exaggeration}{section.0.3}% 9
+\BOOKMARK [2][]{subsection.0.3.2}{Causal identification strategies as control strategies}{section.0.3}% 10
+\BOOKMARK [1][]{section.0.4}{Exaggeration ratios for each identification strategy}{}% 11
+\BOOKMARK [2][]{subsection.0.4.1}{Naive regression \(OVB\)}{section.0.4}% 12
+\BOOKMARK [2][]{subsection.0.4.2}{Instrumental Variable}{section.0.4}% 13
+\BOOKMARK [2][]{subsection.0.4.3}{Reduced form}{section.0.4}% 14
+\BOOKMARK [1][]{section.0.5}{Comparison of exaggeration ratios}{}% 15
+\BOOKMARK [2][]{subsection.0.5.1}{Comparison of efficiencies}{section.0.5}% 16
+\BOOKMARK [2][]{subsection.0.5.2}{The exaggeration/confounders trade-off}{section.0.5}% 17

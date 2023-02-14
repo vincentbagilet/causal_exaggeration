@@ -10,8 +10,9 @@
 \BOOKMARK [2][]{subsection.0.3.2}{Causal identification strategies as control strategies}{section.0.3}% 10
 \BOOKMARK [1][]{section.0.4}{Exaggeration ratios for each identification strategy}{}% 11
 \BOOKMARK [2][]{subsection.0.4.1}{Naive regression \(OVB\)}{section.0.4}% 12
-\BOOKMARK [2][]{subsection.0.4.2}{Instrumental Variable}{section.0.4}% 13
-\BOOKMARK [2][]{subsection.0.4.3}{Reduced form}{section.0.4}% 14
-\BOOKMARK [1][]{section.0.5}{Comparison of exaggeration ratios}{}% 15
-\BOOKMARK [2][]{subsection.0.5.1}{Comparison of efficiencies}{section.0.5}% 16
-\BOOKMARK [2][]{subsection.0.5.2}{The exaggeration/confounders trade-off}{section.0.5}% 17
+\BOOKMARK [2][]{subsection.0.4.2}{Controlled regression}{section.0.4}% 13
+\BOOKMARK [2][]{subsection.0.4.3}{Instrumental Variable}{section.0.4}% 14
+\BOOKMARK [2][]{subsection.0.4.4}{Reduced form}{section.0.4}% 15
+\BOOKMARK [1][]{section.0.5}{Comparison of exaggeration ratios}{}% 16
+\BOOKMARK [2][]{subsection.0.5.1}{Comparison of efficiencies}{section.0.5}% 17
+\BOOKMARK [2][]{subsection.0.5.2}{The exaggeration/confounders trade-off}{section.0.5}% 18

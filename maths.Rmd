@@ -1,6 +1,6 @@
 ---
 title: "Mathematical derivation"
-description: "In this document, we summarise the math derivation described in appendix of the paper and run simple simulations to both illustrate and check our closed form solution."
+description: "In this document, I run simple simulations to both illustrate and check my closed form solutions."
 author:
   - name: Vincent Bagilet 
     url: https://vincentbagilet.github.io/
@@ -46,13 +46,13 @@ library(here)
 set_mediocre_all(pal = "coty")
 ```
 
-The full proof is available [here](Maths/math_causal_exaggeration.pdf).
+The full mathematical derivation is available [here](Maths/math_causal_exaggeration.pdf).
 
 ## Formula exaggeration
 
 First I verify that the formula for exaggeration that I have computed is correct. To do so, I set parameter values and draw $N$ estimates from the corresponding distribution. I then compute the average of statistically significant estimates. 
 
-```{r formula_exagg, echo=FALSE}
+```{r formula_exagg}
 beta_1 <- 0.9 #the true effect 
 b <- 0.5 #the bias
 sd <- 0.8 #the standard error of the estimator
@@ -76,73 +76,17 @@ tibble(E_theory, E_empirics) |>
 
 The empirical and theoretical exaggeration ratios are comparable. I manually tried several parameter values and consistently find similar results between the theoretical and empirical exaggeration ratios. The formula is therefore probably correct.
 
-I then build a graph that gives the intuition for exaggeration of imprecise estimates:
-
-```{r intuition, echo=FALSE, fig.asp=6/8}
-N <- 10000
-beta <- 1
-sigma_precise <- 0.25
-sigma_imprecise <- 0.6
-
-data_intuition <- 
-  tibble(
-    precise = TRUE,
-    estimate = rnorm(N, beta, sigma_precise),
-    signif = estimate > qnorm(0.975)*sd(estimate)
-  ) |> 
-  rbind(tibble(
-    precise = FALSE,
-    estimate = rnorm(N, beta, sigma_imprecise),
-    signif = estimate > qnorm(0.975)*sd(estimate)
-  )) |> 
-  mutate(
-    precise_name = ifelse(precise, "Precise estimate", "Imprecise estimate"),
-    signif_name = ifelse(signif, "Significant", "Non significant")
-  ) 
-
-data_intuition |> 
-  group_by(precise) |> 
-  mutate(mean_signif = mean(ifelse(signif, estimate, NA), na.rm = TRUE)) |> 
-  ungroup() |> 
-  ggplot(aes(x = estimate, fill = signif_name)) +
-  geom_histogram(bins = 100) +
-  # geom_area(stat = "bin", bins = 30) +
-  facet_wrap(~ precise_name, nrow = 2) +
-  geom_vline(xintercept = beta) +
-  geom_vline(xintercept = 0, linewidth = 0.1, color = "black", linetype = "solid") +
-  geom_vline(
-    aes(xintercept = mean_signif), 
-    color = "#976B21", 
-    linetype = "solid", 
-    size = 0.3
-  ) +
-  labs(
-    title = "Exaggeration of an imprecise estimator",
-    subtitle = "Distribution of two estimators with the same mean but different variance",
-    fill = NULL,
-    x = "Estimate",
-    y = "Count",
-    caption = "The green dashed line represents the true effect size
-      The brown solid line represents the average of significant estimates"
-  ) +
-  xlim(c(-1, 3))
-
-# ggsave(here("images", "graph_intuition_precision.pdf"), width = 6, height = 5)
-# ggsave(here("images", "graph_intuition_precision.png"), width = 8, height = 6)
-```
-
-
 ## Simulations
 
-We run simulations to both illustrate and check these results. The structure of the code is based on the `purrr` package and is similar to our other simulations: we first set baseline parameters, define the set of parameters to consider and then run the simulations. It follows the framework described [here](https://vincentbagilet.github.io/posts/2022-10-13-running-simulations/). A simpler code could be written (with a simple for loop) but we chose this coding practice for consistency.
+I run simulations to both illustrate and check these results. The structure of the code is based on the `purrr` package and is similar to my other simulations: I first set baseline parameters, define the set of parameters to consider and then run the simulations. It follows the framework described [here](https://vincentbagilet.github.io/posts/2022-10-13-running-simulations/). A simpler code could be written (with a simple for loop) but I chose this coding practice for consistency.
 
 ### Modeling choices
 
 The DGP is described in the following DAG:
 
-```{r DAG_maths, echo=FALSE, fig.asp=0.25, out.width='70%'}
+```{r DAG_maths, echo=FALSE, fig.asp=0.4, out.width='40%'}
 dagify(Y ~ X + W,
-       X ~ W + Z + e,
+       X ~ W + e,
        outcome = "Y",
        latent = "W",
        coords = list(x = c(Y = 3, X = 2, W = 2.5, Z = 1),
@@ -164,11 +108,11 @@ As in the math section we have:
 $$y_{i} = \beta_{0} + \beta_1 x_{i} + \delta w_{i} + u_{i}$$
 $$x_{i} = \eta_0 + \eta_1 z_{i} + \gamma w_{i} + \epsilon_{i}$$
 
-For simplicity, we consider that $w$ and $z$ are normally distributed. We also consider normally distributed error terms. As a linear combination of normally distributed variables, $x$ and $y$ will also be normally distributed.
+For simplicity, I consider that $w$ and $z$ are normally distributed. I also consider normally distributed error terms. As a linear combination of normally distributed variables, $x$ and $y$ will also be normally distributed.
 
 ### Generate the data
 
-We create three functions, one to generate the data, one to run the estimation and one to compute a simulation (just bundling together the two previous functions).
+I create three functions, one to generate the data, one to run the estimation and one to compute a simulation (just bundling together the two previous functions).
 
 The function to generate the data is the following:
 
@@ -199,7 +143,7 @@ generate_data_maths <- function(N,
 }
 ```
 
-We then define the baseline parameters values. The numbers chosen are not the slick 0 and 1 usually used in fake data simulations. We built the present simulations to check our mathematical derivations and thus chose specific parameter values in order to mimic a study with low statistical power. 
+I then define the baseline parameters values. The numbers chosen are not the slick 0 and 1 usually used in fake data simulations. I built the present simulations to check my mathematical derivations and thus chose specific parameter values in order to mimic a study with low statistical power. 
 
 ```{r param_maths, echo=FALSE}
 # baseline_param_maths <- tibble(
@@ -242,14 +186,14 @@ param_maths <- baseline_param_maths %>%
 test_data <- pmap_dfr(baseline_param_maths, generate_data_maths)
 ```
 
-We then run the estimations. We consider four separate models:
+I then run the estimations. I consider four separate models:
 
 - Unbiased: the true model, regressing $y$ on $x$ and $w$, therefore without omitted variable
 - Biased: the "naive" regression of $y$ on $x$, therefore omitting for $w$
 - IV: the 2SLS regression of $y$ on $x$ instrumented by $z$
 - Reduced form: regressing $y$ on $z$
 
-We also write a short function to wrangle the regression output to a convenient format, `lint_reg_maths`.
+I also write a short function to wrangle the regression output to a convenient format, `lint_reg_maths`.
 
 ```{r estimate_maths}
 lint_reg_maths <- function(reg_out) {
@@ -279,7 +223,7 @@ estimate_maths <- function(data) {
 }
 ```
 
-We then bundle these two functions to compute a simulation.
+I then bundle these two functions to compute a simulation.
 
 ```{r compute_sim_maths}
 compute_sim_maths <- function(...) {
@@ -295,7 +239,7 @@ pmap_dfr(baseline_param_maths, compute_sim_maths) %>%
   kable()
 ```
 
-We then run all the simulations and save the results.
+I then run all the simulations and save the results.
 
 ```{r run_sim_maths, eval=FALSE}
 sim_maths <- pmap_dfr(param_maths, compute_sim_maths)
@@ -306,7 +250,7 @@ saveRDS(sim_maths, here("Outputs/sim_maths.RDS"))
 
 ### Analysis of the results
 
-First, we plot the distribution of the estimates.
+First, I plot the distribution of the estimates.
 
 ```{r graph_maths, echo=FALSE, fig.asp=1.2}
 sim_maths <- readRDS(here("Outputs/sim_maths.RDS"))
@@ -368,7 +312,7 @@ sim_maths %>%
 ggsave(here("images", "graph_maths_paper.png"), width = 6, height = 6.5)
 ```
 
-We then look at the mean of the estimates and of the statistically significant ones for each model:
+I then look at the mean of the estimates and of the statistically significant ones for each model:
 
 ```{r mean_estimates_maths, echo=FALSE}
 sim_maths %>% 
@@ -393,16 +337,16 @@ Of course these results depend on the choice of parameters but this simulation h
 
 ### Biased model
 
-Using the simulations, we can check the maths. Based on our derivations, we expect to have:
+Using the simulations, I can check the maths. Based on my derivations, I expect to have:
 
 $$ \hat{\beta}_{ovb} \overset{d}{\to} \mathcal{N}\left( \beta_1 + \delta \gamma \dfrac{\sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{\sigma_{v}^{2}}{n \cdot \sigma_{x}^{2}} \right) $$
-First, we need to compute the variance of $v$ and $x$. We verify that our formulas are correct: 
+First, I need to compute the variance of $v$ and $x$. I verify that the formulas are correct: 
 
-- We expect to have $\sigma_x^2 = \eta_1^{2}\sigma_{z}^{2} + \gamma^2\sigma_w^2 + \sigma_{\epsilon}^2$. For our parameters values, it corresponds to `r  baseline_param_maths %>% mutate(th_var_x = eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2) %>% .$th_var_x`. In an example data set with 20000 observations, the observed variance of $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 2000000), generate_data_maths) %>% .$x %>% var()`. The simple formula for the variance of $x$ seems to be correct.
-- We expect to have $\sigma_v^2 = \sigma_u^2 + \delta^2\sigma_w^2 \left( 1- \dfrac{\gamma^2\sigma_w^2}{\sigma_x^2}\right)$. For our parameters values, it corresponds to 
+- I expect to have $\sigma_x^2 = \eta_1^{2}\sigma_{z}^{2} + \gamma^2\sigma_w^2 + \sigma_{\epsilon}^2$. For my parameters values, it corresponds to `r  baseline_param_maths %>% mutate(th_var_x = eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2) %>% .$th_var_x`. In an example data set with 20000 observations, the observed variance of $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 2000000), generate_data_maths) %>% .$x %>% var()`. The simple formula for the variance of $x$ seems to be correct.
+- I expect to have $\sigma_v^2 = \sigma_u^2 + \delta^2\sigma_w^2 \left( 1- \dfrac{\gamma^2\sigma_w^2}{\sigma_x^2}\right)$. For my parameters values, it corresponds to 
 `r  baseline_param_maths %>% mutate(th_var_v = sigma_u^2 + delta^2*sigma_w^2*(1-gamma^2*sigma_w^2/(eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2))) %>% .$th_var_v`. In an example dataset with 20000 observations, the observed variance of the residuals of the regression of $y$ on $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 20000), generate_data_maths) %>% lm(data = ., y ~ x) %>% .$residuals %>% var`. The simple formula for the variance of $v$ seems to be correct.
 
-Then, we can compute the theoretical variance for the mean and the variance of the estimator and compare them to the ones observed in the simulations
+Then, I can compute the theoretical variance for the mean and the variance of the estimator and compare them to the ones observed in the simulations
 
 ```{r check_moments_biased, echo=FALSE}
 th_moments_biased <- baseline_param_maths %>% 

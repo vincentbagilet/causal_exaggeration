@@ -6,14 +6,10 @@ author:
     url: https://vincentbagilet.github.io/
     affiliation: Columbia University
     affiliation_url: https://www.columbia.edu/
-  - name: Léo Zabrocki 
-    url: https://www.parisschoolofeconomics.eu/en/
-    affiliation: Paris School of Economics
-    affiliation_url: https://www.parisschoolofeconomics.eu/en/
 date: "`r Sys.Date()`"
 output: 
   distill::distill_article:
-    toc: true
+    toc: true 
 editor_options: 
   chunk_output_type: console
 ---
@@ -219,12 +215,12 @@ ex_data_RDD <- baseline_param_RDD %>%
   pmap_dfr(generate_data_RDD) 
 
 ex_data_RDD_mean <- ex_data_RDD %>% 
-  summarise(across(.cols = c(qual, final0), mean)) %>% 
+  summarise(across(.cols = c(qual, final0), .fns = mean)) %>% 
   mutate(Statistic = "Mean") %>% 
   select(Statistic, everything())
 
 ex_data_RDD_sd <- ex_data_RDD %>% 
-  summarise(across(.cols = c(qual, final0), sd)) %>% 
+  summarise(across(.cols = c(qual, final0), .fns = stats::sd)) %>% 
   mutate(Statistic = "Standard Deviation") %>% 
   select(Statistic, everything())
 

@@ -25,7 +25,7 @@
 \contentsline {subsubsection}{\numberline {IV. 3.3}Exaggeration ratio and its evolution}{21}{subsubsection.0.4.3.3}
 \contentsline {subsection}{\numberline {IV. 4}Reduced form}{22}{subsection.0.4.4}
 \contentsline {subsubsection}{\numberline {IV. 4.1}Setting}{22}{subsubsection.0.4.4.1}
-\contentsline {subsubsection}{\numberline {IV. 4.2}Asymptotic distribution}{22}{subsubsection.0.4.4.2}
+\contentsline {subsubsection}{\numberline {IV. 4.2}Asymptotic distribution}{23}{subsubsection.0.4.4.2}
 \contentsline {subsubsection}{\numberline {IV. 4.3}Exaggeration ratio and its evolution}{25}{subsubsection.0.4.4.3}
 \contentsline {section}{\numberline {V}Comparison of exaggeration ratios}{25}{section.0.5}
 \contentsline {subsection}{\numberline {V. 1}Comparison of efficiencies}{25}{subsection.0.5.1}

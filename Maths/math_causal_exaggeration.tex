@@ -107,7 +107,7 @@
 		 
 			\begin{itemize}
 				\item $y_i = \text{x}_i' \bm{\beta} + \delta w_{i} + u_i$
-				\item $x_i = \mu_x \gamma w_{i} + \epsilon_i$
+				\item $x_i = \mu_x + \gamma w_{i} + \epsilon_i$
 				\item $\mathbb{E}[u_{i} | x_{i}, w_{i}] = 0$ and $\mathbb{E}[u_{i} | x_{i}] = 0$
 				\item $\mathbb{E}[u_i^{2} | x_{i}, w_{i}] = \sigma_{u}^{2}$ and $\mathbb{E}[u_i^{2} | x_{i}] = \sigma_{u}^{2}$
 				\item $\mathbb{E}[w_i] = 0$
@@ -299,7 +299,7 @@
 %				}
 			\]
 			
-			where $y^{\perp x}$ is the component of $y$ that is orthogonal to $x$. Using similar notation, and Frisch-Waugh-Lovell theorem, the variance of $\beta_{1, \textsc{ctrl}}$ is:
+			where $y^{\perp x}$ is the component of $y$ that is orthogonal to $x$. Using a similar notation, and Frisch-Waugh-Lovell theorem, the variance of $\beta_{1, \textsc{ctrl}}$ is:
 			~
 			\[
 				\text{Var} (\hat{\beta}_{1, \textsc{ctrl}}) = \sigma_{\textsc{ctrl}}^2 =
@@ -348,7 +348,7 @@
 			
 			\subsubsection{... and exaggeration}
 			
-			Now that we have shown that the variance of the estimator can be greater when we control than when we do not, we will see that exaggeration can be greater when we control than when we do not. The following discussion is mostly illustrative. A formal proof is derived in the following sections as most results, while intuitive, are actually non trivial. This stems from the fact that while the exaggeration ratio increases with the variance, it is also affected in a non linear way by the bias. An estimator with a larger variance does not necessarily has a larger exaggeration if it also has a different bias.\\
+			Now that we have shown that the variance of the estimator can be greater when we control than when we do not, we will see that exaggeration can be greater when we control than when we do not. The following discussion is mostly illustrative. A formal proof is derived in the following sections as most results, while intuitive, are actually non trivial. This stems from the fact that parameters that affect the variance also affect the bias. In addition, while the exaggeration ratio increases with the variance, it is also affected in a non linear way by the bias. An estimator with a larger variance does not necessarily has a larger exaggeration if it also has a different bias.\\
 						
 			Under the usual assumptions leading estimators to be normally distributed and noting that $b_{\textsc{ctrl}} = 0$, we can rewrite the exaggeration ratio in the case where we control for the omitted variable described in equation \ref{exagg_general} as:
 			~

@@ -6,10 +6,6 @@ author:
     url: https://vincentbagilet.github.io/
     affiliation: Columbia University
     affiliation_url: https://www.columbia.edu/
-  - name: Léo Zabrocki 
-    url: https://www.parisschoolofeconomics.eu/en/
-    affiliation: Paris School of Economics
-    affiliation_url: https://www.parisschoolofeconomics.eu/en/
 date: "`r Sys.Date()`"
 output: 
   distill::distill_article:
@@ -52,13 +48,35 @@ set_mediocre_all(pal = "coty")
 
 The full proof is available [here](Maths/math_causal_exaggeration.pdf).
 
-## Simulations
+## Formula exaggeration
 
-We run simulations to both illustrate and check these results. The structure of the code is based on the `purrr` package and is similar to our other simulations: we first set baseline parameters, define the set of parameters to consider and then run the simulations. It follows the framework described [here](https://vincentbagilet.github.io/posts/2022-10-13-running-simulations/). A simpler code could be written (with a simple for loop) but we chose this coding practice for consistency.
+First I verify that the formula for exaggeration that I have computed is correct. To do so, I set parameter values and draw $N$ estimates from the corresponding distribution. I then compute the average of statistically significant estimates. 
 
-### Intuition
+```{r formula_exagg, echo=FALSE}
+beta_1 <- 0.9 #the true effect 
+b <- 0.5 #the bias
+sd <- 0.8 #the standard error of the estimator
+N <- 10000 
 
-First, we build a graph that gives the intuition for exaggeration of imprecise estimates:
+estimates <- tibble(estimate = rnorm(N, beta_1 + b, sd)) |> 
+  mutate(signif = (estimate > qnorm(0.975)*sd))
+
+E_empirics <- estimates |> 
+  filter(signif) |> 
+  pull(estimate) |> 
+  mean()/beta_1
+
+lambda <- function(x) {dnorm(x)/pnorm(x)}
+
+E_theory <- 1 + b/beta_1 + sd/beta_1*lambda((beta_1 + b)/sd - qnorm(0.975))
+
+tibble(E_theory, E_empirics) |> 
+  kable(col.names = c("Theoretical exaggeration ratio", "Empirical exaggeration ratio"))
+```
+
+The empirical and theoretical exaggeration ratios are comparable. I manually tried several parameter values and consistently find similar results between the theoretical and empirical exaggeration ratios. The formula is therefore probably correct.
+
+I then build a graph that gives the intuition for exaggeration of imprecise estimates:
 
 ```{r intuition, echo=FALSE, fig.asp=6/8}
 N <- 10000
@@ -71,21 +89,21 @@ data_intuition <-
     precise = TRUE,
     estimate = rnorm(N, beta, sigma_precise),
     signif = estimate > qnorm(0.975)*sd(estimate)
-  ) %>% 
+  ) |> 
   rbind(tibble(
     precise = FALSE,
     estimate = rnorm(N, beta, sigma_imprecise),
     signif = estimate > qnorm(0.975)*sd(estimate)
-  )) %>% 
+  )) |> 
   mutate(
     precise_name = ifelse(precise, "Precise estimate", "Imprecise estimate"),
     signif_name = ifelse(signif, "Significant", "Non significant")
   ) 
 
-data_intuition %>% 
-  group_by(precise) %>% 
-  mutate(mean_signif = mean(ifelse(signif, estimate, NA), na.rm = TRUE)) %>% 
-  ungroup() %>% 
+data_intuition |> 
+  group_by(precise) |> 
+  mutate(mean_signif = mean(ifelse(signif, estimate, NA), na.rm = TRUE)) |> 
+  ungroup() |> 
   ggplot(aes(x = estimate, fill = signif_name)) +
   geom_histogram(bins = 100) +
   # geom_area(stat = "bin", bins = 30) +
@@ -113,6 +131,10 @@ data_intuition %>%
 # ggsave(here("images", "graph_intuition_precision.png"), width = 8, height = 6)
 ```
 
+
+## Simulations
+
+We run simulations to both illustrate and check these results. The structure of the code is based on the `purrr` package and is similar to our other simulations: we first set baseline parameters, define the set of parameters to consider and then run the simulations. It follows the framework described [here](https://vincentbagilet.github.io/posts/2022-10-13-running-simulations/). A simpler code could be written (with a simple for loop) but we chose this coding practice for consistency.
 
 ### Modeling choices
 

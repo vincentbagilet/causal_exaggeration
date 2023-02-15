@@ -12,7 +12,7 @@ navbar:
     - text: "Summary"
       href: summary.html
     - text: "Intuition"
-      href: experiments.html
+      href: intuition.html
     - text: "Maths"
       href: maths.html
     - text: "Simulations"

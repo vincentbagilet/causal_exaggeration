@@ -44,6 +44,11 @@ set.seed(3)
 set_mediocre_all(pal = "coty")
 ```
 
+
+## Abstract
+
+Quasi-experimental studies make empirical economics credible. To avoid confounding, causal identification strategies focus on a subset of the variation in the data, the plausibly exogenous part. In this paper, I argue that it can reduce statistical power and lead published estimates to exaggerate true effects sizes. Causal strategies avoid a bias at the cost of generating another one. I show the existence of this trade-off between confounding and exaggeration resulting from the use of causal inference methods through realistic fake data simulations and a mathematical derivation. I then discuss potential avenues to address this issue.
+
 ## Plain language summary
 
 *In this paper, we show that, combined with current academic publication practices, front line empirical methods, while efficient to measure how a factor causes another, might in some cases produce effects larger than what they should be.*
@@ -176,9 +181,6 @@ knitr::include_graphics("images/drowning.jpg")
 
 
 
-## Abstract
-
-Convincing research designs make empirical economics credible. To avoid confounding, quasi-experimental studies focus on specific sources of variation. This often leads to a reduction in statistical power. Yet, published estimates can overestimate true effects sizes when power is low. Using fake data simulations, we show that for all causal inference methods, there can be a trade-off between confounding and exaggerating true effect sizes due to a loss in power. We then discuss how reporting power calculations could help address this issue.
 
 
 

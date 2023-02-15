@@ -281,9 +281,9 @@ graph_rep_original
 <!-- #   .$ReplicationPaperTitle -->
 <!-- ``` -->
 
-## Intuition for the role of precision
+## Intuition for the impact of precision on exaggeration
 
-The trade-off between we describe exaggeration and confounders arises due to differences in precision between estimators. To illustrate this, we generate estimates from two unbiased estimators with identical mean but different variances and plot their distributions, distinguishing between estimates that are and are not significant.
+The trade-off we describe between exaggeration and confounders arises due to differences in precision between estimators. To illustrate this, we generate estimates from two unbiased estimators with identical mean but different variances and plot their distributions, distinguishing between estimates that are and are not significant.
 
 ```{r intuition_trade_off, echo=FALSE, fig.asp=1.2}
 N <- 10000

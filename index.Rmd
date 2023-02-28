@@ -25,3 +25,5 @@ Hi and welcome!
 This website gathers code and additional material for the paper Unconfounded but Inflated Causal Estimates.
 
 In this paper I show that the use of causal identification strategies creates a trade-off between confounding and exaggerating true effect sizes due to a loss in statistical power.
+
+A **new version**, with substantial additions, will be published soon. A preliminary version of the new introduction is available [here](causal_exaggeration_intro.pdf).

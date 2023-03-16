@@ -282,7 +282,7 @@ graph_rep_original
 The trade-off we describe between exaggeration and confounders arises due to differences in precision between estimators. To illustrate this, we generate estimates from two unbiased estimators with identical mean but different variances and plot their distributions, distinguishing between estimates that are and are not significant.
 
 ```{r intuition_trade_off, echo=FALSE, fig.asp=1.2}
-N <- 10000
+N <- 50000
 sd_precise <- 0.23
 sd_imprecise <- 0.7
 true_effect <- 1
@@ -315,9 +315,9 @@ data_intuition <-
 
 data_intuition %>% 
   ggplot(aes(x = estimate, fill = signif_name)) +
-  geom_histogram(bins = 100) +
-  # geom_area(stat = "bin", bins = 40) +
-  facet_wrap(~ precise, nrow = 2) +
+  geom_histogram(bins = 150) +
+  # geom_area(stat = "bin", bins = 150) +
+  facet_wrap(~ fct_rev(precise), nrow = 2) +
   geom_vline(xintercept = 0, linetype = "solid", linewidth = 0.1) +
   geom_vline(xintercept = true_effect) +
   geom_vline(
@@ -329,14 +329,14 @@ data_intuition %>%
   labs(
     x = "Estimate",
     y = "Count",
-    title = "Exaggeration of an imprecise estimator",
+    title = "Exaggeration from an imprecise estimator",
     subtitle = "Distribution of two estimators with same mean and different variance",
-    fill = NULL,
-    caption = "The green dashed line represents the true effect size
-      The brown solid line represents the average of significant estimates"
+    fill = NULL
+    # caption = "The green dashed line represents the true effect size
+    #   The brown solid line represents the average of significant estimates"
   )
 
-ggsave(here("images", "graph_intuition_precision.pdf"), width = 6, height = 5)
+ggsave(here("images", "graph_intuition_precision.pdf"), width = 6, height = 4.8)
 ```
 
 In the case of the precise estimator, the mean of statistically significant estimates is almost equal to the true effect. The estimator is unbiased and almost all estimates are significant. However, in the case of the imprecise estimator, only a sub-sample of the estimates are significant: those that are far away enough from 0 (at least 1.96 s.d.). As a consequence, the mean of  statistically significant estimates is different from the true effect, even if the estimator is unbiased. This hints to the trade-off between biased estimates from naive regressions and less precise causal inference estimates.

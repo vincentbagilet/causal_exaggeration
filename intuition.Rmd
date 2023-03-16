@@ -329,8 +329,8 @@ data_intuition %>%
   labs(
     x = "Estimate",
     y = "Count",
-    title = "Exaggeration from an imprecise estimator",
-    subtitle = "Distribution of two estimators with same mean and different variance",
+    title = "Imprecise estimators can cause exaggeration",
+    # subtitle = "Distribution of two estimators with same mean and different variance",
     fill = NULL
     # caption = "The green dashed line represents the true effect size
     #   The brown solid line represents the average of significant estimates"

@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-02-28"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-02-28"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-03-30"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-03-30"/>
   <meta name="article:author" content="Vincent Bagilet"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -114,7 +114,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations RDD"]},{"type":"character","attributes":{},"value":["In this document, we run a simulation exercise to illustrate how using a Regression Discontinuity Design (RDD) to avoid confounders may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-02-28"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations RDD"]},{"type":"character","attributes":{},"value":["In this document, we run a simulation exercise to illustrate how using a Regression Discontinuity Design (RDD) to avoid confounders may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-03-30"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -462,8 +462,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
 
   <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.2.1/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.2.1/css/v4-shims.min.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
@@ -1925,11 +1925,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     --body-color:      rgba(0, 0, 0, 0.8);
     --aside-color:     rgba(0, 0, 0, 0.6);
     --fig-cap-color:   rgba(0, 0, 0, 0.6);
-    --hover-color:      rgba(29, 71, 73, 0.5);
+    --hover-color:     rgba(29, 71, 73, 0.5);
     /*-- Specify custom fonts ~~~ must be imported above   --*/
-    --heading-font:    "Lora", serif;
+    --heading-font:    "Lato", sans-serif;
     --body-font:       "Lora", serif;
-    --navbar-font:     "Lora", serif;  /* websites + blogs only */
+    --navbar-font:     "Lato", sans-serif;  /* websites + blogs only */
   }
 
   /*-- ARTICLE METADATA --*/
@@ -1958,12 +1958,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   /* These properties only apply to Distill sites and blogs  */
 
   .distill-site-header {
-    --font-family:      'Lora', serif;
+    --font-family:      'Lato', sans-serif;
     --title-size:       21px;
     --text-color:       rgba(29, 71, 73, 0.9);
     --text-size:        18px;
     --hover-color:      rgba(29, 71, 73, 0.5);
     --bkgd-color:       rgba(255, 255, 255, 0.8);
+    font-variant:       small-caps;
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    font-variant: small-caps;
   }
 
   .distill-site-footer {
@@ -1978,29 +1983,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   /* Postcard headers */
   h1, h2, h3 {
-    color: rgba(29, 71, 73, 0.9);
+    color:              rgba(29, 71, 73, 0.9);
+    font-variant:       small-caps;
   }
 
   p {
-    color: rgba(0, 0, 0, 0.8);
+    color:              rgba(0, 0, 0, 0.8);
   }
 
   a {
-  	color: rgba(29, 71, 73, 0.9);
+  	color:              rgba(29, 71, 73, 0.9);
   }
 
   a:hover {
-  	color: rgba(29, 71, 73, 0.5);
+  	color:              rgba(29, 71, 73, 0.5);
   }
 
   /* Buttons on postcard */
   .btn-outline-dark {
-      color: rgba(29, 71, 73, 0.9);
+    color:              rgba(29, 71, 73, 0.9);
+    border-color:       rgba(29, 71, 73, 0.9);
   }
 
   .btn-outline-dark:hover {
-      background-color: rgba(29, 71, 73, 0.9);
-      color: white;
+    background-color:   rgba(29, 71, 73, 0.9);
+    color:              white;
   }
 
   /*body {
@@ -2161,7 +2168,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2181,7 +2188,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Simulations RDD","description":"In this document, we run a simulation exercise to illustrate how using a Regression Discontinuity Design (RDD) to avoid confounders may lead to a loss in power and inflated effect sizes.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-02-28T00:00:00.000-05:00","citationText":"Bagilet, 2023"}
+{"title":"Simulations RDD","description":"In this document, we run a simulation exercise to illustrate how using a Regression Discontinuity Design (RDD) to avoid confounders may lead to a loss in power and inflated effect sizes.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-03-30T00:00:00.000-04:00","citationText":"Bagilet, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2232,7 +2239,7 @@ Simulations
 <div class="d-byline">
   Vincent Bagilet <a href="https://vincentbagilet.github.io/" class="uri">https://vincentbagilet.github.io/</a> (Columbia University)<a href="https://www.columbia.edu/" class="uri">https://www.columbia.edu/</a>
   
-<br/>2023-02-28
+<br/>2023-03-30
 </div>
 
 <div class="d-article">
@@ -2637,7 +2644,7 @@ Where <span class="math inline">\(\alpha^f\)</span> is a constant, <span class="
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>compute_sim_RDD</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>vect_bw</span>, <span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>generate_data_RDD</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> </span>
 <span>  </span>
-<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_dfr</a></span><span class='op'>(</span><span class='va'>vect_bw</span>, <span class='va'>estimate_RDD</span>, data <span class='op'>=</span> <span class='va'>data</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map_dfr.html'>map_dfr</a></span><span class='op'>(</span><span class='va'>vect_bw</span>, <span class='va'>estimate_RDD</span>, data <span class='op'>=</span> <span class='va'>data</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>delta <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span><span class='op'>$</span><span class='va'>delta</span><span class='op'>)</span></span>
 <span><span class='op'>}</span> </span></code></pre>
 </div>
@@ -2698,7 +2705,7 @@ Where <span class="math inline">\(\alpha^f\)</span> is a constant, <span class="
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>tic</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span><span class='va'>sim_rdd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>param_rdd</span>, <span class='va'>compute_sim_RDD</span><span class='op'>)</span></span>
+<span><span class='va'>sim_rdd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>param_rdd</span>, <span class='va'>compute_sim_RDD</span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/pkg/beepr/man/beep.html'>beep</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>toc</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span></span>

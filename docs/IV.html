@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-02-28"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-02-28"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-03-30"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-03-30"/>
   <meta name="article:author" content="Vincent Bagilet"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -114,7 +114,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations IV"]},{"type":"character","attributes":{},"value":["In this document, we run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-02-28"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations IV"]},{"type":"character","attributes":{},"value":["In this document, we run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-03-30"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -462,8 +462,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
 
   <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.2.1/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.2.1/css/v4-shims.min.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
@@ -1925,11 +1925,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     --body-color:      rgba(0, 0, 0, 0.8);
     --aside-color:     rgba(0, 0, 0, 0.6);
     --fig-cap-color:   rgba(0, 0, 0, 0.6);
-    --hover-color:      rgba(29, 71, 73, 0.5);
+    --hover-color:     rgba(29, 71, 73, 0.5);
     /*-- Specify custom fonts ~~~ must be imported above   --*/
-    --heading-font:    "Lora", serif;
+    --heading-font:    "Lato", sans-serif;
     --body-font:       "Lora", serif;
-    --navbar-font:     "Lora", serif;  /* websites + blogs only */
+    --navbar-font:     "Lato", sans-serif;  /* websites + blogs only */
   }
 
   /*-- ARTICLE METADATA --*/
@@ -1958,12 +1958,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   /* These properties only apply to Distill sites and blogs  */
 
   .distill-site-header {
-    --font-family:      'Lora', serif;
+    --font-family:      'Lato', sans-serif;
     --title-size:       21px;
     --text-color:       rgba(29, 71, 73, 0.9);
     --text-size:        18px;
     --hover-color:      rgba(29, 71, 73, 0.5);
     --bkgd-color:       rgba(255, 255, 255, 0.8);
+    font-variant:       small-caps;
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    font-variant: small-caps;
   }
 
   .distill-site-footer {
@@ -1978,29 +1983,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   /* Postcard headers */
   h1, h2, h3 {
-    color: rgba(29, 71, 73, 0.9);
+    color:              rgba(29, 71, 73, 0.9);
+    font-variant:       small-caps;
   }
 
   p {
-    color: rgba(0, 0, 0, 0.8);
+    color:              rgba(0, 0, 0, 0.8);
   }
 
   a {
-  	color: rgba(29, 71, 73, 0.9);
+  	color:              rgba(29, 71, 73, 0.9);
   }
 
   a:hover {
-  	color: rgba(29, 71, 73, 0.5);
+  	color:              rgba(29, 71, 73, 0.5);
   }
 
   /* Buttons on postcard */
   .btn-outline-dark {
-      color: rgba(29, 71, 73, 0.9);
+    color:              rgba(29, 71, 73, 0.9);
+    border-color:       rgba(29, 71, 73, 0.9);
   }
 
   .btn-outline-dark:hover {
-      background-color: rgba(29, 71, 73, 0.9);
-      color: white;
+    background-color:   rgba(29, 71, 73, 0.9);
+    color:              white;
   }
 
   /*body {
@@ -2161,7 +2168,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2181,7 +2188,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Simulations IV","description":"In this document, we run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-02-28T00:00:00.000-05:00","citationText":"Bagilet, 2023"}
+{"title":"Simulations IV","description":"In this document, we run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-03-30T00:00:00.000-04:00","citationText":"Bagilet, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2232,7 +2239,7 @@ Simulations
 <div class="d-byline">
   Vincent Bagilet <a href="https://vincentbagilet.github.io/" class="uri">https://vincentbagilet.github.io/</a> (Columbia University)<a href="https://www.columbia.edu/" class="uri">https://www.columbia.edu/</a>
   
-<br/>2023-02-28
+<br/>2023-03-30
 </div>
 
 <div class="d-article">
@@ -2420,7 +2427,16 @@ who replicates a work by
 </div>
 <p>Here is an example of data created with our data generating process:</p>
 <div class="layout-chunk" data-layout="l-body">
-<table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 18%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: right;">id</th>
@@ -2435,93 +2451,93 @@ who replicates a work by
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.0003456</td>
-<td style="text-align: right;">-6.604940</td>
-<td style="text-align: right;">12.662117</td>
-<td style="text-align: right;">14.617409</td>
-<td style="text-align: right;">74.93822</td>
-<td style="text-align: right;">63.84731</td>
+<td style="text-align: right;">0.0000629</td>
+<td style="text-align: right;">9.3497068</td>
+<td style="text-align: right;">-13.8549238</td>
+<td style="text-align: right;">-2.473800</td>
+<td style="text-align: right;">54.65623</td>
+<td style="text-align: right;">42.54939</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">0.0037884</td>
-<td style="text-align: right;">-16.728658</td>
-<td style="text-align: right;">26.672931</td>
-<td style="text-align: right;">-17.578625</td>
-<td style="text-align: right;">44.76521</td>
-<td style="text-align: right;">78.85068</td>
+<td style="text-align: right;">0.0600277</td>
+<td style="text-align: right;">17.5181045</td>
+<td style="text-align: right;">-13.6190303</td>
+<td style="text-align: right;">-7.636098</td>
+<td style="text-align: right;">47.83027</td>
+<td style="text-align: right;">45.10156</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">0.4087888</td>
-<td style="text-align: right;">-11.983391</td>
-<td style="text-align: right;">12.407417</td>
-<td style="text-align: right;">-9.812919</td>
-<td style="text-align: right;">51.37936</td>
-<td style="text-align: right;">64.87280</td>
+<td style="text-align: right;">0.0000001</td>
+<td style="text-align: right;">-4.1416200</td>
+<td style="text-align: right;">-4.8153825</td>
+<td style="text-align: right;">-13.189515</td>
+<td style="text-align: right;">46.63881</td>
+<td style="text-align: right;">49.69241</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">1.0939997</td>
-<td style="text-align: right;">4.181266</td>
-<td style="text-align: right;">-13.696050</td>
-<td style="text-align: right;">19.502580</td>
-<td style="text-align: right;">77.11933</td>
-<td style="text-align: right;">39.42827</td>
+<td style="text-align: right;">24.8166935</td>
+<td style="text-align: right;">8.1407948</td>
+<td style="text-align: right;">9.3088413</td>
+<td style="text-align: right;">-1.557762</td>
+<td style="text-align: right;">43.40573</td>
+<td style="text-align: right;">66.59643</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">6.8593706</td>
-<td style="text-align: right;">-10.394227</td>
-<td style="text-align: right;">7.693206</td>
-<td style="text-align: right;">11.933446</td>
-<td style="text-align: right;">69.58261</td>
-<td style="text-align: right;">58.65610</td>
+<td style="text-align: right;">0.0000011</td>
+<td style="text-align: right;">-0.9140534</td>
+<td style="text-align: right;">14.3916002</td>
+<td style="text-align: right;">1.330215</td>
+<td style="text-align: right;">60.51303</td>
+<td style="text-align: right;">68.15749</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">1.1091176</td>
-<td style="text-align: right;">-10.937309</td>
-<td style="text-align: right;">-7.435395</td>
-<td style="text-align: right;">-16.802503</td>
-<td style="text-align: right;">43.83040</td>
-<td style="text-align: right;">45.99410</td>
+<td style="text-align: right;">12.7721585</td>
+<td style="text-align: right;">3.0027623</td>
+<td style="text-align: right;">-22.1229727</td>
+<td style="text-align: right;">-19.736748</td>
+<td style="text-align: right;">32.27662</td>
+<td style="text-align: right;">35.24992</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">7</td>
-<td style="text-align: right;">0.0127457</td>
-<td style="text-align: right;">-3.426926</td>
-<td style="text-align: right;">-2.919250</td>
-<td style="text-align: right;">-14.054915</td>
-<td style="text-align: right;">45.62410</td>
-<td style="text-align: right;">51.83296</td>
+<td style="text-align: right;">0.0001948</td>
+<td style="text-align: right;">6.6109446</td>
+<td style="text-align: right;">-0.1349848</td>
+<td style="text-align: right;">-5.739197</td>
+<td style="text-align: right;">51.93852</td>
+<td style="text-align: right;">55.99335</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">8</td>
-<td style="text-align: right;">0.6504377</td>
-<td style="text-align: right;">-5.443164</td>
-<td style="text-align: right;">5.457124</td>
-<td style="text-align: right;">-5.439762</td>
-<td style="text-align: right;">54.32365</td>
-<td style="text-align: right;">58.93613</td>
+<td style="text-align: right;">0.2515522</td>
+<td style="text-align: right;">1.9697947</td>
+<td style="text-align: right;">-1.4944339</td>
+<td style="text-align: right;">5.732150</td>
+<td style="text-align: right;">64.21241</td>
+<td style="text-align: right;">52.47828</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">0.0001323</td>
-<td style="text-align: right;">-10.334371</td>
-<td style="text-align: right;">4.574210</td>
-<td style="text-align: right;">1.117710</td>
-<td style="text-align: right;">62.18452</td>
-<td style="text-align: right;">56.28888</td>
+<td style="text-align: right;">0.3116735</td>
+<td style="text-align: right;">7.4440388</td>
+<td style="text-align: right;">19.6311978</td>
+<td style="text-align: right;">24.132929</td>
+<td style="text-align: right;">81.48828</td>
+<td style="text-align: right;">72.97118</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">10</td>
-<td style="text-align: right;">0.0103063</td>
-<td style="text-align: right;">-4.002242</td>
-<td style="text-align: right;">-3.850805</td>
-<td style="text-align: right;">-4.544003</td>
-<td style="text-align: right;">55.25129</td>
-<td style="text-align: right;">49.82362</td>
+<td style="text-align: right;">0.1167201</td>
+<td style="text-align: right;">-6.2539175</td>
+<td style="text-align: right;">16.0320669</td>
+<td style="text-align: right;">2.657508</td>
+<td style="text-align: right;">62.84993</td>
+<td style="text-align: right;">68.49629</td>
 </tr>
 </tbody>
 </table>
@@ -2545,15 +2561,15 @@ who replicates a work by
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Mean</td>
-<td style="text-align: right;">53.91665</td>
-<td style="text-align: right;">57.97011</td>
-<td style="text-align: right;">2.420780</td>
+<td style="text-align: right;">54.31933</td>
+<td style="text-align: right;">57.7257</td>
+<td style="text-align: right;">2.461867</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Standard Deviation</td>
-<td style="text-align: right;">14.17461</td>
-<td style="text-align: right;">13.61453</td>
-<td style="text-align: right;">6.625088</td>
+<td style="text-align: right;">14.39182</td>
+<td style="text-align: right;">13.6641</td>
+<td style="text-align: right;">6.793512</td>
 </tr>
 </tbody>
 </table>

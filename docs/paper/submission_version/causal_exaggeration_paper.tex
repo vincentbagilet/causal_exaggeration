@@ -2,6 +2,15 @@
  
 \usepackage{VB}
 \usepackage{cleveref}
+\usepackage{amsthm}
+\usepackage{mdframed}
+
+\newmdtheoremenv{theorem}{Theorem}
+\newmdtheoremenv{lemma}{Lemma}
+\newmdtheoremenv{proposition}{Proposition}
+\newmdtheoremenv{corollary}{Corollary}
+\newmdtheoremenv{definition}{Definition}
+
 
 %\doublespacing
 
@@ -11,11 +20,11 @@
 
 \selectlanguage{english}
 	
-	\title{Unconfounded but Inflated Causal Estimates}
+	\title{Causal Exaggeration}
 
 	\author{Vincent Bagilet
 		\thanks{Columbia University, New York, USA. Email: \url{vincent.bagilet@columbia.edu}. 
-			A previous version of this project was co-authored with Léo Zabrocki-Hallak, I cannot thank him enough for his invaluable and far-reaching contributions to the project. I am very grateful to Hélène Ollivier and Jeffrey Shrader for their guidance and thank Sylvain Chabé-Ferret, Jesse McDevitt-Irwin, David McKenzie, José Luis Montiel Olea, Suresh Naidu, Claire Palandri, Stephan Thies and Roberto Zuniga Valladares for helpful comments, as well as lab members at Columbia and seminars participants at Columbia, IPWSD, the Paris School of Economics and the Toulouse School of Economics.}
+			A previous version of this project, entitled ``\textit{Unconfounded but inflated causal estimates}'', was co-authored with Léo Zabrocki-Hallak, I cannot thank him enough for his invaluable and far-reaching contributions to the project. I am very grateful to Hélène Ollivier and Jeffrey Shrader for their guidance and thank Sylvain Chabé-Ferret, Jesse McDevitt-Irwin, David McKenzie, José Luis Montiel Olea, Suresh Naidu, Claire Palandri, Julian Reif, Stephan Thies and Roberto Zuniga Valladares for helpful comments, as well as lab members at Columbia and seminars participants at Columbia, IPWSD, the Paris School of Economics and the Toulouse School of Economics.}
 	}
 	
 	\institution{Sustainable Development PhD Program, Columbia University}
@@ -29,79 +38,77 @@
 		\large \textsc{\textbf{Abstract}}\\
 	\end{center}
 		
-		Quasi-experimental studies make empirical economics credible. To avoid confounding, causal identification strategies focus on a subset of the variation in the data, the plausibly exogenous part. In this paper, I show that it can reduce statistical power and lead published estimates to exaggerate true effects sizes. Causal strategies avoid a bias at the cost of generating another one. I show the existence of this trade-off between confounding and exaggeration resulting from the use of causal inference methods through realistic fake data simulations and a mathematical derivation. I then discuss potential avenues to address this issue.
+		%To avoid confounding, causal identification strategies focus on a subset of the variation in the data, the plausibly exogenous part. In this paper, I argue that it can reduce statistical power and lead published estimates to exaggerate true effects sizes. Using realistic fake data simulations and a mathematical derivation, I show that for the main causal strategies, a perfectly convincing identification does not guaranty an absence of ``bias'' and that improving identification can actually pull us away from the true effect. I then discuss potential avenues to address this issue.\\~\\
+		
+		%Julian Reif's proposal, modified:
+		The credibility revolution in economics has made causal inference methods ubiquitous. At the same time, an increasing amount of evidence has highlighted that the literature strongly favors statistically significant results. I show that these two phenomena interact in a way that significantly worsens the reliability of published estimates: while causal inference methods can successfully reduce bias caused by confounders, the accompanying reduction in statistical power can create another type of bias, leading published estimates to exaggerate true effects sizes. I document this trade-off using realistic fake data simulations and a formal mathematical derivation. I then discuss potential avenues to address it. 
+		
+		%Quasi-experimental studies make empirical economics credible. To avoid confounding, causal identification strategies focus on a subset of the variation in the data, the plausibly exogenous part. In this paper, I argue that it can reduce statistical power and lead published estimates to exaggerate true effects sizes. Using realistic fake data simulations and a mathematical derivation, I show that %for the main causal strategies, there can be a trade-off between confounding and exaggeration: we may avoid a bias at the risk of generating another one.
+		%using the main causal identification strategies to avoid a bias can also generate another one. I then discuss potential avenues to address this issue.\\~\\
+	
+	
 	
 	\newpage
 	
+%-----------------------------------------------------------------------------
+
+% INTRODUCTION
+
+%-----------------------------------------------------------------------------
+	
 	\section{Introduction}
-			 	 		
-			One of the main challenges of empirical economics is to reduce confounding to identify causal effects. Identifications strategies such as Regression Discontinuity (RD), Instrumental Variable (IV), Difference-in-Differences (DID) and event studies help achieve this goal. To do so, these strategies only use part of the variation in the data. They exploit the exogenous part of the variation in the treatment or decrease the sample size by only considering observations for which the as-if random assignment assumption is credible. Reducing the variation used decreases precision and thus statistical power, that is to say the probability of rejecting the null hypothesis of no effect when it is false. In this paper, I argue that it often creates a tension between statistical power and reducing confounding.
-			
-			When statistical power is low, not only the estimator is imprecise as we well know but statistically significant estimates exaggerate the true effect size \citep{ioannidis_why_2008, gelman_beyond_2014, lu_note_2019, zwet_significance_2021}. Only estimates at least two standard errors away from zero are statistically significant at the 5\% level. In under-powered studies, these estimates make up a selected sub-sample of all estimates, located in the tails of the distribution of all possible estimates. The average of these statistically significant estimates differs from the true effect, located at the center of the distribution if the estimator is unbiased. When power is low, obtaining a statistically significant estimate from an unbiased estimator does not guarantee that it will be close to the true effect. An estimate $\hat{\beta}$ of $\beta$ might be unbiased in the traditional sense but conditionally biased in the sense that $\mathbb{E}[\hat{\beta}] = \beta$ but $\mathbb{E}[\hat{\beta} | \text{ Significant}] \neq \beta$. \Cref{fig:graph_exag} illustrates this trade-off through the estimation of different models on simple simulated datasets.
-			
-			   \begin{figure}[h!]
-       				\caption{Distribution of estimates across models on simple simulated datasets}
-            			\label{fig:graph_exag}
-				\centering
-				\includegraphics[width=0.8\linewidth]{images/graph_maths_annotated.pdf}
-				{\\ \footnotesize \textit{Notes}: $y$, $x$, $w$ and $u$ are respectively the outcome variable, the explanatory variable of interest, an unobserved variable and an error term. Each model is estimated on 3000 simulated datasets. Parameter values are chosen to produce designs with low power. Parameter values are set to make the IV and reduced form estimands comparable (an increase in $z$ yields the same increase in $x$).}
-			 \end{figure}
-			
-			This consequence of low statistical power could be non-problematic if a large literature had not underlined the existence of a publication bias favoring statistically significant results \citep[for instance]{rosenthal_file_1979, andrews_identification_2019, abadie_statistical_2020, brodeur_methods_2020}. Published estimates from under-powered studies thus form a biased sample of the distribution of causal estimates and can greatly exaggerate their true effect sizes. This participates to the current replication crisis affecting various fields such as economics, epidemiology, medicine or psychology \citep{button_power_2013, open_science_collaboration_estimating_2015, camerer_evaluating_2016, chang_is_2022}. Even in experimental economics, with a high level of control and an arguable absence of confounders, estimates published in top economic journals were on average inflated by a factor of at least 1.5 \citep{camerer_evaluating_2016}. Quasi-experimental studies are likely even more exposed to this exaggeration issue as,  in current practices, statistical power is not central to the analysis. Despite usually large sample sizes, \cite{ioannidis_power_2017} concernedly finds that the median statistical power in a wide range of economic studies is no more than 18\% and that nearly 80\% of estimates may be exaggerated by a factor of two. The magnitude of these exaggerations is thus considerable and in some situations, it could  be on par with that of bias caused by confounders. It is thus crucial to take exaggeration risks into account.%Exaggeration caused by low power and publication bias can produce published estimates far of the true effect size and understanding its determinants key to avoid it. 
-			
-			% goal of this study
-			In this paper, I show that design choices in quasi-experimental studies can be seen as a trade-off between avoiding confounding and overestimating true effect sizes due to a resulting loss in power. To limit the threat of confounding, causal inference methods discard variation and therefore reduce statistical power. This can result in inflated significant and published estimates. In some settings, reaching unbiasedness can actually be impossible as getting rid of bias caused by confounders creates another type of bias.
-			
-			%mechanisms
-			%I analyze the key factors affecting the confounding / exaggeration trade-off for a wide range of identification strategies : RD, IV, event studies, strategies such as DiD relying on  fixed effects (FEs) or generic controls and matching. 
-			While the general idea that causal inference methods discard variation to identify effects is shared across strategies, the confounding / exaggeration trade-off is mediated through a distinctive channel for each of them. In RD designs, while the initial sample size may be large, we discard part of the variation by only considering observations within the bandwidth, decreasing the effective sample size and thus precision. In an IV setting, we only use the subset of the variation in the treatment that is explained by the instrument. In event studies, the variation used to identify an effect sometimes only comes from a limited number of treated observations. Assuming that all confounders are measured, matching prunes treated units that cannot be matched to untreated ones. Generic controls or fixed effects can increase the variance of the estimate if they absorb more of the variation in the treatment than in the outcome variable. 
-			
-			Since causal identification strategies can be interpreted as ways of controlling for confounders, this last point actually ties all the strategy specific arguments together. We implement Fixed Effects (FEs) based identification strategies such as DiD to control for the invariant, unobserved and arguably endogenous part of the variation in the outcome. In the Control Function (CF) approach of IV, we control for the predicted residuals of the regression of the endogenous variable of interest on the instrument. Fuzzy-RD and propensity score matching can also be thought of as control function approaches, of the forcing variable and propensity score respectively. In addition, excluding  observations that are outside the bandwidth or unmatched is equivalent to controlling for observation level fixed effects for these observations. Considering a simple linear model gives the intuition for the trade-off between exaggeration and omitted variable bias when controlling.  Let $y_{i} = \alpha + \beta x_{i} + \delta w_{i} + u_{i}$, $\forall i \in \{1, .., n\}$,  with $w$ potentially unobserved. Using the Frisch-Waugh-Lovell theorem we get that $ \sigma_{\textsc{ovb}}^2$ and $ \sigma_{\textsc{ctrl}}^2$, the variance of the estimators for $\beta$ when omitting $w$ controlling for it respectively are:
-			~
-			\[
-				\sigma_{\textsc{ovb}}^2 =
-				 \dfrac{\sigma^{2}_{y^{\perp x}}}{n \ \sigma_{x}}
-				 \qquad \text{and} \qquad
-				 \sigma_{\textsc{ctrl}}^2 = 
-				  \dfrac{\sigma^{2}_{y^{\perp x, w}}}{n \ \sigma_{x^{\perp w}}}
-			\]
-			
-			and thus,
-			
-			\[
-				 \sigma_{\textsc{ctrl}}^2 >  \sigma_{\textsc{ovb}}^2
-				 	\quad \Leftrightarrow \quad 
-				 	\dfrac{\sigma^{2}_{y^{\perp x, w}}}{n \ \sigma_{x^{\perp w}}} > 
-				  	 	\dfrac{\sigma^{2}_{y^{\perp x}}}{n \ \sigma_{x}}
-					\quad \Leftrightarrow \quad 
-					\dfrac{\sigma^{2}_{y^{\perp x, w}}}{ \sigma_{y^{\perp x}}} >
-						\dfrac{\sigma^{2}_{x^{\perp w}}}{\sigma_{x}}
-			\]
-			
-			Controlling will increase the variance of the estimator if the fraction of the variance unexplained by $w$ is greater for $y^{\perp x}$ than for $x$. Put differently, if controlling absorbs more of the variation in $x$ than in the residual part of $y$ ($y^{\perp x}$), it will increase the variance of the estimator. As briefly discussed above, since exaggeration increases with the variance of the estimator, controlling may increase exaggeration. I develop this intuition and a formal proof showing that exaggeration can be larger when controlling, even when accounting for bias, in section III. %\ref{section_maths}
-			
-			% what we actually do
-			In the remainder of the paper, I first illustrate the existence of this ``causal exaggeration'' using examples drawn from education, labor, environmental and political economics. %We show that an actual trade-off between exaggeration and confounders can exist as exaggeration can be large for research designs implemented in actual studies. 
-			The inflation of statistically significant estimates can be defined as the ratio of the estimated effect over the true effect, which is never known in real world setting. I therefore have to turn to fake-data simulations. Since these Monte-Carlo simulations have an illustrative purpose only, I intentionally focus on settings in which statistical power can be low. All other simulation assumptions are chosen to make it easier to retrieve the effect of interest. I consider simple linear models with constant treatment effects and all the models are correctly specified and accurately represent the data generating process, except for the omitted variable.
+	
+		\input{../preliminary_intro/causal_exaggeration_intro_text.tex}
+	
+	
+%-----------------------------------------------------------------------------
+
+% SIMULATIONS
+
+%-----------------------------------------------------------------------------	
+				
+	\section{Simulations} \label{simulations}
+	
+%-----------------------------------------------------------------------------
+
+% MATHS
+
+%-----------------------------------------------------------------------------
+	
+	\section{Mathematical derivation} \label{maths}
 						
-			Then, I develop the mathematical intuition behind the confounding / exaggeration trade-off through the tying interpretation of causal identification strategies as control strategies. I then derive a formal proof of the existence of the trade-off in simple linear homoskedastic settings, with an homogeneous treatment effect. Specifically, I show that the bias caused by exaggeration can be larger than the one caused by confounders, accounting for omitted variable bias. I also study the drivers of exaggeration and show that it increases as the strength of the instrument decreases, the number of exogenous shocks decreases or when controlling for an omitted variable absorbs more of the variation in the treatment than in the outcome. 
+		In this section, I provide a formal mathematical derivation to prove the existence and to describe the drivers of the confounding / exaggeration trade-off. To do so, I first recall a definition of  the exaggeration ratio and discuss its drivers. Then, I derive it for a series of estimators, in the presence of an omitted variable bias, when controlling for the omitted variable, when instrumenting it or running a reduced form analysis. Finally, I show that, for any given omitted variable bias, bias can be greater when controlling for confounders using a causal inference methods than not. A more detailed and extensive proof is available on the \href{https://vincentbagilet.github.io/causal_exaggeration/Maths/math_causal_exaggeration.pdf}{companion website}.
+		
+		\subsection{Setting and data generating process}
+		
+			Consider an usual linear homoskedastic regression model with an omitted variable. For all individual $i \in \{1, ..., n\}$, assume that: 
+				~
+				\begin{equation}\label{maths_true_dgp}
+					y_i = \beta_{0} + \beta_{1}x_{i} + \delta w_{i} + u_i
+				\end{equation}
+				
+				where $y_i \in \mathbb{R}$ is the observed outcome of interest, $x_i \in \mathbb{R}$ the observed explanatory variable of interest,  $w_i \in \mathbb{R}$ an unobserved omitted variable, $u_i \in \mathbb{R}$ an unobserved error term.  $(\beta_0, \beta_1, \delta) \in \mathbb{R}^{3}$ are unknown parameters. $\beta_1$ is the parameter of interest. For readability, we introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$ and set $\bm{\beta} = (\beta_0, \beta_1)'$ and $\text{x}_i = (1, x_i)'$. \\
 			
-			Finally, I discuss avenues to address this causal exaggeration. First, I advocate for the use of tools to evaluate the potential magnitude and risk of both confounding and exaggeration issues separately. Sensitivity analyses help with the former while power calculations help with the latter. %These power calculations can be computed before and after the analysis is carried out. 
-			By approximating the data generating process, prospective power simulations help identify the design parameters affecting power and exaggeration \citep{gelman_regression_2020, black_simulated_2021}. Retrospective power calculations allow to evaluate whether a study would have enough power to confidently estimate a range of smaller but credible effect sizes \citep{gelman_beyond_2014, stommes_reliability_2021}. The \href{https://vincentbagilet.github.io/causal_exaggeration/}{companion website} describes in details how such solutions can be implemented. 
-			%%%%%%%% Evaluating potential exaggeration and confounders is however complex as both rely on unobserved shit
-			Focusing more specifically on the trade-off and its drivers, I present tools to visualize the variation actually used for identification when using causal identification strategies. Finally, I briefly discuss potential solutions to mitigate this trade-off.
-						
-			% first contribution
-			This paper contributes to three strands of the literature. First, the idea that causal identification estimators, while unbiased, may be imprecise is not new; this is part of the well-known bias /variance trade-off \citep{imbens_optimal_2012, deaton_understanding_2018, hernan_causal_2020, ravallion_should_2020}. In under-powered studies, resulting estimates have large confidence intervals, suggesting that a wide range of effects are consistent with the data. I approach this literature from a different angle: through the prism of statistical power and publication bias. Not only the limited precision resulting from the use of causal identification methods could make it difficult to draw clear conclusions regarding the exact magnitude of the effect but I argue that it might also inherently lead to inflated published effect sizes, creating another ``bias''.
+			We assume homogeneous treatment effects and homoskedasticity, along with the usual OLS assumptions (\textit{i.i.d.} observations, finite second moments, positive-definiteness of $\mathbb{E}[\text{x}_i \text{x}_i']$ and $u_{i}$ conditional mean-zero and uncorrelated with $x_i$ and $w_i$). We assume that $w_{i}$ is unobserved, correlated with $x_{i}$ and that $\delta \neq 0$. To simplify the derivations, we further assume that the unobserved variable is centred, \textit{ie} $\mathbb{E}[w_i] = 0$. We also assume that the variance of the component of $w_{i}$ that is orthogonal to $x_{i}$ (denoted $w_{i}^{\perp}$) does not vary with $x_{i}$. Thus, $\text{Var}(w_{i}^{\perp}|x_{i}) = \text{Var}(w_{i}^{\perp})$. We assume the following data generating process for $x_i$:
+				~
+				\begin{equation}\label{maths_dgp_x}
+					x_i = \mu_{x} + \gamma w_{i} + \epsilon_i
+				\end{equation}
+							
+		\subsection{Exaggeration ratio and its properties}\label{general_exagg}
+		
+		 	Following \cite{gelman_beyond_2014}, I define the exaggeration ratio $E$ as the ratio of the expected value of the absolute value of the estimate conditional on the estimate being statistically significant over the true effect. 
+		 
+		 	\begin{definition}
+		 		For an estimator $\hat{\beta}$ of a true effect of magnitude $\beta_1$, with standard deviation $\sigma$ and for a significance threshold of $z_{\alpha}$,
+		 
+				 \begin{equation}\label{exagg_general}
+				 	E(\beta, \sigma, \beta_{1}, z_{\alpha}) = \dfrac{\mathbb{E}\left[ | \hat{\beta}| \big| \beta_{1}, \sigma, |\hat{\beta}| > z_{\alpha} \sigma \right]}{\beta_{1}} 
+				\end{equation}
+			\end{definition}
 			
-			% second contribution
-			Second, recent studies discussing the inflation of statistically significant estimates due to low power focused on specific causal identification methods separately and usually do not investigate the determinants of this exaggeration \citep{schell_evaluating_2018, black_simulated_2021, stommes_reliability_2021, young_leverage_2021}.  In this paper, I propose an overarching mechanism, inherent to causal identification strategies as a whole, that can explain these issues: although each strategy does so through a different means, in essence they discard part of the variation, thereby causing exaggeration. This connection could be exacerbated by the fact that, as noted by \cite{brodeur_methods_2020}, publication bias is more prevalent for some methods such as the IV. 
-			
-			% third contribution
-			Third, this study contributes to the literature on reproducibility in economics \citep{camerer_evaluating_2016, ioannidis_power_2017, christensen_transparency_2018, kasy_forking_2021}. The trade-off presented in this paper may be an additional explanation for observing replication failures in empirical economics, despite the widespread use of convincing causal identification methods.
-			
-			
-			
+			For a normally distributed estimator
+
 			
 %-----------------------------------------------------------------------------
 
@@ -112,50 +119,71 @@
 	\section{Practical Recommendations} \label{discussion}
 
 		% HOOK OF THE SECTION
- 		We have seen that using causal methods induces a trade-off between avoiding confoundings and exaggerating true effects if the study is under-powered. How can we, as applied researchers using observational data, arbitrate it? Since key pieces of information such as the true effect and the effect of omitted variables are inherently unknown, we cannot directly compute the biases caused by confounders and exaggeration. In this section, I examine how we however can get a sense of threats from both sides of the trade-off and visualize its main driver, the variation used for identification. I then discuss how changing our attitude towards statistical significance and replicating studies could limit the exaggeration issue.
+ 		We have seen that using causal methods induces a trade-off between avoiding confoundings and exaggerating true effects if the study is under-powered. How can we, as applied researchers using observational data, arbitrate it? Since key pieces of information such as the true effect and the effect of omitted variables are inherently unknown, we cannot directly compute the biases caused by confounders and exaggeration. In this section, I examine how we can however get a sense of threats from both sides of the trade-off and visualize its main driver, the variation used for identification. I then discuss how changing attitudes towards statistical significance and replicating studies could limit the exaggeration issue.
 	
 	%Even though it does not produce uninflated estimates, reporting power calculations enables to evaluate the risk of exaggeration for a study. In this section, we present a workflow to evaluate and report the power of a study before and after its implementation. 
 	
 		\subsection{Gauging omitted variable bias}
 	
 			%"MEASURING" OVB
-			On one side of the trade-off highlighted in this paper lies the bias caused by confounders. Although it is in essence impossible to measure, tools such as sensitivity analyses are available to gauge its magnitude \citep{rosenbaum_observational_2002, oster_unobservable_2019, cinelli_making_2020}. For instance, the method developed in \cite{cinelli_making_2020} enables to assess how strong confounders would have to be to change the estimate of the treatment effect beyond a given level we are interested in. It offers bounds for the strength of the association between the treatment and potential omitted variables by weighting it against the measured association between the treatment and observed covariates. A typical conclusion from such an analysis would be: ``omitted variables would have to explain as much residual variance of the outcome and the treatment as this observed covariate to bring down the estimate to a value of $X$''. In addition, the authors implement graphical tools to carry out this comparison. I propose to use such quantitative bias analyses to evaluate whether the threat of unobserved confounding requires a restrictive causal approach. 
+			On one side of the trade-off lies the bias caused by confounders. Although it is in essence impossible to measure, tools such as sensitivity analyses are available to gauge its magnitude \citep{rosenbaum_observational_2002, middleton_bias_2016, oster_unobservable_2019, cinelli_making_2020}. For instance, the method developed in \cite{cinelli_making_2020} enables to assess how strong confounders would have to be to change the estimate of the treatment effect beyond a given level we are interested in. It offers bounds for the strength of the association between the treatment and potential omitted variables by weighting it against the measured association between the treatment and observed covariates. A typical conclusion from such an analysis would be: ``omitted variables would have to explain as much residual variance of the outcome and the treatment as the observed covariate $x$ to bring down the estimate to a value of $\beta_{l}$''. In addition, the authors implement graphical tools to facilitate this comparison. I suggest to use such quantitative bias analyses to evaluate the restrictiveness of the causal approach required to limit the threat of unobserved confounding to acceptable levels. 
 			
 		\subsection{Evaluating risks of exaggeration}
 
-			On the other side of the trade-off lies the exaggeration emerging when statistical power is low. As OVB, exaggeration and statistical power are in essence impossible to measure as their computation depends on the true effect which is always unknown. Yet, power calculations can be computed by making hypothesizes on the magnitude of the true effect. In randomized controlled trials, such computations are not only an established practice but a requirement \citep{duflo_using_2007, mcconnell_going_2015, athey_econometrics_2016}. They are however rarely reported in observational studies. %, despite the availability of specific power formulas for some causal inference methods \citep{freeman_power_2013, cattaneo_power_2019}. %Two main reasons could explain this limited reporting of power calculations. First, we do not directly control the data collection process in our research projects. Second, we may fear that available power formulas are not flexible enough to capture the complexity of their design. On top of these reasons, 
-			Yet, the threat of exaggeration highlights the necessity of running power calculations in observational studies as well. A low power or a relatively large variance not only makes it more difficult to draw clear conclusions about the magnitude of the effect but it can also create a bias. I thus advocate to make power central to observational analyses and to run pre and post analysis power and exaggeration calculations.
-			 bb
+			On the other side of the trade-off lies the exaggeration emerging when statistical power is low. As OVB, exaggeration and statistical power are in essence impossible to measure as their computation depends on the true effect which is always unknown. Yet, power calculations can help assess them by making hypothesizes on the magnitude of the true effect. In randomized controlled trials, such computations are not only an established practice but a requirement \citep{duflo_using_2007, mcconnell_going_2015, athey_econometrics_2016}. They are, however, rarely reported in non-experimental studies. This can be understandable if power calculations are perceived only as a way to measure a design's ability to detect an effect when there is actually one. Yet, taking publication bias and the threat of exaggeration into account highlights the necessity of running power calculations in non-experimental studies as well. A low power or a relatively large variance not only makes it more difficult to detect an effect or to draw clear conclusions about its magnitude when detected but it can also create a bias. Considering the attention given to bias avoidance in the economics literature, I advocate to make power central to non-experimental analyses to limit bias caused by exaggeration. Currently, in causal inference textbooks, very few pages are devoted to statistical power in non-experimental studies \citep{angrist_mostly_2009, angrist_mastering_2014, imbens_causal_2015, cunningham_causal_2021}. To the best of my knowledge, only two textbooks discuss the matter in depth \citep{shadish_experimental_2002, huntington-klein_effect_2021}. Results from power and exaggeration calculations would not only be highly informative but could also be reported very concisely in the robustness section of articles. 
+			
+			\subsubsection{Prospective power calculations}
+						
+				To evaluate the statistical power of a study, the risk of exaggeration and identifying the factors driving it, one can first simulate the design of the study \citep{hill_bayesian_2011, gelman_regression_2020, black_simulated_2021}. Simulating a data generating process from scratch requires thinking about the distribution of the variables, about their relationships and can also help underline the variation used for identification. %External information found in previous studies can help guide the simulation process to make it more realistic. 
+			 I implemented such fake-data simulations in \Cref{simulations} and provide "R" code to be used as examples in the replication material. In situations where the relationships among covariates are too complex to emulate, one can also start from an existing dataset and add a known treatment effect. I implemented real data simulations in a companion paper and describe their implementation in its \href{https://vincentbagilet.github.io/inference_pollution/}{replication material} \citep{bagilet_accurately_2023}. 
 			 
-			There is a lack of guidance on how to design well-powered observational studies. In causal inference textbooks, very few pages are devoted to the topic \citep{angrist_mostly_2009, angrist_mastering_2014, imbens_causal_2015, cunningham_causal_2021}. To the best of my knowledge, only two textbooks discuss the matter in depth \citep{shadish_experimental_2002, huntington-klein_effect_2021}. 
+			 %When simulations indicate that statistical power is low, additional data could be collected or the statistical model could be improved to increase precision. In any case, it should not stop the research project from carrying out. Simulation results rest on the way the data generation process was modeled, and it can be difficult to gauge the amount of noise present in data before actually analyzing them. The two main benefits of a prospective simulation procedure are that it allows us to consider factors that may affect the statistical power of our study and to avoid drawing misleading conclusions based solely on statistically significant estimates when statistical power is low.
+				
+			\subsubsection{Retrospective power calculations}
 			
+				Running post-analysis power calculations can also help getting a sense of the statistical power associated with a research design. Such \textit{retrospective} calculations allow to evaluate whether the design of the study would produce accurate and uninflated statistically significant estimates if the true effect was in fact smaller than the observed estimate \citep{gelman_beyond_2014, ioannidis_power_2017, stommes_reliability_2021}. 
+				
+				%can take this out if want to make the paper shorter
+				I illustrate how a retrospective analysis works by taking the example of \cite{card_using_1993} on the relationship between human capital and income. He finds that an additional year of education, instrumented by the distance of growing near a four-year college, causes a 13.2\% average increase in wage. The associated standard error is 5.5\%. Is there a risk of exaggeration with this design? Since, as noted by the author himself, the estimate is very imprecise we could expect so. Imagine that prior evidence suggests that the true effect is likely close to a 10\% increase in wage. We can then compute the statistical power of the study by drawing many estimates from a normal distribution centered around the hypothesized true effect of 10\% and with a standard deviation equal to the 5.5\% standard error obtained in \cite{card_using_1993}. Concretely, this proceeds as if we were able to replicate the study many times under the assumption that the true effect was equal to the hypothesized one\footnote{\cite{timm_retrodesign_2019, linden_retrodesign_2019} offer \texttt{R} and \texttt{Stata} packages that enable to easily run these calculations through a short command: \texttt{retrodesign(10, 5.5)}.}. Statistically significant estimates (at the 5\% level) would on average be roughly equal to 15\%, therefore overestimating the true effect by a factor of 1.5. Statistical power, the proportion of estimates that are significant, would be only 44\%. Conditional on a 10\% true effect size being a reasonable assumption, this study would be under-powered and the risk of exaggeration large.
 			
-    
-    Simulating the design of an observational study is a solution to overcome these limits \citep{hill_bayesian_2011, gelman_regression_2020, black_simulated_2021}. Similarly to what we did in the previous section, the goal of this approach is to simulate the data generating process of the study from scratch. It requires thinking about the distribution of the variables and their relationships. External information found in previous studies can help guide the simulation process to make it more realistic. If the relationships among covariates are too complex to emulate, a second approach starts from an existing dataset to which a simulated treatment and potential outcomes are added\footnote{In the future version of the paper, we will explain how we can easily simulate from scratch the study by \cite{card_using_1993}. For now, examples of simple simulations are available on our \href{https://vincentbagilet.github.io/causal_inflation/}{companion website}.}.
-
-    When simulations indicate that statistical power is low, additional data could be collected or the statistical model could be expanded to increase precision. In any case, it should not stop from carrying out a research project. Simulation results rest on the way the data generation process was modeled and it can be difficult to gauge the amount of noise present in data before actually analyzing them. The two actual benefits of a prospective simulation procedure are to think about factors that affect power and not to be mislead by statistically significant estimates if power is low. 
-
-% SOLUTIONS AFTER ANALYZING THE DATA
-\subsection{Once the Main Analysis is Completed}
-
-    Once we have obtained a statistically significant estimate for the treatment of interest, we still need to think about the statistical power of the study to check whether the magnitude of our estimate is trustworthy. A \textit{retrospective} power analysis helps evaluate whether the design of the study would  produce uninflated statistically significant estimates if the true effect was smaller than the observed estimate \citep{gelman_beyond_2014, ioannidis_power_2017, stommes_reliability_2021}.
-    
-    We illustrate how a retrospective analysis works by taking the example of \cite{card_using_1993} on the relationship between human capital and income. He finds that an additional year of education, instrumented by the distance of growing near a four-year college, causes a 13.2\% average increase in wage. The associated standard error is 5.5\%. As noted by the author himself, the estimate is very imprecise: if the true causal effect was slightly smaller than the observed estimate, the study would very likely be under-powered. For instance, imagine that prior evidence suggests that the true effect could be to closer a 10\% increase in wage. Computing the statistical power of the study only requires to draw many estimates from a normal distribution centered around the hypothesized true effect of 10\% and with a standard deviation equal to the 5.5\% standard error obtained in \cite{card_using_1993}. Concretely, one proceeds as if they were able to replicate the study many times under the assumption that the true effect is different from the observed estimate. The proportion of sampled estimates that are statistically significant at the 5\% level, 44\% in this case, is the statistical power. The inflation of significant estimates is then computed as the average ratio of the values of statistically significant estimates over the assumed true effect size: these estimates would be 1.5 times too large on average. 
-    
-    For a retrospective power analysis to be useful, it is therefore necessary to make informed guesses about the range of plausible effect sizes. Such guesses can be based on results from meta-analyses or previous studies with a convincing design (e.g., a large randomized controlled trial). When such information is not available, power calculations can be run for a range of smaller but credible effect sizes\footnote{We are currently working on the adoption of two existing approaches that could help address the potential inflation of statistically significant estimates. 
-    In a series of articles, \cite{zwet_proposal_2021, zwet_significance_2021} and \cite{zwet_statistical_2021} present a Bayesian procedure to shrink statistically significant estimates based on a corpus of estimates from prior studies.
-    The second approach consists in carrying out quantitative bias analyses to evaluate whether the threat of unobserved confounding requires a restrictive causal approach. \cite{rosenbaum_observational_2002}, \cite{oster_unobservable_2019} and \cite{cinelli_making_2020} have developed different methods to run sensitivity analyses. They could be paired with power calculations to better evaluate the hidden bias / power trade-off of competing research designs. For instance, if a sensitivity analysis reveals that a simple selection on observables strategy is very robust to omitted variable bias, one may avoid using an IV model since it has a higher chance to produce inflated estimates.}.
-    
-    Results from power and exaggeration calculations would not only be highly informative but could also be reported very concisely in the robustness section of articles. \texttt{R} and \texttt{Stata} packages have been developed \citep{timm_retrodesign_2019, linden_retrodesign_2019} to easily implement retrospective power analyses. 
-
-% GENERAL RECOMMENDATIONS
-\subsection{Attitude Towards Statistical Significance and Replication}
-
-    General changes in scientific practices could also limit the inflation of statistically significant estimates in under-powered studies. As shown in our simulations, if estimates were not filtered by their statistical significance, even under-powered studies would on average recover the true effect. The publication bias arising from dichotomizing evidence according to $p$-values has long been criticized in many disciplines but has seen a revival with the recent replication crises in psychology, medicine and social sciences. Many researchers advocate abandoning statistical significance as a measure of a study's quality \citep{mcshane_abandon_2019}. This would essentially eliminate the trade-off described in this paper.
-
-    To be effective, this change in attitude towards statistical significance should be paired with an effort to replicate studies \citep{christensen_transparency_2018}. Replications, even of low powered studies, would eventually enable to build the distribution of the causal estimand of interest. Meta-analyzes would then reduce the uncertainty around the true value of the causal estimand by pooling estimates \citep{hernan_causal_2021}. 
-
-    Finally, the inflation of statistically significant estimates can be limited by considering confidence intervals as compatibility intervals \citep{shadish_experimental_2002, amrhein_inferential_2019, romer_praise_2020}. The width of these intervals gives a range of effect sizes compatible with the data. Confidence intervals will be wide in under-powered studies signaling that point estimates should not be taken at face value, even if statistically significant.
+				The usefulness of any retrospective power analysis lies on the assumption regarding the true effect size. Informed guesses about the range of plausible effect sizes can be based on results from meta-analyses or previous studies with a convincing design (\textit{e.g.}, a large randomized controlled trial)\footnote{Note that when such meta-analyses are available, one can use a Bayesian procedure to shrink statistically significant estimates based on the corpus of estimates from prior studies \cite{zwet_proposal_2021, zwet_significance_2021, zwet_statistical_2021} .}. When such information is not available, power calculations can be ran for a range of smaller but credible effect sizes.
+				
+		\subsection{Driver of the trade-off}
+		
+			We have seen that the variation used for identification was the main driver of the confounding / exaggeration trade-off. This variation determines the variance of the estimator and thus the amount of exaggeration. In this section, I first discuss the impact of estimator variance and how exaggeration leads to reinterpret the well-known bias/variance trade-off. I then propose to use a tool that enables to visualize where the variation used for identification comes from.
+		
+			\subsubsection{Navigating the bias/variance trade-off}
+			
+				In non-experimental studies, estimator variance is often important to the extent that a large variance may lead to a failure to reject the null of zero effect when it is actually incorrect. It makes variance paramount as long as a statistically significant estimate is not obtained. Yet, exaggeration underlines that variance matters, even after that a significant estimate has been obtained. 
+			
+				 Obtaining a statistically significant estimate from an imprecise estimator should not necessarily be interpreted as a sign of ``success'' in getting significance despite the estimator being imprecise. It could however be a warning that this estimate comes from the tails of the distribution and thus inaccurately represents the true effect. Conditional on having obtained a statistically significant estimate, a limited precision can hide a bias: exaggeration. This invites to revisit the well-known bias/variance trade-off: a larger variance can actually lead to a larger (conditional) bias. The bias/variance trade-off can in fact be a bias/bias trade-off. This paper thus invites to pay more attention to the implications of our design choices on the variance of our estimators, even after we obtained statistically significant estimates.
+			
+			\subsubsection{Visualizing the driver of the trade-off}
+		
+				Causal inference strategies only leverage a subset of the variation to avoid confounders. However, when this subset is too small, exaggeration arises. Visualizing this variation (and the observations) actually used for identification can help navigate the confounding / exaggeration trade-off. The visualization tool I outline here both leverages the interpretation of causal inference methods as control approaches and builds on a procedure developed in \cite{aronow_does_2016} for a different purpose: evaluating external validity of standard regressions.
+				
+				\cite{aronow_does_2016} essentially interprets the estimate of the coefficient of the treatment of interest in a simple linear non-causal regression as a weighted average of individual treatment effects. The weight $w_{i}$ of individual $i$ is simply the squared difference between its treatment status $T_{i}$ and the value of this treatment status as predicted by the other covariates $X$: $w_{i} = (T_{i} - \mathbb{E}[T_{i} | X_{i}])^{2}$. If treatment effects are heterogenous, the weighting may lead some observations to be disproportionally (non-)represented in the average effect of the treatment. %Some observations, whose treatment status is very well explained by covariates do not actually contribute to the estimation of the treatment effect. 
+				In that case, the average of treatment is only representative of a subset of the individual treatments, leading to external validity issues. 
+				
+				The parallel with our setting directly follows from this interpretation regardless of whether the treatment is heterogenous or not: observations whose treatment status is well explained by covariates do not actually contribute to the estimation of the effect of the treatment. This may lead to a small \textit{effective} sample size and to exaggeration. In the control approach to causal inference strategies, the more variation in the treatment is absorbed when ``controlling'' for confoundings, the smaller the effective sample, potentially leading to exaggeration. \cite{aronow_does_2016} focused on the representativity of the effective sample for fear of external validity issues. I am interested on in its size for fear of exaggeration.
+				
+				It might then seem compelling to define this effective sample by proposing a weight value under which the associated observation does not actually contribute to  identification. Yet, considering the specificity of each analysis and that exaggeration depends on several factors, including the true effect size, I avoid proposing an \textit{ad hoc} cut-off. Instead, I suggest to visualize the individual weights. It allows to get a sense of where the variation comes from and which are the observations that actually contribute to the estimation. Since applied economics analyses often rely on panel data, I propose to use a heatmap as a base for visualization, with time on the \textit{x}-axis and individuals on the \textit{y}-axis. Figure %
+				displays this visualization for the paper
+				
+				Most of the variation is absorbed by fixed effects, leading only a small subset of observation to actually contribute to the estimation (the darker ones).
+				
+				If the data is cross sectional, the same heatmap can be computed with individuals on the \textit{x}-axis and a length-one segment on the \textit{y}-axis. I display such graphs and share  \verb?R?  code to build on the \href{https://vincentbagilet.github.io/causal_exaggeration/}{companion website}.
+				
+				%talk about leverage
+				
+	% GENERAL RECOMMENDATIONS
+	\subsection{Attitude Towards Statistical Significance and Replication}
+	
+		Exaggeration only arises in the presence of publication bias. As shown in the simulations, if estimates were not filtered by their statistical significance, even under-powered studies would on average recover the true effect, as long as the estimator is unbiased. The exaggeration issue could there be addressed by tackling publication bias. 
+		
+		To identify broader pathways to eliminate this filtering of significant results, it is first helpful to discuss the processes that lead to statistically significant results when power and thus the probability of obtaining a significant estimate is low. In such situations, they can be obtained either by ``chance'' or as an outcome of the garden of forking paths \citep{simmons_false-positive_2011, gelman_garden_2013, kasy_forking_2021}. Forks appear at various stages along the path of research, for instance in data preparation, regarding the inclusion of a given control variable or whether to carry on a research that yields non-significant results. Due to the structural flaw that favors significance, the path followed may be more likely to lead to a statistically significant result. These choices are most often not the result of bad researcher practices but instead a product of a structure that portrays significant results as the end goal of research. 
+		
+		The issue being structural, system level changes in scientific practices could also alleviate exaggeration and the trade-off described in this paper. First, many researchers advocate abandoning statistical significance as a measure of a study's quality \citep{mcshane_abandon_2019}. To be effective, this change should be paired with an effort to replicate studies \citep{christensen_transparency_2018}. Replications, even of low powered studies, would eventually enable to build the actual distribution of the causal estimand of interest. Meta-analyzes would then reduce the uncertainty around the true value of the causal estimand by pooling estimates \citep{hernan_causal_2021}. Finally, the inflation of statistically significant estimates could be limited by considering confidence intervals as compatibility intervals \citep{shadish_experimental_2002, amrhein_inferential_2019, romer_praise_2020}. The width of these intervals gives a range of effect sizes compatible with the data. Confidence intervals will be wide in under-powered studies signaling that point estimates should not be taken at face value, even if statistically significant.
 
 %-----------------------------------------------------------------------------
 
@@ -165,15 +193,15 @@
 
 \section{Conclusion} \label{conclusion}
 
-	In the presence of publication bias, estimates published from underpowered studies exaggerate true effect sizes \citep{ioannidis_why_2008, gelman_beyond_2014, lu_note_2019, zwet_significance_2021}. \cite{ioannidis_power_2017} showed that the economic literature suffers from an extensive lack of power and many papers showed the existence of a publication bias in this literature \citep[for instance]{rosenthal_file_1979, andrews_identification_2019, abadie_statistical_2020, brodeur_methods_2020}. It is therefore not surprising that we observe substantial exaggeration issues in economics \citep{camerer_evaluating_2016, ioannidis_power_2017}.  Yet, determinants for these exaggeration and power issues remain understudied. In this paper, I argue that exaggeration may be fostered by the fact that causal identification strategies only leverage part of the variation for identification. It decreases precision and not only makes it more difficult to get a sense of the magnitude of the actual effect but it also increases the probability of published estimates to be inflated. The same aspect that makes causal identification strategies credible can create another type of bias.
+	The economic literature suffers from an extensive lack of power \citep{ioannidis_power_2017} and many studies showed the existence of a publication bias in this literature \citep[for instance]{rosenthal_file_1979, andrews_identification_2019, abadie_statistical_2020, brodeur_methods_2020}. We also know that in the presence of publication bias, estimates published from underpowered studies exaggerate true effect sizes, even when the estimators are ``unbiased'' in the usual sense of $\mathbb{E}[\hat{\beta}] = \beta$ \citep{ioannidis_why_2008, gelman_beyond_2014, lu_note_2019, zwet_significance_2021}. It is therefore not surprising that many estimates published in economics have been shown to be considerably exaggerated  \citep{camerer_evaluating_2016, ioannidis_power_2017}, despite the extensive use of convincing causal inference methods.  Yet, determinants for these exaggeration and power issues remain understudied. Focusing on causal methods, I argue that exaggeration may be exacerbated by the foundational component of causal inference: the fact that it only leverages subsets of the variation. Although causal inference strategies enable to avoid confounding, they can also reduce statistical power and thus increase the risk of exaggeration. The same aspect that makes these methods credible can create another type of bias. A systematic reporting of statistical power calculations and analysis of the variation actually used for identification could help avoid falling into this exaggeration trap.
 	
-	The confounding / exaggeration trade-off we highlight in this paper manifests itself along different dimensions for each identification strategy. A systematic reporting of statistical power calculations in observational studies could help gauge the risk of falling into this low power trap. 
-    
+		
+	
 			
 \newpage
 	
 \bibliographystyle{agsm}
-\bibliography{causal_inflation}	
+\bibliography{../causal_exaggeration}
 	
 	
 	

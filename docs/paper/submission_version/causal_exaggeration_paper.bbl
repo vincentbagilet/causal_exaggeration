@@ -23,21 +23,25 @@ Angrist, J.~D. \harvardand\ Pischke, J.-S.  \harvardyearleft
   Empiricist}}'s {{Companion}}}, 1 edition edn, {Princeton University Press},
   {Princeton}.
 
-\harvarditem{Angrist \harvardand\ Pischke}{2010}{angrist_credibility_2010}
-Angrist, J.~D. \harvardand\ Pischke, J.-S.  \harvardyearleft
-  2010\harvardyearright , `The {{Credibility Revolution}} in {{Empirical
-  Economics}}: {{How Better Research Design Is Taking}} the {{Con}} out of
-  {{Econometrics}}', {\em Journal of Economic Perspectives} {\bf 24}(2),~3--30.
-
 \harvarditem{Angrist \harvardand\ Pischke}{2014}{angrist_mastering_2014}
 Angrist, J.~D. \harvardand\ Pischke, J.-S.  \harvardyearleft
   2014\harvardyearright , {\em Mastering '{{Metrics}}: {{The Path}} from
   {{Cause}} to {{Effect}}}, {Princeton University Press}.
 
+\harvarditem{Aronow \harvardand\ Samii}{2016}{aronow_does_2016}
+Aronow, P.~M. \harvardand\ Samii, C.  \harvardyearleft 2016\harvardyearright ,
+  `Does {{Regression Produce Representative Estimates}} of {{Causal
+  Effects}}?', {\em American Journal of Political Science} {\bf
+  60}(1),~250--267.
+
 \harvarditem{Athey \harvardand\ Imbens}{2016}{athey_econometrics_2016}
 Athey, S. \harvardand\ Imbens, G.  \harvardyearleft 2016\harvardyearright ,
   `The {{Econometrics}} of {{Randomized Experiments}}', {\em arXiv:1607.00698
   [econ, stat]} .
+
+\harvarditem{Bagilet}{2023}{bagilet_accurately_2023}
+Bagilet, V.  \harvardyearleft 2023\harvardyearright , `Accurately {{Estimating
+  Relatively Small Effects}}: {{Air Pollution}} and {{Health}}'.
 
 \harvarditem[Black et~al.]{Black, Hollingsworth, Nunes \harvardand\
   Simon}{2021}{black_simulated_2021}
@@ -78,13 +82,6 @@ Card, D.  \harvardyearleft 1993\harvardyearright , Using {{Geographic
   {{Schooling}}, Working {{Paper}} 4483, {National Bureau of Economic
   Research}.
 
-\harvarditem[Cattaneo et~al.]{Cattaneo, Titiunik \harvardand\
-  {Vazquez-Bare}}{2019}{cattaneo_power_2019}
-Cattaneo, M.~D., Titiunik, R. \harvardand\ {Vazquez-Bare}, G.  \harvardyearleft
-  2019\harvardyearright , `Power calculations for regression-discontinuity
-  designs', {\em The Stata Journal: Promoting communications on statistics and
-  Stata} {\bf 19}(1),~210--245.
-
 \harvarditem{Chang \harvardand\ Li}{2022}{chang_is_2022}
 Chang, A.~C. \harvardand\ Li, P.  \harvardyearleft 2022\harvardyearright , `Is
   {{Economics Research Replicable}}? {{Sixty Published Papers From Thirteen
@@ -119,13 +116,6 @@ Duflo, E., Glennerster, R. \harvardand\ Kremer, M.  \harvardyearleft
   eds, `Handbook of {{Development Economics}}', Vol.~4, {Elsevier},
   pp.~3895--3962.
 
-\harvarditem[Freeman et~al.]{Freeman, Cowling \harvardand\
-  Schooling}{2013}{freeman_power_2013}
-Freeman, G., Cowling, B.~J. \harvardand\ Schooling, C.~M.  \harvardyearleft
-  2013\harvardyearright , `Power and sample size calculations for {{Mendelian}}
-  randomization studies using one genetic instrument', {\em International
-  Journal of Epidemiology} {\bf 42}(4),~1157--1163.
-
 \harvarditem{Gelman}{2020}{gelman_regression_2020}
 Gelman, A.  \harvardyearleft 2020\harvardyearright , {\em {Regression and Other
   Stories}}, {Cambridge University Press}, {Cambridge New York, NY Port
@@ -136,6 +126,12 @@ Gelman, A. \harvardand\ Carlin, J.  \harvardyearleft 2014\harvardyearright ,
   `Beyond {{Power Calculations}}: {{Assessing Type S}} ({{Sign}}) and {{Type
   M}} ({{Magnitude}}) {{Errors}}', {\em Perspectives on Psychological Science}
   {\bf 9}(6),~641--651.
+
+\harvarditem{Gelman \harvardand\ Loken}{2013}{gelman_garden_2013}
+Gelman, A. \harvardand\ Loken, E.  \harvardyearleft 2013\harvardyearright ,
+  `The garden of forking paths: {{Why}} multiple comparisons can be a problem,
+  even when there is no ``fishing expedition'' or ``p-hacking'' and the
+  research hypothesis was posited ahead of time'.
 
 \harvarditem{Hern{\'a}n}{2021}{hernan_causal_2021}
 Hern{\'a}n, M.~A.  \harvardyearleft 2021\harvardyearright , `Causal analyses of
@@ -208,6 +204,12 @@ McShane, B.~B., Gal, D., Gelman, A., Robert, C. \harvardand\ Tackett, J.~L.
   \harvardyearleft 2019\harvardyearright , `Abandon {{Statistical
   Significance}}', {\em The American Statistician} {\bf 73}(sup1),~235--245.
 
+\harvarditem[Middleton et~al.]{Middleton, Scott, Diakow \harvardand\
+  Hill}{2016}{middleton_bias_2016}
+Middleton, J.~A., Scott, M.~A., Diakow, R. \harvardand\ Hill, J.~L.
+  \harvardyearleft 2016\harvardyearright , `Bias {{Amplification}} and {{Bias
+  Unmasking}}', {\em Political Analysis} {\bf 24}(3),~307--323.
+
 \harvarditem{{Open Science
   Collaboration}}{2015}{open_science_collaboration_estimating_2015}
 {Open Science Collaboration}  \harvardyearleft 2015\harvardyearright ,
@@ -251,6 +253,14 @@ Schell, T.~L., Griffin, B.~A. \harvardand\ Morral, A.~R.  \harvardyearleft
 Shadish, W.~R., Cook, T.~D. \harvardand\ Campbell, D.~T.  \harvardyearleft
   2002\harvardyearright , {\em Experimental and {{Quasi-experimental Designs}}
   for {{Generalized Causal Inference}}}, {Houghton Mifflin}.
+
+\harvarditem[Simmons et~al.]{Simmons, Nelson \harvardand\
+  Simonsohn}{2011}{simmons_false-positive_2011}
+Simmons, J.~P., Nelson, L.~D. \harvardand\ Simonsohn, U.  \harvardyearleft
+  2011\harvardyearright , `False-{{Positive Psychology}}: {{Undisclosed
+  Flexibility}} in {{Data Collection}} and {{Analysis Allows Presenting
+  Anything}} as {{Significant}}', {\em Psychological Science} {\bf
+  22}(11),~1359--1366.
 
 \harvarditem[Stommes et~al.]{Stommes, Aronow \harvardand\
   S{\"a}vje}{2021}{stommes_reliability_2021}

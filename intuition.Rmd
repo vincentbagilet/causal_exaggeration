@@ -281,7 +281,7 @@ graph_rep_original
 
 The trade-off we describe between exaggeration and confounders arises due to differences in precision between estimators. To illustrate this, we generate estimates from two unbiased estimators with identical mean but different variances and plot their distributions, distinguishing between estimates that are and are not significant.
 
-```{r intuition_trade_off, echo=FALSE, fig.asp=1.2}
+```{r intuition_trade_off, echo=FALSE, fig.asp=0.8}
 N <- 50000
 sd_precise <- 0.23
 sd_imprecise <- 0.7

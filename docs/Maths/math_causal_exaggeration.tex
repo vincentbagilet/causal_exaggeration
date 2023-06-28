@@ -66,7 +66,7 @@
 		\subsection{Data generating process}\label{maths_dgp}
 			%I build this using the notation used by Dong Woo in his lecture notes
 		
-			Consider the usual linear regression model to with an omitted variable. We limit the number of covariates considered to a constant, an observed variable and an omitted variable. For all individual $i \in \{1, ..., n\}$, assume that: 
+			Consider an usual linear regression model with an omitted variable. We limit the set of covariates to a constant, an observed variable and an omitted variable. For all individual $i \in \{1, ..., n\}$, assume that: 
 			
 				\begin{equation}\label{maths_true_dgp}
 					y_i = \beta_{0} + \beta_{1}x_{i} + \delta w_{i} + u_i
@@ -78,7 +78,7 @@
 					y_i = \text{x}_{i}'\bm{\beta} + \delta w_{i} + u_i
 				\]
 				
-				with $\bm{\beta} \in (\beta_0, \beta_1)'$ and $\text{x}_i = (1, x_i)'$. For readability, we introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$. \\
+				with $\bm{\beta} = (\beta_0, \beta_1)'$ and $\text{x}_i = (1, x_i)'$. For readability, we introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$. \\
 			
 			We further assume that the usual OLS assumptions hold: 
 			
@@ -134,7 +134,7 @@
 		
 			Note that \cite{gelman_beyond_2014} consider the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}\left[ | \hat{\beta}| | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right] / \beta_{1}$. To simplify the derivation, I abstract from the absolute value. My exaggeration ratio therefore depends on the well-known expected value of a truncated normal distribution instead of on the expected value of a truncated \textit{folded} normal distribution. 
 			
-			Also note that, in this paper, we focus on estimators that can be decomposed into $\beta = \beta_{1} + b$, with $\beta_{1}$ the true effect and $b$ a bias independent of $\beta_{1}$. Since the objective of this project is mostly to analyze when the exaggeration is greater than the OVB, it makes sense to focus on cases in which they bias the estimate in the same direction \textit{i.e.} $\beta_{1}$ and $b$ of the same sign. I focus on the case where the true effect is positive and the OVB upward, \textit{i.e.}, $\beta_{1} > 0$ and $b \geq 0$. The reasoning for negative true effect and bias are is analogous but with signs flipped. 
+			Also note that, in this paper, we focus on estimators that can be decomposed into $\beta = \beta_{1} + b$, with $\beta_{1}$ the true effect and $b$ a bias independent of $\beta_{1}$. Since the objective of this project is mostly to analyze when the exaggeration is greater than the OVB, it makes sense to focus on cases in which they bias the estimate in the same direction \textit{i.e.} $\beta_{1}$ and $b$ of the same sign. I focus on the case where the true effect is positive and the OVB upward, \textit{i.e.}, $\beta_{1} > 0$ and $b \geq 0$. The reasoning for negative true effect and bias is analogous but with signs flipped. 
 
 			Finally, note that in this document, I refer to $E$ as the ``exaggeration ratio'' and $\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]$ as ``exaggeration'' to avoid using the two terms interchangeably.
 			
@@ -248,7 +248,7 @@
 			~
 			\end{proof}
 				
-				Note that these two results have been proven by \cite{lu_note_2019} and \cite{zwet_significance_2021} in the case of an exaggeration defined as in  \cite{gelman_beyond_2014}, \textit{i.e.}, as the expected value of the absolute value of the point estimate.\\
+				Note that these two results have been proven by \cite{lu_note_2019} and \cite{zwet_significance_2021} in the case of an exaggeration defined as in  \cite{gelman_beyond_2014}, \textit{i.e.}, as the expected value of the absolute value of the point estimate, but for unbiased estimates. Their results thus do not perfectly fit our case. \\
 					
 			 Figure \ref{graph_intution_precision} gives an intuition for the relationship between the precision of an estimator and exaggeration by ploting the distribution of two unbiased estimators (that therefore have identical means) but different variances and distinguishing between estimates that are and are not significant.
 			

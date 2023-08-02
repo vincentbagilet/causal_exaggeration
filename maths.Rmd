@@ -21,7 +21,7 @@ text-align: justify}
 
 ```{r setup_RDD, include=FALSE, results='hide', warning=FALSE}
 library(knitr)
-opts_chunk$set(fig.path = "images/",
+opts_chunk$set(fig.path = "images/maths/maths_",
                cache.path = "cache/",
                cache = FALSE,
                echo = TRUE, #set to false to hide code
@@ -30,7 +30,7 @@ opts_chunk$set(fig.path = "images/",
                out.width = "85%",
                dpi = 300,
                fig.align = "center",
-               dev.args = list(bg="transparent"))  
+               dev.args = list(bg = "transparent"))  
 ```  
 
 ```{r packages_maths, message=FALSE, warning=FALSE, include=FALSE}
@@ -48,7 +48,9 @@ set_mediocre_all(pal = "coty")
 
 The full mathematical derivation is available [here](Maths/math_causal_exaggeration.pdf).
 
-## Formula exaggeration
+In this document, I check that the results I derived are correct. First, I verify my exaggeration formula and then the asymptotic variance of the various estimators. 
+
+## Exaggeration formula
 
 First I verify that the formula for exaggeration that I have computed is correct. To do so, I set parameter values and draw $N$ estimates from the corresponding distribution. I then compute the average of statistically significant estimates. 
 
@@ -76,21 +78,23 @@ tibble(E_theory, E_empirics) |>
 
 The empirical and theoretical exaggeration ratios are comparable. I manually tried several parameter values and consistently find similar results between the theoretical and empirical exaggeration ratios. The formula is therefore probably correct.
 
-## Simulations
+## Asymptotic variances
 
-I run simulations to both illustrate and check these results. The structure of the code is based on the `purrr` package and is similar to my other simulations: I first set baseline parameters, define the set of parameters to consider and then run the simulations. It follows the framework described [here](https://vincentbagilet.github.io/posts/2022-10-13-running-simulations/). A simpler code could be written (with a simple for loop) but I chose this coding practice for consistency.
+In order to check that the asymptotic variances of the estimators I computed are correct, I generate a data set following the DGP described in the maths section (for a given set of parameters values). I then estimate the various models and retrieve simulated empirical variances to compare them to the theoretical ones I derived.
+
+For consistency with the other simulations, I wrap this analysis into functions and follow the framework described [here](https://vincentbagilet.github.io/posts/2022-10-13-running-simulations/).
 
 ### Modeling choices
 
 The DGP is described in the following DAG:
 
-```{r DAG_maths, echo=FALSE, fig.asp=0.4, out.width='40%'}
+```{r DAG_maths, echo=FALSE, fig.asp=0.3, out.width='60%'}
 dagify(Y ~ X + W,
-       X ~ W + e,
+       X ~ Z + W + e,
        outcome = "Y",
        latent = "W",
        coords = list(x = c(Y = 3, X = 2, W = 2.5, Z = 1),
-                     y = c(Y = 1, X = 1, W = 0, Z = 1))) %>% 
+                     y = c(Y = 1, X = 1, W = 0, Z = 1))) |> 
   # ggdag() +
   ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
   geom_dag_point(alpha = 0, stroke = TRUE) +
@@ -106,128 +110,177 @@ dagify(Y ~ X + W,
 As in the math section we have:
 
 $$y_{i} = \beta_{0} + \beta_1 x_{i} + \delta w_{i} + u_{i}$$
-$$x_{i} = \eta_0 + \eta_1 z_{i} + \gamma w_{i} + \epsilon_{i}$$
+$$x_{i} = \pi_0 + \pi_1 z_{i} + \gamma w_{i} + \epsilon_{i}$$
 
-For simplicity, I consider that $w$ and $z$ are normally distributed. I also consider normally distributed error terms. As a linear combination of normally distributed variables, $x$ and $y$ will also be normally distributed.
-
-### Generate the data
+Note that to get to the setting described in the "OVB" and "CTRL" sections of the maths, one can simply set $\pi_1$ to 0.
 
 I create three functions, one to generate the data, one to run the estimation and one to compute a simulation (just bundling together the two previous functions).
 
-The function to generate the data is the following:
+### Generate the data
+
+#### Agnostic distributions of the variables
+
+To compute the theoretical variance of the estimators, I need to know the mean and variance of my variables. The easiest solution to generate variables with a given mean and variance would be to consider only normally distributed variables. Yet, to prevent my results from being an artifact of the particular properties of the normal distribution, I also draw my data from less usual distributions: gamma, uniform and logistic ones. 
+
+In order to remain agnostic about the shape of the distribution of my variables, while being able to specify their mean and standard deviation, I create a function. `rany` draws $n$ observations either from a normal, a logistic, a uniform or a gamma distribution with mean and variance equal to the one specified as inputs of the function.
+
+To build a gamma distribution with mean $\mu$ and variance $\sigma^2$, the parameters of the gamma distribution must be: 
+
+- Shape = $\mu^2/\sigma^2$
+- Rate = $\mu/\sigma^2$
+
+For the uniform distribution, the parameters must be: 
+
+- a = $\mu - \sigma\sqrt{3}$
+- b = $\mu + \sigma\sqrt{3}$
+
+For the logistic distribution, the parameters must be: 
+
+- location = $\mu$
+- scale = $\sqrt{\frac{3\sigma^2}{\pi^2}}$
+
+The `rany` function is defined as follows:
+
+```{r rany}
+rany <- function(n, mean = 0, sd = 1) {
+  n_distrib <- ifelse(mean == 0, 3, 4) #gamma distrib cannot have mean 0
+  #since it has a positive support
+  distrib_index <- sample(1:n_distrib, 1)
+  
+  vect <- case_when(
+    distrib_index == 1 ~ rnorm(n, mean, sd),
+    distrib_index == 2 ~ rlogis(n, mean, sqrt(3*sd^2/pi^2)),
+    distrib_index == 3 ~ runif(n, mean - sqrt(3)*sd, mean + sqrt(3)*sd),
+    distrib_index == 4 ~ rgamma(n, mean^2/sd^2, rate = mean/sd^2),
+    .default = NA
+  )
+  
+  return(vect)
+}
+```
+
+#### Generate function
+
+I then define the function to generate the data is the following:
 
 ```{r generate_data_maths}
-generate_data_maths <- function(N,
+generate_data_maths <- function(n,
                                 mu_z,
                                 sigma_z,
+                                mu_w = 0, #one of the simplifying assumptions
                                 sigma_w,
                                 sigma_epsilon,
-                                eta_0,
-                                eta_1,
+                                pi_0,
+                                pi_1,
                                 gamma,
                                 sigma_u,
                                 beta_0,
                                 beta_1,
                                 delta) {
   
-  data <- tibble(id = 1:N) %>%
+  data <- tibble(id = 1:n) |>
     mutate(
-      # D = rbernoulli(N, ptreat),
-      z = rnorm(N, mu_z, sigma_z),
-      w = rnorm(N, 0, sigma_w),
-      epsilon = rnorm(N, 0, sigma_epsilon),
-      x = eta_0 + eta_1*z + gamma*w +  epsilon,
-      u = rnorm(N, 0, sigma_u),
+      # D = rbernoulli(n, ptreat),
+      # z = rgamma(n, mu_z^2/sigma_z^2, rate = mu_z/sigma_z^2),
+      z = rany(n, mu_z, sigma_z),
+      # z = rnorm(n, mu_z, sigma_z),
+      # w = rnorm(n, 0, sigma_w),
+      # w = runif(n, mu_w - sqrt(3)*sigma_w, mu_w + sqrt(3)*sigma_w),
+      w = rany(n, mu_w, sigma_w),
+      # epsilon = rnorm(n, 0, sigma_epsilon),
+      # epsilon = rlogis(n, 0, sqrt(3*sigma_epsilon^2/pi^2)),
+      epsilon = rany(n, 0, sigma_epsilon),
+      x = pi_0 + pi_1*z + gamma*w + epsilon,
+      # u = rnorm(n, 0, sigma_u),
+      # u = rlogis(n, 0, sqrt(3*sigma_u^2/pi^2)),
+      u = rany(n, 0, sigma_u),
       y = beta_0 + beta_1*x + delta*w + u
     )
 }
 ```
 
-I then define the baseline parameters values. The numbers chosen are not the slick 0 and 1 usually used in fake data simulations. I built the present simulations to check my mathematical derivations and thus chose specific parameter values in order to mimic a study with low statistical power. 
+I then define the parameters values. I pick these values at random and played around with them to see if my results held.
+
+I built the present simulations to check my mathematical derivations and thus chose non-round parameter values in order to avoid peculiar behaviors caused by zeros or ones for instance. 
 
 ```{r param_maths, echo=FALSE}
-# baseline_param_maths <- tibble(
-#   N = 500,
-#   mu_x = 0.3,
-#   beta_0 = 0.2,
-#   beta_1 = 0.1,
-#   delta = 0.5,
-#   gamma = 0.5,
-#   eta = 1,
-#   sigma_epsilon = 1,
-#   sigma_u = 1,
-#   sigma_w = 1,
-#   sigma_z = 0.5
-# )
-
-baseline_param_maths <- tibble(
-  N = 1000,
-  mu_z = 0.7, 
-  sigma_z = 0.72,
-  sigma_w = 1.1,
+param_maths <- tibble(
+  n = 20000,
+  mu_z = 0.3,
+  sigma_z = 0.5,
+  mu_w = 0,
+  sigma_w = 0.7,
   sigma_epsilon = 1.2,
-  eta_0 = 0.3,
-  eta_1 = 1,
-  gamma = 0.2,
-  sigma_u = 0.81,
-  beta_0 = 0.2,
-  beta_1 = 0.07,
-  delta = 0.2
+  pi_0 = 1,
+  pi_1 = 0.8,
+  gamma = 0.6,
+  sigma_u = 0.6,
+  beta_0 = 2,
+  beta_1 = 1,
+  delta = 0.5
 )
 
-baseline_param_maths %>% kable()
-
-n_iter <- 3000
-
-param_maths <- baseline_param_maths %>% 
-  crossing(rep_id = 1:n_iter) %>% 
-  select(-rep_id)
-
-test_data <- pmap_dfr(baseline_param_maths, generate_data_maths)
+param_maths |> kable()
 ```
 
-I then run the estimations. I consider four separate models:
+I can thus generate a dataset by passing this set of parameters to the `generate_data_maths` function. Here are the first lines of the output:
+
+```{r test_data_maths, code_folding='Show code used to generate the table'}
+test_data <- pmap_dfr(param_maths, generate_data_maths)
+
+test_data |> 
+  head() |> 
+  kable()
+```
+
+### Run the estimations
+
+I can now run the estimations. I consider four separate models:
 
 - Unbiased: the true model, regressing $y$ on $x$ and $w$, therefore without omitted variable
 - Biased: the "naive" regression of $y$ on $x$, therefore omitting for $w$
 - IV: the 2SLS regression of $y$ on $x$ instrumented by $z$
 - Reduced form: regressing $y$ on $z$
 
-I also write a short function to wrangle the regression output to a convenient format, `lint_reg_maths`.
+I write a function that takes data generated as described above and returns a set of estimation results. Note that I also write a short function to wrangle the regression output to a convenient format, `lint_reg_maths`.
 
-```{r estimate_maths}
+```{r lint_reg_maths, code_folding='Show the code of lint_reg_maths'}
 lint_reg_maths <- function(reg_out) {
-  name_model <- deparse(substitute(reg_out)) %>% 
+  name_model <- deparse(substitute(reg_out)) |> 
     str_extract("(?<=reg_).+") 
     
-  reg_out %>%
-    tidy() %>%
-    filter(term %in% c("x", "z")) %>%
-    mutate(model = name_model) %>% 
+  reg_out |>
+    tidy() |>
+    filter(term %in% c("x", "z")) |>
+    mutate(model = name_model) |> 
     select(model, everything())
 }
+```
 
+```{r estimate_maths}
 estimate_maths <- function(data) {
   #estimation
-  reg_unbiased <- lm(data = data, y ~ x + w)
-  reg_biased <- lm(data = data, y ~ x)
+  reg_ctrl <- lm(data = data, y ~ x + w)
+  reg_ovb <- lm(data = data, y ~ x)
   reg_reduced_form <- lm(data = data, y ~ z)
   reg_iv <- ivreg(data = data, y ~ x | z)
 
-  #wranglin results
-  results <- lint_reg_maths(reg_unbiased) %>%
-    rbind(lint_reg_maths(reg_biased)) %>%
-    rbind(lint_reg_maths(reg_reduced_form)) %>%
-    rbind(lint_reg_maths(reg_iv)) %>%
+  #wrangling results
+  results <- lint_reg_maths(reg_ctrl) |>
+    rbind(lint_reg_maths(reg_ovb)) |>
+    rbind(lint_reg_maths(reg_reduced_form)) |>
+    rbind(lint_reg_maths(reg_iv)) |>
     mutate(signif = (p.value < 0.05))
 }
 ```
 
-I then bundle these two functions to compute a simulation.
+### Compute a complete analysis
+
+I then bundle the `generate_data_maths` and `estimate_maths` functions to compute a simulation.
 
 ```{r compute_sim_maths}
 compute_sim_maths <- function(...) {
-  generate_data_maths(...) %>% 
+  generate_data_maths(...) |> 
     estimate_maths()
 }
 ```
@@ -235,254 +288,364 @@ compute_sim_maths <- function(...) {
 The output of one simulation is:
 
 ```{r one_sim, echo=FALSE}
-pmap_dfr(baseline_param_maths, compute_sim_maths) %>% 
+param_maths |> 
+  pmap_dfr(compute_sim_maths) |> 
   kable()
 ```
 
-I then run all the simulations and save the results.
+I can compare these numbers, in particular the standard error of the estimator to the theoretical ones I expect. 
+
+### Averaging over a set of iterations
+
+To get more reliable numbers, I run several of these simulations and compute average point estimates and standard errors across these simulations. To do so, I simply replicate the set of parameters `n_iter` times and pass the resulting set of (identical) parameters to the `compute_sim_maths` function:
 
 ```{r run_sim_maths, eval=FALSE}
-sim_maths <- pmap_dfr(param_maths, compute_sim_maths)
-beep()
+n_iter <- 1000
+
+param_maths_iter <- param_maths |>
+  crossing(rep_id = 1:n_iter) |>
+  select(-rep_id)
+
+sim_maths <- pmap(param_maths_iter, compute_sim_maths, .progress = TRUE) |>
+  list_rbind()
 
 saveRDS(sim_maths, here("Outputs/sim_maths.RDS"))
 ```
 
-### Analysis of the results
+### Results
 
-First, I plot the distribution of the estimates.
+We can now look at the mean of the estimates and variances:
 
-```{r graph_maths, echo=FALSE, fig.asp=1.2}
+```{r mean_estimates_maths, code_folding='Show the code used to generate the table'}
 sim_maths <- readRDS(here("Outputs/sim_maths.RDS"))
 
-sim_maths %>% 
-  mutate(
-    signif_name = ifelse(signif, "Significant", "Non significant"),
-    # model_name = model %>% 
-    #   str_to_title() %>% 
-    #   str_replace_all("_", " ") %>% 
-    #   str_c(., " model"),
-    model = fct_relevel(model, c("unbiased", "biased", "iv", "reduced_form")),
-    model_name = case_when(
-      model == "biased" ~ "Biased model \n y = a + b.x + u",
-      model == "iv" ~ "IV model \n y = a + b.x + u, x instrumented by z",
-      model == "reduced_form" ~ "Reduced form model \n y = a + b.z + u",
-      model == "unbiased" ~ "Unbiased model \n y = a + b.x + c.w + u",
-      TRUE ~ "other" 
+results_sim_maths <- sim_maths |> 
+  group_by(model) |> 
+  summarise(
+    mean_estimate = mean(estimate, na.rm = TRUE),
+    mean_se = mean(std.error, na.rm = TRUE)
+  ) |>  
+  mutate(true_effect = param_maths$beta_1) |> 
+  relocate(true_effect, .after = mean_estimate)
+
+results_sim_maths %>%
+  kable(col.names = str_to_title(str_replace(names(.), "_", " ")))
+```
+
+All the estimators, except for the OVB one retrieve the true effect.
+
+### Checking the standard errors
+
+Then, I check whether my closed form formulas for the standard errors of the various estimates match the one I find in the simulations. As a reminder, my mathematical derivations yield the following asymptotic distributions:
+
+$$ \hat{\beta}_{CTRL} \overset{d}{\to}
+							 \mathcal{N}\left( \beta_1 , \ \dfrac{\sigma_{u}^{2}}{n \ (\sigma_{x}^{2} - \gamma^{2}\sigma_{w}^{2})} \right) $$
+
+$$\hat{\beta}_{OVB} \overset{d}{\to} 
+              \mathcal{N}\left( \beta_1 + \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}{n \ \sigma_{x}^{2}} \right)$$
+
+$$\hat{\beta}_{IV} \overset{d}{\to}
+							 \mathcal{N}\left( \beta_1 , \ \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{n \ \pi_{1}^{2}\sigma_{z}^{2}} \right) $$
+							 
+$$\hat{\beta}_{RED} \overset{d}{\to} 
+							\mathcal{N}\left(\beta_{1},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{red}}^{2}}{n \sigma_{d}^{2}}  \right)$$
+							
+I thus write a function that, given a set of parameters, compute all these theoretical standard errors.
+
+```{r compute_th_se}
+compute_th_se <- function(params) {
+  params |> 
+    mutate(
+      th_sigma_x = sqrt(pi_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2),
+      th_se_ctrl = sqrt(sigma_u^2/(n*(th_sigma_x^2 - gamma^2*sigma_w^2))),
+      th_se_ovb = sqrt(
+        (sigma_u^2 + gamma^2*sigma_w^2*(1 - gamma^2*sigma_w^2/th_sigma_x^2))/
+          (n*th_sigma_x^2)
       ),
-    model_name = fct_relevel(model_name, c(
-      "Unbiased model \n y = a + b.x + c.w + u", 
-      "Biased model \n y = a + b.x + u",
-      "IV model \n y = a + b.x + u, x instrumented by z",
-      "Reduced form model \n y = a + b.z + u")),
-  ) %>% 
-  group_by(model) %>% 
-  mutate(
-    estimate_sign = ifelse(signif, estimate, NA),
-    mean_signif = mean(estimate_sign, na.rm = TRUE)
-  ) %>% 
-  ungroup() %>% 
-  filter(dplyr::between(estimate, -0.5, 0.7)) %>% 
-  filter(model != "reduced_form") %>% 
-  ggplot(aes(x = estimate, fill = signif_name)) +
-  geom_histogram(bins = 70) +
-  # geom_area(stat = "bin", bins = 30) +
-  facet_wrap(~ model_name, nrow = 4) +
-  geom_vline(xintercept = 0, linetype = "solid", size = 0.1) +
-  geom_vline(xintercept = baseline_param_maths$beta_1) +
-  geom_vline(
-    aes(xintercept = mean_signif), 
-    color = "#976B21", 
-    linetype = "solid", 
-    size = 0.3
-  ) +
-  labs(
-    # title = "Distribution of estimates across models",
-    title = "Estimates from the causal strategies are unbiased on average \n but significant ones are biased",
-    fill = NULL,
-    x = "Estimate",
-    y = "Count",
-    # caption = "The green dashed line represents the true effect size
-    #   The brown solid line represents the average of significant estimates"
-  ) +
-  scale_y_continuous(breaks = scales::breaks_pretty(3)) +
-  xlim(c(-0.05, 0.2))
-
-# ggsave(here("images", "graph_maths_paper.pdf"), width = 6, height = 8)
-ggsave(here("images", "graph_maths_paper.png"), width = 6, height = 6.5)
+      th_se_iv = sqrt((sigma_u^2 + gamma^2*sigma_w^2)/(n*pi_1^2*sigma_z^2)),
+      .keep = "none"
+    ) |>
+    select(-th_sigma_x) |> 
+    rename_with(\(x) str_remove(x, "th_se_")) |> 
+    pivot_longer(
+      cols = everything(), 
+      names_to = "model", 
+      values_to = "theoretical_se"
+    )
+}
 ```
 
-I then look at the mean of the estimates and of the statistically significant ones for each model:
+Then, I add these theoretical standard error to the previous table presenting the results of the simulations in order to compare the expected theoretical standard errors to the simulated ones.
 
-```{r mean_estimates_maths, echo=FALSE}
-sim_maths %>% 
-  mutate(est_sign = ifelse(signif, estimate, NA)) %>% 
-  group_by(model) %>% 
-  summarise(
-    mean_sign = mean(est_sign, na.rm = TRUE),
-    mean_all = mean(estimate)
-  ) %>%  
-  mutate(true_effect = baseline_param_maths$beta_1) %>% 
+```{r check_se, code_folding='Show code used to generate the table'}
+results_sim_maths |> 
+  left_join(compute_th_se(param_maths), by = join_by(model)) %>%
   kable(col.names = str_to_title(str_replace(names(.), "_", " ")))
 ```
 
-Visible both on the graph and the table, we get that:
-- The unbiased model is indeed unbiased as the estimates are centered on the true effect
-- The IV and the reduced form are unbiased, *ie* centered on the true effect. However, statistically significant estimates are of average exaggerating the true effect size. In if there is publication bias, published estimates would in this case overestimate the true effect.
-- The biased model is indeed biased but more precise than the IV and reduced form
+My calculations seem to be correct. To verify it, I rerun the analysis but for another set of parameter values, in particular with an important omitted variable bias.
 
-Of course these results depend on the choice of parameters but this simulation has an illustrative purpose only.
-
-## Checking the maths
-
-### Biased model
-
-Using the simulations, I can check the maths. Based on my derivations, I expect to have:
-
-$$ \hat{\beta}_{ovb} \overset{d}{\to} \mathcal{N}\left( \beta_1 + \delta \gamma \dfrac{\sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{\sigma_{v}^{2}}{n \cdot \sigma_{x}^{2}} \right) $$
-First, I need to compute the variance of $v$ and $x$. I verify that the formulas are correct: 
-
-- I expect to have $\sigma_x^2 = \eta_1^{2}\sigma_{z}^{2} + \gamma^2\sigma_w^2 + \sigma_{\epsilon}^2$. For my parameters values, it corresponds to `r  baseline_param_maths %>% mutate(th_var_x = eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2) %>% .$th_var_x`. In an example data set with 20000 observations, the observed variance of $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 2000000), generate_data_maths) %>% .$x %>% var()`. The simple formula for the variance of $x$ seems to be correct.
-- I expect to have $\sigma_v^2 = \sigma_u^2 + \delta^2\sigma_w^2 \left( 1- \dfrac{\gamma^2\sigma_w^2}{\sigma_x^2}\right)$. For my parameters values, it corresponds to 
-`r  baseline_param_maths %>% mutate(th_var_v = sigma_u^2 + delta^2*sigma_w^2*(1-gamma^2*sigma_w^2/(eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2))) %>% .$th_var_v`. In an example dataset with 20000 observations, the observed variance of the residuals of the regression of $y$ on $x$ is `r pmap_dfr(baseline_param_maths %>% mutate(N = 20000), generate_data_maths) %>% lm(data = ., y ~ x) %>% .$residuals %>% var`. The simple formula for the variance of $v$ seems to be correct.
-
-Then, I can compute the theoretical variance for the mean and the variance of the estimator and compare them to the ones observed in the simulations
-
-```{r check_moments_biased, echo=FALSE}
-th_moments_biased <- baseline_param_maths %>% 
-  mutate(
-    th_sigma_x = sqrt(eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2),
-    th_sigma_v = sqrt(sigma_u^2 + delta^2*sigma_w^2*(1 - gamma^2*sigma_w^2/th_sigma_x^2)),
-    mean = beta_1 + delta*gamma*sigma_w^2/th_sigma_x^2,
-    variance = th_sigma_v^2/(N*th_sigma_x^2),
-    sd = sqrt(variance)
-  ) %>% 
-  select(mean, sd) %>% 
-  mutate(type = "Theoretical")
-
-sim_moments_biased <- sim_maths %>% 
-  filter(model == "biased") %>%
-  # group_by(model) %>%
-  summarise(
-    mean = mean(estimate),
-    sd = sd(estimate)
-  ) %>% 
-  mutate(type = "Simulated")
-
-
-rbind(th_moments_biased, sim_moments_biased) %>% 
-  select(type, mean, sd) %>%
-  mutate(model = "Biased") %>% 
-  kable(col.names = str_to_title(names(.)))
-```
-
-### IV
-
-```{r check_moments_iv, echo=FALSE}
-th_moments_iv <- baseline_param_maths %>% 
-  mutate(
-    mean = beta_1,
-    variance = (delta^2*sigma_w^2 + sigma_u^2)/(N*(eta_1^2)*sigma_z^2),
-    sd = sqrt(variance)
-  ) %>% 
-  select(mean, sd) %>% 
-  mutate(type = "Theoretical")
-
-sim_moments_iv <- sim_maths %>% 
-  filter(model == "iv") %>%
-  summarise(
-    mean = mean(estimate),
-    sd = sd(estimate)
-  ) %>% 
-  mutate(type = "Simulated")
-
-rbind(th_moments_iv, sim_moments_iv) %>% 
-  select(type, mean, sd) %>% 
-  mutate(model = "IV") %>% 
-  kable(col.names = str_to_title(names(.)))
-```
-
-
-
-```{r var_estimates_maths, echo=FALSE}
-var_est <- sim_maths %>% 
-  group_by(model) %>% 
-  summarise(var_estimate = var(estimate))
-
-var_est %>% 
-  kable(col.names = str_to_title(str_replace(names(.), "_", " ")))
-
-var_est[[which(var_est$model == "iv") , "var_estimate"]]/var_est[[which(var_est$model == "biased") , "var_estimate"]]
-
-baseline_param_maths %>% 
-  mutate(
-    ratio_var = 1 + (gamma^2*sigma_w^2+sigma_epsilon^2)/(eta_1^2*sigma_z^2),
-    var_beta_iv = (delta^2*(sigma_w^2) + sigma_u^2)*((0)^2+1/(N*eta_1^2*sigma_z^2))
-  ) %>% 
-  select(var_beta_iv, ratio_var)
-```
-
-
-## Ploting the results
-
-I plot the exaggeration ratio for the IV. I use the baseline params from the IV section. I just renamed them.
-
-```{r plot_theory}
-baseline_param_IV <- tibble(
-  n = 10000,
-  # type_rain = "bernoulli",
-  # param_rain = 0.4,
-  # type_rain = "gamma",
-  # param_rain = list(c(0.13, 18)),
-  sigma_z = 0.13*18^2,
-  sigma_w = 14,
-  sigma_u = 14,
-  sigma_epsilon = 13,
-  beta_0 = 60,
-  eta_0 = 59,
-  beta_1 = 0.1,
-  eta_1 = 0.5, 
-  delta = 0.2,
-  gamma = delta
+```{r run_sim_recheck, eval=FALSE}
+param_recheck <- tibble(
+  n = 20000,
+  mu_z = 0.3,
+  sigma_z = 0.5,
+  mu_w = 0,
+  sigma_w = 0.7,
+  sigma_epsilon = 1.2,
+  pi_0 = 1,
+  pi_1 = 0.8,
+  gamma = 0.6,
+  sigma_u = 0.6,
+  beta_0 = 2,
+  beta_1 = 1,
+  delta = 0.5
 )
 
-lambda <- function(x) {dnorm(x)/pnorm(x)}
+n_iter <- 1000
 
-exagg_iv <- function(n, 
-                     sigma_z,
-                     sigma_w,
-                     sigma_u,
-                     sigma_epsilon,
-                     beta_0,
-                     eta_0, 
-                     beta_1,
-                     eta_1,
-                     delta,
-                     gamma) {
-  # sigma_x <-  eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon
-  A <- sqrt(sigma_u + delta^2*sigma_w^2)/(beta_1*abs(eta_1)*sigma_z*sqrt(n))
-  E_iv = 1 + A*lambda(1/A - qnorm(0.975))
-  
-  tibble(E_iv = E_iv, eta_1 = eta_1)
-}
+param_recheck_iter <- param_recheck |>
+  crossing(rep_id = 1:n_iter) |>
+  select(-rep_id)
 
-evol_exagg_iv <- baseline_param_IV %>% 
-  select(-eta_1) %>% 
-  crossing(eta_1 = seq(0.005, 0.06, 0.001)) %>% 
-  pmap_dfr(exagg_iv)
+sim_recheck <- pmap(param_recheck_iter, compute_sim_maths, .progress = TRUE) |>
+  list_rbind()
 
-evol_exagg_iv %>% 
-  ggplot(aes(x = eta_1, y = E_iv)) + 
-  geom_line()
-
+saveRDS(sim_recheck, here("Outputs/sim_recheck.RDS"))
 ```
 
+<!-- ## Biased model -->
+
+<!-- For the bBased on my derivations, I expect to have: -->
+
+<!-- $$ \hat{\beta}_{ovb} \overset{d}{\to} \mathcal{N}\left( \beta_1 + \delta \gamma \dfrac{\sigma_{w}^{2}}{\sigma_{x}^{2}}, \ \dfrac{\sigma_{v}^{2}}{n \cdot \sigma_{x}^{2}} \right) $$ -->
+<!-- First, I need to compute the variance of $v$ and $x$. I verify that the formulas are correct:  -->
+
+<!-- - I expect to have $\sigma_x^2 = \pi_1^{2}\sigma_{z}^{2} + \gamma^2\sigma_w^2 + \sigma_{\epsilon}^2$. For my parameters values, it corresponds to `r  param_maths %>% mutate(th_var_x = pi_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2) %>% .$th_var_x`. In an example data set with 20000 observations, the observed variance of $x$ is `r pmap_dfr(param_maths %>% mutate(N = 2000000), generate_data_maths) %>% .$x %>% var()`. The simple formula for the variance of $x$ seems to be correct. -->
+<!-- - I expect to have $\sigma_v^2 = \sigma_u^2 + \delta^2\sigma_w^2 \left( 1- \dfrac{\gamma^2\sigma_w^2}{\sigma_x^2}\right)$. For my parameters values, it corresponds to  -->
+<!-- `r  param_maths %>% mutate(th_var_v = sigma_u^2 + delta^2*sigma_w^2*(1-gamma^2*sigma_w^2/(eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2))) %>% .$th_var_v`. In an example dataset with 20000 observations, the observed variance of the residuals of the regression of $y$ on $x$ is `r pmap_dfr(param_maths %>% mutate(N = 20000), generate_data_maths) %>% lm(data = ., y ~ x) %>% .$residuals %>% var`. The simple formula for the variance of $v$ seems to be correct. -->
+
+<!-- Then, I can compute the theoretical variance for the mean and the variance of the estimator and compare them to the ones observed in the simulations -->
+
+<!-- ```{r check_moments_biased, echo=FALSE} -->
+<!-- th_moments_biased <- param_maths %>%  -->
+<!--   mutate( -->
+<!--     th_sigma_x = sqrt(eta_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2), -->
+<!--     th_sigma_v = sqrt(sigma_u^2 + delta^2*sigma_w^2*(1 - gamma^2*sigma_w^2/th_sigma_x^2)), -->
+<!--     mean = beta_1 + delta*gamma*sigma_w^2/th_sigma_x^2, -->
+<!--     variance = th_sigma_v^2/(N*th_sigma_x^2), -->
+<!--     sd = sqrt(variance) -->
+<!--   ) %>%  -->
+<!--   select(mean, sd) %>%  -->
+<!--   mutate(type = "Theoretical") -->
+
+<!-- sim_moments_biased <- sim_maths %>%  -->
+<!--   filter(model == "biased") %>% -->
+<!--   # group_by(model) %>% -->
+<!--   summarise( -->
+<!--     mean = mean(estimate), -->
+<!--     sd = sd(estimate) -->
+<!--   ) %>%  -->
+<!--   mutate(type = "Simulated") -->
+
+
+<!-- rbind(th_moments_biased, sim_moments_biased) %>%  -->
+<!--   select(type, mean, sd) %>% -->
+<!--   mutate(model = "Biased") %>%  -->
+<!--   kable(col.names = str_to_title(names(.))) -->
+<!-- ``` -->
+
+<!-- ### IV -->
+
+<!-- ```{r check_moments_iv, echo=FALSE} -->
+<!-- th_moments_iv <- param_maths %>%  -->
+<!--   mutate( -->
+<!--     mean = beta_1, -->
+<!--     variance = (delta^2*sigma_w^2 + sigma_u^2)/(N*(eta_1^2)*sigma_z^2), -->
+<!--     sd = sqrt(variance) -->
+<!--   ) %>%  -->
+<!--   select(mean, sd) %>%  -->
+<!--   mutate(type = "Theoretical") -->
+
+<!-- sim_moments_iv <- sim_maths %>%  -->
+<!--   filter(model == "iv") %>% -->
+<!--   summarise( -->
+<!--     mean = mean(estimate), -->
+<!--     sd = sd(estimate) -->
+<!--   ) %>%  -->
+<!--   mutate(type = "Simulated") -->
+
+<!-- rbind(th_moments_iv, sim_moments_iv) %>%  -->
+<!--   select(type, mean, sd) %>%  -->
+<!--   mutate(model = "IV") %>%  -->
+<!--   kable(col.names = str_to_title(names(.))) -->
+<!-- ``` -->
+
+
+
+<!-- ```{r var_estimates_maths, echo=FALSE} -->
+<!-- var_est <- sim_maths %>%  -->
+<!--   group_by(model) %>%  -->
+<!--   summarise(var_estimate = var(estimate)) -->
+
+<!-- var_est %>%  -->
+<!--   kable(col.names = str_to_title(str_replace(names(.), "_", " "))) -->
+
+<!-- var_est[[which(var_est$model == "iv") , "var_estimate"]]/var_est[[which(var_est$model == "biased") , "var_estimate"]] -->
+
+<!-- param_maths %>%  -->
+<!--   mutate( -->
+<!--     ratio_var = 1 + (gamma^2*sigma_w^2+sigma_epsilon^2)/(eta_1^2*sigma_z^2), -->
+<!--     var_beta_iv = (delta^2*(sigma_w^2) + sigma_u^2)*((0)^2+1/(N*eta_1^2*sigma_z^2)) -->
+<!--   ) %>%  -->
+<!--   select(var_beta_iv, ratio_var) -->
+<!-- ``` -->
+
+
+<!-- ## Ploting the results -->
+
+<!-- I plot the exaggeration ratio for the IV. I use the baseline params from the IV section. I just renamed them. -->
+
+<!-- ```{r plot_theory} -->
+<!-- baseline_param_IV <- tibble( -->
+<!--   n = 10000, -->
+<!--   # type_rain = "bernoulli", -->
+<!--   # param_rain = 0.4, -->
+<!--   # type_rain = "gamma", -->
+<!--   # param_rain = list(c(0.13, 18)), -->
+<!--   sigma_z = 0.13*18^2, -->
+<!--   sigma_w = 14, -->
+<!--   sigma_u = 14, -->
+<!--   sigma_epsilon = 13, -->
+<!--   beta_0 = 60, -->
+<!--   pi_0 = 59, -->
+<!--   beta_1 = 0.1, -->
+<!--   pi_1 = 0.5,  -->
+<!--   delta = 0.2, -->
+<!--   gamma = delta -->
+<!-- ) -->
+
+<!-- lambda <- function(x) {dnorm(x)/pnorm(x)} -->
+
+<!-- exagg_iv <- function(n,  -->
+<!--                      sigma_z, -->
+<!--                      sigma_w, -->
+<!--                      sigma_u, -->
+<!--                      sigma_epsilon, -->
+<!--                      beta_0, -->
+<!--                      pi_0,  -->
+<!--                      beta_1, -->
+<!--                      pi_1, -->
+<!--                      delta, -->
+<!--                      gamma) { -->
+<!--   # sigma_x <-  pi_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon -->
+<!--   A <- sqrt(sigma_u + delta^2*sigma_w^2)/(beta_1*abs(eta_1)*sigma_z*sqrt(n)) -->
+<!--   E_iv = 1 + A*lambda(1/A - qnorm(0.975)) -->
+
+<!--   tibble(E_iv = E_iv, pi_1 = pi_1) -->
+<!-- } -->
+
+<!-- evol_exagg_iv <- baseline_param_IV %>%  -->
+<!--   select(-eta_1) %>%  -->
+<!--   crossing(eta_1 = seq(0.005, 0.06, 0.001)) %>%  -->
+<!--   pmap_dfr(exagg_iv) -->
+
+<!-- evol_exagg_iv %>%  -->
+<!--   ggplot(aes(x = pi_1, y = E_iv)) +  -->
+<!--   geom_line() -->
+
+<!-- ``` -->
+
+<!-- ## Intuition -->
+
+<!-- I can also plot the distribution of the estimates. -->
+
+<!-- ```{r graph_maths, code_folding='Show code used to generate the graph', fig.asp=1.2} -->
+
+
+<!-- sim_maths %>%  -->
+<!--   mutate( -->
+<!--     signif_name = ifelse(signif, "Significant", "Non significant"), -->
+<!--     # model_name = model %>%  -->
+<!--     #   str_to_title() %>%  -->
+<!--     #   str_replace_all("_", " ") %>%  -->
+<!--     #   str_c(., " model"), -->
+<!--     model = fct_relevel(model, c("unbiased", "biased", "iv", "reduced_form")), -->
+<!--     model_name = case_when( -->
+<!--       model == "biased" ~ "Biased model \n y = a + b.x + u", -->
+<!--       model == "iv" ~ "IV model \n y = a + b.x + u, x instrumented by z", -->
+<!--       model == "reduced_form" ~ "Reduced form model \n y = a + b.z + u", -->
+<!--       model == "unbiased" ~ "Unbiased model \n y = a + b.x + c.w + u", -->
+<!--       TRUE ~ "other"  -->
+<!--       ), -->
+<!--     model_name = fct_relevel(model_name, c( -->
+<!--       "Unbiased model \n y = a + b.x + c.w + u",  -->
+<!--       "Biased model \n y = a + b.x + u", -->
+<!--       "IV model \n y = a + b.x + u, x instrumented by z", -->
+<!--       "Reduced form model \n y = a + b.z + u")), -->
+<!--   ) %>%  -->
+<!--   group_by(model) %>%  -->
+<!--   mutate( -->
+<!--     estimate_sign = ifelse(signif, estimate, NA), -->
+<!--     mean_signif = mean(estimate_sign, na.rm = TRUE) -->
+<!--   ) %>%  -->
+<!--   ungroup() %>%  -->
+<!--   filter(dplyr::between(estimate, -0.5, 0.7)) %>%  -->
+<!--   filter(model != "reduced_form") %>%  -->
+<!--   ggplot(aes(x = estimate, fill = signif_name)) + -->
+<!--   geom_histogram(bins = 70) + -->
+<!--   # geom_area(stat = "bin", bins = 30) + -->
+<!--   facet_wrap(~ model_name, nrow = 4) + -->
+<!--   geom_vline(xintercept = 0, linetype = "solid", size = 0.1) + -->
+<!--   geom_vline(xintercept = param_maths$beta_1) + -->
+<!--   geom_vline( -->
+<!--     aes(xintercept = mean_signif),  -->
+<!--     color = "#976B21",  -->
+<!--     linetype = "solid",  -->
+<!--     size = 0.3 -->
+<!--   ) + -->
+<!--   labs( -->
+<!--     # title = "Distribution of estimates across models", -->
+<!--     title = "Estimates from the causal strategies are unbiased on average \n but significant ones are biased", -->
+<!--     fill = NULL, -->
+<!--     x = "Estimate", -->
+<!--     y = "Count", -->
+<!--     # caption = "The green dashed line represents the true effect size -->
+<!--     #   The brown solid line represents the average of significant estimates" -->
+<!--   ) + -->
+<!--   scale_y_continuous(breaks = scales::breaks_pretty(3)) + -->
+<!--   xlim(c(-0.05, 0.2)) -->
+
+<!-- # ggsave(here("images", "graph_maths_paper.pdf"), width = 6, height = 8) -->
+<!-- ggsave(here("images", "graph_maths_paper.png"), width = 6, height = 6.5) -->
+<!-- ``` -->
 
 
 
 
+<!-- We can now look at the mean of the estimates and of the statistically significant ones for each model: -->
 
+<!-- ```{r mean_estis, code_folding='Show the code used to generate the table'} -->
+<!-- sim_maths <- readRDS(here("Outputs/sim_maths.RDS")) -->
 
+<!-- sim_maths %>%  -->
+<!--   mutate(est_sign = ifelse(signif, estimate, NA)) %>%  -->
+<!--   group_by(model) %>%  -->
+<!--   summarise( -->
+<!--     mean_sign = mean(est_sign, na.rm = TRUE), -->
+<!--     mean_all = mean(estimate) -->
+<!--   ) %>%   -->
+<!--   mutate(true_effect = param_maths$beta_1) %>%  -->
+<!--   kable(col.names = str_to_title(str_replace(names(.), "_", " "))) -->
+<!-- ``` -->
+
+<!-- Visible both on the graph and the table, we get that: -->
+
+<!-- - The controled model is indeed unbiased as the estimates are centered on the true effect -->
+<!-- - The IV and the reduced form are unbiased, *ie* centered on the true effect. However, statistically significant estimates are of average exaggerating the true effect size. In if there is publication bias, published estimates would in this case overestimate the true effect. -->
+<!-- - The OVB model is indeed biased but more precise than the IV and reduced form -->
+
+<!-- Of course these results depend on the choice of parameters but this simulation has an illustrative purpose only. -->
 
 
 

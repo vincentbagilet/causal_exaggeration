@@ -150,7 +150,7 @@
 			
 		\begin{proof}
 			
-			This exaggeration ratio is can be derived directly using properties of a truncated normal or directly using the expression of the inverse Mills ratio. Yet, since this document is a thorough description of the analysis, I derive this expression analytically.\\
+			This exaggeration ratio can be derived directly using properties of a truncated normal or directly using the expression of the inverse Mills ratio. Yet, since this document is a thorough description of the analysis, I derive this expression analytically.\\
 			
 			Since $\hat{\beta} \sim \mathcal{N}(\beta, \sigma^{2})$, its support is $\mathbb{R}$ and pdf is $f_{\hat{\beta}}: x \mapsto \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{(x -\beta)^{2}}{2\sigma^{2}}}$. Thus, by definition of the conditional expectation,
 			~
@@ -803,7 +803,7 @@
 				\[
 						\sqrt{n}\left( \hat{\beta}_{\textsc{iv}} - \beta_{1} \right)
 						\overset{d}{\to}
-							 \mathcal{N}\left( 0 , \ \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{ \pi_{1}^{2}\sigma_{z}^{2}} \right) 
+							 \mathcal{N}\left( 0 , \ \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{ \pi_{1}^{2}\sigma_{z}^{2}} \right) 
 				\]
 				
 			\end{lemma}
@@ -848,14 +848,14 @@
 			Applying Slutsky's theorem then yields:
 				
 				\[ \sqrt{n}(\hat{\bm{\beta}}_{\textsc{iv}} - \bm{\beta}) \overset{d}{\to} 
-					\mathcal{N}\left(0,  (\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}) \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{z}_{i}\text{z}_{i}'] \left( \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1}\right)' \right) \]
+					\mathcal{N}\left(0,  (\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}) \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{z}_{i}\text{z}_{i}'] \left( \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1}\right)' \right) \]
 			
 			And thus,
 				~
 				\begin{equation*}
 					\boxed{
 						\hat{\bm{\beta}}_{\textsc{iv}} \overset{d}{\to} 
-							\mathcal{N}\left(\bm{\beta},  \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n} \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{z}_{i}\text{z}_{i}'] \left( \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1}\right)' \right)
+							\mathcal{N}\left(\bm{\beta},  \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{n} \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1} \mathbb{E}[\text{z}_{i}\text{z}_{i}'] \left( \mathbb{E}[\text{z}_{i}\text{x}_{i}']^{-1}\right)' \right)
 					}
 				\end{equation*}
 				
@@ -937,7 +937,7 @@
 				\begin{equation}
 					\boxed{
 						\hat{\beta}_{\textsc{iv}} \overset{d}{\to}
-							 \mathcal{N}\left( \beta_1 , \ \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \pi_{1}^{2}\sigma_{z}^{2}} \right) 
+							 \mathcal{N}\left( \beta_1 , \ \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{n \ \pi_{1}^{2}\sigma_{z}^{2}} \right) 
 					}
 				\end{equation}
 				~
@@ -949,7 +949,7 @@
 				\begin{equation}\label{b_sigma_iv}
 					\begin{array}{lll}
 						b_{\textsc{iv}} & = 0\\
-					\sigma_{\textsc{iv}}^{2} & = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \pi_{1}^{2}\sigma_{z}^{2}}
+					\sigma_{\textsc{iv}}^{2} & = \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{n \ \pi_{1}^{2}\sigma_{z}^{2}}
 					\end{array}				
 				\end{equation}
 				
@@ -975,7 +975,7 @@
 				One can therefore rewrite the formula for the variance of our IV estimator as 
 				~
 				\begin{equation*}
-					\sigma_{\textsc{iv}}^{2}  = \dfrac{\delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2}}{n \ \sigma_{x}^{2} \rho_{xz}^{2}}
+					\sigma_{\textsc{iv}}^{2}  = \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{n \ \sigma_{x}^{2} \rho_{xz}^{2}}
 				\end{equation*}
 				
 				This variance formula enables to retrieve the usual result regarding the determinant of the 2SLS variance as discussed in \cite{hansen_econometrics_2022} for instance. %p354
@@ -1164,8 +1164,8 @@
 				~
 				\begin{equation*}
 					\boxed{
-						\hat{\bm{\beta}}_{\textsc{red}} \overset{d}{\to} 
-							\mathcal{N}\left(\bm{\beta},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}}{n \sigma_{d}^{2}}  \right)
+						\hat{\beta}_{\textsc{red}} \overset{d}{\to} 
+							\mathcal{N}\left(\beta_{1},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}}{n \sigma_{d}^{2}}  \right)
 					}
 				\end{equation*}
 			~	
@@ -1194,8 +1194,8 @@
 				Further, since $d$ is a vector of dummies, denoting $p_{1}$ the proportion of 1 in this vector, $\sigma_{d}^{2} = p_{1}(1 - p_{1})$ and thus:		
 				~
 				\begin{equation}\label{distrib_red_prop}
-						\hat{\bm{\beta}}_{\textsc{red}} \overset{d}{\to} 
-							\mathcal{N}\left(\bm{\beta},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}}{n \times p_{1}(1-p_{1})}  \right)
+						\hat{\beta}_{\textsc{red}} \overset{d}{\to} 
+							\mathcal{N}\left(\beta_{1},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}}{n \times p_{1}(1-p_{1})}  \right)
 				\end{equation}		
 				
 			As discussed in the IV case, when most observations have the same treatment status, \textit{i.e.}, $p_{1}$ close to 0 or 1, the variance shoots up. There is not enough variation in the treatment status to precisely identify the effect of interest. 

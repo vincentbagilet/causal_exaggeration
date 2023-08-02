@@ -77,11 +77,11 @@
 	
 	\section{Mathematical derivation} \label{maths}
 						
-		In this section, I provide a formal mathematical derivation to prove the existence and to describe the drivers of the confounding / exaggeration trade-off. To do so, I first recall a definition of  the exaggeration ratio and discuss its drivers. Then, I derive it for a series of estimators, in the presence of an omitted variable bias, when controlling for the omitted variable, when instrumenting it or running a reduced form analysis. Finally, I show that, for any given omitted variable bias, bias can be greater when controlling for confounders using a causal inference methods than not. A more detailed and extensive proof is available on the \href{https://vincentbagilet.github.io/causal_exaggeration/Maths/math_causal_exaggeration.pdf}{companion website}.
+		In this section, I formally prove the existence of the confounding / exaggeration trade-off  and describe its drivers. To do so, I first recall a general definition of the exaggeration ratio and discuss its evolution with parameters values. Then, I derive the exaggeration ratio for a series of estimators under a set of simplifying assumptions: in the presence of an omitted variable bias, when controlling for the omitted variable, when instrumenting it or running a reduced form analysis. Finally, I show that, for any magnitude of OVB, the overall bias, combining exaggeration and OVB, can be greater when controlling for confounders using a causal inference methods than not. A more general and detailed proof, relaxing some assumptions such as normality, is available on the \href{https://vincentbagilet.github.io/causal_exaggeration/Maths/math_causal_exaggeration.pdf}{companion website}.
 		
 		\subsection{Setting and data generating process}
 		
-			Consider an usual linear homoskedastic regression model with an omitted variable. For all individual $i \in \{1, ..., n\}$, assume that: 
+			Consider an usual normal linear homoskedastic regression model with an omitted variable. For all individual $i \in \{1, ..., n\}$, assume that: 
 				~
 				\begin{equation}\label{maths_true_dgp}
 					y_i = \beta_{0} + \beta_{1}x_{i} + \delta w_{i} + u_i
@@ -89,7 +89,7 @@
 				
 				where $y_i \in \mathbb{R}$ is the observed outcome of interest, $x_i \in \mathbb{R}$ the observed explanatory variable of interest,  $w_i \in \mathbb{R}$ an unobserved omitted variable, $u_i \in \mathbb{R}$ an unobserved error term.  $(\beta_0, \beta_1, \delta) \in \mathbb{R}^{3}$ are unknown parameters. $\beta_1$ is the parameter of interest. For readability, we introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$ and set $\bm{\beta} = (\beta_0, \beta_1)'$ and $\text{x}_i = (1, x_i)'$. \\
 			
-			We assume homogeneous treatment effects and homoskedasticity, along with the usual OLS assumptions (\textit{i.i.d.} observations, finite second moments, positive-definiteness of $\mathbb{E}[\text{x}_i \text{x}_i']$ and $u_{i}$ conditional mean-zero and uncorrelated with $x_i$ and $w_i$). We assume that $w_{i}$ is unobserved, correlated with $x_{i}$ and that $\delta \neq 0$. To simplify the derivations, we further assume that the unobserved variable is centred, \textit{ie} $\mathbb{E}[w_i] = 0$. We also assume that the variance of the component of $w_{i}$ that is orthogonal to $x_{i}$ (denoted $w_{i}^{\perp}$) does not vary with $x_{i}$. Thus, $\text{Var}(w_{i}^{\perp}|x_{i}) = \text{Var}(w_{i}^{\perp})$. We assume the following data generating process for $x_i$:
+			We assume homogeneous treatment effects and homoskedasticity, along with the usual OLS assumptions (\textit{i.i.d.} observations, finite second moments, positive-definiteness of $\mathbb{E}[\text{x}_i \text{x}_i']$ and $u_{i}$ conditional mean-zero and uncorrelated with $x_i$ and $w_i$). We assume that $w_{i}$ is unobserved, correlated with $x_{i}$ and that $\delta \neq 0$. To simplify the derivations, we further assume that the unobserved variable is centred, \textit{i.e.} $\mathbb{E}[w_i] = 0$. We also assume that the variance of the component of $w_{i}$ that is orthogonal to $x_{i}$ (denoted $w_{i}^{\perp}$) does not vary with $x_{i}$. Thus, $\text{Var}(w_{i}^{\perp}|x_{i}) = \text{Var}(w_{i}^{\perp})$. We assume the following data generating process for $x_i$:
 				~
 				\begin{equation}\label{maths_dgp_x}
 					x_i = \mu_{x} + \gamma w_{i} + \epsilon_i

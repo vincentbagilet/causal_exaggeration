@@ -28,11 +28,11 @@
 \contentsline {subsubsection}{\numberline {IV. 4.2}Asymptotic distribution}{23}{subsubsection.0.4.4.2}
 \contentsline {subsubsection}{\numberline {IV. 4.3}Exaggeration ratio and its evolution}{25}{subsubsection.0.4.4.3}
 \contentsline {section}{\numberline {V}Comparison of exaggeration ratios}{25}{section.0.5}
-\contentsline {subsection}{\numberline {V. 1}Comparison of efficiencies}{25}{subsection.0.5.1}
-\contentsline {subsubsection}{\numberline {V. 1.1}Controlled and OVB}{25}{subsubsection.0.5.1.1}
-\contentsline {subsubsection}{\numberline {V. 1.2}IV and OVB}{25}{subsubsection.0.5.1.2}
+\contentsline {subsection}{\numberline {V. 1}Comparison of efficiencies}{26}{subsection.0.5.1}
+\contentsline {subsubsection}{\numberline {V. 1.1}Controlled and OVB}{26}{subsubsection.0.5.1.1}
+\contentsline {subsubsection}{\numberline {V. 1.2}IV and OVB}{26}{subsubsection.0.5.1.2}
 \contentsline {subsubsection}{\numberline {V. 1.3}Reduced form, OVB and IV}{26}{subsubsection.0.5.1.3}
-\contentsline {subsection}{\numberline {V. 2}The exaggeration/confounders trade-off}{26}{subsection.0.5.2}
-\contentsline {subsubsection}{\numberline {V. 2.1}Controlled regression}{26}{subsubsection.0.5.2.1}
+\contentsline {subsection}{\numberline {V. 2}The exaggeration/confounders trade-off}{27}{subsection.0.5.2}
+\contentsline {subsubsection}{\numberline {V. 2.1}Controlled regression}{27}{subsubsection.0.5.2.1}
 \contentsline {subsubsection}{\numberline {V. 2.2}Instrumental variable}{27}{subsubsection.0.5.2.2}
-\contentsline {subsubsection}{\numberline {V. 2.3}Reduced form}{27}{subsubsection.0.5.2.3}
+\contentsline {subsubsection}{\numberline {V. 2.3}Reduced form}{28}{subsubsection.0.5.2.3}

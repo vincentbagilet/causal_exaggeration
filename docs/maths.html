@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-08-02"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-08-02"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-08-07"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-08-07"/>
   <meta name="article:author" content="Vincent Bagilet"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -114,7 +114,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Mathematical derivation"]},{"type":"character","attributes":{},"value":["In this document, I run simple simulations to both illustrate and check my closed form solutions."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-08-02"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Mathematical derivation"]},{"type":"character","attributes":{},"value":["In this document, I run simple simulations to both illustrate and check my closed form solutions."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-08-07"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2188,7 +2188,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Mathematical derivation","description":"In this document, I run simple simulations to both illustrate and check my closed form solutions.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-08-02T00:00:00.000+02:00","citationText":"Bagilet, 2023"}
+{"title":"Mathematical derivation","description":"In this document, I run simple simulations to both illustrate and check my closed form solutions.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-08-07T00:00:00.000+02:00","citationText":"Bagilet, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2239,7 +2239,7 @@ Simulations
 <div class="d-byline">
   Vincent Bagilet <a href="https://vincentbagilet.github.io/" class="uri">https://vincentbagilet.github.io/</a> (Columbia University)<a href="https://www.columbia.edu/" class="uri">https://www.columbia.edu/</a>
   
-<br/>2023-08-02
+<br/>2023-08-07
 </div>
 
 <div class="d-article">
@@ -2256,7 +2256,7 @@ Simulations
 <li><a href="#compute-a-complete-analysis" id="toc-compute-a-complete-analysis">Compute a complete analysis</a></li>
 <li><a href="#averaging-over-a-set-of-iterations" id="toc-averaging-over-a-set-of-iterations">Averaging over a set of iterations</a></li>
 <li><a href="#results" id="toc-results">Results</a></li>
-<li><a href="#checking-the-maths" id="toc-checking-the-maths">Checking the maths</a></li>
+<li><a href="#checking-the-standard-errors" id="toc-checking-the-standard-errors">Checking the standard errors</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -2301,7 +2301,7 @@ text-align: justify}
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">2.387716</td>
-<td style="text-align: right;">2.394499</td>
+<td style="text-align: right;">2.408221</td>
 </tr>
 </tbody>
 </table>
@@ -2318,16 +2318,55 @@ text-align: justify}
 <p>As in the math section we have:</p>
 <p><span class="math display">\[y_{i} = \beta_{0} + \beta_1 x_{i} + \delta w_{i} + u_{i}\]</span>
 <span class="math display">\[x_{i} = \pi_0 + \pi_1 z_{i} + \gamma w_{i} + \epsilon_{i}\]</span></p>
-<p>Note that to get to the setting descripted in the “OVB” and “CTRL” sections of the maths, one can simply set <span class="math inline">\(\pi_1\)</span> to 0.</p>
-<p>For simplicity, I consider that <span class="math inline">\(w\)</span> and <span class="math inline">\(z\)</span> are normally distributed. I also consider normally distributed error terms. As a linear combination of normally distributed variables, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> will also be normally distributed.</p>
-<h3 id="generate-the-data">Generate the data</h3>
+<p>Note that to get to the setting described in the “OVB” and “CTRL” sections of the maths, one can simply set <span class="math inline">\(\pi_1\)</span> to 0.</p>
 <p>I create three functions, one to generate the data, one to run the estimation and one to compute a simulation (just bundling together the two previous functions).</p>
-<p>The function to generate the data is the following:</p>
+<h3 id="generate-the-data">Generate the data</h3>
+<h4 id="agnostic-distributions-of-the-variables">Agnostic distributions of the variables</h4>
+<p>To compute the theoretical variance of the estimators, I need to know the mean and variance of my variables. The easiest solution to generate variables with a given mean and variance would be to consider only normally distributed variables. Yet, to prevent my results from being an artifact of the particular properties of the normal distribution, I also draw my data from less usual distributions: gamma, uniform and logistic ones.</p>
+<p>In order to remain agnostic about the shape of the distribution of my variables, while being able to specify their mean and standard deviation, I create a function. <code>rany</code> draws <span class="math inline">\(n\)</span> observations either from a normal, a logistic, a uniform or a gamma distribution with mean and variance equal to the one specified as inputs of the function.</p>
+<p>To build a gamma distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, the parameters of the gamma distribution must be:</p>
+<ul>
+<li>Shape = <span class="math inline">\(\mu^2/\sigma^2\)</span></li>
+<li>Rate = <span class="math inline">\(\mu/\sigma^2\)</span></li>
+</ul>
+<p>For the uniform distribution, the parameters must be:</p>
+<ul>
+<li>a = <span class="math inline">\(\mu - \sigma\sqrt{3}\)</span></li>
+<li>b = <span class="math inline">\(\mu + \sigma\sqrt{3}\)</span></li>
+</ul>
+<p>For the logistic distribution, the parameters must be:</p>
+<ul>
+<li>location = <span class="math inline">\(\mu\)</span></li>
+<li>scale = <span class="math inline">\(\sqrt{\frac{3\sigma^2}{\pi^2}}\)</span></li>
+</ul>
+<p>The <code>rany</code> function is defined as follows:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>generate_data_maths</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>N</span>,</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>rany</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>mean</span> <span class='op'>=</span> <span class='fl'>0</span>, <span class='va'>sd</span> <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>n_distrib</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>mean</span> <span class='op'>==</span> <span class='fl'>0</span>, <span class='fl'>3</span>, <span class='fl'>4</span><span class='op'>)</span> <span class='co'>#gamma distrib cannot have mean 0</span></span>
+<span>  <span class='co'>#since it has a positive support</span></span>
+<span>  <span class='va'>distrib_index</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>n_distrib</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='va'>vect</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span></span>
+<span>    <span class='va'>distrib_index</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>mean</span>, <span class='va'>sd</span><span class='op'>)</span>,</span>
+<span>    <span class='va'>distrib_index</span> <span class='op'>==</span> <span class='fl'>2</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>rlogis</a></span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>mean</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>*</span><span class='va'>sd</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>/</span><span class='va'>pi</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    <span class='va'>distrib_index</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>mean</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>*</span><span class='va'>sd</span>, <span class='va'>mean</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>*</span><span class='va'>sd</span><span class='op'>)</span>,</span>
+<span>    <span class='va'>distrib_index</span> <span class='op'>==</span> <span class='fl'>4</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/stats/GammaDist.html'>rgamma</a></span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>mean</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>/</span><span class='va'>sd</span><span class='op'>^</span><span class='fl'>2</span>, rate <span class='op'>=</span> <span class='va'>mean</span><span class='op'>/</span><span class='va'>sd</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,</span>
+<span>    .default <span class='op'>=</span> <span class='cn'>NA</span></span>
+<span>  <span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>vect</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+</div>
+<h4 id="generate-function">Generate function</h4>
+<p>I then define the function to generate the data is the following:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>generate_data_maths</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>n</span>,</span>
 <span>                                <span class='va'>mu_z</span>,</span>
 <span>                                <span class='va'>sigma_z</span>,</span>
+<span>                                <span class='va'>mu_w</span> <span class='op'>=</span> <span class='fl'>0</span>, <span class='co'>#one of the simplifying assumptions</span></span>
 <span>                                <span class='va'>sigma_w</span>,</span>
 <span>                                <span class='va'>sigma_epsilon</span>,</span>
 <span>                                <span class='va'>pi_0</span>,</span>
@@ -2338,42 +2377,43 @@ text-align: justify}
 <span>                                <span class='va'>beta_1</span>,</span>
 <span>                                <span class='va'>delta</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>  </span>
-<span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
-<span>      <span class='co'># D = rbernoulli(N, ptreat),</span></span>
-<span>      z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='va'>mu_z</span>, <span class='va'>sigma_z</span><span class='op'>)</span>,</span>
-<span>      w <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>0</span>, <span class='va'>sigma_w</span><span class='op'>)</span>,</span>
-<span>      epsilon <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>0</span>, <span class='va'>sigma_epsilon</span><span class='op'>)</span>,</span>
-<span>      x <span class='op'>=</span> <span class='va'>pi_0</span> <span class='op'>+</span> <span class='va'>pi_1</span><span class='op'>*</span><span class='va'>z</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>*</span><span class='va'>w</span> <span class='op'>+</span>  <span class='va'>epsilon</span>,</span>
-<span>      u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>0</span>, <span class='va'>sigma_u</span><span class='op'>)</span>,</span>
+<span>      z <span class='op'>=</span> <span class='fu'>rany</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>mu_z</span>, <span class='va'>sigma_z</span><span class='op'>)</span>,</span>
+<span>      w <span class='op'>=</span> <span class='fu'>rany</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>mu_w</span>, <span class='va'>sigma_w</span><span class='op'>)</span>,</span>
+<span>      epsilon <span class='op'>=</span> <span class='fu'>rany</span><span class='op'>(</span><span class='va'>n</span>, <span class='fl'>0</span>, <span class='va'>sigma_epsilon</span><span class='op'>)</span>,</span>
+<span>      x <span class='op'>=</span> <span class='va'>pi_0</span> <span class='op'>+</span> <span class='va'>pi_1</span><span class='op'>*</span><span class='va'>z</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>*</span><span class='va'>w</span> <span class='op'>+</span> <span class='va'>epsilon</span>,</span>
+<span>      u <span class='op'>=</span> <span class='fu'>rany</span><span class='op'>(</span><span class='va'>n</span>, <span class='fl'>0</span>, <span class='va'>sigma_u</span><span class='op'>)</span>,</span>
 <span>      y <span class='op'>=</span> <span class='va'>beta_0</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>*</span><span class='va'>x</span> <span class='op'>+</span> <span class='va'>delta</span><span class='op'>*</span><span class='va'>w</span> <span class='op'>+</span> <span class='va'>u</span></span>
 <span>    <span class='op'>)</span></span>
 <span><span class='op'>}</span></span></code></pre>
 </div>
 </div>
 <p>I then define the parameters values. I pick these values at random and played around with them to see if my results held.</p>
-<p>The numbers chosen are not the slick 0 and 1 usually used in fake data simulations. I built the present simulations to check my mathematical derivations and thus chose specific parameter values in order to mimic a study with low statistical power.</p>
+<p>I built the present simulations to check my mathematical derivations and thus chose non-round parameter values in order to avoid peculiar behaviors caused by zeros or ones for instance.</p>
 <div class="layout-chunk" data-layout="l-body">
 <table>
 <colgroup>
-<col style="width: 7%" />
+<col style="width: 6%" />
 <col style="width: 5%" />
-<col style="width: 9%" />
-<col style="width: 9%" />
-<col style="width: 16%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 7%" />
-<col style="width: 9%" />
 <col style="width: 8%" />
+<col style="width: 5%" />
+<col style="width: 8%" />
+<col style="width: 15%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
 <col style="width: 8%" />
 <col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">N</th>
+<th style="text-align: right;">n</th>
 <th style="text-align: right;">mu_z</th>
 <th style="text-align: right;">sigma_z</th>
+<th style="text-align: right;">mu_w</th>
 <th style="text-align: right;">sigma_w</th>
 <th style="text-align: right;">sigma_epsilon</th>
 <th style="text-align: right;">pi_0</th>
@@ -2390,6 +2430,7 @@ text-align: justify}
 <td style="text-align: right;">20000</td>
 <td style="text-align: right;">0.3</td>
 <td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">0.7</td>
 <td style="text-align: right;">1.2</td>
 <td style="text-align: right;">1</td>
@@ -2420,12 +2461,12 @@ Show code used to generate the table
 <table>
 <colgroup>
 <col style="width: 4%" />
+<col style="width: 14%" />
 <col style="width: 16%" />
 <col style="width: 16%" />
 <col style="width: 16%" />
 <col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 13%" />
+<col style="width: 14%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2441,57 +2482,57 @@ Show code used to generate the table
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">-0.3741054</td>
-<td style="text-align: right;">-0.2975852</td>
-<td style="text-align: right;">1.1730926</td>
-<td style="text-align: right;">1.6952571</td>
-<td style="text-align: right;">0.1691755</td>
-<td style="text-align: right;">3.715640</td>
+<td style="text-align: right;">0.1887655</td>
+<td style="text-align: right;">0.0948365</td>
+<td style="text-align: right;">-1.8325905</td>
+<td style="text-align: right;">-0.6246762</td>
+<td style="text-align: right;">0.4377754</td>
+<td style="text-align: right;">1.8605175</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">1.3370433</td>
-<td style="text-align: right;">0.1254829</td>
-<td style="text-align: right;">1.5343790</td>
-<td style="text-align: right;">3.6793033</td>
-<td style="text-align: right;">0.8536458</td>
-<td style="text-align: right;">6.595691</td>
+<td style="text-align: right;">0.2341337</td>
+<td style="text-align: right;">-1.1837981</td>
+<td style="text-align: right;">-0.1145969</td>
+<td style="text-align: right;">0.3624313</td>
+<td style="text-align: right;">-0.2105699</td>
+<td style="text-align: right;">1.5599623</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">0.5706676</td>
-<td style="text-align: right;">-0.4654658</td>
-<td style="text-align: right;">-0.9467601</td>
-<td style="text-align: right;">0.2304945</td>
-<td style="text-align: right;">0.4888651</td>
-<td style="text-align: right;">2.486627</td>
+<td style="text-align: right;">0.0624948</td>
+<td style="text-align: right;">-0.1231858</td>
+<td style="text-align: right;">0.7172446</td>
+<td style="text-align: right;">1.6933289</td>
+<td style="text-align: right;">0.0494995</td>
+<td style="text-align: right;">3.6812355</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">0.0670037</td>
-<td style="text-align: right;">-0.3500141</td>
-<td style="text-align: right;">-0.0960151</td>
-<td style="text-align: right;">0.7475794</td>
-<td style="text-align: right;">-0.0547044</td>
-<td style="text-align: right;">2.517868</td>
+<td style="text-align: right;">0.0484099</td>
+<td style="text-align: right;">0.8745917</td>
+<td style="text-align: right;">-0.4923329</td>
+<td style="text-align: right;">1.0711500</td>
+<td style="text-align: right;">0.5595576</td>
+<td style="text-align: right;">4.0680035</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">0.0688365</td>
-<td style="text-align: right;">0.0927911</td>
-<td style="text-align: right;">-1.1711197</td>
-<td style="text-align: right;">-0.0603759</td>
-<td style="text-align: right;">-0.5120353</td>
-<td style="text-align: right;">1.473984</td>
+<td style="text-align: right;">0.2811223</td>
+<td style="text-align: right;">-0.5954577</td>
+<td style="text-align: right;">-0.4793122</td>
+<td style="text-align: right;">0.3883111</td>
+<td style="text-align: right;">-1.3213053</td>
+<td style="text-align: right;">0.7692769</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">1.0694084</td>
-<td style="text-align: right;">-0.0253729</td>
-<td style="text-align: right;">1.1770397</td>
-<td style="text-align: right;">3.0173426</td>
-<td style="text-align: right;">-0.5349553</td>
-<td style="text-align: right;">4.469701</td>
+<td style="text-align: right;">1.2084045</td>
+<td style="text-align: right;">0.5292910</td>
+<td style="text-align: right;">2.9565575</td>
+<td style="text-align: right;">5.2408557</td>
+<td style="text-align: right;">0.2336582</td>
+<td style="text-align: right;">7.7391594</td>
 </tr>
 </tbody>
 </table>
@@ -2570,64 +2611,48 @@ Show the code of lint_reg_maths
 <tr class="odd">
 <td style="text-align: left;">ctrl</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">0.9935874</td>
-<td style="text-align: right;">0.0033305</td>
-<td style="text-align: right;">298.33385</td>
+<td style="text-align: right;">0.9968444</td>
+<td style="text-align: right;">0.0033861</td>
+<td style="text-align: right;">294.39693</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ovb</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0782063</td>
-<td style="text-align: right;">0.0036327</td>
-<td style="text-align: right;">296.80791</td>
+<td style="text-align: right;">1.0818966</td>
+<td style="text-align: right;">0.0036766</td>
+<td style="text-align: right;">294.26364</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">reduced_form</td>
 <td style="text-align: left;">z</td>
-<td style="text-align: right;">0.7933170</td>
-<td style="text-align: right;">0.0218238</td>
-<td style="text-align: right;">36.35099</td>
+<td style="text-align: right;">0.7631755</td>
+<td style="text-align: right;">0.0215899</td>
+<td style="text-align: right;">35.34867</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">iv</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">0.9913167</td>
-<td style="text-align: right;">0.0122832</td>
-<td style="text-align: right;">80.70536</td>
+<td style="text-align: right;">0.9854931</td>
+<td style="text-align: right;">0.0126596</td>
+<td style="text-align: right;">77.84583</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>I can compare these numbers, in particular the standard error of the estimator to the theoretical ones I expect. Yet, to get more reliable numbers, I run several of these simulations and compute average point estimates and standard errors across these simulations.</p>
+<p>I can compare these numbers, in particular the standard error of the estimator to the theoretical ones I expect.</p>
 <h3 id="averaging-over-a-set-of-iterations">Averaging over a set of iterations</h3>
-<p>To do so, I simply replicate the set of parameters <code>n_iter</code> times and pass the resulting set of (identical) parameters to the <code>compute_sim_maths</code> function:</p>
+<p>To get more reliable numbers, I run several of these simulations and compute average point estimates and standard errors across these simulations. To do so, I simply replicate the set of parameters <code>n_iter</code> times and pass the resulting set of (identical) parameters to the <code>compute_sim_maths</code> function:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># param_maths &lt;- tibble(</span></span>
-<span><span class='co'>#   N = 1000,</span></span>
-<span><span class='co'>#   mu_z = 0.7,</span></span>
-<span><span class='co'>#   sigma_z = 0.72,</span></span>
-<span><span class='co'>#   sigma_w = 1.1,</span></span>
-<span><span class='co'>#   sigma_epsilon = 1.2,</span></span>
-<span><span class='co'>#   pi_0 = 0.3,</span></span>
-<span><span class='co'>#   pi_1 = 1,</span></span>
-<span><span class='co'>#   gamma = 0.2,</span></span>
-<span><span class='co'>#   sigma_u = 0.81,</span></span>
-<span><span class='co'>#   beta_0 = 0.2,</span></span>
-<span><span class='co'>#   beta_1 = 0.07,</span></span>
-<span><span class='co'>#   delta = 0.2</span></span>
-<span><span class='co'># )</span></span>
-<span></span>
-<span></span>
-<span><span class='va'>n_iter</span> <span class='op'>&lt;-</span> <span class='fl'>1000</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>n_iter</span> <span class='op'>&lt;-</span> <span class='fl'>1000</span></span>
 <span></span>
 <span><span class='va'>param_maths_iter</span> <span class='op'>&lt;-</span> <span class='va'>param_maths</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>rep_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n_iter</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
@@ -2636,27 +2661,37 @@ Show the code of lint_reg_maths
 <span><span class='va'>sim_maths</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_maths_iter</span>, <span class='va'>compute_sim_maths</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_maths</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/sim_maths.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_maths</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_maths.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h3 id="results">Results</h3>
-<p>We can now look at the mean of the estimates and variances:</p>
+<p>We can now look at the mean of the estimates and variances. To do so, I write simple function (because I reuse it below).</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
 Show the code used to generate the table
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_maths</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/sim_maths.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_maths</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_maths.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>results_sim_maths</span> <span class='op'>&lt;-</span> <span class='va'>sim_maths</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span></span>
-<span>    mean_estimate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>estimate</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
-<span>    mean_se <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>std.error</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
-<span>  <span class='op'>)</span> <span class='op'>|&gt;</span>  </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>true_effect <span class='op'>=</span> <span class='va'>param_maths</span><span class='op'>$</span><span class='va'>beta_1</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/relocate.html'>relocate</a></span><span class='op'>(</span><span class='va'>true_effect</span>, .after <span class='op'>=</span> <span class='va'>mean_estimate</span><span class='op'>)</span></span>
+<span><span class='va'>average_sim</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>sim_results</span>, <span class='va'>params</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>sim_results</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span></span>
+<span>      mean_estimate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>estimate</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>      mean_se <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>std.error</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span>    <span class='op'>)</span> <span class='op'>|&gt;</span>  </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      true_effect <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span></span>
+<span>        <span class='va'>model</span> <span class='op'>==</span> <span class='st'>"reduced_form"</span>, </span>
+<span>        <span class='va'>params</span><span class='op'>$</span><span class='va'>beta_1</span><span class='op'>*</span><span class='va'>params</span><span class='op'>$</span><span class='va'>pi_1</span>, </span>
+<span>        <span class='va'>params</span><span class='op'>$</span><span class='va'>beta_1</span></span>
+<span>      <span class='op'>)</span></span>
+<span>    <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/relocate.html'>relocate</a></span><span class='op'>(</span><span class='va'>true_effect</span>, .after <span class='op'>=</span> <span class='va'>mean_estimate</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>results_sim_maths</span> <span class='op'>&lt;-</span> <span class='fu'>average_sim</span><span class='op'>(</span><span class='va'>sim_maths</span>, <span class='va'>param_maths</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>results_sim_maths</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>col.names <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_title</a></span><span class='op'>(</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='st'>"_"</span>, <span class='st'>" "</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
@@ -2674,34 +2709,34 @@ Show the code used to generate the table
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">ctrl</td>
-<td style="text-align: right;">1.0001565</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0.0033555</td>
+<td style="text-align: right;">1.0000240</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.0033536</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">iv</td>
-<td style="text-align: right;">1.0005652</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0.0122973</td>
+<td style="text-align: right;">1.0005986</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.0122773</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ovb</td>
-<td style="text-align: right;">1.0828486</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0.0036396</td>
+<td style="text-align: right;">1.0827655</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.0036373</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">reduced_form</td>
-<td style="text-align: right;">0.7995775</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0.0218664</td>
+<td style="text-align: right;">0.8010241</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.0218801</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>All the estimators, except for the OVB one retrieve the true effect.</p>
-<h3 id="checking-the-maths">Checking the maths</h3>
-<p>Based on my derivations, I expect to have the following asymptotic distributions:</p>
+<p>As expected, the control and IV estimators retrieve the true effect and the OVB one does not. The true effect for the reduced form is different than for the over models because it is equal to <span class="math inline">\(\beta_1 \pi_1\)</span> and not just <span class="math inline">\(\beta_1\)</span>. In the math derivation, to makes things comparable, we assume that <span class="math inline">\(\pi_1 = 1\)</span> such that all the true effects are equal.</p>
+<h3 id="checking-the-standard-errors">Checking the standard errors</h3>
+<p>Then, I check whether my closed form formulas for the standard errors of the various estimates match the one I find in the simulations. As a reminder, my mathematical derivations yield the following asymptotic distributions:</p>
 <p><span class="math display">\[ \hat{\beta}_{CTRL} \overset{d}{\to}
                              \mathcal{N}\left( \beta_1 , \ \dfrac{\sigma_{u}^{2}}{n \ (\sigma_{x}^{2} - \gamma^{2}\sigma_{w}^{2})} \right) \]</span></p>
 <p><span class="math display">\[\hat{\beta}_{OVB} \overset{d}{\to}
@@ -2710,32 +2745,44 @@ Show the code used to generate the table
                              \mathcal{N}\left( \beta_1 , \ \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{n \ \pi_{1}^{2}\sigma_{z}^{2}} \right) \]</span></p>
 <p><span class="math display">\[\hat{\beta}_{RED} \overset{d}{\to}
                             \mathcal{N}\left(\beta_{1},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{red}}^{2}}{n \sigma_{d}^{2}}  \right)\]</span></p>
-<p>I thus derive all the theoretical standard errors and add them to the previous table:</p>
+<p>I thus write a function that, given a set of parameters, compute all these theoretical standard errors.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>th_se</span> <span class='op'>&lt;-</span> <span class='va'>param_maths</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
-<span>    th_sigma_x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_z</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>sigma_epsilon</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,</span>
-<span>    th_se_ctrl <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>sigma_u</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>/</span><span class='op'>(</span><span class='va'>N</span><span class='op'>*</span><span class='op'>(</span><span class='va'>th_sigma_x</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>-</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
-<span>    th_se_ovb <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span></span>
-<span>      <span class='op'>(</span><span class='va'>sigma_u</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='op'>(</span><span class='fl'>1</span> <span class='op'>-</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>/</span><span class='va'>th_sigma_x</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span></span>
-<span>        <span class='op'>(</span><span class='va'>N</span><span class='op'>*</span><span class='va'>th_sigma_x</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span></span>
-<span>    <span class='op'>)</span>,</span>
-<span>    th_se_iv <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>sigma_u</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='va'>N</span><span class='op'>*</span><span class='va'>pi_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_z</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,</span>
-<span>    .keep <span class='op'>=</span> <span class='st'>"none"</span></span>
-<span>  <span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>th_sigma_x</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename_with</a></span><span class='op'>(</span>\<span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"th_se_"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span></span>
-<span>    cols <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, </span>
-<span>    names_to <span class='op'>=</span> <span class='st'>"model"</span>, </span>
-<span>    values_to <span class='op'>=</span> <span class='st'>"theoretical_se"</span></span>
-<span>  <span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>results_sim_maths</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>th_se</span>, by <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join_by.html'>join_by</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>compute_th_se</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>params</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>params</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      th_sigma_x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_z</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>sigma_epsilon</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,</span>
+<span>      th_se_ctrl <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>sigma_u</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>/</span><span class='op'>(</span><span class='va'>n</span><span class='op'>*</span><span class='op'>(</span><span class='va'>th_sigma_x</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>-</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>      th_se_ovb <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span></span>
+<span>        <span class='op'>(</span><span class='va'>sigma_u</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>delta</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='op'>(</span><span class='fl'>1</span> <span class='op'>-</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>/</span><span class='va'>th_sigma_x</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span></span>
+<span>          <span class='op'>(</span><span class='va'>n</span><span class='op'>*</span><span class='va'>th_sigma_x</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span>      <span class='op'>)</span>,</span>
+<span>      th_se_iv <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>sigma_u</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>delta</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='va'>n</span><span class='op'>*</span><span class='va'>pi_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_z</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>      th_se_reduced_form <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>sigma_u</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='op'>(</span><span class='va'>delta</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>*</span><span class='va'>gamma</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_epsilon</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='va'>n</span><span class='op'>*</span><span class='va'>sigma_z</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>      .keep <span class='op'>=</span> <span class='st'>"none"</span></span>
+<span>    <span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>th_sigma_x</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename_with</a></span><span class='op'>(</span>\<span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"th_se_"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span></span>
+<span>      cols <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, </span>
+<span>      names_to <span class='op'>=</span> <span class='st'>"model"</span>, </span>
+<span>      values_to <span class='op'>=</span> <span class='st'>"theoretical_se"</span></span>
+<span>    <span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+</div>
+<p>Then, I add these theoretical standard error to the previous table presenting the results of the simulations in order to compare the expected theoretical standard errors to the simulated ones.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code used to generate the table
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>results_sim_maths</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='fu'>compute_th_se</span><span class='op'>(</span><span class='va'>param_maths</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join_by.html'>join_by</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>col.names <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_title</a></span><span class='op'>(</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='st'>"_"</span>, <span class='st'>" "</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
+</details>
 <table>
 <thead>
 <tr class="header">
@@ -2749,36 +2796,298 @@ Show the code used to generate the table
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">ctrl</td>
-<td style="text-align: right;">1.0001565</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0.0033555</td>
+<td style="text-align: right;">1.0000240</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.0033536</td>
 <td style="text-align: right;">0.0033541</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">iv</td>
-<td style="text-align: right;">1.0005652</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0.0122973</td>
-<td style="text-align: right;">0.0129470</td>
+<td style="text-align: right;">1.0005986</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.0122773</td>
+<td style="text-align: right;">0.0122793</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ovb</td>
-<td style="text-align: right;">1.0828486</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0.0036396</td>
-<td style="text-align: right;">0.0038216</td>
+<td style="text-align: right;">1.0827655</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.0036373</td>
+<td style="text-align: right;">0.0036385</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">reduced_form</td>
-<td style="text-align: right;">0.7995775</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0.0218664</td>
-<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.8010241</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.0218801</td>
+<td style="text-align: right;">0.0218765</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>My calculations seem to be correct (under this set of assumptions).</p>
+<p>My calculations seem to be correct.</p>
+<h4 id="double-check">Double check</h4>
+<p>To verify that my calculations are correct, I rerun the analysis but for another set of parameter values, in particular with an important omitted variable bias:</p>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 5%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+<col style="width: 8%" />
+<col style="width: 15%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">mu_z</th>
+<th style="text-align: right;">sigma_z</th>
+<th style="text-align: right;">mu_w</th>
+<th style="text-align: right;">sigma_w</th>
+<th style="text-align: right;">sigma_epsilon</th>
+<th style="text-align: right;">pi_0</th>
+<th style="text-align: right;">pi_1</th>
+<th style="text-align: right;">gamma</th>
+<th style="text-align: right;">sigma_u</th>
+<th style="text-align: right;">beta_0</th>
+<th style="text-align: right;">beta_1</th>
+<th style="text-align: right;">delta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">20000</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">1.9</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.3</td>
+<td style="text-align: right;">1.7</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to run the simulations
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>n_iter</span> <span class='op'>&lt;-</span> <span class='fl'>1000</span></span>
+<span></span>
+<span><span class='va'>param_recheck_iter</span> <span class='op'>&lt;-</span> <span class='va'>param_recheck</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>rep_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n_iter</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>rep_id</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>sim_recheck</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_recheck_iter</span>, <span class='va'>compute_sim_maths</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_recheck</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_recheck.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the table
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_recheck</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_recheck.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>sim_recheck</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'>average_sim</span><span class='op'>(</span><span class='va'>param_recheck</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='fu'>compute_th_se</span><span class='op'>(</span><span class='va'>param_recheck</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join_by.html'>join_by</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>col.names <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_title</a></span><span class='op'>(</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='st'>"_"</span>, <span class='st'>" "</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Model</th>
+<th style="text-align: right;">Mean Estimate</th>
+<th style="text-align: right;">True Effect</th>
+<th style="text-align: right;">Mean Se</th>
+<th style="text-align: right;">Theoretical Se</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ctrl</td>
+<td style="text-align: right;">1.299959</td>
+<td style="text-align: right;">1.30</td>
+<td style="text-align: right;">0.0031898</td>
+<td style="text-align: right;">0.0031886</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">iv</td>
+<td style="text-align: right;">1.299227</td>
+<td style="text-align: right;">1.30</td>
+<td style="text-align: right;">0.0141971</td>
+<td style="text-align: right;">0.0141703</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ovb</td>
+<td style="text-align: right;">1.936760</td>
+<td style="text-align: right;">1.30</td>
+<td style="text-align: right;">0.0033398</td>
+<td style="text-align: right;">0.0033387</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reduced_form</td>
+<td style="text-align: right;">1.818607</td>
+<td style="text-align: right;">1.82</td>
+<td style="text-align: right;">0.0482130</td>
+<td style="text-align: right;">0.0482018</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Again, the results seem very close.</p>
+<h4 id="reduced-form">Reduced form</h4>
+<p>As mentioned above, for the reduced form, we needed to make further assumptions (<span class="math inline">\(\pi_0 = 0\)</span> and <span class="math inline">\(\pi_1 = 1\)</span>) and did not yet check the theoretical standard error for this model. I specify a set of parameters with such characteristics and rerun an analysis.</p>
+<!-- I am not sure that these assumptions are necessary. -->
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 5%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+<col style="width: 8%" />
+<col style="width: 15%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">mu_z</th>
+<th style="text-align: right;">sigma_z</th>
+<th style="text-align: right;">mu_w</th>
+<th style="text-align: right;">sigma_w</th>
+<th style="text-align: right;">sigma_epsilon</th>
+<th style="text-align: right;">pi_0</th>
+<th style="text-align: right;">pi_1</th>
+<th style="text-align: right;">gamma</th>
+<th style="text-align: right;">sigma_u</th>
+<th style="text-align: right;">beta_0</th>
+<th style="text-align: right;">beta_1</th>
+<th style="text-align: right;">delta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">20000</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.6</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">1.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to run the simulations
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>n_iter</span> <span class='op'>&lt;-</span> <span class='fl'>1000</span></span>
+<span></span>
+<span><span class='va'>param_red_iter</span> <span class='op'>&lt;-</span> <span class='va'>param_red</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>rep_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n_iter</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>rep_id</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>sim_red</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_red_iter</span>, <span class='va'>compute_sim_maths</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_red</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_red.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the table
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_red</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_red.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>sim_red</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'>average_sim</span><span class='op'>(</span><span class='va'>param_red</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='fu'>compute_th_se</span><span class='op'>(</span><span class='va'>param_red</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join_by.html'>join_by</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>col.names <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_title</a></span><span class='op'>(</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='st'>"_"</span>, <span class='st'>" "</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Model</th>
+<th style="text-align: right;">Mean Estimate</th>
+<th style="text-align: right;">True Effect</th>
+<th style="text-align: right;">Mean Se</th>
+<th style="text-align: right;">Theoretical Se</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ctrl</td>
+<td style="text-align: right;">1.299738</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">0.0037209</td>
+<td style="text-align: right;">0.0017375</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">iv</td>
+<td style="text-align: right;">1.298883</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">0.0198894</td>
+<td style="text-align: right;">0.0079484</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ovb</td>
+<td style="text-align: right;">1.989434</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">0.0032033</td>
+<td style="text-align: right;">0.0031341</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reduced_form</td>
+<td style="text-align: right;">1.298721</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">0.0482002</td>
+<td style="text-align: right;">0.0209604</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

@@ -26,7 +26,7 @@
 
 \selectlanguage{english}
 	
-	\title{Unconfounded but inflated causal estimates}
+	\title{Causal exaggeration}
 	\subtitle{Mathematical derivation}
 
 	\author{Vincent Bagilet}
@@ -132,9 +132,10 @@
 				\end{equation}
 			\end{definition}
 		
-			Note that \cite{gelman_beyond_2014} consider the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}\left[ | \hat{\beta}| | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right] / \beta_{1}$. To simplify the derivation, I abstract from the absolute value. My exaggeration ratio therefore depends on the well-known expected value of a truncated normal distribution instead of on the expected value of a truncated \textit{folded} normal distribution. 
+			Note that \cite{gelman_beyond_2014} consider the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}\left[ | \hat{\beta}| | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right] / \beta_{1}$. My understanding is that the absolute value enables to have a clearer message: when the absolute value of the true effect size increases, exaggeration decreases.
+			To simplify the derivation, I abstract from the absolute value. My exaggeration ratio therefore depends on the well-known expected value of a truncated normal distribution instead of on the expected value of a truncated \textit{folded} normal distribution. 
 			
-			Also note that, in this paper, we focus on estimators that can be decomposed into $\beta = \beta_{1} + b$, with $\beta_{1}$ the true effect and $b$ a bias independent of $\beta_{1}$. Since the objective of this project is mostly to analyze when the exaggeration is greater than the OVB, it makes sense to focus on cases in which they bias the estimate in the same direction \textit{i.e.} $\beta_{1}$ and $b$ of the same sign. I focus on the case where the true effect is positive and the OVB upward, \textit{i.e.}, $\beta_{1} > 0$ and $b \geq 0$. The reasoning for negative true effect and bias is analogous but with signs flipped. 
+			Also note that, in this paper, we focus on estimators such that $\mathbb{E}[\hat{\beta}] = \beta_{1} + b$, with $\beta_{1}$ the true effect and $b$ a bias independent of $\beta_{1}$. Since the objective of this project is mostly to analyze when the exaggeration is greater than the OVB, it makes sense to focus on cases in which they bias the estimate in the same direction \textit{i.e.} $\beta_{1}$ and $b$ of the same sign. I focus on the case where the true effect is positive and the OVB upward, \textit{i.e.}, $\beta_{1} > 0$ and $b \geq 0$. The reasoning for negative true effect and bias is analogous but with signs flipped. 
 
 			Finally, note that in this document, I refer to $E$ as the ``exaggeration ratio'' and $\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]$ as ``exaggeration'' to avoid using the two terms interchangeably.
 			
@@ -482,8 +483,8 @@
 				\[ 
 				\mathbb{E}[\text{x}_{i}\text{x}_i'] 
 				= \mathbb{E} \begin{bmatrix}
-					1 & x\\ 
-					x & x^{2}
+					1 & x_{i}\\ 
+					x_{i} & x_{i}^{2}
 				\end{bmatrix} 
 				=
 				\begin{bmatrix}
@@ -588,11 +589,11 @@
 				\end{equation*}
 			\end{proof}
 				
-				Using the notations introduced in section \ref{maths_objectives}, we have:
+				Using the notations introduced in section \ref{maths_objectives}, and noting that  we have:
 				~
 				\begin{equation}\label{b_sigma_ovb}
 					\begin{array}{lll}
-						b_{\textsc{ovb}} & = \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}}\\
+						b_{\textsc{ovb}} & = \dfrac{\delta \gamma \sigma_{w}^{2}}{\sigma_{x}^{2}} \\~\\
 						\sigma_{\textsc{ovb}}^{2} & = \dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} \left(1 - \frac{\gamma^{2}\sigma_{w}^{2}}{\sigma_{x}^{2}} \right)}{n \ \sigma_{x}^{2}} =  \dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2}}{n \ \sigma_{x}^{2}}  - \dfrac{b_{\textsc{ovb}}^{2}}{n}
 					\end{array}				
 				\end{equation}
@@ -602,8 +603,17 @@
 					\begin{itemize}
 						\item Set $\delta = 0$. In this case $b = 0$ and $\sigma_{\textsc{ovb}}^{2} = \dfrac{\sigma_{u}^{2}}{n \sigma_{x}^{2}}$, the usual variance.
 						\item Set $\sigma_{w} = 0$ yields the same bias and variance.
-						\item Set $\gamma = 0$. In this case $b = 0$ and $\sigma_{\textsc{ovb}}^{2} = \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{n \sigma_{x}^{2}}$. The numerator of this variance differs because the variance of $y$ not explained by $x$ includes the effect of $w$. It is therefore equivalent to the usual variance.
+						\item Set $\gamma = 0$. In this case $b = 0$ and $\sigma_{\textsc{ovb}}^{2} = \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{n \sigma_{x}^{2}}$. The numerator of this variance differs because the variance of $y$ not explained by $x$ includes the effect of $w$. It is therefore equivalent to the usual variance.\\
 					\end{itemize}
+					
+					Now noting that $\text{cov}(x, w) = \text{cov}(\mu_{x} + \gamma w + \epsilon, w) = \gamma \sigma_{w}^{2}$ and thus $\text{corr}(x, w) = \frac{\text{cov}(x, w)}{\sigma_{x}\sigma_{w}} = \frac{\gamma\sigma_{w}}{\sigma_{x}} = \rho_{xw}$, we have:
+					~
+				\begin{equation}
+					\begin{array}{lll}
+						b_{\textsc{ovb}} & = \dfrac{\delta}{\gamma}\rho_{xw}^{2}\\~\\
+						\sigma_{\textsc{ovb}}^{2} & = \dfrac{ \sigma_{u}^{2} +  \delta^{2} \sigma_{w}^{2} (1 - \rho_{xw}^{2})}{n \ \sigma_{x}^{2}} 
+					\end{array}				
+				\end{equation}
 					
 				% LOOK AT DEMEANED VERSION IN HANSEN p 71!!!!!!
 				
@@ -632,16 +642,16 @@
 		
 			In this section, we assume that no variable is omitted, \textit{i.e.} we control for $w$. The model we consider accurately represents the DGP: 
 						~
-						\begin{equation}\label{maths_eq_ovb}
-							y = X_{w}\bm{\beta}_{\textsc{ctrl}} + u_{\textsc{ctrl}}
-						\end{equation}
-				
-						where $X_{w}$ includes $w$ as well, such that $X_{w} = (\text{x}_{w, 1}', ..., \text{x}_{w, n}')'$ with $\forall i, \text{x}_{w, i}' = (1, x_{i}, w_{i})$. $u_{\textsc{ctrl}} = (u^{\textsc{ctrl}}_{1}, ... , u^{\textsc{ctrl}}_{n})' \in \mathbb{R}^{n}$ and $\mathbb{E}[X_{w}'u_{\textsc{ctrl}}] = 0$ and  $\mathbb{E}[X_{w}'u] = 0$. This corresponds to the usual OLS setting with two regressors and a constant.
+                    				\begin{equation}\label{maths_eq_ovb}
+                    					y = X_{w}\bm{\beta}_{\textsc{ctrl}} + u
+                    				\end{equation}
+                    				
+                    				where $X_{w} = (\text{x}_{w, 1}', ..., \text{x}_{w, n}')'$ with $\forall i, \text{x}_{w, i}' = (1, x_{i}, w_{i})$ and $\mathbb{E}[X_{w}'u] = 0$. This corresponds to the usual OLS setting with two regressors and a constant.
 		
 			\subsubsection{Asymptotic distribution}
 		
 			\begin{lemma}\label{lemma_ctrl}
-				Based on the sus-mentioned data generating process, for the controled OLS estimate $\hat{\beta}_{\textsc{ctrl}}$ of the regression of $y$ on $x$ and $w$, we have:
+				Based on the sus-mentioned data generating process, the controlled OLS estimator $\hat{\beta}_{\textsc{ctrl}}$ in the regression of $y$ on $x$ and $w$, is such that:
 				\[
 						\sqrt{n}\left( \hat{\beta}_{\textsc{ctrl}} - \beta_{1} \right)
 						 \overset{d}{\to} \mathcal{N}\left( 0 , \ \dfrac{ \sigma_{u}^{2}}{\sigma_{x}^{2} - \gamma^{2}\sigma_{w}^{2}} \right) 
@@ -653,23 +663,23 @@
 			~
 			\begin{align*}
 				 \hat{\bm{\beta}}_{\textsc{ctrl}} & =  (X_{w}'X_{w})^{-1}X_{w}'y\\
-				 	& = (x_{w}'X_{w})^{-1}X_{w}'(X\bm{\beta}_{w} + u)\\
-				 	& = \bm{\beta}_{w} + (X_{w}'X_{w})^{-1}X_{w}'u
+				 	& = (x_{w}'X_{w})^{-1}X_{w}'(X\bm{\beta}_{\textsc{ctrl}} + u)\\
+				 	& = \bm{\beta}_{\textsc{ctrl}} + (X_{w}'X_{w})^{-1}X_{w}'u
 			\end{align*}
 			
-			where $\bm{\beta}_{w} = (\beta_{0}, \beta_{1}, \delta)$ the true parameter vector including the parameter for $w$.
+			where $\bm{\beta}_{\textsc{ctrl}} = (\beta_{0}, \beta_{1}, \delta)$ the true parameter vector including the parameter for $w$.
 			Thus,
 			~
 			\begin{equation*}
-				\mathbb{E}[ \hat{\bm{\beta}}_{\textsc{ctrl}} | X]  =  \bm{\beta}_{w} + (X_{w}'X_{w})^{-1}\underbrace{\mathbb{E}[X_{w}'u]}_{0} = \bm{\beta}_{w}
+				\mathbb{E}[ \hat{\bm{\beta}}_{\textsc{ctrl}} | X]  =  \bm{\beta}_{\textsc{ctrl}} + (X_{w}'X_{w})^{-1}\underbrace{\mathbb{E}[X_{w}'u]}_{0} = \bm{\beta}_{\textsc{ctrl}}
 				\quad \Rightarrow \quad
-				\mathbb{E}[ \hat{\bm{\beta}}_{\textsc{ctrl}}]  = \bm{\beta}_{w}
+				\mathbb{E}[ \hat{\bm{\beta}}_{\textsc{ctrl}}]  = \bm{\beta}_{\textsc{ctrl}}
 			\end{equation*}
 			
 			The controled estimator is unbiased. We now want to derive its asymptotic distribution.
 				~
 				\begin{equation*}
-					\sqrt{n}(\hat{\bm{\beta}}_{\textsc{ctrl}} - \bm{\beta}_{w}) 
+					\sqrt{n}(\hat{\bm{\beta}}_{\textsc{ctrl}} - \bm{\beta}_{\textsc{ctrl}}) 
 						=  \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{x}_{w, i} \text{x}_{w, i}' \right)^{-1}  \sqrt{n} \left(\dfrac{1}{n} \sum_{i = 1}^{n} \text{x}_{w, i} u_{i} \right) 
 				\end{equation*}	
 				
@@ -680,7 +690,7 @@
 				\mathbb{E}[\text{x}_{w, i}\text{x}_{w, i}'\sigma_{u}^{2}] = 
 				\sigma_{u}^{2}\mathbb{E}[\text{x}_{w, i}\text{x}_{w, i}']$. Applying Slutsky's theorem then yields the usual result:
 				~
-				\[ \sqrt{n}(\hat{\bm{\beta}}_{\textsc{ctrl}} - \bm{\beta}_{w}) \overset{d}{\to} 
+				\[ \sqrt{n}(\hat{\bm{\beta}}_{\textsc{ctrl}} - \bm{\beta}_{\textsc{ctrl}}) \overset{d}{\to} 
 					\mathcal{N}\left(0,  \mathbb{E}[\text{x}_{w, i}\text{x}_{w, i}']^{-1} \sigma_{u}^{2} \right) \]
 			
 			We are interested in the second component of $\hat{\bm{\beta}}_{\textsc{ctrl}}$. To retrieve it we need to compute $\mathbb{E}[\text{x}_{w, i}\text{x}_{w, i}']^{-1}$. 
@@ -688,9 +698,9 @@
 			\[ 
 				\mathbb{E}[\text{x}_{w, i}\text{x}_{w, i}'] 
 				= \mathbb{E} \begin{bmatrix}
-					1 & x & w\\ 
-					x & x^{2} & xw\\\
-					w & xw & w^{2}
+					1 & x_{i} & w\\ 
+					x_{i} & x_{i}^{2} & x_{i}w_{i}\\\
+					w_{i} & x_{i}w_{i} & w_{i}^{2}
 				\end{bmatrix} 
 				=
 				\begin{bmatrix}
@@ -701,18 +711,18 @@
 				=
 				\begin{bmatrix}
 					1 & \mu_{x} & 0\\ 
-					\mu_{x} & \sigma_{x}^{2} & \gamma\sigma_{w}^{2}\\
+					\mu_{x} & \sigma_{x}^{2} + \mu_{x}^{2} & \gamma\sigma_{w}^{2}\\
 					0 & \gamma\sigma_{w}^{2} & \sigma_{w}^{2}
 				\end{bmatrix} 
 				\]
 				
-				Now, $\mathbb{E}[\text{x}_{w, i}\text{x, w}_i']^{-1} = \dfrac{1}{\text{det}(\mathbb{E}[\text{x}_{w, i}\text{x, w}_i'])}~^{t}\text{C}$ with $C$ the comatrix of $\mathbb{E}[\text{x}_{w, i}\text{x, w}_i']$. We have:
+				Now, $\mathbb{E}[\text{x}_{w, i}\text{x}_{w, i}']^{-1} = \dfrac{1}{\text{det}(\mathbb{E}[\text{x}_{w, i}\text{x}_{w, i}'])}~^{t}\text{C}$ with C the comatrix of $\mathbb{E}[\text{x}_{w, i}\text{x}_{w, i}']$. We have:
 				~
 				\[
-					\text{det}(\mathbb{E}[\text{x}_{w, i}\text{x, w}_i']) = (\sigma_{x}^{2} + \mu_{x}^{2})\sigma_{w}^{2} -\sigma_{w}^{2}\mu_{x}^{2} - \gamma^{2}\sigma_{w}^{4} = \sigma_{w}^{2}(\sigma_{x}^{2} - \gamma^{2}\sigma_{w}^{2})
+					\text{det}(\mathbb{E}[\text{x}_{w, i}\text{x}_{w, i}']) = (\sigma_{x}^{2} + \mu_{x}^{2})\sigma_{w}^{2} -\sigma_{w}^{2}\mu_{x}^{2} - \gamma^{2}\sigma_{w}^{4} = \sigma_{w}^{2}(\sigma_{x}^{2} - \gamma^{2}\sigma_{w}^{2})
 				\]
 				
-				and the ``central'' component of C $\sigma_{w}^{2}$. Thus the central component of interest of $\mathbb{E}[\text{x}_{w, i}\text{x, w}_i']^{-1}$ is $\frac{1}{\sigma_{x}^{2} - \gamma^{2}\sigma_{w}^{2}}$. Note that this is the inverse of the variance of the $x^{\perp w}$.\\
+				and the ``central'' component of C $\sigma_{w}^{2}$. Thus the central component of interest of $\mathbb{E}[\text{x}_{w, i}\text{x}_{w, i}']^{-1}$ is $\frac{1}{\sigma_{x}^{2} - \gamma^{2}\sigma_{w}^{2}}$. Note that this is the inverse of the variance of the $x^{\perp w}$.\\
 				
 			Thus, for $\hat{\beta}_{\textsc{ctrl}}$, the second component of $\hat{\bm{\beta}}_{\textsc{ctrl}}$, we have:
 				\begin{equation}
@@ -733,7 +743,7 @@
 					\end{array}				
 				\end{equation}
 				
-				Thus, the larger $\gamma$, the larger the variance of the estimator. Also, noting that $\text{cov}(x, w) = \text{cov}(\mu_{x} + \gamma w + \epsilon, w) = \gamma \sigma_{w}$ and thus $\text{corr}(x, w) = \frac{\text{cov}(x, w)}{\sigma_{x}\sigma_{w}} = \frac{\gamma\sigma_{w}}{\sigma_{x}} = \rho_{xw}$. We have:
+				Thus, the larger $\gamma$, the larger the variance of the estimator. Also, noting that $\text{cov}(x, w) = \text{cov}(\mu_{x} + \gamma w + \epsilon, w) = \gamma \sigma_{w}^{2}$ and thus $\text{corr}(x, w) = \frac{\text{cov}(x, w)}{\sigma_{x}\sigma_{w}} = \frac{\gamma\sigma_{w}}{\sigma_{x}} = \rho_{xw}$. We have:
 				\[
 					\sigma_{\textsc{ctrl}}^{2} = \dfrac{\sigma_{u}^{2}}{n \ \sigma_{x}^{2}(1 - \rho_{xw}^{2})}
 				\]
@@ -864,8 +874,8 @@
 			\[ 
 				\mathbb{E}[\text{z}_{i}\text{z}_i'] 
 				= \mathbb{E} \begin{bmatrix}
-					1 & z\\ 
-					z & z^{2}
+					1 & z_{i}\\ 
+					z_{i} & z_{i}^{2}
 				\end{bmatrix} 
 				=
 				\begin{bmatrix}
@@ -941,7 +951,7 @@
 					}
 				\end{equation}
 				~
-				\end{proof}
+		\end{proof}
 				
 				Using the notations introduced in section \ref{maths_objectives}, we have:
 				~
@@ -1039,7 +1049,7 @@
 				 
 		\subsection{Reduced form}
 		
-			Let's now assume that we want to directly estimate the effect of the instrument on the outcome of interest. Such a reduced form approach is often used when the instrument is binary, as described at the end of the IV section. Here, I focus on this binary case but note that most of the analysis carries to a continuous case. I thus consider a reduced form equation in which we regress $y$ on an exogenous shock $D$:
+			Let's now assume that we want to directly estimate the effect of the instrument on the outcome of interest. To underline the difference with the instrumental variable part and since reduced form approaches are often used when the instrument is binary, I denote the instrument $D$:
 						~
 						\[
 							y = D \bm{\beta_{\textsc{red}}} + u_{\textsc{red}}
@@ -1049,35 +1059,41 @@
 		
 			\subsubsection{Setting}
 			
-				I also consider a DGP analogous to that of the IV. Since we will directly regress $y$ on $z$, the resulting estimand will be different. To make them comparable, for the reduced form case, in equation \ref{maths_dgp_x_iv}, I set $\pi_{1}$ to 1. An increase of 1 in $z$ causes an increase of $\beta_{1}$ in $y$ and the estimands become comparable. For clarity, I denote the discrete shock $\text{d}_{i} = (1, d_{i})'$. All other assumptions and features of the DGP remain unchanged. Under these assumptions, plugging equation \ref{maths_dgp_x_iv} into equation \ref{maths_true_dgp} yields:
+			%%% DO NOT NEED TO ASSUME pi_1 = 1 NOR pi_0 = 0 NOR that the shock is discrete. It yields the same result
+			%% CHANGE THAT !!!!
+			
+				The DGP is analogous to that of the IV. Since we will directly regress the outcome on the instrument, the resulting estimand will be different. To make them comparable, for the reduced form case, in equation \ref{maths_dgp_x_iv}, I set $\pi_{1}$ to 1. An increase of 1 in the instrument causes an increase of $\beta_{1}$ in $y$ and the estimands become comparable. For clarity, I denote the discrete shock $\text{d}_{i} = (1, d_{i})'$. All other assumptions and features of the DGP remain unchanged. Under these assumptions, plugging equation \ref{maths_dgp_x_iv} into equation \ref{maths_true_dgp} yields:
 				
 				\[
-					y_{i} = \underbrace{\beta_{0} + \beta_{1}\pi_0}_{\beta_{0, \textsc{red}}} + \beta_{1}d_{i} + \underbrace{(\delta + \beta_{1}\gamma)}_{\delta_{\textsc{red}}}w_{i} + \underbrace{u_{i} + \beta_{1}\epsilon_{\textsc{red}, i}}_{u_{\textsc{red}, i}}
+					y_{i} = \underbrace{\beta_{0} + \beta_{1}\pi_0}_{\beta_{0, \textsc{red}}} + \beta_{1}\pi_{1}d_{i} + \underbrace{(\delta + \beta_{1}\gamma) w_{i} + u_{i} + \beta_{1}\epsilon_{\textsc{red}, i}}_{u_{\textsc{red}, i}}
 				\]
 				
 				where $\epsilon_{\textsc{red}}$ is equivalent to $\epsilon_{\textsc{iv}}$ in the IV. The second component of the parameter vector associated with d$_{i}$ is thus identical to the second component of $\bm{\beta}$. For the sake of clarity, we also assume that $\pi_{0} = 0$ such that $b_{0} = \beta_{0}$ and thus $(b_{0}, \beta_{1}) = \bm{\beta}'$. This assumption is not necessary but clarifies the analysis. Dropping it does not change the results for the second component of $\bm{\beta}$, the component of interest. %if variables centered, we do not need to assume that
 				Thus, in the reduced form case, we have:
 				
 				\begin{equation}
-					y_{i} =  \text{d}_{i}'\bm{\beta} + \delta_{\textsc{red}} w_{i} + u_{\textsc{red}, i}
+					y_{i} =  \text{d}_{i}'\bm{\beta_{\textsc{red}}} + u_{\textsc{red}, i}
 				\end{equation}
 
 		
 			\subsubsection{Asymptotic distribution}
 		
 			\begin{lemma}\label{lemma_red}
-				Based on the sus-mentioned data generating process, for the reduced form estimate $\hat{\beta}_{\textsc{red}}$ of the regression of $y$ on $d$, we have:
+				Based on the sus-mentioned data generating process, for the reduced form OLS estimate $\hat{\beta}_{\textsc{red}}$ of the regression of $y$ on $d$, we have:
 				\[
 						\sqrt{n}\left( \hat{\beta}_{\textsc{red}} - \beta_{1} \right)
 						\overset{d}{\to}
 							 \mathcal{N}\left( 0 , \ \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}}{\sigma_{d}^{2}} \right) 
 				\]
 				
-				with $\sigma_{d}^{2} = p_{1}(1-p_{1})$, $p_{1}$ being the proportion of treated observations, \textit{i.e.}, the proportion of 1 in $d$.	
+				with $\sigma_{d}^{2} = p_{1}(1-p_{1})$, when $d$ is binary and with $p_{1}$ the proportion of treated observations, \textit{i.e.}, the proportion of 1 in $d$.		
 				
 			\end{lemma}
 			
 			\begin{proof}
+				The proof is straightforward: this is the usual univariate, unbiased case, with and error term equal to $u_{\textsc{red}, i} = (\delta + \beta_{1}\gamma) w_{i} + u_{i} + \beta_{1}\epsilon_{\textsc{red}, i}$. Since $w$, $u$ and $\epsilon_{\textsc{red}}$ uncorrelated, $\sigma_{\textsc{red}}^{2} = (\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}$.\\
+			
+			
 			We first derive the bias of the estimator.
 			~
 			\begin{align*}
@@ -1191,7 +1207,7 @@
 					& = (\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{\textsc{red}}}^{2}
 			\end{align*}
 				
-				Further, since $d$ is a vector of dummies, denoting $p_{1}$ the proportion of 1 in this vector, $\sigma_{d}^{2} = p_{1}(1 - p_{1})$ and thus:		
+				Further, when $d$ is a vector of dummies, denoting $p_{1}$ the proportion of 1 in this vector, $\sigma_{d}^{2} = p_{1}(1 - p_{1})$ and thus:		
 				~
 				\begin{equation}\label{distrib_red_prop}
 						\hat{\beta}_{\textsc{red}} \overset{d}{\to} 

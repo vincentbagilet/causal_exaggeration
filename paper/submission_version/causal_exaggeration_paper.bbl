@@ -133,6 +133,10 @@ Gelman, A. \harvardand\ Loken, E.  \harvardyearleft 2013\harvardyearright ,
   even when there is no ``fishing expedition'' or ``p-hacking'' and the
   research hypothesis was posited ahead of time'.
 
+\harvarditem{Hansen}{2022}{hansen_econometrics_2022}
+Hansen, B.  \harvardyearleft 2022\harvardyearright , {\em Econometrics},
+  {Princeton University Press}, {Princeton}.
+
 \harvarditem{Hern{\'a}n}{2021}{hernan_causal_2021}
 Hern{\'a}n, M.~A.  \harvardyearleft 2021\harvardyearright , `Causal analyses of
   existing databases: No power calculations required', {\em Journal of Clinical
@@ -150,8 +154,8 @@ Hill, J.~L.  \harvardyearleft 2011\harvardyearright , `Bayesian {{Nonparametric
 
 \harvarditem{{Huntington-Klein}}{2021}{huntington-klein_effect_2021}
 {Huntington-Klein}, N.  \harvardyearleft 2021\harvardyearright , {\em The
-  {{Effect}}: {{An Introduction}} to {{Research Design}} and {{Causality}}},
-  first edn, {Chapman and Hall/CRC}, {Boca Raton}.
+  {{Effect}}: {{An Introduction}} to {{Research Design}} and {{Causality}}}, 1
+  edn, {Chapman and Hall/CRC}, {Boca Raton}.
 
 \harvarditem{Imbens \harvardand\ Kalyanaraman}{2012}{imbens_optimal_2012}
 Imbens, G. \harvardand\ Kalyanaraman, K.  \harvardyearleft

@@ -99,9 +99,21 @@ Cinelli, C. \harvardand\ Hazlett, C.  \harvardyearleft 2020\harvardyearright ,
   of the Royal Statistical Society: Series B (Statistical Methodology)} {\bf
   82}(1),~39--67.
 
+\harvarditem{Cooperman}{2017}{cooperman_randomization_2017}
+Cooperman, A.~D.  \harvardyearleft 2017\harvardyearright , `Randomization
+  {{Inference}} with {{Rainfall Data}}: {{Using Historical Weather Patterns}}
+  for {{Variance Estimation}}', {\em Political Analysis} {\bf 25}(3),~277--288.
+
 \harvarditem{Cunningham}{2021}{cunningham_causal_2021}
 Cunningham, S.  \harvardyearleft 2021\harvardyearright , {\em Causal
   {{Inference}}: {{The Mixtape}}}, {Yale University Press}.
+
+\harvarditem[Currie et~al.]{Currie, Davis, Greenstone \harvardand\
+  Walker}{2015}{currie_environmental_2015}
+Currie, J., Davis, L., Greenstone, M. \harvardand\ Walker, R.  \harvardyearleft
+  2015\harvardyearright , `Environmental {{Health Risks}} and {{Housing
+  Values}}: {{Evidence}} from 1,600 {{Toxic Plant Openings}} and {{Closings}}',
+  {\em American Economic Review} {\bf 105}(2),~678--709.
 
 \harvarditem{Deaton \harvardand\ Cartwright}{2018}{deaton_understanding_2018}
 Deaton, A. \harvardand\ Cartwright, N.  \harvardyearleft 2018\harvardyearright
@@ -115,6 +127,13 @@ Duflo, E., Glennerster, R. \harvardand\ Kremer, M.  \harvardyearleft
   Research}}: {{A Toolkit}}, {\em in} T.~P. Schultz \harvardand\ J.~A. Strauss,
   eds, `Handbook of {{Development Economics}}', Vol.~4, {Elsevier},
   pp.~3895--3962.
+
+\harvarditem[Fujiwara et~al.]{Fujiwara, Meng \harvardand\
+  Vogl}{2016}{fujiwara_habit_2016}
+Fujiwara, T., Meng, K. \harvardand\ Vogl, T.  \harvardyearleft
+  2016\harvardyearright , `Habit {{Formation}} in {{Voting}}: {{Evidence}} from
+  {{Rainy Elections}}', {\em American Economic Journal: Applied Economics} {\bf
+  8}(4),~160--188.
 
 \harvarditem{Gelman}{2020}{gelman_regression_2020}
 Gelman, A.  \harvardyearleft 2020\harvardyearright , {\em {Regression and Other
@@ -133,9 +152,12 @@ Gelman, A. \harvardand\ Loken, E.  \harvardyearleft 2013\harvardyearright ,
   even when there is no ``fishing expedition'' or ``p-hacking'' and the
   research hypothesis was posited ahead of time'.
 
-\harvarditem{Hansen}{2022}{hansen_econometrics_2022}
-Hansen, B.  \harvardyearleft 2022\harvardyearright , {\em Econometrics},
-  {Princeton University Press}, {Princeton}.
+\harvarditem[Gomez et~al.]{Gomez, Hansford \harvardand\
+  Krause}{2007}{gomez_republicans_2007}
+Gomez, B.~T., Hansford, T.~G. \harvardand\ Krause, G.~A.  \harvardyearleft
+  2007\harvardyearright , `The {{Republicans Should Pray}} for {{Rain}}:
+  {{Weather}}, {{Turnout}}, and {{Voting}} in {{U}}.{{S}}. {{Presidential
+  Elections}}', {\em The Journal of Politics} {\bf 69}(3),~649--663.
 
 \harvarditem{Hern{\'a}n}{2021}{hernan_causal_2021}
 Hern{\'a}n, M.~A.  \harvardyearleft 2021\harvardyearright , `Causal analyses of
@@ -185,6 +207,11 @@ Kasy, M.  \harvardyearleft 2021\harvardyearright , `Of {{Forking Paths}} and
   {{Tied Hands}}: {{Selective Publication}} of {{Findings}}, and {{What
   Economists Should Do}} about {{It}}', {\em Journal of Economic Perspectives}
   {\bf 35}(3),~175--192.
+
+\harvarditem{Kraft}{2020}{kraft_interpreting_2020}
+Kraft, M.~A.  \harvardyearleft 2020\harvardyearright , `Interpreting {{Effect
+  Sizes}} of {{Education Interventions}}', {\em Educational Researcher} {\bf
+  49}(4),~241--253.
 
 \harvarditem{Linden}{2019}{linden_retrodesign_2019}
 Linden, A.  \harvardyearleft 2019\harvardyearright , `{{RETRODESIGN}}:
@@ -272,6 +299,13 @@ Stommes, D., Aronow, P.~M. \harvardand\ S{\"a}vje, F.  \harvardyearleft
   2021\harvardyearright , `On the reliability of published findings using the
   regression discontinuity design in political science', {\em arXiv:2109.14526
   [stat]} .
+
+\harvarditem{Thistlethwaite \harvardand\
+  Campbell}{1960}{thistlethwaite_regression-discontinuity_1960}
+Thistlethwaite, D.~L. \harvardand\ Campbell, D.~T.  \harvardyearleft
+  1960\harvardyearright , `Regression-discontinuity analysis: {{An}}
+  alternative to the ex post facto experiment', {\em Journal of Educational
+  Psychology} {\bf 51}(6),~309--317.
 
 \harvarditem[Timm et~al.]{Timm, Gelman \harvardand\
   Carlin}{2019}{timm_retrodesign_2019}

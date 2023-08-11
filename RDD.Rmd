@@ -469,7 +469,7 @@ sim_rdd %>%
 
 ### Computing the bias and exaggeration ratio
 
-We want to compare $\mathbb{E}\left[\frac{\widehat{\beta_{RDD}}}{\beta_0}\right]$ and $\mathbb{E}\left[\frac{\widehat{\beta_{RDD}}}{\beta_0} | \text{signif} \right]$. The first term represents the bias and the second term represents the exaggeration ratio. This terms depend on the true effect size. To enable comparison across simulations and getting terms independent of effect sizes, we also compute the average of the ratios between the estimate and the true effect, conditional on significance. 
+We want to compare $\mathbb{E}\left[\frac{\widehat{\beta_{RDD}}}{\beta_0}\right]$ and $\mathbb{E}\left[ \frac{\widehat{\beta_{RDD}}}{\beta_0} | \text{signif} \right]$. The first term represents the bias and the second term represents the exaggeration ratio. This terms depend on the true effect size. To enable comparison across simulations and getting terms independent of effect sizes, we also compute the average of the ratios between the estimate and the true effect, conditional on significance. 
 
 ```{r summarise_RDD}
 summarise_simulations <- function(data) {
@@ -501,10 +501,10 @@ summary_sim_rdd %>%
     delta_name = paste("OVB intensity:", delta)
   ) %>% 
   ggplot(aes(x = bw, y = value, color = measure)) + 
-  geom_line(size = 0.8) +
+  geom_line() +
   labs(
     x = "Bandwidth size", 
-    y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
+    y = expression(paste("Average  ", frac("Estimate", "True Effect" ))),
     color = "Estimates",
     title = "Evolution of the bias with bandwidth size for the RDD",
     subtitle = "Conditional on significativity",
@@ -521,26 +521,19 @@ summary_sim_rdd %>%
     measure = ifelse(measure == "type_m", "Significants", "All"),
     delta_name = paste("OVB intensity:", delta)
   ) %>% 
-  ggplot(aes(x = bw, y = value, color = measure)) + #, linetype = fct_rev(measure))) + 
-  geom_line(size = 0.8) +
+  ggplot(aes(x = bw, y = value, color = measure)) + #, linetype = fct_rev(measure))) +
+  geom_line() +
   labs(
     x = "Bandwidth size", 
-    y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
+    y = expression(paste("Average  ", frac("Estimate", "True Effect" ))),
     linetype = "Estimates",
     color = "Estimates"
     # subtitle = "For several values of OVB intensity",
     # caption = "Bandwidth size as a proportion of the total number of observations"
   ) +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
-  theme_mediocre(base_family = "Lora", pal = "coty") +
-  theme(
-    legend.title = element_text(size = rel(0.9)),
-    legend.text = element_text(size = rel(0.9))
-  )
-  # theme_mediocre(pal = "blackandwhite", base_family = "Lora") +
-  # scale_mediocre_d(pal = "blackandwhite")
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) 
 
-ggsave("main_graph_RDD_paper.pdf", path = "images", width = 6.2, height = 3.7)
+ggsave("main_graph_RDD_paper.pdf", path = "images", width = 8, height = 4.5)
 ```
 
 We notice that, the smaller the bandwidth size, the closer the average of all estimates is to the true effect. Yet, when the bandwidth gets small significant estimates overestimate the true effect. This arises because of a loss of power, as shown in the graph below.
@@ -592,7 +585,7 @@ sim_rdd %>%
   scale_y_continuous(breaks = NULL) + 
   labs(
     y = "Bandwidth size", 
-    x = expression(paste(frac("Estimate", "True Effect"))),
+    x = expression(paste(frac("Estimate", "True Effect" ))),
     fill = "",
     title = "Distribution of RDD estimates for different bandwidths",
     subtitle = "Conditional on significativity", 

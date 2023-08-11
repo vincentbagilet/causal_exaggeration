@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  17 FEB 2023 11:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  10 AUG 2023 16:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1240,11 +1240,12 @@ Package footmisc Info: Declaring symbol style lamport* on input line 903.
 Package footmisc Info: Declaring symbol style lamport*-robust on input line 924
 .
 )
-No file leo_dissertation.aux.
+(./leo_dissertation.aux)
 \openout1 = `leo_dissertation.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/jkp/m/it on input line 106.
 LaTeX Font Info:    Try loading font information for OML+jkp on input line 106.
+
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/kpfonts/omljkp.fd
 File: omljkp.fd 2006/08/15 v1.0
@@ -1371,6 +1372,8 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 106.
 LaTeX Info: Redefining \pageref on input line 106.
 LaTeX Info: Redefining \nameref on input line 106.
+
+(./leo_dissertation.out) (./leo_dissertation.out)
 \@outlinefile=\write3
 \openout3 = `leo_dissertation.out'.
 
@@ -1398,5 +1401,4 @@ tim
 LaTeX Font Info:    Try loading font information for OT1+jkp on input line 106.
 
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/kpfonts/ot1jkp.fd
-File: ot1jkp.fd 2007/08/30 Fontinst 
+(/usr/local/texlive/2017/texmf-dist/tex/latex/kpfonts

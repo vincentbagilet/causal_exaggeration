@@ -52,9 +52,9 @@
 		The objective is to compare:
 		
 		 \[ 
-		 	\mathbb{E}\left[ \hat{\beta}_{\textsc{ovb}} | \beta_{1}, \sigma_{\textsc{ovb}}, \hat{\beta}_{\textsc{ovb}} > z_{\alpha} \sigma_{\textsc{ovb}} \right]
+		 	\mathbb{E}\left[ \hat{\beta}_{\textsc{ovb}} | \beta_{1}, \sigma_{\textsc{ovb}}, | \hat{\beta}_{\textsc{ovb}} | > z_{\alpha} \sigma_{\textsc{ovb}} \right]
 			\qquad \text{and} \qquad
-			\mathbb{E}\left[ \hat{\beta}_{..} | \beta_{1}, \sigma_{..}, \hat{\beta}_{..} > z_{\alpha} \sigma_{..} \right] 
+			\mathbb{E}\left[ \hat{\beta}_{..} | \beta_{1}, \sigma_{..}, | \hat{\beta}_{..} | > z_{\alpha} \sigma_{..} \right] 
 		\]
 			
 			where $..$ stands for the controlled regression  (\textsc{ctrl}), the IV (\textsc{iv}) and the reduced form (\textsc{red}). $\beta_{1}$ represents the true effect of interest, $\hat{\beta_{..}}$ its estimate, $\sigma_{..}$ the standard error of the estimate and $z_{\alpha}$ the threshold value of a two-sided test of size $\alpha$. In all of my analyses, I consider tests of size 5\%. One can thus think of $z_{\alpha}$ as being equal to 1.96. % and $b_{\textsc{..}}$ the bias in the naive regression. Note that due to the exogeneity assumption $b_{\textsc{iv}} = 0$. 
@@ -125,19 +125,20 @@
 		 I first define the exaggeration ratio, then compute it for a normally distributed estimator and study its general properties. This then enables me to illustrate the intuition behind the link between imprecision and exaggeration.
 		 
 		 	\begin{definition}
-		 		For an estimator $\hat{\beta}$ of a true effect of magnitude $\beta_1$, I define the exaggeration ratio $E$ as the ratio expected value of the estimate conditional on the estimate being statistically significant over the true effect:
+		 		For an estimator $\hat{\beta}$ of a true effect of magnitude $\beta$, I define the exaggeration ratio $E$ as the ratio expected value of the estimate conditional on the estimate being statistically significant over the true effect:
 		 
 				 \begin{equation}\label{exagg_general}
-				 	E(\beta, \sigma, \beta_{1}, z_{\alpha}) = \dfrac{\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]}{\beta_{1}} 
+				 	E(\hat{\beta}, \sigma, \beta, z_{\alpha}) = \dfrac{\mathbb{E}\left[ \hat{\beta} | \beta, \sigma, | \hat{\beta} | > z_{\alpha} \sigma \right]}{\beta} 
 				\end{equation}
 			\end{definition}
 		
-			Note that \cite{gelman_beyond_2014} consider the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}\left[ | \hat{\beta}| | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right] / \beta_{1}$. My understanding is that the absolute value enables to have a clearer message: when the absolute value of the true effect size increases, exaggeration decreases.
-			To simplify the derivation, I abstract from the absolute value. My exaggeration ratio therefore depends on the well-known expected value of a truncated normal distribution instead of on the expected value of a truncated \textit{folded} normal distribution. 
+			Note that \cite{gelman_beyond_2014} define exaggeration as the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}\left[ | \hat{\beta}| | \beta, \sigma, | \hat{\beta} | > z_{\alpha} \sigma \right] / | \beta |$. Problematically, under this definition, in the absence of publication bias (\textit{i.e.}, not conditioning on significance) the corresponding expression $\mathbb{E}\left[ | \hat{\beta}| | \beta, \sigma \right] / | \beta |$ does equal 1 for relatively imprecise estimators. Since I aim to study the impact of the significance filter by comparing situations with and without it, I need my metric to retrieve the true effect when not conditioning on significance. Note that my definition is also more conservative than \citeauthor{gelman_beyond_2014}'s and yields smaller exaggeration factors when some estimates are of the wrong sign.
+			
+			My exaggeration ratio therefore depends on the well-known expected value of a truncated normal distribution instead of on the expected value of a truncated \textit{folded} normal distribution. 
 			
 			Also note that, in this paper, we focus on estimators such that $\mathbb{E}[\hat{\beta}] = \beta_{1} + b$, with $\beta_{1}$ the true effect and $b$ a bias independent of $\beta_{1}$. Since the objective of this project is mostly to analyze when the exaggeration is greater than the OVB, it makes sense to focus on cases in which they bias the estimate in the same direction \textit{i.e.} $\beta_{1}$ and $b$ of the same sign. I focus on the case where the true effect is positive and the OVB upward, \textit{i.e.}, $\beta_{1} > 0$ and $b \geq 0$. The reasoning for negative true effect and bias is analogous but with signs flipped. 
 
-			Finally, note that in this document, I refer to $E$ as the ``exaggeration ratio'' and $\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, \hat{\beta} > z_{\alpha} \sigma \right]$ as ``exaggeration'' to avoid using the two terms interchangeably.
+			Finally, note that in this document, I refer to $E$ as the ``exaggeration ratio'' and $\mathbb{E}\left[ \hat{\beta} | \beta_{1}, \sigma, | \hat{\beta} | > z_{\alpha} \sigma \right]$ as ``exaggeration'' to avoid using the two terms interchangeably.
 			
 		 \subsection{A general expression for the exaggeration ratio}
 			

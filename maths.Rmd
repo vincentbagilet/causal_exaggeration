@@ -46,7 +46,7 @@ library(here)
 set_mediocre_all(pal = "coty")
 ```
 
-The full mathematical derivation is available [here](Maths/math_causal_exaggeration.pdf).
+<!-- The full mathematical derivation is available [here](Maths/math_causal_exaggeration.pdf). -->
 
 In this document, I check that the results I derived are correct. First, I verify my exaggeration formula and then the asymptotic variance of the various estimators. 
 

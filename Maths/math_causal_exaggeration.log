@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  8 AUG 2023 16:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  11 AUG 2023 11:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1584,6 +1584,12 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 127.
+
+Underfull \hbox (badness 3557) in paragraph at lines 140--141
+[]\T1/cmr/m/n/10.95 Finally, note that in this doc-u-ment, I re-fer to $\OML/cm
+m/m/it/10.95 E$ \T1/cmr/m/n/10.95 as the ``ex-ag-ger-a-tion ra-tio'' and
+ []
+
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 144.
@@ -1662,7 +1668,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 252--253
 
  []
 
-<../images/graph_intuition_precision.pdf, id=173, 433.62pt x 346.29375pt>
+<../images/graph_intuition_precision.pdf, id=174, 433.62pt x 346.29375pt>
 File: ../images/graph_intuition_precision.pdf Graphic file (type pdf)
 
 <use ../images/graph_intuition_precision.pdf>
@@ -1677,10 +1683,6 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [7 <../images/graph_intuition_precision.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 332--333
-
- []
-
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 13.59999pt.
@@ -1688,6 +1690,11 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [8]
+Underfull \hbox (badness 10000) in paragraph at lines 332--333
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 342--343
 
  []
@@ -1823,7 +1830,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 796--797
 
  []
 
-<../images/DAG_maths_IV.png, id=299, 3914.625pt x 978.65625pt>
+<../images/DAG_maths_IV.png, id=300, 3914.625pt x 978.65625pt>
 File: ../images/DAG_maths_IV.png Graphic file (type png)
 
 <use ../images/DAG_maths_IV.png>
@@ -1982,7 +1989,7 @@ d.
 (rerunfilecheck)             Checksum: 4421A992F7700A7CCDB09A682D7352D8;1428.
 Package rerunfilecheck Info: File `math_causal_exaggeration.brf' has not change
 d.
-(rerunfilecheck)             Checksum: FC96B802BB49BF56C5C6C6445949FF97;422.
+(rerunfilecheck)             Checksum: 53667CBD2D8DC4F30E48D0F0759E239C;478.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -2043,10 +2050,10 @@ c/cm-super/sfti1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
 cm-super/sfxc1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm
 -super/sfxc1440.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-s
 uper/sfxc2074.pfb>
-Output written on math_causal_exaggeration.pdf (31 pages, 791773 bytes).
+Output written on math_causal_exaggeration.pdf (31 pages, 792110 bytes).
 PDF statistics:
- 563 PDF objects out of 1000 (max. 8388607)
- 475 compressed objects within 5 object streams
+ 564 PDF objects out of 1000 (max. 8388607)
+ 476 compressed objects within 5 object streams
  118 named destinations out of 1000 (max. 500000)
  155 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: causal_exaggeration_paper.aux
+The style file: agsm.bst
+A level-1 auxiliary file: bu.aux
+Database file #1: ../causal_exaggeration.bib
+Warning--I didn't find a database entry for "currie2015environmental"
+Warning--empty publisher in hernan_causal_2020
+You've used 57 entries,
+            2909 wiz_defined-function locations,
+            975 strings with 15625 characters,
+and the built_in function-call counts, 236895 in all, are:
+= -- 38509
+> -- 3167
+< -- 4
++ -- 18327
+- -- 961
+* -- 20511
+:= -- 47587
+add.period$ -- 57
+call.type$ -- 57
+change.case$ -- 794
+chr.to.int$ -- 57
+cite$ -- 58
+duplicate$ -- 929
+empty$ -- 1870
+format.name$ -- 1166
+if$ -- 42498
+int.to.chr$ -- 5
+int.to.str$ -- 0
+missing$ -- 59
+newline$ -- 174
+num.names$ -- 591
+pop$ -- 240
+preamble$ -- 1
+purify$ -- 855
+quote$ -- 0
+skip$ -- 783
+stack$ -- 0
+substring$ -- 54438
+swap$ -- 178
+text.length$ -- 802
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 210
+warning$ -- 1
+while$ -- 1268
+width$ -- 0
+write$ -- 738
+(There were 2 warnings)

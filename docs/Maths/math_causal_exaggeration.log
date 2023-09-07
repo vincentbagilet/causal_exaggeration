@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  4 AUG 2023 20:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  7 SEP 2023 10:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1584,11 +1584,17 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 127.
+
+Underfull \hbox (badness 3557) in paragraph at lines 141--142
+[]\T1/cmr/m/n/10.95 Finally, note that in this doc-u-ment, I re-fer to $\OML/cm
+m/m/it/10.95 E$ \T1/cmr/m/n/10.95 as the ``ex-ag-ger-a-tion ra-tio'' and
+ []
+
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 144.
+(mdframed)              on input line 145.
 
-Underfull \hbox (badness 10000) in paragraph at lines 154--155
+Underfull \hbox (badness 10000) in paragraph at lines 155--156
 
  []
 
@@ -1608,46 +1614,46 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 [5]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 220.
+(hyperref)                removing `math shift' on input line 221.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sigma' on input line 220.
+(hyperref)                removing `\sigma' on input line 221.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 220.
+(hyperref)                removing `math shift' on input line 221.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 220.
+(hyperref)                removing `math shift' on input line 221.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\beta' on input line 220.
+(hyperref)                removing `\beta' on input line 221.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 220.
+(hyperref)                removing `math shift' on input line 221.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 220.
+(hyperref)                removing `math shift' on input line 221.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 220.
+(hyperref)                removing `math shift' on input line 221.
 
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 222.
+(mdframed)              on input line 223.
 
-Underfull \hbox (badness 10000) in paragraph at lines 234--236
+Underfull \hbox (badness 10000) in paragraph at lines 235--237
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 246--247
+Underfull \hbox (badness 10000) in paragraph at lines 247--248
 
  []
 
@@ -1658,16 +1664,16 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 252--253
+Underfull \hbox (badness 10000) in paragraph at lines 253--254
 
  []
 
-<../images/graph_intuition_precision.pdf, id=173, 433.62pt x 346.29375pt>
+<../images/graph_intuition_precision.pdf, id=175, 433.62pt x 346.29375pt>
 File: ../images/graph_intuition_precision.pdf Graphic file (type pdf)
 
 <use ../images/graph_intuition_precision.pdf>
 Package pdftex.def Info: ../images/graph_intuition_precision.pdf used on input 
-line 258.
+line 259.
 (pdftex.def)             Requested size: 338.58632pt x 270.40921pt.
 
 
@@ -1677,10 +1683,6 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [7 <../images/graph_intuition_precision.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 332--333
-
- []
-
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 13.59999pt.
@@ -1688,17 +1690,22 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 342--343
+Underfull \hbox (badness 10000) in paragraph at lines 333--334
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 352--353
+Underfull \hbox (badness 10000) in paragraph at lines 343--344
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 366--367
+Underfull \hbox (badness 10000) in paragraph at lines 353--354
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 367--368
 
  []
 
@@ -1709,7 +1716,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 393--394
+Underfull \hbox (badness 10000) in paragraph at lines 394--395
 
  []
 
@@ -1720,13 +1727,13 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 395--396
+Underfull \hbox (badness 10000) in paragraph at lines 396--397
 
  []
 
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 422.
+(mdframed)              on input line 423.
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 13.59999pt.
@@ -1734,12 +1741,12 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 444--445
+Underfull \hbox (badness 10000) in paragraph at lines 445--446
 
  []
 
 
-Underfull \hbox (badness 1189) in paragraph at lines 467--468
+Underfull \hbox (badness 1189) in paragraph at lines 468--469
 []\T1/cmr/m/n/10.95 Since $\U/msb/m/n/10.95 E\OT1/cmr/m/n/10.95 [[][]\OML/cmm/m
 /it/10.95 u[]\OT1/cmr/m/n/10.95 ] = 0$\T1/cmr/m/n/10.95 , by the Cen-tral Limit
  The-o-rem (CLT), $[] [] []
@@ -1759,19 +1766,19 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 575--576
+Underfull \hbox (badness 10000) in paragraph at lines 576--577
 
  []
 
 
-Underfull \hbox (badness 1603) in paragraph at lines 577--578
+Underfull \hbox (badness 1603) in paragraph at lines 578--579
 []\T1/cmr/m/n/10.95 We can now com-pute the vari-ance of the es-ti-ma-tor $[]$,
  not-ing that $\U/msb/m/n/10.95 E\OT1/cmr/m/n/10.95 [[][][][]\OML/cmm/m/it/10.9
 5 u[]\OT1/cmr/m/n/10.95 ] =
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 577--578
+Underfull \hbox (badness 10000) in paragraph at lines 578--579
 
  []
 
@@ -1782,6 +1789,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [14]
+Underfull \hbox (badness 10000) in paragraph at lines 607--608
+
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 13.59999pt.
@@ -1791,11 +1802,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 [15]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 644.
-
-Underfull \hbox (badness 10000) in paragraph at lines 716--717
-
- []
+(mdframed)              on input line 654.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1804,9 +1811,9 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [16]
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 763.
+Underfull \hbox (badness 10000) in paragraph at lines 726--727
+
+ []
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1815,19 +1822,23 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 787--788
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 773.
+
+Underfull \hbox (badness 10000) in paragraph at lines 797--798
 
  []
 
-<../images/DAG_maths_IV.png, id=300, 3914.625pt x 978.65625pt>
+<../images/DAG_maths_IV.png, id=301, 3914.625pt x 978.65625pt>
 File: ../images/DAG_maths_IV.png Graphic file (type png)
 
 <use ../images/DAG_maths_IV.png>
-Package pdftex.def Info: ../images/DAG_maths_IV.png used on input line 793.
+Package pdftex.def Info: ../images/DAG_maths_IV.png used on input line 803.
 (pdftex.def)             Requested size: 284.52756pt x 71.12622pt.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 802.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1835,8 +1846,19 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[18 <../images/DAG_maths_IV.png>]
-Overfull \hbox (18.28697pt too wide) detected at line 894
+[18]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 812.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[19 <../images/DAG_maths_IV.png>]
+Overfull \hbox (9.10939pt too wide) detected at line 904
  \U/msb/m/n/10.95 E\OT1/cmr/m/n/10.95 [[][][][]] = [] = [] = []
  []
 
@@ -1846,21 +1868,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[19]
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 13.59999pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
 [20]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1001.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1022--1023
-
- []
+(mdframed)              on input line 1011.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1869,7 +1880,12 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [21]
-Underfull \hbox (badness 10000) in paragraph at lines 1035--1036
+Underfull \hbox (badness 10000) in paragraph at lines 1032--1033
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1045--1046
 
  []
 
@@ -1882,9 +1898,9 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 [22]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1072.
+(mdframed)              on input line 1082.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1085--1086
+Underfull \hbox (badness 10000) in paragraph at lines 1095--1096
 
  []
 
@@ -1904,7 +1920,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 [24]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1221.
+(mdframed)              on input line 1231.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1922,10 +1938,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 [26]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1287.
+(mdframed)              on input line 1297.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1309.
+(mdframed)              on input line 1319.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1936,7 +1952,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 [27]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1344.
+(mdframed)              on input line 1354.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1959,35 +1975,35 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [29])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1385.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1395.
  [30
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1385.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1395.
  (./math_causal_exaggeration.aux (./bu.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1385.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1385.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1395.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1395.
 
 Package rerunfilecheck Info: File `math_causal_exaggeration.out' has not change
 d.
 (rerunfilecheck)             Checksum: 4421A992F7700A7CCDB09A682D7352D8;1428.
 Package rerunfilecheck Info: File `math_causal_exaggeration.brf' has not change
 d.
-(rerunfilecheck)             Checksum: 40BE23188378FE4E8DC4377ECAF3B687;422.
+(rerunfilecheck)             Checksum: 53667CBD2D8DC4F30E48D0F0759E239C;478.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1385.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1395.
  ) 
 Here is how much of TeX's memory you used:
- 22542 strings out of 492995
- 370583 string characters out of 6132704
+ 22543 strings out of 492995
+ 370598 string characters out of 6132704
  495148 words of memory out of 5000000
  25610 multiletter control sequences out of 15000+600000
  39218 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,19n,56p,10413b,525s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,18n,56p,10413b,525s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -2034,10 +2050,10 @@ c/cm-super/sfti1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
 cm-super/sfxc1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm
 -super/sfxc1440.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-s
 uper/sfxc2074.pfb>
-Output written on math_causal_exaggeration.pdf (31 pages, 791657 bytes).
+Output written on math_causal_exaggeration.pdf (31 pages, 792359 bytes).
 PDF statistics:
- 562 PDF objects out of 1000 (max. 8388607)
- 474 compressed objects within 5 object streams
- 117 named destinations out of 1000 (max. 500000)
+ 565 PDF objects out of 1000 (max. 8388607)
+ 477 compressed objects within 5 object streams
+ 118 named destinations out of 1000 (max. 500000)
  155 words of extra memory for PDF output out of 10000 (max. 10000000)
 

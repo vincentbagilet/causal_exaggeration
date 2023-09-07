@@ -88,29 +88,53 @@ For consistency with the other simulations, I wrap this analysis into functions 
 
 The DGP is described in the following DAG:
 
-```{r DAG_maths, echo=FALSE, fig.asp=0.3, out.width='60%'}
-dagify(Y ~ X + W,
-       X ~ Z + W + e,
-       outcome = "Y",
-       latent = "W",
-       coords = list(x = c(Y = 3, X = 2, W = 2.5, Z = 1),
-                     y = c(Y = 1, X = 1, W = 0, Z = 1))) |> 
-  # ggdag() +
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_point(alpha = 0, stroke = TRUE) +
-  geom_dag_edges() +
-  geom_dag_text(
-    colour = "black", 
-    size = 7,
-    family = "Lora"
+```{r DAG_maths, echo=FALSE, fig.asp=0.5, out.width='60%'}
+second_color <- str_sub(colors_mediocre[["four_colors"]], 10, 16)
+
+dagify(y ~ x + w + u,
+       x ~ z + w + e,
+       exposure = c("y", "x", "z", "w"),
+       # outcome = "w",
+       latent = c("u", "e"),
+       coords = list(x = c(y = 3, x = 2, w = 2.5, z = 1, e = 1.6, u = 3),
+                     y = c(y = 1, x = 1, w = 0, z = 1, e = 0.7, u = 1.5))
+  ) |> 
+  ggdag_status(text_size = 5) +
+  theme_dag_blank(base_family = "Lato", legend.position = "none") +
+  scale_mediocre_d(pal = "coty") + 
+  annotate(#parameters
+    "text", 
+    x = c(2.5, 1.5, 2.8, 2.2), 
+    y = c(1.1, 1.1, 0.45, 0.45), 
+    label = c("beta", "pi", "delta", "gamma"),
+    parse = TRUE,
+    color = "black",
+    size = 5
+  ) + 
+  annotate(#rectangle
+    "rect",
+    xmin = 0.85,
+    xmax = 1.8,
+    ymin = 0.5,
+    ymax = 1.22,
+    fill = second_color,
+    color = second_color,
+    alpha = 0.13
   ) +
-  theme_void()
+  annotate(#epsilon label
+    "text", 
+    label = expression(epsilon),
+    x = 0.95, 
+    y = 0.6,
+    size = 7, 
+    color = second_color
+  ) 
 ```
 
 As in the math section we have:
 
 $$y_{i} = \beta_{0} + \beta_1 x_{i} + \delta w_{i} + u_{i}$$
-$$x_{i} = \pi_0 + \pi_1 z_{i} + \gamma w_{i} + \epsilon_{i}$$
+$$x_{i} = \pi_0 + \pi_1 z_{i} + \gamma w_{i} + e{i}$$
 
 Note that to get to the setting described in the "OVB" and "CTRL" sections of the maths, one can simply set $\pi_1$ to 0.
 
@@ -161,7 +185,7 @@ rany <- function(n, mean = 0, sd = 1) {
 
 #### Generate function
 
-I then define the function to generate the data is the following:
+I then define the function to generate the data as follows:
 
 ```{r generate_data_maths}
 generate_data_maths <- function(n,
@@ -169,7 +193,7 @@ generate_data_maths <- function(n,
                                 sigma_z,
                                 mu_w = 0, #one of the simplifying assumptions
                                 sigma_w,
-                                sigma_epsilon,
+                                sigma_e,
                                 pi_0,
                                 pi_1,
                                 gamma,
@@ -182,17 +206,15 @@ generate_data_maths <- function(n,
     mutate(
       z = rany(n, mu_z, sigma_z),
       w = rany(n, mu_w, sigma_w),
-      epsilon = rany(n, 0, sigma_epsilon),
-      x = pi_0 + pi_1*z + gamma*w + epsilon,
+      e = rany(n, 0, sigma_e),
+      x = pi_0 + pi_1*z + gamma*w + e,
       u = rany(n, 0, sigma_u),
       y = beta_0 + beta_1*x + delta*w + u
     )
 }
 ```
 
-I then define the parameters values. I pick these values at random and played around with them to see if my results held.
-
-I built the present simulations to check my mathematical derivations and thus chose non-round parameter values in order to avoid peculiar behaviors caused by zeros or ones for instance. 
+I then define the parameters values. I pick these values at random:
 
 ```{r param_maths, echo=FALSE}
 param_maths <- tibble(
@@ -201,7 +223,7 @@ param_maths <- tibble(
   sigma_z = 0.5,
   mu_w = 0,
   sigma_w = 0.7,
-  sigma_epsilon = 1.2,
+  sigma_e = 1.2,
   pi_0 = 1,
   pi_1 = 0.8,
   gamma = 0.6,
@@ -214,7 +236,9 @@ param_maths <- tibble(
 param_maths |> kable()
 ```
 
-I can thus generate a dataset by passing this set of parameters to the `generate_data_maths` function. Here are the first lines of the output:
+Note that, I played around with these values to see if my results held. In addition, I built the present simulations to check my mathematical derivations and thus chose non-round parameter values in order to avoid peculiar behaviors caused by zeros or ones for instance. 
+
+I can thus generate a data set by passing this set of parameters to the `generate_data_maths` function. Here are the first lines of the output:
 
 ```{r test_data_maths, code_folding='Show code used to generate the table'}
 test_data <- pmap_dfr(param_maths, generate_data_maths)
@@ -349,7 +373,7 @@ $$\hat{\beta}_{IV} \overset{d}{\to}
 							 \mathcal{N}\left( \beta_1 , \ \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{n \ \pi_{1}^{2}\sigma_{z}^{2}} \right) $$
 							 
 $$\hat{\beta}_{RED} \overset{d}{\to} 
-							\mathcal{N}\left(\beta_{1},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{red}}^{2}}{n \sigma_{d}^{2}}  \right)$$
+							\mathcal{N}\left(\beta_{1},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{e{red}}^{2}}{n \sigma_{d}^{2}}  \right)$$
 							
 I thus write a function that, given a set of parameters, compute all these theoretical standard errors.
 
@@ -357,14 +381,14 @@ I thus write a function that, given a set of parameters, compute all these theor
 compute_th_se <- function(params) {
   params |> 
     mutate(
-      th_sigma_x = sqrt(pi_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_epsilon^2),
+      th_sigma_x = sqrt(pi_1^2*sigma_z^2 + gamma^2*sigma_w^2 + sigma_e^2),
       th_se_ctrl = sqrt(sigma_u^2/(n*(th_sigma_x^2 - gamma^2*sigma_w^2))),
       th_se_ovb = sqrt(
         (sigma_u^2 + delta^2*sigma_w^2*(1 - gamma^2*sigma_w^2/th_sigma_x^2))/
           (n*th_sigma_x^2)
       ),
       th_se_iv = sqrt((sigma_u^2 + delta^2*sigma_w^2)/(n*pi_1^2*sigma_z^2)),
-      th_se_reduced_form = sqrt((sigma_u^2 + (delta + beta_1*gamma)^2*sigma_w^2 + beta_1^2*sigma_epsilon^2)/(n*sigma_z^2)),
+      th_se_reduced_form = sqrt((sigma_u^2 + (delta + beta_1*gamma)^2*sigma_w^2 + beta_1^2*sigma_e^2)/(n*sigma_z^2)),
       .keep = "none"
     ) |>
     select(-th_sigma_x) |> 
@@ -398,7 +422,7 @@ param_recheck <- tibble(
   sigma_z = 0.7,
   mu_w = 0,
   sigma_w = 1.1,
-  sigma_epsilon = 0.9,
+  sigma_e = 0.9,
   pi_0 = 1.2,
   pi_1 = 1.4,
   gamma = 1.9,
@@ -448,7 +472,7 @@ param_red <- tibble(
   sigma_z = 1.1,
   mu_w = 0,
   sigma_w = 0.9,
-  sigma_epsilon = 1.2,
+  sigma_e = 1.2,
   pi_0 = 0,
   pi_1 = 1,
   gamma = 1.6,

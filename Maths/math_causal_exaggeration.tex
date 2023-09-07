@@ -788,13 +788,13 @@
 		
 			\subsubsection{Setting}
 		
-				Assume that $\mu_x + \epsilon_{i} = \pi_0 + \pi_1 z_i + \epsilon_{\textsc{iv}, i}$. Since the instrument is valid, it satisfies exogeneity, \textit{ie} $\mathbb{E}[\text{z}_{i}u_{i}] = 0$ and  $\mathbb{E}[z_{i}w_{i}] = 0$, relevance, \textit{ie} $\text{rank}(\mathbb{E}[\text{z}_{i}\text{x}_i']) = 2$,  and positive-definiteness of $\mathbb{E}[\text{z}_i \text{z}_i']$. The data generating process for $x_i$ becomes:			
+				Assume that $\mu_x + \epsilon_{i} = \pi_0 + \pi_1 z_i + e_{i}$. Since the instrument is valid, it satisfies exogeneity, \textit{ie} $\mathbb{E}[\text{z}_{i}u_{i}] = 0$ and  $\mathbb{E}[z_{i}w_{i}] = 0$, relevance, \textit{ie} $\text{rank}(\mathbb{E}[\text{z}_{i}\text{x}_i']) = 2$,  and positive-definiteness of $\mathbb{E}[\text{z}_i \text{z}_i']$. The data generating process for $x_i$ becomes:			
 				~
 				\begin{equation}\label{maths_dgp_x_iv}
-					x_i = \pi_0 + \pi_1 z_i + \gamma w_{i} + \epsilon_{\textsc{iv}, i}
+					x_i = \pi_0 + \pi_1 z_i + \gamma w_{i} + e_{i}
 				\end{equation}
 				
-				where $(\pi_0, \pi_1, \gamma) \in \mathbb{R}^{3}$ are unknown parameters. We assume that $\epsilon_{\textsc{iv}, i}$ is uncorrelated with $z_i$ and $w_{i}$, \textit{ie} $\mathbb{E}[z_i\epsilon_{\textsc{iv}, i}] = 0$ and $\mathbb{E}[w_i\epsilon_{\textsc{iv}, i}] = 0$. Note that, since $x_i$ and $w_i$ are correlated, $\gamma \neq 0$. We also assume homoskedasticity for this term, such that $\mathbb{E}[\epsilon_{\textsc{iv}, i}^{2} | z_{i}, w_{i}] = \sigma_{\epsilon_{\textsc{iv}}}^{2}$ is constant. It implies that  $\mathbb{E}[\epsilon_{\textsc{iv}, i}^{2} | z_{i}] = \sigma_{\epsilon_{\textsc{iv}}}^{2}$ (since $\mathbb{E}[\epsilon_{\textsc{iv}, i}^{2} | z_{i}] =  \mathbb{E}[\mathbb{E}[\epsilon_{\textsc{iv}, i}^{2} | z_{i}, w_{i}] | z_{i}] = \mathbb{E}[\sigma_{\epsilon_{\textsc{iv}}}^{2} | z_{i}] = \sigma_{\epsilon_{\textsc{iv}}}^{2})$.\\
+				where $(\pi_0, \pi_1, \gamma) \in \mathbb{R}^{3}$ are unknown parameters. We assume that $e_{i}$ is uncorrelated with $z_i$ and $w_{i}$, \textit{ie} $\mathbb{E}[z_ie_{i}] = 0$ and $\mathbb{E}[w_ie_{i}] = 0$. Note that, since $x_i$ and $w_i$ are correlated, $\gamma \neq 0$. We also assume homoskedasticity for this term, such that $\mathbb{E}[e_{i}^{2} | z_{i}, w_{i}] = \sigma_{e}^{2}$ is constant. It implies that  $\mathbb{E}[e_{i}^{2} | z_{i}] = \sigma_{e}^{2}$ (since $\mathbb{E}[e_{i}^{2} | z_{i}] =  \mathbb{E}[\mathbb{E}[e_{i}^{2} | z_{i}, w_{i}] | z_{i}] = \mathbb{E}[\sigma_{e}^{2} | z_{i}] = \sigma_{e}^{2})$.\\
 
 				The following Directed Acyclic Graph (DAG) sums up the relationships between the variables. It also helps underline the independence, or not, of some variables. 
 				
@@ -894,8 +894,8 @@
 				\end{bmatrix} 
 				=
 				\begin{bmatrix}
-					1 & \pi_0 + \pi_1 \mathbb{E}[z_{i}] + \gamma \underbrace{\mathbb{E}[w_{i}]}_{0} + \underbrace{\mathbb{E}[\epsilon_{\textsc{iv}, i}]}_{0}\\ 
-					\mu_{z} & \pi_0 \mathbb{E}[z_{i}] + \pi_1 \mathbb{E}[z_{i}^{2}] + \gamma \underbrace{\mathbb{E}[z_{i}w_{i}]}_{0} + \underbrace{\mathbb{E}[z_{i}\epsilon_{\textsc{iv}, i}]}_{0}
+					1 & \pi_0 + \pi_1 \mathbb{E}[z_{i}] + \gamma \underbrace{\mathbb{E}[w_{i}]}_{0} + \underbrace{\mathbb{E}[e_{i}]}_{0}\\ 
+					\mu_{z} & \pi_0 \mathbb{E}[z_{i}] + \pi_1 \mathbb{E}[z_{i}^{2}] + \gamma \underbrace{\mathbb{E}[z_{i}w_{i}]}_{0} + \underbrace{\mathbb{E}[z_{i}e_{i}]}_{0}
 				\end{bmatrix} =
 				\begin{bmatrix}
 					1 & \pi_0 + \pi_1 \mu_{z}\\ 
@@ -964,12 +964,12 @@
 					\end{array}				
 				\end{equation}
 				
-				Note that, since $z_{i}$ is uncorrelated with $w_{i}$ and $\epsilon_{\textsc{iv}, i}$, 
+				Note that, since $z_{i}$ is uncorrelated with $w_{i}$ and $e_{i}$, 
 				~
 				\begin{align*}
-					\sigma_{x}^{2} & =  \text{var}(x_{i}) = \text{var}(\pi_{0} + \pi_{1}z_{i} + \gamma w_{i} + \epsilon_{\textsc{iv}, i})\\
-						& = \pi_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon_{\textsc{iv}}}^{2} + 2\pi_{1}\gamma \underbrace{\text{cov}(z_{i}, w_{i})}_{0} + 2 \pi_{1}  \underbrace{\text{cov}(z_{i}, \epsilon_{\textsc{iv}, i})}_{0} + 2\gamma \underbrace{\text{cov}(w_{i}, \epsilon_{\textsc{iv}, i})}_{0} \\
-						& = \underbrace{\pi_{1}^{2}\sigma_{z}^{2}}_{V_{z}^{x}} + \underbrace{\gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon_{\textsc{iv}}}^{2}}_{V_{\text{non-}z}^{x}}
+					\sigma_{x}^{2} & =  \text{var}(x_{i}) = \text{var}(\pi_{0} + \pi_{1}z_{i} + \gamma w_{i} + e_{i})\\
+						& = \pi_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{e}^{2} + 2\pi_{1}\gamma \underbrace{\text{cov}(z_{i}, w_{i})}_{0} + 2 \pi_{1}  \underbrace{\text{cov}(z_{i}, e_{i})}_{0} + 2\gamma \underbrace{\text{cov}(w_{i}, e_{i})}_{0} \\
+						& = \underbrace{\pi_{1}^{2}\sigma_{z}^{2}}_{V_{z}^{x}} + \underbrace{\gamma^{2}\sigma_{w}^{2} + \sigma_{e}^{2}}_{V_{\text{non-}z}^{x}}
 				\end{align*}
 				
 				For a given variance of $x$, \ul{the larger the proportion of this variance that depends on $z$, $V_{z}^{x}$, (and the smaller the non-$z$ component $V_{\text{non-}z}^{x}$), the more precise the estimate}.
@@ -977,7 +977,7 @@
 				Also note that,
 				~
 				\begin{align*}
-					 &\text{cov}(x_i , z_i) =  \text{cov}( \pi_0 + \pi_1 z_i + \gamma w_{i} + \epsilon_{\textsc{iv}, i} , z_i) = \pi_1 \sigma_{z}^{2}\\
+					 &\text{cov}(x_i , z_i) =  \text{cov}( \pi_0 + \pi_1 z_i + \gamma w_{i} + e_{i} , z_i) = \pi_1 \sigma_{z}^{2}\\
 					\Rightarrow \quad & 
 					 \rho_{xz} = \text{corr}(x_{i}, z_{i}) = \dfrac{\text{cov}(x_{i}, z_{i})}{\sigma_x \sigma_z} = \pi_1 \dfrac{\sigma_z}{\sigma_x}\\
 					\Rightarrow \quad & \pi_1^{2} \sigma_z^{2} = \rho_{xz}^{2}\sigma_{x}^{2}
@@ -1024,14 +1024,14 @@
 						& = \beta_{1}^{2}\sigma_{x}^{2} + \delta^{2}\sigma_{w}^{2} + \sigma_{u}^{2} + 2\beta_{1}\delta \underbrace{\text{cov}(x_{i}, w_{i})}_{\gamma \sigma_{w}^{2}} + 2 \beta_{1}  \underbrace{\text{cov}(x_{i}, u_{i})}_{0} + 2\delta \underbrace{\text{cov}(w_{i}, u_{i})}_{0} \\
 						& = \beta_{1}^{2}\sigma_{x}^{2} + (\delta^{2} + 2\beta_{1}\gamma\delta)\sigma_{w}^{2} + \sigma_{u}^{2}\\
 						%& = \underbrace{\beta_{1}^{2}\sigma_{x}^{2}}_{V_{x}^{y}} + \underbrace{\delta (\delta + 2\beta_{1}\gamma)\sigma_{w}^{2} + \sigma_{u}^{2}}_{V_{\text{non-}x}^{y}}
-						& = \beta_{1}^{2}(\pi_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon_{\textsc{iv}}}^{2}) + (\delta^{2} + 2\beta_{1}\gamma\delta)\sigma_{w}^{2} + \sigma_{u}^{2}\\
-						& = \underbrace{\beta_{1}^{2}\pi_{1}^{2}\sigma_{z}^{2}}_{V_{z}^{y}} + \underbrace{(\beta_{1}\gamma + \delta)^{2}\sigma_{w}^{2} + (\beta_{1}^{2}\sigma_{\epsilon_{\textsc{iv}}}^{2} + \sigma_{u}^{2})}_{V_{\text{non-}z}^{y}}
-						%& = \beta_{1}^{2}\pi_{1}^{2}\sigma_{z}^{2} + (\beta_{1}\gamma + \delta)^{2}\sigma_{w}^{2} + (\beta_{1}^{2}\sigma_{\epsilon_{\textsc{iv}}}^{2} + \sigma_{u}^{2})
+						& = \beta_{1}^{2}(\pi_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{e}^{2}) + (\delta^{2} + 2\beta_{1}\gamma\delta)\sigma_{w}^{2} + \sigma_{u}^{2}\\
+						& = \underbrace{\beta_{1}^{2}\pi_{1}^{2}\sigma_{z}^{2}}_{V_{z}^{y}} + \underbrace{(\beta_{1}\gamma + \delta)^{2}\sigma_{w}^{2} + (\beta_{1}^{2}\sigma_{e}^{2} + \sigma_{u}^{2})}_{V_{\text{non-}z}^{y}}
+						%& = \beta_{1}^{2}\pi_{1}^{2}\sigma_{z}^{2} + (\beta_{1}\gamma + \delta)^{2}\sigma_{w}^{2} + (\beta_{1}^{2}\sigma_{e}^{2} + \sigma_{u}^{2})
 				\end{align*}
 				
 				The larger the parameters that are positively associated with $E_{\textsc{iv}}$ ($\sigma_{u}$, $\sigma_{w}$ and $\delta$), the larger the proportion of the variance of $y$ that does not depend on $z$, $V_{\text{non-}z}^{y}$. Hence, for a given variance of $y$, the smaller the proportion of  this variance that depends on $z$, $V_{z}^{y}$, (and the larger the non-$z$ component $V_{\text{non-}z}^{y}$), the less precise the estimate and the larger the exaggeration. \ul{The smaller the proportion of the variance in $y$ that depends on $z$, the larger the exaggeration of the IV estimator}.\\
 				
-				%The smaller the parameters that are positively associated with $E_{\textsc{iv}}$ ($\sigma_{u}$, $\sigma_{w}$ and $\delta$), the smaller the proportion of the variance of $y$ that does not depend on $x$, $V_{\text{non-}x}^{y}$. Hence, for a given variance of $y$, the larger the proportion of  this variance that depends on $x$, $V_{x}^{y}$, (and the smaller the non-$x$ component $V_{\text{non-}x}^{y}$), $\sigma_{x}$, the more precise the estimate and the lower exaggeration. The larger the proportion of the variance in $y$ that depends on $x$, the smaller the exaggeration. Now, since $\sigma_{x}^{2} = \pi_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{\epsilon_{\textsc{iv}}}^{2}$ and as mentioned above, for a fixed proportion of the variance of $y$ explained by $x$, \ul{the smaller the proportion of the variance in $x$ that depends on $z$, the larger the exaggeration}.
+				%The smaller the parameters that are positively associated with $E_{\textsc{iv}}$ ($\sigma_{u}$, $\sigma_{w}$ and $\delta$), the smaller the proportion of the variance of $y$ that does not depend on $x$, $V_{\text{non-}x}^{y}$. Hence, for a given variance of $y$, the larger the proportion of  this variance that depends on $x$, $V_{x}^{y}$, (and the smaller the non-$x$ component $V_{\text{non-}x}^{y}$), $\sigma_{x}$, the more precise the estimate and the lower exaggeration. The larger the proportion of the variance in $y$ that depends on $x$, the smaller the exaggeration. Now, since $\sigma_{x}^{2} = \pi_{1}^{2}\sigma_{z}^{2} + \gamma^{2}\sigma_{w}^{2} + \sigma_{e}^{2}$ and as mentioned above, for a fixed proportion of the variance of $y$ explained by $x$, \ul{the smaller the proportion of the variance in $x$ that depends on $z$, the larger the exaggeration}.
 				
 				Since $\pi_{1}^{2}\sigma_{z}^{2} = \rho_{xz}^{2}\sigma_{x}^{2}$, we can also express this exaggeration ratio as:
 				~
@@ -1069,7 +1069,7 @@
 					y_{i} = \underbrace{\beta_{0} + \beta_{1}\pi_0}_{\beta_{0, \textsc{red}}} + \beta_{1}\pi_{1}d_{i} + \underbrace{(\delta + \beta_{1}\gamma) w_{i} + u_{i} + \beta_{1}\epsilon_{\textsc{red}, i}}_{u_{\textsc{red}, i}}
 				\]
 				
-				where $\epsilon_{\textsc{red}}$ is equivalent to $\epsilon_{\textsc{iv}}$ in the IV. The second component of the parameter vector associated with d$_{i}$ is thus identical to the second component of $\bm{\beta}$. For the sake of clarity, we also assume that $\pi_{0} = 0$ such that $b_{0} = \beta_{0}$ and thus $(b_{0}, \beta_{1}) = \bm{\beta}'$. This assumption is not necessary but clarifies the analysis. Dropping it does not change the results for the second component of $\bm{\beta}$, the component of interest. %if variables centered, we do not need to assume that
+				where $\epsilon_{\textsc{red}}$ is equivalent to $e$ in the IV. The second component of the parameter vector associated with d$_{i}$ is thus identical to the second component of $\bm{\beta}$. For the sake of clarity, we also assume that $\pi_{0} = 0$ such that $b_{0} = \beta_{0}$ and thus $(b_{0}, \beta_{1}) = \bm{\beta}'$. This assumption is not necessary but clarifies the analysis. Dropping it does not change the results for the second component of $\bm{\beta}$, the component of interest. %if variables centered, we do not need to assume that
 				Thus, in the reduced form case, we have:
 				
 				\begin{equation}

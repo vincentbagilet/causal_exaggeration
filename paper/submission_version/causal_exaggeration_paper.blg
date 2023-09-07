@@ -4,47 +4,46 @@ The top-level auxiliary file: causal_exaggeration_paper.aux
 The style file: agsm.bst
 A level-1 auxiliary file: bu.aux
 Database file #1: ../causal_exaggeration.bib
-Warning--I didn't find a database entry for "currie2015environmental"
 Warning--empty publisher in hernan_causal_2020
-You've used 57 entries,
+You've used 58 entries,
             2909 wiz_defined-function locations,
-            975 strings with 15625 characters,
-and the built_in function-call counts, 236895 in all, are:
-= -- 38509
-> -- 3167
+            980 strings with 15877 characters,
+and the built_in function-call counts, 240540 in all, are:
+= -- 39099
+> -- 3214
 < -- 4
-+ -- 18327
-- -- 961
-* -- 20511
-:= -- 47587
-add.period$ -- 57
-call.type$ -- 57
-change.case$ -- 794
-chr.to.int$ -- 57
-cite$ -- 58
-duplicate$ -- 929
-empty$ -- 1870
-format.name$ -- 1166
-if$ -- 42498
++ -- 18599
+- -- 975
+* -- 20828
+:= -- 48323
+add.period$ -- 58
+call.type$ -- 58
+change.case$ -- 808
+chr.to.int$ -- 58
+cite$ -- 59
+duplicate$ -- 945
+empty$ -- 1906
+format.name$ -- 1186
+if$ -- 43153
 int.to.chr$ -- 5
 int.to.str$ -- 0
-missing$ -- 59
-newline$ -- 174
-num.names$ -- 591
-pop$ -- 240
+missing$ -- 60
+newline$ -- 177
+num.names$ -- 601
+pop$ -- 243
 preamble$ -- 1
-purify$ -- 855
+purify$ -- 870
 quote$ -- 0
-skip$ -- 783
+skip$ -- 796
 stack$ -- 0
-substring$ -- 54438
-swap$ -- 178
-text.length$ -- 802
+substring$ -- 55261
+swap$ -- 181
+text.length$ -- 816
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 210
+type$ -- 214
 warning$ -- 1
-while$ -- 1268
+while$ -- 1291
 width$ -- 0
-write$ -- 738
-(There were 2 warnings)
+write$ -- 750
+(There was 1 warning)

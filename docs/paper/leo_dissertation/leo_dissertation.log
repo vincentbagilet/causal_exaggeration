@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  17 FEB 2023 11:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  10 AUG 2023 16:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1240,11 +1240,12 @@ Package footmisc Info: Declaring symbol style lamport* on input line 903.
 Package footmisc Info: Declaring symbol style lamport*-robust on input line 924
 .
 )
-No file leo_dissertation.aux.
+(./leo_dissertation.aux)
 \openout1 = `leo_dissertation.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/jkp/m/it on input line 106.
 LaTeX Font Info:    Try loading font information for OML+jkp on input line 106.
+
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/kpfonts/omljkp.fd
 File: omljkp.fd 2006/08/15 v1.0
@@ -1371,6 +1372,8 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 106.
 LaTeX Info: Redefining \pageref on input line 106.
 LaTeX Info: Redefining \nameref on input line 106.
+
+(./leo_dissertation.out) (./leo_dissertation.out)
 \@outlinefile=\write3
 \openout3 = `leo_dissertation.out'.
 
@@ -1399,4 +1402,95 @@ LaTeX Font Info:    Try loading font information for OT1+jkp on input line 106.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/kpfonts/ot1jkp.fd
-File: ot1jkp.fd 2007/08/30 Fontinst 
+File: ot1jkp.fd 2007/08/30 Fontinst v1.928 font definitions for OT1/jkp.
+)
+LaTeX Font Info:    Try loading font information for U+jkpsya on input line 106
+.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/kpfonts/ujkpsya.fd
+File: ujkpsya.fd 2006/08/15 v1.0
+)
+LaTeX Font Info:    Try loading font information for U+jkpsyb on input line 106
+.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/kpfonts/ujkpsyb.fd
+File: ujkpsyb.fd 2006/08/15 v1.0
+)
+LaTeX Font Info:    Try loading font information for U+jkpmia on input line 106
+.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/kpfonts/ujkpmia.fd
+File: ujkpmia.fd 2006/08/15 v1.0
+)
+LaTeX Font Info:    Try loading font information for U+jkpsyc on input line 106
+.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/kpfonts/ujkpsyc.fd
+File: ujkpsyc.fd 2006/08/15 v1.0
+)
+LaTeX Font Info:    Try loading font information for OT1+jkpss on input line 10
+6.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/kpfonts/ot1jkpss.fd
+File: ot1jkpss.fd 2007/07/16 Fontinst v1.928 font definitions for OT1/jkpss.
+)
+\c__siunitx_mathtt_int=\count272
+LaTeX Font Info:    Try loading font information for OT1+jkptt on input line 10
+6.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/kpfonts/ot1jkptt.fd
+File: ot1jkptt.fd 2007/01/26 Fontinst v1.928 font definitions for OT1/jkptt.
+)
+LaTeX Font Info:    Try loading font information for T1+qag on input line 117.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tex-gyre/t1qag.fd
+File: t1qag.fd 2009/09/25 v1.2 font definition file for T1/qag
+)
+LaTeX Font Info:    Try loading font information for TS1+jkp on input line 117.
+
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/kpfonts/ts1jkp.fd
+File: ts1jkp.fd 2007/08/30 Fontinst v1.928 font definitions for TS1/jkp.
+)
+LaTeX Font Info:    Try loading font information for T1+zi4 on input line 122.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/inconsolata/t1zi4.fd
+File: t1zi4.fd 2016/12/29 T1/zi4 (Inconsolata)
+)
+LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
+(Font)              scaled to size 10.0pt on input line 122.
+
+
+./leo_dissertation.tex:124: LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.124 \\
+         [0.3cm]
+? 
+./leo_dissertation.tex:126: Extra }, or forgotten \endgroup.
+<recently read> }
+                 
+l.126 }
+       
+? 
+./leo_dissertation.tex:126: Emergency stop.
+<recently read> }
+                 
+l.126 }
+       
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 22260 strings out of 492995
+ 412429 string characters out of 6132704
+ 469853 words of memory out of 5000000
+ 25543 multiletter control sequences out of 15000+600000
+ 93793 words of font info for 138 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 41i,8n,38p,10400b,405s stack positions out of 5000i,500n,10000p,200000b,80000s
+./leo_dissertation.tex:126:  ==> Fatal error occurred, no output PDF file produ
+ced!

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  7 AUG 2023 15:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  7 SEP 2023 17:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1398,11 +1398,31 @@ File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
 \c@mdf@zref@counter=\count276
 Package zref Info: New property: mdf@pagevalue on input line 895.
 )
-\c@theorem=\count277
-\c@lemma=\count278
-\c@proposition=\count279
-\c@corollary=\count280
-\c@definition=\count281
+(/usr/local/texlive/2017/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen263
+\captionmargin@=\dimen264
+\captionwidth=\dimen265
+\caption@tempdima=\dimen266
+\caption@indent=\dimen267
+\caption@parindent=\dimen268
+\caption@hangindent=\dimen269
+)
+\c@ContinuedFloat=\count277
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: threeparttable package is loaded.
+Package caption Info: wrapfig package is loaded.
+)
+\c@theorem=\count278
+\c@lemma=\count279
+\c@proposition=\count280
+\c@corollary=\count281
+\c@definition=\count282
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
@@ -1414,42 +1434,49 @@ LaTeX Warning: Unused global option(s):
 
 (./causal_exaggeration_paper.aux
 
-LaTeX Warning: Label `maths_eq_ovb' multiply defined.
+LaTeX Warning: Label `graph_IV' multiply defined.
 
 
-LaTeX Warning: Label `maths_eq_ovb@cref' multiply defined.
+LaTeX Warning: Label `graph_IV@cref' multiply defined.
 
-(./bu.aux))
+(./bu.aux)
+
+LaTeX Warning: Label `bias_ovb' multiply defined.
+
+
+LaTeX Warning: Label `bias_ovb@cref' multiply defined.
+
+)
 \openout1 = `causal_exaggeration_paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 17.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 18.
  (/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Info: Redefining \degres on input line 17.
-LaTeX Info: Redefining \dots on input line 17.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Info: Redefining \degres on input line 18.
+LaTeX Info: Redefining \dots on input line 18.
 
 
 Package frenchb.ldf Warning: Please load the "natbib" package
-(frenchb.ldf)                BEFORE babel/frenchb; reported on input line 17.
+(frenchb.ldf)                BEFORE babel/frenchb; reported on input line 18.
 
-LaTeX Info: Redefining \up on input line 17.
+LaTeX Info: Redefining \up on input line 18.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1486,16 +1513,16 @@ LaTeX Info: Redefining \up on input line 17.
 
 (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count282
-\scratchdimen=\dimen263
+\scratchcounter=\count283
+\scratchdimen=\dimen270
 \scratchbox=\box86
-\nofMPsegments=\count283
-\nofMParguments=\count284
+\nofMPsegments=\count284
+\nofMParguments=\count285
 \everyMPshowfont=\toks48
-\MPscratchCnt=\count285
-\MPscratchDim=\dimen264
-\MPnumerator=\count286
-\makeMPintoPDFobject=\count287
+\MPscratchCnt=\count286
+\MPscratchDim=\dimen271
+\MPnumerator=\count287
+\makeMPintoPDFobject=\count288
 \everyMPtoPDFconversion=\toks49
 ) (/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -1520,33 +1547,35 @@ e
 Package: pdflscape 2016/05/14 v0.11 Display of landscape pages in PDF (HO)
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
-Package backref Info: ** backref set up for natbib ** on input line 17.
-Package hyperref Info: Link coloring ON on input line 17.
-LaTeX Info: Redefining \ref on input line 17.
-LaTeX Info: Redefining \pageref on input line 17.
-LaTeX Info: Redefining \nameref on input line 17.
+Package backref Info: ** backref set up for natbib ** on input line 18.
+Package hyperref Info: Link coloring ON on input line 18.
+LaTeX Info: Redefining \ref on input line 18.
+LaTeX Info: Redefining \pageref on input line 18.
+LaTeX Info: Redefining \nameref on input line 18.
 
 (./causal_exaggeration_paper.out) (./causal_exaggeration_paper.out)
 \@outlinefile=\write4
 \openout4 = `causal_exaggeration_paper.out'.
 
-\c@lstlisting=\count288
-LaTeX Font Info:    Try loading font information for U+msa on input line 35.
+\c@lstlisting=\count289
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Try loading font information for U+msa on input line 36.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 35.
+LaTeX Font Info:    Try loading font information for U+msb on input line 36.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 35.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 36.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 35.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 36.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
@@ -1558,7 +1587,7 @@ File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./images/graph_intuition_pre
 cision.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> 
 allowed
-<images/graph_intuition_precision.pdf, id=123, 433.62pt x 346.29375pt>
+<images/graph_intuition_precision.pdf, id=151, 433.62pt x 346.29375pt>
 File: images/graph_intuition_precision.pdf Graphic file (type pdf)
 
 <use images/graph_intuition_precision.pdf>
@@ -1597,6 +1626,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [5])
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -1604,14 +1637,19 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 109--110
 
- []
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
 
+[7] <images/main_graph_RDD_paper.pdf, id=356, 578.16pt x 325.215pt>
+File: images/main_graph_RDD_paper.pdf Graphic file (type pdf)
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--122
-
- []
+<use images/main_graph_RDD_paper.pdf>
+Package pdftex.def Info: images/main_graph_RDD_paper.pdf used on input line 109
+.
+(pdftex.def)             Requested size: 400.38872pt x 225.21738pt.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1619,32 +1657,42 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[7]
+[8 <./images/main_graph_RDD_paper.pdf>]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 184--185
+[9] <images/main_graph_IV_paper.pdf, id=390, 578.16pt x 325.215pt>
+File: images/main_graph_IV_paper.pdf Graphic file (type pdf)
 
- []
+<use images/main_graph_IV_paper.pdf>
+Package pdftex.def Info: images/main_graph_IV_paper.pdf used on input line 134.
 
+(pdftex.def)             Requested size: 450.43253pt x 253.36893pt.
 
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[9]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[10]
+[10 <./images/main_graph_IV_paper.pdf>]
+
+LaTeX Warning: Reference `graph_DID' on page 1 undefined on input line 153.
+
+<images/main_graph_DID_paper.pdf, id=408, 447.6725pt x 266.9975pt>
+File: images/main_graph_DID_paper.pdf Graphic file (type pdf)
+
+<use images/main_graph_DID_paper.pdf>
+Package pdftex.def Info: images/main_graph_DID_paper.pdf used on input line 159
+.
+(pdftex.def)             Requested size: 450.43253pt x 268.65088pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -1652,12 +1700,16 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [11]
-LaTeX Font Info:    Try loading font information for T1+fvm on input line 263.
- (/usr/local/texlive/2017/texmf-dist/tex/latex/bera/t1fvm.fd
-File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
-)
-LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 263.
+Underfull \hbox (badness 10000) in paragraph at lines 191--192
+
+ []
+
+<images/DAG_maths.png, id=432, 3914.625pt x 1957.3125pt>
+File: images/DAG_maths.png Graphic file (type png)
+
+<use images/DAG_maths.png>
+Package pdftex.def Info: images/DAG_maths.png used on input line 203.
+(pdftex.def)             Requested size: 300.29344pt x 150.13712pt.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1665,14 +1717,22 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[12]
+[12 <./images/main_graph_DID_paper.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 215--216
+
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[13]
+[13 <./images/DAG_maths.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 229--230
+
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -1680,7 +1740,60 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [14]
-Underfull \hbox (badness 5741) in paragraph at lines 305--305
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[15]
+Underfull \hbox (badness 10000) in paragraph at lines 343--344
+
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[16]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[17]
+LaTeX Font Info:    Try loading font information for T1+fvm on input line 398.
+ (/usr/local/texlive/2017/texmf-dist/tex/latex/bera/t1fvm.fd
+File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
+)
+LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
+(Font)              scaled to size 10.20007pt on input line 398.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[18]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[19]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[20]
+Underfull \hbox (badness 5741) in paragraph at lines 440--440
 [] []\T1/cmr/bx/sc/14.4 Attitude To-wards Sta-tis-ti-cal Sig-nif-i-cance and
  []
 
@@ -1690,14 +1803,21 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[15]
+[21]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[16]
+[22]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[23]
 \openout3 = `bu.aux'.
 
  (./causal_exaggeration_paper.bbl (./causal_exaggeration_paper.brf)
@@ -1716,20 +1836,21 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[17]
-Underfull \hbox (badness 1540) in paragraph at lines 154--154
-[]\T1/cmr/m/n/12 Hill, J. L. []([]2011[])[], `Bayesian Non-para-met-ric Mod-el-
-ing for Causal In-fer-ence', |   []   |   []
- []
-
+[24]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[18]
-Underfull \hbox (badness 1590) in paragraph at lines 170--170
+[25]
+Underfull \hbox (badness 1540) in paragraph at lines 176--176
+[]\T1/cmr/m/n/12 Hill, J. L. []([]2011[])[], `Bayesian Non-para-met-ric Mod-el-
+ing for Causal In-fer-ence', |   []   |   []
+ []
+
+
+Underfull \hbox (badness 1590) in paragraph at lines 192--192
 []\T1/cmr/m/n/12 Imbens, G. W. and Ru-bin, D. B. []([]2015[])[], |   []   |   [
 ]   |   []   |   []   |   []   |   []
  []
@@ -1740,34 +1861,40 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[19]
-Underfull \hbox (badness 6927) in paragraph at lines 260--260
+[26]
+Underfull \hbox (badness 6927) in paragraph at lines 293--293
 []\T1/cmr/m/n/12 Shadish, W. R., Cook, T. D. and Camp-bell, D. T. []([]2002[])[
 ], |   []   |   []
  []
 
-)
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[20]
+[27])
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[28]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 361.
+(hyperref)                removing `math shift' on input line 485.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 361.
+(hyperref)                removing `subscript' on input line 485.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 361.
+(hyperref)                removing `math shift' on input line 485.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 402--403
+Underfull \hbox (badness 10000) in paragraph at lines 496--497
 
  []
 
@@ -1777,60 +1904,137 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[21]
-Overfull \hbox (32.16144pt too wide) detected at line 473
+[29]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[30]
+Underfull \hbox (badness 6412) in paragraph at lines 614--615
+[]\T1/cmr/m/n/12 Thus, un-der our set of as-sump-tions, $\U/msb/m/n/12 E\OT1/cm
+r/m/n/12 [\OML/cmm/m/it/12 u[]\OMS/cmsy/m/n/12 j[][]\OT1/cmr/m/n/12 ]$ \T1/cmr/
+m/n/12 does not de-pend on $\OML/cmm/m/it/12 x[]$ \T1/cmr/m/n/12 and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 614--615
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 616--617
+
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 634.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 634.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 634.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[31]
+Underfull \hbox (badness 10000) in paragraph at lines 665--666
+
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 688.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 688.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 688.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[32]
+Overfull \hbox (23.03128pt too wide) detected at line 727
  \U/msb/m/n/12 E\OT1/cmr/m/n/12 [[][][][]] = [] = [] = []
  []
 
 
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 766.
 
-[22]
 
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 766.
 
-[23]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 558.
 
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 766.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 772.
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[24]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 558.
+[33]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 772.
  (./causal_exaggeration_paper.aux (./bu.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 558.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 558.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 772.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 772.
 Package rerunfilecheck Info: File `causal_exaggeration_paper.out' has not chang
 ed.
-(rerunfilecheck)             Checksum: 7F862EDC5E07115937B62ABC5E0DFD2F;1772.
+(rerunfilecheck)             Checksum: 3C702452CDCD62FFA3652D6B2CAB956A;2373.
 Package rerunfilecheck Info: File `causal_exaggeration_paper.brf' has not chang
 ed.
-(rerunfilecheck)             Checksum: A7F3BC11637971777CF35B73906C0014;5242.
+(rerunfilecheck)             Checksum: E52747FB45C4570EA0D4F6DB4DC5D112;5972.
+
+
+LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 558.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 772.
  ) 
 Here is how much of TeX's memory you used:
- 24561 strings out of 492995
- 414026 string characters out of 6132704
- 539589 words of memory out of 5000000
- 27613 multiletter control sequences out of 15000+600000
+ 25675 strings out of 492995
+ 435155 string characters out of 6132704
+ 565498 words of memory out of 5000000
+ 28677 multiletter control sequences out of 15000+600000
  39290 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,17n,56p,10414b,1109s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exi
+ 44i,18n,56p,10434b,1109s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Hfootnote.7} has been referenced but does not exi
 st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.6} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.5} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.4} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exist
+, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
 , replaced by a fixed one
@@ -1843,38 +2047,41 @@ usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texli
 ve/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texliv
 e/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive
 /2017/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texl
-ive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texli
-ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive
-/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2
-017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2
-017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/201
-7/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2017/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2017/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2017/texmf-dis
-t/fonts/type1/public/bera/fvmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/
-type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/texmf-dist/fo
-nts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2017/texmf-dist/font
-s/type1/public/cm-super/sfcc0600.pfb></usr/local/texlive/2017/texmf-dist/fonts/
-type1/public/cm-super/sfcc0800.pfb></usr/local/texlive/2017/texmf-dist/fonts/ty
-pe1/public/cm-super/sfcc1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type
-1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
-public/cm-super/sfrm0800.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pu
-blic/cm-super/sfrm1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publ
-ic/cm-super/sfrm1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public
-/cm-super/sfti1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/c
-m-super/sfti1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-
-super/sftt1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-su
-per/sftt1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-supe
-r/sfxc1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/
-sfxc1440.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sf
-xc1728.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfxc
-2074.pfb>
-Output written on causal_exaggeration_paper.pdf (24 pages, 696439 bytes).
+ive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texli
+ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texliv
+e/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/
+2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/20
+17/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2017
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2017
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2017/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2017/texmf-dist/fon
+ts/type1/public/bera/fvmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
+/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/texmf-dist/fonts/t
+ype1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/typ
+e1/public/cm-super/sfcc0600.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
+/public/cm-super/sfcc0800.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/p
+ublic/cm-super/sfcc1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pub
+lic/cm-super/sfrm0700.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publi
+c/cm-super/sfrm0800.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
+cm-super/sfrm1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm
+-super/sfrm1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-s
+uper/sfti1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-sup
+er/sfti1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super
+/sftt1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/s
+ftt1200.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfx
+c1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfxc1
+440.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfxc172
+8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfxc2074.
+pfb>
+Output written on causal_exaggeration_paper.pdf (33 pages, 1138523 bytes).
 PDF statistics:
- 772 PDF objects out of 1000 (max. 8388607)
- 686 compressed objects within 7 object streams
- 124 named destinations out of 1000 (max. 500000)
- 190 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 956 PDF objects out of 1000 (max. 8388607)
+ 842 compressed objects within 9 object streams
+ 163 named destinations out of 1000 (max. 500000)
+ 266 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -25,7 +25,7 @@
 
 	\author{Vincent Bagilet
 		\thanks{Columbia University, New York, USA. Email: \url{vincent.bagilet@columbia.edu}. 
-			A previous version of this paper, entitled ``\textit{Unconfounded but inflated causal estimates}'' (\textit{CEEP Working Paper Series}, 20), was co-authored with Léo Zabrocki-Hallak, I cannot thank him enough for his invaluable and far-reaching contributions to the project. I am very grateful to Hélène Ollivier and Jeffrey Shrader for their guidance and thank Sylvain Chabé-Ferret, Jesse McDevitt-Irwin, David McKenzie, José Luis Montiel Olea, Suresh Naidu, Claire Palandri, Julian Reif, Stephan Thies and Roberto Zuniga Valladares for helpful comments, as well as lab members at Columbia and seminars participants at Columbia, IPWSD, the Paris School of Economics and the Toulouse School of Economics.}
+			A previous version of this paper, entitled ``\textit{Unconfounded but inflated causal estimates}'' (\textit{CEEP Working Paper Series}, 20), was co-authored with Léo Zabrocki-Hallak; I cannot thank him enough for his invaluable and far-reaching contributions to the project. I am very grateful to Jeffrey Shrader for his guidance and thank Sylvain Chabé-Ferret, Clément De Chaisemartin, Jesse McDevitt-Irwin, David McKenzie, José Luis Montiel Olea, Hélène Ollivier, Suresh Naidu, Claire Palandri, Julian Reif, Stephan Thies and Roberto Zuniga Valladares for helpful comments, as well as lab members at Columbia and seminars participants at Columbia, IPWSD, the Paris School of Economics and the Toulouse School of Economics.}
 	}
 	
 	\institution{Sustainable Development PhD Program, Columbia University}
@@ -42,7 +42,7 @@
 		%To avoid confounding, causal identification strategies focus on a subset of the variation in the data, the plausibly exogenous part. In this paper, I argue that it can reduce statistical power and lead published estimates to exaggerate true effects sizes. Using realistic fake data simulations and a mathematical derivation, I show that for the main causal strategies, a perfectly convincing identification does not guaranty an absence of ``bias'' and that improving identification can actually pull us away from the true effect. I then discuss potential avenues to address this issue.\\~\\
 		
 		%Julian Reif's proposal, modified:
-		The credibility revolution in economics has made causal inference methods ubiquitous. At the same time, an increasing amount of evidence has highlighted that the literature strongly favors statistically significant results. I show that these two phenomena interact in a way that significantly worsens the reliability of published estimates: while causal inference methods can successfully reduce bias caused by confounders, the accompanying reduction in statistical power can create another type of bias, leading published estimates to exaggerate true effects sizes. I document this trade-off using realistic fake data simulations and a formal mathematical derivation. I then discuss potential avenues to address it. 
+		The credibility revolution in economics has made causal inference methods ubiquitous. At the same time, an increasing amount of evidence has highlighted that the literature strongly favors statistically significant results. I show that these two phenomena interact in a way that can significantly worsen the reliability of published estimates: while causal inference methods can successfully reduce bias caused by confounders, the accompanying reduction in statistical power can create another type of bias, leading published estimates to exaggerate true effects sizes. I document this trade-off using realistic fake data simulations and a formal mathematical derivation. I then discuss potential avenues to address it. 
 		
 		%Quasi-experimental studies make empirical economics credible. To avoid confounding, causal identification strategies focus on a subset of the variation in the data, the plausibly exogenous part. In this paper, I argue that it can reduce statistical power and lead published estimates to exaggerate true effects sizes. Using realistic fake data simulations and a mathematical derivation, I show that %for the main causal strategies, there can be a trade-off between confounding and exaggeration: we may avoid a bias at the risk of generating another one.
 		%using the main causal identification strategies to avoid a bias can also generate another one. I then discuss potential avenues to address this issue.\\~\\
@@ -70,7 +70,7 @@
 				
 	\section{Simulations} \label{simulations}
 	
-		I define an exaggeration ratio $E$, as the expected value of significant estimates over the true effect\footnote{Note that \cite{gelman_beyond_2014} define exaggeration as the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}[ | \hat{\beta}| | \beta, \sigma, | \hat{\beta} | > z_{\alpha} \sigma ] / | \beta |$. Problematically, with this definition but not conditioning on significance, the corresponding expression $\mathbb{E}[ | \hat{\beta}| | \beta, \sigma ] / | \beta |$ is different from 1 for relatively imprecise estimators, hence I use an alternative definition. Also note that my exaggeration ratio is more conservative than \citeauthor{gelman_beyond_2014}'s.}:
+		First, I define an exaggeration ratio $E$, as the expected value of significant estimates over the true effect\footnote{Note that \cite{gelman_beyond_2014} define exaggeration as the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}[ | \hat{\beta}| | \beta, \sigma, | \hat{\beta} | > z_{\alpha} \sigma ] / | \beta |$. Problematically, this expression, when not conditioning on significance, \textit{i.e.} $\mathbb{E}[ | \hat{\beta}| | \beta, \sigma ] / | \beta |$, is not equal to 1 for unbiased estimators, if statistical power is low. The alternative definition I use satisfies this key condition. Also note that my exaggeration ratio is smaller or equal to \citeauthor{gelman_beyond_2014}'s and thus more conservative.}:
 		 
 		 	\begin{definition}\label{def_exagg}
 		 		For an estimator $\hat{\beta}$ of a true effect of magnitude $\beta$, with standard deviation $\sigma$ an a two-sided test of size $\alpha$ with threshold value $z_{\alpha}$,
@@ -80,10 +80,11 @@
 					 	\dfrac{\mathbb{E}\left[ \hat{\beta} \big| \beta, \sigma, |\hat{\beta}| > z_{\alpha} \sigma \right]}{\beta} 
 				\end{equation}
 			\end{definition}
-			
+		
 		 This metrics depends on the true effect and can therefore only be computed when this true effect is known. Since it is never the case in real world settings, I have to turn to fake data Monte-Carlo simulations.\\
     
-    For clarity, I split the simulations by identification strategy. While the general idea that causal inference methods discard variation to identify effects is shared across strategies, the confounding / exaggeration trade-off is mediated through a distinctive channel for each of them. I build simulations that reproduce real world examples from economics of education for RDD, labor economics for matching, political economy for IV and DiD event studies and environmental economics for control approaches. Real world settings enable to clearly grasp the relationships between the different variables and to set realistic parameter values. Since these simulations have an illustrative purpose only, I intentionally restrict the simulation exercise to settings in which statistical power can be low. All the models are correctly specified and accurately represent the data generating process, except for the omitted variable bias (OVB).
+    For clarity, I split the simulations by identification strategy %. While the general idea that causal inference methods discard variation to identify effects is shared across strategies, the confounding / exaggeration trade-off is mediated through a distinctive channel for each of them. 
+    and build simulations that reproduce real world examples from economics of education for RDD, labor economics for matching, political economy for IV and DiD event studies and environmental economics for control approaches. Real world settings enable to clearly grasp the relationships between the different variables and to set realistic parameter values. Since all these simulations have an illustrative purpose only, I intentionally restrict the simulation exercise to settings in which statistical power can be low. All the models are correctly specified and accurately represent the data generating process, except for the omitted variable bias (OVB).
     
      		For each identification strategy, I start by laying out the intuition behind the method and how it enables to estimate causal effects. It naturally points to the key parameter through which the confounding/exaggeration trade-off is mediated. I then briefly describe the example setting considered and the simulation assumptions. I finally display the simulation outputs and discuss the implications of the trade-off that are specific to the identification strategy considered. Detailed codes for simulation procedures are available on the \href{https://vincentbagilet.github.io/causal_inflation/}{project's website}.
 		
@@ -91,7 +92,7 @@
 		
 		 \subsection{Regression Discontinuity Design}
 		
-     			\paragraph{Intuition for the trade-off.} To identify a causal effect, a regression discontinuity approach relies on the assumption that for values close to the threshold, treatment assignment is quasi-random. Under this assumption, individuals just below and just above the threshold would be comparable in terms of observed and unobserved covariates, and only differ in their treatment status. To avoid confounding, the RDD focuses on observations within a certain bandwidth around the threshold and discards observations further away. The effective sample size where the identification of causal effect of the treatment is the most credible differs from the total sample size. For this method, the confounding / exaggeration trade-off is therefore mediated by the size of the bandwidth.
+     			\paragraph{Intuition for the trade-off.} To identify a causal effect, a regression discontinuity approach relies on the assumption that for values close to the threshold, treatment assignment is quasi-random. Under this assumption, individuals just below and just above the threshold would be comparable in terms of observed and unobserved characteristics, and only differ in their treatment status. To avoid confounding, the RDD focuses on observations within a certain bandwidth around the threshold and discards observations further away. The effective sample size where the identification of causal effect of the treatment is the most credible is thus smaller than the total sample size, leading to a lower precision. For this method, the confounding / exaggeration trade-off is therefore mediated by the size of the bandwidth.
 			
 			\paragraph{Case-study and simulation procedure.} To illustrate this trade-off, I consider a standard application of the sharp RD design in economics of education in which students are offered additional lessons based on the score they obtained on a standardized test. \cite{thistlethwaite_regression-discontinuity_1960} introduced the concept of RDD using a similar type of quasi-experiment. Students with test scores below a given threshold receive the treatment while those above do not. Since students far above and far below the threshold may differ along unobserved characteristics such as ability, a RDD estimates the effect of the treatment by comparing outcomes of students whose initial test scores are just below and just above this threshold. 
         
@@ -99,12 +100,12 @@
         
         			To make the simulations realistic, I derive parameters values from statistics from the Department of Education and treatment effect sizes from a meta-analysis of RCTs in economics of education by \cite{kraft_interpreting_2020}.  Given these parameters values, I then generate 1000 datasets with 10,000 observations. For each dataset, I estimate the treatment effect by regressing the final score on the treatment status and the qualifying score for different bandwidth sizes. 
 				
-			\paragraph{Results.}  Figure \ref{graph_rdd} displays the results of these simulations. While the average of all estimates gets close to the true effect as bandwidth size and thus OVB decrease, the average of statistically significant estimates never gets close to the true effect in this setting. For large bandwidths, the omitted variable biases the effect while for small bandwidths, the small sample size creates exaggeration issues. The optimal bandwidth literature describes a similar trade-off but with different consequences \citep{imbens_optimal_2012}. They consider a bias/precision trade-off, we consider a omitted variable bias / exaggeration bias trade-off. 
+			\paragraph{Results.}  Figure \ref{graph_RDD} displays the results of these simulations. While the average of all estimates gets close to the true effect as bandwidth size and thus OVB decrease, the average of statistically significant estimates never gets close to the true effect in this setting. For large bandwidths, the omitted variable biases the effect while for small bandwidths, the small sample size creates exaggeration issues. The optimal bandwidth literature describes a similar trade-off but with different consequences \citep{imbens_optimal_2012}. They consider a bias/precision trade-off, we consider a omitted variable bias / exaggeration bias trade-off. 
         
        			 \begin{figure}[!h] 
 				\begin{center}
 					\caption{Evolution of the Bias with Bandwidth Size in Regression Discontinuity Design, conditional on significativity.}
-					\label{graph_rdd}
+					\label{graph_RDD}
 					\includegraphics[width=0.8\linewidth]{images/main_graph_RDD_paper.pdf}
 		      			\caption*{\footnotesize \textit{Notes}: The green line indicates the average bias for all estimates, regardless of their statistical significance. The beige line represents the inflation of statistically significant estimates at the 5\% level. In this simulation, N = 10,000. The bandwidth size is expressed as the proportion of the total number of observations of the entire sample. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/RDD.html}{link}.}
 				\end{center}
@@ -119,7 +120,7 @@
         			Instrumental variable strategies overcome the issue of unobserved confounding by only considering the exogenous variation in the treatment. When this exogenous fraction of the variation is limited, the instrument can still successfully eliminate confounding on average. However, the IV estimator will be imprecise and statistical power low. In the case of the IV, the confounding / exaggeration trade-off is therefore mediated by the strength of the instrument considered. The weaker the instrument, the more inflated statistically significant estimates will be.
         		
         			\paragraph{Case-study and simulation procedure.} 
-        			To illustrate this trade-off, I focus on the impact of voter turnout on election results. To avoid the threat of confounding in this setting, studies often take advantage of exogenous factors such as rainfall that affect voter turnout. I reproduce such setting and assume that the true data generating process for the republican vote share is such that  in location $i$, $Share_{i} = \beta_{0} + \beta_{1} Turnout_{i} + \delta w_{i} + u_{i}$, where $w$ is an unobserved variable and $u \sim \mathcal{N}(0, \sigma_{u}^{2})$ some random noise. The causal parameter of interest is $\beta_{1}$. In addition, turnout is affected by raining events: $Turnout_{i} = \pi_{0} + \pi_{1} Rain_{i} + \gamma w_{i} + \epsilon_{i}$, where $Rain_{i}$ is the amount of rain in location $i$ on the day of the election\footnote{In the DiD event study simulations that reproduce this setting, $Rain_{i}$ is a dummy for whether it rained or not on the day of the election in location $i$.} and $\epsilon$ some random noise drawn form $\mathcal{N}(0, \sigma_{\epsilon}^{2})$. I refer to $\pi_{1}$ as the strength of the instrumental variable. 
+        			To illustrate this trade-off, I focus on the impact of voter turnout on election results. To avoid the threat of confounding in this setting, studies often take advantage of exogenous factors such as rainfall that affect voter turnout. I reproduce such setting and assume that the true data generating process for the republican vote share is such that  in location $i$, $Share_{i} = \beta_{0} + \beta_{1} Turnout_{i} + \delta w_{i} + u_{i}$, where $w$ is an unobserved variable and $u \sim \mathcal{N}(0, \sigma_{u}^{2})$ some random noise. The causal parameter of interest is $\beta_{1}$. In addition, turnout is affected by raining events: $Turnout_{i} = \pi_{0} + \pi_{1} Rain_{i} + \gamma w_{i} + e_{i}$, where $Rain_{i}$ is the amount of rain in location $i$ on the day of the election\footnote{In the DiD event study simulations that reproduce this setting, $Rain_{i}$ is a dummy for whether it rained or not on the day of the election in location $i$.} and $e$ some random noise drawn form $\mathcal{N}(0, \sigma_{e}^{2})$. I refer to $\pi_{1}$ as the strength of the instrumental variable. 
         			
         			To make the simulations realistic, I derive parameters values from a set of existing studies using similar variables \citep{gomez_republicans_2007, fujiwara_habit_2016, cooperman_randomization_2017}. For each value of the IV strength considered, I create 1000 datasets. I run both a naive ordinary least squares model and a two-stage least squares model to estimate the impact of voter turnout on the vote share of a party.
         			
@@ -128,25 +129,38 @@
         		
                     		 \begin{figure}[!h] 
                     			\begin{center}
-                    				\caption{Evolution of the Bias of Statistically Significant Estimates Against Strength of the Instrument.}
+                    				\caption{Evolution of the Bias of Statistically Significant Estimates Against Strength of the Instrument in the IV Case.}
                     				\label{graph_IV}
-                    				\includegraphics[width=0.9\linewidth]{images/main_graph_IV_paper.pdf}
+                    				\includegraphics[width=0.8\linewidth]{images/main_graph_IV_paper.pdf}
                                     \caption*{\footnotesize \textit{Notes}: The red solid line indicates the average bias for IV estimates that are statistically significant at the 5\%. The orange line represents the bias of statistically significant OLS estimates at the 5\% level. The strength of the instrumental variable is expressed as the value of the linear parameter linking rainfall to turnout. In this simulation, N = 10,000. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/IV.html}{link}.}
                                     \end{center}
 				\vspace{-1cm}
                     		\end{figure} 
 		
+% I start with the RDD and matching cases because in these settings the researcher has a hand on the parameter driving power: the bandwidth size and the stringency of the matching mechanism.
 
 %%%%%%%%%%      SIM    EVENT        %%%%%%%%%%%%%%%
 
 		\subsection{Difference-in-Differences Event Study Design}\label{sim_DID}
     
-        			\paragraph{Intuition for the trade-off.}  To avoid confounding, DiD event studies take advantage of exogenous shocks. In many settings, while the number of observations may be large, the number of events, their duration or the proportion of individuals affected might be limited. As a consequence, the number of treated observations is small and the variation available to identify the treatment is limited. In studies using discrete exogenous shocks, a confounding / exaggeration trade-off is thus mediated by the number of observations treated. This does not only concern DiD event studies but is particularly salient in this case. 
+        			\paragraph{Intuition for the trade-off.}  To avoid confounding, DiD event studies take advantage of exogenous shocks. In many settings, while the number of observations may be large, the number of events, their duration or the proportion of individuals affected might be limited. As a consequence, the number of (un)treated observations can be small and the variation available to identify the treatment limited. Statistical power is maximized when the proportion of treated observations is equal to the proportion of untreated ones, as extensively discussed in the randomized controlled trial literature. In studies using discrete exogenous shocks, a confounding / exaggeration trade-off is thus mediated by the number of observations treated. This issue does not only concern DiD event studies but is particularly salient in this case. 
 			
-			\paragraph{Case-study and simulation procedure.} To illustrate this trade-off, I reproduce the analysis described for instrumental variable strategies described in section \ref{sim_IV} but considering that $Rain$ is a dummy equals to one if it rained on the day of the election.
+			\paragraph{Case-study and simulation procedure.} %To illustrate this trade-off, I reproduce the analysis described for instrumental variable strategies described in section \ref{sim_IV} but considering that $Rain$ is a dummy equals to one if it rained on the day of the election.
+			To illustrate this trade-off, I simulate a study of the impact of air pollution reduction on newborn weight of babies. To avoid confounding, one can exploit exogenous shocks to air pollution such as plant closures, creation of a low emission zone or of an urban toll. I simulate the analysis at the zip code and monthly levels and focus on the example of toxic plant closures. I consider that the average birth weight in zip code $z$ at time period $t$, $bw_{zt}$, depends on a zip code fixed effect $\zeta_z$, a time fixed effect $\tau_t$, and the treatment status $T_{z,t}$, which is equal to one if a plant is closed in this period and 0 otherwise. The average birth weights $bw_{zt}$ is defined as follows: $bw_{z,t} = \alpha + \beta T_{z, t} + \zeta_z + \tau_t + u_{z,t}$. To further simplify the identification of the effect, I assume a non-staggered treatment allocation and constant and homogenous effects. I only vary the proportion of zip codes affected by toxic plant closings.
+
+       The parameters values of the simulations are inspired from \cite{currie_environmental_2015} and \cite{lavaine_energy_2017}. For a fixed sample size of 120,000 observations, I generate 1000 datasets for an increasing number of treated observations and estimate the correct two-way fixed effects model.
         
-		
-			\paragraph{Results.} Even though the actual sample size is extremely large in our example, if the number of treated observations is small, the exaggeration can be important, as shown in \Cref{graph_DID}. A very large number of observations does not necessarily prevent the exaggeration issue to arise. The intuition behind this result can be compared to the case of a complete randomized controlled trial where, for fixed sample size, the statistical power is maximized when units are equally allocated to treatment and control groups.
+			\paragraph{Results.} Figure \ref{graph_RDD} displays the results of these simulations. Even though the actual sample size is extremely large in the example, if the number of treated observations is small, exaggeration can be important. A very large number of observations does not necessarily prevent exaggeration to arise.  
+
+			\begin{figure}[!h] 
+                    			\begin{center}
+                    				\caption{Evolution of Bias With the Number of Treated Observations, for Statistically Significant Estimates, in the Event Study Case}
+                    				\label{graph_DID}
+                    				\includegraphics[width=0.8\linewidth]{images/main_graph_DID_paper.pdf}
+                                    \caption*{\footnotesize \textit{Notes}: The line indicates the average bias for estimates that are statistically significant at the 5\%. In this simulation, N = 120,000. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/DID.html}{link}.}
+                                    \end{center}
+				\vspace{-1cm}
+                    		\end{figure} 
 
 %-----------------------------------------------------------------------------
 
@@ -162,7 +176,7 @@
 		
 		\subsection{Properties of the exaggeration ratio}\label{general_exagg}
 			
-			We can easily extend proofs by \cite{lu_note_2019} and \cite{zwet_significance_2021} to biased estimators, to show that, for a given size of a test and true effect size, the exaggeration ratio increases with the variance of a (un)biased estimator normally distributed estimator:
+			We can easily extend proofs by \cite{lu_note_2019} and \cite{zwet_significance_2021} to biased estimators, to show that, for a given size of a test and true effect size, the exaggeration ratio increases with the variance of a (un)biased normally distributed estimator:
 			
 			\begin{lemma}\footnote{All the proofs of the lemma and theorem are in appendix \ref{maths_proofs}.}\label{lemma_evol_exagg}
 			
@@ -180,27 +194,39 @@
 				 				 
 		\subsection{Setting and data generating process}\label{maths_dgp}
 		
-			Consider an usual linear homoskedastic regression model with an omitted variable. For all individual $i \in \{1, ..., n\}$, assume that: 
+			Consider an usual linear homoskedastic regression model with an omitted variable. The Directed Acyclic Graph (DAG) in figure \ref{DAG} represents the data generating process:
+			
+			 \begin{figure}[!h] 
+                    			\begin{center}
+                    				\caption{DAG of the data generating process}
+                    				\label{DAG}
+                    				\includegraphics[width=0.6\linewidth]{images/DAG_maths.png}
+                                   \caption*{\footnotesize \textit{Notes}: for clarity the error terms are represented in this graph, in beige. Model parameters are noted as edges labels.}
+                                    \end{center}
+				\vspace{-1cm}
+                    		\end{figure} 
+			
+			 More specifically, for all individual $i \in \{1, ..., n\}$, 
 				~
 				\begin{equation}\label{maths_true_dgp}
 					y_i = \beta_{0} + \beta_{1}x_{i} + \delta w_{i} + u_i
 				\end{equation}
 				
-				where $y_i \in \mathbb{R}$ is the observed outcome of interest, $x_i \in \mathbb{R}$ the observed explanatory variable of interest,  $w_i \in \mathbb{R}$ an unobserved omitted variable, $u_i \in \mathbb{R}$ an unobserved error term.  $(\beta_0, \beta_1, \delta) \in \mathbb{R}^{3}$ are unknown parameters. $\beta_1$ is the parameter of interest. For readability, we introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$ and set $\bm{\beta} = (\beta_0, \beta_1)'$ and $\text{x}_i = (1, x_i)'$. \\
+				where $y_i \in \mathbb{R}$ is the observed outcome of interest, $x_i \in \mathbb{R}$ the observed explanatory variable of interest,  $w_i \in \mathbb{R}$ an unobserved omitted variable, $u_i \in \mathbb{R}$ an unobserved error term.  $(\beta_0, \beta_1, \delta) \in \mathbb{R}^{3}$ are unknown parameters. $\beta_1$ is the parameter of interest. For readability, let's introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$ and set $\bm{\beta} = (\beta_0, \beta_1)'$ and $\text{x}_i = (1, x_i)'$. \\
 			
-			We assume homogeneous treatment effects and homoskedasticity, along with the usual OLS assumptions (\textit{i.i.d.} observations, finite second moments, positive-definiteness of $\mathbb{E}[\text{x}_i \text{x}_i']$ and $u_{i}$ conditional mean-zero and uncorrelated with $x_i$ and $w_i$). We assume that $w_{i}$ is unobserved, correlated with $x_{i}$ and that $\delta \neq 0$. To simplify the derivations, we further assume that the unobserved variable is centred, \textit{i.e.} $\mathbb{E}[w_i] = 0$. We also assume that the variance of the component of $w_{i}$ that is orthogonal to $x_{i}$ (denoted $w_{i}^{\perp x}$) does not vary with $x_{i}$, \textit{i.e.}, $\text{Var}(w_{i}^{\perp x}|x_{i}) = \text{Var}(w_{i}^{\perp x})$. We assume the following data generating process for $x_i$:
+			Assume homogeneous treatment effects and homoskedasticity, along with the usual OLS assumptions (\textit{i.i.d.} observations, finite second moments, positive-definiteness of $\mathbb{E}[\text{x}_i \text{x}_i']$ and $u_{i}$ conditional mean-zero and uncorrelated with $x_i$ and $w_i$). Assume that $w_{i}$ is unobserved, correlated with $x_{i}$ and that $\delta \neq 0$. To simplify the derivations, I further assume that the unobserved variable is centred, \textit{i.e.} $\mathbb{E}[w_i] = 0$. I also assume that the variance of the component of $w_{i}$ that is orthogonal to $x_{i}$ (denoted $w_{i}^{\perp x}$) does not vary with $x_{i}$, \textit{i.e.}, $\text{Var}(w_{i}^{\perp x}|x_{i}) = \text{Var}(w_{i}^{\perp x})$. Consider the following data generating process for $x_i$:
 				~
 				\begin{equation}\label{maths_dgp_x}
 					x_i = \mu_{x} + \gamma w_{i} + \epsilon_i
 				\end{equation}
 				
-				where $\gamma \in \mathbb{R}^{*}$ since $x$ and $w$ are correlated such that $\rho_{xw} = \text{corr}(x, w) =  \frac{\gamma \sigma_{w}}{\sigma_{x}}$. Then, in the IV and reduced form sections, we further assume that there exists a valid instrumental variable $z_i$ for $x_i$, \textit{i.e.} that $\mu_x + \epsilon_{i} = \pi_0 + \pi_1 z_i + \epsilon_{\textsc{iv}, i}$  where $(\pi_0, \pi_1) \in \mathbb{R}^{2}$ are unknown parameters. The existence or not of this valid instrument does not affect the results in the controled and \textsc{OVB} cases. Since the instrument is valid, it satisfies exogeneity, \textit{ie} $\mathbb{E}[\text{z}_{i}u_{i}] = 0$ and  $\mathbb{E}[z_{i}w_{i}] = 0$, relevance, \textit{ie} $\text{rank}(\mathbb{E}[\text{z}_{i}\text{x}_i']) = 2$,  and positive-definiteness of $\mathbb{E}[\text{z}_i \text{z}_i']$. The data generating process for $x_i$ becomes:			
+				where $\gamma \in \mathbb{R}^{*}$ since $x$ and $w$ are correlated such that $\rho_{xw} = \text{corr}(x, w) =  \frac{\gamma \sigma_{w}}{\sigma_{x}}$. Then, in the IV and reduced form sections, I further assume that there exists a valid instrumental variable $z_i$ for $x_i$, \textit{i.e.} that $\mu_x + \epsilon_{i} = \pi_0 + \pi_1 z_i + e_{i}$  where $(\pi_0, \pi_1) \in \mathbb{R}^{2}$ are unknown parameters. The existence or not of this valid instrument does not affect the results in the controled and \textsc{OVB} cases. Since the instrument is valid, it satisfies exogeneity, \textit{ie} $\mathbb{E}[\text{z}_{i}u_{i}] = 0$ and  $\mathbb{E}[z_{i}w_{i}] = 0$, relevance, \textit{ie} $\text{rank}(\mathbb{E}[\text{z}_{i}\text{x}_i']) = 2$,  and positive-definiteness of $\mathbb{E}[\text{z}_i \text{z}_i']$. The data generating process for $x_i$ becomes:			
 				~
 				\begin{equation}\label{maths_dgp_x_iv}
-					x_i = \pi_0 + \pi_1 z_i + \gamma w_{i} + \epsilon_{\textsc{iv}, i}
+					x_i = \pi_0 + \pi_1 z_i + \gamma w_{i} + e_{i}
 				\end{equation}
 				
-				We assume that $\epsilon_{\textsc{iv}, i}$ is uncorrelated with $z_i$ and $w_{i}$, \textit{ie} $\mathbb{E}[z_i\epsilon_{\textsc{iv}, i}] = 0$ and $\mathbb{E}[w_i\epsilon_{\textsc{iv}, i}] = 0$. We also assume homoskedasticity for this term, such that $\mathbb{E}[\epsilon_{\textsc{iv}, i}^{2} | z_{i}, w_{i}] = \sigma_{\epsilon_{\textsc{iv}}}^{2}$ is constant.\\ %It implies that  $\mathbb{E}[\epsilon_{\textsc{iv}, i}^{2} | z_{i}] = \sigma_{\epsilon_{\textsc{iv}}}^{2}$ (since $\mathbb{E}[\epsilon_{\textsc{iv}, i}^{2} | z_{i}] =  \mathbb{E}[\mathbb{E}[\epsilon_{\textsc{iv}, i}^{2} | z_{i}, w_{i}] | z_{i}] = \mathbb{E}[\sigma_{\epsilon_{\textsc{iv}}}^{2} | z_{i}] = \sigma_{\epsilon_{\textsc{iv}}}^{2})$.\\
+				I assume that $e_{i}$ is uncorrelated with $z_i$ and $w_{i}$, \textit{ie} $\mathbb{E}[z_ie_{i}] = 0$ and $\mathbb{E}[w_ie_{i}] = 0$. I also assume homoskedasticity for this term, such that $\mathbb{E}[e_{i}^{2} | z_{i}, w_{i}] = \sigma_{e}^{2}$ is constant.\\ %It implies that  $\mathbb{E}[e_{i}^{2} | z_{i}] = \sigma_{e}^{2}$ (since $\mathbb{E}[e_{i}^{2} | z_{i}] =  \mathbb{E}[\mathbb{E}[e_{i}^{2} | z_{i}, w_{i}] | z_{i}] = \mathbb{E}[\sigma_{e}^{2} | z_{i}] = \sigma_{e}^{2})$.\\
 				
 				Overall, this DGP is close to the usual textbook one but with an additional omitted variable.
 
@@ -209,14 +235,14 @@
 		
 		\subsection{Asymptotic distributions of the estimators}\label{maths_asymptotics}			 
 			
-			I now derive the asymptotic distributions of the various estimators. The goal is show asymptotic normality and to study the evolution of estimator variances with the value of the parameter of interest for each model, \textit{i.e.}, a measure of the correlation between $x$ and $w$ ($\gamma$) in the controled case, of the IV strength ($\pi_{1}$) in the IV case and of the number of exogenous shocks ($\sigma_{z}^{2}$ when $z$ is a dummy) in the reduced form case.  %Since variables and parameters are intertwined, modifying the value of one of them can affect the value of the others. 
-			In order for the variation of one factor not to impact other factors of interest, we fix the variances of the variables ($\sigma_{y}^{2}, \sigma_{x}^{2}, \sigma_{w}^{2} \text{ and } \sigma_{z}^{2}$) but adjust for the variances of the error terms ($\sigma_{u}^{2} \text{ and } \sigma_{\epsilon}^{2}$) when varying the values of one of the parameters ($\gamma, \delta \text{ and } \pi_{1}$). This roughly corresponds to varying how much the variance of $x$ and $y$ depends on ``observed'' variables (including $w$). Finally, to make things comparable across cases, we make comparative statics analyses at bias fixed, \textit{i.e.}, as shown below, for $\gamma \delta = \kappa = cst$.
+			I now derive the asymptotic distributions of the various estimators. The goal is to show asymptotic normality and to study the evolution of estimator variances with the value of the parameter of interest for each model, \textit{i.e.}, a measure of the correlation between $x$ and $w$ ($\gamma$) in the controled case, of the IV strength ($\pi_{1}$) in the IV case and of the number of exogenous shocks ($\sigma_{z}^{2}$ when $z$ is a dummy) in the reduced form case.  %Since variables and parameters are intertwined, modifying the value of one of them can affect the value of the others. 
+			In order for the variation of one factor not to impact other factors of interest, we fix the variances of the variables ($\sigma_{y}^{2}, \sigma_{x}^{2}, \sigma_{w}^{2} \text{ and } \sigma_{z}^{2}$) but adjust for the variances of the error terms ($\sigma_{u}^{2} \text{ and } \sigma_{\epsilon}^{2}$) when varying the values of one of the parameters ($\gamma, \delta \text{ and } \pi_{1}$). This roughly corresponds to varying how much the variance of $x$ and $y$ depends on ``defined'' variables (\textit{i.e.}, observed variables and $w$). Finally, to ensure comparability across cases, we make comparative statics analyses at bias fixed, \textit{i.e.}, as shown below, for $\gamma \delta = \kappa = cst$.
 			
 %%%%%%%%%%%%%%  OVB  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 			\subsubsection{Naive regression (OVB)}\label{formal_proof_ovb}
 			
-				I first consider a ``naive'' regression of $y$ on $x$ (with $w$ omitted). 
+				First, consider a ``naive'' regression of $y$ on $x$ (with $w$ omitted). 
 				%Since, $w$ is unobserved, we consider the projection of $y$ on $X$ only, where $X = (\text{x}_{1}', ..., \text{x}_{n}')'$ with $\forall i, \text{x}_{i}' = (1, x_{i})$
 %					~
 %					\begin{equation}\label{maths_eq_ovb}
@@ -236,19 +262,19 @@
 					\]
 				\end{lemma}
 				
-			The intuition for the formula of the asymptotic variance has been discussed in introduction: $\sigma_{u}^{2} + \delta^{2} \sigma_{w}(1 - \rho_{xw}^{2})$ is indeed the part of the variance in $y$ that is not explained by $x$ ($\sigma^{2}_{y^{\perp x}}$). Also note that since $\sigma_{x}^{2}$ and $\sigma_{w}^{2}$ are fixed, reasoning at $b_{\textsc{ovb}} = cst$ is equivalent to considering that $\gamma \delta = \kappa = cst$. Then, noting that $\forall i, u_{i} = y_i - \beta_{0} - \beta_{1}x_{i} - \delta w_{i}$ and computing its variance, we can rewrite the variance of the estimator as a function of fixed variances and one or less varying parameter:
+			The intuition for the formula of the asymptotic variance has been discussed in the introduction: $\sigma_{u}^{2} + \delta^{2} \sigma_{w}(1 - \rho_{xw}^{2})$ is the part of the variance in $y$ that is not explained by $x$ ($\sigma^{2}_{y^{\perp x}}$). Also note that since $\sigma_{x}^{2}$ and $\sigma_{w}^{2}$ are fixed, reasoning at $b_{\textsc{ovb}} = cst$ is equivalent to considering that $\gamma \delta = \kappa = cst$. Then, noting that $\forall i, u_{i} = y_i - \beta_{0} - \beta_{1}x_{i} - \delta w_{i}$ and computing its variance, we can rewrite the variance of the estimator as a function of fixed variances and one or less varying parameter:
 			~
 			\[
 				\sigma_{\textsc{ovb}}^{2} = \dfrac{\sigma_{y}^{2} - \beta_{1}^{2}\sigma_{x}^{2} - 2\beta_{1}\kappa\sigma_{w}^{2} - \kappa^{2}\frac{\sigma_{w}^{4}}{\sigma_{x}^{2}}}{n \ \sigma_{x}^{2}}
 			\]
 			
-			 This expression underlines that, for a given bias,  $\sigma_{\textsc{ovb}}^{2}$ does not vary with $\gamma$, the parameter of interest. Applying lemma \ref{lemma_evol_exagg} proves that $E_{\textsc{ovb}}$ does not either.
+			 This expression underlines that, for a given bias,  $\sigma_{\textsc{ovb}}^{2}$ does not vary with $\gamma$, or equivalently $\delta$, the parameters of interest. Applying lemma \ref{lemma_evol_exagg} proves that $E_{\textsc{ovb}}$ does not either.
 
 %%%%%%%%%%%%%%  CTRL  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 			
 			\subsubsection{Controlled regression}
 			
-				We then turn to the ``ideal'' case in which no variable is omitted, \textit{i.e.} we control for the omitted variable $w$. The model considered accurately represents the DGP.
+				Next, let's then turn to the ``ideal'' case in which no variable is omitted, \textit{i.e.} we control for the omitted variable $w$. The model considered accurately represents the DGP.
 %				~
 %				\begin{equation}\label{maths_eq_ovb}
 %					y = X_{w}\bm{\beta}_{\textsc{ctrl}} + u_{\textsc{ctrl}}
@@ -270,22 +296,22 @@
 					\sigma_{\textsc{ctrl}}^{2} = \dfrac{\sigma_{y}^{2} - \beta_{1}^{2}\sigma_{x}^{2} - \frac{\kappa^{2}}{\gamma^{2}}\sigma_{w}^{2} - 2\beta_{1}\kappa \sigma_{w}^{2}}{n \ (\sigma_{x}^{2}  - \gamma^{2} \sigma_{w}^{2})}
 				\]
 				
-				Since the numerator increases and the denominator decrease with $|\gamma|$,  $\sigma_{\textsc{ctrl}}^{2}$ increases with $|\gamma|$. For a given bias, the more $w$ is correlated with $x$ (and thus roughthly the less it is with $y$ since $\delta \gamma = cst$), the larger the variance of the estimator. In addition, we can note that, for a given bias, the variance of the estimator can be arbitrarily large since $\lim_{\gamma^{2} \to \frac{\sigma_{x}^{2}}{\sigma_{w}^{2}}} \sigma_{\textsc{ctrl}}^{2} = + \infty$.
+				Since the numerator and denominator respectively increases and decrease with $|\gamma|$,  $\sigma_{\textsc{ctrl}}^{2}$ increases with $|\gamma|$. For a given bias, the more $w$ is correlated with $x$ (and thus roughthly the less it is with $y$ since $\delta \gamma = cst$), the larger the variance of the estimator. In addition, we can note that, for a given bias, the variance of the estimator can be arbitrarily large since $\lim_{\gamma^{2} \to \frac{\sigma_{x}^{2}}{\sigma_{w}^{2}}} \sigma_{\textsc{ctrl}}^{2} = + \infty$.
 				
 			
 %%%%%%%%%%%%%%  IV   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 		
 		\subsubsection{Instrumental Variable}
 		
-			We now want to estimate the IV model in which we regress $y$ on $x$ instrumented by $z$. We instrument $\text{x}_{i} = (1, x_{i})'$ with $\text{z}_{i} = (1, z_{i})'$ and thus consider a just-identified case such that $\hat{\bm{\beta}}_{\textsc{2sls}} = \hat{\bm{\beta}}_{\textsc{iv}}$.						~
+			We now want to estimate the IV model in which we regress $y$ on $x$ instrumented by $z$. We instrument $\text{x}_{i} = (1, x_{i})'$ with $\text{z}_{i} = (1, z_{i})'$. We are thus in a just-identified case and $\hat{\bm{\beta}}_{\textsc{2sls}} = \hat{\bm{\beta}}_{\textsc{iv}}$.						
 			\begin{lemma}\label{lemma_iv}
-				Based on the sus-mentioned data generating process, for $\hat{\beta}_{\textsc{iv}}$ the IV estimate of $\beta_{1}$ in the regression of $y$ on $x$ instrumented by $z$,  $\hat{\beta}_{\textsc{iv}} \overset{d}{\to} \mathcal{N}(\beta_{1}, \ \sigma_{\textsc{iv}}^{2})$, with
+				Based on the sus-mentioned data generating process, for $\hat{\beta}_{\textsc{iv}}$ the IV estimator of $\beta_{1}$ in the regression of $y$ on $x$ instrumented by $z$,  $\hat{\beta}_{\textsc{iv}} \overset{d}{\to} \mathcal{N}(\beta_{1}, \ \sigma_{\textsc{iv}}^{2})$, with
 					\[
 						\sigma_{\textsc{iv}}^{2} = \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{n \ \sigma_{x}^{2} \rho_{xz}^{2}}
 					\]
 			\end{lemma}
-		
-			For a given bias, noting that $\rho_{xz} = \text{corr}(x, z) = \pi_1 \frac{\sigma_z}{\sigma_x}$ and replacing $\sigma_{u}^{2}$, we can rewrite $\sigma_{\textsc{iv}}^{2}$ as a function of fixed variances and one varying parameter, $\pi_{1}$:
+			
+			Note that the numerator is $\sigma_{y \perp \hat{x}}^{2}$, the part of the variance in $y$ that is not explained by $\hat{x}$, the predicted value of $x$ in the first stage and the denominator is $\sigma_{\hat{x}}^{2}$. For a given bias, noting that $\rho_{xz} = \text{corr}(x, z) = \pi_1 \frac{\sigma_z}{\sigma_x}$ and replacing $\sigma_{u}^{2}$, we can rewrite $\sigma_{\textsc{iv}}^{2}$ as a function of fixed variances and one varying parameter, $\pi_{1}$:
 			\[
 				\sigma_{\textsc{iv}}^{2} = \dfrac{\sigma_{y}^{2} - \beta_{1}^{2}\sigma_{x}^{2} - 2\beta_{1}\kappa \sigma_{w}^{2}}{n \ \pi_{1}^{2} \sigma_{z}^{2}}
 			\]
@@ -302,13 +328,13 @@
 		
 			Let's now assume that we want to directly estimate the effect of the instrument on the outcome of interest. Plugging equation \ref{maths_dgp_x_iv} into equation \ref{maths_true_dgp} yields:			
 				\[
-					y_{i} = (\beta_{0} + \beta_{1}\pi_0) + (\beta_{1}\pi_{1}) z_{i} + ((\delta + \beta_{1}\gamma) w_{i} + u_{i} + \beta_{1}\epsilon_{\textsc{iv}, i})
+					y_{i} = (\beta_{0} + \beta_{1}\pi_0) + (\beta_{1}\pi_{1}) z_{i} + ((\delta + \beta_{1}\gamma) w_{i} + u_{i} + \beta_{1}e_{i})
 				\]
 				~
-				Note that if we directly regress the outcome on the instrument, the resulting estimand will be different from that of the other models. To make them comparable, we could set $\pi_{1}$ to 1 so that an increase of 1 in the instrument causes an increase of $\beta_{1}$ in $y$. Regardless, regressing $y$ on $z$ corresponds to the usual univariate, unbiased case and directly gives the following lemma.
+				Note that if we directly regress the outcome on the instrument, the resulting estimand will be different from that of the other models. To make them comparable, we could set $\pi_{1}$ to 1 so that an increase of 1 in the instrument causes an increase of $\beta_{1}$ in $y$. Regardless of whether we make this assumption or not, regressing $y$ on $z$ corresponds to the usual univariate, unbiased case and directly gives the following result:
 				
 				\begin{lemma}\label{lemma_red}
-					Based on the sus-mentioned data generating process, for $\hat{\beta}_{\textsc{red}}$ OLS estimate of the reduced form regression of $y$ on $z$,  $\hat{\beta}_{\textsc{red}} \overset{d}{\to} \mathcal{N}(\beta_{1}, \ \sigma_{\textsc{red}}^{2})$, with
+					Based on the sus-mentioned data generating process, for $\hat{\beta}_{\textsc{red}}$, the OLS estimator of the reduced form regression of $y$ on $z$,  $\hat{\beta}_{\textsc{red}} \overset{d}{\to} \mathcal{N}(\beta_{1}, \ \sigma_{\textsc{red}}^{2})$, with
 					\[
 						\sigma_{\textsc{red}}^{2} = \dfrac{\sigma_{y}^{2} - \beta_{1}^{2}\pi_{1}^{2}\sigma_{z}^{2}}{n \ \sigma_{z}^{2}}
 					\]
@@ -320,7 +346,7 @@
 				
 		\subsection{Exaggeration ratios}
 		
-			Combining the results from lemma \ref{lemma_ovb} through \ref{lemma_red}  regarding the asymptotic distribution of the various estimators with lemma \ref{lemma_evol_exagg} stating the that exaggeration increases with the variance of a normally distributed estimator, yields:
+			Combining the results from lemma \ref{lemma_ovb} through \ref{lemma_red}  regarding the asymptotic distribution of the various estimators with lemma \ref{lemma_evol_exagg} stating that exaggeration increases with the variance of a normally distributed estimator yields:
 			~
 			\begin{theorem}
 				For the data generating process described in section \ref{maths_dgp}, the exaggeration ratio of the controled, IV and reduced form estimators, respectively $E_{\textsc{ctrl}}, E_{\textsc{iv}} \text{ and } E_{\textsc{red}}$, are such that:
@@ -427,7 +453,7 @@
 
 \section{Conclusion} \label{conclusion}
 
-	The economic literature suffers from an extensive lack of statistical power \citep{ioannidis_power_2017} and many studies showed that this literature strongly favors statistically significant findings \citep[for instance]{rosenthal_file_1979, andrews_identification_2019, abadie_statistical_2020, brodeur_methods_2020}. Yet, in the presence of such a publication bias, estimates published from underpowered studies exaggerate true effect sizes, even when the estimators are ``unbiased'' in the usual sense of $\mathbb{E}[\hat{\beta}] = \beta$ \citep{ioannidis_why_2008, gelman_beyond_2014, lu_note_2019, zwet_significance_2021}. It is therefore not surprising that many estimates published in economics have been shown to be considerably exaggerated  \citep{camerer_evaluating_2016, ioannidis_power_2017}, despite the extensive use of convincing causal inference methods.  However, determinants for these exaggeration and power issues remain understudied. Focusing on causal methods, I argue that exaggeration may be exacerbated by the foundational component of causal inference: the fact that it only leverages subsets of the variation. Although it enables to avoid confounding, it also reduces statistical power and thus increases the risk of exaggeration. The same aspect that makes these methods credible can create another type of bias. A systematic reporting of statistical power calculations and analysis of the variation actually used for identification could help avoid falling into this exaggeration trap.
+	The economic literature suffers from an extensive lack of statistical power \citep{ioannidis_power_2017} and many studies showed that this literature strongly favors statistically significant findings \citep[for instance]{rosenthal_file_1979, andrews_identification_2019, abadie_statistical_2020, brodeur_methods_2020}. Yet, it has been shown that in such situations, estimates published from underpowered studies exaggerate true effect sizes, even when the estimators are ``unbiased'' in the usual sense of $\mathbb{E}[\hat{\beta}] = \beta$ \citep{ioannidis_why_2008, gelman_beyond_2014, lu_note_2019, zwet_significance_2021}. It is therefore not surprising that many estimates published in economics have been shown to be considerably exaggerated  \citep{camerer_evaluating_2016, ioannidis_power_2017}, despite the extensive use of convincing causal inference methods.  However, determinants for these exaggeration and power issues have remained understudied. Focusing on causal methods, I argue that exaggeration may be exacerbated by the foundational component of causal inference: the fact that it only leverages subsets of the variation. Although causal methods enable to avoid confounding, they also reduce statistical power and thus increase the risk of exaggeration. The same aspect that makes these methods credible can create another type of bias. A systematic reporting of statistical power calculations and analysis of the variation actually used for identification could help avoid falling into this exaggeration trap.
 	
 		
 	
@@ -691,8 +717,8 @@
 				\end{bmatrix} 
 				=
 				\begin{bmatrix}
-					1 & \pi_0 + \pi_1 \mathbb{E}[z_{i}] + \gamma \underbrace{\mathbb{E}[w_{i}]}_{0} + \underbrace{\mathbb{E}[\epsilon_{\textsc{iv}, i}]}_{0}\\ 
-					\mu_{z} & \pi_0 \mathbb{E}[z_{i}] + \pi_1 \mathbb{E}[z_{i}^{2}] + \gamma \underbrace{\mathbb{E}[z_{i}w_{i}]}_{0} + \underbrace{\mathbb{E}[z_{i}\epsilon_{\textsc{iv}, i}]}_{0}
+					1 & \pi_0 + \pi_1 \mathbb{E}[z_{i}] + \gamma \underbrace{\mathbb{E}[w_{i}]}_{0} + \underbrace{\mathbb{E}[e_{i}]}_{0}\\ 
+					\mu_{z} & \pi_0 \mathbb{E}[z_{i}] + \pi_1 \mathbb{E}[z_{i}^{2}] + \gamma \underbrace{\mathbb{E}[z_{i}w_{i}]}_{0} + \underbrace{\mathbb{E}[z_{i}e_{i}]}_{0}
 				\end{bmatrix} =
 				\begin{bmatrix}
 					1 & \pi_0 + \pi_1 \mu_{z}\\ 
@@ -725,7 +751,7 @@
 					\mathcal{N}\left( 0 , \ \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{n \ \pi_{1}^{2}\sigma_{z}^{2}} \right) 
 				\end{equation}
 				~
-				Now, since $ \rho_{xz} = \text{corr}(x_{i}, z_{i}) =  \frac{\text{cov}( \pi_0 + \pi_1 z_i + \gamma w_{i} + \epsilon_{\textsc{iv}, i} , z_i)}{\sigma_x \sigma_z} = \pi_1 \frac{\sigma_z}{\sigma_x}$,
+				Now, since $ \rho_{xz} = \text{corr}(x_{i}, z_{i}) =  \frac{\text{cov}( \pi_0 + \pi_1 z_i + \gamma w_{i} + e_{i} , z_i)}{\sigma_x \sigma_z} = \pi_1 \frac{\sigma_z}{\sigma_x}$,
 				~
 				\[
 						\sqrt{n}\left( \hat{\beta}_{\textsc{iv}} - \beta_{1} \right)

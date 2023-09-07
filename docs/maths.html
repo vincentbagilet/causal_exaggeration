@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-08-07"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-08-07"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-09-07"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-09-07"/>
   <meta name="article:author" content="Vincent Bagilet"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -114,7 +114,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Mathematical derivation"]},{"type":"character","attributes":{},"value":["In this document, I run simple simulations to both illustrate and check my closed form solutions."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-08-07"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Mathematical derivation"]},{"type":"character","attributes":{},"value":["In this document, I run simple simulations to both illustrate and check my closed form solutions."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-09-07"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2188,7 +2188,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Mathematical derivation","description":"In this document, I run simple simulations to both illustrate and check my closed form solutions.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-08-07T00:00:00.000+02:00","citationText":"Bagilet, 2023"}
+{"title":"Mathematical derivation","description":"In this document, I run simple simulations to both illustrate and check my closed form solutions.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-09-07T00:00:00.000+02:00","citationText":"Bagilet, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2239,7 +2239,7 @@ Simulations
 <div class="d-byline">
   Vincent Bagilet <a href="https://vincentbagilet.github.io/" class="uri">https://vincentbagilet.github.io/</a> (Columbia University)<a href="https://www.columbia.edu/" class="uri">https://www.columbia.edu/</a>
   
-<br/>2023-08-07
+<br/>2023-09-07
 </div>
 
 <div class="d-article">
@@ -2265,7 +2265,7 @@ Simulations
 body {
 text-align: justify}
 </style>
-<p>The full mathematical derivation is available <a href="Maths/math_causal_exaggeration.pdf">here</a>.</p>
+<!-- The full mathematical derivation is available [here](Maths/math_causal_exaggeration.pdf). -->
 <p>In this document, I check that the results I derived are correct. First, I verify my exaggeration formula and then the asymptotic variance of the various estimators.</p>
 <h2 id="exaggeration-formula">Exaggeration formula</h2>
 <p>First I verify that the formula for exaggeration that I have computed is correct. To do so, I set parameter values and draw <span class="math inline">\(N\)</span> estimates from the corresponding distribution. I then compute the average of statistically significant estimates.</p>
@@ -2301,7 +2301,7 @@ text-align: justify}
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">2.387716</td>
-<td style="text-align: right;">2.408221</td>
+<td style="text-align: right;">2.396225</td>
 </tr>
 </tbody>
 </table>
@@ -2317,7 +2317,7 @@ text-align: justify}
 </div>
 <p>As in the math section we have:</p>
 <p><span class="math display">\[y_{i} = \beta_{0} + \beta_1 x_{i} + \delta w_{i} + u_{i}\]</span>
-<span class="math display">\[x_{i} = \pi_0 + \pi_1 z_{i} + \gamma w_{i} + \epsilon_{i}\]</span></p>
+<span class="math display">\[x_{i} = \pi_0 + \pi_1 z_{i} + \gamma w_{i} + e{i}\]</span></p>
 <p>Note that to get to the setting described in the “OVB” and “CTRL” sections of the maths, one can simply set <span class="math inline">\(\pi_1\)</span> to 0.</p>
 <p>I create three functions, one to generate the data, one to run the estimation and one to compute a simulation (just bundling together the two previous functions).</p>
 <h3 id="generate-the-data">Generate the data</h3>
@@ -2360,7 +2360,7 @@ text-align: justify}
 </div>
 </div>
 <h4 id="generate-function">Generate function</h4>
-<p>I then define the function to generate the data is the following:</p>
+<p>I then define the function to generate the data as follows:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>generate_data_maths</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>n</span>,</span>
@@ -2368,7 +2368,7 @@ text-align: justify}
 <span>                                <span class='va'>sigma_z</span>,</span>
 <span>                                <span class='va'>mu_w</span> <span class='op'>=</span> <span class='fl'>0</span>, <span class='co'>#one of the simplifying assumptions</span></span>
 <span>                                <span class='va'>sigma_w</span>,</span>
-<span>                                <span class='va'>sigma_epsilon</span>,</span>
+<span>                                <span class='va'>sigma_e</span>,</span>
 <span>                                <span class='va'>pi_0</span>,</span>
 <span>                                <span class='va'>pi_1</span>,</span>
 <span>                                <span class='va'>gamma</span>,</span>
@@ -2381,32 +2381,31 @@ text-align: justify}
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
 <span>      z <span class='op'>=</span> <span class='fu'>rany</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>mu_z</span>, <span class='va'>sigma_z</span><span class='op'>)</span>,</span>
 <span>      w <span class='op'>=</span> <span class='fu'>rany</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>mu_w</span>, <span class='va'>sigma_w</span><span class='op'>)</span>,</span>
-<span>      epsilon <span class='op'>=</span> <span class='fu'>rany</span><span class='op'>(</span><span class='va'>n</span>, <span class='fl'>0</span>, <span class='va'>sigma_epsilon</span><span class='op'>)</span>,</span>
-<span>      x <span class='op'>=</span> <span class='va'>pi_0</span> <span class='op'>+</span> <span class='va'>pi_1</span><span class='op'>*</span><span class='va'>z</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>*</span><span class='va'>w</span> <span class='op'>+</span> <span class='va'>epsilon</span>,</span>
+<span>      e <span class='op'>=</span> <span class='fu'>rany</span><span class='op'>(</span><span class='va'>n</span>, <span class='fl'>0</span>, <span class='va'>sigma_e</span><span class='op'>)</span>,</span>
+<span>      x <span class='op'>=</span> <span class='va'>pi_0</span> <span class='op'>+</span> <span class='va'>pi_1</span><span class='op'>*</span><span class='va'>z</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>*</span><span class='va'>w</span> <span class='op'>+</span> <span class='va'>e</span>,</span>
 <span>      u <span class='op'>=</span> <span class='fu'>rany</span><span class='op'>(</span><span class='va'>n</span>, <span class='fl'>0</span>, <span class='va'>sigma_u</span><span class='op'>)</span>,</span>
 <span>      y <span class='op'>=</span> <span class='va'>beta_0</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>*</span><span class='va'>x</span> <span class='op'>+</span> <span class='va'>delta</span><span class='op'>*</span><span class='va'>w</span> <span class='op'>+</span> <span class='va'>u</span></span>
 <span>    <span class='op'>)</span></span>
 <span><span class='op'>}</span></span></code></pre>
 </div>
 </div>
-<p>I then define the parameters values. I pick these values at random and played around with them to see if my results held.</p>
-<p>I built the present simulations to check my mathematical derivations and thus chose non-round parameter values in order to avoid peculiar behaviors caused by zeros or ones for instance.</p>
+<p>I then define the parameters values. I pick these values at random:</p>
 <div class="layout-chunk" data-layout="l-body">
 <table>
 <colgroup>
-<col style="width: 6%" />
+<col style="width: 7%" />
 <col style="width: 5%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
 <col style="width: 8%" />
-<col style="width: 5%" />
-<col style="width: 8%" />
-<col style="width: 15%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 6%" />
 <col style="width: 8%" />
 <col style="width: 7%" />
-<col style="width: 7%" />
-<col style="width: 6%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2415,7 +2414,7 @@ text-align: justify}
 <th style="text-align: right;">sigma_z</th>
 <th style="text-align: right;">mu_w</th>
 <th style="text-align: right;">sigma_w</th>
-<th style="text-align: right;">sigma_epsilon</th>
+<th style="text-align: right;">sigma_e</th>
 <th style="text-align: right;">pi_0</th>
 <th style="text-align: right;">pi_1</th>
 <th style="text-align: right;">gamma</th>
@@ -2444,7 +2443,8 @@ text-align: justify}
 </tbody>
 </table>
 </div>
-<p>I can thus generate a dataset by passing this set of parameters to the <code>generate_data_maths</code> function. Here are the first lines of the output:</p>
+<p>Note that, I played around with these values to see if my results held. In addition, I built the present simulations to check my mathematical derivations and thus chose non-round parameter values in order to avoid peculiar behaviors caused by zeros or ones for instance.</p>
+<p>I can thus generate a data set by passing this set of parameters to the <code>generate_data_maths</code> function. Here are the first lines of the output:</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -2459,21 +2459,12 @@ Show code used to generate the table
 </div>
 </details>
 <table>
-<colgroup>
-<col style="width: 4%" />
-<col style="width: 14%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 14%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: right;">id</th>
 <th style="text-align: right;">z</th>
 <th style="text-align: right;">w</th>
-<th style="text-align: right;">epsilon</th>
+<th style="text-align: right;">e</th>
 <th style="text-align: right;">x</th>
 <th style="text-align: right;">u</th>
 <th style="text-align: right;">y</th>
@@ -2482,57 +2473,57 @@ Show code used to generate the table
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.1887655</td>
-<td style="text-align: right;">0.0948365</td>
-<td style="text-align: right;">-1.8325905</td>
-<td style="text-align: right;">-0.6246762</td>
-<td style="text-align: right;">0.4377754</td>
-<td style="text-align: right;">1.8605175</td>
+<td style="text-align: right;">0.0914269</td>
+<td style="text-align: right;">-1.0275827</td>
+<td style="text-align: right;">1.1248726</td>
+<td style="text-align: right;">1.581465</td>
+<td style="text-align: right;">0.8687807</td>
+<td style="text-align: right;">3.936454</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">0.2341337</td>
-<td style="text-align: right;">-1.1837981</td>
-<td style="text-align: right;">-0.1145969</td>
-<td style="text-align: right;">0.3624313</td>
-<td style="text-align: right;">-0.2105699</td>
-<td style="text-align: right;">1.5599623</td>
+<td style="text-align: right;">0.2944940</td>
+<td style="text-align: right;">-0.5318200</td>
+<td style="text-align: right;">0.9042202</td>
+<td style="text-align: right;">1.820723</td>
+<td style="text-align: right;">-1.4388425</td>
+<td style="text-align: right;">2.115971</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">0.0624948</td>
-<td style="text-align: right;">-0.1231858</td>
-<td style="text-align: right;">0.7172446</td>
-<td style="text-align: right;">1.6933289</td>
-<td style="text-align: right;">0.0494995</td>
-<td style="text-align: right;">3.6812355</td>
+<td style="text-align: right;">0.5034512</td>
+<td style="text-align: right;">0.4628271</td>
+<td style="text-align: right;">0.4211305</td>
+<td style="text-align: right;">2.101588</td>
+<td style="text-align: right;">0.4804163</td>
+<td style="text-align: right;">4.813417</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">0.0484099</td>
-<td style="text-align: right;">0.8745917</td>
-<td style="text-align: right;">-0.4923329</td>
-<td style="text-align: right;">1.0711500</td>
-<td style="text-align: right;">0.5595576</td>
-<td style="text-align: right;">4.0680035</td>
+<td style="text-align: right;">0.8841454</td>
+<td style="text-align: right;">0.1228555</td>
+<td style="text-align: right;">-0.2602144</td>
+<td style="text-align: right;">1.520815</td>
+<td style="text-align: right;">-0.5418608</td>
+<td style="text-align: right;">3.040382</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">0.2811223</td>
-<td style="text-align: right;">-0.5954577</td>
-<td style="text-align: right;">-0.4793122</td>
-<td style="text-align: right;">0.3883111</td>
-<td style="text-align: right;">-1.3213053</td>
-<td style="text-align: right;">0.7692769</td>
+<td style="text-align: right;">1.0465413</td>
+<td style="text-align: right;">0.3819271</td>
+<td style="text-align: right;">-0.4949202</td>
+<td style="text-align: right;">1.571469</td>
+<td style="text-align: right;">0.0902517</td>
+<td style="text-align: right;">3.852684</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">1.2084045</td>
-<td style="text-align: right;">0.5292910</td>
-<td style="text-align: right;">2.9565575</td>
-<td style="text-align: right;">5.2408557</td>
-<td style="text-align: right;">0.2336582</td>
-<td style="text-align: right;">7.7391594</td>
+<td style="text-align: right;">0.6240705</td>
+<td style="text-align: right;">0.6738747</td>
+<td style="text-align: right;">1.6738921</td>
+<td style="text-align: right;">3.577473</td>
+<td style="text-align: right;">1.6144122</td>
+<td style="text-align: right;">7.528823</td>
 </tr>
 </tbody>
 </table>
@@ -2611,36 +2602,36 @@ Show the code of lint_reg_maths
 <tr class="odd">
 <td style="text-align: left;">ctrl</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">0.9968444</td>
-<td style="text-align: right;">0.0033861</td>
-<td style="text-align: right;">294.39693</td>
+<td style="text-align: right;">0.9945892</td>
+<td style="text-align: right;">0.0033630</td>
+<td style="text-align: right;">295.74556</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ovb</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0818966</td>
-<td style="text-align: right;">0.0036766</td>
-<td style="text-align: right;">294.26364</td>
+<td style="text-align: right;">1.0765326</td>
+<td style="text-align: right;">0.0036661</td>
+<td style="text-align: right;">293.64556</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">reduced_form</td>
 <td style="text-align: left;">z</td>
-<td style="text-align: right;">0.7631755</td>
-<td style="text-align: right;">0.0215899</td>
-<td style="text-align: right;">35.34867</td>
+<td style="text-align: right;">0.7779756</td>
+<td style="text-align: right;">0.0217610</td>
+<td style="text-align: right;">35.75085</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">iv</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">0.9854931</td>
-<td style="text-align: right;">0.0126596</td>
-<td style="text-align: right;">77.84583</td>
+<td style="text-align: right;">0.9844540</td>
+<td style="text-align: right;">0.0125165</td>
+<td style="text-align: right;">78.65222</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
@@ -2744,21 +2735,21 @@ Show the code used to generate the table
 <p><span class="math display">\[\hat{\beta}_{IV} \overset{d}{\to}
                              \mathcal{N}\left( \beta_1 , \ \dfrac{\sigma_{u}^{2} + \delta^{2}\sigma_{w}^{2}}{n \ \pi_{1}^{2}\sigma_{z}^{2}} \right) \]</span></p>
 <p><span class="math display">\[\hat{\beta}_{RED} \overset{d}{\to}
-                            \mathcal{N}\left(\beta_{1},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{\epsilon_{red}}^{2}}{n \sigma_{d}^{2}}  \right)\]</span></p>
+                            \mathcal{N}\left(\beta_{1},  \dfrac{(\delta + \beta_{1}\gamma)^{2} \sigma_{w}^{2} + \sigma_{u}^{2} + \beta_{1}^{2}\sigma_{e{red}}^{2}}{n \sigma_{d}^{2}}  \right)\]</span></p>
 <p>I thus write a function that, given a set of parameters, compute all these theoretical standard errors.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>compute_th_se</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>params</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>  <span class='va'>params</span> <span class='op'>|&gt;</span> </span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
-<span>      th_sigma_x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_z</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>sigma_epsilon</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,</span>
+<span>      th_sigma_x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_z</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>sigma_e</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,</span>
 <span>      th_se_ctrl <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>sigma_u</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>/</span><span class='op'>(</span><span class='va'>n</span><span class='op'>*</span><span class='op'>(</span><span class='va'>th_sigma_x</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>-</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
 <span>      th_se_ovb <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span></span>
 <span>        <span class='op'>(</span><span class='va'>sigma_u</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>delta</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='op'>(</span><span class='fl'>1</span> <span class='op'>-</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>/</span><span class='va'>th_sigma_x</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span></span>
 <span>          <span class='op'>(</span><span class='va'>n</span><span class='op'>*</span><span class='va'>th_sigma_x</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span></span>
 <span>      <span class='op'>)</span>,</span>
 <span>      th_se_iv <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>sigma_u</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>delta</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='va'>n</span><span class='op'>*</span><span class='va'>pi_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_z</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,</span>
-<span>      th_se_reduced_form <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>sigma_u</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='op'>(</span><span class='va'>delta</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>*</span><span class='va'>gamma</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_epsilon</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='va'>n</span><span class='op'>*</span><span class='va'>sigma_z</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>      th_se_reduced_form <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>sigma_u</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='op'>(</span><span class='va'>delta</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>*</span><span class='va'>gamma</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_e</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='va'>n</span><span class='op'>*</span><span class='va'>sigma_z</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,</span>
 <span>      .keep <span class='op'>=</span> <span class='st'>"none"</span></span>
 <span>    <span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>th_sigma_x</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
@@ -2831,19 +2822,19 @@ Show code used to generate the table
 <div class="layout-chunk" data-layout="l-body">
 <table>
 <colgroup>
-<col style="width: 6%" />
+<col style="width: 7%" />
 <col style="width: 5%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
 <col style="width: 8%" />
-<col style="width: 5%" />
-<col style="width: 8%" />
-<col style="width: 15%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 6%" />
 <col style="width: 8%" />
 <col style="width: 7%" />
-<col style="width: 7%" />
-<col style="width: 6%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2852,7 +2843,7 @@ Show code used to generate the table
 <th style="text-align: right;">sigma_z</th>
 <th style="text-align: right;">mu_w</th>
 <th style="text-align: right;">sigma_w</th>
-<th style="text-align: right;">sigma_epsilon</th>
+<th style="text-align: right;">sigma_e</th>
 <th style="text-align: right;">pi_0</th>
 <th style="text-align: right;">pi_1</th>
 <th style="text-align: right;">gamma</th>
@@ -2963,19 +2954,19 @@ Show the code used to generate the table
 <div class="layout-chunk" data-layout="l-body">
 <table>
 <colgroup>
-<col style="width: 6%" />
+<col style="width: 7%" />
 <col style="width: 5%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
 <col style="width: 8%" />
-<col style="width: 5%" />
-<col style="width: 8%" />
-<col style="width: 15%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 6%" />
 <col style="width: 8%" />
 <col style="width: 7%" />
-<col style="width: 7%" />
-<col style="width: 6%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2984,7 +2975,7 @@ Show the code used to generate the table
 <th style="text-align: right;">sigma_z</th>
 <th style="text-align: right;">mu_w</th>
 <th style="text-align: right;">sigma_w</th>
-<th style="text-align: right;">sigma_epsilon</th>
+<th style="text-align: right;">sigma_e</th>
 <th style="text-align: right;">pi_0</th>
 <th style="text-align: right;">pi_1</th>
 <th style="text-align: right;">gamma</th>

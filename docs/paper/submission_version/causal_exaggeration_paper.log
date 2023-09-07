@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  7 SEP 2023 17:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  7 SEP 2023 17:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1432,14 +1432,7 @@ Package csquotes Info: Redefining alias 'default' -> 'french'.
 LaTeX Warning: Unused global option(s):
     [usletter].
 
-(./causal_exaggeration_paper.aux
-
-LaTeX Warning: Label `graph_IV' multiply defined.
-
-
-LaTeX Warning: Label `graph_IV@cref' multiply defined.
-
-(./bu.aux)
+(./causal_exaggeration_paper.aux (./bu.aux)
 
 LaTeX Warning: Label `bias_ovb' multiply defined.
 
@@ -1670,7 +1663,7 @@ File: images/main_graph_IV_paper.pdf Graphic file (type pdf)
 <use images/main_graph_IV_paper.pdf>
 Package pdftex.def Info: images/main_graph_IV_paper.pdf used on input line 134.
 
-(pdftex.def)             Requested size: 450.43253pt x 253.36893pt.
+(pdftex.def)             Requested size: 400.38872pt x 225.21738pt.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1679,16 +1672,31 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [10 <./images/main_graph_IV_paper.pdf>]
-
-LaTeX Warning: Reference `graph_DID' on page 1 undefined on input line 153.
-
-<images/main_graph_DID_paper.pdf, id=408, 447.6725pt x 266.9975pt>
+<images/main_graph_DID_paper.pdf, id=408, 578.16pt x 325.215pt>
 File: images/main_graph_DID_paper.pdf Graphic file (type pdf)
 
 <use images/main_graph_DID_paper.pdf>
 Package pdftex.def Info: images/main_graph_DID_paper.pdf used on input line 159
 .
-(pdftex.def)             Requested size: 450.43253pt x 268.65088pt.
+(pdftex.def)             Requested size: 400.38872pt x 225.21738pt.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[11 <./images/main_graph_DID_paper.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 191--192
+
+ []
+
+<images/DAG_maths.png, id=433, 3914.625pt x 1957.3125pt>
+File: images/DAG_maths.png Graphic file (type png)
+
+<use images/DAG_maths.png>
+Package pdftex.def Info: images/DAG_maths.png used on input line 203.
+(pdftex.def)             Requested size: 300.29344pt x 150.13712pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1699,25 +1707,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[11]
-Underfull \hbox (badness 10000) in paragraph at lines 191--192
-
- []
-
-<images/DAG_maths.png, id=432, 3914.625pt x 1957.3125pt>
-File: images/DAG_maths.png Graphic file (type png)
-
-<use images/DAG_maths.png>
-Package pdftex.def Info: images/DAG_maths.png used on input line 203.
-(pdftex.def)             Requested size: 300.29344pt x 150.13712pt.
-
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[12 <./images/main_graph_DID_paper.pdf>]
+[12]
 Underfull \hbox (badness 10000) in paragraph at lines 215--216
 
  []
@@ -2003,10 +1993,7 @@ ed.
 (rerunfilecheck)             Checksum: 3C702452CDCD62FFA3652D6B2CAB956A;2373.
 Package rerunfilecheck Info: File `causal_exaggeration_paper.brf' has not chang
 ed.
-(rerunfilecheck)             Checksum: E52747FB45C4570EA0D4F6DB4DC5D112;5972.
-
-
-LaTeX Warning: There were undefined references.
+(rerunfilecheck)             Checksum: 5FF737AED72CEEA224B9E369C69F149C;5972.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -2014,10 +2001,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 772.
  ) 
 Here is how much of TeX's memory you used:
- 25675 strings out of 492995
- 435155 string characters out of 6132704
+ 25676 strings out of 492995
+ 435166 string characters out of 6132704
  565498 words of memory out of 5000000
- 28677 multiletter control sequences out of 15000+600000
+ 28678 multiletter control sequences out of 15000+600000
  39290 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  44i,18n,56p,10434b,1109s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2078,10 +2065,10 @@ c1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfxc1
 440.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfxc172
 8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfxc2074.
 pfb>
-Output written on causal_exaggeration_paper.pdf (33 pages, 1138523 bytes).
+Output written on causal_exaggeration_paper.pdf (33 pages, 1144251 bytes).
 PDF statistics:
- 956 PDF objects out of 1000 (max. 8388607)
- 842 compressed objects within 9 object streams
+ 957 PDF objects out of 1000 (max. 8388607)
+ 843 compressed objects within 9 object streams
  163 named destinations out of 1000 (max. 500000)
  266 words of extra memory for PDF output out of 10000 (max. 10000000)
 

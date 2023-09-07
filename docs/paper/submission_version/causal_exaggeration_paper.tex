@@ -100,12 +100,12 @@
         
         			To make the simulations realistic, I derive parameters values from statistics from the Department of Education and treatment effect sizes from a meta-analysis of RCTs in economics of education by \cite{kraft_interpreting_2020}.  Given these parameters values, I then generate 1000 datasets with 10,000 observations. For each dataset, I estimate the treatment effect by regressing the final score on the treatment status and the qualifying score for different bandwidth sizes. 
 				
-			\paragraph{Results.}  Figure \ref{graph_rdd} displays the results of these simulations. While the average of all estimates gets close to the true effect as bandwidth size and thus OVB decrease, the average of statistically significant estimates never gets close to the true effect in this setting. For large bandwidths, the omitted variable biases the effect while for small bandwidths, the small sample size creates exaggeration issues. The optimal bandwidth literature describes a similar trade-off but with different consequences \citep{imbens_optimal_2012}. They consider a bias/precision trade-off, we consider a omitted variable bias / exaggeration bias trade-off. 
+			\paragraph{Results.}  Figure \ref{graph_RDD} displays the results of these simulations. While the average of all estimates gets close to the true effect as bandwidth size and thus OVB decrease, the average of statistically significant estimates never gets close to the true effect in this setting. For large bandwidths, the omitted variable biases the effect while for small bandwidths, the small sample size creates exaggeration issues. The optimal bandwidth literature describes a similar trade-off but with different consequences \citep{imbens_optimal_2012}. They consider a bias/precision trade-off, we consider a omitted variable bias / exaggeration bias trade-off. 
         
        			 \begin{figure}[!h] 
 				\begin{center}
 					\caption{Evolution of the Bias with Bandwidth Size in Regression Discontinuity Design, conditional on significativity.}
-					\label{graph_rdd}
+					\label{graph_RDD}
 					\includegraphics[width=0.8\linewidth]{images/main_graph_RDD_paper.pdf}
 		      			\caption*{\footnotesize \textit{Notes}: The green line indicates the average bias for all estimates, regardless of their statistical significance. The beige line represents the inflation of statistically significant estimates at the 5\% level. In this simulation, N = 10,000. The bandwidth size is expressed as the proportion of the total number of observations of the entire sample. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/RDD.html}{link}.}
 				\end{center}
@@ -129,9 +129,9 @@
         		
                     		 \begin{figure}[!h] 
                     			\begin{center}
-                    				\caption{Evolution of the Bias of Statistically Significant Estimates Against Strength of the Instrument.}
+                    				\caption{Evolution of the Bias of Statistically Significant Estimates Against Strength of the Instrument in the IV Case.}
                     				\label{graph_IV}
-                    				\includegraphics[width=0.9\linewidth]{images/main_graph_IV_paper.pdf}
+                    				\includegraphics[width=0.8\linewidth]{images/main_graph_IV_paper.pdf}
                                     \caption*{\footnotesize \textit{Notes}: The red solid line indicates the average bias for IV estimates that are statistically significant at the 5\%. The orange line represents the bias of statistically significant OLS estimates at the 5\% level. The strength of the instrumental variable is expressed as the value of the linear parameter linking rainfall to turnout. In this simulation, N = 10,000. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/IV.html}{link}.}
                                     \end{center}
 				\vspace{-1cm}
@@ -143,21 +143,21 @@
 
 		\subsection{Difference-in-Differences Event Study Design}\label{sim_DID}
     
-        			\paragraph{Intuition for the trade-off.}  To avoid confounding, DiD event studies take advantage of exogenous shocks. In many settings, while the number of observations may be large, the number of events, their duration or the proportion of individuals affected might be limited. As a consequence, the number of treated observations can be small and the variation available to identify the treatment limited. In studies using discrete exogenous shocks, a confounding / exaggeration trade-off is thus mediated by the number of observations treated. This issue does not only concern DiD event studies but is particularly salient in this case. 
+        			\paragraph{Intuition for the trade-off.}  To avoid confounding, DiD event studies take advantage of exogenous shocks. In many settings, while the number of observations may be large, the number of events, their duration or the proportion of individuals affected might be limited. As a consequence, the number of (un)treated observations can be small and the variation available to identify the treatment limited. Statistical power is maximized when the proportion of treated observations is equal to the proportion of untreated ones, as extensively discussed in the randomized controlled trial literature. In studies using discrete exogenous shocks, a confounding / exaggeration trade-off is thus mediated by the number of observations treated. This issue does not only concern DiD event studies but is particularly salient in this case. 
 			
 			\paragraph{Case-study and simulation procedure.} %To illustrate this trade-off, I reproduce the analysis described for instrumental variable strategies described in section \ref{sim_IV} but considering that $Rain$ is a dummy equals to one if it rained on the day of the election.
 			To illustrate this trade-off, I simulate a study of the impact of air pollution reduction on newborn weight of babies. To avoid confounding, one can exploit exogenous shocks to air pollution such as plant closures, creation of a low emission zone or of an urban toll. I simulate the analysis at the zip code and monthly levels and focus on the example of toxic plant closures. I consider that the average birth weight in zip code $z$ at time period $t$, $bw_{zt}$, depends on a zip code fixed effect $\zeta_z$, a time fixed effect $\tau_t$, and the treatment status $T_{z,t}$, which is equal to one if a plant is closed in this period and 0 otherwise. The average birth weights $bw_{zt}$ is defined as follows: $bw_{z,t} = \alpha + \beta T_{z, t} + \zeta_z + \tau_t + u_{z,t}$. To further simplify the identification of the effect, I assume a non-staggered treatment allocation and constant and homogenous effects. I only vary the proportion of zip codes affected by toxic plant closings.
 
        The parameters values of the simulations are inspired from \cite{currie_environmental_2015} and \cite{lavaine_energy_2017}. For a fixed sample size of 120,000 observations, I generate 1000 datasets for an increasing number of treated observations and estimate the correct two-way fixed effects model.
         
-			\paragraph{Results.} Even though the actual sample size is extremely large inthe example, if the number of treated observations is small, the exaggeration can be important, as shown in \Cref{graph_DID}. A very large number of observations does not necessarily prevent the exaggeration issue to arise. The intuition behind this result can be compared to the case of a complete randomized controlled trial where, for fixed sample size, the statistical power is maximized when units are equally allocated to treatment and control groups.
-			
+			\paragraph{Results.} Figure \ref{graph_RDD} displays the results of these simulations. Even though the actual sample size is extremely large in the example, if the number of treated observations is small, exaggeration can be important. A very large number of observations does not necessarily prevent exaggeration to arise.  
+
 			\begin{figure}[!h] 
                     			\begin{center}
-                    				\caption{Evolution of the Bias of Statistically Significant Estimates Against Strength of the Instrument.}
-                    				\label{graph_IV}
-                    				\includegraphics[width=0.9\linewidth]{images/main_graph_DID_paper.pdf}
-                                    \caption*{\footnotesize \textit{Notes}: The red solid line indicates the average bias for IV estimates that are statistically significant at the 5\%. The orange line represents the bias of statistically significant OLS estimates at the 5\% level. The strength of the instrumental variable is expressed as the value of the linear parameter linking rainfall to turnout. In this simulation, N = 10,000. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/IV.html}{link}.}
+                    				\caption{Evolution of Bias With the Number of Treated Observations, for Statistically Significant Estimates, in the Event Study Case}
+                    				\label{graph_DID}
+                    				\includegraphics[width=0.8\linewidth]{images/main_graph_DID_paper.pdf}
+                                    \caption*{\footnotesize \textit{Notes}: The line indicates the average bias for estimates that are statistically significant at the 5\%. In this simulation, N = 120,000. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/DID.html}{link}.}
                                     \end{center}
 				\vspace{-1cm}
                     		\end{figure} 

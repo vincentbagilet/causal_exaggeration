@@ -104,7 +104,7 @@ To simplify, we consider the following additional assumptions:
 - The treatment is constant in time and homogeneous across zip codes. In this case, the two ways fixed effect estimation should yield a correct estimate of the ATET (as discussed in [de Chaisemartin and d'Haultfoeuille (2022)](https://www.nber.org/papers/w29691) for instance)
 - A proportion $p_{treat}$ of zip codes are ever treated over the period. Hence, a proportion of $1-p_{treat}$ zip codes are never treated over the period. We draw these zip codes at random. Note that drawing at random is not necessary here. Without loss of generality, we could assume that the non-treated zip codes are those with the larger zip codes identifiers for instance,
 - We assume that, among treated zip codes, on average half of the observations are treated. This choice is arbitrary but we choose that such that the treatment happens on average in middle of the of the time period,
-- The implementation of the treatment can be staggered or not. If it is not staggered, the treatment date is set to be in the middle of the period. For now we only analyze the non staggered version.
+<!-- - The implementation of the treatment can be staggered or not. If it is not staggered, the treatment date is set to be in the middle of the period. For now we only analyze the non staggered version. -->
 
 More precisely, we set: 
 
@@ -116,14 +116,15 @@ More precisely, we set:
 - $T_{zt}$ represent the treatment allocation, it is equal to 1 if zip code $z$ is treated at time $t$ and 0 otherwise,
 - $w_{z,t} = \alpha + \beta T_{z, t} + \zeta_z + \tau_t + \epsilon_{z,t}$ where $\alpha$ is a constant,
 - $\beta$ is represents the magnitude of the treatment,
-- We define `staggered` as a logical variable.
+<!-- - We define `staggered` as a logical variable. -->
 
-We also create a bunch of variables that can be useful:
+We also create a bunch of useful variables:
 
 - $InTreatment_z$ equal to 1 if zip code $z$ ever gets treated,
-- $t^{event}_z$ equal to the date at which zip code $z$ gets treated, especially useful in the staggered setting,
+<!-- - $t^{event}_z$ equal to the date at which zip code $z$ gets treated, especially useful in the staggered setting, -->
 - $t^{centered}_z$ representing the distance in terms of periods to the beginning of the treatment for zip code $z$,
-- $Post_{zt}$ equal to 1 if the period $t$ is after the treatment has begun for zip code $z$. This variable is only useful for non-staggered treatment allocation case.
+- $Post_{zt}$ equal to 1 if the period $t$ is after the treatment has begun for zip code $z$. 
+<!-- This variable is only useful for non-staggered treatment allocation case. -->
 
 ### Data generation
 
@@ -136,7 +137,6 @@ generate_data_DID <- function(N_z,
                               N_t,
                               sigma_e,
                               p_treat,
-                              staggered,
                               alpha,
                               beta,
                               mu_zip_fe, 
@@ -145,27 +145,19 @@ generate_data_DID <- function(N_z,
                               sigma_time_fe
                              ) {
   
-  if (!is.logical(staggered)) {stop("staggered must be logical")} 
-  
   data <- tibble(zip = 1:N_z) %>%
     mutate(in_treatment = (zip %in% sample(1:N_z, floor(N_z*p_treat)))) %>% 
     crossing(t = 1:N_t) %>%
     group_by(zip) %>%
-    mutate(
-      zip_fe = rnorm(1, mu_zip_fe, sigma_zip_fe),
-      # x = rnorm(1, 0, 350),
-      t_event = ifelse(staggered, sample(2:(N_t - 1), 1), floor(N_t/2)), 
-        #We use 2:(N_t-1) to aalways have a pre and post period
-      t_event = ifelse(!in_treatment & staggered, NA, t_event)
-    ) %>%
+    mutate(zip_fe = rnorm(1, mu_zip_fe, sigma_zip_fe)) %>%
     ungroup() %>%
     group_by(t) %>%
     mutate(time_fe = rnorm(1, mu_time_fe, sigma_time_fe)) %>%
     ungroup() %>%
     mutate(
-      post = (t > t_event),
+      post = (t > floor(N_t/2)),
       treated = in_treatment & post, 
-      t_centered = t - t_event,
+      t_centered = t - floor(N_t/2),
       e = rnorm(nrow(.), 0, sigma_e),
       birthweight0 = alpha + zip_fe + time_fe + e, #+ 1*x
       birthweight1 = birthweight0 + beta,
@@ -183,9 +175,10 @@ We set baseline values for the parameters to emulate a somehow realistic observa
 We get "inspiration" for the values of parameters from [Lavaine and Neidell (2017)](https://www.journals.uchicago.edu/doi/full/10.1086/691554).
 
 We consider that:
-- We consider a large number of zip codes (1000 zip codes) and time periods (24 months),
+
+- A large number of zip codes (1000 zip codes) and time periods (24 months),
 - Birthweight is expressed in grams. In Lavaine and Neidell's sample made of babies born in France, the average birthweight is 3228g (sd = 353). We choose `alpha` and `sigma_e` to yield a similar distribution. These values of course depend on the values of the other parameters
-- A usual treatment effect size in published studies is a change of about 1 to 3% in birthweight. We consider a 2% effect size. Thus, we set $\beta = 3228 \times 0.02 \simeq 65$
+- A usual treatment effect size in published studies is a change of about 1 to 3% in birthweight (*eg* [Currie et al. (2015)](https://www.aeaweb.org/articles?id=10.1257/aer.20121656)). We consider a 2% effect size. Thus, we set $\beta = 3228 \times 0.02 \simeq 65$
 - We set time and individual fixed effects to be of half of the order of magnitude of the treatment effect and with a standard deviation roughly equal to their mean (somehow arbitrary choice),
 - In these type of analyses, plant closures do not happen often and therefore the proportion of treated observations is limited. As a baseline, we can assume that 5% of the plants close over the period. Translating it in terms of closures, in the two years of the study (24 months), out of the 1000 plants, 50 closed. This does not seem like a particularly large number as such closures are rare. 
 
@@ -195,7 +188,6 @@ baseline_param_DID <- tibble(
   N_t = 24,
   sigma_e = 350, #65,
   p_treat = 0.05,
-  staggered = FALSE,
   alpha = 3163,
   beta = 65,
   mu_zip_fe = 33, 
@@ -229,7 +221,7 @@ ex_data_mean <- ex_data %>%
   select(Statistic, everything())
 
 ex_data_sd <- ex_data %>% 
-  summarise(across(.cols = c(birthweight0), sd)) %>% 
+  summarise(across(.cols = c(birthweight0), stats::sd)) %>% 
   mutate(Statistic = "Standard Deviation") %>% 
   select(Statistic, everything())
 
@@ -242,16 +234,9 @@ ex_data_mean %>%
 #   kable()
 ```
 
-Treatment allocations in the staggered and non staggered case, when the proportion of treated is 30%, are as follows:
+The treatment allocation when the proportion of treated is 30% is as follows:
 
 ```{r treatment_allocation_DID, echo=FALSE}
-labs_graph_staggered <- labs(
-    title = "Treatment assignment across time and zip codes",
-    x = "Time index", 
-    y = "Zip code id", 
-    fill = "Treatment status"
-  )
-
 baseline_param_DID %>% 
   mutate(N_z = 20, N_t = 50, p_treat = 0.3) %>%
   pmap_dfr(generate_data_DID) %>% 
@@ -259,19 +244,12 @@ baseline_param_DID %>%
   ggplot(aes(x = t, y = factor(zip), fill = fct_rev(treated))) + 
   geom_tile(color = "white", lwd = 0.3, linetype = 1) +
   coord_fixed() +
-  labs_graph_staggered + 
-  labs(subtitle = "Non staggered")
-
-baseline_param_DID %>%
-  mutate(N_z = 20, N_t = 50, p_treat = 0.3) %>%
-  mutate(staggered = TRUE) %>%
-  pmap_dfr(generate_data_DID) %>% 
-  mutate(treated = ifelse(treated, "Treated", "Not treated")) %>% 
-  ggplot(aes(x = t, y = factor(zip), fill = fct_rev(treated))) +
-  geom_tile(color = "white", lwd = 0.3, linetype = 1) +
-  coord_fixed() +
-  labs_graph_staggered +
-  labs(subtitle = "Staggered")
+  labs(
+    title = "Treatment assignment across time and zip codes",
+    x = "Time index", 
+    y = "Zip code id", 
+    fill = "Treatment status"
+  )
 ```
 
 #### Quick data exploration
@@ -428,10 +406,6 @@ param_DID <- baseline_param_DID %>%
   rename(p_treat = vect_p_treat) %>% 
   crossing(rep_id = 1:N_iter) %>% 
   select(-rep_id)
-
-param_DID %>% 
-  # slice(1:10) %>% 
-  DT::datatable()
 ```
 
 We then run the simulations by mapping our `compute_sim_IV` function on `param_IV`.
@@ -451,21 +425,21 @@ toc()
 
 First, we quickly explore the results.
 
-```{r exploration_results_DID, echo=FALSE, fig.asp=0.7}
+```{r exploration_results_DID, echo=FALSE, fig.asp=0.9}
 sim_DID <- readRDS(here("Outputs/sim_DID.RDS"))
 
 sim_DID %>% 
   filter(p_treat %in% sample(vect_p_treat, 4)) %>%  
   mutate(
     n_treat = p_treat*N_z*N_t,
-    # n_treat_name = fct_order(paste("Nb treated:", n_treat),
+    n_treat_name = paste(n_treat, "treated"),
     N_z = paste("Number zip codes: ", str_pad(N_z, 2)),
     N_t = paste("Number periods: ", str_pad(N_t, 2))
   ) %>% 
   ggplot(aes(x = estimate)) +
   geom_vline(xintercept = unique(sim_DID$true_effect)) +
   geom_density() +
-  facet_grid(~ n_treat) +
+  facet_wrap(~ n_treat_name, nrow = 2) +
   labs(
     title = "Distribution of the estimates of the treatment effect",
     subtitle = "For different number of treated observations",
@@ -532,10 +506,11 @@ summary_sim_DID %>%
     x = "Number of treated observations", 
     y = expression(paste("Average  ", frac("Estimate", "True Effect")))
   ) +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
-  theme_mediocre(base_family = "Lora", pal = "coty") 
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) 
+# +
+#   theme_mediocre(base_family = "Lora", pal = "coty") 
 
-ggsave("main_graph_DID_paper.pdf", path = "images", width = 6.2, height = 3.7)
+ggsave("main_graph_DID_paper.pdf", path = "images", width = 8, height = 4.5)
 ```
 
 

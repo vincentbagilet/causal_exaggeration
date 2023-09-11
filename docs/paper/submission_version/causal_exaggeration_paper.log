@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  8 SEP 2023 18:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  11 SEP 2023 10:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1572,7 +1572,17 @@ LaTeX Font Info:    Try loading font information for T1+cmtt on input line 36.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-) [1
+)
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
+
+ []
+
+[1
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 (../preliminary_intro/causal_exaggeration_intro_text.tex
@@ -2022,15 +2032,10 @@ Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 819.
 Package rerunfilecheck Info: File `causal_exaggeration_paper.out' has not chang
 ed.
 (rerunfilecheck)             Checksum: 855D12BD78413FCBBF74CBA05350927F;2402.
+Package rerunfilecheck Info: File `causal_exaggeration_paper.brf' has not chang
+ed.
+(rerunfilecheck)             Checksum: 93314F0A08BFCE8378EAAD6A4313DD53;6085.
 
-
-Package rerunfilecheck Warning: File `causal_exaggeration_paper.brf' has change
-d.
-(rerunfilecheck)                Rerun to get bibliographical references right.
-
-Package rerunfilecheck Info: Checksums for `causal_exaggeration_paper.brf':
-(rerunfilecheck)             Before: 3FB19C6677F8E9D7781A713373CC67DB;6030
-(rerunfilecheck)             After:  93314F0A08BFCE8378EAAD6A4313DD53;6085.
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -2098,10 +2103,10 @@ c1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfxc1
 440.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfxc172
 8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfxc2074.
 pfb>
-Output written on causal_exaggeration_paper.pdf (35 pages, 1243290 bytes).
+Output written on causal_exaggeration_paper.pdf (35 pages, 1243176 bytes).
 PDF statistics:
- 987 PDF objects out of 1000 (max. 8388607)
- 868 compressed objects within 9 object streams
+ 988 PDF objects out of 1000 (max. 8388607)
+ 869 compressed objects within 9 object streams
  171 named destinations out of 1000 (max. 500000)
  279 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,6 +1,6 @@
 ---
 title: "Intuition, experimental studies and replication crisis"
-description: "In this document, we analyze replications of experimental studies to illustrate the consequences of low statistical power in economics and give intuition for the trade-off we underline."
+description: "In this document, through replications of experimental studies, I illustrate the consequences of low statistical power on estimated effect sizes and give intuition for the confounding / exaggeration trade-off highlighted in this paper."
 author:
   - name: Vincent Bagilet 
     url: https://vincentbagilet.github.io/
@@ -21,7 +21,7 @@ text-align: justify}
 
 ```{r setup_experiments, include=FALSE, results='hide', warning=FALSE}
 library(knitr)
-opts_chunk$set(fig.path = "images/",
+opts_chunk$set(fig.path = "images/intuition/",
                cache.path = "cache/",
                cache = FALSE,
                echo = TRUE, #set to false to hide code
@@ -49,155 +49,44 @@ set_mediocre_all(pal = "coty")
 ```
 
 
-## Intuition for exaggeration
+## What is exaggeration?
 
-To illustrate the consequences of low power, we analyze the results from [Camerer et al (2016)](https://www.science.org/doi/10.1126/science.aaf0918) through the prism of statistical power. The authors of this paper replicated laboratory experiments in economics.
+Exaggeration is one of the key concepts in the present paper. To understand how low statistical power can cause exaggeration in the presence of publication bias, let's analyze replications of laboratory experiments in economics ran by [Camerer et al (2016)](https://www.science.org/doi/10.1126/science.aaf0918). 
 
-They report their replication results, alongside the original results, on the [project website](http://experimentaleconreplications.com/scripts.html), we only need to run their Stata script `create_studydetails.do` to recover all the information. 
+First, I retrieve their replication results, alongside the results of the initial studies, from their [project website](http://experimentaleconreplications.com/scripts.html). I just ran their Stata script `create_studydetails.do` to generate their data set. Since the standard errors of the estimates are not reported in this data set, I recompute them.
 
-We then compute the power of the initial analysis if the true effect is in fact equal to the replication's.
-
-```{r camerer_retro, echo=FALSE}
+```{r rep_camerer, code_folding=TRUE}
 rep_camerer <- read_dta("Inputs/studydetails.dta") %>% 
   mutate(
     seorig = (eorigu95 - eorig)/qnorm(0.975),
     serep = (erepu95 - erep)/qnorm(0.975)
   )
-
-retro_camerer <- rep_camerer %>% 
-  select(A = erep, s = seorig) %>% 
-  # select(A, s) %>% 
-  pmap_dfr(retrodesign) %>% 
-  cbind(rep_camerer) %>% 
-  as_tibble()
 ```
 
-### Analyzing all studies
+First, I focus on one particular study, Abeler et al. (2011), in order to illustrate in more details the issue of interest. I first plot in red the estimate and 95% confidence interva Abeler et al. obtained in their experiment (note that I will run replications and there will be several draws of estimates in subsequent graphs, hence why the x-axis of the graph below):
 
-We quickly plot and analyze the results obtained, *ie* the distribution of the exaggeration ratio and power.
-
-```{r camerer_retro_analysis, echo=FALSE}
-retro_camerer %>% 
-  ggplot() +
-  geom_dotplot(aes(x = exaggeration), color = NA) +
-  labs(
-    title = "Distribution of the exaggeration ratio in the original studies",
-    subtitle = "If the true effect was equal to the replicated one",
-    x = "Exaggeration ratio (log scale)",
-    y = "Number of studies",
-    caption = "Each dot represents one study"
-  ) + 
-  scale_x_log10() +
-  scale_y_continuous(NULL, breaks = NULL) 
-
-retro_camerer %>%
-  ggplot() +
-  geom_dotplot(aes(x = power*100), color = NA) +
-  labs(
-    title = "Distribution of the power in the original studies",
-    subtitle = "If the true effect was equal to the replicated one",
-    x = "Power (%)",
-    y = "Number of studies",
-    caption = "Each dot represents one study"
-  ) +
-  scale_y_continuous(NULL, breaks = NULL) 
-# 
-# retro_camerer %>% 
-#   ggplot() +
-#   geom_histogram(aes(x = power))
-# 
-# retro_camerer %>% 
-#   count(exaggeration > 1.5)
-```
-
-The median power would be `r round(median(retro_camerer$power),2)`%. The median replicated estimates is equal to  `r round(median(1/retro_camerer$exaggeration), 2)` times the original estimate.
-
-We then compute the number and proportion of original studies that were statistically significant. 
-
-```{r echo=FALSE}
-rep_camerer %>% 
-  mutate(
-    original_significant = ifelse(porig < 0.05, "Yes", "No")
-  ) %>% 
-  group_by(original_significant) %>% 
-  summarise(
-    nb = n(),
-    prop = n()/nrow(.)
-  ) %>% 
-  kable(col.names = c(
-    "Original estimate statistically significant", 
-    "Number",
-    "Proportion"),
-    digits = 2
-  )
-```
-
-We then do the same thing for the replication studies.
-
-```{r echo=FALSE}
-rep_camerer %>% 
-  mutate(
-    rep_significant = ifelse(prep < 0.05, "Yes", "No")
-  ) %>% 
-  group_by(rep_significant) %>% 
-  summarise(
-    nb = n(),
-    prop = n()/nrow(.)
-  ) %>% 
-  kable(col.names = c(
-    "Replication estimate statistically significant", 
-    "Number",
-    "Proportion"),
-    digits = 2
-  )
-```
-
-We then compute the proportion of original studies that would have adequate power as defined by the customary and arbitrary 80% threshold, still assuming that the true effect is equal to the replication one.
-
-```{r echo=FALSE}
-retro_camerer %>% 
-  mutate(
-    adequate_power = ifelse(power >= 0.8, "Yes", "No")
-  ) %>% 
-  group_by(adequate_power) %>% 
-  summarise(
-    nb = n(),
-    prop = n()/nrow(.)
-  ) %>% 
-  kable(col.names = c(
-    "Adequate power", 
-    "Number",
-    "Proportion"),
-    digits = 2
-  )
-```
-
-### Focus on one particular study
-
-Here, we focus on one particular study in order to illustrate in more details the problem at play. We want to simulate what could have yielded replication of the initial study if the true effect was equal to the replication estimate.
-
-We select one of the studies, Abeler et al. (2011), that we initially selected at random and draw the graph of interest. The way we calculated the standard error is not perfectly accurate so we use the information available in the [replication report](http://experimentaleconreplications.com/replicationreports.html).
-
-```{r graph_retrodesign_camerer, echo=FALSE, fig.height=4.3, fig.width=9, out.width=1200, dpi = 700}
+```{r graph_camerer_initial_study, echo=FALSE}
 random_study <- rep_camerer %>% 
   slice(1) 
 
 n_iter <- 500
 
-data_graph_distrib <- rnorm(random_study$erep, random_study$seorig, n = n_iter) %>% 
-  as_tibble() %>% 
+data_graph_distrib <- 
+  tibble(
+    estimate = rnorm(random_study$erep, random_study$seorig, n = n_iter)
+  ) |> 
   mutate(
     n = row_number(),
     non_significant = dplyr::between(
-      value, 
-      - 1.96*sd(value), 
-      1.96*sd(value)
+      estimate, 
+      - 1.96*sd(estimate), 
+      1.96*sd(estimate)
     ),
     significant = ifelse(non_significant, "Non significant", "Significant") 
   ) 
 
-graph_original <- data_graph_distrib %>% 
-  ggplot(aes(x = n, y = value, color = significant)) + 
+graph_original <- data_graph_distrib |> 
+  ggplot(aes(x = n, y = estimate, color = significant)) + 
   #original study
   geom_point(aes(x = -30, y = random_study$eorig), color = "darkred", size = 2) +
   geom_linerange(aes(
@@ -206,7 +95,7 @@ graph_original <- data_graph_distrib %>%
     ymax = random_study$eorig + 1.96*random_study$seorig), color = "darkred") +
   labs(
     title = "Illustration of the exaggeration and power issues",
-    subtitle = "500 draws of an estimate ~ N(Effect size in replication, std err in original study)",
+    subtitle = "The effect found in the initial study (in red)",
     x = "Draw",
     y = "Point estimate"
   ) +
@@ -214,72 +103,79 @@ graph_original <- data_graph_distrib %>%
   xlim(c(-30, 500)) +
   ylim(c(-0.25, 0.4))
 
-ggsave("graph_retrodesign_camerer_1.pdf", path = "images", width = 9, height = 4.5)
+graph_original
 
+ggsave("graph_retrodesign_camerer_1.pdf", path = "images", width = 9, height = 4.5)
+```
+
+This estimate is significant and has been published. Yet, it is pretty noisy. 
+
+I then plot the result of the replication in blue:
+
+```{r graph_camerer_replication_study, echo=FALSE}
 graph_rep <- graph_original +
   #replication 
   geom_point(aes(x = -20, y = random_study$erep), color = "darkblue", size = 2) +
   geom_linerange(aes(
     x = -20,
     ymin = random_study$erep - 1.96*random_study$serep,
-    ymax = random_study$erep + 1.96*random_study$serep), color = "darkblue") 
+    ymax = random_study$erep + 1.96*random_study$serep), color = "darkblue") +
+  labs(subtitle = "The effect found in the replication (in blue)")
+
+graph_rep
 
 ggsave("graph_retrodesign_camerer_2.pdf", path = "images", width = 9, height = 4.5)
+```
 
+This estimate is both more precise and smaller than the initial one. It still remains noisy and it is not statistically significant.
+
+Let's now assume that the true effect is actually equal to this replicated estimate. Would the design of the initial study be good enough to detect this effect? *ie* if we replicated the initial study, could we reject the null of no effect, knowing that the true effect is equal to the replicated estimate? 
+
+To illustrate this, I first plot in gray the point estimate form the replicated study but with a standard error equal to the initial study's, *i.e.* approximately the estimate that would have been obtained with the design of the initial study but with an effect equal to the replicated one. This emulates what would have yielded a replication of the initial study if the true effect was equal to the replication estimate.
+
+```{r graph_camerer_replication_original, echo=FALSE}
 graph_rep_original <- graph_rep +
   #repliccation with design of the original study
   geom_point(aes(x = -10, y = random_study$erep), color = "gray50", size = 2) +
   geom_linerange(aes(
     x = -10,
     ymin = random_study$erep - 1.96*random_study$seorig,
-    ymax = random_study$erep + 1.96*random_study$seorig), color = "gray50")
-
-ggsave("graph_retrodesign_camerer_3.pdf", path = "images", width = 9, height = 4.5)
-
-graph_rep_original <- graph_rep_original +
-  # geom_hline(aes(yintercept = mean(value)), size = 0.8) +
-  geom_point(alpha = 0.8) +
-  geom_hline(aes(yintercept = 0), size = 0.3, linetype = "solid") 
-  # transition_layers(layer_length = 2, from_blank = FALSE) #to animate
-
-ggsave("graph_retrodesign_camerer_4.pdf", path = "images", width = 9, height = 4.5)
+    ymax = random_study$erep + 1.96*random_study$seorig), color = "gray50") +
+  labs(subtitle = "The effect found in the replication but assuming the initial design (in gray)")
 
 graph_rep_original
+
+ggsave("graph_retrodesign_camerer_3.pdf", path = "images", width = 9, height = 4.5)
 ```
 
-- In red is the estimate from the original study and its 95% confidence interval
-- The estimate is significant and has been published. Yet, it is pretty noisy.
-- In blue is the estimate from the replicated study and its 95% confidence interval
-- We notice that this second estimate is both more precise and smaller than the initial one. It still remains noisy
-- Let's assume that the true effect is actually equal to this second estimate (note that this is unlikely)
-- Would the design of the initial study be good enough to detect this true effect? *ie* if we replicated the initial study, could we reject the null of no effect (knowing that the true effect is equal to the replicated estimate)
-- In gray is the estimate form the replicated study but with a standard error equal to the initial study's (approximately the standard errors that would have been obtained with the design of the initial study)
-- This estimate is non significant. In this instance, we would not have been able to reject the null of no effect
-- Now, if we replicate this study `r n_iter` times, running `r n_iter` lab experiments, in some cases we would get statisitcally significant estimates (the beige dots) and in some others non statistically significant ones (the green dots)
-- If we would have been a bit more lucky, we could have gotten a sample of individuals that would have yielded one of the beige estimates
-- Now, we notice that, on average, statistically significant estimates overestimate the true effect by a factor `r data_graph_distrib %>% filter(!non_significant) %>% .$value %>% mean() / random_study$erep` (average of `r data_graph_distrib %>% filter(!non_significant) %>% .$value %>% mean()` while the true effect is `r random_study$erep`). Gelman and Carlin call this inflation factor type M error.
-- In this case, the power is basically the proportion of statistically significant estimates
-- If the study had more power, the sd would be smaller and most estimates would be statistically significative (because there is indeed a non null effect)
-- But since the power is low, if by chance the sample of individuals we get yields a statistically significant estimate, this estimate will overestimate the true effect
+This estimate is non significant. In this instance, we would not have been able to reject the null of no effect. Now, let's replicate this study `r n_iter` times, running `r n_iter` lab experiments with the design of the initial study and under the assumption of a true effect equal to the one obtained in the replication:
 
+```{r graph_camerer_iter, echo=FALSE}
+graph_rep_original <- graph_rep_original +
+  # geom_hline(aes(yintercept = mean(estimate)), size = 0.8) +
+  geom_point(alpha = 0.8) +
+  geom_hline(aes(yintercept = 0), linewidth = 0.3, linetype = "solid") +
+  labs(
+    subtitle = "500 draws of an estimate ~ N(Effect size in replication, std err in original study)"
+  )
+  # transition_layers(layer_length = 2, from_blank = FALSE) #to animate
 
-<!-- ## Randomized Control Trials -->
+graph_rep_original
 
-<!-- We want to look at replications of RCTs in Development Economics. To do so, we use [the list of replication papers put together by Sandip Sukhtankar](https://www.aeaweb.org/articles?id=10.1257/aer.p20171120).  -->
+ggsave("graph_retrodesign_camerer_4.pdf", path = "images", width = 9, height = 4.5)
+```
 
-<!-- We gather the list of RCTs that have been replicated in Development Economics. -->
+In some cases we would get statistically significant estimates (the beige dots) and non statistically significant ones (the green dots) in others cases. The statistical power here is basically the proportion of statistically significant estimates.
 
-<!-- ```{r rep_dvpt} -->
-<!-- rep_dvpt <- read_dta(here("Misc", "replication_data_final.dta")) -->
+If the study was more precise, the standard error of the estimator would be smaller and more estimates would be statistically significant. The study would have more statistical power. But since the power is low here (or equivalently since the estimator is relatively imprecise), statistically significant estimates only represent a subset of the estimate and on average overestimate the true effect. They overestimate it by a factor `r data_graph_distrib %>% filter(!non_significant) %>% .$estimate %>% mean() / random_study$erep` (average of `r data_graph_distrib %>% filter(!non_significant) %>% .$estimate %>% mean()` while the true effect is `r random_study$erep`). 
 
-<!-- # rep_dvpt %>%  -->
-<!-- #   filter((RCT == "Yes") & (Replicated == "Replicated")) %>%  -->
-<!-- #   .$ReplicationPaperTitle -->
-<!-- ``` -->
+On average, statistically significant estimates overestimate true effect sizes when statistical power is low.
 
-## Intuition for the impact of precision on exaggeration
+<!-- The way we calculated the standard error is not perfectly accurate so we use the information available in the [replication report](http://experimentaleconreplications.com/replicationreports.html). -->
 
-The trade-off we describe between exaggeration and confounders arises due to differences in precision between estimators. To illustrate this, we generate estimates from two unbiased estimators with identical mean but different variances and plot their distributions, distinguishing between estimates that are and are not significant.
+## Why does imprecision lead to exaggeration?
+
+The confounding / exaggeration trade-off described in this paper arises due to differences in precision between estimators. To illustrate this, I generate estimates from two unbiased estimators with identical mean but different variances and plot their distributions, distinguishing between estimates that are and are not significant.
 
 ```{r intuition_trade_off, echo=FALSE, fig.asp=0.8}
 N <- 50000
@@ -324,7 +220,7 @@ data_intuition %>%
     aes(xintercept = mean_signif), 
     color = "#976B21", 
     linetype = "solid", 
-    size = 0.3
+    linewidth = 0.3
   ) + 
   labs(
     x = "Estimate",
@@ -340,6 +236,135 @@ ggsave(here("images", "graph_intuition_precision.pdf"), width = 6, height = 4.8)
 ```
 
 In the case of the precise estimator, the mean of statistically significant estimates is almost equal to the true effect. The estimator is unbiased and almost all estimates are significant. However, in the case of the imprecise estimator, only a sub-sample of the estimates are significant: those that are far away enough from 0 (at least 1.96 s.d.). As a consequence, the mean of  statistically significant estimates is different from the true effect, even if the estimator is unbiased. This hints to the trade-off between biased estimates from naive regressions and less precise causal inference estimates.
+
+## Do we actually see exaggeration in the literature?
+
+I then describe evidence of exaggeration found by Camerer et al. Out of the 18 studies, `r rep_camerer |> tally(sign(eorig) != sign(erep)) |> pull()` replications have opposite signs as compared to the original study. Out of those that are of the same sign, original studies are on average `r rep_camerer |> filter(sign(eorig) == sign(erep)) |> summarise(exagg = mean(abs(eorig/erep))) |> pull()` larger than replicated ones.
+
+The number and proportion of original studies that were statistically significant are as follows: 
+
+```{r echo=FALSE}
+rep_camerer %>% 
+  mutate(
+    original_significant = ifelse(porig < 0.05, "Yes", "No")
+  ) %>% 
+  group_by(original_significant) %>% 
+  summarise(
+    nb = n(),
+    prop = n()/nrow(.)
+  ) %>% 
+  kable(col.names = c(
+    "Original estimate statistically significant", 
+    "Number",
+    "Proportion"),
+    digits = 2
+  )
+```
+
+For the replication studies, these statistics are as follows:
+
+```{r echo=FALSE}
+rep_camerer %>% 
+  mutate(
+    rep_significant = ifelse(prep < 0.05, "Yes", "No")
+  ) %>% 
+  group_by(rep_significant) %>% 
+  summarise(
+    nb = n(),
+    prop = n()/nrow(.)
+  ) %>% 
+  kable(col.names = c(
+    "Replication estimate statistically significant", 
+    "Number",
+    "Proportion"),
+    digits = 2
+  )
+```
+
+Now, I want to compute the statistical power of the initial analysis. To do so, we need to assume a value of the true effect. I assume that this true effect is equal to the effect found in the replication and compute the corresponding statistical power and exaggeration of the original study using the `retrodesign` package.
+
+```{r camerer_retro, code_folding=TRUE}
+retro_camerer <- rep_camerer %>% 
+  select(A = erep, s = seorig) %>% 
+  # select(A, s) %>% 
+  pmap_dfr(retrodesign::retrodesign) %>% 
+  cbind(rep_camerer) %>% 
+  as_tibble()
+```
+
+The distribution of the exaggeration ratio and power are as follows:
+
+```{r camerer_retro_analysis, code_folding='Show the code used to generate the graph'}
+retro_camerer %>% 
+  ggplot() +
+  geom_dotplot(aes(x = exaggeration), color = NA) +
+  labs(
+    title = "Distribution of the exaggeration ratio in the original studies",
+    subtitle = "If the true effect was equal to the replicated one",
+    x = "Exaggeration ratio (log scale)",
+    y = "Number of studies",
+    caption = "Each dot represents one study"
+  ) + 
+  scale_x_log10() +
+  scale_y_continuous(NULL, breaks = NULL) 
+
+retro_camerer %>%
+  ggplot() +
+  geom_dotplot(aes(x = power*100), color = NA) +
+  labs(
+    title = "Distribution of the power in the original studies",
+    subtitle = "If the true effect was equal to the replicated one",
+    x = "Power (%)",
+    y = "Number of studies",
+    caption = "Each dot represents one study"
+  ) +
+  scale_y_continuous(NULL, breaks = NULL) 
+# 
+# retro_camerer %>% 
+#   ggplot() +
+#   geom_histogram(aes(x = power))
+# 
+# retro_camerer %>% 
+#   count(exaggeration > 1.5)
+```
+
+A non-negligible portion of the studies have low power and are therefore likely to produce inflated statistically significant estimates.
+
+I finally compute the proportion of original studies that would have adequate power as defined by the customary and arbitrary 80% threshold, still assuming that the true effect is equal to the replication one.
+
+```{r echo=FALSE}
+retro_camerer %>% 
+  mutate(
+    adequate_power = ifelse(power >= 0.8, "Yes", "No")
+  ) %>% 
+  group_by(adequate_power) %>% 
+  summarise(
+    nb = n(),
+    prop = n()/nrow(.)
+  ) %>% 
+  kable(col.names = c(
+    "Adequate power", 
+    "Number",
+    "Proportion"),
+    digits = 2
+  )
+```
+
+All these results shows that even the experimental literature suffers from power and exaggeration issues, despite power being central to this literature. 
+
+<!-- ## Randomized Control Trials -->
+
+<!-- We want to look at replications of RCTs in Development Economics. To do so, we use [the list of replication papers put together by Sandip Sukhtankar](https://www.aeaweb.org/articles?id=10.1257/aer.p20171120).  -->
+
+<!-- We gather the list of RCTs that have been replicated in Development Economics. -->
+
+<!-- ```{r rep_dvpt} -->
+<!-- rep_dvpt <- read_dta(here("Misc", "replication_data_final.dta")) -->
+
+<!-- # rep_dvpt %>%  -->
+<!-- #   filter((RCT == "Yes") & (Replicated == "Replicated")) %>%  -->
+<!-- #   .$ReplicationPaperTitle -->
+<!-- ``` -->
 
 
 

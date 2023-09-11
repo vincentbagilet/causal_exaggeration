@@ -34,18 +34,6 @@ opts_chunk$set(fig.path = "images/",
                dev.args = list(bg = "transparent"))  
 ``` 
 
-In this document, I show through simulations how matching procedures targeting the common support of the data could be under-powered and lead to inflated statistically significant estimates. We illustrate this issue with fake-data similar to those from non-randomized labor training programs. In this case, treated individuals self-select themselves to get the treatment and may therefore have different characteristics from individuals who do not enroll in the program. To estimate the causal effect of the treatment on treated, researchers can rely on matching, which is a pre-processing technique to approximate an hypothetical randomized experiment. The method has three main advantages:
-
-1. Contrary to outcome regression approach, it does not directly model the relationship between the treatment of interest and the outcome
-2. It adjusts non-parametrically for *observed* confounders
-3. By pruning control units not similar to treated units, matching help reveal the common support of the data upon which researchers can more confidently draw their inference. Statistical models used to analyze the resulting data will suffer less from extrapolation bias.
-
-The method however relies on the strong assumption that no *unmeasured* confounders exist and, depending on its stringency, may discard many units from the analysis. This second limit could result in a lack of statistical power to estimate the average treatment on the treated. If journal editors and researchers favor studies based on the their statistical significance, under-powered studies based on matching procedures could lead to estimates that are too large.
-
-# Loading Packages
-
-We first load the required packages to set-up the simulations:
-
 ```{r packages_matching}
 # load required packages
 library(knitr) # for creating the R Markdown document
@@ -62,6 +50,21 @@ library(here) # for paths management
 # set ggplot theme
 set_mediocre_all(pal = "coty")
 ```
+
+## Summary and intuition
+
+In the case of matching, the unconfoundedness / exaggeration trade-off is mediated by the 
+
+'strength' of the instrument considered. When the instrument only explains a limited portion of the variation in the explanatory variable, the IV can still be successful in avoiding confounders but power can low, potentially leading to exaggeration issues to arise. 
+
+In this document, I show through simulations how matching procedures targeting the common support of the data could be under-powered and lead to inflated statistically significant estimates. We illustrate this issue with fake-data similar to those from non-randomized labor training programs. In this case, treated individuals self-select themselves to get the treatment and may therefore have different characteristics from individuals who do not enroll in the program. To estimate the causal effect of the treatment on treated, researchers can rely on matching, which is a pre-processing technique to approximate an hypothetical randomized experiment. The method has three main advantages:
+
+1. Contrary to outcome regression approach, it does not directly model the relationship between the treatment of interest and the outcome
+2. It adjusts non-parametrically for *observed* confounders
+3. By pruning control units not similar to treated units, matching help reveal the common support of the data upon which researchers can more confidently draw their inference. Statistical models used to analyze the resulting data will suffer less from extrapolation bias.
+
+The method however relies on the strong assumption that no *unmeasured* confounders exist and, depending on its stringency, may discard many units from the analysis. This second limit could result in a lack of statistical power to estimate the average treatment on the treated. If journal editors and researchers favor studies based on the their statistical significance, under-powered studies based on matching procedures could lead to estimates that are too large.
+
 
 # Data Generating Procedure
 

@@ -1,7 +1,7 @@
 ---
 title: "Matching Simulations"
 description: |
-  In this document, we run a simulation exercise to illustrate how using a matching procedure to avoid confounding may create type M error."
+  In this document, I run a simulation exercise to illustrate how using a matching procedure to avoid confounding may lead to a loss in power and inflated effect sizes."
 author:
   - name: Vincent Bagilet 
     url: https://vincentbagilet.github.io/
@@ -34,7 +34,7 @@ opts_chunk$set(fig.path = "images/",
                dev.args = list(bg = "transparent"))  
 ``` 
 
-In this document, we show through simulations how matching procedures targeting the common support of the data could be under-powered and lead to inflated statistically significant estimates. We illustrate this issue with fake-data similar to those from non-randomized labor training programs. In this case, treated individuals self-select themselves to get the treatment and may therefore have different characteristics from individuals who do not enroll in the program. To estimate the causal effect of the treatment on treated, researchers can rely on matching, which is a pre-processing technique to approximate an hypothetical randomized experiment. The method has three main advantages:
+In this document, I show through simulations how matching procedures targeting the common support of the data could be under-powered and lead to inflated statistically significant estimates. We illustrate this issue with fake-data similar to those from non-randomized labor training programs. In this case, treated individuals self-select themselves to get the treatment and may therefore have different characteristics from individuals who do not enroll in the program. To estimate the causal effect of the treatment on treated, researchers can rely on matching, which is a pre-processing technique to approximate an hypothetical randomized experiment. The method has three main advantages:
 
 1. Contrary to outcome regression approach, it does not directly model the relationship between the treatment of interest and the outcome
 2. It adjusts non-parametrically for *observed* confounders
@@ -93,25 +93,20 @@ generate_data_matching <- function(sample_size,
                                     att) {
   data <- tibble(id = 1:sample_size) %>%
     mutate(
-      # assign treatment status
       treatment = rbinom(n = sample_size, size = 1, prob = p_treat),
-      # create the propensity score distributions
       true_ps = ifelse(
         treatment == 0,
         rnorm(n(), mean = mu_c, sd = sigma_c),
         rnorm(n(), mean = mu_t, sd = sigma_t)
       ),
-      # make sure that the propensity score is between 0 and 1
       true_ps = case_when(true_ps > 1 ~ 1,
                           true_ps < 0 ~ 0,
                           true_ps >= 0 & true_ps <= 1 ~ true_ps),
-      # generate the potential outcomes
       y_0 = wage * true_ps + rnorm(n(), mean = 300, sd = 200),
       y_0 = y_0 %>% round(., 0),
       y_1 = ifelse(treatment == 1,
                    y_0 + att,
                    y_0 + atc),
-      # generate observed outcomes
       y_obs = ifelse(treatment == 1, y_1, y_0) %>% round(., 0)
     )
   return(data)
@@ -143,12 +138,10 @@ baseline_param_match %>% kable()
 We run one iteration of the function `generate_data_matching()` to explore the resulting data with 500 units:
 
 ```{r display_dataset, echo=FALSE}
-# run the function for a sample of 1000 units
 data <- baseline_param_match %>%
   mutate(sample_size = 1000) %>% 
   pmap_dfr(generate_data_matching)
 
-# display the table
 data %>%
   mutate_all( ~ round(., 2)) %>%
   datatable(.)
@@ -159,12 +152,16 @@ About `r 100*mean(data$treatment)`% of units are treated. We display below the t
 ```{r graph_true_ps, echo = FALSE}
 data %>%
   mutate(treatment = ifelse(treatment == 1, "Treated", "Control")) %>%
-  ggplot(., aes(x = true_ps, fill = treatment, colour = treatment)) +
+  ggplot(aes(x = true_ps, fill = treatment, colour = treatment)) +
   geom_density() +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
-  ggtitle("Distribution of the True Propensity Scores by Treatment Group") +
-  xlab("True Propensity Score") + ylab("Density") +
-  labs(fill = 'Status:', color = 'Status:')
+  labs(
+    title = "Distribution of the True Propensity Scores by Treatment Group",
+    x = "True Propensity Score",
+    y = "Density",
+    fill = NULL, 
+    color = NULL
+  )
 ```
 
 The distribution of potential outcomes Y(0) should be different across the two groups:
@@ -175,9 +172,13 @@ data %>%
   ggplot(., aes(x = y_0, fill = treatment, colour = treatment)) +
   geom_density() +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
-  ggtitle("Distribution of the Potential Outcomes Y(0) of Units by Treatment Group") +
-  xlab("Potential Outcomes Y(0)") + ylab("Density") +
-  labs(fill = 'Status:', color = 'Status:')
+  labs(
+    title = "Distribution of the Potential Outcomes Y(0) of Units by Treatment Group",
+    x = "Potential Outcomes Y(0)",
+    y = "Density",
+    fill = NULL, 
+    color = NULL
+  )
 ```
 
 We can also see how the observed revenue is distributed across the two groups:
@@ -188,22 +189,24 @@ data %>%
   ggplot(., aes(x = y_obs, fill = treatment, colour = treatment)) +
   geom_density() +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
-  ggtitle("Distribution of the Revenue of Units by Treatment Group") +
-  xlab("Revenue (in euros)") + ylab("Density") +
-  labs(fill = 'Status:', color = 'Status:')
+  labs(
+    title = "Distribution of the Revenue of Units by Treatment Group",
+    x = "Revenue (in euros)",
+    y = "Density",
+    fill = NULL, 
+    color = NULL
+  )
 ```
 
 We can check whether the ATT and ATC were correctly simulated. The ATT is computed such as:
 
 ```{r true_att}
-# checking att
 mean(data$y_1[data$treatment==1]) - mean(data$y_0[data$treatment==1])
 ```
 
 and the ATC:
 
 ```{r true_atc}
-# checking atc
 mean(data$y_1[data$treatment==0]) - mean(data$y_0[data$treatment==0])
 ```
 
@@ -231,18 +234,14 @@ outcome_regression <- function(data) {
 We then simulate 1000 datasets of 300 units and run the regression model:
 
 ```{r sim_outcome_reg, eval=FALSE}
-# first simulate simulation id
 data_sim_ex <- tibble(sim_id = 1:1000) %>%
-  # then simulate data
   mutate(data = map(
     sim_id,
     ~ pmap_dfr(baseline_param_match, generate_data_matching)
     )
   ) %>%
-  # finally run the reg analysis
   mutate(results = map(data, ~ outcome_regression(.)))
 
-# unnest the results
 data_sim_ex <- data_sim_ex %>%
   select(-data) %>%
   unnest(results)
@@ -257,15 +256,19 @@ data_sim_ex <- readRDS(here("Outputs/data_sim_ex.RDS"))
 
 data_sim_ex %>%
   ggplot(., aes(x = estimate)) +
-  geom_density(colour = NA) +
+  geom_density() +
   geom_vline(xintercept = mean(data_sim_ex$estimate)) +
   annotate("text", x = 540, y = 0.009, label = "Mean of Estimates") + 
   annotate("text", x = 125, y = 0.009, label = "True ATT") + 
-  geom_vline(xintercept = 100, colour = "#EAA95C") +
+  geom_vline(xintercept = 100, color = colors_mediocre[["complementary"]]) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
-  ggtitle("Distribution of Outcome Regression Estimates") + 
-  xlab("Estimates of Treatment Effect (in euros)") + ylab("Density") +
-  labs(fill = 'Status:')
+  labs(
+    title = "Distribution of Outcome Regression Estimates",
+    x = "Estimates of Treatment Effect (in euros)",
+    y = "Density",
+    fill = NULL, 
+    color = NULL
+  )
 ```
 
 With an outcome regression analysis, the average of estimates is equal to `r round(mean(data_sim_ex$estimate), 0)`! The outcome regression analysis suffers from extrapolation bias.
@@ -285,7 +288,6 @@ We implement below a propensity score matching procedure where:
 We display below the code for the function `ps_function()` which runs the matching procedure. It takes two inputs: (i) a dataset and (ii) the value of the caliper. 
 
 ```{r ps_function}
-# propensity score analysis function
 ps_function <- function(data, caliper_value) {
   # implements the propensisty score matching
   matching_results <- matchit(
@@ -330,7 +332,6 @@ ps_function <- function(data, caliper_value) {
 We run the function on the dataset we previously created:
 
 ```{r, echo=TRUE}
-# testing the function
 ps_function(data, caliper = 0.5) %>% 
   mutate_at(vars(-term), ~ round(., 1)) %>% 
   kable(., align = c("l", rep('c', 6)))
@@ -344,14 +345,11 @@ We implement Monte-Carlo 300 simulations for different values of the caliper (it
 
 ```{r run_sim_matching, eval=FALSE}
 sim_matching <- tibble(sim_id = 1:1000) %>%
-  # then simulate data
   mutate(data = map(
     sim_id,
     ~ pmap_dfr(baseline_param_match, generate_data_matching)
   )) %>%
-  # generate caliper
   crossing(caliper = c(0.01, seq(0.05, 0.4, 0.05), seq(0.4, 1, 0.1))) %>%
-  # finally run the matching analysis
   mutate(results = map2(data, caliper, ~ ps_function(.x, .y)))
 
 sim_matching <- sim_matching %>%
@@ -364,10 +362,8 @@ sim_matching <- sim_matching %>%
 Once the simulations have been run, we compute the summary statistics using the `summarise_simulations()` function. We denote $\tau$ the true value of the causal estimand and $\widehat{\tau}$ its estimate. To illastrue the consequences of a loss of statistical power with lower values of the caliper, we compare $\mathbb{E}\left[\left|\frac{\widehat{tau}}{\tau}\right|\right]$ and $\mathbb{E}\left[\left|\frac{\widehat{\tau}}{\tau}\right| | signif \right]$. The first term represents the bias and the second term represents the type M error. 
 
 ```{r summarise_sim_matching}
-# load simulation results
 sim_matching <- readRDS(here("Outputs/sim_matching.RDS"))
 
-# function to compute power, type m error and bias
 summarise_sim_matching <- function(data) {
   data %>%
     mutate(significant = (p.value <= 0.05)) %>% 
@@ -398,10 +394,11 @@ summary_sim_matching %>%
   ggplot(aes(x = caliper, y = value, color = measure)) + 
   geom_line(size = 0.8) +
   labs(
+    title = "Evolution of the bias with the caliper for matching",
     x = "Caliper", 
     y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
-    color = "Estimates",
-    title = "Evolution of the bias with the caliper for matching") 
+    color = "Estimates"
+  ) 
 ```
 
 ```{r main_graph_matching_paper, dpi=600, include=FALSE}
@@ -415,16 +412,11 @@ summary_sim_matching %>%
     y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
     color = "Estimates"
     # title = "Evolution of the Inflation of Estimates with the Caliper"
-  ) +
-  theme_mediocre(base_family = "Lora", pal = "coty") +
-  theme(
-    legend.title = element_text(size = rel(0.9)),
-    legend.text = element_text(size = rel(0.9))
-  )
+  ) 
   # theme_mediocre(pal = "blackandwhite", base_family = "Lora") +
   # scale_mediocre_d(pal = "blackandwhite")
 
-ggsave("main_graph_matching_paper.pdf", path = "images", width = 6.2, height = 3.7)
+ggsave("main_graph_matching_paper.pdf", path = "images", width = 8, height = 4.5)
 ```
 
 The blue line indicates the inflation of all estimates, regardless of their statistical significance. As the value of the caliper increases, estimates are more biased: this is due to the fact that we are comparing units that are less similar. The yellow line represents the inflation of statistically significant estimates at the 5% level. We clearly see with this line the danger of editorial policies biased toward small $p$-values: with low values of the caliper, statistically significant estimates are inflated!

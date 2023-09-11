@@ -1,6 +1,6 @@
 ---
-title: "Simulations DID / Event study"
-description: "In this document, we run a simulation exercise to illustrate how using a Difference-in-Differences (DiD) or event study approach to avoid confounders may lead to a loss in power and inflated effect sizes."
+title: "Simulations exogenous shocks"
+description: "In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes."
 author:
   - name: Vincent Bagilet 
     url: https://vincentbagilet.github.io/
@@ -18,6 +18,18 @@ editor_options:
 body {
 text-align: justify}
 </style>
+
+<!-- To export it as pdf, use this yaml -->
+<!-- but run it in another document. I do not know why but there is a bug otherwise -->
+<!-- --- -->
+<!-- title: "Simulations exogenous shocks" -->
+<!-- geometry: false -->
+<!-- output:  -->
+<!--   pdf_document: -->
+<!--     includes: -->
+<!--       in_header: -->
+<!--         - VB_Rmd.sty -->
+<!-- --- -->
 
 ```{r setup_RDD, include=FALSE, results='hide', warning=FALSE}
 library(knitr)
@@ -49,40 +61,43 @@ set.seed(12)
 
 ## Summary and intuition
 
-In the case of event studies, DiD or basically any study using discrete exogenous shocks, the unconfoundedness / exaggeration trade-off is  mediated by the number of observations treated. In some classic DiD settings, while the number of observations is large, the number of events might be limited. Pinpointing exogenous shocks is never easy and we are sometimes only able to find a limited number of occurrences of this shock or shocks affecting a small portion of the population. More precisely, the number of observations with a non null treatment status might be small. In this instance, the variation available to identify the treatment is limited, possibly leading power to be low and exaggeration issues to arise. 
+### A trade-off mediaed by the number of treated observations
 
-The number of treated observations can be decomposed into two parts: the total number of observations times the proportion of observations in the treated group. Of course, if one reduces the total sample size, precision and thus power will decrease. Now, we all remember that power is maximized when the proportion of treated observations is equal to the proportion of untreated ones. If we consider a fixed number of observations, decreasing the proportion of treated observations below 0.5 will decrease precision and power. 
+In the case of studies using exogenous shocks, a confounding / exaggeration trade-off is mediated by the number of treated observations. In some settings, while the number of observations is large, the number of events might be limited. Pinpointing exogenous shocks is never easy and we are sometimes only able to find a limited number of occurrences of this shock or shocks affecting a small portion of the population. More precisely, the number of observations with a non null treatment status might be small. In this instance, the variation available to identify the treatment is limited, possibly leading power to be low and exaggeration issues to arise. 
 
-The simple formula of the standard error of the difference of the averages of the outcome variable in the treated and control group illustrates this. Of course this does not represent the actual standard error of the DiD estimate but it represents something similar and can be useful to get an intuition for this trade-off. The formula is the following:
+### Intuition to explain the variation of power with the number of treated observations
+
+The number of treated observations can be decomposed into two parts: the total number of observations times the proportion of observations in the treated group. Of course, if one reduces the total sample size, precision and thus statistical power will decrease. At a fixed total sample size and as commonly discussed in the Randomized Control Trial literature, statistical power is maximized when the proportion of treated observations is equal to the proportion of untreated ones. If we consider a fixed number of observations, decreasing the proportion of treated observations below 0.5 will decrease precision and power. The intuition for this relationship can be given by studying the simple formula for the standard error of the difference between the mean of the outcome for the control and treatment groups. It does not represent the actual standard error of the DiD estimator but can be useful to get an intuition for this trade-off. The formula is the following:
 
 $$se_{\bar{y_T} - \bar{y_c}} = \sqrt{\dfrac{\sigma_T^2}{n_T} + \dfrac{\sigma_C^2}{n_C}}$$
 where $n_T$ and $n_C$ are the number of observation in the treated group and the control group respectively and $\sigma_T$ and $\sigma_C$ the standard deviations of the outcome in the treated group and the control group respectively. In many cases, we can assume that $\sigma_T = \sigma_C = \sigma$. Under this assumption we have: 
 
 $$se_{\bar{y_T} - \bar{y_c}} = \dfrac{\sigma}{\sqrt{n}} \times \sqrt{\dfrac{1}{p_T(1-p_T)}}$$
-where $n$ is the total number of observations and $p_T$ the proportion of treated observations. 
+where $n$ is the total number of observations ($n = n_T + n_C$) and $p_T$ the proportion of treated observations. 
 
-From this simple formula it is obvious that the standard error of interest increases when $n$ decreases and that, for $n$ constant, it is minimized when the proportion of treated is 0.5. If there are less treated than control, one may think of decreasing the number of observations in the control group to get to $p_T = 0.5$. Yet, this will also reduce $n$ and the first equation makes clear that only reducing $n_C$ will increase the standard error of interest. 
- 
-The unbalance between the number of treated and controls is more general than only event studies and DiD but is particularly salient in this case.
+From this simple formula it is obvious that the standard error of interest increases when $n$ decreases and that, for $n$ constant, it is minimized when the proportion of treated is 0.5. Since statistical power is a decreasing function of the variance of an estimator, it will decrease when the proportion of treated diverges from 0.5.
+
+The issue caused by an imbalance between the number of treated and controls does not only affect event studies and DiD but is particularly salient in this case.
 
 ## An illustrative example
 
-For readability and to illustrate this loss in power, we consider an example setting. For this illustration we could use a large variety of Data Genereting Processes (DGP), both in terms of distribution of the variables and of relations between them. We narrow this down to an example setting, considering an analysis of health impacts of air pollution. More precisely, we simulate and analyze the impacts of air pollution reduction on birthweights. Air pollution might vary with other variables that may also affect birthweight (for instance economic activity). Some of these variables might be unobserved and bias estimates of a simple regression of birthweight on pollution levels. A strategy to avoid such issues is to consider exogenous shocks to air pollution such as plant closures, plant openings, creation of a low emission zone or an urban toll, strikes, etc.
+For readability and to illustrate this loss in power, let's consider an example setting. For this illustration we could use a large variety of Data Genereting Processes (DGP), both in terms of distribution of the variables and of relations between them. I narrow this down to an example setting, considering an analysis of health impacts of air pollution. More precisely, I simulate and analyze the impacts of air pollution reduction on birthweights. Air pollution might vary with other variables that may also affect birthweight (for instance economic activity). Some of these variables might be unobserved and bias estimates of a simple regression of birthweight on pollution levels. A strategy to avoid such issues is to consider exogenous shocks to air pollution such as plant closures, plant openings, creation of a low emission zone or an urban toll, strikes, etc.
 
-Even if we consider an example setting for clarity, the unconfoundedness / exaggeration trade-off mediated by the number of observations treated should also arise in other settings.
+Even if I consider an example setting for clarity, the confounding / exaggeration trade-off mediated by the number of observations treated also arises in other settings.
 
 ### Modeling choices
 
-To simplify, we consider the assumptions described below. Of course these assumptions are arbitrary and we invite you to play with them. 
+To simplify, I make the assumptions described below. Of course these assumptions are arbitrary and I invite interested readers to play around with them. 
 <!-- Note that, fixed effects and the covariate are not necessary to the analysis. I only add them to make the analysis more realistic if necessary but I set their baseline values to 0. -->
 
-As many studies in the literature, for instance [Currie et al. (2015)](https://www.aeaweb.org/articles?id=10.1257/aer.20121656) and [Lavaine and Neidell (2017)](https://www.journals.uchicago.edu/doi/full/10.1086/691554), to build a panel, we aggregate observations. We look at the evolution of birthweights in zip codes in time, for instance months. 
+Many studies in the literature, such as [Currie et al. (2015)](https://www.aeaweb.org/articles?id=10.1257/aer.20121656) and [Lavaine and Neidell (2017)](https://www.journals.uchicago.edu/doi/full/10.1086/691554) for instance, aggregate observations to build a panel. I follow this approach and look at the evolution of birthweights in zip codes in time. 
 
-For clarity in the explanations, let's assume that the exogenous shock considered is a permanent plant closure and that this reduces air pollution level. If the reader prefers, they can think of it as any permanent exogenous change in air pollution levels. For now, we will only estimate a reduced form. We are therefore not interested in modeling the effect of the plant closure on pollution levels. We consider that the plant closure leads to some air pollution reduction and want to estimate the effect of this closure on birthweight. We plan to add pollution in the future in order to compare the performance of the reduced form and a straight regression of birthweight on pollution. Yet, generating pollution is rather complex and we therefore only consider the reduced form for now.
+For clarity in the explanations, let's assume that the exogenous shock considered is a permanent plant closure and that this reduces air pollution level. If the reader prefers, they can think of it as any permanent exogenous change in air pollution levels. Here, I only estimate a reduced form model and am therefore not interested in modeling the effect of the plant closure on pollution levels. I consider that the plant closure leads to some air pollution reduction and want to estimate the effect of this closure on birthweight. 
+<!-- I plan to add pollution in the future in order to compare the performance of the reduced form and a straight regression of birthweight on pollution. Yet, generating pollution is rather complex and we therefore only consider the reduced form for now. -->
 
 For each time period, a zip code is either treated (plant closed) or not treated. Over the whole period, some zip codes experience a plant closure, others do not either because they do not have a plant that affect their air pollution levels or because their plant did not close. 
 
-We consider that the average birthweight in zip code $z$ at time period $t$, $w_{zt}$, depends on a zip code fixed effect $\zeta_z$, a time fixed effect $\tau_t$ and the treatment status $T_i$, *ie* whether a plant closed in this period or not. For now, we do not simulate omitted variable biases as we consider that the shocks are truly exogenous. Thus, birthweight is defined as follows:
+I consider that the average birthweight in zip code $z$ at time period $t$, $w_{zt}$, depends on a zip code fixed effect $\zeta_z$, a time fixed effect $\tau_t$ and the treatment status $T_i$, *ie* whether a plant is closed in this period or not. For now, I do not simulate omitted variable biases as I consider that the shocks are truly exogenous. Thus, birthweight is defined as follows:
 
 $$w_{z,t} = \alpha + \beta T_{z, t} + \zeta_z + \tau_t + \epsilon_{z,t}$$
 <!-- 
@@ -99,14 +114,18 @@ We consider an AR(1) process along each dimension. Thus, birthweight is defined 
 <!-- ``` -->
 
 
-To simplify, we consider the following additional assumptions:
+To simplify, I consider the following additional assumptions:
 
 - The treatment is constant in time and homogeneous across zip codes. In this case, the two ways fixed effect estimation should yield a correct estimate of the ATET (as discussed in [de Chaisemartin and d'Haultfoeuille (2022)](https://www.nber.org/papers/w29691) for instance)
-- A proportion $p_{treat}$ of zip codes are ever treated over the period. Hence, a proportion of $1-p_{treat}$ zip codes are never treated over the period. We draw these zip codes at random. Note that drawing at random is not necessary here. Without loss of generality, we could assume that the non-treated zip codes are those with the larger zip codes identifiers for instance,
-- We assume that, among treated zip codes, on average half of the observations are treated. This choice is arbitrary but we choose that such that the treatment happens on average in middle of the of the time period,
+- The treatment allocation is non staggered: all the plant closings happen at the same time. 
+I assume that they happen in the middle of the period so that 
+- A proportion $p_{treat}$ of zip codes are ever treated over the period. Hence, a proportion of $1-p_{treat}$ zip codes are never treated over the period. I draw these zip codes at random. Note that drawing at random is not necessary here. Without loss of generality, we could assume that the non-treated zip codes are those with the larger zip codes identifiers for instance,
+
+
+, among treated zip codes, on average half of the observations are treated and th. This choice is arbitrary but we choose that such that the treatment happens on average in middle of time period,
 <!-- - The implementation of the treatment can be staggered or not. If it is not staggered, the treatment date is set to be in the middle of the period. For now we only analyze the non staggered version. -->
 
-More precisely, we set: 
+More precisely, I set: 
 
 - $N_z$ the number of zip codes,
 - $N_t$ the number of periods (months),
@@ -177,10 +196,10 @@ We get "inspiration" for the values of parameters from [Lavaine and Neidell (201
 We consider that:
 
 - A large number of zip codes (1000 zip codes) and time periods (24 months),
-- Birthweight is expressed in grams. In Lavaine and Neidell's sample made of babies born in France, the average birthweight is 3228g (sd = 353). We choose `alpha` and `sigma_e` to yield a similar distribution. These values of course depend on the values of the other parameters
-- A usual treatment effect size in published studies is a change of about 1 to 3% in birthweight (*eg* [Currie et al. (2015)](https://www.aeaweb.org/articles?id=10.1257/aer.20121656)). We consider a 2% effect size. Thus, we set $\beta = 3228 \times 0.02 \simeq 65$
-- We set time and individual fixed effects to be of half of the order of magnitude of the treatment effect and with a standard deviation roughly equal to their mean (somehow arbitrary choice),
-- In these type of analyses, plant closures do not happen often and therefore the proportion of treated observations is limited. As a baseline, we can assume that 5% of the plants close over the period. Translating it in terms of closures, in the two years of the study (24 months), out of the 1000 plants, 50 closed. This does not seem like a particularly large number as such closures are rare. 
+- Birthweight is expressed in grams. In Lavaine and Neidell's sample made of babies born in France, the average birthweight is 3228g (sd = 353). I choose `alpha` and `sigma_e` to yield a similar distribution. These values of course depend on the values of the other parameters
+- A usual treatment effect size in published studies is a change of about 1 to 3% in birthweight (*eg* in [Currie et al. (2015)](https://www.aeaweb.org/articles?id=10.1257/aer.20121656)). I thus consider a 2% effect size and set $\beta = 3228 \times 0.02 \simeq 65$
+- I set time and individual fixed effects to be of half of the order of magnitude of the treatment effect and with a standard deviation roughly equal to their mean (somehow arbitrary choice),
+- In these type of analyses, plant closures do not happen often and therefore the proportion of treated observations is limited. As a baseline, I assume that 5% of the plants close over the period. Translating it in terms of closures, in the two years of the study (24 months), out of the 1000 plants, 50 closed. This does not seem like a particularly large number as such closures are rare. 
 
 ```{r baseline_param_DID, echo=FALSE}
 baseline_param_DID <- tibble(
@@ -199,7 +218,7 @@ baseline_param_DID <- tibble(
 baseline_param_DID %>% kable()
 ```
 
-Here is an example of data created with the data generating process and baseline parameter values, for 2 zip codes and 8 time periods and not displaying `t_event`, `ìn_treatment`, `post` and `t_centered`:
+Here is an example of data created with the data generating process and baseline parameter values, for 2 zip codes and 8 time periods and not displaying `ìn_treatment`, `post` and `t_centered`:
 
 ```{r example_data_DID, echo=FALSE}
 baseline_param_DID %>% 
@@ -209,7 +228,7 @@ baseline_param_DID %>%
   kable()
 ```
 
-We check the standard deviation and means of the parameters:
+A quick check on a full data set shows that the standard deviation and mean of the birthweight correspond to what we aimed for:
 
 ```{r check_sd_mean_DID, echo=FALSE}
 ex_data <- baseline_param_DID %>% 
@@ -254,7 +273,7 @@ baseline_param_DID %>%
 
 #### Quick data exploration
 
-We quickly explore a data set generated with our function. First, we look at the distribution of potential outcomes.
+I quickly explore a generated data set to get a sense of how the data is distributed. First, I display the distribution of potential outcomes.
 
 ```{r eda_distrib_outcome,echo=FALSE}
 ex_data %>% 
@@ -275,7 +294,7 @@ ex_data %>%
   )
 ```
 
-Then, we compare the average birthweight before and after the treatment, in the control and treatment group.
+Then, I compare the average birthweight before and after the treatment, in the control and treatment group.
 
 ```{r eda_comparison_treatment,echo=FALSE}
 ex_data %>%
@@ -316,7 +335,7 @@ ex_data %>%
 
 ### Estimation
 
-We then define a function to run the estimation.
+I then define a function to run the estimation.
 
 ```{r estimate_DID}
 estimate_DID <- function(data) {
@@ -354,7 +373,7 @@ baseline_param_DID %>%
 
 ### One simulation
 
-Note that to run power calculations, we need to have access to the true effects. Therefore, before running the estimation, we write a short function to compute the average treatment effect on the treated (ATET). We will add this information to the estimation results. 
+Note that to run power calculations, we need to have access to the true effects which are not directly input parameters. Therefore, before running the estimation, I write a short function to compute the average treatment effect on the treated (ATET). I will add this information to the estimation results. 
 
 ```{r compute_true_effect_DID}
 compute_true_effect_DID <- function(data) {
@@ -365,7 +384,7 @@ compute_true_effect_DID <- function(data) {
 }  
 ```
 
-We can now run a simulation, combining `generate_data_DID` and `estimate_DID`. To do so we create the function `compute_sim_DID`. This simple function takes as input the various parameters. It returns a table with the estimate of the treatment, its p-value and standard error, the true effect, the proportion of treated units and whether the treatment was staggered or not. Note that for now, we do not store the values of the other parameters for simplicity because we consider them fixed over the study.
+We can now run a simulation, combining `generate_data_DID` and `estimate_DID`. To do so I create the function `compute_sim_DID`. This simple function takes as input the various parameters. It returns a table with the estimate of the treatment, its p-value and standard error, the true effect and the proportion of treated units. Note that for now, I do not store the values of the other parameters for simplicity because I consider them fixed over the study.
 
 ```{r compute_sim_DID, echo=FALSE}
 compute_sim_DID <- function(...) {
@@ -394,9 +413,9 @@ baseline_param_DID %>%
 
 ### All simulations
 
-We will run the simulations for different sets of parameters by mapping our `compute_sim_DID` function on each set of parameters. We thus create a table with all the values of the parameters we want to test, `param_DID`. Note that in this table each set of parameters appears `N_iter` times as we want to run the analysis $n_{iter}$ times for each set of parameters.
+I will run the simulations for different sets of parameters by looping the `compute_sim_DID` function over the set of parameters. I thus create a table with all the values of the parameters to test, `param_DID`. Note that in this table each set of parameters appears `N_iter` times as we want to run the analysis $n_{iter}$ times for each set of parameters.
 
-```{r set_param_DID, echo=FALSE}
+```{r set_param_DID}
 vect_p_treat <- c(0.001, seq(0.002, 0.01, 0.002), c(0.01, 0.02, 0.03))
 N_iter <- 100
 
@@ -408,7 +427,7 @@ param_DID <- baseline_param_DID %>%
   select(-rep_id)
 ```
 
-We then run the simulations by mapping our `compute_sim_IV` function on `param_IV`.
+I then run the simulations by looping our `compute_sim_IV` function on `param_IV` using the `purrr` package (`pmap_dfr` function).
 
 ```{r run_sim_DID, eval=FALSE}
 tic()
@@ -423,7 +442,7 @@ toc()
 
 ### Quick exploration
 
-First, we quickly explore the results.
+First, I quickly explore the results. I plot the distribution of the estimated effect sizes, along with the true effect. The estimator is unbiased and recover, on average, the true effect:
 
 ```{r exploration_results_DID, echo=FALSE, fig.asp=0.9}
 sim_DID <- readRDS(here("Outputs/sim_DID.RDS"))
@@ -451,10 +470,9 @@ sim_DID %>%
 
 ### Computing bias and exaaggeration ratio
 
-We want to compare $\mathbb{E}[\beta_0/\widehat{\beta}]$ and $\mathbb{E}[\beta_0/ \widehat{\beta}|signif]$. The first term represents the bias and the second term represents the 
-exaggeration ratio. These terms depend on the true effect size.
+We want to compare $\mathbb{E}[\widehat{\beta}]/\beta_0$ and $\mathbb{E}[ \widehat{\beta}|signif]/\beta_0$. The first term represents the bias and the second term represents the exaggeration ratio. These terms depend on the true effect size.
 
-```{r summarise_IV}
+```{r summarise_DID}
 summarise_sim_DID <- function(data) {
   data %>%
     mutate(significant = (p_value <= 0.05)) %>% 
@@ -477,14 +495,14 @@ summary_sim_DID <- summarise_sim_DID(sim_DID)
 
 ### Main graph
 
-To analyze our results, we build a unique and simple graph:
+To analyze our results, I build a unique and simple graph:
 
 ```{r main_graph_DID, echo=FALSE, fig.asp=0.7}
 summary_sim_DID %>% 
   filter(n_treated < 3000) %>% 
   ggplot(aes(x = n_treated, y = exag_ratio)) + 
   # geom_point() +
-  geom_line(size = 0.8, color = "#E5C38A") +
+  geom_line(linewidth = 0.8, color = "#E5C38A") +
   labs(
     x = "Number of treated observations", 
     y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
@@ -501,7 +519,7 @@ summary_sim_DID %>%
   filter(n_treated < 3000) %>% 
   ggplot(aes(x = n_treated, y = exag_ratio)) + 
   # geom_point() +
-  geom_line(size = 0.8, color = "#E5C38A") +
+  geom_line(linewidth = 0.8, color = "#E5C38A") +
   labs(
     x = "Number of treated observations", 
     y = expression(paste("Average  ", frac("Estimate", "True Effect")))
@@ -512,24 +530,4 @@ summary_sim_DID %>%
 
 ggsave("main_graph_DID_paper.pdf", path = "images", width = 8, height = 4.5)
 ```
-
-
-<!-- ```{r graph_results_DID, echo=FALSE, fig.asp=0.7} -->
-<!-- summary_sim_DID %>%  -->
-<!--   mutate( -->
-<!--     N_z = as.factor(N_z), -->
-<!--     N_t = as.factor(N_t) -->
-<!--   ) %>%  -->
-<!--   ggplot(aes(x = N_z, y = N_t, fill = exag_ratio)) + -->
-<!--   geom_tile(color = "white", lwd = 1, linetype = 1) + -->
-<!--   coord_fixed() + -->
-<!--   labs( -->
-<!--     # title = "Type M error for different number of periods and observation", -->
-<!--     title = "The 'balls of yarn' graph", -->
-<!--     x = "Number of zip codes", -->
-<!--     y = "Number of time periods", -->
-<!--     fill = "Exaggeration ratio" -->
-<!--   )  -->
-<!-- ``` -->
-
 

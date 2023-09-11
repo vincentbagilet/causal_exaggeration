@@ -120,6 +120,12 @@ Deaton, A. \harvardand\ Cartwright, N.  \harvardyearleft 2018\harvardyearright
   , `Understanding and misunderstanding randomized controlled trials', {\em
   Social Science \& Medicine} {\bf 210},~2--21.
 
+\harvarditem{Dehejia \harvardand\ Wahba}{1999}{dehejia_causal_1999}
+Dehejia, R.~H. \harvardand\ Wahba, S.  \harvardyearleft 1999\harvardyearright ,
+  `Causal {{Effects}} in {{Nonexperimental Studies}}: {{Reevaluating}} the
+  {{Evaluation}} of {{Training Programs}}', {\em Journal of the American
+  Statistical Association} {\bf 94}(448),~1053--1062.
+
 \harvarditem[Duflo et~al.]{Duflo, Glennerster \harvardand\
   Kremer}{2007}{duflo_using_2007}
 Duflo, E., Glennerster, R. \harvardand\ Kremer, M.  \harvardyearleft
@@ -277,6 +283,12 @@ Rosenbaum, P.~R.  \harvardyearleft 2002\harvardyearright , {\em Observational
 Rosenthal, R.  \harvardyearleft 1979\harvardyearright , `The file drawer
   problem and tolerance for null results', {\em Psychological Bulletin} {\bf
   86}(3),~638--641.
+
+\harvarditem{Rubin}{2001}{rubin_using_2001}
+Rubin, D.~B.  \harvardyearleft 2001\harvardyearright , `Using {{Propensity
+  Scores}} to {{Help Design Observational Studies}}: {{Application}} to the
+  {{Tobacco Litigation}}', {\em Health Services and Outcomes Research
+  Methodology} {\bf 2}(3),~169--188.
 
 \harvarditem[Schell et~al.]{Schell, Griffin \harvardand\
   Morral}{2018}{schell_evaluating_2018}

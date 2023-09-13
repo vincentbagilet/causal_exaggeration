@@ -84,16 +84,16 @@ We display below the code for the function `generate_data_matching()` which crea
 
 ```{r dgp_matching}
 generate_data_matching <- function(sample_size,
-                                    p_treat,
-                                    mu_t,
-                                    sigma_t,
-                                    mu_c,
-                                    sigma_c,
-                                    wage,
-                                    mu_noise,
-                                    sigma_noise,
-                                    atc,
-                                    att) {
+                                   p_treat,
+                                   mu_t,
+                                   sigma_t,
+                                   mu_c,
+                                   sigma_c,
+                                   wage,
+                                   mu_noise,
+                                   sigma_noise,
+                                   atc,
+                                   att) {
   data <- tibble(id = 1:sample_size) %>%
     mutate(
       treatment = rbinom(n = sample_size, size = 1, prob = p_treat),

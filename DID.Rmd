@@ -31,7 +31,7 @@ text-align: justify}
 <!--         - VB_Rmd.sty -->
 <!-- --- -->
 
-```{r setup_RDD, include=FALSE, results='hide', warning=FALSE}
+```{r setup_DID, include=FALSE, results='hide', warning=FALSE}
 library(knitr)
 opts_chunk$set(fig.path = "images/",
                cache.path = "cache/",
@@ -45,7 +45,7 @@ opts_chunk$set(fig.path = "images/",
                dev.args = list(bg="transparent"))  
 ```  
 
-```{r packages_RDD, message=FALSE, warning=FALSE, include=FALSE}
+```{r packages_DID, message=FALSE, warning=FALSE, include=FALSE}
 library(tidyverse) 
 library(knitr) 
 library(fixest)
@@ -61,7 +61,7 @@ set.seed(12)
 
 ## Summary and intuition
 
-### A trade-off mediaed by the number of treated observations
+### A trade-off mediated by the number of treated observations
 
 In the case of studies using exogenous shocks, a confounding / exaggeration trade-off is mediated by the number of treated observations. In some settings, while the number of observations is large, the number of events might be limited. Pinpointing exogenous shocks is never easy and we are sometimes only able to find a limited number of occurrences of this shock or shocks affecting a small portion of the population. More precisely, the number of observations with a non null treatment status might be small. In this instance, the variation available to identify the treatment is limited, possibly leading power to be low and exaggeration issues to arise. 
 
@@ -137,7 +137,7 @@ More precisely, I set:
 - $\beta$ is represents the magnitude of the treatment,
 <!-- - We define `staggered` as a logical variable. -->
 
-We also create a bunch of useful variables:
+I also create a bunch of useful variables:
 
 - $InTreatment_z$ equal to 1 if zip code $z$ ever gets treated,
 <!-- - $t^{event}_z$ equal to the date at which zip code $z$ gets treated, especially useful in the staggered setting, -->
@@ -149,7 +149,7 @@ We also create a bunch of useful variables:
 
 #### Generating function
 
-We write a simple function that generates the data. It takes as input the values of the different parameters and returns a data frame containing all the variables for this analysis. 
+I write a simple function that generates the data. It takes as input the values of the different parameters and returns a data frame containing all the variables for this analysis. 
 
 ```{r DGP_DID}
 generate_data_DID <- function(N_z,
@@ -189,11 +189,11 @@ generate_data_DID <- function(N_z,
 
 #### Baseline parameters' values
 
-We set baseline values for the parameters to emulate a somehow realistic observational study`.
+I set baseline values for the parameters to emulate a somehow realistic observational study`.
 
-We get "inspiration" for the values of parameters from [Lavaine and Neidell (2017)](https://www.journals.uchicago.edu/doi/full/10.1086/691554).
+I get "inspiration" for the values of parameters from [Lavaine and Neidell (2017)](https://www.journals.uchicago.edu/doi/full/10.1086/691554).
 
-We consider that:
+I consider that:
 
 - A large number of zip codes (1000 zip codes) and time periods (24 months),
 - Birthweight is expressed in grams. In Lavaine and Neidell's sample made of babies born in France, the average birthweight is 3228g (sd = 353). I choose `alpha` and `sigma_e` to yield a similar distribution. These values of course depend on the values of the other parameters
@@ -427,7 +427,7 @@ param_DID <- baseline_param_DID %>%
   select(-rep_id)
 ```
 
-I then run the simulations by looping our `compute_sim_IV` function on `param_IV` using the `purrr` package (`pmap_dfr` function).
+I then run the simulations by looping our `compute_sim_DID` function on `param_DID` using the `purrr` package (`pmap_dfr` function).
 
 ```{r run_sim_DID, eval=FALSE}
 tic()
@@ -451,14 +451,14 @@ sim_DID %>%
   filter(p_treat %in% sample(vect_p_treat, 4)) %>%  
   mutate(
     n_treat = p_treat*N_z*N_t,
-    n_treat_name = paste(n_treat, "treated"),
+    n_treat_name = fct_inseq(paste(n_treat)),
     N_z = paste("Number zip codes: ", str_pad(N_z, 2)),
     N_t = paste("Number periods: ", str_pad(N_t, 2))
   ) %>% 
   ggplot(aes(x = estimate)) +
   geom_vline(xintercept = unique(sim_DID$true_effect)) +
   geom_density() +
-  facet_wrap(~ n_treat_name, nrow = 2) +
+  facet_wrap(~ fct_relabel(n_treat_name, \(x) paste(x, "treated")), nrow = 2) +
   labs(
     title = "Distribution of the estimates of the treatment effect",
     subtitle = "For different number of treated observations",

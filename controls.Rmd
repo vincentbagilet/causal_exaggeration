@@ -87,6 +87,7 @@ Note that, to work with constant $\sigma_{y}^{2}, \sigma_{x}^{2}, \sigma_{w}^{2}
 $$\sigma_{\epsilon}^2 = \sigma_x^2 - \gamma^2\sigma_w^2$$
 
 $$\sigma_{u}^2 = \sigma_y^2 - \beta_1^2\sigma_x^2 - \delta^2\sigma_w^2 - 2 \beta_1\delta\gamma\sigma_w^2$$
+
 These expressions directly follow from the DGP. Note that the parameters space is restricted by the necessity of having positive variances. Hence, $\sigma_{x}^{2}$ needs to be strictly larger than $\gamma_{max}^2\sigma_{w}^{2}$ where $\gamma_{max}$ is the maximum value taken by $\gamma$ when varying this parameter. Similarly, $\sigma_{y}^{2}$ needs to be strictly larger than $\beta_1^2\sigma_x^2 + \frac{\kappa^2}{\gamma_{min}^2}\sigma_w^2 + 2 \beta_1\kappa\sigma_w^2$. 
 
 ```{r generate_data_controls}
@@ -99,16 +100,19 @@ generate_data_controls <- function(N,
                                    beta_1,
                                    gamma,
                                    kappa) {
+  # gamma <- rho_xw*sigma_x/sigma_w #by def of rho_xw
+  # delta <- bias*sigma_x/(rho_xw*sigma_w)
   delta <- kappa/gamma
   
   data <- tibble(id = 1:N) |> 
     mutate(
       w = rnorm(N, 0, sigma_w), 
+      # sigma_epsilon = sigma_x*(1 - rho_xw^2),
       sigma_epsilon = sqrt(sigma_x^2 - gamma^2*sigma_w^2),
       epsilon = rnorm(N, 0, sigma_epsilon),
       x = mu_x + gamma*w + epsilon,
       sigma_u = sqrt(sigma_y^2 - beta_1^2*sigma_x^2 - delta^2*sigma_w^2 - 2*beta_1*delta*gamma*sigma_w^2),
-      # sigma_u = sigma_y,
+      # sigma_u = sqrt(sigma_y^2 - sigma_x^2*(beta_1^2 + 2*beta_1*bias + bias^2*sigma_x^2/rho_xw^2),
       u = rnorm(N, 0, sigma_u),
       y = beta_0 + beta_1*x + delta*w + u
     )
@@ -233,10 +237,10 @@ sim_controls <- pmap(param_controls, compute_sim_controls) |>
   list_rbind() |> 
   as_tibble() 
 
-sim_controls_t <- sim_controls |> 
-  mutate(rho_xw = gamma*sigma_w/sigma_x)
+sim_controls <- sim_controls |> 
+  mutate(ratio_gamma_delta = round(gamma^2/kappa, 1))
 
-saveRDS(sim_controls, here("Outputs/sim_controls.RDS"))
+# saveRDS(sim_controls, here("Outputs/sim_controls.RDS"))
 ```
 
 ## Analysis of the results
@@ -248,13 +252,13 @@ First, I quickly explore the results. I plot the distribution of the estimated e
 ```{r exploration_results_controls, fig.asp=2, code_folding="Show code used to generate the graph"}
 sim_controls <- readRDS(here("Outputs/sim_controls.RDS"))
 
-sim_controls_t |> 
+sim_controls |> 
   mutate(model_name = ifelse(model == "ctrl", "Controled", "Omitted")) |>
   ggplot(aes(x = estimate)) + 
   geom_histogram(bins = 60) + 
   geom_vline(xintercept = unique(sim_controls$beta_1)) +
   # geom_vline(aes(xintercept = 0, linetype = "solid")) +
-  facet_grid(gamma ~ model_name) +
+  facet_grid(ratio_gamma_delta ~ model_name) +
   labs(
     title = "Distribution of the estimates of the treatment effect",
     subtitle = "For different values of gamma",
@@ -275,11 +279,11 @@ source(here("functions.R"), echo = TRUE, local = knitr::knit_global())
 
 summary_sim_controls <- summarise_sim(
   sim_controls, 
-  varying_params = c(model, gamma), 
+  varying_params = c(model, ratio_gamma_delta), 
   true_effect = beta_1
 )
 
-saveRDS(summary_sim_controls, here("Outputs/summary_sim_controls.RDS"))
+# saveRDS(summary_sim_controls, here("Outputs/summary_sim_controls.RDS"))
 ```
 
 ### Main graph
@@ -289,11 +293,11 @@ To analyze our results, I build a unique and simple graph:
 ```{r main_graph_controls, echo=FALSE, fig.asp=0.7}
 summary_sim_controls |> 
   mutate(model_name = ifelse(model == "ctrl", "Controled", "Omitted")) |>
-  ggplot(aes(x = gamma, y = exag_ratio, color = model_name)) + 
+  ggplot(aes(x = ratio_gamma_delta, y = exag_ratio, color = model_name)) + 
   geom_line() +
   ylim(c(1, NA)) +
   labs(
-    x = "Gamma", 
+    x = expression(frac("Gamma", "Delta")),
     y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
     title = "Evolution of bias with gamma",
     subtitle = "For statistically significant estimates",
@@ -305,11 +309,11 @@ summary_sim_controls |>
 ```{r main_graph_controls_paper, dpi=600, include=FALSE}
 summary_sim_controls |> 
   mutate(model_name = ifelse(model == "ctrl", "Controled", "Omitted")) |>
-  ggplot(aes(x = gamma, y = exag_ratio, color = model_name)) + 
+  ggplot(aes(x = ratio_gamma_delta, y = exag_ratio, color = model_name)) + 
   geom_line() +
   ylim(c(1, NA)) +
   labs(
-    x = "Gamma", 
+    x = expression(frac("Gamma", "Delta")),
     y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
     # title = "Evolution of bias with gamma",
     # subtitle = "For statistically significant estimates",

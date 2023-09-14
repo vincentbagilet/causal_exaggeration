@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  13 SEP 2023 17:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  14 SEP 2023 14:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1712,7 +1712,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[12] <images/main_graph_controls_paper.pdf, id=416, 578.16pt x 325.215pt>
+[12] <images/main_graph_controls_paper.pdf, id=414, 578.16pt x 325.215pt>
 File: images/main_graph_controls_paper.pdf Graphic file (type pdf)
 
 <use images/main_graph_controls_paper.pdf>
@@ -1737,7 +1737,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [14 <./images/main_graph_controls_paper.pdf>]
-<images/main_graph_RDD_paper.pdf, id=445, 578.16pt x 325.215pt>
+<images/main_graph_RDD_paper.pdf, id=443, 578.16pt x 325.215pt>
 File: images/main_graph_RDD_paper.pdf Graphic file (type pdf)
 
 <use images/main_graph_RDD_paper.pdf>
@@ -1752,7 +1752,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [15 <./images/main_graph_RDD_paper.pdf>]
-<images/main_graph_IV_paper.pdf, id=466, 578.16pt x 325.215pt>
+<images/main_graph_IV_paper.pdf, id=464, 578.16pt x 325.215pt>
 File: images/main_graph_IV_paper.pdf Graphic file (type pdf)
 
 <use images/main_graph_IV_paper.pdf>
@@ -1777,7 +1777,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [17 <./images/main_graph_IV_paper.pdf>]
-<images/main_graph_DID_paper.pdf, id=496, 578.16pt x 325.215pt>
+<images/main_graph_DID_paper.pdf, id=494, 578.16pt x 325.215pt>
 File: images/main_graph_DID_paper.pdf Graphic file (type pdf)
 
 <use images/main_graph_DID_paper.pdf>
@@ -1798,7 +1798,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[19] <images/main_graph_matching_paper.pdf, id=522, 578.16pt x 325.215pt>
+[19] <images/main_graph_matching_paper.pdf, id=520, 578.16pt x 325.215pt>
 File: images/main_graph_matching_paper.pdf Graphic file (type pdf)
 
 <use images/main_graph_matching_paper.pdf>
@@ -2065,7 +2065,7 @@ ed.
 (rerunfilecheck)             Checksum: F5E35435EF55D5FF206EA4947A44CAB7;2478.
 Package rerunfilecheck Info: File `causal_exaggeration_paper.brf' has not chang
 ed.
-(rerunfilecheck)             Checksum: 7BEE403A7FCB3A311DEE54286069EFA2;6105.
+(rerunfilecheck)             Checksum: 6C39B29633D03D68D0204D09667E5170;6047.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -2074,7 +2074,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 847.
  ) 
 Here is how much of TeX's memory you used:
  25719 strings out of 492995
- 436140 string characters out of 6132704
+ 436134 string characters out of 6132704
  561498 words of memory out of 5000000
  28704 multiletter control sequences out of 15000+600000
  39290 words of font info for 106 fonts, out of 8000000 for 9000
@@ -2134,10 +2134,10 @@ c1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfxc1
 440.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfxc172
 8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfxc2074.
 pfb>
-Output written on causal_exaggeration_paper.pdf (37 pages, 1330465 bytes).
+Output written on causal_exaggeration_paper.pdf (37 pages, 1331843 bytes).
 PDF statistics:
- 1018 PDF objects out of 1200 (max. 8388607)
- 894 compressed objects within 9 object streams
+ 1015 PDF objects out of 1200 (max. 8388607)
+ 891 compressed objects within 9 object streams
  178 named destinations out of 1000 (max. 500000)
  292 words of extra memory for PDF output out of 10000 (max. 10000000)
 

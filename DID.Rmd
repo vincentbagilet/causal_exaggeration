@@ -519,7 +519,7 @@ summary_sim_DID %>%
   filter(n_treated < 3000) %>% 
   ggplot(aes(x = n_treated, y = exag_ratio)) + 
   # geom_point() +
-  geom_line(linewidth = 0.8, color = "#E5C38A") +
+  geom_line(linewidth = 0.8) +
   labs(
     x = "Number of treated observations", 
     y = expression(paste("Average  ", frac("Estimate", "True Effect")))
@@ -528,6 +528,11 @@ summary_sim_DID %>%
 # +
 #   theme_mediocre(base_family = "Lora", pal = "coty") 
 
-ggsave("main_graph_DID_paper.pdf", path = "images", width = 8, height = 4.5)
+ggsave(
+  "main_graph_DID_paper.pdf", 
+  path = "paper/submission_version/images", 
+  width = 8, 
+  height = 4.5
+)
 ```
 

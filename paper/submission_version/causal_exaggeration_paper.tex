@@ -62,128 +62,6 @@
 		\input{../preliminary_intro/causal_exaggeration_intro_text.tex}
 	
 	
-%-----------------------------------------------------------------------------
-
-% SIMULATIONS
-
-%-----------------------------------------------------------------------------	
-				
-	\section{Simulations} \label{simulations}
-	
-		First, I define an exaggeration ratio $E$, as the expected value of significant estimates over the true effect\footnote{Note that \cite{gelman_beyond_2014} define exaggeration as the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}[ | \hat{\beta}| | \beta, \sigma, | \hat{\beta} | > z_{\alpha} \sigma ] / | \beta |$. Problematically, this expression, when not conditioning on significance, \textit{i.e.} $\mathbb{E}[ | \hat{\beta}| | \beta, \sigma ] / | \beta |$, is not equal to 1 for unbiased estimators, if statistical power is low. The alternative definition I use satisfies this key condition. My exaggeration ratio is also smaller or equal to \citeauthor{gelman_beyond_2014}'s and thus more conservative.}:
-		 
-		 	\begin{definition}\label{def_exagg}
-		 		For an estimator $\hat{\beta}$ of a true effect of magnitude $\beta$, with standard deviation $\sigma$ an a two-sided test of size $\alpha$ with threshold value $z_{\alpha}$,
-		 
-				 \begin{equation}\label{exagg_general}
-				 	E(\hat{\beta}, \sigma, \beta, z_{\alpha}) =
-					 	\dfrac{\mathbb{E}\left[ \hat{\beta} \big| \beta, \sigma, |\hat{\beta}| > z_{\alpha} \sigma \right]}{\beta} 
-				\end{equation}
-			\end{definition}
-		
-		 This metrics depends on the true effect and can therefore only be computed when this true effect is known. Since it is never the case in real world settings, I have to turn to fake data Monte-Carlo simulations.\\
-    
-    For clarity, I split the simulations by identification strategy %. While the general idea that causal inference methods discard variation to identify effects is shared across strategies, the confounding / exaggeration trade-off is mediated through a distinctive channel for each of them. 
-    and build simulations that reproduce real world examples from economics of education for RDD, labor economics for matching, political economy for IV, health economics for exogenous shocks and environmental economics for control and fixed effects approaches. Real world settings enable to clearly grasp the relationships between the different variables and to set realistic parameter values. Since all these simulations have an illustrative purpose only, I intentionally restrict the simulation exercise to settings in which statistical power can be low. All the models are correctly specified and accurately represent the data generating process, except for the omitted variable bias (OVB).
-    
-     		For each identification strategy, I start by laying out the intuition behind the method and how it enables to estimate causal effects. It naturally points to the key parameter through which the confounding/exaggeration trade-off is mediated. I then briefly describe the example setting considered and the simulation assumptions. I finally display the simulation outputs and discuss the implications of the trade-off that are specific to the identification strategy considered. Detailed codes for simulation procedures are available on the \href{https://vincentbagilet.github.io/causal_inflation/}{project's website}.
-		
-%%%%%%%%%%      SIM    RDD        %%%%%%%%%%%%%%%
-		
-		 \subsection{Regression Discontinuity Design}
-		
-     			\paragraph{Intuition for the trade-off.} To identify a causal effect, a regression discontinuity approach relies on the assumption that for values close to the threshold, treatment assignment is quasi-random. Under this assumption, individuals just below and just above the threshold would be comparable in terms of observed and unobserved characteristics, and only differ in their treatment status. To avoid confounding, the RDD focuses on observations within a certain bandwidth around the threshold and discards observations further away. The effective sample size where the identification of causal effect of the treatment is the most credible is thus smaller than the total sample size, leading to a lower precision. For this method, the confounding / exaggeration trade-off is therefore mediated by the size of the bandwidth.
-			
-			\paragraph{Case-study and simulation procedure.} To illustrate this trade-off, I consider a standard application of the sharp RD design in economics of education in which students are offered additional lessons based on the score they obtained on a standardized test. \cite{thistlethwaite_regression-discontinuity_1960} introduced the concept of RDD using a similar type of quasi-experiment. Students with test scores below a given threshold receive the treatment while those above do not. Since students far above and far below the threshold may differ along unobserved characteristics such as ability, a RDD estimates the effect of the treatment by comparing outcomes of students whose initial test scores are just below and just above this threshold. 
-        
-        			 The simulation framework for the RDD is as follows. If a student $i$ has an initial scores $Qual_{i}$ below a cutoff $C$, they must take additional lessons, making the allocation of the treatment $T$ sharp: $T_i = \mathbb{I}[Qual_{i} < C]$. Final scores are correlated with qualification score. Further assume that both qualification and final test scores are affected by students' unobserved ability $w$ in a non-linear (cubic) way. A high or low ability has a strong positive impact on test scores while an average one does not strongly impact test scores. The final test score of student $i$ is thus: $Final_{i} = \beta_{0} + \beta_{1} T_i + \eta Qual_{i} +  \delta f(w_i) + u_{i}$, where $f$ a non linear function (here cubic) and $u_{i} \sim \mathcal{N}(0, \sigma_{u}^{2})$ random noise. $\beta_{1}$ is the causal parameter of interest. 
-        
-        			To make the simulations realistic, I derive parameters values from statistics from the Department of Education and treatment effect sizes from a meta-analysis of RCTs in economics of education by \cite{kraft_interpreting_2020}.  Given these parameters values, I then generate 1000 datasets with 10,000 observations. For each dataset, I estimate the treatment effect by regressing the final score on the treatment status and the qualifying score for different bandwidth sizes. 
-				
-			\paragraph{Results.}  Figure \ref{graph_RDD} displays the results of these simulations. While the average of all estimates gets close to the true effect as bandwidth size and thus OVB decrease, the average of statistically significant estimates never gets close to the true effect in this setting. For large bandwidths, the omitted variable biases the effect while for small bandwidths, the small sample size creates exaggeration issues. The optimal bandwidth literature describes a similar trade-off but with different consequences \citep{imbens_optimal_2012}. They consider a bias/precision trade-off, we consider a omitted variable bias / exaggeration bias trade-off. 
-        
-       			 \begin{figure}[!h] 
-				\begin{center}
-					\caption{Evolution of the Bias with Bandwidth Size in Regression Discontinuity Design, conditional on significativity.}
-					\label{graph_RDD}
-					\includegraphics[width=0.8\linewidth]{images/main_graph_RDD_paper.pdf}
-		      			\caption*{\footnotesize \textit{Notes}: The green line indicates the average bias for all estimates, regardless of their statistical significance. The beige line represents the inflation of statistically significant estimates at the 5\% level. In this simulation, N = 10,000. The bandwidth size is expressed as the proportion of the total number of observations of the entire sample. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/RDD.html}{link}.}
-				\end{center}
-				\vspace{-1cm}
-			\end{figure} 
-		
-%%%%%%%%%%      SIM    IV        %%%%%%%%%%%%%%%
-		
-        		\subsection{Instrumental Variable Strategy}\label{sim_IV}
-            
-                		\paragraph{Intuition for the trade-off.} 
-        			Instrumental variable strategies overcome the issue of unobserved confounding by only considering the exogenous variation in the treatment, \textit{i.e.} the variation that is explained by the instrument. Even when this exogenous fraction of the variation is limited, the instrument can successfully eliminate confounding on average. However, the IV estimator will be imprecise and statistical power low. In the case of the IV, the confounding / exaggeration trade-off is therefore mediated by the strength of the instrument considered. The weaker the instrument, the more inflated statistically significant estimates will be.
-        		
-        			\paragraph{Case-study and simulation procedure.} 
-        			To illustrate this trade-off, I focus on the impact of voter turnout on election results. To avoid the threat of confounding in this setting, studies often take advantage of exogenous factors such as rainfall that affect voter turnout. I reproduce such setting and assume that the true data generating process for the republican vote share is such that  in location $i$, $Share_{i} = \beta_{0} + \beta_{1} Turnout_{i} + \delta w_{i} + u_{i}$, where $w$ is an unobserved variable and $u \sim \mathcal{N}(0, \sigma_{u}^{2})$ some random noise. The causal parameter of interest is $\beta_{1}$. In addition, turnout is affected by raining events: $Turnout_{i} = \pi_{0} + \pi_{1} Rain_{i} + \gamma w_{i} + e_{i}$, where $Rain_{i}$ is the amount of rain in location $i$ on the day of the election 
-			%\footnote{In the DiD event study simulations that reproduce this setting, $Rain_{i}$ is a dummy for whether it rained or not on the day of the election in location $i$.} 
-			and $e$ some random noise drawn form $\mathcal{N}(0, \sigma_{e}^{2})$. I refer to $\pi_{1}$ as the strength of the instrumental variable. 
-        			
-        			To make the simulations realistic, I derive parameters values from a set of existing studies using similar variables \citep{gomez_republicans_2007, fujiwara_habit_2016, cooperman_randomization_2017}. For each value of the IV strength considered, I create 1000 datasets. I run both a naive ordinary least squares model and a two-stage least squares model to estimate the impact of voter turnout on the vote share of a party.
-        			
-        			\paragraph{Results.} 
-			Figure \ref{graph_IV} displays, for different IV strengths, the average of statistically significant estimates scaled by the true effect size for both the IV and the naive regression model. When the instrument is strong, the IV will recover the true effect, contrarily to the the naive regression model. Yet, when the IV strength decreases, the exaggeration of statistical significant estimates skyrockets. Even if the intensity of the omitted variable bias is large, for limited IV strengths, the exaggeration ratio can become larger than the omitted variable bias. When the only available instrument is weak, using the naive regression model would, on average, produce statistically significant estimates that are closer to the true effect size than the IV. Of interest for applied research, a large $F$-statistic does not necessarily attenuate this problem. For the parameter values considered here, this phenomenon arises even in cases for which the $F$-statistic is substantially larger than the usually recommended threshold of 10, as illustrated in the \href{https://vincentbagilet.github.io/causal_inflation/IV.html#f-statistic-analysis}{online supplementary materials}. 
-        		
-                    		 \begin{figure}[!h] 
-                    			\begin{center}
-                    				\caption{Evolution of the Bias of Statistically Significant Estimates Against Strength of the Instrument in the IV Case.}
-                    				\label{graph_IV}
-                    				\includegraphics[width=0.8\linewidth]{images/main_graph_IV_paper.pdf}
-                                    \caption*{\footnotesize \textit{Notes}: The red solid line indicates the average bias for IV estimates that are statistically significant at the 5\%. The orange line represents the bias of statistically significant OLS estimates at the 5\% level. The strength of the instrumental variable is expressed as the value of the linear parameter linking rainfall to turnout. In this simulation, N = 10,000. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/IV.html}{link}.}
-                                    \end{center}
-				\vspace{-1cm}
-                    		\end{figure} 
-		
-% I start with the RDD and matching cases because in these settings the researcher has a hand on the parameter driving power: the bandwidth size and the stringency of the matching mechanism.
-
-%%%%%%%%%%      SIM    EVENT        %%%%%%%%%%%%%%%
-
-		\subsection{Exogenous shocks}\label{sim_shocks}
-    
-        			\paragraph{Intuition for the trade-off.}  To avoid confounding, strategies such as DiD and event studies take advantage of exogenous variation in the treatment status caused by exogenous shocks or events. In many settings, while the number of observations may be large, the number of events, their duration or the proportion of individuals affected might be limited. As a consequence, the number of (un)treated observations can be small and the variation available to identify the treatment limited. Statistical power is maximized when the proportion of treated observations is equal to the proportion of untreated ones, as extensively discussed in the randomized controlled trial literature. In studies using discrete exogenous shocks, a confounding / exaggeration trade-off is thus mediated by the number of observations treated. This issue does not only concern DiD event studies but is particularly salient in this case. 
-			
-			\paragraph{Case-study and simulation procedure.} %To illustrate this trade-off, I reproduce the analysis described for instrumental variable strategies described in section \ref{sim_IV} but considering that $Rain$ is a dummy equals to one if it rained on the day of the election.
-			To illustrate this trade-off, I simulate a study of the impact of air pollution reduction on newborn weight of babies. To avoid confounding, one can exploit exogenous shocks to air pollution such as plant closures, creation of a low emission zone or of an urban toll. I simulate the analysis at the zip code and monthly levels and focus on the example of toxic plant closures. I consider that the average birth weight in zip code $z$ at time period $t$, $bw_{zt}$, depends on a zip code fixed effect $\zeta_z$, a time fixed effect $\tau_t$, and the treatment status $T_{z,t}$, which is equal to one if a plant is closed in this period and 0 otherwise. The average birth weights $bw_{zt}$ is defined as follows: $bw_{z,t} = \alpha + \beta T_{z, t} + \zeta_z + \tau_t + u_{z,t}$. To further simplify the identification of the effect, I assume a non-staggered treatment allocation and constant and homogenous effects. I only vary the proportion of zip codes affected by toxic plant closings.
-
-       The parameters values of the simulations are inspired from \cite{currie_environmental_2015} and \cite{lavaine_energy_2017}. For a fixed sample size of 120,000 observations, I generate 1000 datasets for an increasing number of treated observations and estimate the correct two-way fixed effects model.
-        
-			\paragraph{Results.} Figure \ref{graph_shocks} displays the results of these simulations. Even though the actual sample size is extremely large in the example, if the number of treated observations is small, exaggeration can be important. A very large number of observations does not necessarily prevent exaggeration to arise.  
-
-			\begin{figure}[!h] 
-                    			\begin{center}
-                    				\caption{Evolution of Bias With the Number of Treated Observations, for Statistically Significant Estimates, in the Exogenous Shocks Case}
-                    				\label{graph_shocks}
-                    				\includegraphics[width=0.8\linewidth]{images/main_graph_DID_paper.pdf}
-                                    \caption*{\footnotesize \textit{Notes}: The line indicates the average bias for estimates that are statistically significant at the 5\%. In this simulation, N = 120,000. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/DID.html}{link}.}
-                                    \end{center}
-				\vspace{-1cm}
-                    		\end{figure} 
-		
-		 \subsection{Matching}
-		
-			\paragraph{Intuition for the trade-off.} Then, I focus on the ideal case where all confounders are assumed to be observed. Under this assumption, one can use matching to estimate the causal effect specific to matched treated units. %Contrary to multivariate regression models, this method makes the common support of the data explicit, avoids model extrapolation and non-parametrically adjusts for observed confounders \citep{ho_matching_2007}. 
-			In the case of propensity score matching, observed confounders are adjusted for by predicting the probability of units to take the treatment. Treated units are then matched to control units with similar propensity scores, \textit{i.e.} whose difference is lower than a critical value called the caliper. The smaller the caliper, the more comparable units are and therefore the lower the risk of confounding is. Yet, with a stringent caliper, some units may not be matched, decreasing the sample size. This can lead to a loss in statistical power and produce inflated statistically significant estimates. In the case of matching, the confounding / exaggeration trade-off is therefore mediated by the value of the caliper.
-                
-       	 	\paragraph{Case-study and simulation procedure.} I illustrate this issue by simulating a labor training program where the treatment is not randomly allocated \citep{dehejia_causal_1999}. Individuals self-select into the training program and may therefore have different characteristics from individuals who do not choose to enroll. To emulate this, I assume that the distribution of the propensity scores differ for treated and control groups: they are drawn from $N(\mu_T,\sigma_T)$ and $N(\mu_C, \sigma_C)$ respectively.
-		
-		I simulate this type of studies by taking a short-cut. Many simulations found in the applied statistics literature test the performance on matching algorithms by first simulating covariates and then simulating the true but unknown probability of units to be treated. Our goal here is different as we do not want to test the performance of various matching algorithms but rather illustrate how a lack of common overlap in propensity scores can result in a loss of statistical power. We therefore first assign a fraction of individual to the treatment and then simulate the true propensity score variable for treated and control units. For treated units, we draw the propensity scores from a normal distribution $N(\mu_T,\sigma_T)$ and for control units, from $N(\mu_C, \sigma_C)$. Once the true propensity scores are created, we define the potential outcomes of each individual. Here, potential outcomes represent the monthly income (in euros) of the individuals if they undertake the training program or not. The potential outcome of each individual $i$ without treatment adoption, $Y_{i}(0)$, is simulated using the following equation: $Y_i(0)=\text{Wage}\times\text{PS}_i+N(\mu_{\text{N}},\sigma_{\text{N}})$. Wage is the baseline wage, PS$_{i}$ the propensity score of individual $i$ and some noise is drawn from $N(\mu_{\text{N}},\sigma_{\text{N}})$. This equation makes the potential outcomes Y(0) partly different for treated and control units, creating the required common support issue. We then simulate the potential outcomes Y$_i$(1) by adding a constant treatment effect of the training program. The constant treatment effect assumption is made to simplify the illustration of the issue we are interested in. In our simulations, when we make the propensity score matching more stringent, not all treated units can be matched to similar control units. The causal estimand would no longer be the average treatment on the treated if the causal effect was not constant across units.  
-        
-        Based on this simulation framework, we generate 1000 datasets for each propensity score matching procedure with caliper values ranging from 0 to 1. Parameters values of the simulation are set to make them realistic and can be found \href{https://vincentbagilet.github.io/causal_inflation/Matching.html}{here}. Once units are matched, we simply regress the observed revenue on the treatment indicator.
-        
-         \begin{figure}[!h] 
-			    \caption{Evolution of Bias with the Caliper in Propensity Score Matching, Conditional on Statistical Significance.}
-				\label{graph_matching}
-			 \centering\includegraphics[width=0.9\linewidth]{images/main_graph_matching_paper.pdf}
-			 \caption*{\footnotesize \textit{Notes}: The green line indicates the average bias for all estimates, regardless of their statistical significance. The beige line represents the inflation of statistically significant estimates at the 5\% level. The caliper is expressed in standard deviation of the propensity score distribution. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_exaggeration/Matching.html}{link}.}
-		\end{figure} 
-        
-        \paragraph{Results.} Figure \ref{graph_matching} indicates that the average bias of estimates, regardless of their statistical significance, decreases with the value of the caliper as units become more comparable. As the caliper decreases, statistically significant estimates start being more inflated than the entire sample of estimates. For large caliper values, units are not comparable enough and confounding bias the effect. For small caliper values, the sample size becomes too small to be able to precisely estimate the treatment effect and exaggeration arises. It is well-known that matching procedure can result in imprecise estimates since it does not use information on outcomes but rather focuses on reducing bias arising from covariates imbalance \citep{rubin_using_2001}. Yet, in a context of publication bias favoring statistically significant estimates, it may make the method produce misleading claims on treatment effect sizes. 
-
 
 %-----------------------------------------------------------------------------
 
@@ -193,11 +71,22 @@
 	
 	\section{Mathematical derivation} \label{maths}
 						
-		In this section, I formally prove the existence of the confounding / exaggeration trade-off  and describe its drivers in a simple setting\footnote{A more detailed version of this mathematical derivation is available on the \href{https://vincentbagilet.github.io/causal_exaggeration/Maths/math_causal_exaggeration.pdf}{companion website}.}. To do so, I first show that the exaggeration ratio increases with the variance of normally distributed estimators. This leads me to computing the asymptotic distributions of a series of estimators in order to prove their normality and study drivers of their variances, and ultimately of their exaggeration ratios. Finally, I show that, for any magnitude of OVB, exaggeration can be greater when controlling for confounders using a causal inference methods than the overall bias combining exaggeration and OVB in the naive regression.
+		In this section, I formally prove the existence of the confounding / exaggeration trade-off  and describe its drivers in a simple setting\footnote{A more detailed version of this mathematical derivation is available on the \href{https://vincentbagilet.github.io/causal_exaggeration/Maths/math_causal_exaggeration.pdf}{companion website}.}. To do so, I first define an exaggeration ratio  and show that it increases with the variance of normally distributed estimators. This leads me to computing the asymptotic distributions of a series of estimators in order to prove their normality and study drivers of their variances, and ultimately of their exaggeration ratios. Finally, I show that, for any magnitude of OVB, exaggeration can be greater when controlling for confounders using a causal inference methods than the overall bias combining exaggeration and OVB in the naive regression.
 		
 %%%%%%%%%%%%%%  Exagg ratio  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 		\subsection{Properties of the exaggeration ratio}\label{general_exagg}
+		
+			Let's define an exaggeration ratio $E$, as the expected value of significant estimates over the true effect\footnote{Note that \cite{gelman_beyond_2014} define exaggeration as the expected value of the \textit{absolute value} of the estimate: $\mathbb{E}[ | \hat{\beta}| | \beta, \sigma, | \hat{\beta} | > z_{\alpha} \sigma ] / | \beta |$. Problematically, this expression, when not conditioning on significance, \textit{i.e.} $\mathbb{E}[ | \hat{\beta}| | \beta, \sigma ] / | \beta |$, is not equal to 1 for unbiased estimators, if statistical power is low. The alternative definition I use satisfies this key condition. My exaggeration ratio is also smaller or equal to \citeauthor{gelman_beyond_2014}'s and thus more conservative.}. Formally, we have:
+		 
+		 	\begin{definition}\label{def_exagg}
+		 		For an estimator $\hat{\beta}$ of a true effect of magnitude $\beta$, with standard deviation $\sigma$ an a two-sided test of size $\alpha$ with threshold value $z_{\alpha}$,
+		 
+				 \begin{equation}\label{exagg_general}
+				 	E(\hat{\beta}, \sigma, \beta, z_{\alpha}) =
+					 	\dfrac{\mathbb{E}\left[ \hat{\beta} \big| \beta, \sigma, |\hat{\beta}| > z_{\alpha} \sigma \right]}{\beta} 
+				\end{equation}
+			\end{definition}
 			
 			We can easily extend proofs by \cite{lu_note_2019} and \cite{zwet_significance_2021} to biased estimators, to show that, for a given size of a test and true effect size, the exaggeration ratio increases with the variance of a (un)biased normally distributed estimator:
 			
@@ -235,7 +124,7 @@
 					y_i = \beta_{0} + \beta_{1}x_{i} + \delta w_{i} + u_i
 				\end{equation}
 				
-				where $y_i \in \mathbb{R}$ is the observed outcome of interest, $x_i \in \mathbb{R}$ the observed explanatory variable of interest,  $w_i \in \mathbb{R}$ an unobserved omitted variable, $u_i \in \mathbb{R}$ an unobserved error term.  $(\beta_0, \beta_1, \delta) \in \mathbb{R}^{3}$ are unknown parameters. $\beta_1$ is the parameter of interest. For readability, let's introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$ and set $\bm{\beta} = (\beta_0, \beta_1)'$ and $\text{x}_i = (1, x_i)'$. \\
+				where $y_i \in \mathbb{R}$ is the observed outcome of interest, $x_i \in \mathbb{R}$ the observed explanatory variable of interest,  $w_i \in \mathbb{R}$ an unobserved omitted variable, $u_i \in \mathbb{R}$ an unobserved error term.  $(\beta_0, \beta_1, \delta) \in \mathbb{R}^{3}$ are unknown parameters. $\beta_1$ is the parameter of interest.\\
 			
 			Assume homogeneous treatment effects and homoskedasticity, along with the usual OLS assumptions (\textit{i.i.d.} observations, finite second moments, positive-definiteness of $\mathbb{E}[\text{x}_i \text{x}_i']$ and $u_{i}$ conditional mean-zero and uncorrelated with $x_i$ and $w_i$). Assume that $w_{i}$ is unobserved, correlated with $x_{i}$ and that $\delta \neq 0$. To simplify the derivations, I further assume that the unobserved variable is centred, \textit{i.e.} $\mathbb{E}[w_i] = 0$. I also assume that the variance of the component of $w_{i}$ that is orthogonal to $x_{i}$ (denoted $w_{i}^{\perp x}$) does not vary with $x_{i}$, \textit{i.e.}, $\text{Var}(w_{i}^{\perp x}|x_{i}) = \text{Var}(w_{i}^{\perp x})$. Consider the following data generating process for $x_i$:
 				~
@@ -415,7 +304,144 @@
 					\end{itemize}
 			\end{theorem}
 			
-			For some parameter values, statistically significant estimates can be larger on average when using a convincing causal identification strategy that eliminates the omitted variable bias than when embracing the bias and running a naive biased regression.
+			For some parameter values, statistically significant estimates can be larger on average when using a convincing causal identification strategy that eliminates the omitted variable bias than when embracing the bias and running a naive biased regression.	
+	
+%-----------------------------------------------------------------------------
+
+% SIMULATIONS
+
+%-----------------------------------------------------------------------------	
+				
+	\section{Simulations} \label{simulations}
+		
+		 As visible in equation \ref{exagg_general},  the exaggeration ratio depends on the true effect and can therefore only be computed when this true effect is known. Since it is never the case in real world settings, I have to turn to fake data Monte-Carlo simulations.\\
+    
+    For clarity, I split the simulations by identification strategy %. While the general idea that causal inference methods discard variation to identify effects is shared across strategies, the confounding / exaggeration trade-off is mediated through a distinctive channel for each of them. 
+    and build simulations that reproduce real world examples from economics of education for RDD, labor economics for matching, political economy for IV, health economics for exogenous shocks and environmental economics for control and fixed effects approaches. Real world settings enable to clearly grasp the relationships between the different variables and to set realistic parameter values. Since all these simulations have an illustrative purpose only, I intentionally restrict the simulation exercise to settings in which statistical power can be low. All the models are correctly specified and accurately represent the data generating process, except for the omitted variable bias (OVB).
+    
+     		For each identification strategy, I start by laying out the intuition behind the method and how it enables to estimate causal effects. It naturally points to the key parameter through which the confounding/exaggeration trade-off is mediated. I then briefly describe the example setting considered and the simulation assumptions. I finally display the simulation outputs and discuss the implications of the trade-off that are specific to the identification strategy considered. Detailed codes for simulation procedures are available on the \href{https://vincentbagilet.github.io/causal_inflation/}{project's website}.
+		
+		
+%%%%%%%%%%      SIM    Controls        %%%%%%%%%%%%%%%
+		
+		 \subsection{Controlling for confounders}
+		
+     			\paragraph{Intuition for the trade-off.} An ideal situation to avoid any risk of OVB would be to include the omitted variable in our model. However, as discussed in the introduction and section \ref{maths}, controlling for an additional variable may increase the variance of the estimator if it absorbs more variation in the explanatory variable of interest than in the outcome variable.
+			% ($y$). Controlling for a variable ($w$) is equivalent to partialling out this variable from both $x$ and $y$. Since the variance of the OLS estimator is given by the ratio of the variance of the residuals $\sigma_{y^{\perp x, w}}^2$ over $n$ times the variance of the explanatory variable after partialling out $w$ ($\sigma_{x^{\perp w}}^2$), if controlling absorbs more of the variance in $x$ than in $y$, it will increase the variance of the resulting estimator and create exaggeration. 
+			The same reasoning applies to Fixed Effects: if including FE partials out more of the variation in $x$ than in $y$, it will increase the variance of the estimator.
+			
+			\paragraph{Case-study and simulation procedure.} To illustrate this trade-off between controlling or not, I use \textit{only arbitrary numbers for now}. I consider a simple setting, with one outcome variable $y$, one explanatory variable $x$ and an omitted variable $w$. The data generating process is the same as described in equations \ref{maths_true_dgp} and \ref{maths_true_dgp} of the maths section. As in this section, I reason at bias fixed and variances of the defined variables fixed.
+			
+			\paragraph{Results.}  Figure \ref{graph_controls} displays the results of these simulations. While the average of all estimates gets close to the true effect as bandwidth size and thus OVB decrease, the average of statistically significant estimates never gets close to the true effect in this setting. For large bandwidths, the omitted variable biases the effect while for small bandwidths, the small sample size creates exaggeration issues. The optimal bandwidth literature describes a similar trade-off but with different consequences \citep{imbens_optimal_2012}. They consider a bias/precision trade-off, we consider a omitted variable bias / exaggeration bias trade-off. 
+        
+       			 \begin{figure}[!h] 
+				\begin{center}
+					\caption{Evolution of the Bias with Bandwidth Size in Regression Discontinuity Design, conditional on significativity.}
+					\label{graph_controls}
+					\includegraphics[width=0.8\linewidth]{images/main_graph_controls_paper.pdf}
+		      			\caption*{\footnotesize \textit{Notes}: The green line indicates the average bias for estimates from the control model that are statistically significant at the 5\%. The beige line represents the bias of statistically significant estimates from the model with the omitted variable. In this simulation, N = 1,000. Gamma is the parameter for $w$ in the generating equation of $x$. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/controls.html}{link}.}
+				\end{center}
+				\vspace{-1cm}
+			\end{figure} 
+		
+		
+%%%%%%%%%%      SIM    RDD        %%%%%%%%%%%%%%%
+		
+		 \subsection{Regression Discontinuity Design}
+		
+     			\paragraph{Intuition for the trade-off.} To identify a causal effect, a regression discontinuity approach relies on the assumption that for values close to the threshold, treatment assignment is quasi-random. Under this assumption, individuals just below and just above the threshold would be comparable in terms of observed and unobserved characteristics, and only differ in their treatment status. To avoid confounding, the RDD focuses on observations within a certain bandwidth around the threshold and discards observations further away. The effective sample size where the identification of causal effect of the treatment is the most credible is thus smaller than the total sample size, leading to a lower precision. For this method, the confounding / exaggeration trade-off is therefore mediated by the size of the bandwidth.
+			
+			\paragraph{Case-study and simulation procedure.} To illustrate this trade-off, I consider a standard application of the sharp RD design in economics of education in which students are offered additional lessons based on the score they obtained on a standardized test. \cite{thistlethwaite_regression-discontinuity_1960} introduced the concept of RDD using a similar type of quasi-experiment. Students with test scores below a given threshold receive the treatment while those above do not. Since students far above and far below the threshold may differ along unobserved characteristics such as ability, a RDD estimates the effect of the treatment by comparing outcomes of students whose initial test scores are just below and just above this threshold. 
+        
+        			 The simulation framework for the RDD is as follows. If a student $i$ has an initial scores $Qual_{i}$ below a cutoff $C$, they must take additional lessons, making the allocation of the treatment $T$ sharp: $T_i = \mathbb{I}[Qual_{i} < C]$. Final scores are correlated with qualification score. Further assume that both qualification and final test scores are affected by students' unobserved ability $w$ in a non-linear (cubic) way. A high or low ability has a strong positive impact on test scores while an average one does not strongly impact test scores. The final test score of student $i$ is thus: $Final_{i} = \beta_{0} + \beta_{1} T_i + \eta Qual_{i} +  \delta f(w_i) + u_{i}$, where $f$ a non linear function (here cubic) and $u_{i} \sim \mathcal{N}(0, \sigma_{u}^{2})$ random noise. $\beta_{1}$ is the causal parameter of interest. 
+        
+        			To make the simulations realistic, I derive parameters values from statistics from the Department of Education and treatment effect sizes from a meta-analysis of RCTs in economics of education by \cite{kraft_interpreting_2020}.  Given these parameters values, I then generate 1000 datasets with 10,000 observations. For each dataset, I estimate the treatment effect by regressing the final score on the treatment status and the qualifying score for different bandwidth sizes. 
+				
+			\paragraph{Results.}  Figure \ref{graph_RDD} displays the results of these simulations. While the average of all estimates gets close to the true effect as bandwidth size and thus OVB decrease, the average of statistically significant estimates never gets close to the true effect in this setting. For large bandwidths, the omitted variable biases the effect while for small bandwidths, the small sample size creates exaggeration issues. The optimal bandwidth literature describes a similar trade-off but with different consequences \citep{imbens_optimal_2012}. They consider a bias/precision trade-off, we consider a omitted variable bias / exaggeration bias trade-off. 
+        
+       			 \begin{figure}[!h] 
+				\begin{center}
+					\caption{Evolution of the Bias with Bandwidth Size in Regression Discontinuity Design, conditional on significativity.}
+					\label{graph_RDD}
+					\includegraphics[width=0.8\linewidth]{images/main_graph_RDD_paper.pdf}
+		      			\caption*{\footnotesize \textit{Notes}: The green line indicates the average bias for all estimates, regardless of their statistical significance. The beige line represents the inflation of statistically significant estimates at the 5\% level. In this simulation, N = 10,000. The bandwidth size is expressed as the proportion of the total number of observations of the entire sample. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/RDD.html}{link}.}
+				\end{center}
+				\vspace{-1cm}
+			\end{figure} 
+		
+%%%%%%%%%%      SIM    IV        %%%%%%%%%%%%%%%
+		
+        		\subsection{Instrumental Variable Strategy}\label{sim_IV}
+            
+                		\paragraph{Intuition for the trade-off.} 
+        			Instrumental variable strategies overcome the issue of unobserved confounding by only considering the exogenous variation in the treatment, \textit{i.e.} the variation that is explained by the instrument. Even when this exogenous fraction of the variation is limited, the instrument can successfully eliminate confounding on average. However, the IV estimator will be imprecise and statistical power low. In the case of the IV, the confounding / exaggeration trade-off is therefore mediated by the strength of the instrument considered. The weaker the instrument, the more inflated statistically significant estimates will be.
+        		
+        			\paragraph{Case-study and simulation procedure.} 
+        			To illustrate this trade-off, I focus on the impact of voter turnout on election results. To avoid the threat of confounding in this setting, studies often take advantage of exogenous factors such as rainfall that affect voter turnout. I reproduce such setting and assume that the true data generating process for the republican vote share is such that  in location $i$, $Share_{i} = \beta_{0} + \beta_{1} Turnout_{i} + \delta w_{i} + u_{i}$, where $w$ is an unobserved variable and $u \sim \mathcal{N}(0, \sigma_{u}^{2})$ some random noise. The causal parameter of interest is $\beta_{1}$. In addition, turnout is affected by raining events: $Turnout_{i} = \pi_{0} + \pi_{1} Rain_{i} + \gamma w_{i} + e_{i}$, where $Rain_{i}$ is the amount of rain in location $i$ on the day of the election 
+			%\footnote{In the DiD event study simulations that reproduce this setting, $Rain_{i}$ is a dummy for whether it rained or not on the day of the election in location $i$.} 
+			and $e$ some random noise drawn form $\mathcal{N}(0, \sigma_{e}^{2})$. I refer to $\pi_{1}$ as the strength of the instrumental variable. 
+        			
+        			To make the simulations realistic, I derive parameters values from a set of existing studies using similar variables \citep{gomez_republicans_2007, fujiwara_habit_2016, cooperman_randomization_2017}. For each value of the IV strength considered, I create 1000 datasets. I run both a naive ordinary least squares model and a two-stage least squares model to estimate the impact of voter turnout on the vote share of a party.
+        			
+        			\paragraph{Results.} 
+			Figure \ref{graph_IV} displays, for different IV strengths, the average of statistically significant estimates scaled by the true effect size for both the IV and the naive regression model. When the instrument is strong, the IV will recover the true effect, contrarily to the the naive regression model. Yet, when the IV strength decreases, the exaggeration of statistical significant estimates skyrockets. Even if the intensity of the omitted variable bias is large, for limited IV strengths, the exaggeration ratio can become larger than the omitted variable bias. When the only available instrument is weak, using the naive regression model would, on average, produce statistically significant estimates that are closer to the true effect size than the IV. Of interest for applied research, a large $F$-statistic does not necessarily attenuate this problem. For the parameter values considered here, this phenomenon arises even in cases for which the $F$-statistic is substantially larger than the usually recommended threshold of 10, as illustrated in the \href{https://vincentbagilet.github.io/causal_inflation/IV.html#f-statistic-analysis}{online supplementary materials}. 
+        		
+                    		 \begin{figure}[!h] 
+                    			\begin{center}
+                    				\caption{Evolution of the Bias of Statistically Significant Estimates Against Strength of the Instrument in the IV Case.}
+                    				\label{graph_IV}
+                    				\includegraphics[width=0.8\linewidth]{images/main_graph_IV_paper.pdf}
+                                    \caption*{\footnotesize \textit{Notes}: The green line indicates the average bias for IV estimates that are statistically significant at the 5\%. The beige line represents the bias of statistically significant OLS estimates at the 5\% level. The strength of the instrumental variable is expressed as the value of the linear parameter linking rainfall to turnout. In this simulation, N = 10,000. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/IV.html}{link}.}
+                                    \end{center}
+				\vspace{-1cm}
+                    		\end{figure} 
+		
+% I start with the RDD and matching cases because in these settings the researcher has a hand on the parameter driving power: the bandwidth size and the stringency of the matching mechanism.
+
+%%%%%%%%%%      SIM    EVENT        %%%%%%%%%%%%%%%
+
+		\subsection{Exogenous shocks}\label{sim_shocks}
+    
+        			\paragraph{Intuition for the trade-off.}  To avoid confounding, strategies such as DiD and event studies take advantage of exogenous variation in the treatment status caused by exogenous shocks or events. In many settings, while the number of observations may be large, the number of events, their duration or the proportion of individuals affected might be limited. As a consequence, the number of (un)treated observations can be small and the variation available to identify the treatment limited. Statistical power is maximized when the proportion of treated observations is equal to the proportion of untreated ones, as extensively discussed in the randomized controlled trial literature. In studies using discrete exogenous shocks, a confounding / exaggeration trade-off is thus mediated by the number of observations treated. This issue does not only concern DiD event studies but is particularly salient in this case. 
+			
+			\paragraph{Case-study and simulation procedure.} %To illustrate this trade-off, I reproduce the analysis described for instrumental variable strategies described in section \ref{sim_IV} but considering that $Rain$ is a dummy equals to one if it rained on the day of the election.
+			To illustrate this trade-off, I simulate a study of the impact of air pollution reduction on newborn weight of babies. To avoid confounding, one can exploit exogenous shocks to air pollution such as plant closures, creation of a low emission zone or of an urban toll. I simulate the analysis at the zip code and monthly levels and focus on the example of toxic plant closures. I consider that the average birth weight in zip code $z$ at time period $t$, $bw_{zt}$, depends on a zip code fixed effect $\zeta_z$, a time fixed effect $\tau_t$, and the treatment status $T_{z,t}$, which is equal to one if a plant is closed in this period and 0 otherwise. The average birth weights $bw_{zt}$ is defined as follows: $bw_{z,t} = \alpha + \beta T_{z, t} + \zeta_z + \tau_t + u_{z,t}$. To further simplify the identification of the effect, I assume a non-staggered treatment allocation and constant and homogenous effects. I only vary the proportion of zip codes affected by toxic plant closings.
+
+       The parameters values of the simulations are inspired from \cite{currie_environmental_2015} and \cite{lavaine_energy_2017}. For a fixed sample size of 120,000 observations, I generate 1000 datasets for an increasing number of treated observations and estimate the correct two-way fixed effects model.
+        
+			\paragraph{Results.} Figure \ref{graph_shocks} displays the results of these simulations. Even though the actual sample size is extremely large in the example, if the number of treated observations is small, exaggeration can be important. A very large number of observations does not necessarily prevent exaggeration to arise.  
+
+			\begin{figure}[!h] 
+                    			\begin{center}
+                    				\caption{Evolution of Bias With the Number of Treated Observations, for Statistically Significant Estimates, in the Exogenous Shocks Case}
+                    				\label{graph_shocks}
+                    				\includegraphics[width=0.8\linewidth]{images/main_graph_DID_paper.pdf}
+                                    \caption*{\footnotesize \textit{Notes}: The line indicates the average bias for estimates that are statistically significant at the 5\%. In this simulation, N = 120,000. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_inflation/DID.html}{link}.}
+                                    \end{center}
+				\vspace{-1cm}
+                    		\end{figure} 
+		
+		 \subsection{Matching}
+		
+			\paragraph{Intuition for the trade-off.} Then, I focus on the ideal case where all confounders are assumed to be observed. Under this assumption, one can use matching to estimate the causal effect specific to matched treated units. %Contrary to multivariate regression models, this method makes the common support of the data explicit, avoids model extrapolation and non-parametrically adjusts for observed confounders \citep{ho_matching_2007}. 
+			In the case of propensity score matching, observed confounders are adjusted for by predicting the probability of units to take the treatment. Treated units are then matched to control units with similar propensity scores, \textit{i.e.} whose difference is lower than a critical value called the caliper. The smaller the caliper, the more comparable units are and therefore the lower the risk of confounding is. Yet, with a stringent caliper, some units may not be matched, decreasing the sample size. This can lead to a loss in statistical power and produce inflated statistically significant estimates. In the case of matching, the confounding / exaggeration trade-off is therefore mediated by the value of the caliper.
+                
+       	 	\paragraph{Case-study and simulation procedure.} I illustrate this issue by simulating a labor training program where the treatment is not randomly allocated \citep{dehejia_causal_1999}. Individuals self-select into the training program and may therefore have different characteristics from individuals who do not choose to enroll. To emulate this, I assume that the distribution of the propensity scores differ for treated and control groups: they are drawn from $N(\mu_T,\sigma_T)$ and $N(\mu_C, \sigma_C)$ respectively.
+		
+		I simulate this type of studies by taking a short-cut. Many simulations found in the applied statistics literature test the performance on matching algorithms by first simulating covariates and then simulating the true but unknown probability of units to be treated. Our goal here is different as we do not want to test the performance of various matching algorithms but rather illustrate how a lack of common overlap in propensity scores can result in a loss of statistical power. We therefore first assign a fraction of individual to the treatment and then simulate the true propensity score variable for treated and control units. For treated units, we draw the propensity scores from a normal distribution $N(\mu_T,\sigma_T)$ and for control units, from $N(\mu_C, \sigma_C)$. Once the true propensity scores are created, we define the potential outcomes of each individual. Here, potential outcomes represent the monthly income (in euros) of the individuals if they undertake the training program or not. The potential outcome of each individual $i$ without treatment adoption, $Y_{i}(0)$, is simulated using the following equation: $Y_i(0)=\text{Wage}\times\text{PS}_i+N(\mu_{\text{N}},\sigma_{\text{N}})$. Wage is the baseline wage, PS$_{i}$ the propensity score of individual $i$ and some noise is drawn from $N(\mu_{\text{N}},\sigma_{\text{N}})$. This equation makes the potential outcomes Y(0) partly different for treated and control units, creating the required common support issue. We then simulate the potential outcomes Y$_i$(1) by adding a constant treatment effect of the training program. The constant treatment effect assumption is made to simplify the illustration of the issue we are interested in. In our simulations, when we make the propensity score matching more stringent, not all treated units can be matched to similar control units. The causal estimand would no longer be the average treatment on the treated if the causal effect was not constant across units.  
+        
+        Based on this simulation framework, we generate 1000 datasets for each propensity score matching procedure with caliper values ranging from 0 to 1. Parameters values of the simulation are set to make them realistic and can be found \href{https://vincentbagilet.github.io/causal_inflation/Matching.html}{here}. Once units are matched, we simply regress the observed revenue on the treatment indicator.
+        
+         \begin{figure}[!h] 
+			    \caption{Evolution of Bias with the Caliper in Propensity Score Matching, Conditional on Statistical Significance.}
+				\label{graph_matching}
+			 \centering\includegraphics[width=0.9\linewidth]{images/main_graph_matching_paper.pdf}
+			 \caption*{\footnotesize \textit{Notes}: The green line indicates the average bias for all estimates, regardless of their statistical significance. The beige line represents the inflation of statistically significant estimates at the 5\% level. The caliper is expressed in standard deviation of the propensity score distribution. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_exaggeration/Matching.html}{link}.}
+		\end{figure} 
+        
+        \paragraph{Results.} Figure \ref{graph_matching} indicates that the average bias of estimates, regardless of their statistical significance, decreases with the value of the caliper as units become more comparable. As the caliper decreases, statistically significant estimates start being more inflated than the entire sample of estimates. For large caliper values, units are not comparable enough and confounding bias the effect. For small caliper values, the sample size becomes too small to be able to precisely estimate the treatment effect and exaggeration arises. It is well-known that matching procedure can result in imprecise estimates since it does not use information on outcomes but rather focuses on reducing bias arising from covariates imbalance \citep{rubin_using_2001}. Yet, in a context of publication bias favoring statistically significant estimates, it may make the method produce misleading claims on treatment effect sizes. 
+
+
 						
 %-----------------------------------------------------------------------------
 
@@ -533,9 +559,9 @@
 
 \subsection{Asymptotic distribution of $\hat{\beta}_{\textsc{ovb}}$ (lemma \ref{lemma_ovb})}
 			
+			For readability, let's introduce the usual vector notation such that for instance $y = (y_1, ..., y_n)'$ and set $\bm{\beta} = (\beta_0, \beta_1)'$ and $\text{x}_i = (1, x_i)'$. I also use capital letters to denote matrices (for instance $X = (\text{x}_{1}', ..., \text{x}_{n}')'$).\\
 			
 			\begin{proof} 
-			
 				Since, we do not observe $w$, we consider the projection of $y$ on $X$ only:
 						~
 						\begin{equation}\label{maths_eq_ovb}

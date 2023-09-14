@@ -533,7 +533,12 @@ summary_sim_rdd %>%
   ) +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) 
 
-ggsave("main_graph_RDD_paper.pdf", path = "images", width = 8, height = 4.5)
+ggsave(
+  "main_graph_RDD_paper.pdf", 
+  path = "paper/submission_version/images", 
+  width = 8, 
+  height = 4.5
+)
 ```
 
 We notice that, the smaller the bandwidth size, the closer the average of all estimates is to the true effect. Yet, when the bandwidth gets small significant estimates overestimate the true effect. This arises because of a loss of power, as shown in the graph below.

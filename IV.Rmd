@@ -485,7 +485,7 @@ We want to compare $\dfrac{\mathbb{E}[\hat{\beta}_{IV}]}{\beta_0}$ and $\dfrac{\
 summarise_simulations_IV <- function(data) {
   data %>%
     mutate(significant = (p_value <= 0.05)) %>% 
-    group_by(delta, pi_1, model, param_rain) %>%
+    group_by(delta, pi_1, model) %>%
     summarise(
       power = mean(significant, na.rm = TRUE)*100, 
       type_m = mean(ifelse(significant, abs(estimate/true_effect), NA), na.rm = TRUE),
@@ -513,7 +513,7 @@ summary_sim_IV %>%
   mutate(
     ovb_intensity_name = paste("OVB intensity:", delta)
   ) %>%
-  ggplot(aes(x = abs(pi_1), y = bias_signif, color = model, linetype = model)) + 
+  ggplot(aes(x = abs(pi_1), y = bias_signif, color = model)) + 
   geom_line(size = 1, alpha = 0.75) +
   labs(
     x = "|IV strength|", 
@@ -538,12 +538,17 @@ summary_sim_IV %>%
     color = "Model"
     # caption = "Only for statistically significant estimates"
   ) +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 3)) +
-  scale_mediocre_d(pal = "coty", second_pair = TRUE)
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 3)) 
+  # scale_mediocre_d(pal = "coty", second_pair = TRUE)
   # theme_mediocre(pal = "blackandwhite", base_family = "Lora") +
   # scale_mediocre_d(pal = "blackandwhite")
 
-ggsave("main_graph_IV_paper.pdf", path = "images", width = 8, height = 4.5)
+ggsave(
+  "main_graph_IV_paper.pdf", 
+  path = "paper/submission_version/images", 
+  width = 8, 
+  height = 4.5
+)
 ```
 
 We notice that, if the IV strength is low, on average, statistically significant estimates overestimate the true effect. If the IV strength is too low, it might even be the case that the benefit of the IV is overturned by the exaggeration issue. The IV yields an unbiased estimate and enables to get rid of the OVB but such statistically significant estimates fall, on average, even further away from the true effect.

@@ -58,7 +58,7 @@ set.seed(12)
 
 ## Summary and intuition
 
-As discussed in the introduction and the math section of the paper, when controlling for confounders may a confounding / exaggeration trade-off is mediated by the proportion of the variation that the control absorbs in the explanatory variable of interest ($x$) as compared to the outcome variable ($y$). Controling for a variable ($w$) is equivalent to partialling out this variable from both $x$ and $y$. Since the variance of the estimator is given by the ratio of the variance of the residuals $\sigma_{y^{\perp x, w}}^2$ over $n$ times the variance off the explanatory variable after partialing out $w$ ($\sigma_{x^{\perp w}}^2$), if controling absorbs more of the variance in $x$ than in $y$, it will increase the variance of the resulting estimator and create exaggeration.
+As discussed in the introduction and the math section of the paper, when controlling for confounders may cause a confounding / exaggeration trade-off mediated by the proportion of the variation that the control absorbs more variation in the explanatory variable of interest ($x$) than in the outcome variable ($y$). Controlling for a variable ($w$) is equivalent to partialling out this variable from both $x$ and $y$. Since the variance of the estimator is given by the ratio of the variance of the residuals $\sigma_{y^{\perp x, w}}^2$ over $n$ times the variance of the explanatory variable after partialling out $w$ ($\sigma_{x^{\perp w}}^2$), if controlling absorbs more of the variance in $x$ than in $y$, it will increase the variance of the resulting estimator and create exaggeration.
 
 ## An illustrative example
 
@@ -98,7 +98,7 @@ generate_data_controls <- function(N,
                                    beta_0,
                                    beta_1,
                                    gamma,
-                                   kappa = 0.3) {
+                                   kappa) {
   delta <- kappa/gamma
   
   data <- tibble(id = 1:N) |> 
@@ -135,7 +135,8 @@ baseline_param_controls <- tibble(
   sigma_w = 1.1,
   beta_0 = 0.5,
   beta_1 = 0.2,
-  gamma = 1
+  gamma = 1,
+  kappa = 0.3
 )
 
 baseline_param_controls |> kable()
@@ -173,7 +174,11 @@ estimate_controls <- function(data) {
   
   reg_ctrl |> 
     rbind(reg_ovb) |>
-    select(estimate, se = std.error, p_value = p.value, model) 
+    select(estimate, se = std.error, p_value = p.value, model) |> 
+    mutate(#to compute corr(x,w)
+      sigma_epsilon = unique(data$sigma_epsilon),
+      sigma_u = unique(data$sigma_u)
+    )
 }
 ```
 
@@ -226,7 +231,10 @@ I then run the simulations by looping our `compute_sim_controls` function on `pa
 ```{r run_sim_controls, eval=FALSE}
 sim_controls <- pmap(param_controls, compute_sim_controls) |> 
   list_rbind() |> 
-  as_tibble()
+  as_tibble() 
+
+sim_controls_t <- sim_controls |> 
+  mutate(rho_xw = gamma*sigma_w/sigma_x)
 
 saveRDS(sim_controls, here("Outputs/sim_controls.RDS"))
 ```
@@ -240,7 +248,7 @@ First, I quickly explore the results. I plot the distribution of the estimated e
 ```{r exploration_results_controls, fig.asp=2, code_folding="Show code used to generate the graph"}
 sim_controls <- readRDS(here("Outputs/sim_controls.RDS"))
 
-sim_controls |> 
+sim_controls_t |> 
   mutate(model_name = ifelse(model == "ctrl", "Controled", "Omitted")) |>
   ggplot(aes(x = estimate)) + 
   geom_histogram(bins = 60) + 
@@ -270,6 +278,7 @@ summary_sim_controls <- summarise_sim(
   varying_params = c(model, gamma), 
   true_effect = beta_1
 )
+
 saveRDS(summary_sim_controls, here("Outputs/summary_sim_controls.RDS"))
 ```
 
@@ -289,7 +298,8 @@ summary_sim_controls |>
     title = "Evolution of bias with gamma",
     subtitle = "For statistically significant estimates",
     color = "Model"
-  ) 
+  ) +
+  scale_mediocre_d(pal = "coty", second_pair = TRUE)
 ```
 
 ```{r main_graph_controls_paper, dpi=600, include=FALSE}
@@ -305,7 +315,13 @@ summary_sim_controls |>
     # subtitle = "For statistically significant estimates",
     color = "Model"
   ) 
+  # scale_mediocre_d(pal = "coty", second_pair = TRUE) 
 
-ggsave("main_graph_controls_paper.pdf", path = "images", width = 8, height = 4.5)
+ggsave(
+  "main_graph_controls_paper.pdf", 
+  path = "paper/submission_version/images", 
+  width = 8, 
+  height = 4.5
+)
 ```
 

@@ -30,70 +30,71 @@
 \backcite {ioannidis_power_2017}{{6}{I}{figure.caption.1}}
 \backcite {christensen_transparency_2018}{{6}{I}{figure.caption.1}}
 \backcite {kasy_forking_2021}{{6}{I}{figure.caption.1}}
-\backcite {gelman_beyond_2014}{{6}{1}{section.2}}
-\backcite {gelman_beyond_2014}{{6}{1}{section.2}}
-\backcite {thistlethwaite_regression-discontinuity_1960}{{7}{II. 1}{section*.3}}
-\backcite {kraft_interpreting_2020}{{8}{II. 1}{section*.3}}
-\backcite {imbens_optimal_2012}{{8}{II. 1}{section*.4}}
-\backcite {gomez_republicans_2007}{{9}{II. 2}{section*.7}}
-\backcite {fujiwara_habit_2016}{{9}{II. 2}{section*.7}}
-\backcite {cooperman_randomization_2017}{{9}{II. 2}{section*.7}}
-\backcite {currie_environmental_2015}{{11}{II. 3}{section*.11}}
-\backcite {lavaine_energy_2017}{{11}{II. 3}{section*.11}}
-\backcite {dehejia_causal_1999}{{11}{II. 4}{section*.15}}
-\backcite {rubin_using_2001}{{14}{II. 4}{section*.17}}
-\backcite {lu_note_2019}{{14}{III. 1}{subsection.3.1}}
-\backcite {zwet_significance_2021}{{14}{III. 1}{subsection.3.1}}
-\backcite {rosenbaum_observational_2002}{{20}{IV. 1}{subsection.4.1}}
-\backcite {middleton_bias_2016}{{20}{IV. 1}{subsection.4.1}}
-\backcite {oster_unobservable_2019}{{20}{IV. 1}{subsection.4.1}}
-\backcite {cinelli_making_2020}{{20}{IV. 1}{subsection.4.1}}
-\backcite {cinelli_making_2020}{{20}{IV. 1}{subsection.4.1}}
-\backcite {duflo_using_2007}{{20}{IV. 2}{subsection.4.2}}
-\backcite {mcconnell_going_2015}{{20}{IV. 2}{subsection.4.2}}
-\backcite {athey_econometrics_2016}{{20}{IV. 2}{subsection.4.2}}
-\backcite {angrist_mostly_2009}{{20}{IV. 2}{subsection.4.2}}
-\backcite {angrist_mastering_2014}{{20}{IV. 2}{subsection.4.2}}
-\backcite {imbens_causal_2015}{{20}{IV. 2}{subsection.4.2}}
-\backcite {cunningham_causal_2021}{{20}{IV. 2}{subsection.4.2}}
-\backcite {shadish_experimental_2002}{{21}{IV. 2}{subsection.4.2}}
-\backcite {huntington-klein_effect_2021}{{21}{IV. 2}{subsection.4.2}}
-\backcite {hill_bayesian_2011}{{21}{IV. 2.1}{subsubsection.4.2.1}}
-\backcite {gelman_regression_2020}{{21}{IV. 2.1}{subsubsection.4.2.1}}
-\backcite {black_simulated_2021}{{21}{IV. 2.1}{subsubsection.4.2.1}}
-\backcite {bagilet_accurately_2023}{{21}{IV. 2.1}{subsubsection.4.2.1}}
-\backcite {gelman_beyond_2014}{{21}{IV. 2.2}{subsubsection.4.2.2}}
-\backcite {ioannidis_power_2017}{{21}{IV. 2.2}{subsubsection.4.2.2}}
-\backcite {stommes_reliability_2021}{{21}{IV. 2.2}{subsubsection.4.2.2}}
-\backcite {card_using_1993}{{21}{IV. 2.2}{subsubsection.4.2.2}}
-\backcite {card_using_1993}{{21}{IV. 2.2}{subsubsection.4.2.2}}
-\backcite {timm_retrodesign_2019}{{21}{4}{subsubsection.4.2.2}}
-\backcite {linden_retrodesign_2019}{{21}{4}{subsubsection.4.2.2}}
-\backcite {zwet_proposal_2021}{{22}{5}{subsubsection.4.2.2}}
-\backcite {zwet_significance_2021}{{22}{5}{subsubsection.4.2.2}}
-\backcite {zwet_statistical_2021}{{22}{5}{subsubsection.4.2.2}}
-\backcite {aronow_does_2016}{{23}{IV. 3.2}{subsubsection.4.3.2}}
-\backcite {aronow_does_2016}{{23}{IV. 3.2}{subsubsection.4.3.2}}
-\backcite {aronow_does_2016}{{23}{IV. 3.2}{subsubsection.4.3.2}}
-\backcite {simmons_false-positive_2011}{{24}{IV. 4}{subsection.4.4}}
-\backcite {gelman_garden_2013}{{24}{IV. 4}{subsection.4.4}}
-\backcite {kasy_forking_2021}{{24}{IV. 4}{subsection.4.4}}
-\backcite {mcshane_abandon_2019}{{24}{IV. 4}{subsection.4.4}}
-\backcite {christensen_transparency_2018}{{24}{IV. 4}{subsection.4.4}}
-\backcite {hernan_causal_2021}{{24}{IV. 4}{subsection.4.4}}
-\backcite {shadish_experimental_2002}{{24}{IV. 4}{subsection.4.4}}
-\backcite {amrhein_inferential_2019}{{24}{IV. 4}{subsection.4.4}}
-\backcite {romer_praise_2020}{{24}{IV. 4}{subsection.4.4}}
-\backcite {ioannidis_power_2017}{{24}{V}{section.5}}
-\backcite {rosenthal_file_1979}{{25}{V}{section.5}}
-\backcite {andrews_identification_2019}{{25}{V}{section.5}}
-\backcite {abadie_statistical_2020}{{25}{V}{section.5}}
-\backcite {brodeur_methods_2020}{{25}{V}{section.5}}
-\backcite {ioannidis_why_2008}{{25}{V}{section.5}}
-\backcite {gelman_beyond_2014}{{25}{V}{section.5}}
-\backcite {lu_note_2019}{{25}{V}{section.5}}
-\backcite {zwet_significance_2021}{{25}{V}{section.5}}
-\backcite {camerer_evaluating_2016}{{25}{V}{section.5}}
-\backcite {ioannidis_power_2017}{{25}{V}{section.5}}
-\backcite {lu_note_2019}{{31}{I. 1}{subsection.A.1}}
-\backcite {zwet_significance_2021}{{31}{I. 1}{subsection.A.1}}
+\backcite {lu_note_2019}{{7}{II. 1}{equation.2.1}}
+\backcite {zwet_significance_2021}{{7}{II. 1}{equation.2.1}}
+\backcite {gelman_beyond_2014}{{7}{2}{subsection.2.1}}
+\backcite {gelman_beyond_2014}{{7}{2}{subsection.2.1}}
+\backcite {imbens_optimal_2012}{{13}{III. 1}{section*.5}}
+\backcite {thistlethwaite_regression-discontinuity_1960}{{14}{III. 2}{section*.8}}
+\backcite {kraft_interpreting_2020}{{15}{III. 2}{section*.8}}
+\backcite {imbens_optimal_2012}{{15}{III. 2}{section*.9}}
+\backcite {gomez_republicans_2007}{{16}{III. 3}{section*.12}}
+\backcite {fujiwara_habit_2016}{{16}{III. 3}{section*.12}}
+\backcite {cooperman_randomization_2017}{{16}{III. 3}{section*.12}}
+\backcite {currie_environmental_2015}{{18}{III. 4}{section*.16}}
+\backcite {lavaine_energy_2017}{{18}{III. 4}{section*.16}}
+\backcite {dehejia_causal_1999}{{19}{III. 5}{section*.20}}
+\backcite {rubin_using_2001}{{20}{III. 5}{section*.22}}
+\backcite {rosenbaum_observational_2002}{{21}{IV. 1}{subsection.4.1}}
+\backcite {middleton_bias_2016}{{21}{IV. 1}{subsection.4.1}}
+\backcite {oster_unobservable_2019}{{21}{IV. 1}{subsection.4.1}}
+\backcite {cinelli_making_2020}{{21}{IV. 1}{subsection.4.1}}
+\backcite {cinelli_making_2020}{{21}{IV. 1}{subsection.4.1}}
+\backcite {duflo_using_2007}{{21}{IV. 2}{subsection.4.2}}
+\backcite {mcconnell_going_2015}{{21}{IV. 2}{subsection.4.2}}
+\backcite {athey_econometrics_2016}{{21}{IV. 2}{subsection.4.2}}
+\backcite {angrist_mostly_2009}{{22}{IV. 2}{subsection.4.2}}
+\backcite {angrist_mastering_2014}{{22}{IV. 2}{subsection.4.2}}
+\backcite {imbens_causal_2015}{{22}{IV. 2}{subsection.4.2}}
+\backcite {cunningham_causal_2021}{{22}{IV. 2}{subsection.4.2}}
+\backcite {shadish_experimental_2002}{{22}{IV. 2}{subsection.4.2}}
+\backcite {huntington-klein_effect_2021}{{22}{IV. 2}{subsection.4.2}}
+\backcite {hill_bayesian_2011}{{22}{IV. 2.1}{subsubsection.4.2.1}}
+\backcite {gelman_regression_2020}{{22}{IV. 2.1}{subsubsection.4.2.1}}
+\backcite {black_simulated_2021}{{22}{IV. 2.1}{subsubsection.4.2.1}}
+\backcite {bagilet_accurately_2023}{{22}{IV. 2.1}{subsubsection.4.2.1}}
+\backcite {gelman_beyond_2014}{{22}{IV. 2.2}{subsubsection.4.2.2}}
+\backcite {ioannidis_power_2017}{{22}{IV. 2.2}{subsubsection.4.2.2}}
+\backcite {stommes_reliability_2021}{{22}{IV. 2.2}{subsubsection.4.2.2}}
+\backcite {card_using_1993}{{22}{IV. 2.2}{subsubsection.4.2.2}}
+\backcite {card_using_1993}{{23}{IV. 2.2}{subsubsection.4.2.2}}
+\backcite {timm_retrodesign_2019}{{23}{4}{subsubsection.4.2.2}}
+\backcite {linden_retrodesign_2019}{{23}{4}{subsubsection.4.2.2}}
+\backcite {zwet_proposal_2021}{{23}{5}{subsubsection.4.2.2}}
+\backcite {zwet_significance_2021}{{23}{5}{subsubsection.4.2.2}}
+\backcite {zwet_statistical_2021}{{23}{5}{subsubsection.4.2.2}}
+\backcite {aronow_does_2016}{{24}{IV. 3.2}{subsubsection.4.3.2}}
+\backcite {aronow_does_2016}{{24}{IV. 3.2}{subsubsection.4.3.2}}
+\backcite {aronow_does_2016}{{24}{IV. 3.2}{subsubsection.4.3.2}}
+\backcite {simmons_false-positive_2011}{{25}{IV. 4}{subsection.4.4}}
+\backcite {gelman_garden_2013}{{25}{IV. 4}{subsection.4.4}}
+\backcite {kasy_forking_2021}{{25}{IV. 4}{subsection.4.4}}
+\backcite {mcshane_abandon_2019}{{25}{IV. 4}{subsection.4.4}}
+\backcite {christensen_transparency_2018}{{25}{IV. 4}{subsection.4.4}}
+\backcite {hernan_causal_2021}{{25}{IV. 4}{subsection.4.4}}
+\backcite {shadish_experimental_2002}{{25}{IV. 4}{subsection.4.4}}
+\backcite {amrhein_inferential_2019}{{25}{IV. 4}{subsection.4.4}}
+\backcite {romer_praise_2020}{{25}{IV. 4}{subsection.4.4}}
+\backcite {ioannidis_power_2017}{{26}{V}{section.5}}
+\backcite {rosenthal_file_1979}{{26}{V}{section.5}}
+\backcite {andrews_identification_2019}{{26}{V}{section.5}}
+\backcite {abadie_statistical_2020}{{26}{V}{section.5}}
+\backcite {brodeur_methods_2020}{{26}{V}{section.5}}
+\backcite {ioannidis_why_2008}{{26}{V}{section.5}}
+\backcite {gelman_beyond_2014}{{26}{V}{section.5}}
+\backcite {lu_note_2019}{{26}{V}{section.5}}
+\backcite {zwet_significance_2021}{{26}{V}{section.5}}
+\backcite {camerer_evaluating_2016}{{26}{V}{section.5}}
+\backcite {ioannidis_power_2017}{{26}{V}{section.5}}
+\backcite {lu_note_2019}{{32}{I. 1}{subsection.A.1}}
+\backcite {zwet_significance_2021}{{32}{I. 1}{subsection.A.1}}

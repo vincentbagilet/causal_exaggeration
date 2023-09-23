@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-09-07"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-09-07"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-09-19"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-09-19"/>
   <meta name="article:author" content="Vincent Bagilet"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -114,7 +114,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Mathematical derivation"]},{"type":"character","attributes":{},"value":["In this document, I run simple simulations to both illustrate and check my closed form solutions."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-09-07"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Mathematical derivation"]},{"type":"character","attributes":{},"value":["In this document, I run simple simulations to both illustrate and check my closed form solutions."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-09-19"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2188,7 +2188,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Mathematical derivation","description":"In this document, I run simple simulations to both illustrate and check my closed form solutions.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-09-07T00:00:00.000+02:00","citationText":"Bagilet, 2023"}
+{"title":"Mathematical derivation","description":"In this document, I run simple simulations to both illustrate and check my closed form solutions.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-09-19T00:00:00.000-04:00","citationText":"Bagilet, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2213,8 +2213,8 @@ Simulations
 <a href="RDD.html">RDD</a>
 <a href="IV.html">IV</a>
 <a href="Matching.html">Matching</a>
-<a href="DID.html">DiD / Event study</a>
-<a href="crosscutting-issues.html">Crosscutting issues</a>
+<a href="DID.html">Shocks</a>
+<a href="controls.html">Controls</a>
 </div>
 </div>
 <a href="reporting.html">Reporting</a>
@@ -2239,7 +2239,7 @@ Simulations
 <div class="d-byline">
   Vincent Bagilet <a href="https://vincentbagilet.github.io/" class="uri">https://vincentbagilet.github.io/</a> (Columbia University)<a href="https://www.columbia.edu/" class="uri">https://www.columbia.edu/</a>
   
-<br/>2023-09-07
+<br/>2023-09-19
 </div>
 
 <div class="d-article">
@@ -2268,45 +2268,139 @@ text-align: justify}
 <!-- The full mathematical derivation is available [here](Maths/math_causal_exaggeration.pdf). -->
 <p>In this document, I check that the results I derived are correct. First, I verify my exaggeration formula and then the asymptotic variance of the various estimators.</p>
 <h2 id="exaggeration-formula">Exaggeration formula</h2>
-<p>First I verify that the formula for exaggeration that I have computed is correct. To do so, I set parameter values and draw <span class="math inline">\(N\)</span> estimates from the corresponding distribution. I then compute the average of statistically significant estimates.</p>
+<p>First I verify that the formula for exaggeration that I have computed is correct. The formula is</p>
+<p><span class="math display">\[E = \]</span></p>
+<p>To check, I write two functions, <code>E_empirical</code> and <code>E_theoretical</code> that, for a given set of parameters values compute the empirical and theoretical exaggeration respectively. The former draw <span class="math inline">\(N\)</span> estimates from the distribution corresponding to the parameters values and compute the average of statistically significant estimates.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>beta_1</span> <span class='op'>&lt;-</span> <span class='fl'>0.9</span> <span class='co'>#the true effect </span></span>
-<span><span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fl'>0.5</span> <span class='co'>#the bias</span></span>
-<span><span class='va'>sd</span> <span class='op'>&lt;-</span> <span class='fl'>0.8</span> <span class='co'>#the standard error of the estimator</span></span>
-<span><span class='va'>N</span> <span class='op'>&lt;-</span> <span class='fl'>10000</span> </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>E_empirical</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>beta_1</span>, <span class='va'>b</span>, <span class='va'>sigma</span>, <span class='va'>N</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>estimates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>estimate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='va'>beta_1</span> <span class='op'>+</span> <span class='va'>b</span>, <span class='va'>sigma</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>signif <span class='op'>=</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>)</span> <span class='op'>&gt;</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span><span class='op'>*</span><span class='va'>sigma</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='va'>estimates</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>signif</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>/</span><span class='va'>beta_1</span></span>
+<span><span class='op'>}</span></span>
 <span></span>
-<span><span class='va'>estimates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>estimate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='va'>beta_1</span> <span class='op'>+</span> <span class='va'>b</span>, <span class='va'>sd</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>signif <span class='op'>=</span> <span class='op'>(</span><span class='va'>estimate</span> <span class='op'>&gt;</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span><span class='op'>*</span><span class='va'>sd</span><span class='op'>)</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>E_empirics</span> <span class='op'>&lt;-</span> <span class='va'>estimates</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>signif</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>/</span><span class='va'>beta_1</span></span>
-<span></span>
-<span><span class='va'>lambda</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>dnorm</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>pnorm</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>}</span></span>
-<span></span>
-<span><span class='va'>E_theory</span> <span class='op'>&lt;-</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>b</span><span class='op'>/</span><span class='va'>beta_1</span> <span class='op'>+</span> <span class='va'>sd</span><span class='op'>/</span><span class='va'>beta_1</span><span class='op'>*</span><span class='fu'>lambda</span><span class='op'>(</span><span class='op'>(</span><span class='va'>beta_1</span> <span class='op'>+</span> <span class='va'>b</span><span class='op'>)</span><span class='op'>/</span><span class='va'>sd</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span><span class='va'>E_theory</span>, <span class='va'>E_empirics</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Theoretical exaggeration ratio"</span>, <span class='st'>"Empirical exaggeration ratio"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>E_theoretical</span> <span class='op'>&lt;-</span>  <span class='kw'>function</span><span class='op'>(</span><span class='va'>beta_1</span>, <span class='va'>b</span>, <span class='va'>sigma</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='co'># lambda &lt;- function(x) {dnorm(x)/pnorm(x)}</span></span>
+<span>  <span class='va'>r_plus</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>beta_1</span> <span class='op'>+</span> <span class='va'>b</span><span class='op'>)</span><span class='op'>/</span><span class='va'>sigma</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span></span>
+<span>  <span class='va'>r_minus</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>beta_1</span> <span class='op'>+</span> <span class='va'>b</span><span class='op'>)</span><span class='op'>/</span><span class='va'>sigma</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='co'># E_theory &lt;- 1 + b/beta_1 + sigma/beta_1*lambda((beta_1 + b)/sigma - qnorm(0.975))</span></span>
+<span>  <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>b</span><span class='op'>/</span><span class='va'>beta_1</span> <span class='op'>+</span> <span class='va'>sigma</span><span class='op'>/</span><span class='va'>beta_1</span><span class='op'>*</span><span class='op'>(</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>dnorm</a></span><span class='op'>(</span><span class='va'>r_minus</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>dnorm</a></span><span class='op'>(</span><span class='va'>r_plus</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>pnorm</a></span><span class='op'>(</span><span class='va'>r_plus</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>pnorm</a></span><span class='op'>(</span><span class='va'>r_minus</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
 </div>
+</div>
+<p>I then write a function <code>compare_E</code> that returns a data frame with the exaggeration ratios, the percentage difference between the two and the parameters values:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>compare_E</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>beta_1</span>, <span class='va'>b</span>, <span class='va'>sigma</span>, <span class='va'>N</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span></span>
+<span>    E_theoretical <span class='op'>=</span> <span class='fu'>E_theoretical</span><span class='op'>(</span><span class='va'>beta_1</span>, <span class='va'>b</span>, <span class='va'>sigma</span><span class='op'>)</span>, </span>
+<span>    E_empirical <span class='op'>=</span> <span class='fu'>E_empirical</span><span class='op'>(</span><span class='va'>beta_1</span>, <span class='va'>b</span>, <span class='va'>sigma</span>, <span class='va'>N</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>diff_perc <span class='op'>=</span> <span class='op'>(</span><span class='va'>E_theoretical</span> <span class='op'>-</span> <span class='va'>E_empirical</span><span class='op'>)</span><span class='op'>/</span><span class='va'>E_empirical</span><span class='op'>*</span><span class='fl'>100</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='va'>N</span>, beta_1 <span class='op'>=</span> <span class='va'>beta_1</span>, b <span class='op'>=</span> <span class='va'>b</span>, sigma <span class='op'>=</span> <span class='va'>sigma</span><span class='op'>)</span> </span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+</div>
+<p>Then, I run this function for a set of parameters values (<span class="math inline">\(\beta_1 \in \ [-3, 3]\backslash \{0\}\)</span>, <span class="math inline">\(b \in \{-0.5, 0, 0.5\}\)</span> and <span class="math inline">\(\sigma \in [0.1, 2]\)</span>) and compute summary statistics for the percentage difference:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>param_E</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>100000</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>beta_1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>7</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='co'>#remove 0 </span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>b <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='op'>-</span><span class='fl'>0.5</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>sigma <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>2</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>exag_ratios</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_E</span>, <span class='va'>compare_E</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>exag_ratios</span><span class='op'>$</span><span class='va'>diff_perc</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='va'>.</span>, name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/labels.html'>labels</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>name</span>, values_from <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
 <table>
 <thead>
 <tr class="header">
-<th style="text-align: right;">Theoretical exaggeration ratio</th>
-<th style="text-align: right;">Empirical exaggeration ratio</th>
+<th style="text-align: right;">Min.</th>
+<th style="text-align: right;">1st Qu.</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">3rd Qu.</th>
+<th style="text-align: right;">Max.</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">2.387716</td>
-<td style="text-align: right;">2.396225</td>
+<td style="text-align: right;">9.202976e-05</td>
+<td style="text-align: right;">0.03203761</td>
+<td style="text-align: right;">0.08357662</td>
+<td style="text-align: right;">5.73715</td>
+<td style="text-align: right;">0.1848704</td>
+<td style="text-align: right;">100</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The empirical and theoretical exaggeration ratios are comparable. I manually tried several parameter values and consistently find similar results between the theoretical and empirical exaggeration ratios. The formula is therefore probably correct.</p>
+<p>The empirical and theoretical exaggeration ratios seem very close. The formula is therefore probably correct.</p>
+<p>I then double check that, for given parameters values, the exaggeration increases with the standard error of the estimator. In addition, that enables me to check that theroretical and empirical exaggeration ratios are comparable.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code used to generate the graph
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>exag_ratios</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>b</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>&amp;</span> <span class='va'>beta_1</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"E_"</span><span class='op'>)</span>, names_to <span class='op'>=</span> <span class='st'>"type_ratio"</span>, values_to <span class='op'>=</span> <span class='st'>"exag"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>type_ratio <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></span><span class='op'>(</span><span class='va'>type_ratio</span>, <span class='st'>"E_"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sigma</span>, y <span class='op'>=</span> <span class='va'>exag</span>, color <span class='op'>=</span> <span class='va'>type_ratio</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"True effect ="</span>, <span class='va'>beta_1</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Exaggeration increases with the standard error"</span>, </span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"For different true effect values"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Standard error"</span>, </span>
+<span>    y <span class='op'>=</span> <span class='st'>"Exaggeration ratio"</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"Ratio type"</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/maths/maths_graph_evol_exag_th-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<p>I plot another type of graph to better understand the evolution of the exaggeration with <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code used to generate the graph
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>exag_ratios</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>b</span> <span class='op'>==</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"E_"</span><span class='op'>)</span>, names_to <span class='op'>=</span> <span class='st'>"type_ratio"</span>, values_to <span class='op'>=</span> <span class='st'>"exag"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>type_ratio <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></span><span class='op'>(</span><span class='va'>type_ratio</span>, <span class='st'>"E_"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sigma</span>, y <span class='op'>=</span> <span class='va'>beta_1</span>, fill <span class='op'>=</span> <span class='va'>exag</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_tile</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_title</a></span><span class='op'>(</span><span class='va'>type_ratio</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Exaggeration increases with the standard error and \ndecreases with the absolute value of the true effect"</span>, </span>
+<span>    x <span class='op'>=</span> <span class='st'>"Standard error"</span>, </span>
+<span>    y <span class='op'>=</span> <span class='st'>"True effect"</span>,</span>
+<span>    fill <span class='op'>=</span> <span class='st'>"Exaggeration ratio"</span></span>
+<span>  <span class='op'>)</span> </span></code></pre>
+</div>
+</details>
+<p><img src="images/maths/maths_graph_heatmap_exag_th-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<p>For a given true effect size, exaggeration increases with the standard error. For a given standard error, it decreases with the true effect size. In addition, we can again check that the theoretical and empirical exaggeration ratios are very close.</p>
 <h2 id="asymptotic-variances">Asymptotic variances</h2>
 <p>In order to check that the asymptotic variances of the estimators I computed are correct, I generate a data set following the DGP described in the maths section (for a given set of parameters values). I then estimate the various models and retrieve simulated empirical variances to compare them to the theoretical ones I derived.</p>
 <p>For consistency with the other simulations, I wrap this analysis into functions and follow the framework described <a href="https://vincentbagilet.github.io/posts/2022-10-13-running-simulations/">here</a>.</p>
@@ -2459,6 +2553,15 @@ Show code used to generate the table
 </div>
 </details>
 <table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 14%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: right;">id</th>
@@ -2473,57 +2576,57 @@ Show code used to generate the table
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.0914269</td>
-<td style="text-align: right;">-1.0275827</td>
-<td style="text-align: right;">1.1248726</td>
-<td style="text-align: right;">1.581465</td>
-<td style="text-align: right;">0.8687807</td>
-<td style="text-align: right;">3.936454</td>
+<td style="text-align: right;">0.7658417</td>
+<td style="text-align: right;">0.1301886</td>
+<td style="text-align: right;">1.7380496</td>
+<td style="text-align: right;">3.4288361</td>
+<td style="text-align: right;">-0.6958985</td>
+<td style="text-align: right;">4.7980319</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">0.2944940</td>
-<td style="text-align: right;">-0.5318200</td>
-<td style="text-align: right;">0.9042202</td>
-<td style="text-align: right;">1.820723</td>
-<td style="text-align: right;">-1.4388425</td>
-<td style="text-align: right;">2.115971</td>
+<td style="text-align: right;">0.3888698</td>
+<td style="text-align: right;">0.2509297</td>
+<td style="text-align: right;">2.1490490</td>
+<td style="text-align: right;">3.6107027</td>
+<td style="text-align: right;">-1.1782507</td>
+<td style="text-align: right;">4.5579168</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">0.5034512</td>
-<td style="text-align: right;">0.4628271</td>
-<td style="text-align: right;">0.4211305</td>
-<td style="text-align: right;">2.101588</td>
-<td style="text-align: right;">0.4804163</td>
-<td style="text-align: right;">4.813417</td>
+<td style="text-align: right;">-1.2258441</td>
+<td style="text-align: right;">-0.6656518</td>
+<td style="text-align: right;">-0.8691240</td>
+<td style="text-align: right;">-1.2491904</td>
+<td style="text-align: right;">0.2585686</td>
+<td style="text-align: right;">0.6765523</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">0.8841454</td>
-<td style="text-align: right;">0.1228555</td>
-<td style="text-align: right;">-0.2602144</td>
-<td style="text-align: right;">1.520815</td>
-<td style="text-align: right;">-0.5418608</td>
-<td style="text-align: right;">3.040382</td>
+<td style="text-align: right;">1.3812342</td>
+<td style="text-align: right;">0.4735821</td>
+<td style="text-align: right;">-0.6201242</td>
+<td style="text-align: right;">1.7690124</td>
+<td style="text-align: right;">0.2369155</td>
+<td style="text-align: right;">4.2427190</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">1.0465413</td>
-<td style="text-align: right;">0.3819271</td>
-<td style="text-align: right;">-0.4949202</td>
-<td style="text-align: right;">1.571469</td>
-<td style="text-align: right;">0.0902517</td>
-<td style="text-align: right;">3.852684</td>
+<td style="text-align: right;">0.4826925</td>
+<td style="text-align: right;">1.2072511</td>
+<td style="text-align: right;">-1.7227050</td>
+<td style="text-align: right;">0.3877997</td>
+<td style="text-align: right;">-0.1472172</td>
+<td style="text-align: right;">2.8442081</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">0.6240705</td>
-<td style="text-align: right;">0.6738747</td>
-<td style="text-align: right;">1.6738921</td>
-<td style="text-align: right;">3.577473</td>
-<td style="text-align: right;">1.6144122</td>
-<td style="text-align: right;">7.528823</td>
+<td style="text-align: right;">0.9211854</td>
+<td style="text-align: right;">0.4529981</td>
+<td style="text-align: right;">0.1945320</td>
+<td style="text-align: right;">2.2032792</td>
+<td style="text-align: right;">-0.5512207</td>
+<td style="text-align: right;">3.8785576</td>
 </tr>
 </tbody>
 </table>
@@ -2602,36 +2705,36 @@ Show the code of lint_reg_maths
 <tr class="odd">
 <td style="text-align: left;">ctrl</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">0.9945892</td>
-<td style="text-align: right;">0.0033630</td>
-<td style="text-align: right;">295.74556</td>
+<td style="text-align: right;">0.9994178</td>
+<td style="text-align: right;">0.0033566</td>
+<td style="text-align: right;">297.74311</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ovb</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0765326</td>
-<td style="text-align: right;">0.0036661</td>
-<td style="text-align: right;">293.64556</td>
+<td style="text-align: right;">1.0793135</td>
+<td style="text-align: right;">0.0036362</td>
+<td style="text-align: right;">296.82446</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">reduced_form</td>
 <td style="text-align: left;">z</td>
-<td style="text-align: right;">0.7779756</td>
-<td style="text-align: right;">0.0217610</td>
-<td style="text-align: right;">35.75085</td>
+<td style="text-align: right;">0.7803574</td>
+<td style="text-align: right;">0.0218873</td>
+<td style="text-align: right;">35.65338</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">iv</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">0.9844540</td>
-<td style="text-align: right;">0.0125165</td>
-<td style="text-align: right;">78.65222</td>
+<td style="text-align: right;">1.0006463</td>
+<td style="text-align: right;">0.0125939</td>
+<td style="text-align: right;">79.45481</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>

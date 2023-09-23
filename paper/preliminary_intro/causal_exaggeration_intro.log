@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  1 JUN 2023 09:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  23 SEP 2023 10:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1347,7 +1347,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 [5]
 
 Package natbib Warning: Citation `bagilet_accurately_2023' on page 6 undefined 
-on input line 64.
+on input line 71.
 
 )
 
@@ -1426,7 +1426,7 @@ ed.
 (rerunfilecheck)             Checksum: FCECE2D44C10CA946444ED28BD02C040;46.
 Package rerunfilecheck Info: File `causal_exaggeration_intro.brf' has not chang
 ed.
-(rerunfilecheck)             Checksum: 6647442A2CEFDAB01347A756DA2F28F2;1673.
+(rerunfilecheck)             Checksum: 35954A06D7B5C465B8B48743EA1176A0;1622.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 62.
  ) 
 Here is how much of TeX's memory you used:
@@ -1436,7 +1436,7 @@ Here is how much of TeX's memory you used:
  19104 multiletter control sequences out of 15000+600000
  31505 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,12n,56p,1952b,622s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,12n,56p,2159b,622s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -1463,10 +1463,10 @@ mf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2017/texmf
 ist/fonts/type1/public/cm-super/sfxc1440.pfb></usr/local/texlive/2017/texmf-dis
 t/fonts/type1/public/cm-super/sfxc1728.pfb></usr/local/texlive/2017/texmf-dist/
 fonts/type1/public/cm-super/sfxc2074.pfb>
-Output written on causal_exaggeration_intro.pdf (10 pages, 490274 bytes).
+Output written on causal_exaggeration_intro.pdf (10 pages, 491408 bytes).
 PDF statistics:
- 363 PDF objects out of 1000 (max. 8388607)
- 303 compressed objects within 4 object streams
+ 358 PDF objects out of 1000 (max. 8388607)
+ 299 compressed objects within 3 object streams
  62 named destinations out of 1000 (max. 500000)
  14 words of extra memory for PDF output out of 10000 (max. 10000000)
 

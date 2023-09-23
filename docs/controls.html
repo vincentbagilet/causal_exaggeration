@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-09-13"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-09-13"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-09-19"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-09-19"/>
   <meta name="article:author" content="Vincent Bagilet"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -114,7 +114,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations controls"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how controling for a confounder may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-09-13"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations controls"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how controling for a confounder may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-09-19"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2188,7 +2188,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Simulations controls","description":"In this document, I run a simulation exercise to illustrate how controling for a confounder may lead to a loss in power and inflated effect sizes.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-09-13T00:00:00.000+02:00","citationText":"Bagilet, 2023"}
+{"title":"Simulations controls","description":"In this document, I run a simulation exercise to illustrate how controling for a confounder may lead to a loss in power and inflated effect sizes.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-09-19T00:00:00.000-04:00","citationText":"Bagilet, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2213,8 +2213,8 @@ Simulations
 <a href="RDD.html">RDD</a>
 <a href="IV.html">IV</a>
 <a href="Matching.html">Matching</a>
-<a href="DID.html">DiD / Event study</a>
-<a href="crosscutting-issues.html">Crosscutting issues</a>
+<a href="DID.html">Shocks</a>
+<a href="controls.html">Controls</a>
 </div>
 </div>
 <a href="reporting.html">Reporting</a>
@@ -2239,7 +2239,7 @@ Simulations
 <div class="d-byline">
   Vincent Bagilet <a href="https://vincentbagilet.github.io/" class="uri">https://vincentbagilet.github.io/</a> (Columbia University)<a href="https://www.columbia.edu/" class="uri">https://www.columbia.edu/</a>
   
-<br/>2023-09-13
+<br/>2023-09-19
 </div>
 
 <div class="d-article">
@@ -2281,7 +2281,7 @@ text-align: justify}
 <!--         - VB_Rmd.sty -->
 <!-- --- -->
 <h2 id="summary-and-intuition">Summary and intuition</h2>
-<p>As discussed in the introduction and the math section of the paper, when controlling for confounders may a confounding / exaggeration trade-off is mediated by the proportion of the variation that the control absorbs in the explanatory variable of interest (<span class="math inline">\(x\)</span>) as compared to the outcome variable (<span class="math inline">\(y\)</span>). Controling for a variable (<span class="math inline">\(w\)</span>) is equivalent to partialling out this variable from both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. Since the variance of the estimator is given by the ratio of the variance of the residuals <span class="math inline">\(\sigma_{y^{\perp x, w}}^2\)</span> over <span class="math inline">\(n\)</span> times the variance off the explanatory variable after partialing out <span class="math inline">\(w\)</span> (<span class="math inline">\(\sigma_{x^{\perp w}}^2\)</span>), if controling absorbs more of the variance in <span class="math inline">\(x\)</span> than in <span class="math inline">\(y\)</span>, it will increase the variance of the resulting estimator and create exaggeration.</p>
+<p>As discussed in the introduction and the math section of the paper, when controlling for confounders may cause a confounding / exaggeration trade-off mediated by the proportion of the variation that the control absorbs more variation in the explanatory variable of interest (<span class="math inline">\(x\)</span>) than in the outcome variable (<span class="math inline">\(y\)</span>). Controlling for a variable (<span class="math inline">\(w\)</span>) is equivalent to partialling out this variable from both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. Since the variance of the estimator is given by the ratio of the variance of the residuals <span class="math inline">\(\sigma_{y^{\perp x, w}}^2\)</span> over <span class="math inline">\(n\)</span> times the variance of the explanatory variable after partialling out <span class="math inline">\(w\)</span> (<span class="math inline">\(\sigma_{x^{\perp w}}^2\)</span>), if controlling absorbs more of the variance in <span class="math inline">\(x\)</span> than in <span class="math inline">\(y\)</span>, it will increase the variance of the resulting estimator and create exaggeration.</p>
 <h2 id="an-illustrative-example">An illustrative example</h2>
 <p>For readability and to illustrate this exaggeration, let’s consider an example setting.</p>
 <h3 id="modeling-choices">Modeling choices</h3>
@@ -2299,8 +2299,8 @@ text-align: justify}
 <p>I write a simple function that generates the data. It takes as input the values of the different parameters and returns a data frame containing all the variables for this analysis.</p>
 <p>Note that, to work with constant <span class="math inline">\(\sigma_{y}^{2}, \sigma_{x}^{2}, \sigma_{w}^{2} \text{ and } \sigma_{z}^{2}\)</span>, I need to define <span class="math inline">\(\sigma_{u}^{2} \text{ and } \sigma_{\epsilon}^{2}\)</span> as a function of the variances of defined variables:</p>
 <p><span class="math display">\[\sigma_{\epsilon}^2 = \sigma_x^2 - \gamma^2\sigma_w^2\]</span></p>
-<p><span class="math display">\[\sigma_{u}^2 = \sigma_y^2 - \beta_1^2\sigma_x^2 - \delta^2\sigma_w^2 - 2 \beta_1\delta\gamma\sigma_w^2\]</span>
-These expressions directly follow from the DGP. Note that the parameters space is restricted by the necessity of having positive variances. Hence, <span class="math inline">\(\sigma_{x}^{2}\)</span> needs to be strictly larger than <span class="math inline">\(\gamma_{max}^2\sigma_{w}^{2}\)</span> where <span class="math inline">\(\gamma_{max}\)</span> is the maximum value taken by <span class="math inline">\(\gamma\)</span> when varying this parameter. Similarly, <span class="math inline">\(\sigma_{y}^{2}\)</span> needs to be strictly larger than <span class="math inline">\(\beta_1^2\sigma_x^2 + \frac{\kappa^2}{\gamma_{min}^2}\sigma_w^2 + 2 \beta_1\kappa\sigma_w^2\)</span>.</p>
+<p><span class="math display">\[\sigma_{u}^2 = \sigma_y^2 - \beta_1^2\sigma_x^2 - \delta^2\sigma_w^2 - 2 \beta_1\delta\gamma\sigma_w^2\]</span></p>
+<p>These expressions directly follow from the DGP. Note that the parameters space is restricted by the necessity of having positive variances. Hence, <span class="math inline">\(\sigma_{x}^{2}\)</span> needs to be strictly larger than <span class="math inline">\(\gamma_{max}^2\sigma_{w}^{2}\)</span> where <span class="math inline">\(\gamma_{max}\)</span> is the maximum value taken by <span class="math inline">\(\gamma\)</span> when varying this parameter. Similarly, <span class="math inline">\(\sigma_{y}^{2}\)</span> needs to be strictly larger than <span class="math inline">\(\beta_1^2\sigma_x^2 + \frac{\kappa^2}{\gamma_{min}^2}\sigma_w^2 + 2 \beta_1\kappa\sigma_w^2\)</span>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>generate_data_controls</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>N</span>,</span>
@@ -2311,17 +2311,20 @@ These expressions directly follow from the DGP. Note that the parameters space i
 <span>                                   <span class='va'>beta_0</span>,</span>
 <span>                                   <span class='va'>beta_1</span>,</span>
 <span>                                   <span class='va'>gamma</span>,</span>
-<span>                                   <span class='va'>kappa</span> <span class='op'>=</span> <span class='fl'>0.3</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>                                   <span class='va'>kappa</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='co'># gamma &lt;- rho_xw*sigma_x/sigma_w #by def of rho_xw</span></span>
+<span>  <span class='co'># delta &lt;- bias*sigma_x/(rho_xw*sigma_w)</span></span>
 <span>  <span class='va'>delta</span> <span class='op'>&lt;-</span> <span class='va'>kappa</span><span class='op'>/</span><span class='va'>gamma</span></span>
 <span>  </span>
 <span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
 <span>      w <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>0</span>, <span class='va'>sigma_w</span><span class='op'>)</span>, </span>
+<span>      <span class='co'># sigma_epsilon = sigma_x*(1 - rho_xw^2),</span></span>
 <span>      sigma_epsilon <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>sigma_x</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>-</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,</span>
 <span>      epsilon <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>0</span>, <span class='va'>sigma_epsilon</span><span class='op'>)</span>,</span>
 <span>      x <span class='op'>=</span> <span class='va'>mu_x</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>*</span><span class='va'>w</span> <span class='op'>+</span> <span class='va'>epsilon</span>,</span>
 <span>      sigma_u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>sigma_y</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>-</span> <span class='va'>beta_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_x</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>-</span> <span class='va'>delta</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>-</span> <span class='fl'>2</span><span class='op'>*</span><span class='va'>beta_1</span><span class='op'>*</span><span class='va'>delta</span><span class='op'>*</span><span class='va'>gamma</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,</span>
-<span>      <span class='co'># sigma_u = sigma_y,</span></span>
+<span>      <span class='co'># sigma_u = sqrt(sigma_y^2 - sigma_x^2*(beta_1^2 + 2*beta_1*bias + bias^2*sigma_x^2/rho_xw^2),</span></span>
 <span>      u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>0</span>, <span class='va'>sigma_u</span><span class='op'>)</span>,</span>
 <span>      y <span class='op'>=</span> <span class='va'>beta_0</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>*</span><span class='va'>x</span> <span class='op'>+</span> <span class='va'>delta</span><span class='op'>*</span><span class='va'>w</span> <span class='op'>+</span> <span class='va'>u</span></span>
 <span>    <span class='op'>)</span></span>
@@ -2346,6 +2349,7 @@ These expressions directly follow from the DGP. Note that the parameters space i
 <th style="text-align: right;">beta_0</th>
 <th style="text-align: right;">beta_1</th>
 <th style="text-align: right;">gamma</th>
+<th style="text-align: right;">kappa</th>
 </tr>
 </thead>
 <tbody>
@@ -2358,6 +2362,7 @@ These expressions directly follow from the DGP. Note that the parameters space i
 <td style="text-align: right;">0.5</td>
 <td style="text-align: right;">0.2</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">0.3</td>
 </tr>
 </tbody>
 </table>
@@ -2510,7 +2515,11 @@ These expressions directly follow from the DGP. Note that the parameters space i
 <span>  </span>
 <span>  <span class='va'>reg_ctrl</span> <span class='op'>|&gt;</span> </span>
 <span>    <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>reg_ovb</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>estimate</span>, se <span class='op'>=</span> <span class='va'>std.error</span>, p_value <span class='op'>=</span> <span class='va'>p.value</span>, <span class='va'>model</span><span class='op'>)</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>estimate</span>, se <span class='op'>=</span> <span class='va'>std.error</span>, p_value <span class='op'>=</span> <span class='va'>p.value</span>, <span class='va'>model</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='co'>#to compute corr(x,w)</span></span>
+<span>      sigma_epsilon <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>sigma_epsilon</span><span class='op'>)</span>,</span>
+<span>      sigma_u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>sigma_u</span><span class='op'>)</span></span>
+<span>    <span class='op'>)</span></span>
 <span><span class='op'>}</span></span></code></pre>
 </div>
 </div>
@@ -2523,6 +2532,8 @@ These expressions directly follow from the DGP. Note that the parameters space i
 <th style="text-align: right;">se</th>
 <th style="text-align: right;">p_value</th>
 <th style="text-align: left;">model</th>
+<th style="text-align: right;">sigma_epsilon</th>
+<th style="text-align: right;">sigma_u</th>
 </tr>
 </thead>
 <tbody>
@@ -2531,12 +2542,16 @@ These expressions directly follow from the DGP. Note that the parameters space i
 <td style="text-align: right;">0.0646248</td>
 <td style="text-align: right;">0.0049075</td>
 <td style="text-align: left;">ctrl</td>
+<td style="text-align: right;">1.670329</td>
+<td style="text-align: right;">4.958417</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">0.2745640</td>
 <td style="text-align: right;">0.0542164</td>
 <td style="text-align: right;">0.0000004</td>
 <td style="text-align: left;">ovb</td>
+<td style="text-align: right;">1.670329</td>
+<td style="text-align: right;">4.958417</td>
 </tr>
 </tbody>
 </table>
@@ -2550,18 +2565,21 @@ These expressions directly follow from the DGP. Note that the parameters space i
 <div class="layout-chunk" data-layout="l-body">
 <table>
 <colgroup>
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
 <col style="width: 11%" />
-<col style="width: 11%" />
-<col style="width: 11%" />
+<col style="width: 7%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
 <col style="width: 6%" />
 <col style="width: 5%" />
 <col style="width: 5%" />
-<col style="width: 8%" />
-<col style="width: 8%" />
-<col style="width: 8%" />
-<col style="width: 7%" />
-<col style="width: 7%" />
-<col style="width: 6%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2569,6 +2587,8 @@ These expressions directly follow from the DGP. Note that the parameters space i
 <th style="text-align: right;">se</th>
 <th style="text-align: right;">p_value</th>
 <th style="text-align: left;">model</th>
+<th style="text-align: right;">sigma_epsilon</th>
+<th style="text-align: right;">sigma_u</th>
 <th style="text-align: right;">N</th>
 <th style="text-align: right;">mu_x</th>
 <th style="text-align: right;">sigma_x</th>
@@ -2577,6 +2597,7 @@ These expressions directly follow from the DGP. Note that the parameters space i
 <th style="text-align: right;">beta_0</th>
 <th style="text-align: right;">beta_1</th>
 <th style="text-align: right;">gamma</th>
+<th style="text-align: right;">kappa</th>
 </tr>
 </thead>
 <tbody>
@@ -2585,6 +2606,8 @@ These expressions directly follow from the DGP. Note that the parameters space i
 <td style="text-align: right;">0.0667539</td>
 <td style="text-align: right;">0.0181919</td>
 <td style="text-align: left;">ctrl</td>
+<td style="text-align: right;">1.670329</td>
+<td style="text-align: right;">4.958417</td>
 <td style="text-align: right;">2000</td>
 <td style="text-align: right;">1.2</td>
 <td style="text-align: right;">2</td>
@@ -2593,12 +2616,15 @@ These expressions directly follow from the DGP. Note that the parameters space i
 <td style="text-align: right;">0.5</td>
 <td style="text-align: right;">0.2</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">0.3</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">0.2938328</td>
 <td style="text-align: right;">0.0558090</td>
 <td style="text-align: right;">0.0000002</td>
 <td style="text-align: left;">ovb</td>
+<td style="text-align: right;">1.670329</td>
+<td style="text-align: right;">4.958417</td>
 <td style="text-align: right;">2000</td>
 <td style="text-align: right;">1.2</td>
 <td style="text-align: right;">2</td>
@@ -2607,6 +2633,7 @@ These expressions directly follow from the DGP. Note that the parameters space i
 <td style="text-align: right;">0.5</td>
 <td style="text-align: right;">0.2</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">0.3</td>
 </tr>
 </tbody>
 </table>
@@ -2630,9 +2657,12 @@ These expressions directly follow from the DGP. Note that the parameters space i
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_controls</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_controls</span>, <span class='va'>compute_sim_controls</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span>  <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='op'>)</span> </span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_controls</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/sim_controls.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>sim_controls</span> <span class='op'>&lt;-</span> <span class='va'>sim_controls</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>ratio_gamma_delta <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>/</span><span class='va'>kappa</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># saveRDS(sim_controls, here("Outputs/sim_controls.RDS"))</span></span></code></pre>
 </div>
 </div>
 <h2 id="analysis-of-the-results">Analysis of the results</h2>
@@ -2652,7 +2682,7 @@ Show code used to generate the graph
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>60</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>sim_controls</span><span class='op'>$</span><span class='va'>beta_1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='co'># geom_vline(aes(xintercept = 0, linetype = "solid")) +</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='va'>gamma</span> <span class='op'>~</span> <span class='va'>model_name</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='va'>ratio_gamma_delta</span> <span class='op'>~</span> <span class='va'>model_name</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    title <span class='op'>=</span> <span class='st'>"Distribution of the estimates of the treatment effect"</span>,</span>
 <span>    subtitle <span class='op'>=</span> <span class='st'>"For different values of gamma"</span>,</span>
@@ -2677,11 +2707,12 @@ Show code used to generate the graph
 +         0.05 .... [TRUNCATED] </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summary_sim_controls</span> <span class='op'>&lt;-</span> <span class='fu'>summarise_sim</span><span class='op'>(</span></span>
-<span>  <span class='va'>sim_controls</span>, </span>
-<span>  varying_params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>gamma</span><span class='op'>)</span>, </span>
+<span>  data <span class='op'>=</span> <span class='va'>sim_controls</span>, </span>
+<span>  varying_params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>ratio_gamma_delta</span><span class='op'>)</span>, </span>
 <span>  true_effect <span class='op'>=</span> <span class='va'>beta_1</span></span>
 <span><span class='op'>)</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>summary_sim_controls</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/summary_sim_controls.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span></span>
+<span><span class='co'># saveRDS(summary_sim_controls, here("Outputs/summary_sim_controls.RDS"))</span></span></code></pre>
 </div>
 </div>
 <h3 id="main-graph">Main graph</h3>

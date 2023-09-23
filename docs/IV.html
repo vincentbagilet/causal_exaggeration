@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-08-11"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-08-11"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-09-22"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-09-22"/>
   <meta name="article:author" content="Vincent Bagilet"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -114,7 +114,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations IV"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-08-11"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations IV"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-09-22"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2188,7 +2188,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Simulations IV","description":"In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-08-11T00:00:00.000+02:00","citationText":"Bagilet, 2023"}
+{"title":"Simulations IV","description":"In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-09-22T00:00:00.000-04:00","citationText":"Bagilet, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2213,8 +2213,8 @@ Simulations
 <a href="RDD.html">RDD</a>
 <a href="IV.html">IV</a>
 <a href="Matching.html">Matching</a>
-<a href="DID.html">DiD / Event study</a>
-<a href="crosscutting-issues.html">Crosscutting issues</a>
+<a href="DID.html">Shocks</a>
+<a href="controls.html">Controls</a>
 </div>
 </div>
 <a href="reporting.html">Reporting</a>
@@ -2239,7 +2239,7 @@ Simulations
 <div class="d-byline">
   Vincent Bagilet <a href="https://vincentbagilet.github.io/" class="uri">https://vincentbagilet.github.io/</a> (Columbia University)<a href="https://www.columbia.edu/" class="uri">https://www.columbia.edu/</a>
   
-<br/>2023-08-11
+<br/>2023-09-22
 </div>
 
 <div class="d-article">
@@ -2290,7 +2290,7 @@ Code to load packages used
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>beepr</span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://wilkelab.org/ggridges/'>ggridges</a></span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/pkg/mediocrethemes/man/set_mediocre_all.html'>set_mediocre_all</a></span><span class='op'>(</span>pal <span class='op'>=</span> <span class='st'>"coty"</span><span class='op'>)</span></span></code></pre>
+<span><span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/set_mediocre_all.html'>set_mediocre_all</a></span><span class='op'>(</span>pal <span class='op'>=</span> <span class='st'>"coty"</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
 </div>
@@ -2320,39 +2320,40 @@ Show code
 <span>       <span class='va'>Turnout</span> <span class='op'>~</span> <span class='va'>W</span> <span class='op'>+</span> <span class='va'>Rainfall</span>,</span>
 <span>       outcome <span class='op'>=</span> <span class='st'>"Share"</span>,</span>
 <span>       latent <span class='op'>=</span> <span class='st'>"W"</span>,</span>
-<span>       coords <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>Share <span class='op'>=</span> <span class='fl'>1.5</span>, Turnout <span class='op'>=</span> <span class='fl'>1</span>, W <span class='op'>=</span> <span class='fl'>1.25</span>, Rainfall <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>,</span>
-<span>                     y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>Share <span class='op'>=</span> <span class='fl'>0.5</span>, Turnout <span class='op'>=</span> <span class='fl'>0.5</span>, W <span class='op'>=</span> <span class='fl'>0</span>, Rainfall <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
+<span>       coords <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>Share <span class='op'>=</span> <span class='fl'>3</span>, Turnout <span class='op'>=</span> <span class='fl'>2</span>, W <span class='op'>=</span> <span class='fl'>2.5</span>, Rainfall <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span>                     y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>Share <span class='op'>=</span> <span class='fl'>1</span>, Turnout <span class='op'>=</span> <span class='fl'>1</span>, W <span class='op'>=</span> <span class='fl'>0</span>, Rainfall <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span>  <span class='co'># ggdag() +</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span>, xend <span class='op'>=</span> <span class='va'>xend</span>, yend <span class='op'>=</span> <span class='va'>yend</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span>, xend <span class='op'>=</span> <span class='va'>xend</span>, yend <span class='op'>=</span> <span class='va'>yend</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/ggdag/man/node_point.html'>geom_dag_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0</span>, stroke <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/ggdag/man/geom_dag_edges.html'>geom_dag_edges</a></span><span class='op'>(</span>edge_colour <span class='op'>=</span> <span class='va'>colors_mediocre</span><span class='op'>[[</span><span class='st'>"base"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/ggdag/man/geom_dag_text.html'>geom_dag_text</a></span><span class='op'>(</span></span>
-<span>    colour <span class='op'>=</span> <span class='va'>colors_mediocre</span><span class='op'>[[</span><span class='st'>"base"</span><span class='op'>]</span><span class='op'>]</span>,</span>
-<span>    size <span class='op'>=</span> <span class='fl'>4</span>,</span>
-<span>    family <span class='op'>=</span> <span class='st'>"Lora"</span></span>
+<span>    </span>
+<span>    colour <span class='op'>=</span> <span class='va'>colors_mediocre</span><span class='op'>[[</span><span class='st'>"base"</span><span class='op'>]</span><span class='op'>]</span>, </span>
+<span>    size <span class='op'>=</span> <span class='fl'>4</span></span>
+<span>    <span class='co'># family = "Lora"</span></span>
 <span>  <span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggtheme.html'>theme_void</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_void</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<p><img src="images/DAG_IV-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="images/IV/DAG_IV-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <!-- ```{r DAG_RDD, code_folding=TRUE, out.width='70%'} -->
 <!-- include_graphics(here("images/DAGs/DAGs.001.png")) -->
 <!-- ``` -->
 <p>The DGP for the vote share of let’s say the republican party in location <span class="math inline">\(i\)</span>, <span class="math inline">\(Share_i\)</span>, is defined as follows:</p>
 <p><span class="math display">\[Share_{i} = \beta_{0} + \beta_{1} Turnout_{i} + \delta w_{i} + u_{i}\]</span></p>
-<p>Where <span class="math inline">\(\beta_0\)</span> is a constant, <span class="math inline">\(w\)</span> represents an unobserved variable and <span class="math inline">\(u \sim \mathcal{N}(0, \sigma_{u}^{2})\)</span> noise. <span class="math inline">\(\beta_1\)</span> is the parameter of interest. Let’s call it ‘treatment effect’.</p>
+<p>Where <span class="math inline">\(\beta_0\)</span> is a constant, <span class="math inline">\(w\)</span> represents an unobserved variable and <span class="math inline">\(u \sim \mathcal{N}(0, \sigma_{u}^{2})\)</span> noise. <span class="math inline">\(\beta_1\)</span> is the parameter of interest. Let’s call it ‘treatment effect’. Note that parameters names are consistent with the maths section and the other simulation exercises.</p>
 <p>The DGP for the turnout data is as follows:</p>
-<p><span class="math display">\[Turnout_{i} = \pi_0 + \pi_1 Rain_{i} + \gamma w_{i} + \epsilon_{i}\]</span></p>
-<p>Where <span class="math inline">\(\pi_0\)</span> is a constant, <span class="math inline">\(Rain\)</span> is either a continuous variable (amount of rain in location <span class="math inline">\(i\)</span> on the day of the election) or a dummy variable (whether it rained or not) and <span class="math inline">\(\epsilon \sim \mathcal{N}(0, \sigma_{\epsilon}^{2})\)</span> noise. Let’s refer to <span class="math inline">\(\pi_1\)</span> as “IV strength”.</p>
-<p>The impact on voter turnout on election outcome (share of the republican party) is estimated using 2 Stages Least Squares.</p>
+<p><span class="math display">\[Turnout_{i} = \pi_0 + \pi_1 Rain_{i} + \gamma w_{i} + e_{i}\]</span></p>
+<p>Where <span class="math inline">\(\pi_0\)</span> is a constant, <span class="math inline">\(Rain\)</span> is either a continuous variable (amount of rain in location <span class="math inline">\(i\)</span> on the day of the election) or a dummy variable (whether it rained or not) and <span class="math inline">\(e \sim \mathcal{N}(0, \sigma_{e}^{2})\)</span> noise. Let’s refer to <span class="math inline">\(\pi_1\)</span> as “IV strength”.</p>
+<p>The impact of voter turnout on election outcome (share of the republican party) is estimated using 2 Stages Least Squares.</p>
 <p>More precisely, let’s set:</p>
 <ul>
 <li><span class="math inline">\(N\)</span> the number of observations</li>
 <li><span class="math inline">\(Rain \sim \text{Gamma}(k, \theta)\)</span>, <span class="math inline">\(Rain \sim \mathcal{N}(0, \sigma_{R}^{2})\)</span> or <span class="math inline">\(Rain \sim \text{Bernoulli}(p_R)\)</span> the instrument</li>
 <li><span class="math inline">\(w \sim \mathcal{N}(0, \sigma_{w}^{2})\)</span> the unobserved variable</li>
 <li><span class="math inline">\(u \sim \mathcal{N}(0, \sigma_{u}^{2})\)</span></li>
-<li><span class="math inline">\(\epsilon \sim \mathcal{N}(0, \sigma_{\epsilon}^{2})\)</span></li>
+<li><span class="math inline">\(e \sim \mathcal{N}(0, \sigma_{e}^{2})\)</span> with <span class="math inline">\(\sigma_{e}^{2}\)</span> depending on <span class="math inline">\(\pi_1\)</span> and defined such that <span class="math inline">\(\sigma_{Turnout}^{2}\)</span> does not vary when we vary <span class="math inline">\(\pi_1\)</span>: <span class="math inline">\(\sigma_{e}^{2} = \sigma_{Turnout}^{2} - \pi_1^{2} \sigma_{Rain}^2 - \gamma^2\sigma_w^2\)</span></li>
 <li>For simplicity, I assume that <span class="math inline">\(\delta = -\gamma\)</span>. There is no actual basis for that and we may change that in the future. The minus sign is just to get an upward bias, which makes the comparison between OLS and IV easier since the bias and the exaggeration go in the same direction.</li>
 </ul>
 <p>If one abstracts from the name of the variable, they can notice that this setting is actually very general.</p>
@@ -2368,8 +2369,8 @@ Show code
 <span>                             <span class='va'>type_rain</span>, <span class='co'>#"gamma", "normal" or "bernoulli"</span></span>
 <span>                             <span class='va'>param_rain</span>,</span>
 <span>                             <span class='va'>sigma_w</span>,</span>
-<span>                             <span class='va'>sigma_u</span>,</span>
-<span>                             <span class='va'>sigma_epsilon</span>,</span>
+<span>                             <span class='va'>sigma_share</span>,</span>
+<span>                             <span class='va'>sigma_turnout</span>,</span>
 <span>                             <span class='va'>beta_0</span>,</span>
 <span>                             <span class='va'>beta_1</span>,</span>
 <span>                             <span class='va'>pi_0</span>,</span>
@@ -2378,7 +2379,7 @@ Show code
 <span>                             <span class='va'>gamma</span> <span class='op'>=</span> <span class='op'>-</span><span class='va'>delta</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>  </span>
 <span>  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>type_rain</span> <span class='op'>==</span> <span class='st'>"bernoulli"</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>    <span class='va'>rain_gen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/purrr/man/rbernoulli.html'>rbernoulli</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span>
+<span>    <span class='va'>rain_gen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>1</span>, <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span>
 <span>  <span class='op'>}</span> <span class='kw'>else</span> <span class='kw'>if</span> <span class='op'>(</span><span class='va'>type_rain</span> <span class='op'>==</span> <span class='st'>"normal"</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>    <span class='va'>rain_gen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>0</span>, <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span>
 <span>  <span class='op'>}</span> <span class='kw'>else</span> <span class='kw'>if</span> <span class='op'>(</span><span class='va'>type_rain</span> <span class='op'>==</span> <span class='st'>"gamma"</span><span class='op'>)</span> <span class='op'>{</span></span>
@@ -2387,14 +2388,22 @@ Show code
 <span>    <span class='kw'><a href='https://rdrr.io/r/base/stop.html'>stop</a></span><span class='op'>(</span><span class='st'>"type_rain must be either 'bernoulli', 'gamma' or 'normal'"</span><span class='op'>)</span></span>
 <span>  <span class='op'>}</span></span>
 <span>  </span>
-<span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/tibble/man/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
 <span>      rain <span class='op'>=</span> <span class='va'>rain_gen</span>,</span>
-<span>      u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_w</span><span class='op'>)</span>,</span>
-<span>      e_s <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_u</span><span class='op'>)</span>,</span>
-<span>      e_t <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_epsilon</span><span class='op'>)</span>,</span>
-<span>      turnout <span class='op'>=</span> <span class='va'>pi_0</span> <span class='op'>+</span> <span class='va'>pi_1</span><span class='op'>*</span><span class='va'>rain</span> <span class='op'>-</span> <span class='va'>gamma</span><span class='op'>*</span><span class='va'>u</span> <span class='op'>+</span> <span class='va'>e_t</span>,</span>
-<span>      share <span class='op'>=</span> <span class='va'>beta_0</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>*</span><span class='va'>turnout</span> <span class='op'>+</span> <span class='va'>delta</span><span class='op'>*</span><span class='va'>u</span> <span class='op'>+</span> <span class='va'>e_s</span></span>
+<span>      w <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_w</span><span class='op'>)</span>,</span>
+<span>      sigma_rain <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>*</span><span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,</span>
+<span>      sigma_e <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>sigma_turnout</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>-</span> <span class='va'>pi_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_rain</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>-</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,</span>
+<span>      e <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_e</span><span class='op'>)</span>,</span>
+<span>      turnout <span class='op'>=</span> <span class='va'>pi_0</span> <span class='op'>+</span> <span class='va'>pi_1</span><span class='op'>*</span><span class='va'>rain</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>*</span><span class='va'>w</span> <span class='op'>+</span> <span class='va'>e</span>,</span>
+<span>      sigma_u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span></span>
+<span>        <span class='va'>sigma_share</span><span class='op'>^</span><span class='fl'>2</span> </span>
+<span>        <span class='op'>-</span> <span class='va'>beta_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_turnout</span><span class='op'>^</span><span class='fl'>2</span> </span>
+<span>        <span class='op'>-</span> <span class='va'>delta</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span> </span>
+<span>        <span class='op'>-</span> <span class='fl'>2</span><span class='op'>*</span><span class='va'>beta_1</span><span class='op'>*</span><span class='va'>delta</span><span class='op'>*</span><span class='va'>gamma</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span></span>
+<span>      <span class='op'>)</span>,</span>
+<span>      u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_u</span><span class='op'>)</span>,</span>
+<span>      share <span class='op'>=</span> <span class='va'>beta_0</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>*</span><span class='va'>turnout</span> <span class='op'>+</span> <span class='va'>delta</span><span class='op'>*</span><span class='va'>w</span> <span class='op'>+</span> <span class='va'>u</span></span>
 <span>    <span class='op'>)</span></span>
 <span></span>
 <span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></span>
@@ -2425,18 +2434,18 @@ who replicates a work by
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Show code
+Show the code used to generate the table
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_IV</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/tibble/man/tibble.html'>tibble</a></span><span class='op'>(</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_IV</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span></span>
 <span>  N <span class='op'>=</span> <span class='fl'>10000</span>,</span>
 <span>  <span class='co'># type_rain = "bernoulli",</span></span>
 <span>  <span class='co'># param_rain = 0.4,</span></span>
 <span>  type_rain <span class='op'>=</span> <span class='st'>"gamma"</span>,</span>
 <span>  param_rain <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.13</span>, <span class='fl'>18</span><span class='op'>)</span><span class='op'>)</span>,</span>
 <span>  sigma_w <span class='op'>=</span> <span class='fl'>14</span>,</span>
-<span>  sigma_u <span class='op'>=</span> <span class='fl'>14</span>,</span>
-<span>  sigma_epsilon <span class='op'>=</span> <span class='fl'>13</span>,</span>
+<span>  sigma_share <span class='op'>=</span> <span class='fl'>14.2</span>,</span>
+<span>  sigma_turnout <span class='op'>=</span> <span class='fl'>14</span>,</span>
 <span>  beta_0 <span class='op'>=</span> <span class='fl'>60</span>,</span>
 <span>  pi_0 <span class='op'>=</span> <span class='fl'>59</span>,</span>
 <span>  beta_1 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.1</span>,</span>
@@ -2444,16 +2453,16 @@ Show code
 <span>  delta <span class='op'>=</span> <span class='fl'>0.2</span></span>
 <span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>baseline_param_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>baseline_param_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
 <table>
 <colgroup>
 <col style="width: 6%" />
-<col style="width: 11%" />
+<col style="width: 10%" />
 <col style="width: 13%" />
-<col style="width: 9%" />
-<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 13%" />
 <col style="width: 15%" />
 <col style="width: 7%" />
 <col style="width: 5%" />
@@ -2467,8 +2476,8 @@ Show code
 <th style="text-align: left;">type_rain</th>
 <th style="text-align: left;">param_rain</th>
 <th style="text-align: right;">sigma_w</th>
-<th style="text-align: right;">sigma_u</th>
-<th style="text-align: right;">sigma_epsilon</th>
+<th style="text-align: right;">sigma_share</th>
+<th style="text-align: right;">sigma_turnout</th>
 <th style="text-align: right;">beta_0</th>
 <th style="text-align: right;">pi_0</th>
 <th style="text-align: right;">beta_1</th>
@@ -2482,8 +2491,8 @@ Show code
 <td style="text-align: left;">gamma</td>
 <td style="text-align: left;">0.13, 18.00</td>
 <td style="text-align: right;">14</td>
+<td style="text-align: right;">14.2</td>
 <td style="text-align: right;">14</td>
-<td style="text-align: right;">13</td>
 <td style="text-align: right;">60</td>
 <td style="text-align: right;">59</td>
 <td style="text-align: right;">-0.1</td>
@@ -2497,117 +2506,162 @@ Show code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Show code
+Show the code used to generate the table
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/purrr/man/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>generate_data_IV</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> <span class='co'>#use pmap to pass the set of parameters</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>generate_data_IV</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='co'>#use pmap to pass the set of parameters</span></span>
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
 <table>
+<colgroup>
+<col style="width: 3%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 12%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 12%" />
+<col style="width: 9%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: right;">id</th>
 <th style="text-align: right;">rain</th>
-<th style="text-align: right;">u</th>
-<th style="text-align: right;">e_s</th>
-<th style="text-align: right;">e_t</th>
+<th style="text-align: right;">w</th>
+<th style="text-align: right;">sigma_rain</th>
+<th style="text-align: right;">sigma_e</th>
+<th style="text-align: right;">e</th>
 <th style="text-align: right;">turnout</th>
+<th style="text-align: right;">sigma_u</th>
+<th style="text-align: right;">u</th>
 <th style="text-align: right;">share</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.0068515</td>
-<td style="text-align: right;">-4.437065</td>
-<td style="text-align: right;">-0.766026</td>
-<td style="text-align: right;">-0.1458297</td>
-<td style="text-align: right;">57.96333</td>
-<td style="text-align: right;">52.55023</td>
+<td style="text-align: right;">0.0450689</td>
+<td style="text-align: right;">4.855606</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">19.0490417</td>
+<td style="text-align: right;">77.05539</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">13.9243097</td>
+<td style="text-align: right;">67.18989</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">0.0000065</td>
-<td style="text-align: right;">6.522944</td>
-<td style="text-align: right;">9.182531</td>
-<td style="text-align: right;">-7.9521361</td>
-<td style="text-align: right;">52.35245</td>
-<td style="text-align: right;">65.25187</td>
+<td style="text-align: right;">0.0000143</td>
+<td style="text-align: right;">15.585974</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">-6.6307804</td>
+<td style="text-align: right;">49.25202</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-8.8407302</td>
+<td style="text-align: right;">49.35126</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">0.0018949</td>
-<td style="text-align: right;">19.032830</td>
-<td style="text-align: right;">-12.332667</td>
-<td style="text-align: right;">17.5030280</td>
-<td style="text-align: right;">80.30865</td>
-<td style="text-align: right;">43.44303</td>
+<td style="text-align: right;">0.6811690</td>
+<td style="text-align: right;">2.202153</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">1.3318484</td>
+<td style="text-align: right;">59.55083</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-9.8123010</td>
+<td style="text-align: right;">44.67305</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">0.2865726</td>
-<td style="text-align: right;">-7.131665</td>
-<td style="text-align: right;">19.326565</td>
-<td style="text-align: right;">-12.6261011</td>
-<td style="text-align: right;">44.80428</td>
-<td style="text-align: right;">73.41980</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">14.129228</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">-4.6790154</td>
+<td style="text-align: right;">51.49514</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-6.7137868</td>
+<td style="text-align: right;">50.96254</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">0.0003050</td>
-<td style="text-align: right;">-4.275605</td>
-<td style="text-align: right;">25.539887</td>
-<td style="text-align: right;">7.1721380</td>
-<td style="text-align: right;">65.31686</td>
-<td style="text-align: right;">78.15308</td>
+<td style="text-align: right;">8.8586940</td>
+<td style="text-align: right;">-25.779637</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">19.4852188</td>
+<td style="text-align: right;">79.21180</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-8.4247136</td>
+<td style="text-align: right;">38.49818</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">0.0007043</td>
-<td style="text-align: right;">-6.805259</td>
-<td style="text-align: right;">-32.104374</td>
-<td style="text-align: right;">3.1193919</td>
-<td style="text-align: right;">60.75799</td>
-<td style="text-align: right;">20.45878</td>
+<td style="text-align: right;">0.0421472</td>
+<td style="text-align: right;">3.641988</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">4.5061756</td>
+<td style="text-align: right;">62.75670</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-4.8599652</td>
+<td style="text-align: right;">49.59276</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">16.374082</td>
-<td style="text-align: right;">-17.721978</td>
-<td style="text-align: right;">12.2723679</td>
-<td style="text-align: right;">74.54718</td>
-<td style="text-align: right;">38.09812</td>
+<td style="text-align: right;">9.624884</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">-0.6382821</td>
+<td style="text-align: right;">56.43674</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-24.3256024</td>
+<td style="text-align: right;">31.95570</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">8</td>
-<td style="text-align: right;">0.3397704</td>
-<td style="text-align: right;">-9.848456</td>
-<td style="text-align: right;">-5.242854</td>
-<td style="text-align: right;">-20.6878109</td>
-<td style="text-align: right;">36.17261</td>
-<td style="text-align: right;">49.17019</td>
+<td style="text-align: right;">13.3711758</td>
+<td style="text-align: right;">13.509542</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">-22.9268760</td>
+<td style="text-align: right;">26.68563</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-5.9186086</td>
+<td style="text-align: right;">54.11474</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">11.056728</td>
-<td style="text-align: right;">23.877647</td>
-<td style="text-align: right;">-3.5345144</td>
-<td style="text-align: right;">57.67683</td>
-<td style="text-align: right;">80.32131</td>
+<td style="text-align: right;">0.0000282</td>
+<td style="text-align: right;">-16.239987</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">5.0172303</td>
+<td style="text-align: right;">67.26521</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-14.4542117</td>
+<td style="text-align: right;">35.57127</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">10</td>
-<td style="text-align: right;">1.7854463</td>
-<td style="text-align: right;">-1.562836</td>
-<td style="text-align: right;">6.829258</td>
-<td style="text-align: right;">20.2567054</td>
-<td style="text-align: right;">78.05142</td>
-<td style="text-align: right;">58.71155</td>
+<td style="text-align: right;">0.5054606</td>
+<td style="text-align: right;">8.811967</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">13.7732916</td>
+<td style="text-align: right;">70.75817</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-0.4522643</td>
+<td style="text-align: right;">54.23431</td>
 </tr>
 </tbody>
 </table>
@@ -2617,90 +2671,198 @@ Show code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Show code
+Show the code used to generate the graph
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ex_data</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10000</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/purrr/man/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>generate_data_IV</span><span class='op'>)</span> </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ex_data</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10000</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>generate_data_IV</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>ex_data</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>turnout</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span><span class='va'>ex_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>turnout</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    title <span class='op'>=</span> <span class='st'>"Distribution of turnout"</span>,</span>
 <span>    x <span class='op'>=</span> <span class='st'>"Turnout (in %)"</span>,</span>
 <span>    y <span class='op'>=</span> <span class='st'>"Density"</span></span>
 <span>  <span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<img src="images/explore_data_IV-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="images/IV/explore_data_IV-1.png" width="85%" style="display: block; margin: auto;" />
 <details>
 <summary>
-Show code
+Show the code used to generate the graph
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># ex_data %&gt;%</span></span>
 <span><span class='co'>#   ggplot(aes(x = rain)) +</span></span>
 <span><span class='co'>#   geom_density()</span></span>
 <span></span>
-<span><span class='va'>ex_data</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>share</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span><span class='va'>ex_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>share</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    title <span class='op'>=</span> <span class='st'>"Distribution of Republican shares"</span>,</span>
 <span>    x <span class='op'>=</span> <span class='st'>"Share (in %)"</span>,</span>
 <span>    y <span class='op'>=</span> <span class='st'>"Density"</span></span>
 <span>  <span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<p><img src="images/explore_data_IV-2.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/IV/explore_data_IV-2.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<p>I also check the standard deviation and means of the variables:</p>
+<p>I also check the standard deviation and means of the variables and at the same time verify that they do not do not change when we vary <span class="math inline">\(\pi_1\)</span>. They are consistent with what we wanted:</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Show code
+Show the code used to generate the table
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ex_data_mean</span> <span class='op'>&lt;-</span> <span class='va'>ex_data</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/across.html'>across</a></span><span class='op'>(</span>.cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>share</span>, <span class='va'>turnout</span>, <span class='va'>rain</span><span class='op'>)</span>, <span class='va'>mean</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>Statistic <span class='op'>=</span> <span class='st'>"Mean"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/select.html'>select</a></span><span class='op'>(</span><span class='va'>Statistic</span>, <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>vect_pi_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>ex_data_sd</span> <span class='op'>&lt;-</span> <span class='va'>ex_data</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/across.html'>across</a></span><span class='op'>(</span>.cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>share</span>, <span class='va'>turnout</span>, <span class='va'>rain</span><span class='op'>)</span>, <span class='va'>sd</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>Statistic <span class='op'>=</span> <span class='st'>"Standard Deviation"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/select.html'>select</a></span><span class='op'>(</span><span class='va'>Statistic</span>, <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>param_IV</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_IV</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>100000</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>pi_1</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span><span class='va'>vect_pi_1</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>pi_1 <span class='op'>=</span> <span class='va'>vect_pi_1</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>ex_data_mean</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>ex_data_sd</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
+<span><span class='va'>gen_with_param</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='fu'>generate_data_IV</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>pi_1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span><span class='op'>$</span><span class='va'>pi_1</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>ex_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_IV</span>, <span class='va'>gen_with_param</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ex_data_mean</span> <span class='op'>&lt;-</span> <span class='va'>ex_data</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>.cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>share</span>, <span class='va'>turnout</span>, <span class='va'>rain</span><span class='op'>)</span>, <span class='va'>mean</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"mean"</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>ex_data_sd</span> <span class='op'>&lt;-</span> <span class='va'>ex_data</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>.cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>share</span>, <span class='va'>turnout</span>, <span class='va'>rain</span><span class='op'>)</span>, <span class='va'>sd</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"sd"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ex_data_mean</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>ex_data_sd</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>stat</span>, values_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>share</span>, <span class='va'>turnout</span>, <span class='va'>rain</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
 <table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 16%" />
+<col style="width: 14%" />
+<col style="width: 13%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Statistic</th>
-<th style="text-align: right;">share</th>
-<th style="text-align: right;">turnout</th>
-<th style="text-align: right;">rain</th>
+<th style="text-align: right;">pi_1</th>
+<th style="text-align: right;">share_mean</th>
+<th style="text-align: right;">share_sd</th>
+<th style="text-align: right;">turnout_mean</th>
+<th style="text-align: right;">turnout_sd</th>
+<th style="text-align: right;">rain_mean</th>
+<th style="text-align: right;">rain_sd</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Mean</td>
-<td style="text-align: right;">54.31757</td>
-<td style="text-align: right;">57.83331</td>
-<td style="text-align: right;">2.285365</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">54.00925</td>
+<td style="text-align: right;">14.19554</td>
+<td style="text-align: right;">59.25552</td>
+<td style="text-align: right;">14.05349</td>
+<td style="text-align: right;">2.322981</td>
+<td style="text-align: right;">6.496392</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Standard Deviation</td>
-<td style="text-align: right;">14.00847</td>
-<td style="text-align: right;">13.64784</td>
-<td style="text-align: right;">6.272823</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">54.06090</td>
+<td style="text-align: right;">14.19211</td>
+<td style="text-align: right;">59.51763</td>
+<td style="text-align: right;">13.99992</td>
+<td style="text-align: right;">2.353360</td>
+<td style="text-align: right;">6.485155</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">54.04592</td>
+<td style="text-align: right;">14.13317</td>
+<td style="text-align: right;">59.62162</td>
+<td style="text-align: right;">14.04561</td>
+<td style="text-align: right;">2.342951</td>
+<td style="text-align: right;">6.464015</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">54.05566</td>
+<td style="text-align: right;">14.22872</td>
+<td style="text-align: right;">59.88057</td>
+<td style="text-align: right;">14.01632</td>
+<td style="text-align: right;">2.350935</td>
+<td style="text-align: right;">6.517564</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">54.00726</td>
+<td style="text-align: right;">14.17164</td>
+<td style="text-align: right;">60.17421</td>
+<td style="text-align: right;">14.01222</td>
+<td style="text-align: right;">2.367800</td>
+<td style="text-align: right;">6.686935</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">53.86192</td>
+<td style="text-align: right;">14.19055</td>
+<td style="text-align: right;">60.52512</td>
+<td style="text-align: right;">13.92583</td>
+<td style="text-align: right;">2.302432</td>
+<td style="text-align: right;">6.365206</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">53.89577</td>
+<td style="text-align: right;">14.26440</td>
+<td style="text-align: right;">60.68134</td>
+<td style="text-align: right;">13.99667</td>
+<td style="text-align: right;">2.328365</td>
+<td style="text-align: right;">6.457488</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">53.86306</td>
+<td style="text-align: right;">14.20122</td>
+<td style="text-align: right;">60.84468</td>
+<td style="text-align: right;">13.98541</td>
+<td style="text-align: right;">2.325127</td>
+<td style="text-align: right;">6.472497</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">53.91277</td>
+<td style="text-align: right;">14.20136</td>
+<td style="text-align: right;">61.13706</td>
+<td style="text-align: right;">14.01627</td>
+<td style="text-align: right;">2.350933</td>
+<td style="text-align: right;">6.514822</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">53.81976</td>
+<td style="text-align: right;">14.15421</td>
+<td style="text-align: right;">61.32488</td>
+<td style="text-align: right;">14.01506</td>
+<td style="text-align: right;">2.348757</td>
+<td style="text-align: right;">6.558615</td>
 </tr>
 </tbody>
 </table>
@@ -2710,49 +2872,33 @@ Show code
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>estimate_IV</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>reg_IV</span> <span class='op'>&lt;-</span> <span class='fu'>AER</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/AER/man/ivreg.html'>ivreg</a></span><span class='op'>(</span></span>
-<span>    data <span class='op'>=</span> <span class='va'>data</span>, </span>
-<span>    formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span> <span class='op'>|</span> <span class='va'>rain</span></span>
-<span>    <span class='op'>)</span> </span>
+<span>  <span class='va'>reg_IV</span> <span class='op'>&lt;-</span> <span class='fu'>AER</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/AER/man/ivreg.html'>ivreg</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data</span>, formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span> <span class='op'>|</span> <span class='va'>rain</span><span class='op'>)</span> </span>
 <span>  </span>
 <span>  <span class='va'>fstat_IV</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span></span>
-<span>    <span class='va'>reg_IV</span>, </span>
-<span>    diagnostics <span class='op'>=</span> <span class='cn'>TRUE</span></span>
-<span>  <span class='op'>)</span><span class='op'>$</span><span class='va'>diagnostics</span><span class='op'>[</span><span class='st'>"Weak instruments"</span>, <span class='st'>"statistic"</span><span class='op'>]</span></span>
+<span>                <span class='va'>reg_IV</span>, </span>
+<span>                diagnostics <span class='op'>=</span> <span class='cn'>TRUE</span></span>
+<span>              <span class='op'>)</span><span class='op'>$</span><span class='va'>diagnostics</span><span class='op'>[</span><span class='st'>"Weak instruments"</span>, <span class='st'>"statistic"</span><span class='op'>]</span></span>
 <span>  </span>
-<span>  <span class='va'>reg_IV</span> <span class='op'>&lt;-</span> <span class='va'>reg_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span></span>
-<span>      model <span class='op'>=</span> <span class='st'>"IV"</span>,</span>
-<span>      fstat <span class='op'>=</span> <span class='va'>fstat_IV</span></span>
-<span>    <span class='op'>)</span></span>
+<span>  <span class='va'>reg_IV</span> <span class='op'>&lt;-</span> <span class='va'>reg_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"IV"</span>, fstat <span class='op'>=</span> <span class='va'>fstat_IV</span><span class='op'>)</span></span>
 <span>  </span>
-<span>  <span class='va'>reg_OLS</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span></span>
-<span>    data <span class='op'>=</span> <span class='va'>data</span>, </span>
-<span>    formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span></span>
-<span>    <span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span></span>
-<span>      model <span class='op'>=</span> <span class='st'>"OLS"</span>,</span>
-<span>      fstat <span class='op'>=</span> <span class='cn'>NA</span></span>
-<span>    <span class='op'>)</span></span>
+<span>  <span class='va'>reg_OLS</span> <span class='op'>&lt;-</span> </span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data</span>, formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"OLS"</span>, fstat <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span></span>
 <span>  </span>
-<span>  <span class='va'>reg_OLS_unbiased</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span></span>
-<span>    data <span class='op'>=</span> <span class='va'>data</span>, </span>
-<span>    formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span> <span class='op'>+</span> <span class='va'>u</span></span>
-<span>    <span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span></span>
-<span>      model <span class='op'>=</span> <span class='st'>"OLS unbiased"</span>,</span>
-<span>      fstat <span class='op'>=</span> <span class='cn'>NA</span></span>
-<span>    <span class='op'>)</span></span>
+<span>  <span class='va'>reg_OLS_unbiased</span> <span class='op'>&lt;-</span> </span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data</span>, formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span> <span class='op'>+</span> <span class='va'>w</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"OLS unbiased"</span>, fstat <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span></span>
 <span>  </span>
-<span>  <span class='va'>reg</span> <span class='op'>&lt;-</span> <span class='va'>reg_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>    <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>reg_OLS</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>    <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>reg_OLS_unbiased</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>    <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>term</span> <span class='op'>==</span> <span class='st'>"turnout"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/rename.html'>rename</a></span><span class='op'>(</span>p_value <span class='op'>=</span> <span class='va'>p.value</span>, se <span class='op'>=</span> <span class='va'>std.error</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/select.html'>select</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>p_value</span>, <span class='va'>se</span>, <span class='va'>fstat</span>, <span class='va'>model</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='va'>reg</span> <span class='op'>&lt;-</span> <span class='va'>reg_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>reg_OLS</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>reg_OLS_unbiased</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>term</span> <span class='op'>==</span> <span class='st'>"turnout"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>p_value <span class='op'>=</span> <span class='va'>p.value</span>, se <span class='op'>=</span> <span class='va'>std.error</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>p_value</span>, <span class='va'>se</span>, <span class='va'>fstat</span>, <span class='va'>model</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span>  </span>
 <span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>reg</span><span class='op'>)</span></span>
 <span><span class='op'>}</span></span></code></pre>
@@ -2765,18 +2911,93 @@ Show code
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>compute_sim_IV</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>  <span class='va'>args</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></span>
 <span>  </span>
-<span>  <span class='fu'>generate_data_IV</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'>estimate_IV</span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>  <span class='fu'>generate_data_IV</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'>estimate_IV</span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
 <span>      pi_1 <span class='op'>=</span> <span class='va'>args</span><span class='op'>$</span><span class='va'>pi_1</span>,</span>
 <span>      delta <span class='op'>=</span> <span class='va'>args</span><span class='op'>$</span><span class='va'>delta</span>,</span>
+<span>      param_rain <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>args</span><span class='op'>$</span><span class='va'>param_rain</span><span class='op'>)</span>,</span>
 <span>      true_effect <span class='op'>=</span> <span class='va'>args</span><span class='op'>$</span><span class='va'>beta_1</span></span>
 <span>    <span class='op'>)</span></span>
 <span><span class='op'>}</span> </span></code></pre>
 </div>
 </div>
+<p>The output of one simulation, for baseline parameters values is:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the table
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>baseline_param_IV</span>, <span class='va'>compute_sim_IV</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 14%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">p_value</th>
+<th style="text-align: right;">se</th>
+<th style="text-align: right;">fstat</th>
+<th style="text-align: left;">model</th>
+<th style="text-align: right;">pi_1</th>
+<th style="text-align: right;">delta</th>
+<th style="text-align: left;">param_rain</th>
+<th style="text-align: right;">true_effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">-0.0877014</td>
+<td style="text-align: right;">0.0522441</td>
+<td style="text-align: right;">0.0451755</td>
+<td style="text-align: right;">518.2538</td>
+<td style="text-align: left;">IV</td>
+<td style="text-align: right;">-0.5</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: left;">0.13, 18.00</td>
+<td style="text-align: right;">-0.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.1516834</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">0.0100082</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">OLS</td>
+<td style="text-align: right;">-0.5</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: left;">0.13, 18.00</td>
+<td style="text-align: right;">-0.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.1160277</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">0.0099952</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">OLS unbiased</td>
+<td style="text-align: right;">-0.5</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: left;">0.13, 18.00</td>
+<td style="text-align: right;">-0.1</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h3 id="all-simulations">All simulations</h3>
-<p>We will run the simulations for different sets of parameters by mapping our <code>compute_sim_IV</code> function on each set of parameters. I thus create a table with all the values of the parameters we want to test, <code>param_IV</code>. Note that in this table each set of parameters appears <code>n_iter</code> times as we want to run the analysis <span class="math inline">\(n_{iter}\)</span> times for each set of parameters.</p>
+<p>I then run the simulations for different sets of parameters by mapping the <code>compute_sim_IV</code> function on each set of parameters. I thus create a table with all the values of the parameters we want to test, <code>param_IV</code>. Note that in this table each set of parameters appears <code>n_iter</code> times as we want to run the analysis <span class="math inline">\(n_{iter}\)</span> times for each set of parameters.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -2786,16 +3007,16 @@ Show code
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>vect_pi_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.4</span>, <span class='fl'>0.05</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0.8</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span></span>
 <span><span class='va'>n_iter</span> <span class='op'>&lt;-</span> <span class='fl'>1000</span></span>
 <span></span>
-<span><span class='va'>param_IV</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>pi_1</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/tidyr/man/expand.html'>crossing</a></span><span class='op'>(</span><span class='va'>vect_pi_1</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/rename.html'>rename</a></span><span class='op'>(</span>pi_1 <span class='op'>=</span> <span class='va'>vect_pi_1</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/tidyr/man/expand.html'>crossing</a></span><span class='op'>(</span>rep_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n_iter</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>rep_id</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>param_IV</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>pi_1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span><span class='va'>vect_pi_1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>pi_1 <span class='op'>=</span> <span class='va'>vect_pi_1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>rep_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n_iter</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>rep_id</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
 </div>
-<p>We then run the simulations by mapping our <code>compute_sim_IV</code> function on <code>param_IV</code>.</p>
+<p>Finally, I run all the simulations by looping the <code>compute_sim_IV</code> function on the set of parameters <code>param_IV</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -2803,12 +3024,12 @@ Show code
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>tic</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span><span class='va'>sim_IV</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/purrr/man/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_IV</span>, <span class='va'>compute_sim_IV</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/purrr/man/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='va'>sim_IV</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_IV</span>, <span class='va'>compute_sim_IV</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/pkg/beepr/man/beep.html'>beep</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>toc</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'># saveRDS(sim_IV, here("Outputs/sim_IV.RDS"))</span></span></code></pre>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_IV</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/sim_IV.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
 </div>
@@ -2818,21 +3039,21 @@ Show code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Show code
+Show the code used to generate the graph
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/sim_IV.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/sim_IV.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>sim_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/between.html'>between</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='op'>-</span><span class='fl'>1.3</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
+<span><span class='va'>sim_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/between.html'>between</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='op'>-</span><span class='fl'>1.3</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
 <span>  <span class='co'># filter(delta == sample(vect_delta, 1)) %&gt;% </span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>pi_1</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.4</span>, <span class='fl'>0.6</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>iv_strength <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/stringr/man/str_c.html'>str_c</a></span><span class='op'>(</span><span class='st'>"IV strength: "</span>, <span class='va'>pi_1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>estimate</span>, fill <span class='op'>=</span> <span class='va'>model</span>, color <span class='op'>=</span> <span class='va'>model</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>sim_IV</span><span class='op'>$</span><span class='va'>true_effect</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>iv_strength</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>pi_1</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.4</span>, <span class='fl'>0.6</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>iv_strength <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_c.html'>str_c</a></span><span class='op'>(</span><span class='st'>"IV strength: "</span>, <span class='va'>pi_1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>estimate</span>, fill <span class='op'>=</span> <span class='va'>model</span>, color <span class='op'>=</span> <span class='va'>model</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>sim_IV</span><span class='op'>$</span><span class='va'>true_effect</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>iv_strength</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    title <span class='op'>=</span> <span class='st'>"Distribution of the estimates of the treatment effect"</span>,</span>
 <span>    subtitle <span class='op'>=</span> <span class='st'>"For different IV strengths and models"</span>,</span>
 <span>    color <span class='op'>=</span> <span class='st'>""</span>,</span>
@@ -2843,26 +3064,26 @@ Show code
 <span>  <span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<img src="images/exploration_results_IV-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="images/IV/exploration_results_IV-1.png" width="85%" style="display: block; margin: auto;" />
 <details>
 <summary>
-Show code
+Show the code used to generate the graph
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/between.html'>between</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='op'>-</span><span class='fl'>1.2</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/between.html'>between</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='op'>-</span><span class='fl'>1.2</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
 <span>  <span class='co'># filter(delta == sample(vect_delta, 1)) %&gt;%</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='co'># geom_density_ridges(aes(</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span></span>
 <span>    x <span class='op'>=</span> <span class='va'>estimate</span>, </span>
 <span>    <span class='co'># y = pi_1,</span></span>
 <span>    color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>)</span><span class='op'>)</span>,</span>
 <span>    alpha <span class='op'>=</span> <span class='fl'>0</span></span>
 <span>  <span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>sim_IV</span><span class='op'>$</span><span class='va'>true_effect</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>sim_IV</span><span class='op'>$</span><span class='va'>true_effect</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    title <span class='op'>=</span> <span class='st'>"Distribution of the estimates of the treatment effect"</span>,</span>
 <span>    subtitle <span class='op'>=</span> <span class='st'>"Comparison across IV strengths"</span>,</span>
 <span>    color <span class='op'>=</span> <span class='st'>"IV strength"</span>,</span>
@@ -2874,24 +3095,24 @@ Show code
 <span>  <span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<img src="images/exploration_results_IV-2.png" width="85%" style="display: block; margin: auto;" />
+<img src="images/IV/exploration_results_IV-2.png" width="85%" style="display: block; margin: auto;" />
 <details>
 <summary>
-Show code
+Show the code used to generate the graph
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>data_one_sim_IV</span> <span class='op'>&lt;-</span> <span class='va'>sim_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/between.html'>between</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>pi_1</span> <span class='op'>==</span> <span class='fl'>0.4</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>data_one_sim_IV</span> <span class='op'>&lt;-</span> <span class='va'>sim_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/between.html'>between</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>pi_1</span> <span class='op'>==</span> <span class='fl'>0.4</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span>  <span class='co'># filter(delta == sample(vect_delta, 1)) %&gt;% </span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span>, <span class='st'>"Significant"</span>, <span class='st'>"Non significant"</span><span class='op'>)</span><span class='op'>)</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span>, <span class='st'>"Significant"</span>, <span class='st'>"Non significant"</span><span class='op'>)</span><span class='op'>)</span> </span>
 <span></span>
-<span><span class='va'>data_one_sim_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>estimate</span>, fill <span class='op'>=</span> <span class='va'>significant</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>sim_IV</span><span class='op'>$</span><span class='va'>true_effect</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>model</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span><span class='va'>data_one_sim_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>estimate</span>, fill <span class='op'>=</span> <span class='va'>significant</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>sim_IV</span><span class='op'>$</span><span class='va'>true_effect</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>70</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>model</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    title <span class='op'>=</span> <span class='st'>"Distribution of the estimates of the treatment effect conditional on significativity"</span>,</span>
 <span>    subtitle <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span></span>
 <span>      <span class='st'>"For different models (IV strength ="</span>, </span>
@@ -2905,31 +3126,28 @@ Show code
 <span>  <span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<p><img src="images/exploration_results_IV-3.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/IV/exploration_results_IV-3.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <p>We notice that the OLS is always biased and that the IV is never biased. However, for limited IV strengths, the distribution of the estimates flattens. The smaller the IV strength, the most like it is to get an estimate away from the true value, even though the expected value remains equal to the true effect size.
 <!-- We can notice that statistically significant estimates are on average located further away from zero that  --></p>
 <h3 id="computing-bias-and-exaggeration-ratios">Computing bias and exaggeration ratios</h3>
 <p>We want to compare <span class="math inline">\(\dfrac{\mathbb{E}[\hat{\beta}_{IV}]}{\beta_0}\)</span> and <span class="math inline">\(\dfrac{\mathbb{E}[ \hat{\beta}_{IV}|\text{signif}]}{\beta_0}\)</span>. The first term represents the bias and the second term represents the exaggeration ratio.</p>
+<p>To do so, I use the function <code>summmarise_sim</code> defined in the <code>functions.R</code> file.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summarise_simulations</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>data</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>    <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>delta</span>, <span class='va'>pi_1</span>, <span class='va'>model</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span></span>
-<span>      power <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>significant</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>100</span>, </span>
-<span>      type_m <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span><span class='op'>)</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
-<span>      bias_signif <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
-<span>      bias_all <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
-<span>      bias_all_median <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
-<span>      median_fstat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>fstat</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
-<span>      .groups  <span class='op'>=</span> <span class='st'>"drop"</span></span>
-<span>    <span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>    <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span><span class='op'>}</span> </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"functions.R"</span><span class='op'>)</span>, echo <span class='op'>=</span> <span class='cn'>TRUE</span>, local <span class='op'>=</span> <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/knit_global.html'>knit_global</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>
+&gt; summarise_sim &lt;- function(data, varying_params, true_effect) {
++     ungroup(summarise(group_by(data %&gt;% mutate(signif = (p_value &lt;= 
++         0.05 .... [TRUNCATED] </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summary_sim_IV</span> <span class='op'>&lt;-</span> <span class='fu'>summarise_sim</span><span class='op'>(</span></span>
+<span>  data <span class='op'>=</span> <span class='va'>sim_IV</span>, </span>
+<span>  varying_params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>pi_1</span><span class='op'>)</span>, </span>
+<span>  true_effect <span class='op'>=</span> <span class='va'>true_effect</span></span>
+<span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>summary_sim_IV</span> <span class='op'>&lt;-</span> <span class='fu'>summarise_simulations</span><span class='op'>(</span><span class='va'>sim_IV</span><span class='op'>)</span></span>
 <span><span class='co'># saveRDS(summary_sim_IV, here("Outputs/summary_sim_IV.RDS"))</span></span></code></pre>
 </div>
 </div>
@@ -2938,18 +3156,15 @@ Show code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Show code
+Show the code used to generate the graph
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summary_sim_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"OLS"</span>, <span class='st'>"IV"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>pi_1</span> <span class='op'>&gt;</span> <span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span></span>
-<span>    ovb_intensity_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"OVB intensity:"</span>, <span class='va'>delta</span><span class='op'>)</span></span>
-<span>  <span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>bias_signif</span>, color <span class='op'>=</span> <span class='va'>model</span>, linetype <span class='op'>=</span> <span class='va'>model</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_path.html'>geom_line</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>1</span>, alpha <span class='op'>=</span> <span class='fl'>0.75</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summary_sim_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"OLS"</span>, <span class='st'>"IV"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>pi_1</span> <span class='op'>&gt;</span> <span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>exag_ratio</span>, color <span class='op'>=</span> <span class='va'>model</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>1</span>, alpha <span class='op'>=</span> <span class='fl'>0.75</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    x <span class='op'>=</span> <span class='st'>"|IV strength|"</span>, </span>
 <span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Average  "</span>, <span class='fu'>frac</span><span class='op'>(</span><span class='st'>"Estimate"</span>, <span class='st'>"True Effect"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
 <span>    color <span class='op'>=</span> <span class='st'>"Model"</span>,</span>
@@ -2957,23 +3172,10 @@ Show code
 <span>    title <span class='op'>=</span> <span class='st'>"Evolution of bias with intensity of the IV"</span>,</span>
 <span>    subtitle <span class='op'>=</span> <span class='st'>"For statistically significant estimates"</span></span>
 <span>  <span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/mediocrethemes/man/scale_mediocre_d.html'>scale_mediocre_d</a></span><span class='op'>(</span>pal <span class='op'>=</span> <span class='st'>"coty"</span>, second_pair <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span></code></pre>
+<span>  <span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/scale_mediocre_d.html'>scale_mediocre_d</a></span><span class='op'>(</span>pal <span class='op'>=</span> <span class='st'>"coty"</span>, second_pair <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<img src="images/main_graph_IV-1.png" width="85%" style="display: block; margin: auto;" />
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span>  <span class='co'># scale_y_continuous(breaks = scales::pretty_breaks(n = 7)) </span></span>
-<span></span>
-<span><span class='co'># summary_sim_IV %&gt;% </span></span>
-<span><span class='co'>#   pivot_longer(c(bias_signif, bias_all), names_to = "bias_type", values_to = "bias") %&gt;% </span></span>
-<span><span class='co'>#   ggplot(aes(x = pi_1, y = bias, color = bias_type)) + </span></span>
-<span><span class='co'>#   geom_line(size = 0.8) </span></span></code></pre>
-</div>
-</details>
+<p><img src="images/IV/main_graph_IV-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <p>We notice that, if the IV strength is low, on average, statistically significant estimates overestimate the true effect. If the IV strength is too low, it might even be the case that the benefit of the IV is overturned by the exaggeration issue. The IV yields an unbiased estimate and enables to get rid of the OVB but such statistically significant estimates fall, on average, even further away from the true effect.</p>
 <p>Of course, if one considers all estimates, as the IV is unbiased, this issue does not arise.</p>
@@ -3000,16 +3202,16 @@ Show code
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
-Show code
+Show the code used to generate the graph
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>pi_1</span>, y <span class='op'>=</span> <span class='va'>fstat</span>, color <span class='op'>=</span> <span class='va'>significant</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_point.html'>geom_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>signif <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>pi_1</span>, y <span class='op'>=</span> <span class='va'>fstat</span>, color <span class='op'>=</span> <span class='va'>signif</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    title <span class='op'>=</span> <span class='st'>"A correlation between IV strength and F-statistic"</span>,</span>
 <span>    subtitle <span class='op'>=</span> <span class='st'>"By significance"</span>,</span>
 <span>    x <span class='op'>=</span> <span class='st'>"IV strength"</span>,</span>
@@ -3018,10 +3220,10 @@ Show code
 <span>  <span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<img src="images/IV_strength_fstat_graph-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="images/IV/IV_strength_fstat_graph-1.png" width="85%" style="display: block; margin: auto;" />
 <details>
 <summary>
-Show code
+Show the code used to generate the graph
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span>  <span class='co'># ylim(c(0, 40))</span></span>
@@ -3095,17 +3297,17 @@ Show code
 Show code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>bias <span class='op'>=</span> <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>fstat</span> <span class='op'>&gt;</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span>  </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>bias <span class='op'>=</span> <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>fstat</span> <span class='op'>&gt;</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>  </span>
 <span>  <span class='co'># .$bias %&gt;% mean(., na.rm = TRUE)</span></span>
 <span>  <span class='co'># filter(abs(bias) &lt; 10) %&gt;% </span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>fstat</span>, y <span class='op'>=</span> <span class='va'>bias</span>, color <span class='op'>=</span> <span class='va'>significant</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_point.html'>geom_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_abline.html'>geom_hline</a></span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>fstat</span>, y <span class='op'>=</span> <span class='va'>bias</span>, color <span class='op'>=</span> <span class='va'>significant</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_hline</a></span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    title <span class='op'>=</span> <span class='st'>"Bias as a function of the F-statistic in the simulations"</span>,</span>
 <span>    subtitle <span class='op'>=</span> <span class='st'>"By significance and only for F-stat above 10"</span>,</span>
 <span>    x <span class='op'>=</span> <span class='st'>"F-statistic"</span>,</span>
@@ -3114,7 +3316,7 @@ Show code
 <span>  <span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<p><img src="images/fstat_bias_graph-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/IV/fstat_bias_graph-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <p>We notice that, even when the F-statistic is greater than the usual but arbitrary threshold of 10, statistically significant estimates may, on average overestimate the true effect.</p>
 <p>We cannot compute directly the bias of interest against the F-statistic because the F-statistic is not a parameter of the simulations and we do not control them, only the IV strength. To overcome this, I compute the median power by binned F-statistic. However, this is not correct as we end up comparing and pulling together simulations with different parameter values. I still display the graph, keeping this limitation in mind:</p>
@@ -3124,17 +3326,17 @@ Show code
 Show code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
 <span>    significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span>,</span>
-<span>    bin_fstat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/cut_interval.html'>cut_number</a></span><span class='op'>(</span><span class='va'>fstat</span>, n <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>      <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>      <span class='fu'><a href='https://rdrr.io/pkg/stringr/man/str_extract.html'>str_extract</a></span><span class='op'>(</span><span class='st'>"(?&lt;=,)(\\d|\\.)+"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
+<span>    bin_fstat <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_number</a></span><span class='op'>(</span><span class='va'>fstat</span>, n <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_extract.html'>str_extract</a></span><span class='op'>(</span><span class='st'>"(?&lt;=,)(\\d|\\.)+"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span>      <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span>  <span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>delta</span>, <span class='va'>bin_fstat</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>delta</span>, <span class='va'>bin_fstat</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span></span>
 <span>    power <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>significant</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>100</span>, </span>
 <span>    type_m <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>estimate</span> <span class='op'>-</span> <span class='va'>true_effect</span><span class='op'>)</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
 <span>    bias_signif <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
@@ -3142,13 +3344,13 @@ Show code
 <span>    bias_all_median <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
 <span>    median_fstat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>fstat</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
 <span>    .groups  <span class='op'>=</span> <span class='st'>"drop"</span></span>
-<span>  <span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>bin_fstat</span>, y <span class='op'>=</span> <span class='va'>bias_signif</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_path.html'>geom_line</a></span><span class='op'>(</span>linetype <span class='op'>=</span> <span class='st'>"dashed"</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>10</span>, linetype <span class='op'>=</span><span class='st'>"solid"</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>80</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>bin_fstat</span>, y <span class='op'>=</span> <span class='va'>bias_signif</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>linetype <span class='op'>=</span> <span class='st'>"dashed"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>10</span>, linetype <span class='op'>=</span><span class='st'>"solid"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>80</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    x <span class='op'>=</span> <span class='st'>"Binned F-statistic"</span>, </span>
 <span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Average  "</span>, <span class='fu'>frac</span><span class='op'>(</span><span class='st'>"Estimate"</span>, <span class='st'>"True Effect"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
 <span>    color <span class='op'>=</span> <span class='st'>"Model"</span>,</span>
@@ -3159,7 +3361,7 @@ Show code
 <span>  <span class='op'>)</span> </span></code></pre>
 </div>
 </details>
-<p><img src="images/binned_fstat-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/IV/binned_fstat-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <h1 id="standard-parameter-values">Standard parameter values</h1>
 <p>For simplicity and for communication purposes, I considered an applied example. However, the results can also hold in general settings. I illustrate this, considering that most of the variables are distributed according to standard normal distributions. I keep the same DAG as it is the classic IV DAG. I also keep the same variable names but one should abstract from their meaning as they do not represent the same measure any longer.</p>
@@ -3170,30 +3372,30 @@ Show code
 Show code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>simple_param_IV</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/tibble/man/tibble.html'>tibble</a></span><span class='op'>(</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>simple_param_IV</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span></span>
 <span>  N <span class='op'>=</span> <span class='fl'>500</span>,</span>
 <span>  type_rain <span class='op'>=</span> <span class='st'>"normal"</span>,</span>
 <span>  param_rain <span class='op'>=</span> <span class='fl'>1</span>,</span>
 <span>  sigma_w <span class='op'>=</span> <span class='fl'>1</span>,</span>
-<span>  sigma_u <span class='op'>=</span> <span class='fl'>1</span>,</span>
-<span>  sigma_epsilon <span class='op'>=</span> <span class='fl'>1</span>,</span>
+<span>  sigma_turnout <span class='op'>=</span> <span class='fl'>1</span>,</span>
+<span>  sigma_e <span class='op'>=</span> <span class='fl'>1</span>,</span>
 <span>  beta_0 <span class='op'>=</span> <span class='fl'>0</span>,</span>
 <span>  pi_0 <span class='op'>=</span> <span class='fl'>0</span>,</span>
 <span>  beta_1 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>,</span>
 <span>  delta <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.5</span></span>
 <span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>simple_param_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>simple_param_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<table>
+<table style="width:100%;">
 <colgroup>
 <col style="width: 5%" />
 <col style="width: 12%" />
 <col style="width: 13%" />
 <col style="width: 10%" />
-<col style="width: 10%" />
 <col style="width: 17%" />
+<col style="width: 10%" />
 <col style="width: 8%" />
 <col style="width: 6%" />
 <col style="width: 8%" />
@@ -3205,8 +3407,8 @@ Show code
 <th style="text-align: left;">type_rain</th>
 <th style="text-align: right;">param_rain</th>
 <th style="text-align: right;">sigma_w</th>
-<th style="text-align: right;">sigma_u</th>
-<th style="text-align: right;">sigma_epsilon</th>
+<th style="text-align: right;">sigma_turnout</th>
+<th style="text-align: right;">sigma_e</th>
 <th style="text-align: right;">beta_0</th>
 <th style="text-align: right;">pi_0</th>
 <th style="text-align: right;">beta_1</th>
@@ -3239,15 +3441,15 @@ Show code
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>vect_pi_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.05</span>, <span class='fl'>0.4</span>, <span class='fl'>0.05</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0.6</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span></span>
 <span><span class='va'>n_iter</span> <span class='op'>&lt;-</span> <span class='fl'>2</span></span>
 <span></span>
-<span><span class='va'>param_IV_simple</span> <span class='op'>&lt;-</span> <span class='va'>simple_param_IV</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/tidyr/man/expand.html'>crossing</a></span><span class='op'>(</span><span class='va'>vect_pi_1</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/rename.html'>rename</a></span><span class='op'>(</span>pi_1 <span class='op'>=</span> <span class='va'>vect_pi_1</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/tidyr/man/expand.html'>crossing</a></span><span class='op'>(</span>rep_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n_iter</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>rep_id</span><span class='op'>)</span></span>
+<span><span class='va'>param_IV_simple</span> <span class='op'>&lt;-</span> <span class='va'>simple_param_IV</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span><span class='va'>vect_pi_1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>pi_1 <span class='op'>=</span> <span class='va'>vect_pi_1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>rep_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n_iter</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>rep_id</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>tic</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span><span class='va'>sim_IV_simple</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/purrr/man/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_IV_simple</span>, <span class='va'>compute_sim_IV</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/purrr/man/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='va'>sim_IV_simple</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_IV_simple</span>, <span class='va'>compute_sim_IV</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/pkg/beepr/man/beep.html'>beep</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>toc</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span><span class='co'># saveRDS(sim_IV_simple, here("Outputs/sim_IV_simple.RDS"))</span></span></code></pre>
@@ -3261,19 +3463,22 @@ Show code
 Show code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV_simple</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/sim_IV_simple.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV_simple</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/sim_IV_simple.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>sim_IV_simple</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'>summarise_simulations</span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
+<span><span class='va'>sim_IV_simple</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>summarise_sim</span><span class='op'>(</span></span>
+<span>    varying_params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>pi_1</span><span class='op'>)</span>, </span>
+<span>    true_effect <span class='op'>=</span> <span class='va'>true_effect</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span>  <span class='co'># filter(model %in% c("OLS", "IV")) %&gt;% </span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span></span>
-<span>    ovb_intensity_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"OVB intensity:"</span>, <span class='va'>delta</span><span class='op'>)</span></span>
-<span>  <span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>pi_1</span>, y <span class='op'>=</span> <span class='va'>bias_signif</span>, color <span class='op'>=</span> <span class='va'>model</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='co'># mutate(</span></span>
+<span>  <span class='co'>#   ovb_intensity_name = paste("OVB intensity:", delta)</span></span>
+<span>  <span class='co'># ) %&gt;%</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>pi_1</span>, y <span class='op'>=</span> <span class='va'>exag_ratio</span>, color <span class='op'>=</span> <span class='va'>model</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='co'># geom_point() +</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_path.html'>geom_line</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>ovb_intensity_name</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='co'># facet_wrap(~ ovb_intensity_name) +</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    x <span class='op'>=</span> <span class='st'>"IV strength"</span>, </span>
 <span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Average  "</span>, <span class='fu'>frac</span><span class='op'>(</span><span class='st'>"Estimate"</span>, <span class='st'>"True Effect"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
 <span>    color <span class='op'>=</span> <span class='st'>"Model"</span>,</span>
@@ -3282,23 +3487,23 @@ Show code
 <span>  <span class='op'>)</span> </span></code></pre>
 </div>
 </details>
-<img src="images/bined_fstat_simple-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="images/IV/bined_fstat_simple-1.png" width="85%" style="display: block; margin: auto;" />
 <details>
 <summary>
 Show code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV_simple</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV_simple</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
 <span>    significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span>,</span>
-<span>    bin_fstat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/cut_interval.html'>cut_number</a></span><span class='op'>(</span><span class='va'>fstat</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>      <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>      <span class='fu'><a href='https://rdrr.io/pkg/stringr/man/str_extract.html'>str_extract</a></span><span class='op'>(</span><span class='st'>"(?&lt;=,)(\\d|\\.)+"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
+<span>    bin_fstat <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_number</a></span><span class='op'>(</span><span class='va'>fstat</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_extract.html'>str_extract</a></span><span class='op'>(</span><span class='st'>"(?&lt;=,)(\\d|\\.)+"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span>      <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span>  <span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>delta</span>, <span class='va'>bin_fstat</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>delta</span>, <span class='va'>bin_fstat</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span></span>
 <span>    power <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>significant</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>100</span>, </span>
 <span>    type_m <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span><span class='op'>)</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
 <span>    bias_signif <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
@@ -3306,13 +3511,13 @@ Show code
 <span>    bias_all_median <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
 <span>    median_fstat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>fstat</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
 <span>    .groups  <span class='op'>=</span> <span class='st'>"drop"</span></span>
-<span>  <span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>bin_fstat</span>, y <span class='op'>=</span> <span class='va'>bias_signif</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>bin_fstat</span>, y <span class='op'>=</span> <span class='va'>bias_signif</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    x <span class='op'>=</span> <span class='st'>"Binned F-statistic"</span>, </span>
 <span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Average  "</span>, <span class='fu'>frac</span><span class='op'>(</span><span class='st'>"Estimate"</span>, <span class='st'>"True Effect"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
 <span>    color <span class='op'>=</span> <span class='st'>"Model"</span>,</span>
@@ -3323,7 +3528,7 @@ Show code
 <span>  <span class='op'>)</span> </span></code></pre>
 </div>
 </details>
-<p><img src="images/bined_fstat_simple-2.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/IV/bined_fstat_simple-2.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <details>
@@ -3331,16 +3536,16 @@ Show code
 Show code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV_simple</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>bias <span class='op'>=</span> <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>fstat</span> <span class='op'>&gt;</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/magrittr/man/pipe.html'>%&gt;%</a></span>  </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_IV_simple</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>bias <span class='op'>=</span> <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>fstat</span> <span class='op'>&gt;</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>  </span>
 <span>  <span class='co'># .$bias %&gt;% mean(., na.rm = TRUE)</span></span>
 <span>  <span class='co'># filter(abs(bias) &lt; 10) %&gt;% </span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>fstat</span>, y <span class='op'>=</span> <span class='va'>bias</span>, color <span class='op'>=</span> <span class='va'>significant</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_point.html'>geom_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>fstat</span>, y <span class='op'>=</span> <span class='va'>bias</span>, color <span class='op'>=</span> <span class='va'>significant</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    title <span class='op'>=</span> <span class='st'>"Bias as a function of the F-statistic in the simulations"</span>,</span>
 <span>    subtitle <span class='op'>=</span> <span class='st'>"By significance and only for F-stat above 10"</span>,</span>
 <span>    x <span class='op'>=</span> <span class='st'>"F-statistic"</span>,</span>
@@ -3349,9 +3554,9 @@ Show code
 <span>  <span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<p><img src="images/fstat_bias_simple_graph-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/IV/fstat_bias_simple_graph-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

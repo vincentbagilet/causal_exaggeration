@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -ex
+
+# This is the master script for the capsule. When you click "Reproducible Run", the code in this file will execute.
+stata-mp -q do 'make_AK_model_csv.do' "$@"
+stata-mp -q do 'make_caliper_tables.do' "$@"
+stata-mp -q do 'make_excess_coefficients_tables.do' "$@"
+stata-mp -q do 'make_figures.do' "$@"
+stata-mp -q do 'make_randomization_tables.do' "$@"
+stata-mp -q do 'make_summary_tables.do' "$@"
+stata-mp -q do 'Table_A11.do' "$@"
+
+# for display only - not necessary to obtain final results.
+
+#convert -density 300 /results/figure2.eps -resize 1024x1024 /results/figure2.png

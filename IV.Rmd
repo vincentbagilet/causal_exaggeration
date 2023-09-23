@@ -21,7 +21,7 @@ text-align: justify}
 
 ```{r setup_IV, echo=FALSE, results='hide', warning=FALSE}
 library(knitr)
-opts_chunk$set(fig.path = "images/",
+opts_chunk$set(fig.path = "images/IV/",
                cache.path = "cache/",
                cache = FALSE,
                echo = TRUE, #set to false to hide code
@@ -102,11 +102,11 @@ Where $\beta_0$ is a constant, $w$ represents an unobserved variable and $u \sim
 
 The DGP for the turnout data is as follows: 
 
-$$Turnout_{i} = \pi_0 + \pi_1 Rain_{i} + \gamma w_{i} + \epsilon_{i}$$
+$$Turnout_{i} = \pi_0 + \pi_1 Rain_{i} + \gamma w_{i} + e_{i}$$
 
-Where $\pi_0$ is a constant, $Rain$ is either a continuous variable (amount of rain in location $i$ on the day of the election) or a dummy variable (whether it rained or not) and $\epsilon \sim \mathcal{N}(0, \sigma_{\epsilon}^{2})$ noise. Let's refer to $\pi_1$ as "IV strength".
+Where $\pi_0$ is a constant, $Rain$ is either a continuous variable (amount of rain in location $i$ on the day of the election) or a dummy variable (whether it rained or not) and $e \sim \mathcal{N}(0, \sigma_{e}^{2})$ noise. Let's refer to $\pi_1$ as "IV strength".
 
-The impact on voter turnout on election outcome (share of the republican party) is estimated using 2 Stages Least Squares.
+The impact of voter turnout on election outcome (share of the republican party) is estimated using 2 Stages Least Squares.
 
 More precisely, let's set: 
 
@@ -114,7 +114,7 @@ More precisely, let's set:
 - $Rain \sim \text{Gamma}(k, \theta)$, $Rain \sim \mathcal{N}(0, \sigma_{R}^{2})$ or $Rain \sim \text{Bernoulli}(p_R)$ the instrument
 - $w \sim \mathcal{N}(0, \sigma_{w}^{2})$ the unobserved variable
 - $u \sim \mathcal{N}(0, \sigma_{u}^{2})$
-- $\epsilon \sim \mathcal{N}(0, \sigma_{\epsilon}^{2})$
+- $e \sim \mathcal{N}(0, \sigma_{e}^{2})$ with $\sigma_{e}^{2}$ depending on $\pi_1$ and defined such that $\sigma_{Turnout}^{2}$ does not vary when we vary $\pi_1$: $\sigma_{e}^{2} = \sigma_{Turnout}^{2} - \pi_1^{2} \sigma_{Rain}^2 - \gamma^2\sigma_w^2$
 - For simplicity, I assume that $\delta = -\gamma$. There is no actual basis for that and we may change that in the future. The minus sign is just to get an upward bias, which makes the comparison between OLS and IV easier since the bias and the exaggeration go in the same direction.
 
 If one abstracts from the name of the variable, they can notice that this setting is actually very general.
@@ -136,8 +136,8 @@ generate_data_IV <- function(N,
                              type_rain, #"gamma", "normal" or "bernoulli"
                              param_rain,
                              sigma_w,
-                             sigma_u,
-                             sigma_epsilon,
+                             sigma_share,
+                             sigma_turnout,
                              beta_0,
                              beta_1,
                              pi_0,
@@ -159,9 +159,17 @@ generate_data_IV <- function(N,
     mutate(
       rain = rain_gen,
       w = rnorm(nrow(.), 0, sigma_w),
+      sigma_rain = sqrt(param_rain[1]*param_rain[2]^2),
+      sigma_e = sqrt(sigma_turnout^2 - pi_1^2*sigma_rain^2 - gamma^2*sigma_w^2),
+      e = rnorm(nrow(.), 0, sigma_e),
+      turnout = pi_0 + pi_1*rain + gamma*w + e,
+      sigma_u = sqrt(
+        sigma_share^2 
+        - beta_1^2*sigma_turnout^2 
+        - delta^2*sigma_w^2 
+        - 2*beta_1*delta*gamma*sigma_w^2
+      ),
       u = rnorm(nrow(.), 0, sigma_u),
-      epsilon = rnorm(nrow(.), 0, sigma_epsilon),
-      turnout = pi_0 + pi_1*rain + gamma*w + epsilon,
       share = beta_0 + beta_1*turnout + delta*w + u
     )
 
@@ -199,8 +207,8 @@ baseline_param_IV <- tibble(
   type_rain = "gamma",
   param_rain = list(c(0.13, 18)),
   sigma_w = 14,
-  sigma_u = 14,
-  sigma_epsilon = 13,
+  sigma_share = 14.2,
+  sigma_turnout = 14,
   beta_0 = 60,
   pi_0 = 59,
   beta_1 = -0.1,
@@ -255,23 +263,41 @@ ex_data %>%
   xlim(c(0,100))
 ```
 
-I also check the standard deviation and means of the variables:
+I also check the standard deviation and means of the variables and at the same time verify that they do not do not change when we vary $\pi_1$. They are consistent with what we wanted:
 
-```{r check_sd_mean_IV, code_folding='Show the code used to generate the table'}
-ex_data_mean <- ex_data %>% 
-  summarise(across(.cols = c(share, turnout, rain), mean)) %>% 
-  mutate(Statistic = "Mean") %>% 
-  select(Statistic, everything())
+```{r check_sd_mean, code_folding='Show the code used to generate the table'}
+vect_pi_1 <- c(seq(0.1, 1, 0.1))
 
-ex_data_sd <- ex_data %>% 
-  summarise(across(.cols = c(share, turnout, rain), sd)) %>% 
-  mutate(Statistic = "Standard Deviation") %>% 
-  select(Statistic, everything())
+param_IV <- baseline_param_IV |> 
+  mutate(N = 100000) |>
+  select(-pi_1) |> 
+  crossing(vect_pi_1) |> 
+  rename(pi_1 = vect_pi_1)
 
-ex_data_mean %>% 
-  rbind(ex_data_sd) %>% 
+gen_with_param <- function(...) {
+  generate_data_IV(...) |> 
+    mutate(pi_1 = list(...)$pi_1)
+}
+
+ex_data <- pmap(param_IV, gen_with_param) |> 
+  list_rbind()
+
+ex_data_mean <- ex_data |> 
+  group_by(pi_1) |> 
+  summarise(across(.cols = c(share, turnout, rain), mean)) |> 
+  mutate(stat = "mean") 
+
+ex_data_sd <- ex_data |> 
+  group_by(pi_1) |> 
+  summarise(across(.cols = c(share, turnout, rain), sd)) |> 
+  mutate(stat = "sd")
+
+ex_data_mean |> 
+  rbind(ex_data_sd) |> 
+  pivot_wider(names_from = stat, values_from = c(share, turnout, rain)) |> 
   kable()
 ```
+
 
 ### Estimation
 
@@ -279,42 +305,26 @@ After generating the data, we can run an estimation. The goal is to compare the 
 
 ```{r estimate_IV}
 estimate_IV <- function(data) {
-  reg_IV <- AER::ivreg(
-    data = data, 
-    formula = share ~ turnout | rain
-    ) 
+  reg_IV <- AER::ivreg(data = data, formula = share ~ turnout | rain) 
   
   fstat_IV <- summary(
-    reg_IV, 
-    diagnostics = TRUE
-  )$diagnostics["Weak instruments", "statistic"]
+                reg_IV, 
+                diagnostics = TRUE
+              )$diagnostics["Weak instruments", "statistic"]
   
   reg_IV <- reg_IV %>% 
     broom::tidy() %>%
-    mutate(
-      model = "IV",
-      fstat = fstat_IV
-    )
+    mutate(model = "IV", fstat = fstat_IV)
   
-  reg_OLS <- lm(
-    data = data, 
-    formula = share ~ turnout
-    ) %>% 
+  reg_OLS <- 
+    lm(data = data, formula = share ~ turnout) %>% 
     broom::tidy() %>%
-    mutate(
-      model = "OLS",
-      fstat = NA
-    )
+    mutate(model = "OLS", fstat = NA)
   
-  reg_OLS_unbiased <- lm(
-    data = data, 
-    formula = share ~ turnout + u
-    ) %>% 
+  reg_OLS_unbiased <- 
+    lm(data = data, formula = share ~ turnout + w) %>% 
     broom::tidy() %>%
-    mutate(
-      model = "OLS unbiased",
-      fstat = NA
-    )
+    mutate(model = "OLS unbiased", fstat = NA)
   
   reg <- reg_IV %>% 
     rbind(reg_OLS) %>% 
@@ -340,10 +350,18 @@ compute_sim_IV <- function(...) {
     mutate(
       pi_1 = args$pi_1,
       delta = args$delta,
-      param_rain = args$param_rain,
+      param_rain = list(args$param_rain),
       true_effect = args$beta_1
     )
 } 
+```
+
+The output of one simulation, for baseline parameters values is:
+
+```{r example_sim_IV, code_folding='Show the code used to generate the table'}
+pmap(baseline_param_IV, compute_sim_IV) |> 
+  list_rbind() |> 
+  kable()
 ```
 
 ### All simulations
@@ -371,7 +389,7 @@ sim_IV <- pmap(param_IV, compute_sim_IV, .progress = TRUE) |>
 beep()
 toc()
 
-# saveRDS(sim_IV, here("Outputs/sim_IV.RDS"))
+saveRDS(sim_IV, here("Outputs/sim_IV.RDS"))
 ```
 
 ## Analysis of the results
@@ -479,26 +497,19 @@ sim_IV %>%
 
 ### Computing bias and exaggeration ratios
 
-We want to compare $\dfrac{\mathbb{E}[\hat{\beta}_{IV}]}{\beta_0}$ and $\dfrac{\mathbb{E}[ \hat{\beta}_{IV}|\text{signif}]}{\beta_0}$. The first term represents the bias and the second term represents the exaggeration ratio.
+We want to compare $\dfrac{\mathbb{E}[ |\hat{\beta}_{IV}||\text{signif}]}{|\beta_1|}$ and $\dfrac{\mathbb{E}[ |\hat{\beta}_{OLS}||\text{signif}]}{|\beta_1|}$. The first term represents the bias and the second term represents the exaggeration ratio.
+
+To do so, I use the function `summmarise_sim` defined in the [`functions.R`]() file.
 
 ```{r summarise_IV}
-summarise_simulations_IV <- function(data) {
-  data %>%
-    mutate(significant = (p_value <= 0.05)) %>% 
-    group_by(delta, pi_1, model) %>%
-    summarise(
-      power = mean(significant, na.rm = TRUE)*100, 
-      type_m = mean(ifelse(significant, abs(estimate/true_effect), NA), na.rm = TRUE),
-      bias_signif = mean(ifelse(significant, estimate/true_effect, NA), na.rm = TRUE),
-      bias_all = mean(estimate/true_effect, na.rm = TRUE),
-      bias_all_median = median(estimate/true_effect, na.rm = TRUE),
-      median_fstat = mean(fstat, na.rm = TRUE),
-      .groups	= "drop"
-    ) %>% 
-    ungroup()
-} 
+source(here("functions.R"))
 
-summary_sim_IV <- summarise_simulations_IV(sim_IV)
+summary_sim_IV <- summarise_sim(
+  data = sim_IV, 
+  varying_params = c(model, pi_1), 
+  true_effect = true_effect
+)
+
 # saveRDS(summary_sim_IV, here("Outputs/summary_sim_IV.RDS"))
 ```
 
@@ -510,10 +521,7 @@ To analyze our results, we build a unique and simple graph:
 summary_sim_IV %>% 
   filter(model %in% c("OLS", "IV")) %>%
   filter(pi_1 > 0.1) %>% 
-  mutate(
-    ovb_intensity_name = paste("OVB intensity:", delta)
-  ) %>%
-  ggplot(aes(x = abs(pi_1), y = bias_signif, color = model)) + 
+  ggplot(aes(x = abs(pi_1), y = exag_ratio, color = model)) + 
   geom_line(size = 1, alpha = 0.75) +
   labs(
     x = "|IV strength|", 
@@ -530,7 +538,7 @@ summary_sim_IV %>%
 summary_sim_IV %>% 
   filter(model %in% c("OLS", "IV")) %>%
   filter(pi_1 >= 0.2) %>% 
-  ggplot(aes(x = pi_1, y = bias_signif, color = model)) + 
+  ggplot(aes(x = pi_1, y = exag_ratio, color = model)) + 
   geom_line() +
   labs(
     x = "IV strength", 
@@ -582,8 +590,8 @@ I then run some exploratory analysis to study the link between type M and F-stat
 ```{r IV_strength_fstat_graph, code_folding='Show the code used to generate the graph', fig.asp=0.8}
 sim_IV %>% 
   filter(model == "IV") %>% 
-  mutate(significant = (p_value <= 0.05)) %>% 
-  ggplot(aes(x = pi_1, y = fstat, color = significant)) +
+  mutate(signif = (p_value <= 0.05)) %>% 
+  ggplot(aes(x = pi_1, y = fstat, color = signif)) +
   geom_point(alpha = 0.5) +
   geom_jitter(alpha = 0.5) +
   labs(
@@ -702,7 +710,12 @@ sim_IV %>%
   # theme_mediocre(pal = "blackandwhite", base_family = "Lora") +
   # scale_mediocre_d(pal = "blackandwhite")
 
-ggsave("fstat_bias_graph_paper.pdf", path = "images", width = 6.2, height = 3.7)
+ggsave(
+  "fstat_bias_graph_paper.pdf", 
+  path = "paper/submission_version/images", 
+  width = 8, 
+  height = 4.5
+)
 ```
 
 We notice that, even when the F-statistic is greater than the usual but arbitrary threshold of 10, statistically significant estimates may, on average overestimate the true effect.
@@ -794,8 +807,8 @@ simple_param_IV <- tibble(
   type_rain = "normal",
   param_rain = 1,
   sigma_w = 1,
-  sigma_u = 1,
-  sigma_epsilon = 1,
+  sigma_turnout = 1,
+  sigma_e = 1,
   beta_0 = 0,
   pi_0 = 0,
   beta_1 = -1,
@@ -831,15 +844,18 @@ The results and the overall illustration are comparable with the political econo
 sim_IV_simple <- readRDS(here("Outputs/sim_IV_simple.RDS"))
 
 sim_IV_simple %>% 
-  summarise_simulations() %>% 
+  summarise_sim(
+    varying_params = c(model, pi_1), 
+    true_effect = true_effect
+  ) %>% 
   # filter(model %in% c("OLS", "IV")) %>% 
-  mutate(
-    ovb_intensity_name = paste("OVB intensity:", delta)
-  ) %>%
-  ggplot(aes(x = pi_1, y = bias_signif, color = model)) + 
+  # mutate(
+  #   ovb_intensity_name = paste("OVB intensity:", delta)
+  # ) %>%
+  ggplot(aes(x = pi_1, y = exag_ratio, color = model)) + 
   # geom_point() +
   geom_line(size = 0.8) +
-  facet_wrap(~ ovb_intensity_name) +
+  # facet_wrap(~ ovb_intensity_name) +
   labs(
     x = "IV strength", 
     y = expression(paste("Average  ", frac("Estimate", "True Effect"))),

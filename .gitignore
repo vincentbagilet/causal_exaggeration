@@ -38,7 +38,7 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-/Script
-/Misc
+/tests
+/misc
 /paper
-/Maths
+/maths

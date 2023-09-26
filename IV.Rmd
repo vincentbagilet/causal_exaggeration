@@ -546,8 +546,8 @@ summary_sim_IV %>%
     color = "Model"
     # caption = "Only for statistically significant estimates"
   ) +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 3)) 
-  # scale_mediocre_d(pal = "coty", second_pair = TRUE)
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 3)) +
+  scale_mediocre_d()
   # theme_mediocre(pal = "blackandwhite", base_family = "Lora") +
   # scale_mediocre_d(pal = "blackandwhite")
 
@@ -570,7 +570,7 @@ Of course, if one considers all estimates, as the IV is unbiased, this issue doe
 <!--   ) %>% -->
 <!--   ggplot(aes(x = pi_1, y = bias_all_median, color = model)) +  -->
 <!--   # geom_point() + -->
-<!--   geom_line(size = 0.8) + -->
+<!--   geom_line(linewidth = 0.8) + -->
 <!--   facet_wrap(~ ovb_intensity_name) + -->
 <!--   labs( -->
 <!--     x = "IV strength",  -->
@@ -854,7 +854,7 @@ sim_IV_simple %>%
   # ) %>%
   ggplot(aes(x = pi_1, y = exag_ratio, color = model)) + 
   # geom_point() +
-  geom_line(size = 0.8) +
+  geom_line(linewidth = 0.8) +
   # facet_wrap(~ ovb_intensity_name) +
   labs(
     x = "IV strength", 

@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-09-19"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-09-19"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-09-26"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-09-26"/>
   <meta name="article:author" content="Vincent Bagilet"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -114,7 +114,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Visualization tool"]},{"type":"character","attributes":{},"value":["In this document, I build an example to describe the implementation and usage of the visualization tool outlined in this paper."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-09-19"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Visualization tool"]},{"type":"character","attributes":{},"value":["In this document, I build an example to describe the implementation and usage of the visualization tool outlined in this paper."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-09-26"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2188,7 +2188,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Visualization tool","description":"In this document, I build an example to describe the implementation and usage of the visualization tool outlined in this paper.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-09-19T00:00:00.000-04:00","citationText":"Bagilet, 2023"}
+{"title":"Visualization tool","description":"In this document, I build an example to describe the implementation and usage of the visualization tool outlined in this paper.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-09-26T00:00:00.000-04:00","citationText":"Bagilet, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2239,7 +2239,7 @@ Simulations
 <div class="d-byline">
   Vincent Bagilet <a href="https://vincentbagilet.github.io/" class="uri">https://vincentbagilet.github.io/</a> (Columbia University)<a href="https://www.columbia.edu/" class="uri">https://www.columbia.edu/</a>
   
-<br/>2023-09-19
+<br/>2023-09-26
 </div>
 
 <div class="d-article">
@@ -2302,8 +2302,22 @@ Show code
 <span>    se <span class='op'>=</span> <span class='st'>"hetero"</span></span>
 <span>        <span class='op'>)</span></span>
 <span></span>
-<span><span class='co'># summary(reg)</span></span></code></pre>
+<span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>reg</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
+<pre><code># A tibble: 161 × 5
+   term            estimate    std.error statistic p.value
+   &lt;chr&gt;              &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+ 1 dry          0.00301     12.8          0.000236   1.00 
+ 2 dry_dd89     0.00292      0.00200      1.46       0.144
+ 3 dry_dd89_sq -0.000000230  0.000000311 -0.739      0.460
+ 4 dry_prcp     0.0329       0.471        0.0697     0.944
+ 5 dry_prcp_sq  0.00332      0.0110       0.303      0.762
+ 6 irr_dd89    -0.00368      0.00801     -0.460      0.646
+ 7 irr_dd89_sq  0.000000191  0.00000129   0.148      0.882
+ 8 irr_prcp     1.84         1.33         1.39       0.165
+ 9 irr_prcp_sq -0.0205       0.0372      -0.551      0.582
+10 x2          -2.66        12.6         -0.211      0.833
+# ℹ 151 more rows</code></pre>
 </div>
 <p>I obtain the same results as in the paper.</p>
 <p>The parameter of interest of the authors is a combination of several parameters. Since I only aim at exposing the visualization principle in this document, I pretend that the only parameter of interest is <code>irr_prcp</code>.</p>
@@ -2472,7 +2486,7 @@ Show code
 </details>
 <p><img src="images/viz/viz_maps-2.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

@@ -4,7 +4,7 @@ theme: causal_exaggeration_website.css
 description: |
   Causal Inflation
 output_dir: "docs"
-exclude: ["Script", "Misc", "Outputs"]
+exclude: ["test", "misc", "outputs", "maths", "paper"]
 navbar:
   right:
     - text: "Paper"

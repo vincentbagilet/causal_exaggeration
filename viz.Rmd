@@ -86,7 +86,7 @@ reg <- DG_clean |>
     se = "hetero"
         )
 
-# summary(reg)
+summary(reg) |> tidy()
 ```
 
 I obtain the same results as in the paper. 

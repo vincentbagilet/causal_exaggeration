@@ -253,7 +253,7 @@ First, I quickly explore the results. I plot the distribution of the estimated e
 sim_controls <- readRDS(here("Outputs/sim_controls.RDS"))
 
 sim_controls |> 
-  mutate(model_name = ifelse(model == "ctrl", "Controled", "Omitted")) |>
+  mutate(model_name = ifelse(model == "ctrl", "Controlled", "Omitted")) |>
   ggplot(aes(x = estimate)) + 
   geom_histogram(bins = 60) + 
   geom_vline(xintercept = unique(sim_controls$beta_1)) +
@@ -292,7 +292,7 @@ To analyze our results, I build a unique and simple graph:
 
 ```{r main_graph_controls, code_folding='Show the code used to generate the graph', fig.asp=0.7}
 summary_sim_controls |> 
-  mutate(model_name = ifelse(model == "ctrl", "Controled", "Omitted")) |>
+  mutate(model_name = ifelse(model == "ctrl", "Controlled", "Omitted")) |>
   ggplot(aes(x = ratio_gamma_delta, y = exag_ratio, color = model_name)) + 
   geom_line() +
   ylim(c(1, NA)) +
@@ -308,7 +308,7 @@ summary_sim_controls |>
 
 ```{r main_graph_controls_paper, dpi=600, include=FALSE}
 summary_sim_controls |> 
-  mutate(model_name = ifelse(model == "ctrl", "Controled", "Omitted")) |>
+  mutate(model_name = ifelse(model == "ctrl", "Controlled", "Omitted")) |>
   ggplot(aes(x = ratio_gamma_delta, y = exag_ratio, color = model_name)) + 
   geom_line() +
   ylim(c(1, NA)) +
@@ -318,8 +318,8 @@ summary_sim_controls |>
     # title = "Evolution of bias with gamma",
     # subtitle = "For statistically significant estimates",
     color = "Model"
-  ) 
-  # scale_mediocre_d(pal = "coty", second_pair = TRUE) 
+  ) +
+  scale_mediocre_d()
 
 ggsave(
   "main_graph_controls_paper.pdf", 

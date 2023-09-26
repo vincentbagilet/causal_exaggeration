@@ -497,7 +497,7 @@ To analyze our results, we build a unique and simple graph:
 summary_sim_rdd %>% 
   pivot_longer(cols = c(type_m, bias_all), names_to = "measure") %>% 
   mutate(
-    measure = ifelse(measure == "type_m", "Significants", "All"),
+    measure = ifelse(measure == "type_m", "Significant", "All"),
     delta_name = paste("OVB intensity:", delta)
   ) %>% 
   ggplot(aes(x = bw, y = value, color = measure)) + 
@@ -518,7 +518,7 @@ summary_sim_rdd %>%
 summary_sim_rdd %>% 
   pivot_longer(cols = c(type_m, bias_all), names_to = "measure") %>% 
   mutate(
-    measure = ifelse(measure == "type_m", "Significants", "All"),
+    measure = ifelse(measure == "type_m", "Significant", "All"),
     delta_name = paste("OVB intensity:", delta)
   ) %>% 
   ggplot(aes(x = bw, y = value, color = measure)) + #, linetype = fct_rev(measure))) +

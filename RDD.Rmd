@@ -178,7 +178,7 @@ We set baseline values for the parameters to emulate a somehow realistic observa
 - We assume that the unobserved ability is uniformly distributed between -2.5 and 2.5. We chose this values because it produces the right relationships between the variables.
 - We consider that the threshold is located at the center of the distribution ($q_c = 0.5$). The bandwidth is symmetric around the cutoff. Considering a cutoff in the middle of the distribution enables us to consider very wide bandwidths, up to including the whole sample in the analysis. Based on the functional form chosen for the effect of $U$ on grades ($f: U \mapsto U^3$), choosing a cutoff in the middle of the distribution enables to have units that are relatively similar in terms of unobserved variable close to the cut-off and different far away from it. 
 
-The set of parameters may produce test score outside of the range 0-100 in some iterations but that does not affect the analysis. We add the parameter value for delta separately as we will vary the value later and will reuse the vector `baseline_param_RDD`.
+The set of parameters may produce test score outside of the range 0-100 in some iterations but that does not affect the analysis. We add the parameter value for delta separately as we will vary the value later and will reuse the table `baseline_param_RDD`.
 
 ```{r baseline_param_RDD, echo=FALSE}
 baseline_param_RDD <- tibble(
@@ -195,12 +195,11 @@ baseline_param_RDD <- tibble(
 )
 
 baseline_param_RDD %>% kable()
-
 ```
 
 Here is an example of data created with our data generating process:
 
-```{r example_data_RDD, echo=FALSE}
+```{r example_data_RDD, code_folding='Show the code used to generate the table'}
 baseline_param_RDD %>%
   mutate(N = 10) %>%
   pmap_dfr(generate_data_RDD) %>% #use pmap to pass the set of parameters
@@ -233,7 +232,7 @@ ex_data_RDD_mean %>%
 
 The following graph illustrates this process by plotting final test scores against qualification ones depending on the value of `treated_bw`.
 
-```{r graph_bandwidth_RDD, echo=FALSE, fig.asp=1}
+```{r graph_bandwidth_RDD, fig.asp=1, code_folding='Show the code used to generate the graph'}
 baseline_param_RDD %>% 
   pmap_dfr(generate_data_RDD) %>% #use pmap to pass the set of parameters
   define_bw(0.5) %>%
@@ -552,7 +551,8 @@ summary_sim_rdd %>%
     y = "Power",
     title = "Evolution of power with bandwith size",
     caption = "Bandwidth size as a proportion of the total number of observations"
-  ) 
+  ) +
+  ylim(c(0, 100))
 ```
 
 We can then look in more details to the distribution of the estimates for different bandwidths. Statistically significant estimates, when power is low (*ie* when the bandwidth is small) are located in the tail of the distribution all estimates that is itself centered around the true effect.

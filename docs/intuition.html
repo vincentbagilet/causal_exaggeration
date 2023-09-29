@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-09-26"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-09-26"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-09-28"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-09-28"/>
   <meta name="article:author" content="Vincent Bagilet"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -114,7 +114,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Intuition, experimental studies and replication crisis"]},{"type":"character","attributes":{},"value":["In this document, through replications of experimental studies, I illustrate the consequences of low statistical power on estimated effect sizes and give intuition for the confounding / exaggeration trade-off highlighted in this paper."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-09-26"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Intuition, experimental studies and replication crisis"]},{"type":"character","attributes":{},"value":["In this document, through replications of experimental studies, I illustrate the consequences of low statistical power on estimated effect sizes and give intuition for the confounding / exaggeration trade-off highlighted in this paper."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-09-28"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2188,7 +2188,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Intuition, experimental studies and replication crisis","description":"In this document, through replications of experimental studies, I illustrate the consequences of low statistical power on estimated effect sizes and give intuition for the confounding / exaggeration trade-off highlighted in this paper.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-09-26T00:00:00.000-04:00","citationText":"Bagilet, 2023"}
+{"title":"Intuition, experimental studies and replication crisis","description":"In this document, through replications of experimental studies, I illustrate the consequences of low statistical power on estimated effect sizes and give intuition for the confounding / exaggeration trade-off highlighted in this paper.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-09-28T00:00:00.000-04:00","citationText":"Bagilet, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2239,7 +2239,7 @@ Simulations
 <div class="d-byline">
   Vincent Bagilet <a href="https://vincentbagilet.github.io/" class="uri">https://vincentbagilet.github.io/</a> (Columbia University)<a href="https://www.columbia.edu/" class="uri">https://www.columbia.edu/</a>
   
-<br/>2023-09-26
+<br/>2023-09-28
 </div>
 
 <div class="d-article">
@@ -2293,7 +2293,15 @@ Show code
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/intuition/graph_camerer_iter-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
+<p>The distribution is centered on the “true effect” (<em>i.e.</em>, the point estimate found in the replication study) and has a standard deviation equal to the standard error of the estimator of the original study. Let’s now condition on statistically significance:</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/intuition/graph_camerer_signif-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
 <p>In some cases we would get statistically significant estimates (the beige dots) and non statistically significant ones (the green dots) in others cases. The statistical power here is basically the proportion of statistically significant estimates.</p>
+<p>Zooming in on the first draws and plotting their 95% confidence intervals (approximately <span class="math inline">\([\hat{\beta} - 1.96 \cdot \sigma_{\hat{\beta}}, \hat{\beta} + 1.96 \cdot \sigma_{\hat{\beta}}]\)</span>) helps understand why some estimates are deemed significant and not others. By definition, significant estimates are those whose confidence interval does not contain 0:</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/intuition/graph_camerer_zoom-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
 <p>If the study was more precise, the standard error of the estimator would be smaller and more estimates would be statistically significant. The study would have more statistical power. But since the power is low here (or equivalently since the estimator is relatively imprecise), statistically significant estimates only represent a subset of the estimate and on average overestimate the true effect. They overestimate it by a factor 2.847443 (average of 0.2251483 while the true effect is 0.0790704).</p>
 <p>On average, statistically significant estimates overestimate true effect sizes when statistical power is low.</p>
 <!-- The way we calculated the standard error is not perfectly accurate so we use the information available in the [replication report](http://experimentaleconreplications.com/replicationreports.html). -->
@@ -2468,6 +2476,15 @@ Show the code used to generate the graph
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->

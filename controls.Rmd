@@ -303,7 +303,7 @@ summary_sim_controls |>
     subtitle = "For statistically significant estimates",
     color = "Model"
   ) +
-  scale_mediocre_d(pal = "coty", second_pair = TRUE)
+  scale_mediocre_d()
 ```
 
 ```{r main_graph_controls_paper, dpi=600, include=FALSE}

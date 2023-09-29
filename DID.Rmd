@@ -33,7 +33,7 @@ text-align: justify}
 
 ```{r setup_DID, include=FALSE, results='hide', warning=FALSE}
 library(knitr)
-opts_chunk$set(fig.path = "images/",
+opts_chunk$set(fig.path = "images/shocks/",
                cache.path = "cache/",
                cache = FALSE,
                echo = TRUE, #set to false to hide code
@@ -519,7 +519,7 @@ summary_sim_DID %>%
   filter(n_treated < 3000) %>% 
   ggplot(aes(x = n_treated, y = exag_ratio)) + 
   # geom_point() +
-  geom_line(linewidth = 0.8) +
+  geom_line(linewidth = 0.8, color = "#E5C38A") +
   labs(
     x = "Number of treated observations", 
     y = expression(paste("Average  ", frac("Estimate", "True Effect")))

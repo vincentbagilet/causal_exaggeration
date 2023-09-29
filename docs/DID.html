@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-09-26"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-09-26"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-09-27"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-09-27"/>
   <meta name="article:author" content="Vincent Bagilet"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -114,7 +114,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations exogenous shocks"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-09-26"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations exogenous shocks"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-09-27"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2188,7 +2188,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Simulations exogenous shocks","description":"In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-09-26T00:00:00.000-04:00","citationText":"Bagilet, 2023"}
+{"title":"Simulations exogenous shocks","description":"In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-09-27T00:00:00.000-04:00","citationText":"Bagilet, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2239,7 +2239,7 @@ Simulations
 <div class="d-byline">
   Vincent Bagilet <a href="https://vincentbagilet.github.io/" class="uri">https://vincentbagilet.github.io/</a> (Columbia University)<a href="https://www.columbia.edu/" class="uri">https://www.columbia.edu/</a>
   
-<br/>2023-09-26
+<br/>2023-09-27
 </div>
 
 <div class="d-article">
@@ -2670,16 +2670,16 @@ I assume that they happen in the middle of the period so that</li>
 </div>
 <p>The treatment allocation when the proportion of treated is 30% is as follows:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/treatment_allocation_DID-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/shocks/treatment_allocation_DID-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <h4 id="quick-data-exploration">Quick data exploration</h4>
 <p>I quickly explore a generated data set to get a sense of how the data is distributed. First, I display the distribution of potential outcomes.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/eda_distrib_outcome-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/shocks/eda_distrib_outcome-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <p>Then, I compare the average birthweight before and after the treatment, in the control and treatment group.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/eda_comparison_treatment-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/shocks/eda_comparison_treatment-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <!-- ```{r eda_evolution_outcome,echo=FALSE} -->
 <!-- ex_data %>% -->
@@ -2823,7 +2823,7 @@ I assume that they happen in the middle of the period so that</li>
 <h3 id="quick-exploration">Quick exploration</h3>
 <p>First, I quickly explore the results. I plot the distribution of the estimated effect sizes, along with the true effect. The estimator is unbiased and recover, on average, the true effect:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/exploration_results_DID-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/shocks/exploration_results_DID-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <h3 id="computing-bias-and-exaaggeration-ratio">Computing bias and exaaggeration ratio</h3>
 <p>We want to compare <span class="math inline">\(\mathbb{E}[\widehat{\beta}]/\beta_0\)</span> and <span class="math inline">\(\mathbb{E}[ \widehat{\beta}|signif]/\beta_0\)</span>. The first term represents the bias and the second term represents the exaggeration ratio. These terms depend on the true effect size.</p>
@@ -2852,7 +2852,7 @@ I assume that they happen in the middle of the period so that</li>
 <h3 id="main-graph">Main graph</h3>
 <p>To analyze our results, I build a unique and simple graph:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/main_graph_DID-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/shocks/main_graph_DID-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

@@ -531,7 +531,7 @@ summary_sim_IV %>%
     title = "Evolution of bias with intensity of the IV",
     subtitle = "For statistically significant estimates"
   ) +
-  scale_mediocre_d(pal = "coty", second_pair = TRUE)
+  scale_mediocre_d()
 ```
 
 ```{r main_graph_IV_paper, dpi=600, include=FALSE}

@@ -86,7 +86,7 @@ data_graph_distrib <-
   ) 
 
 graph_original <- data_graph_distrib |> 
-  ggplot(aes(x = n, y = estimate, color = significant)) + 
+  ggplot(aes(x = n, y = estimate)) + 
   #original study
   geom_point(aes(x = -30, y = random_study$eorig), color = "darkred", size = 2) +
   geom_linerange(aes(
@@ -105,7 +105,7 @@ graph_original <- data_graph_distrib |>
 
 graph_original
 
-ggsave("graph_retrodesign_camerer_1.pdf", path = "images", width = 9, height = 4.5)
+ggsave("graph_retrodesign_camerer_1.pdf", path = "images/intuition", width = 9, height = 4.5)
 ```
 
 This estimate is significant and has been published. Yet, it is pretty noisy. 
@@ -124,7 +124,7 @@ graph_rep <- graph_original +
 
 graph_rep
 
-ggsave("graph_retrodesign_camerer_2.pdf", path = "images", width = 9, height = 4.5)
+ggsave("graph_retrodesign_camerer_2.pdf", path = "images/intuition", width = 9, height = 4.5)
 ```
 
 This estimate is both more precise and smaller than the initial one. It still remains noisy and it is not statistically significant.
@@ -145,27 +145,65 @@ graph_rep_original <- graph_rep +
 
 graph_rep_original
 
-ggsave("graph_retrodesign_camerer_3.pdf", path = "images", width = 9, height = 4.5)
+ggsave("graph_retrodesign_camerer_3.pdf", path = "images/intuition", width = 9, height = 4.5)
 ```
 
 This estimate is non significant. In this instance, we would not have been able to reject the null of no effect. Now, let's replicate this study `r n_iter` times, running `r n_iter` lab experiments with the design of the initial study and under the assumption of a true effect equal to the one obtained in the replication:
 
 ```{r graph_camerer_iter, echo=FALSE}
-graph_rep_original <- graph_rep_original +
+graph_iter <- graph_rep_original +
   # geom_hline(aes(yintercept = mean(estimate)), size = 0.8) +
   geom_point(alpha = 0.8) +
   geom_hline(aes(yintercept = 0), linewidth = 0.3, linetype = "solid") +
   labs(
-    subtitle = "500 draws of an estimate ~ N(Effect size in replication, std err in original study)"
+    subtitle = "500 draws of an estimator ~ N(Effect size in replication, std err in original study)"
   )
   # transition_layers(layer_length = 2, from_blank = FALSE) #to animate
 
-graph_rep_original
+graph_iter
 
-ggsave("graph_retrodesign_camerer_4.pdf", path = "images", width = 9, height = 4.5)
+ggsave("graph_retrodesign_camerer_4.pdf", path = "images/intuition", width = 9, height = 4.5)
+```
+
+The distribution is centered on the "true effect" (*i.e.*, the point estimate found in the replication study) and has a standard deviation equal to the standard error of the estimator of the original study. Let's now condition on statistically significance:
+
+```{r graph_camerer_signif, fig.asp=0.71, echo=FALSE}
+graph_signif <- graph_iter +
+  geom_point(aes(x = n, y = estimate, color = significant)) 
+
+graph_signif
+
+ggsave("graph_retrodesign_camerer_5.pdf", path = "images/intuition", width = 9, height = 4.5)
 ```
 
 In some cases we would get statistically significant estimates (the beige dots) and non statistically significant ones (the green dots) in others cases. The statistical power here is basically the proportion of statistically significant estimates.
+
+Zooming in on the first draws and plotting their 95% confidence intervals (approximately $[\hat{\beta} - 1.96 \cdot \sigma_{\hat{\beta}}, \hat{\beta} + 1.96 \cdot \sigma_{\hat{\beta}}]$) helps understand why some estimates are deemed significant and not others. By definition, significant estimates are those whose confidence interval does not contain 0:
+
+```{r graph_camerer_zoom, echo=FALSE}
+data_graph_distrib %>%
+  slice(1:40) |> 
+  mutate(
+    conf_low = estimate - 1.96*random_study$seorig,
+    conf_high = estimate + 1.96*random_study$seorig
+  ) |> 
+  ggplot(aes(
+    x = n,
+    y = estimate,
+    colour = significant,
+    ymin = conf_low,
+    ymax = conf_high
+  )) +
+  geom_pointrange(lwd = 0.5) +
+  geom_hline(yintercept = 0, linetype = "solid") +
+  labs(
+    title = "Illustration of the exaggeration and power issues",
+    subtitle = "The first 40 draws of the estimator ~ N(Effect size in replication, std err in original study)",
+    x = "Draw",
+    y = "Point estimate",
+    color = NULL
+  )
+```
 
 If the study was more precise, the standard error of the estimator would be smaller and more estimates would be statistically significant. The study would have more statistical power. But since the power is low here (or equivalently since the estimator is relatively imprecise), statistically significant estimates only represent a subset of the estimate and on average overestimate the true effect. They overestimate it by a factor `r data_graph_distrib %>% filter(!non_significant) %>% .$estimate %>% mean() / random_study$erep` (average of `r data_graph_distrib %>% filter(!non_significant) %>% .$estimate %>% mean()` while the true effect is `r random_study$erep`). 
 
@@ -227,12 +265,12 @@ data_intuition %>%
     y = "Count",
     title = "Imprecise estimators can cause exaggeration",
     # subtitle = "Distribution of two estimators with same mean and different variance",
-    fill = NULL
-    # caption = "The green dashed line represents the true effect size
-    #   The brown solid line represents the average of significant estimates"
+    fill = NULL,
+    caption = "The green dashed line represents the true effect size
+       The brown solid line represents the average of significant estimates"
   )
 
-ggsave(here("images", "graph_intuition_precision.pdf"), width = 6, height = 4.8)
+ggsave(here("images", "intuition", "graph_intuition_precision.png"), width = 6, height = 4.8)
 ```
 
 In the case of the precise estimator, the mean of statistically significant estimates is almost equal to the true effect. The estimator is unbiased and almost all estimates are significant. However, in the case of the imprecise estimator, only a sub-sample of the estimates are significant: those that are far away enough from 0 (at least 1.96 s.d.). As a consequence, the mean of  statistically significant estimates is different from the true effect, even if the estimator is unbiased. This hints to the trade-off between biased estimates from naive regressions and less precise causal inference estimates.

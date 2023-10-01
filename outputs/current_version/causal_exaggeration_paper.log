@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  29 SEP 2023 13:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.6.28)  1 OCT 2023 15:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1580,7 +1580,7 @@ File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./images/graph_intuition_pre
 cision.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> 
 allowed
-<images/graph_intuition_precision.pdf, id=164, 433.62pt x 346.29375pt>
+<images/graph_intuition_precision.pdf, id=160, 433.62pt x 346.29375pt>
 File: images/graph_intuition_precision.pdf Graphic file (type pdf)
 
 <use images/graph_intuition_precision.pdf>
@@ -1646,7 +1646,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 141--142
 
  []
 
-<images/DAG_maths.png, id=369, 3914.625pt x 1957.3125pt>
+<images/DAG_maths.png, id=365, 3914.625pt x 1957.3125pt>
 File: images/DAG_maths.png Graphic file (type png)
 
 <use images/DAG_maths.png>
@@ -1702,7 +1702,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[12] <images/main_graph_controls_paper.pdf, id=421, 578.16pt x 325.215pt>
+[12] <images/main_graph_controls_paper.pdf, id=417, 578.16pt x 325.215pt>
 File: images/main_graph_controls_paper.pdf Graphic file (type pdf)
 
 <use images/main_graph_controls_paper.pdf>
@@ -1724,7 +1724,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [14 <./images/main_graph_controls_paper.pdf>]
-<images/main_graph_matching_paper.pdf, id=447, 578.16pt x 325.215pt>
+<images/main_graph_matching_paper.pdf, id=443, 578.16pt x 325.215pt>
 File: images/main_graph_matching_paper.pdf Graphic file (type pdf)
 
 <use images/main_graph_matching_paper.pdf>
@@ -1745,7 +1745,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[16] <images/main_graph_RDD_paper.pdf, id=479, 578.16pt x 325.215pt>
+[16] <images/main_graph_RDD_paper.pdf, id=475, 578.16pt x 325.215pt>
 File: images/main_graph_RDD_paper.pdf Graphic file (type pdf)
 
 <use images/main_graph_RDD_paper.pdf>
@@ -1760,7 +1760,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [17 <./images/main_graph_RDD_paper.pdf>]
-<images/main_graph_IV_paper.pdf, id=500, 578.16pt x 325.215pt>
+<images/main_graph_IV_paper.pdf, id=496, 578.16pt x 325.215pt>
 File: images/main_graph_IV_paper.pdf Graphic file (type pdf)
 
 <use images/main_graph_IV_paper.pdf>
@@ -1785,7 +1785,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [19 <./images/main_graph_IV_paper.pdf>]
-<images/main_graph_DID_paper.pdf, id=530, 578.16pt x 325.215pt>
+<images/main_graph_DID_paper.pdf, id=526, 578.16pt x 325.215pt>
 File: images/main_graph_DID_paper.pdf Graphic file (type pdf)
 
 <use images/main_graph_DID_paper.pdf>
@@ -1850,15 +1850,6 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [25]
-Underfull \hbox (badness 10000) in paragraph at lines 557--558
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 559--560
-
- []
-
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -1866,18 +1857,6 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [26]
-Underfull \hbox (badness 1502) in paragraph at lines 573--574
-[]\T1/cmr/m/n/12 (M) Code some-thing to com-pare the var-i-ous po-ten-tial def-
-i-ni-tions of ex-ag-ger-a-tion
- []
-
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[27]
 \openout3 = `bu.aux'.
 
  (./causal_exaggeration_paper.bbl (./causal_exaggeration_paper.brf)
@@ -1896,14 +1875,14 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[28]
+[27]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[29]
+[28]
 Underfull \hbox (badness 1540) in paragraph at lines 189--189
 []\T1/cmr/m/n/12 Hill, J. L. []([]2011[])[], `Bayesian Non-para-met-ric Mod-el-
 ing for Causal In-fer-ence', |   []   |   []
@@ -1921,14 +1900,14 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[30]
+[29]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[31]
+[30]
 Underfull \hbox (badness 6927) in paragraph at lines 312--312
 []\T1/cmr/m/n/12 Shadish, W. R., Cook, T. D. and Camp-bell, D. T. []([]2002[])[
 ], |   []   |   []
@@ -1941,7 +1920,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[32]
+[31]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 611.
@@ -1970,14 +1949,14 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[33]
+[32]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[34]
+[33]
 Underfull \hbox (badness 6412) in paragraph at lines 740--741
 []\T1/cmr/m/n/12 Thus, un-der our set of as-sump-tions, $\U/msb/m/n/12 E\OT1/cm
 r/m/n/12 [\OML/cmm/m/it/12 u[]\OMS/cmsy/m/n/12 j[][]\OT1/cmr/m/n/12 ]$ \T1/cmr/
@@ -2000,7 +1979,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[35]
+[34]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 760.
@@ -2024,7 +2003,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[36]
+[35]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 814.
@@ -2048,7 +2027,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[37]
+[36]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 892.
@@ -2068,17 +2047,17 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[38]
+[37]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 898.
  (./causal_exaggeration_paper.aux (./bu.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 898.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 898.
 Package rerunfilecheck Info: File `causal_exaggeration_paper.out' has not chang
 ed.
-(rerunfilecheck)             Checksum: 29F13F8BB83772E8A7C3BF79B976834F;2523.
+(rerunfilecheck)             Checksum: C1E57AB2B30ACBC03888DFAD7897D91B;2478.
 Package rerunfilecheck Info: File `causal_exaggeration_paper.brf' has not chang
 ed.
-(rerunfilecheck)             Checksum: D7B69FD3FC898A40F5CB62AD890605DF;6070.
+(rerunfilecheck)             Checksum: B0720DCA0DD4E8D6868B0B3E7F87FD88;6070.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -2086,10 +2065,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 898.
  ) 
 Here is how much of TeX's memory you used:
- 25745 strings out of 492995
- 436486 string characters out of 6132704
+ 25725 strings out of 492995
+ 436325 string characters out of 6132704
  561498 words of memory out of 5000000
- 28713 multiletter control sequences out of 15000+600000
+ 28709 multiletter control sequences out of 15000+600000
  38977 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  44i,18n,56p,10434b,1109s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2147,10 +2126,10 @@ er/sfxc1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super
 /sfxc1440.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/s
 fxc1728.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfx
 c2074.pfb>
-Output written on causal_exaggeration_paper.pdf (38 pages, 1318485 bytes).
+Output written on causal_exaggeration_paper.pdf (37 pages, 1312938 bytes).
 PDF statistics:
- 1038 PDF objects out of 1200 (max. 8388607)
- 915 compressed objects within 10 object streams
- 196 named destinations out of 1000 (max. 500000)
- 300 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1011 PDF objects out of 1200 (max. 8388607)
+ 890 compressed objects within 9 object streams
+ 180 named destinations out of 1000 (max. 500000)
+ 292 words of extra memory for PDF output out of 10000 (max. 10000000)
 

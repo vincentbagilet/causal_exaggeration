@@ -55,7 +55,7 @@
 		%using the main causal identification strategies to avoid a bias can also generate another one. I then discuss potential avenues to address this issue.\\~\\
 	
 	\begin{center}
-		\href{https://github.com/vincentbagilet/causal_exaggeration/blob/main/paper/current_version/causal_exaggeration_paper.pdf}{Link to the most recent version of the paper}
+		\href{https://github.com/vincentbagilet/causal_exaggeration/blob/main/outputs/current_version/causal_exaggeration_paper.pdf}{Link to the most recent version of the paper}
 	\end{center}
 	
 	
@@ -552,28 +552,28 @@
 
 %-----------------------------------------------------------------------------
 
-\section{Next steps} \label{next_steps}
-
-	Here is an ordered list of the next tasks I plan to do. I would love to get feedback on both the content and the order of this list. Are there more urgent points than others? Are there other things I need to add to this list?\\
-
-	\textit{For each task, I write down what section of the paper it pertains to (S = Simulations, M = Maths, R = Recommendations, W = Writing). Question marks mean that I am not certain that this task is necessary.}\\
-
-	\begin{enumerate}
-		\item (W) Clean up the writing
-		\item (S) Verify the variances of the residuals in my simulations: are they similar to those in the published papers?
-		\item (S) Add more visualizations
-		\item (S) Calibrate simulations for FEs/controls
-		\item (W) Add an actual example for controls: in a real data set, compare exaggeration when a given variable is used as a control or not + try to find existing papers for which adding more and more FEs increases variance
-		\item (W) Expand the description of the simulations in the body of the paper (and move matching and exogenous shocks to the appendix) + add the simulation codes (my RMarkdown files) to the appendix
-		\item (W) Add a literature review describing the extent of exaggeration in a literature (either acute health effects of air pollution, \textit{i.e.}, directly reinjecting my other paper or adding something different  based on Leo's work on interventions aimed at reducing household energy consumption or on behavioral interventions to promote household action on climate change)
-		\item (R) Add discussion on shrinkage
-		\item (R) Add recommendation to compute a MDE (?)
-		\item (S) Redo the matching simulations
-		\item (R) Code an actual example of how one could evaluate the trade-off for their study (\textit{e.g.}, present it as if I was Card and wanted to evaluate risks of exaggeration in my study)
-		\item (M) Code something to compare the various potential definitions of exaggeration ($\mathbb{E}[ |\hat{\beta} | | signif]$ vs $\mathbb{E}[\hat{\beta}  | signif]$, etc) and their respective limits
-		\item (S) For exogenous shocks, add other types of treatment allocation and thus other types of estimation methods: permanent treatment staggered (event study, TWFE), temporary (reduced form) (?)
-		\item (R) Develop the visualization tool
-	\end{enumerate}
+%\section{Next steps} \label{next_steps}
+%
+%	Here is an ordered list of the next tasks I plan to do. I would love to get feedback on both the content and the order of this list. Are there more urgent points than others? Are there other things I need to add to this list?\\
+%
+%	\textit{For each task, I write down what section of the paper it pertains to (S = Simulations, M = Maths, R = Recommendations, W = Writing). Question marks mean that I am not certain that this task is necessary.}\\
+%
+%	\begin{enumerate}
+%		\item (W) Clean up the writing
+%		\item (S) Verify the variances of the residuals in my simulations: are they similar to those in the published papers?
+%		\item (S) Add more visualizations
+%		\item (S) Calibrate simulations for FEs/controls
+%		\item (W) Add an actual example for controls: in a real data set, compare exaggeration when a given variable is used as a control or not + try to find existing papers for which adding more and more FEs increases variance
+%		\item (W) Expand the description of the simulations in the body of the paper (and move matching and exogenous shocks to the appendix) + add the simulation codes (my RMarkdown files) to the appendix
+%		\item (W) Add a literature review describing the extent of exaggeration in a literature (either acute health effects of air pollution, \textit{i.e.}, directly reinjecting my other paper or adding something different  based on Leo's work on interventions aimed at reducing household energy consumption or on behavioral interventions to promote household action on climate change)
+%		\item (R) Add discussion on shrinkage
+%		\item (R) Add recommendation to compute a MDE (?)
+%		\item (S) Redo the matching simulations
+%		\item (R) Code an actual example of how one could evaluate the trade-off for their study (\textit{e.g.}, present it as if I was Card and wanted to evaluate risks of exaggeration in my study)
+%		\item (M) Code something to compare the various potential definitions of exaggeration ($\mathbb{E}[ |\hat{\beta} | | signif]$ vs $\mathbb{E}[\hat{\beta}  | signif]$, etc) and their respective limits
+%		\item (S) For exogenous shocks, add other types of treatment allocation and thus other types of estimation methods: permanent treatment staggered (event study, TWFE), temporary (reduced form) (?)
+%		\item (R) Develop the visualization tool
+%	\end{enumerate}
 
 
 %-----------------------------------------------------------------------------

@@ -93,10 +93,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="description" itemprop="description" content="In this document, we run a simulation exercise to illustrate how using a Regression Discontinuity Design (RDD) to avoid confounders may lead to a loss in power and inflated effect sizes."/>
 
 
-  <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-09-26"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-09-26"/>
-  <meta name="article:author" content="Vincent Bagilet"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Causal Exaggeration: Simulations RDD"/>
@@ -114,7 +110,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations RDD"]},{"type":"character","attributes":{},"value":["In this document, we run a simulation exercise to illustrate how using a Regression Discontinuity Design (RDD) to avoid confounders may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-09-26"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations RDD"]},{"type":"character","attributes":{},"value":["In this document, we run a simulation exercise to illustrate how using a Regression Discontinuity Design (RDD) to avoid confounders may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2188,7 +2184,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Simulations RDD","description":"In this document, we run a simulation exercise to illustrate how using a Regression Discontinuity Design (RDD) to avoid confounders may lead to a loss in power and inflated effect sizes.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-09-26T00:00:00.000-04:00","citationText":"Bagilet, 2023"}
+{"title":"Simulations RDD","description":"In this document, we run a simulation exercise to illustrate how using a Regression Discontinuity Design (RDD) to avoid confounders may lead to a loss in power and inflated effect sizes.","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2236,11 +2232,6 @@ Simulations
 <p>In this document, we run a simulation exercise to illustrate how using a Regression Discontinuity Design (RDD) to avoid confounders may lead to a loss in power and inflated effect sizes.</p>
 </div>
 
-<div class="d-byline">
-  Vincent Bagilet <a href="https://vincentbagilet.github.io/" class="uri">https://vincentbagilet.github.io/</a> (Columbia University)<a href="https://www.columbia.edu/" class="uri">https://www.columbia.edu/</a>
-  
-<br/>2023-09-26
-</div>
 
 <div class="d-article">
 <div class="d-contents d-contents-float">
@@ -2365,7 +2356,7 @@ Where <span class="math inline">\(\alpha^f\)</span> is a constant, <span class="
 <li>We assume that the unobserved ability is uniformly distributed between -2.5 and 2.5. We chose this values because it produces the right relationships between the variables.</li>
 <li>We consider that the threshold is located at the center of the distribution (<span class="math inline">\(q_c = 0.5\)</span>). The bandwidth is symmetric around the cutoff. Considering a cutoff in the middle of the distribution enables us to consider very wide bandwidths, up to including the whole sample in the analysis. Based on the functional form chosen for the effect of <span class="math inline">\(U\)</span> on grades (<span class="math inline">\(f: U \mapsto U^3\)</span>), choosing a cutoff in the middle of the distribution enables to have units that are relatively similar in terms of unobserved variable close to the cut-off and different far away from it.</li>
 </ul>
-<p>The set of parameters may produce test score outside of the range 0-100 in some iterations but that does not affect the analysis. We add the parameter value for delta separately as we will vary the value later and will reuse the vector <code>baseline_param_RDD</code>.</p>
+<p>The set of parameters may produce test score outside of the range 0-100 in some iterations but that does not affect the analysis. We add the parameter value for delta separately as we will vary the value later and will reuse the table <code>baseline_param_RDD</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <table>
 <colgroup>
@@ -2412,6 +2403,17 @@ Where <span class="math inline">\(\alpha^f\)</span> is a constant, <span class="
 </div>
 <p>Here is an example of data created with our data generating process:</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the table
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_RDD</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>generate_data_RDD</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='co'>#use pmap to pass the set of parameters</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
 <table>
 <colgroup>
 <col style="width: 3%" />
@@ -2590,6 +2592,39 @@ Where <span class="math inline">\(\alpha^f\)</span> is a constant, <span class="
 <h4 id="exploring-the-data-generated">Exploring the data generated</h4>
 <p>The following graph illustrates this process by plotting final test scores against qualification ones depending on the value of <code>treated_bw</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the graph
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_RDD</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>generate_data_RDD</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='co'>#use pmap to pass the set of parameters</span></span>
+<span>  <span class='fu'>define_bw</span><span class='op'>(</span><span class='fl'>0.5</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='co'># mutate(</span></span>
+<span>  <span class='co'>#   treated_bw_phrase = case_when(</span></span>
+<span>  <span class='co'>#     treated_bw ~ "Treated and inside bandwidth",</span></span>
+<span>  <span class='co'>#     !treated_bw ~ "Non treated and inside bandwidth",</span></span>
+<span>  <span class='co'>#     treated_bw ~ "Treated and inside bandwidth",</span></span>
+<span>  <span class='co'>#   )</span></span>
+<span>  <span class='co'># )</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>qual</span>, y <span class='op'>=</span> <span class='va'>final</span>, color <span class='op'>=</span> <span class='va'>treated_bw</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Final scores against qualification scores"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"Illustration of the definition of the bandwidth and the treatment"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Qualification score"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Final sccore"</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>""</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html'>scale_color_discrete</a></span><span class='op'>(</span></span>
+<span>    labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span>      <span class='st'>"Non treated and inside bandwidth"</span>,</span>
+<span>      <span class='st'>"Treated and inside bandwidth"</span>,</span>
+<span>      <span class='st'>"Outside bandwidth"</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_fixed.html'>coord_fixed</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
 <p><img src="images/graph_bandwidth_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <p>Then, we quickly look at the distributions of the different variables to check that they have a shape similar to what we expect.</p>

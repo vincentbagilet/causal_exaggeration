@@ -1,12 +1,6 @@
 ---
 title: "Computing and reporting power calculations"
 description: "Under construction. In this document, we will discuss and illustrate how to run power calculations."
-author:
-  - name: Vincent Bagilet 
-    url: https://vincentbagilet.github.io/
-    affiliation: Columbia University
-    affiliation_url: https://www.columbia.edu/
-date: "`r Sys.Date()`"
 output: 
   distill::distill_article:
     toc: true

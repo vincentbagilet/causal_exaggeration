@@ -1,12 +1,6 @@
 ---
 title: "Comparison of exaggeration across methods"
 description: "In this document, I investigate whether we expect to see more exaggeration for some of the causal identification strategies than for the others."
-author:
-  - name: Vincent Bagilet 
-    url: https://vincentbagilet.github.io/
-    affiliation: Columbia University
-    affiliation_url: https://www.columbia.edu/
-date: "`r Sys.Date()`"
 output: 
   distill::distill_article:
     toc: true

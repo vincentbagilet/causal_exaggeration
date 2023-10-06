@@ -1,12 +1,6 @@
 ---
 title: "Intuition, experimental studies and replication crisis"
 description: "In this document, through replications of experimental studies, I illustrate the consequences of low statistical power on estimated effect sizes and give intuition for the confounding / exaggeration trade-off highlighted in this paper."
-author:
-  - name: Vincent Bagilet 
-    url: https://vincentbagilet.github.io/
-    affiliation: Columbia University
-    affiliation_url: https://www.columbia.edu/
-date: "`r Sys.Date()`"
 output: 
   distill::distill_article:
     toc: true
@@ -224,12 +218,12 @@ true_effect <- 1
 data_intuition <- 
   tibble(
     estimate = rnorm(N, true_effect, sd_precise), 
-    precise = "Precise estimator"
+    precise = "Precise unbiased estimator"
   ) %>% 
   rbind(
     tibble(
       estimate = rnorm(N, true_effect, sd_imprecise), 
-      precise = "Imprecise estimator"
+      precise = "Imprecise unbiased estimator"
     )
   ) %>% 
   group_by(precise) %>% 

@@ -1,12 +1,6 @@
 ---
 title: "Simulations controls"
 description: "In this document, I run a simulation exercise to illustrate how controling for a confounder may lead to a loss in power and inflated effect sizes."
-author:
-  - name: Vincent Bagilet 
-    url: https://vincentbagilet.github.io/
-    affiliation: Columbia University
-    affiliation_url: https://www.columbia.edu/
-date: "`r Sys.Date()`"
 output: 
   distill::distill_article:
     toc: true

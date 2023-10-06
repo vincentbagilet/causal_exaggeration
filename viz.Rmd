@@ -1,12 +1,6 @@
 ---
 title: "Visualization tool"
 description: "In this document, I build an example to describe the implementation and usage of the visualization tool outlined in this paper."
-author:
-  - name: Vincent Bagilet 
-    url: https://vincentbagilet.github.io/
-    affiliation: Columbia University
-    affiliation_url: https://www.columbia.edu/
-date: "`r Sys.Date()`"
 output: 
   distill::distill_article:
     toc: true

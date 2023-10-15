@@ -90,27 +90,27 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>Causal Exaggeration: Computing and reporting power calculations</title>
 
-  <meta property="description" itemprop="description" content="Under construction. In this document, we will discuss and illustrate how to run power calculations."/>
+  <meta property="description" itemprop="description" content="Under construction. In this document, I will discuss and illustrate how to run power calculations."/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Causal Exaggeration: Computing and reporting power calculations"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Under construction. In this document, we will discuss and illustrate how to run power calculations."/>
+  <meta property="og:description" content="Under construction. In this document, I will discuss and illustrate how to run power calculations."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Causal Exaggeration"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Causal Exaggeration: Computing and reporting power calculations"/>
-  <meta property="twitter:description" content="Under construction. In this document, we will discuss and illustrate how to run power calculations."/>
+  <meta property="twitter:description" content="Under construction. In this document, I will discuss and illustrate how to run power calculations."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Computing and reporting power calculations"]},{"type":"character","attributes":{},"value":["Under construction. In this document, we will discuss and illustrate how to run power calculations."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Computing and reporting power calculations"]},{"type":"character","attributes":{},"value":["Under construction. In this document, I will discuss and illustrate how to run power calculations."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2184,7 +2184,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Computing and reporting power calculations","description":"Under construction. In this document, we will discuss and illustrate how to run power calculations.","authors":[]}
+{"title":"Computing and reporting power calculations","description":"Under construction. In this document, I will discuss and illustrate how to run power calculations.","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2229,7 +2229,7 @@ Simulations
 <h1>Computing and reporting power calculations</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p>Under construction. In this document, we will discuss and illustrate how to run power calculations.</p>
+<p>Under construction. In this document, I will discuss and illustrate how to run power calculations.</p>
 </div>
 
 
@@ -2253,13 +2253,13 @@ text-align: justify}
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>se</span> <span class='op'>&lt;-</span> <span class='fl'>0.2</span></span>
 <span></span>
-<span><span class='va'>retro</span> <span class='op'>&lt;-</span> <span class='fu'>retrodesign</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/retrodesign/man/retro_design.html'>retro_design</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.05</span>, <span class='fl'>0.4</span>, by <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>se</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span><span class='va'>retro</span> <span class='op'>&lt;-</span> <span class='fu'>retrodesign</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/retrodesign/man/retro_design.html'>retro_design</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.7</span>, by <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>se</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
 <span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>effect_size</span>, <span class='va'>power</span>, <span class='va'>type_s</span>, <span class='va'>type_m</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>type_s</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>power <span class='op'>=</span> <span class='va'>power</span> <span class='op'>*</span> <span class='fl'>100</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span></span>
 <span>    <span class='st'>"Statistical Power (%)"</span> <span class='op'>=</span> <span class='va'>power</span>,</span>
-<span>    <span class='st'>"Type-M Error (Exaggeration Ratio)"</span> <span class='op'>=</span> <span class='va'>type_m</span></span>
+<span>    <span class='st'>"Exaggeration Ratio"</span> <span class='op'>=</span> <span class='va'>type_m</span></span>
 <span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
 <span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span></span>
 <span>    cols <span class='op'>=</span> <span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>effect_size</span><span class='op'>)</span>,</span>
@@ -2270,14 +2270,18 @@ text-align: justify}
 </div>
 <p>We can then build simple graphs representing what would be the power and exaggeration ratio for a range of hypothetical true effect sizes:</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code used to generate the graph
+</summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>retro</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>effect_size</span>, y  <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>1.1</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span> <span class='op'>~</span> <span class='va'>statistic</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='co'># geom_vline(aes(xintercept = 0.4)) +</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>0.22</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/pretty_breaks.html'>pretty_breaks</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/pretty_breaks.html'>pretty_breaks</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    title <span class='op'>=</span> <span class='st'>"Evolution of power and exaggeration with true effect size"</span>,</span>
 <span>    x <span class='op'>=</span><span class='st'>"Hypothetical True Effect Size"</span>,</span>
@@ -2285,7 +2289,8 @@ text-align: justify}
 <span>    caption <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Standard error ="</span>, <span class='va'>se</span><span class='op'>)</span></span>
 <span>  <span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="images/retrodesign_graph-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</details>
+<p><img src="images/reporting/retrodesign_graph-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

@@ -2297,11 +2297,22 @@ Show code
 <p>On average, statistically significant estimates overestimate true effect sizes when statistical power is low.</p>
 <!-- The way we calculated the standard error is not perfectly accurate so we use the information available in the [replication report](http://experimentaleconreplications.com/replicationreports.html). -->
 <h2 id="why-does-imprecision-lead-to-exaggeration">Why does imprecision lead to exaggeration?</h2>
-<p>The confounding / exaggeration trade-off described in this paper arises due to differences in precision between estimators. To illustrate this, I generate estimates from two unbiased estimators with identical mean but different variances and plot their distributions, distinguishing between estimates that are and are not significant.</p>
+<p>The confounding / exaggeration trade-off described in this paper arises due to differences in precision between estimators. To illustrate this, I generate estimates from two unbiased estimators with identical mean but different variances.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/intuition/intuition_trade_off-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<p>In the case of the precise estimator, the mean of statistically significant estimates is almost equal to the true effect. The estimator is unbiased and almost all estimates are significant. However, in the case of the imprecise estimator, only a sub-sample of the estimates are significant: those that are far away enough from 0 (at least 1.96 s.d.). As a consequence, the mean of statistically significant estimates is different from the true effect, even if the estimator is unbiased. This hints to the trade-off between biased estimates from naive regressions and less precise causal inference estimates.</p>
+<p>Both estimators, since unbiased, are centered on the true effect, here 1. The distribution of the imprecise estimator is by definition more spread out.</p>
+<p>Let’s then have a look at which estimates are statistical significant and which are not. To be significant, estimates have to be at least 1.96 standard errors away from 0. Thus, for the imprecise estimator, they have to be further away from 0:</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/intuition/intuition_trade_off_signif-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<p>We notice that for the precise estimator, most estimates are statistically significant. The 1.96 standard errors threshold is not very far from 0. This is very different for the imprecise estimator: significant estimates are located in the tails of the distribution.</p>
+<p>If we look at the mean of these significant estimates, it is almost equal to the true effect in the case of the precise estimator but quite different for the imprecise estimator:</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/intuition/intuition_trade_off_signif_mean-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<p>Even though the estimator is unbiased, the set of statistically significant estimates is a biased sample of the distribution.</p>
+<p>Note that this figure also suggests that, the less precise the estimator, the larger the exaggeration.</p>
 <h2 id="do-we-actually-see-exaggeration-in-the-literature">Do we actually see exaggeration in the literature?</h2>
 <p>I then describe evidence of exaggeration found by Camerer et al. Out of the 18 studies, 3 replications have opposite signs as compared to the original study. Out of those that are of the same sign, original studies are on average 1.5845684 larger than replicated ones.</p>
 <p>The number and proportion of original studies that were statistically significant are as follows:</p>

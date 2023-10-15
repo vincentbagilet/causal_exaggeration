@@ -237,6 +237,78 @@ DG_weights |>
 
 
 
+## In Burke and Emery
+
+```{r BE_ex, fig.asp=0.8}
+BE_data <- haven::read_dta(here(
+  "misc", "burke_emerick_2016", "output", "panel_boot1.dta"))
+
+BE_x <- BE_data |>
+  transmute(
+    y = logcornyield,
+    x = higher,
+    lower,
+    prec_lo,
+    prec_hi,
+    fe = fips,
+    year
+  ) |> 
+  remove_missing()
+
+# compare FE and non FE
+reg_no_fe <- feols(BE_x,  y ~ x, cluster = "fe")
+reg_fe <- feols(data = BE_x, y ~ x | fe)
+
+reg_no_fe
+reg_fe
+# with fe, larger standard errors (on each coef)
+
+#why? Check that FE more correlated with x than y
+# => here that FE remove more of the variance in (x, in proportion)
+y_p_xfe <- residuals(reg_fe)
+y_p_x <- residuals(reg_no_fe)
+var(y_p_xfe)/var(y_p_x)
+
+x_p_fe <- feols(BE_x,  x ~ 1 | fe) |> residuals()
+x <- feols(BE_x,  x ~ 1, cluster = "fe") |> residuals()
+var(x_p_fe)/var(x)
+
+#plots
+data_p <- tibble(y_p_xfe, y_p_x, x_p_fe, x, fips = BE_x$fe, year = BE_x$year) 
+
+data_p |> 
+  pivot_longer(cols = everything()) |> 
+  filter(str_starts(name, "x")) |> 
+  mutate(name = ifelse(name == "x", " No Fixed Effects", "Fixed Effects")) |> 
+  ggplot(aes(x = value, fill = name, color = name)) +
+  # geom_density()
+  geom_histogram(position = "identity", alpha = 0.3) +
+  labs(
+    title = "The independant variable side in Burke and Emmerick (2016)",
+    subtitle = "Impact of county fixed effect",
+    fill = NULL, 
+    color = NULL,
+    x = "Number of GGD above threshold",
+    y = "Count"
+  )
+
+data_p |> 
+  pivot_longer(cols = everything()) |> 
+  filter(str_starts(name, "y_")) |> 
+  mutate(name = ifelse(name == "y_p_x", " No Fixed Effects", "Fixed Effects")) |>
+  ggplot(aes(x = value, fill = name, color = name)) +
+  # geom_density()
+  geom_histogram(position = "identity", alpha = 0.3) +
+  labs(
+    title = "The dependant variable side in Burke and Emmerick (2016)",
+    subtitle = "Impact of county fixed effect",
+    fill = NULL, 
+    color = NULL,
+    x = "Log corn yield",
+    y = "Count"
+  )
+
+```
 
 
 

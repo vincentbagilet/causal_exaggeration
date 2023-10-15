@@ -2243,6 +2243,7 @@ Simulations
 <li><a href="#regression" id="toc-regression">Regression</a></li>
 <li><a href="#computing-the-weights" id="toc-computing-the-weights">Computing the weights</a></li>
 <li><a href="#visualizing-the-weights" id="toc-visualizing-the-weights">Visualizing the weights</a></li>
+<li><a href="#in-burke-and-emery" id="toc-in-burke-and-emery">In Burke and Emery</a></li>
 </ul>
 </nav>
 </div>
@@ -2477,7 +2478,109 @@ Show code
 </details>
 <p><img src="images/viz/viz_maps-2.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 id="in-burke-and-emery">In Burke and Emery</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>BE_data</span> <span class='op'>&lt;-</span> <span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/read_dta.html'>read_dta</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span></span>
+<span>  <span class='st'>"misc"</span>, <span class='st'>"burke_emerick_2016"</span>, <span class='st'>"output"</span>, <span class='st'>"panel_boot1.dta"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>BE_x</span> <span class='op'>&lt;-</span> <span class='va'>BE_data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/transmute.html'>transmute</a></span><span class='op'>(</span></span>
+<span>    y <span class='op'>=</span> <span class='va'>logcornyield</span>,</span>
+<span>    x <span class='op'>=</span> <span class='va'>higher</span>,</span>
+<span>    <span class='va'>lower</span>,</span>
+<span>    <span class='va'>prec_lo</span>,</span>
+<span>    <span class='va'>prec_hi</span>,</span>
+<span>    fe <span class='op'>=</span> <span class='va'>fips</span>,</span>
+<span>    <span class='va'>year</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/remove_missing.html'>remove_missing</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># compare FE and non FE</span></span>
+<span><span class='va'>reg_no_fe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://lrberge.github.io/fixest/reference/feols.html'>feols</a></span><span class='op'>(</span><span class='va'>BE_x</span>,  <span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span>, cluster <span class='op'>=</span> <span class='st'>"fe"</span><span class='op'>)</span></span>
+<span><span class='va'>reg_fe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://lrberge.github.io/fixest/reference/feols.html'>feols</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>BE_x</span>, <span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> <span class='op'>|</span> <span class='va'>fe</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>reg_no_fe</span></span></code></pre>
+</div>
+<pre><code>OLS estimation, Dep. Var.: y
+Observations: 70,053 
+Standard-errors: Clustered (fe) 
+             Estimate Std. Error  t value  Pr(&gt;|t|)    
+(Intercept)  4.564119   0.007090 643.7266 &lt; 2.2e-16 ***
+x           -0.003474   0.000109 -31.7792 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+RMSE: 0.390105   Adj. R2: 0.200846</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>reg_fe</span></span></code></pre>
+</div>
+<pre><code>OLS estimation, Dep. Var.: y
+Observations: 70,053 
+Fixed-effects: fe: 2,313
+Standard-errors: Clustered (fe) 
+   Estimate Std. Error  t value  Pr(&gt;|t|)    
+x -0.004539    9.7e-05 -46.8709 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+RMSE: 0.297544     Adj. R2: 0.519222
+                 Within R2: 0.129648</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># with fe, larger standard errors (on each coef)</span></span>
+<span></span>
+<span><span class='co'>#why? Check that FE more correlated with x than y</span></span>
+<span><span class='co'># =&gt; here that FE remove more of the variance in (x, in proportion)</span></span>
+<span><span class='va'>y_p_xfe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>residuals</a></span><span class='op'>(</span><span class='va'>reg_fe</span><span class='op'>)</span></span>
+<span><span class='va'>y_p_x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>residuals</a></span><span class='op'>(</span><span class='va'>reg_no_fe</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='va'>y_p_xfe</span><span class='op'>)</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='va'>y_p_x</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 0.5817537</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x_p_fe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://lrberge.github.io/fixest/reference/feols.html'>feols</a></span><span class='op'>(</span><span class='va'>BE_x</span>,  <span class='va'>x</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>|</span> <span class='va'>fe</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>residuals</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://lrberge.github.io/fixest/reference/feols.html'>feols</a></span><span class='op'>(</span><span class='va'>BE_x</span>,  <span class='va'>x</span> <span class='op'>~</span> <span class='fl'>1</span>, cluster <span class='op'>=</span> <span class='st'>"fe"</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>residuals</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='va'>x_p_fe</span><span class='op'>)</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 0.2019462</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#plots</span></span>
+<span><span class='va'>data_p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span><span class='va'>y_p_xfe</span>, <span class='va'>y_p_x</span>, <span class='va'>x_p_fe</span>, <span class='va'>x</span>, fips <span class='op'>=</span> <span class='va'>BE_x</span><span class='op'>$</span><span class='va'>fe</span>, year <span class='op'>=</span> <span class='va'>BE_x</span><span class='op'>$</span><span class='va'>year</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>data_p</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_starts.html'>str_starts</a></span><span class='op'>(</span><span class='va'>name</span>, <span class='st'>"x"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>name</span> <span class='op'>==</span> <span class='st'>"x"</span>, <span class='st'>" No Fixed Effects"</span>, <span class='st'>"Fixed Effects"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>value</span>, fill <span class='op'>=</span> <span class='va'>name</span>, color <span class='op'>=</span> <span class='va'>name</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='co'># geom_density()</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"identity"</span>, alpha <span class='op'>=</span> <span class='fl'>0.3</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"The independant variable side in Burke and Emmerick (2016)"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"Impact of county fixed effect"</span>,</span>
+<span>    fill <span class='op'>=</span> <span class='cn'>NULL</span>, </span>
+<span>    color <span class='op'>=</span> <span class='cn'>NULL</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Number of GGD above threshold"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Count"</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+<img src="images/viz/BE_ex-1.png" width="85%" style="display: block; margin: auto;" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>data_p</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_starts.html'>str_starts</a></span><span class='op'>(</span><span class='va'>name</span>, <span class='st'>"y_"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>name</span> <span class='op'>==</span> <span class='st'>"y_p_x"</span>, <span class='st'>" No Fixed Effects"</span>, <span class='st'>"Fixed Effects"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>value</span>, fill <span class='op'>=</span> <span class='va'>name</span>, color <span class='op'>=</span> <span class='va'>name</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='co'># geom_density()</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"identity"</span>, alpha <span class='op'>=</span> <span class='fl'>0.3</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"The dependant variable side in Burke and Emmerick (2016)"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"Impact of county fixed effect"</span>,</span>
+<span>    fill <span class='op'>=</span> <span class='cn'>NULL</span>, </span>
+<span>    color <span class='op'>=</span> <span class='cn'>NULL</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Log corn yield"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Count"</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="images/viz/BE_ex-2.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

@@ -524,7 +524,7 @@ summary_sim_DID %>%
 
 ggsave(
   "main_graph_DID_paper.pdf", 
-  path = "paper/submission_version/images", 
+  path = "paper/current_version/images", 
   width = 8, 
   height = 4.5
 )

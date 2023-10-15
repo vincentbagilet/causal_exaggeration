@@ -2270,7 +2270,7 @@ text-align: justify}
 <p>We assume that the final score of student <span class="math inline">\(i\)</span>, <span class="math inline">\(Final_i\)</span>, is correlated with their qualification score <span class="math inline">\(Qual_i\)</span> and their treatment status <span class="math inline">\(T_i\)</span>, <em>ie</em> whether student <span class="math inline">\(i\)</span> received additional lessons or not. We further assume that both qualification and final test scores are affected by students’ unobserved ability <span class="math inline">\(U_i\)</span> in a non linear way.</p>
 <p>The DGP can be represented using the following Directed Acyclic Graph (DAG):</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/DAG_RDD-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="images/RDD/DAG_RDD-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <p>Final test scores are thus defined as follows:</p>
 <p><span class="math display">\[Final_{i} = \alpha^{f} + \beta T_i + \gamma Qual_{i} +  \delta^f f(U_i) + \epsilon_{i}\]</span>
@@ -2625,15 +2625,15 @@ Show the code used to generate the graph
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_fixed.html'>coord_fixed</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<p><img src="images/graph_bandwidth_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/RDD/graph_bandwidth_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <p>Then, we quickly look at the distributions of the different variables to check that they have a shape similar to what we expect.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/explore_distrib_RDD-1.png" width="85%" style="display: block; margin: auto;" /><img src="images/explore_distrib_RDD-2.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/RDD/explore_distrib_RDD-1.png" width="85%" style="display: block; margin: auto;" /><img src="images/RDD/explore_distrib_RDD-2.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <p>We then look at relation between the qualifying score and the unobserved ability. This enables us to understand how where the bias comes form:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/explore_relations_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/RDD/explore_relations_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <h3 id="estimation">Estimation</h3>
 <p>After generating the data, we can run an estimation.</p>
@@ -2751,11 +2751,11 @@ Show the code used to generate the graph
 <h3 id="quick-exploration">Quick exploration</h3>
 <p>First, we quickly explore the results. In the following figure, we can see that for small bandwidth estimates are unbiased but imprecise while for large bandwidths estimates are precise but biased.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/result_density_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/RDD/result_density_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <p>When the bandwidth is relatively small, estimates are spread out and the mean of statistically significant estimates is larger than the true effect. Note that the average of all estimates, significant and non-significant, is close to the true effect. Applying a statistical significance filter leads to overestimate the true effect in this case.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/result_histogram_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/RDD/result_histogram_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <h3 id="computing-the-bias-and-exaggeration-ratio">Computing the bias and exaggeration ratio</h3>
 <p>We want to compare <span class="math inline">\(\mathbb{E}\left[\frac{\widehat{\beta_{RDD}}}{\beta_0}\right]\)</span> and <span class="math inline">\(\mathbb{E}\left[ \frac{\widehat{\beta_{RDD}}}{\beta_0} | \text{signif} \right]\)</span>. The first term represents the bias and the second term represents the exaggeration ratio. This terms depend on the true effect size. To enable comparison across simulations and getting terms independent of effect sizes, we also compute the average of the ratios between the estimate and the true effect, conditional on significance.</p>
@@ -2781,15 +2781,15 @@ Show the code used to generate the graph
 <h3 id="graph">Graph</h3>
 <p>To analyze our results, we build a unique and simple graph:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/main_graph_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/RDD/main_graph_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <p>We notice that, the smaller the bandwidth size, the closer the average of all estimates is to the true effect. Yet, when the bandwidth gets small significant estimates overestimate the true effect. This arises because of a loss of power, as shown in the graph below.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/graph_results_RDD_power-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/RDD/graph_results_RDD_power-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <p>We can then look in more details to the distribution of the estimates for different bandwidths. Statistically significant estimates, when power is low (<em>ie</em> when the bandwidth is small) are located in the tail of the distribution all estimates that is itself centered around the true effect.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/graph_result_distrib_RDD-1.png" width="85%" style="display: block; margin: auto;" /><img src="images/graph_result_distrib_RDD-2.png" width="85%" style="display: block; margin: auto;" /></p>
+<p><img src="images/RDD/graph_distrib_RDD-1.png" width="85%" style="display: block; margin: auto;" /><img src="images/RDD/graph_distrib_RDD-2.png" width="85%" style="display: block; margin: auto;" /><img src="images/RDD/graph_distrib_RDD-3.png" width="85%" style="display: block; margin: auto;" /><img src="images/RDD/graph_distrib_RDD-4.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

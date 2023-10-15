@@ -93,10 +93,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="description" itemprop="description" content="In this document, I run simple simulations to both illustrate and check my closed form solutions."/>
 
 
-  <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-10-05"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-10-05"/>
-  <meta name="article:author" content="Vincent Bagilet"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Causal Exaggeration: Mathematical derivation"/>
@@ -114,7 +110,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Mathematical derivation"]},{"type":"character","attributes":{},"value":["In this document, I run simple simulations to both illustrate and check my closed form solutions."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Vincent Bagilet"]},{"type":"character","attributes":{},"value":["https://vincentbagilet.github.io/"]},{"type":"character","attributes":{},"value":["Columbia University"]},{"type":"character","attributes":{},"value":["https://www.columbia.edu/"]}]}]},{"type":"character","attributes":{},"value":["2023-10-05"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Mathematical derivation"]},{"type":"character","attributes":{},"value":["In this document, I run simple simulations to both illustrate and check my closed form solutions."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2188,7 +2184,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Mathematical derivation","description":"In this document, I run simple simulations to both illustrate and check my closed form solutions.","authors":[{"author":"Vincent Bagilet","authorURL":"https://vincentbagilet.github.io/","affiliation":"Columbia University","affiliationURL":"https://www.columbia.edu/","orcidID":""}],"publishedDate":"2023-10-05T00:00:00.000-04:00","citationText":"Bagilet, 2023"}
+{"title":"Mathematical derivation","description":"In this document, I run simple simulations to both illustrate and check my closed form solutions.","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2236,11 +2232,6 @@ Simulations
 <p>In this document, I run simple simulations to both illustrate and check my closed form solutions.</p>
 </div>
 
-<div class="d-byline">
-  Vincent Bagilet <a href="https://vincentbagilet.github.io/" class="uri">https://vincentbagilet.github.io/</a> (Columbia University)<a href="https://www.columbia.edu/" class="uri">https://www.columbia.edu/</a>
-  
-<br/>2023-10-05
-</div>
 
 <div class="d-article">
 <div class="d-contents d-contents-float">
@@ -2266,7 +2257,7 @@ body {
 text-align: justify}
 </style>
 <!-- The full mathematical derivation is available [here](Maths/math_causal_exaggeration.pdf). -->
-<p>In this document, I check that the results I derived are correct. First, I verify my exaggeration formula and then the asymptotic variance of the various estimators.</p>
+<p>First, I verify my exaggeration formula and then the asymptotic variance of the various estimators.</p>
 <h2 id="exaggeration-formula">Exaggeration formula</h2>
 <p>First I verify that the formula for exaggeration that I have computed is correct. The formula is</p>
 <p><span class="math display">\[E = \]</span></p>
@@ -2340,11 +2331,11 @@ Show code
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">9.202976e-05</td>
-<td style="text-align: right;">0.03203761</td>
-<td style="text-align: right;">0.08357662</td>
-<td style="text-align: right;">5.73715</td>
-<td style="text-align: right;">0.1848704</td>
+<td style="text-align: right;">0.000437641</td>
+<td style="text-align: right;">0.02989922</td>
+<td style="text-align: right;">0.07180708</td>
+<td style="text-align: right;">5.737781</td>
+<td style="text-align: right;">0.1958983</td>
 <td style="text-align: right;">100</td>
 </tr>
 </tbody>
@@ -2552,15 +2543,15 @@ Show code used to generate the table
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<table>
+<table style="width:100%;">
 <colgroup>
 <col style="width: 4%" />
+<col style="width: 15%" />
 <col style="width: 16%" />
 <col style="width: 16%" />
 <col style="width: 16%" />
 <col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 14%" />
+<col style="width: 13%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2576,57 +2567,57 @@ Show code used to generate the table
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.7658417</td>
-<td style="text-align: right;">0.1301886</td>
-<td style="text-align: right;">1.7380496</td>
-<td style="text-align: right;">3.4288361</td>
-<td style="text-align: right;">-0.6958985</td>
-<td style="text-align: right;">4.7980319</td>
+<td style="text-align: right;">0.6061572</td>
+<td style="text-align: right;">-0.8987405</td>
+<td style="text-align: right;">2.7365673</td>
+<td style="text-align: right;">3.6822488</td>
+<td style="text-align: right;">-0.3281195</td>
+<td style="text-align: right;">4.904759</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">0.3888698</td>
-<td style="text-align: right;">0.2509297</td>
-<td style="text-align: right;">2.1490490</td>
-<td style="text-align: right;">3.6107027</td>
-<td style="text-align: right;">-1.1782507</td>
-<td style="text-align: right;">4.5579168</td>
+<td style="text-align: right;">0.0836252</td>
+<td style="text-align: right;">-0.5972013</td>
+<td style="text-align: right;">1.2107302</td>
+<td style="text-align: right;">1.9193096</td>
+<td style="text-align: right;">0.8461529</td>
+<td style="text-align: right;">4.466862</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">-1.2258441</td>
-<td style="text-align: right;">-0.6656518</td>
-<td style="text-align: right;">-0.8691240</td>
-<td style="text-align: right;">-1.2491904</td>
-<td style="text-align: right;">0.2585686</td>
-<td style="text-align: right;">0.6765523</td>
+<td style="text-align: right;">0.3458850</td>
+<td style="text-align: right;">-1.1375385</td>
+<td style="text-align: right;">-0.9120820</td>
+<td style="text-align: right;">-0.3178971</td>
+<td style="text-align: right;">0.3247023</td>
+<td style="text-align: right;">1.438036</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">1.3812342</td>
-<td style="text-align: right;">0.4735821</td>
-<td style="text-align: right;">-0.6201242</td>
-<td style="text-align: right;">1.7690124</td>
-<td style="text-align: right;">0.2369155</td>
-<td style="text-align: right;">4.2427190</td>
+<td style="text-align: right;">0.0525537</td>
+<td style="text-align: right;">-0.2809568</td>
+<td style="text-align: right;">0.2213543</td>
+<td style="text-align: right;">1.0948233</td>
+<td style="text-align: right;">0.2230691</td>
+<td style="text-align: right;">3.177414</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">0.4826925</td>
-<td style="text-align: right;">1.2072511</td>
-<td style="text-align: right;">-1.7227050</td>
-<td style="text-align: right;">0.3877997</td>
-<td style="text-align: right;">-0.1472172</td>
-<td style="text-align: right;">2.8442081</td>
+<td style="text-align: right;">0.1510192</td>
+<td style="text-align: right;">0.6843868</td>
+<td style="text-align: right;">-0.5099637</td>
+<td style="text-align: right;">1.0214837</td>
+<td style="text-align: right;">-0.4908205</td>
+<td style="text-align: right;">2.872857</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">0.9211854</td>
-<td style="text-align: right;">0.4529981</td>
-<td style="text-align: right;">0.1945320</td>
-<td style="text-align: right;">2.2032792</td>
-<td style="text-align: right;">-0.5512207</td>
-<td style="text-align: right;">3.8785576</td>
+<td style="text-align: right;">0.0323391</td>
+<td style="text-align: right;">0.1830085</td>
+<td style="text-align: right;">-0.6359377</td>
+<td style="text-align: right;">0.4997386</td>
+<td style="text-align: right;">0.7774118</td>
+<td style="text-align: right;">3.368655</td>
 </tr>
 </tbody>
 </table>
@@ -2705,36 +2696,36 @@ Show the code of lint_reg_maths
 <tr class="odd">
 <td style="text-align: left;">ctrl</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">0.9994178</td>
-<td style="text-align: right;">0.0033566</td>
-<td style="text-align: right;">297.74311</td>
+<td style="text-align: right;">0.9998309</td>
+<td style="text-align: right;">0.0033631</td>
+<td style="text-align: right;">297.29420</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ovb</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0793135</td>
-<td style="text-align: right;">0.0036362</td>
-<td style="text-align: right;">296.82446</td>
+<td style="text-align: right;">1.0828474</td>
+<td style="text-align: right;">0.0036489</td>
+<td style="text-align: right;">296.76174</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">reduced_form</td>
 <td style="text-align: left;">z</td>
-<td style="text-align: right;">0.7803574</td>
-<td style="text-align: right;">0.0218873</td>
-<td style="text-align: right;">35.65338</td>
+<td style="text-align: right;">0.7903170</td>
+<td style="text-align: right;">0.0218094</td>
+<td style="text-align: right;">36.23739</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">iv</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0006463</td>
-<td style="text-align: right;">0.0125939</td>
-<td style="text-align: right;">79.45481</td>
+<td style="text-align: right;">0.9950855</td>
+<td style="text-align: right;">0.0123696</td>
+<td style="text-align: right;">80.44605</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>

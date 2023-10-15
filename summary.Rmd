@@ -37,7 +37,19 @@ set_mediocre_all(pal = "coty")
 
 ## Abstract
 
-The credibility revolution in economics has made causal inference methods ubiquitous. At the same time, an increasing amount of evidence has highlighted that the literature strongly favors statistically significant results. I show that these two phenomena interact in a way that can significantly worsen the reliability of published estimates: even when causal inference methods successfully reduce bias caused by confounders, they can decrease statistical power and create another type of bias, leading to exaggerated effects sizes. I document this trade-off using realistic Monte Carlo simulations and a formal mathematical derivation. I then discuss potential avenues to address it. 
+```{r echo=FALSE}
+abstract <-
+  read_file(
+    here::here(
+      "paper",
+      "current_version",
+      "abstract",
+      "causal_exaggeration_abstract.tex"
+    )
+  )
+```
+
+`r abstract`
 
 ## Plain language summary
 

@@ -1,12 +1,6 @@
 ---
 title: "Mathematical derivation"
 description: "In this document, I run simple simulations to both illustrate and check my closed form solutions."
-author:
-  - name: Vincent Bagilet 
-    url: https://vincentbagilet.github.io/
-    affiliation: Columbia University
-    affiliation_url: https://www.columbia.edu/
-date: "`r Sys.Date()`"
 output: 
   distill::distill_article:
     toc: true
@@ -48,7 +42,7 @@ set_mediocre_all(pal = "coty")
 
 <!-- The full mathematical derivation is available [here](Maths/math_causal_exaggeration.pdf). -->
 
-In this document, I check that the results I derived are correct. First, I verify my exaggeration formula and then the asymptotic variance of the various estimators. 
+First, I verify my exaggeration formula and then the asymptotic variance of the various estimators. 
 
 ## Exaggeration formula
 

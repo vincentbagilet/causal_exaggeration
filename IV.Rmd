@@ -489,6 +489,19 @@ sim_IV %>%
   theme_mediocre(pal = "coty", background = TRUE)
 ```
 
+<!-- #### Signal-to-Noise Ratio -->
+
+<!-- In order to evaluate whether my simulations are realistic, I compute the average Signal-to-Noise Ratio (SNR) for each IV strength and compare it to SNRs in this literature. To do so, I would need a literature review of this literature.  -->
+
+<!-- ```{r} -->
+<!-- sim_IV |>  -->
+<!--   group_by(model, pi_1) |>  -->
+<!--   summarise( -->
+<!--     snr_estimate = mean(abs(estimate)/se), -->
+<!--     snr_true_effect = mean(abs(true_effect)/se) -->
+<!--   )  -->
+<!-- ``` -->
+
 ### Computing bias and exaggeration ratios
 
 We want to compare $\dfrac{\mathbb{E}[ |\hat{\beta}_{IV}||\text{signif}]}{|\beta_1|}$ and $\dfrac{\mathbb{E}[ |\hat{\beta}_{OLS}||\text{signif}]}{|\beta_1|}$. The first term represents the bias and the second term represents the exaggeration ratio.
@@ -516,7 +529,8 @@ summary_sim_IV %>%
   filter(model %in% c("OLS", "IV")) %>%
   filter(pi_1 > 0.1) %>% 
   ggplot(aes(x = abs(pi_1), y = exag_ratio, color = model)) + 
-  geom_line(size = 1, alpha = 0.75) +
+  geom_line(size = 1.2, alpha = 0.75, aes(linetype = model)) +
+  # geom_point(size = 3) +
   labs(
     x = "|IV strength|", 
     y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
@@ -547,7 +561,7 @@ summary_sim_IV %>%
 
 ggsave(
   "main_graph_IV_paper.pdf", 
-  path = "paper/submission_version/images", 
+  path = "paper/current_version/images", 
   width = 8, 
   height = 4.5
 )
@@ -576,6 +590,54 @@ Of course, if one considers all estimates, as the IV is unbiased, this issue doe
 <!--   ylim(c(0.9, 1.4)) -->
 <!-- ``` -->
 
+#### Distribution estimates
+
+I then graph the distribution of estimates conditional on significativity. It represents the same phenomenon but with additional information.
+
+```{r graph_distrib_IV, code_folding='Show the code used to generate the graph', fig.asp=0.8}
+sim_IV |> 
+  filter(model %in% c("IV", "OLS")) |> 
+  mutate(
+    signif = ifelse(p_value < 0.05, "Significant", "Non-significant"),
+    ratio_exagg = estimate/true_effect
+  ) %>% 
+  group_by(pi_1, model) %>%
+  mutate(
+    mean_signif = mean(ifelse(p_value < 0.05, ratio_exagg, NA), na.rm = TRUE),
+    mean_all = mean(ratio_exagg, na.rm = TRUE)
+  ) %>%
+  ungroup() |> 
+  filter(between(ratio_exagg, -5, 5)) |>
+  filter((pi_1*10)%%2 == 0) |> 
+  ggplot(aes(x = ratio_exagg, fill = "All Estimates")) + 
+  # geom_area(stat ="bin", bins = 50, alpha = 0.85) +
+  facet_grid(model ~ pi_1, switch = "x") +
+  # geom_vline(xintercept = unique(sim_controls$beta_1)) +
+  geom_vline(xintercept = 1) +
+  geom_vline(xintercept = 0, linetype = "solid", linewidth = 0.12) +  
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 6)) +
+  coord_flip() +
+  scale_y_continuous(breaks = NULL) +
+  labs(
+    y = expression(frac("corr(w, x)", "corr(w, y)")),
+    x = expression(paste(frac("Estimate", "True Effect"))),
+    fill = "",
+    title = "Distribution of estimates from 1000 simulated datasets",
+    subtitle = "Comparison with or without controls"
+    # subtitle = "Conditional on significativity", 
+    # caption = 
+      # "The green dashed line represents the result aimed for
+      # "The brown solid line represents the average of significant estimates"
+  ) +
+  geom_histogram(bins = 100, alpha = 0.85, aes(fill = signif)) +
+  geom_vline(xintercept = 1)  +
+  geom_vline(
+    aes(xintercept = mean_signif),
+    color = "#976B21",
+    linetype = "solid",
+    size = 0.5
+  ) 
+```
 
 ### F-statistic analysis
 
@@ -706,7 +768,7 @@ sim_IV %>%
 
 ggsave(
   "fstat_bias_graph_paper.pdf", 
-  path = "paper/submission_version/images", 
+  path = "paper/current_version/images", 
   width = 8, 
   height = 4.5
 )

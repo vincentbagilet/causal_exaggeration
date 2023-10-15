@@ -15,7 +15,7 @@ text-align: justify}
 
 ```{r setup_RDD, include=FALSE, results='hide', warning=FALSE}
 library(knitr)
-opts_chunk$set(fig.path = "images/",
+opts_chunk$set(fig.path = "images/RDD/",
                cache.path = "cache/",
                cache = FALSE,
                echo = TRUE, #set to false to hide code
@@ -424,7 +424,7 @@ When the bandwidth is relatively small, estimates are spread out and the mean of
 ```{r result_histogram_RDD, echo=FALSE}
 sim_rdd %>% 
   filter(bw == vect_bw[2]) %>%
-  mutate(significant = ifelse(p_value < 0.05, "Significant", "Non significant")) %>% 
+  mutate(significant = ifelse(p_value < 0.05, "Significant", "Non-significant")) %>% 
   ggplot(aes(x = estimate, fill = significant)) + 
   geom_histogram(bins = 25) +
   geom_vline(
@@ -528,7 +528,7 @@ summary_sim_rdd %>%
 
 ggsave(
   "main_graph_RDD_paper.pdf", 
-  path = "paper/submission_version/images", 
+  path = "paper/current_version/images", 
   width = 8, 
   height = 4.5
 )
@@ -551,11 +551,11 @@ summary_sim_rdd %>%
 
 We can then look in more details to the distribution of the estimates for different bandwidths. Statistically significant estimates, when power is low (*ie* when the bandwidth is small) are located in the tail of the distribution all estimates that is itself centered around the true effect.
 
-```{r graph_result_distrib_RDD, fig.asp=0.8, echo=FALSE}
-sim_rdd %>% 
+```{r graph_distrib_RDD, fig.asp=0.8, echo=FALSE}
+graph_distrib_RDD <- sim_rdd %>% 
   filter(factor(bw) %in% seq(0.1, 0.9, 0.1)) %>%
   mutate(
-    significant = ifelse(p_value < 0.05, "Significant", "Non significant"),
+    significant = ifelse(p_value < 0.05, "Significant", "Non-significant"),
     ratio = estimate/true_effect
   ) %>% 
   group_by(bw) %>% 
@@ -564,16 +564,9 @@ sim_rdd %>%
     mean_all_bw = mean(ratio, na.rm = TRUE)
   ) %>% 
   ungroup() %>% 
-  ggplot(aes(x = ratio, fill = significant)) + 
-  geom_histogram(bins = 45, alpha = 0.75) +
+  ggplot(aes(x = ratio, fill = "All estimates")) + 
   facet_grid(~ bw, switch = "x") +
-  geom_vline(aes(xintercept = 1)) +
-  geom_vline(
-    aes(xintercept = mean_signif_bw),
-    color = "#976B21", 
-    linetype = "solid", 
-    size = 0.5
-  ) +
+  geom_vline(aes(xintercept = 1))+
   # geom_vline(
   #   aes(xintercept = mean_all_bw),
   #   linetype = "solid", 
@@ -586,18 +579,34 @@ sim_rdd %>%
     y = "Bandwidth size", 
     x = expression(paste(frac("Estimate", "True Effect" ))),
     fill = "",
-    title = "Distribution of RDD estimates for different bandwidths",
-    subtitle = "Conditional on significativity", 
-    caption = "Bandwidth size as a proportion of the total number of observations
-      The green dashed line represents the true effect size
-      The brown solid line represents the average of significant estimates"
+    title = "Distribution of RDD estimates for 1000 simulated datasets",
+    subtitle = "Comparison across bandwidth sizes", 
+    caption = "Bandwidth size as a proportion of the total number of observations"
   )
+
+
+graph_distrib_RDD +
+  geom_histogram(bins = 45, alpha = 0.85) 
+
+graph_distrib_RDD_signif <- graph_distrib_RDD +
+  geom_histogram(bins = 45, alpha = 0.85, aes(fill = significant)) +
+  geom_vline(xintercept = 1) 
+
+graph_distrib_RDD_signif
+
+graph_distrib_RDD_signif +
+  geom_vline(
+    aes(xintercept = mean_signif_bw),
+    color = "#976B21",
+    linetype = "solid",
+    linewidth = 0.5
+  ) 
 
 
 sim_rdd %>% 
   filter(factor(bw) %in% seq(0.1, 0.9, 0.1)) %>%
   mutate(
-    significant = ifelse(p_value < 0.05, "Significant", "Non significant"),
+    significant = ifelse(p_value < 0.05, "Significant", "Non-significant"),
     ratio = estimate/true_effect
   ) %>% 
   group_by(bw) %>% 
@@ -637,7 +646,7 @@ sim_rdd %>%
 sim_rdd %>% 
   filter(factor(bw) %in% seq(0.1, 0.9, 0.1)) %>%
   mutate(
-    significant = ifelse(p_value < 0.05, "Significant", "Non significant"),
+    significant = ifelse(p_value < 0.05, "Significant", "Non-significant"),
     all = "All estimates",
     ratio = estimate/true_effect
   ) %>% 

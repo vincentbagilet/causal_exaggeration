@@ -134,7 +134,7 @@ baseline_param_controls <- tibble(
   beta_0 = 0.5,
   beta_1 = 0.2,
   gamma = 1,
-  kappa = 0.3
+  kappa = 0.22
 )
 
 baseline_param_controls |> kable()
@@ -214,11 +214,11 @@ baseline_param_controls |>
 I will run the simulations for different sets of parameters by looping the `compute_sim_controls` function over the set of parameters. I thus create a table with all the values of the parameters to test, `param_controls`. Note that in this table each set of parameters appears `N_iter` times as we want to run the analysis $n_{iter}$ times for each set of parameters.
 
 ```{r set_param_controls}
-N_iter <- 1000
-vect_gamma <- seq(1, 1.7, 0.1)
+N_iter <- 2000
+vect_gamma <- seq(1, 1.6, 0.2)
 
 param_controls <- baseline_param_controls |> 
-  crossing(rep_id = 1:N_iter) |> 
+  crossing(rep_id = 1:N_iter) |>
   select(-gamma) |> 
   crossing(gamma = vect_gamma) |>  
   select(-rep_id) 
@@ -232,7 +232,9 @@ sim_controls <- pmap(param_controls, compute_sim_controls) |>
   as_tibble() 
 
 sim_controls <- sim_controls |> 
-  mutate(ratio_gamma_delta = round(gamma^2/kappa, 1))
+  mutate(ratio_gamma_delta = round(1/((1/(gamma^2/kappa) + beta_1)*sigma_x/sigma_y), 1))
+
+# beepr::beep()
 
 # saveRDS(sim_controls, here("Outputs/sim_controls.RDS"))
 ```
@@ -243,7 +245,7 @@ sim_controls <- sim_controls |>
 
 First, I quickly explore the results. I plot the distribution of the estimated effect sizes, along with the true effect. The control estimator is unbiased and recover, on average, the true effect while the OVB one is of course biased and does not recover the true effect:
 
-```{r exploration_results_controls, fig.asp=2, code_folding="Show code used to generate the graph"}
+```{r exploration_results_controls, fig.asp=1.5, code_folding="Show code used to generate the graph"}
 sim_controls <- readRDS(here("Outputs/sim_controls.RDS"))
 
 sim_controls |> 
@@ -291,10 +293,10 @@ summary_sim_controls |>
   geom_line() +
   ylim(c(1, NA)) +
   labs(
-    x = expression(frac("Gamma", "Delta")),
+    x = expression(frac("cor(w, x)", "cor(w, y)")),
     y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
-    title = "Evolution of bias with gamma",
-    subtitle = "For statistically significant estimates",
+    title = "Evolution of bias with the correlations of the omitted variable",
+    subtitle = "For statistically significant estimates, 2000 simulations",
     color = "Model"
   ) +
   scale_mediocre_d()
@@ -307,7 +309,7 @@ summary_sim_controls |>
   geom_line() +
   ylim(c(1, NA)) +
   labs(
-    x = expression(frac("Gamma", "Delta")),
+    x = expression(frac("corr(omitted, x)", "corr(omitted, y)")),
     y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
     # title = "Evolution of bias with gamma",
     # subtitle = "For statistically significant estimates",
@@ -317,7 +319,7 @@ summary_sim_controls |>
 
 ggsave(
   "main_graph_controls_paper.pdf", 
-  path = "paper/submission_version/images", 
+  path = "paper/current_version/images", 
   width = 8, 
   height = 4.5
 )
@@ -326,44 +328,141 @@ ggsave(
 
 I then graph the distribution of estimates conditional on significativity. It represents the same phenomenon but with additional information.
 
-```{r graph_distrib_cntrols, code_folding='Show the code used to generate the graph', fig.asp=1}
-sim_controls %>% 
+```{r graph_distrib_ctrl, code_folding='Show the code used to generate the graph', fig.asp=0.8}
+graph_distrib_ctrl <- sim_controls %>% 
   # filter(model == "ctrl") |> 
   mutate(
-    signif = ifelse(p_value < 0.05, "Significant", "Non significant"),
-    ratio_exagg = estimate/beta_1
+    signif = ifelse(p_value < 0.05, "Significant", "Non-significant"),
+    ratio_exagg = estimate/beta_1,
+    model = ifelse(model == "ctrl", "Control", "No ctrl")
   ) %>% 
   group_by(ratio_gamma_delta, model) %>%
   mutate(
     mean_signif = mean(ifelse(p_value < 0.05, ratio_exagg, NA), na.rm = TRUE),
     mean_all = mean(ratio_exagg, na.rm = TRUE)
   ) %>%
-  ungroup() %>%
-  ggplot(aes(x = ratio_exagg, fill = signif)) + 
-  geom_area(stat ="bin", bins = 50, alpha = 0.85) +
-  # geom_histogram(bins = 45, alpha = 0.85) +
-  facet_grid(model~ratio_gamma_delta, switch = "x") +
+  ungroup() |> 
+  # filter(between(ratio_exagg, -1, 3)) |> 
+  ggplot(aes(x = ratio_exagg, fill = "All Estimates")) + 
+  # geom_area(stat ="bin", bins = 50, alpha = 0.85) +
+  facet_grid(model ~ ratio_gamma_delta, switch = "x") +
   # geom_vline(xintercept = unique(sim_controls$beta_1)) +
   geom_vline(xintercept = 1) +
+  geom_vline(xintercept = 0, linetype = "solid", linewidth = 0.12) +  
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 6)) +
+  coord_flip() +
+  scale_y_continuous(breaks = NULL) +
+  labs(
+    y = expression(frac("corr(w, x)", "corr(w, y)")),
+    x = expression(paste(frac("Estimate", "True Effect"))),
+    fill = "",
+    title = "Distribution of estimates from 1000 simulated datasets",
+    subtitle = "Comparison with or without controls"
+    # subtitle = "Conditional on significativity", 
+    # caption = 
+      # "The green dashed line represents the result aimed for
+      # "The brown solid line represents the average of significant estimates"
+  ) 
+
+graph_distrib_ctrl +
+  geom_histogram(bins = 45, alpha = 0.85) 
+
+graph_distrib_ctrl_signif <- graph_distrib_ctrl +
+  geom_histogram(bins = 45, alpha = 0.85, aes(fill = signif)) +
+  geom_vline(xintercept = 1) 
+
+graph_distrib_ctrl_signif
+
+graph_distrib_ctrl_signif +
   geom_vline(
     aes(xintercept = mean_signif),
     color = "#976B21",
     linetype = "solid",
-    size = 0.5
+    linewidth = 0.5
+  ) 
+```
+
+```{r test_distrib, eval=FALSE, include=FALSE}
+#test for diffferent distribution 
+library(ggdist)
+library(ggridges)
+
+data_graph_controls <- sim_controls %>% 
+  # filter(model == "ctrl") |> 
+  mutate(
+    signif = ifelse(p_value < 0.05, "Significant", "Non-significant"),
+    ratio_exagg = estimate/beta_1,
+    model = ifelse(model == "ctrl", "Control", "No ctrl")
+  ) %>% 
+  group_by(ratio_gamma_delta, model) %>%
+  mutate(
+    mean_signif = mean(ifelse(p_value < 0.05, ratio_exagg, NA), na.rm = TRUE),
+    mean_all = mean(ratio_exagg, na.rm = TRUE)
+  ) %>%
+  ungroup() 
+
+g <- data_graph_controls |> 
+  group_by(model, ratio_gamma_delta) |> 
+  mutate(mean_r_e = mean(ratio_exagg)) |> 
+  group_by(model, ratio_gamma_delta, signif) |> 
+  mutate(mean_r_e_signif = mean(ifelse(p_value < 0.05, ratio_exagg, NA), na.rm = TRUE)) |> 
+  ungroup() |> 
+  ggplot() +
+  ggdist::stat_slab(
+    aes(
+      x = ratio_gamma_delta,
+      y = ratio_exagg,
+      fill = model,
+      alpha = signif
+    ),
+    density = "histogram",
+    breaks = 10
   ) +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
-  coord_flip() +
-  scale_y_continuous(breaks = NULL) +
-  labs(
-    y = expression(frac("Gamma", "Delta")),
-    x = expression(paste(frac("Estimate", "True Effect"))),
-    fill = "",
-    title = "Distribution of estimates for different gamma/delta",
-    subtitle = "Conditional on significativity", 
-    caption = 
-      "The green dashed line represents the result aimed for
-      The brown solid line represents the average of significant estimates"
-  )
+  geom_hline(yintercept = 1) +
+  scale_alpha_discrete(range = c(0.2, 0.5))
+
+g
+
+g +
+  geom_line(aes(x = ratio_gamma_delta, y = mean_r_e, color = model)) + 
+  geom_line(
+    data = g$data |> filter(model == "Control"),
+    aes(x = ratio_gamma_delta, y = mean_r_e_signif, color = signif)) + 
+  # scale_fill_ramp_discrete(range = c(1, 0.4)) +
+  # scale_fill_ramp_discrete(from = "darkred") +
+  # mediocrethemes::scale_mediocre_d(pal = "autumn")
+  # geom_hline(yintercept = 0, linetype = "solid")
+  geom_hline(yintercept = 1) +
+  scale_alpha_discrete(range = c(0.2, 0.5))
+
+
+
+data_graph_controls |> 
+  ggplot(
+    aes(
+      x = ratio_exagg,
+      y = factor(ratio_gamma_delta),
+      fill = model,
+      color = model,
+      fill = after_stat(quantile)
+    )
+  ) +
+  geom_density_ridges(alpha = 0.3) +
+  coord_flip()
+
++
+  stat_density_ridges(quantile_lines = FALSE,
+                      calc_ecdf = TRUE,
+                      geom = "density_ridges_gradient")
+
+
+data_graph_controls |> 
+  ggplot(aes(x = ratio_exagg, fill = model, alpha = signif)) + 
+  geom_histogram(bins = 50, position = "identity") +
+  facet_wrap(~ ratio_gamma_delta, nrow = 1) +
+  scale_alpha_discrete(range = c(0.3, 0.7)) + 
+  coord_flip()
+
 ```
 
 

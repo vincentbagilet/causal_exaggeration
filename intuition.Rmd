@@ -207,12 +207,12 @@ On average, statistically significant estimates overestimate true effect sizes w
 
 ## Why does imprecision lead to exaggeration?
 
-The confounding / exaggeration trade-off described in this paper arises due to differences in precision between estimators. To illustrate this, I generate estimates from two unbiased estimators with identical mean but different variances and plot their distributions, distinguishing between estimates that are and are not significant.
+The confounding / exaggeration trade-off described in this paper arises due to differences in precision between estimators. To illustrate this, I generate estimates from two unbiased estimators with identical mean but different variances.
 
 ```{r intuition_trade_off, echo=FALSE, fig.asp=0.8}
-N <- 50000
-sd_precise <- 0.23
-sd_imprecise <- 0.7
+N <- 100000
+sd_precise <- sqrt(0.05)
+sd_imprecise <- sqrt(0.5)
 true_effect <- 1
 
 data_intuition <- 
@@ -241,33 +241,69 @@ data_intuition <-
   ) %>% 
   ungroup()
 
-data_intuition %>% 
-  ggplot(aes(x = estimate, fill = signif_name)) +
-  geom_histogram(bins = 150) +
-  # geom_area(stat = "bin", bins = 150) +
+graph_precision <- data_intuition |> 
+  filter(estimate < 3.5 & estimate > -1.5) |> 
+  ggplot(aes(x = estimate)) +
+  # geom_area(stat = "bin", bins = 100, outline.type = "full") +
   facet_wrap(~ fct_rev(precise), nrow = 2) +
   geom_vline(xintercept = 0, linetype = "solid", linewidth = 0.1) +
   geom_vline(xintercept = true_effect) +
+  # geom_segment(
+  #   aes(x = true_effect - sd/2, xend = true_effect + sd/2, y = -200, yend = -200),
+  #   linewidth = 0.1
+  # ) +
+  # geom_segment(
+  #   aes(x = 0, xend = 1.96*sd, y = 2500, yend = 2500),
+  #   linewidth = 0.1
+  # ) + 
+  labs(
+    x = "Estimate",
+    y = "Count",
+    title = "Imprecise estimators can cause exaggeration",
+    subtitle = "100,000 draws from two normally distributed unbiased estimators",
+    # subtitle = "Distribution of two estimators with same mean and different variance",
+    fill = NULL
+    # caption = "The green dashed line represents the true effect size
+    #    The brown solid line represents the average of significant estimates"
+  ) 
+
+graph_precision +
+  geom_histogram(aes(fill = "All estimates"), bins = 150) +
+  geom_vline(xintercept = true_effect) 
+```
+
+Both estimators, since unbiased, are centered on the true effect, here 1. The distribution of the imprecise estimator is by definition more spread out.
+
+Let's then have a look at which estimates are statistical significant and which are not. To be significant, estimates have to be at least 1.96 standard errors away from 0. Thus, for the imprecise estimator, they have to be further away from 0:
+
+```{r intuition_trade_off_signif, echo=FALSE, fig.asp=0.8}
+graph_precision_signif <- graph_precision +
+  geom_histogram(aes(x = estimate, fill = signif_name), bins = 150) + 
+  geom_vline(xintercept = 0, linetype = "solid", linewidth = 0.1) +
+  geom_vline(xintercept = true_effect) 
+
+graph_precision_signif
+```
+
+We notice that for the precise estimator, most estimates are statistically significant. The 1.96 standard errors threshold is not very far from 0. This is very different for the imprecise estimator: significant estimates are located in the tails of the distribution.
+
+If we look at the mean of these significant estimates, it is almost equal to the true effect in the case of the precise estimator but quite different for the imprecise estimator:
+ 
+```{r intuition_trade_off_signif_mean, echo=FALSE, fig.asp=0.8}
+graph_precision_signif +
   geom_vline(
     aes(xintercept = mean_signif), 
     color = "#976B21", 
     linetype = "solid", 
     linewidth = 0.3
-  ) + 
-  labs(
-    x = "Estimate",
-    y = "Count",
-    title = "Imprecise estimators can cause exaggeration",
-    # subtitle = "Distribution of two estimators with same mean and different variance",
-    fill = NULL,
-    caption = "The green dashed line represents the true effect size
-       The brown solid line represents the average of significant estimates"
-  )
+  ) 
 
-ggsave(here("images", "intuition", "graph_intuition_precision.png"), width = 6, height = 4.8)
+# ggsave(here("images", "intuition", "intuition_precision.pdf"), width = 6, height = 4.8)
 ```
 
-In the case of the precise estimator, the mean of statistically significant estimates is almost equal to the true effect. The estimator is unbiased and almost all estimates are significant. However, in the case of the imprecise estimator, only a sub-sample of the estimates are significant: those that are far away enough from 0 (at least 1.96 s.d.). As a consequence, the mean of  statistically significant estimates is different from the true effect, even if the estimator is unbiased. This hints to the trade-off between biased estimates from naive regressions and less precise causal inference estimates.
+Even though the estimator is unbiased, the set of statistically significant estimates is a biased sample of the distribution.
+
+Note that this figure also suggests that, the less precise the estimator, the larger the exaggeration.
 
 ## Do we actually see exaggeration in the literature?
 

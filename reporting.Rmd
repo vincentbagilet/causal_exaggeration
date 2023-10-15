@@ -1,6 +1,6 @@
 ---
 title: "Computing and reporting power calculations"
-description: "Under construction. In this document, we will discuss and illustrate how to run power calculations."
+description: "Under construction. In this document, I will discuss and illustrate how to run power calculations."
 output: 
   distill::distill_article:
     toc: true
@@ -13,9 +13,9 @@ body {
 text-align: justify}
 </style>
 
-```{r setup_IV, include=FALSE, results='hide', warning=FALSE}
+```{r setup_reporting, include=FALSE, results='hide', warning=FALSE}
 library(knitr)
-opts_chunk$set(fig.path = "images/",
+opts_chunk$set(fig.path = "images/reporting/",
                cache.path = "cache/",
                cache = FALSE,
                echo = TRUE, #set to false to hide code
@@ -27,7 +27,7 @@ opts_chunk$set(fig.path = "images/",
                dev.args = list(bg="transparent"))  
 ```  
 
-```{r packages_IV, message=FALSE, warning=FALSE, include=FALSE}
+```{r packages_reporting, message=FALSE, warning=FALSE, include=FALSE}
 library(tidyverse) 
 library(knitr) 
 library(mediocrethemes)
@@ -48,13 +48,13 @@ Replicating the analysis with the same design would yield an estimate with a sim
 ```{r retrodesign_generate}
 se <- 0.2
 
-retro <- retrodesign::retro_design(as.list(seq(0.05, 0.4, by = 0.01)), se) %>%
+retro <- retrodesign::retro_design(as.list(seq(0.1, 0.7, by = 0.01)), se) %>%
   unnest(cols = c(effect_size, power, type_s, type_m)) %>%
   select(-type_s) %>% 
   mutate(power = power * 100) %>%
   rename(
     "Statistical Power (%)" = power,
-    "Type-M Error (Exaggeration Ratio)" = type_m
+    "Exaggeration Ratio" = type_m
   ) %>%
   pivot_longer(
     cols = -c(effect_size),
@@ -65,14 +65,14 @@ retro <- retrodesign::retro_design(as.list(seq(0.05, 0.4, by = 0.01)), se) %>%
 
 We can then build simple graphs representing what would be the power and exaggeration ratio for a range of hypothetical true effect sizes:
 
-```{r retrodesign_graph}
+```{r retrodesign_graph, code_folding='Show code used to generate the graph'}
 retro %>% 
   ggplot(aes(x = effect_size, y  = value)) +
   geom_line(size = 1.1) +
   facet_wrap( ~ statistic, scales = "free") +
   # geom_vline(aes(xintercept = 0.4)) +
-  geom_vline(aes(xintercept = 0.22)) +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 7)) +
+  geom_vline(aes(xintercept = 0.3)) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
   labs(
     title = "Evolution of power and exaggeration with true effect size",
     x ="Hypothetical True Effect Size",

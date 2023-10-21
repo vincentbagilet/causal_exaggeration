@@ -42,15 +42,14 @@ set_mediocre_all(pal = "coty")
 
 <!-- The full mathematical derivation is available [here](Maths/math_causal_exaggeration.pdf). -->
 
-First, I verify my exaggeration formula and then the asymptotic variance of the various estimators. 
+First, I verify that the exaggeration formula based on a one sided test and then the asymptotic variance of the various estimators are correct.
 
 ## Exaggeration formula
 
-First I verify that the formula for exaggeration that I have computed is correct. The formula is
+First I verify that the formula for exaggeration that I have computed is correct. For an estimator $\hat{\beta} \sim \mathcal{N}(\beta, \sigma^{2})$ of a true effect of magnitude $\beta_1$ > 0 and such that $\beta = \beta_{1} + b$, the formula is:
 
-$$E = $$
-
-To check, I write two functions, `E_empirical` and `E_theoretical` that, for a given set of parameters values compute the empirical and theoretical exaggeration respectively. The former draw $N$ estimates from the distribution corresponding to the parameters values and compute the average of statistically significant estimates. 
+$$E_1(\beta, \sigma, \beta_{1}, z_{\alpha}) =  1 + \dfrac{b}{\beta_{1}}+ \dfrac{\sigma}{\beta_1} \lambda\left( \dfrac{\beta_{1} + b}{\sigma} - z_{\alpha} \right) $$
+where $\lambda$ is the inverse Mills ratio. To check, I write two functions, `E_empirical` and `E_theoretical` that, for a given set of parameters values compute the empirical and theoretical exaggeration respectively. The former draw $N$ estimates from the distribution corresponding to the parameters values and compute the average of statistically significant estimates. 
 
 ```{r E_empirical_theoretical}
 E_empirical <- function(beta_1, b, sigma, N) {

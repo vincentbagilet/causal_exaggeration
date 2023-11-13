@@ -549,7 +549,7 @@ summary_sim_IV %>%
   ggplot(aes(x = pi_1, y = exag_ratio, color = model)) + 
   geom_line() +
   labs(
-    x = "IV strength", 
+    x = "|IV strength|", 
     y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
     color = "Model"
     # caption = "Only for statistically significant estimates"

@@ -7,7 +7,7 @@ output:
 editor_options: 
   chunk_output_type: console
 ---
-
+ı
 <style>
 body {
 text-align: justify}
@@ -129,9 +129,12 @@ DG_weights <- DG_clean |>
     weight_fe = residuals(reg_weights_fe)^2,
     weight_no = residuals(reg_weights_no)^2,
     #normalize the weights
+  ) |> 
+  group_by(year) |>
+  mutate(
     weight_fe = weight_fe/sum(weight_fe),
     weight_no = weight_no/sum(weight_no)
-  ) 
+  )
 ```
 
 ## Visualizing the weights
@@ -171,8 +174,7 @@ DG_weights_tidy |>
 
 Maps
 
-
-```{r viz_maps, code_folding=TRUE, fig.asp=1}
+```{r shape_files}
 library(maps)
 
 
@@ -191,6 +193,11 @@ county_fips_tidy <- county.fips |>
 shape_fips <- shape_counties |> 
   full_join(county_fips_tidy, by = c("region", "subregion")) 
 
+```
+
+
+
+```{r viz_maps, code_folding=TRUE, fig.asp=1}
 DG_weights |> 
   group_by(year) |> 
   left_join(shape_fips, by = c("fips")) |> 
@@ -235,9 +242,55 @@ DG_weights |>
   )
 ```
 
+## New tests for maps (2023-10-24)
+
+As a reminder, the outcome variable is y and I use `irr_prcp` as the main explanatory var of interest
+
+```{r}
+DG_clean |> 
+  group_by(year) |>
+  left_join(shape_fips, by = c("fips")) |> 
+  ungroup() |>
+  ggplot() +
+  geom_polygon(
+    aes(x = long, y = lat, group = group, fill = y), 
+    colour = "lightgray",
+    size = 0.1
+  ) + 
+  scale_mediocre_c(pal = "coty", gradient = "left") +
+  facet_wrap(~ year) +
+  coord_fixed(1.3) +
+  theme_mediocre_map() +
+  labs(
+    title = "Raw y",
+    x = NULL, 
+    y = NULL
+  ) 
+
+DG_clean |> 
+  group_by(year) |>
+  left_join(shape_fips, by = c("fips")) |> 
+  ungroup() |>
+  ggplot() +
+  geom_polygon(
+    aes(x = long, y = lat, group = group, fill = irr_prcp), 
+    colour = "lightgray",
+    size = 0.1
+  ) + 
+  scale_mediocre_c(pal = "coty", gradient = "left") +
+  facet_wrap(~ year) +
+  coord_fixed(1.3) +
+  theme_mediocre_map() +
+  labs(
+    title = "Raw x",
+    x = NULL, 
+    y = NULL
+  ) 
+
+```
 
 
-## In Burke and Emery
+## In Burke and Emerick
 
 ```{r BE_ex, fig.asp=0.8}
 BE_data <- haven::read_dta(here(
@@ -279,18 +332,39 @@ data_p <- tibble(y_p_xfe, y_p_x, x_p_fe, x, fips = BE_x$fe, year = BE_x$year)
 data_p |> 
   pivot_longer(cols = everything()) |> 
   filter(str_starts(name, "x")) |> 
+  filter(name == "x") |> 
+  mutate(name = ifelse(name == "x", " No Fixed Effects", "Fixed Effects")) |> 
+  ggplot(aes(x = value, fill = name, color = name)) +
+  # geom_density()
+  geom_histogram(position = "identity", alpha = 0.3, fill = "#1C6C6F", color = "#1C6C6F") +
+  labs(
+    title = "The independent variable side in Burke and Emerick (2016)",
+    subtitle = "",
+    fill = NULL, 
+    color = NULL,
+    x = "Number of GDD above threshold",
+    y = "Count"
+  ) +
+  xlim(c(-150, 500)) +
+  ylim(c(0, 34000))
+
+data_p |> 
+  pivot_longer(cols = everything()) |> 
+  filter(str_starts(name, "x")) |> 
   mutate(name = ifelse(name == "x", " No Fixed Effects", "Fixed Effects")) |> 
   ggplot(aes(x = value, fill = name, color = name)) +
   # geom_density()
   geom_histogram(position = "identity", alpha = 0.3) +
   labs(
-    title = "The independant variable side in Burke and Emerick (2016)",
+    title = "The independent variable side in Burke and Emerick (2016)",
     subtitle = "Impact of county fixed effect",
     fill = NULL, 
     color = NULL,
     x = "Number of GDD above threshold",
     y = "Count"
-  )
+  ) +
+  xlim(c(-150, 500)) +
+  ylim(c(0, 34000))
 
 data_p |> 
   pivot_longer(cols = everything()) |> 
@@ -300,7 +374,7 @@ data_p |>
   # geom_density()
   geom_histogram(position = "identity", alpha = 0.3) +
   labs(
-    title = "The dependant variable side in Burke and Emerick (2016)",
+    title = "The dependent variable side in Burke and Emerick (2016)",
     subtitle = "Impact of county fixed effect",
     fill = NULL, 
     color = NULL,
@@ -311,13 +385,78 @@ data_p |>
 ```
 
 
+Maps
+
+Shape files
+
+```{r}
+library(maps)
 
 
+#shape file
+shape_counties <- map_data("county") |> 
+  as_tibble() 
+
+#need to map to county
+data(county.fips)
+
+county_fips_tidy <- county.fips |> 
+  as_tibble() |> 
+  separate(polyname, into = c("region", "subregion"), sep = ",") |> 
+  mutate(fips = as.numeric(fips))
+
+shape_fips <- shape_counties |> 
+  full_join(county_fips_tidy, by = c("region", "subregion")) 
+```
 
 
+```{r}
+normalize <- function(x) {
+  (x - min(x, na.rm = TRUE))/(max(x, na.rm = TRUE) - min(x, na.rm = TRUE))
+} 
 
+data_weights_BE <- data_p |> 
+  filter(year == 1990) |> 
+  # ungroup() |> 
+  mutate(
+    prop_x = abs((x_p_fe)/x),
+    prop_y = abs((y_p_xfe)/y_p_x),
+    x_norm = normalize(x),
+    x_p_fe_norm = normalize(x_p_fe),
+    weight_x = x_p_fe^2,
+    weight_x_norm = weight_x/sum(weight_x, na.rm = TRUE),
+    # weight_x_norm = normalize(weight_x_norm),
+    weight_y = y_p_xfe^2,
+    weight_y_norm = weight_y/sum(weight_y, na.rm = TRUE),
+    prop_x_norm = x_norm/x_p_fe_norm,
+    prop_y_p_x_norm = y_p_x_norm/y_p_xfe_norm
+  ) |> 
+  # group_by(year) |> 
+  full_join(shape_fips, by = c("fips")) |> 
+  filter(fips %in% unique(BE_data$fips))
 
+data_weights_BE |> 
+  ggplot() +
+  geom_polygon(
+    aes(x = long, y = lat, group = group, fill = weight_x_norm),
+    colour = "white",
+    size = 0.005
+  ) + 
+  coord_fixed(1.3) +
+  labs(
+    x = NULL, y = NULL
+  ) +  
+  theme_mediocre_map(pal = "coty") +
+  theme(legend.position = "right") +
+  scale_fill_continuous(guide = guide_colourbar(direction = "vertical")) +
+  scale_mediocre_c(pal = "coty", gradient = "left") +
+  labs(title = paste(unique(data_weights_BE$year)), sep = ", ")
 
+data_weights_BE |> 
+  pivot_longer(cols = c(x, x_p_fe)) |> 
+  ggplot() +
+  geom_histogram(aes(x = value, fill = name), position = "identity", alpha = 0.5)
+```
 
 
 

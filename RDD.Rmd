@@ -589,6 +589,7 @@ graph_distrib_RDD +
   geom_histogram(bins = 45, alpha = 0.85) 
 
 graph_distrib_RDD_signif <- graph_distrib_RDD +
+  # geom_area(stat ="bin", bins = 50, alpha = 0.85) +
   geom_histogram(bins = 45, alpha = 0.85, aes(fill = significant)) +
   geom_vline(xintercept = 1) 
 
@@ -599,46 +600,8 @@ graph_distrib_RDD_signif +
     aes(xintercept = mean_signif_bw),
     color = "#976B21",
     linetype = "solid",
-    linewidth = 0.5
+    linewidth = 0.9
   ) 
-
-
-sim_rdd %>% 
-  filter(factor(bw) %in% seq(0.1, 0.9, 0.1)) %>%
-  mutate(
-    significant = ifelse(p_value < 0.05, "Significant", "Non-significant"),
-    ratio = estimate/true_effect
-  ) %>% 
-  group_by(bw) %>% 
-  mutate(
-    mean_signif_bw = mean(ifelse(p_value < 0.05, ratio, NA), na.rm = TRUE),
-    mean_all_bw = mean(ratio, na.rm = TRUE)
-  ) %>% 
-  ungroup() %>% 
-  ggplot(aes(x = ratio, fill = significant)) + 
-  geom_area(stat ="bin", bins = 50, alpha = 0.85) +
-  # geom_histogram(bins = 45, alpha = 0.85) +
-  facet_grid(~bw, switch = "x") +
-  geom_vline(xintercept = 1) +
-  geom_vline(
-    aes(xintercept = mean_signif_bw),
-    color = "#976B21", 
-    linetype = "solid", 
-    size = 0.5
-  ) +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
-  coord_flip() +
-  scale_y_continuous(breaks = NULL) +
-  labs(
-    y = "Bandwidth size", 
-    x = expression(paste(frac("Estimate", "True Effect"))),
-    fill = "",
-    title = "Distribution of RDD estimates for different bandwidths",
-    subtitle = "Conditional on significativity", 
-    caption = "Bandwidth size as a proportion of the total number of observations
-      The green dashed line represents the true effect size
-      The brown solid line represents the average of significant estimates"
-  )
 ```
 
 

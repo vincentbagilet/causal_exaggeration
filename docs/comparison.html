@@ -2165,6 +2165,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }</style>
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+  <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+  <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+  <script src="site_libs/datatables-binding-0.26/datatables.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <link href="site_libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+  <link href="site_libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+  <script src="site_libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
+  <link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+  <script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2242,6 +2251,8 @@ Simulations
 <li><a href="#differences-of-statistical-power-across-methods" id="toc-differences-of-statistical-power-across-methods">Differences of statistical power across methods</a>
 <ul>
 <li><a href="#based-on-brodeur-et-al.-2020" id="toc-based-on-brodeur-et-al.-2020">Based on Brodeur et al. (2020)</a></li>
+<li><a href="#brief-exploratory-data-analysis" id="toc-brief-exploratory-data-analysis">Brief exploratory data analysis</a></li>
+<li><a href="#exaggeration-and-power" id="toc-exaggeration-and-power">Exaggeration and power</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -2262,6 +2273,7 @@ Show packages used in this document
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/andytimm/retrodesign'>retrodesign</a></span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://haven.tidyverse.org'>haven</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/DT'>DT</a></span><span class='op'>)</span></span>
 <span></span>
 <span><span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/set_mediocre_all.html'>set_mediocre_all</a></span><span class='op'>(</span>pal <span class='op'>=</span> <span class='st'>"coty"</span><span class='op'>)</span></span></code></pre>
 </div>
@@ -2275,7 +2287,7 @@ Show packages used in this document
 <p>A low statistical power leads the estimator to be imprecise and statistitcally significant estimates to be located in the tail of the distribution of estimates and to thus overestimate true effects. Publication bias leads to a larger probability of publishing estimates that come from this non-representative sample of estimates. In the absence of publication bias, low statistical power would not create exaggeration.</p>
 <p>In order to explore whether some causal identification methods are more prone to exaggeration than others, we can thus explore which ones are more subject to each of these ingredients.</p>
 <h2 id="differences-of-publication-bias-across-methods">Differences of publication bias across methods</h2>
-<p>For publication bias, the question has been investigated by <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20190687">Brodeur et al. (2020)</a>. By investigating the universe of articles published in 25 top economics journals, they find that IV and to a lesser extent DiD are particularly problematic in this regards. RDD and RCT seem to be less prone to this issue.</p>
+<p>For publication bias, the question has been investigated by <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20190687">Brodeur et al. (2020)</a>. By investigating universe of articles published in 2015 and 2018 in the 25 top economics journals, they find that IV and to a lesser extent DiD are particularly problematic in this regards. RDD and RCT seem to be less prone to this issue.</p>
 <h2 id="differences-of-statistical-power-across-methods">Differences of statistical power across methods</h2>
 <p>Then, I investigate whether papers using some methods display lower statistical power than others.</p>
 <h3 id="based-on-brodeur-et-al.-2020">Based on Brodeur et al. (2020)</h3>
@@ -2297,6 +2309,74 @@ Show packages used in this document
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>se</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
+<h3 id="brief-exploratory-data-analysis">Brief exploratory data analysis</h3>
+<p>Let’s first quickly explore the raw data set. There is a total of 21740 estimates from 684 articles. The distribution of the number of articles across journals is as follows:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the table
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>data_brodeur_raw</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>journal</span>, <span class='va'>title</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>journal</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'>DT</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DT/man/datatable.html'>datatable</a></span><span class='op'>(</span>colnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Journal"</span>, <span class='st'>"Number of articles"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<div id="htmlwidget-b2e604d497658c20b88e" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b2e604d497658c20b88e">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"],["AEJ: Applied Economics","AEJ: Economic Policy","AEJ: Macroeconomics","American Economic Review","Econometrica","Economic Journal","Economic Policy","Experimental Economics","Journal of Applied Econometrics","Journal of Development Economics","Journal of Economic Growth","Journal of Finance","Journal of Financial Economics","Journal of Financial Intermediation","Journal of Human Resources","Journal of International Economics","Journal of Labor Economics","Journal of Political Economy","Journal of Public Economics","Journal of the European Economic Association","Journal of Urban Economics","Quarterly Journal of Economics","Review of Economic Studies","Review of Economics and Statistics","Review of Financial Studies"],[46,42,5,55,10,38,6,6,5,64,8,27,40,16,21,19,20,18,74,20,26,23,7,49,39]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Journal<\/th>\n      <th>Number of articles<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<p>I then display the number of estimates by causal method:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the table
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>data_brodeur_raw</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>method</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>data_brodeur_raw</span> <span class='op'>|&gt;</span> </span>
+<span>          <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>pv</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>          <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>method</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>          <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span>n_signif <span class='op'>=</span> <span class='va'>n</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Method"</span>, <span class='st'>"Number of estimates"</span>, <span class='st'>"Number of significant estimates"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Method</th>
+<th style="text-align: right;">Number of estimates</th>
+<th style="text-align: right;">Number of significant estimates</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DID</td>
+<td style="text-align: right;">5853</td>
+<td style="text-align: right;">3279</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IV</td>
+<td style="text-align: right;">5170</td>
+<td style="text-align: right;">2927</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">RCT</td>
+<td style="text-align: right;">7569</td>
+<td style="text-align: right;">2807</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RDD</td>
+<td style="text-align: right;">3148</td>
+<td style="text-align: right;">1344</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="exaggeration-and-power">Exaggeration and power</h3>
 <p>Then, using the <code>retrodesign</code> package, I compute the statistical power and exaggeration if the true effect was in fact equal to half of the published estimate.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2305,13 +2385,13 @@ Show packages used in this document
 <span>    retro <span class='op'>=</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>map2</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='fl'>2</span>, <span class='va'>se</span>, \<span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/pkg/retrodesign/man/retro_design.html'>retro_design</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span>, </span>
 <span>    <span class='co'>#retro_design returns a list with power, typeS, typeM</span></span>
 <span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest_wider.html'>unnest_wider</a></span><span class='op'>(</span><span class='va'>retro</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/hoist.html'>unnest_wider</a></span><span class='op'>(</span><span class='va'>retro</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>power <span class='op'>=</span> <span class='va'>power</span> <span class='op'>*</span> <span class='fl'>100</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>exagg <span class='op'>=</span> <span class='va'>typeM</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>typeS</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<p>I then compute the mean power and exaggeration for each identification strategy.</p>
+<p>I then compute the median power and exaggeration for each identification strategy.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -2321,8 +2401,8 @@ Show the code used to generate the table
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>power_brodeur</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>method</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span></span>
-<span>    mean_power <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>power</span><span class='op'>)</span>,</span>
-<span>    mean_exagg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>exagg</span><span class='op'>)</span></span>
+<span>    median_power <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>power</span><span class='op'>)</span>,</span>
+<span>    median_exagg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>exagg</span><span class='op'>)</span></span>
 <span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename_with</a></span><span class='op'>(</span>\<span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_title</a></span><span class='op'>(</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"_"</span>, <span class='st'>" "</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
@@ -2332,35 +2412,78 @@ Show the code used to generate the table
 <thead>
 <tr class="header">
 <th style="text-align: left;">Method</th>
-<th style="text-align: right;">Mean Power</th>
-<th style="text-align: right;">Mean Exagg</th>
+<th style="text-align: right;">Median Power</th>
+<th style="text-align: right;">Median Exagg</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">DID</td>
-<td style="text-align: right;">50.43316</td>
-<td style="text-align: right;">1.660263</td>
+<td style="text-align: right;">40.93297</td>
+<td style="text-align: right;">1.548662</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">IV</td>
-<td style="text-align: right;">47.26424</td>
-<td style="text-align: right;">1.671503</td>
+<td style="text-align: right;">36.33613</td>
+<td style="text-align: right;">1.641614</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">RCT</td>
-<td style="text-align: right;">46.63262</td>
-<td style="text-align: right;">2.381779</td>
+<td style="text-align: right;">33.98084</td>
+<td style="text-align: right;">1.697265</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">RDD</td>
-<td style="text-align: right;">48.20794</td>
-<td style="text-align: right;">1.706350</td>
+<td style="text-align: right;">37.04744</td>
+<td style="text-align: right;">1.625986</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>There does not seem to be substantial differences in means. If anything, RCT seem to perform slightly less well than the others.</p>
+<p>There does not seem to be substantial differences in medians. If anything, RCT seem to perform slightly less well than the others.</p>
+<p>I also compute the proportion of studies that would have a power greater that the usual 80% threshold: 0.214675%. The decomposition across methods is the following:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the table
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>power_brodeur</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>method</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span></span>
+<span>    percent_adequate_power <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>power</span> <span class='op'>&gt;</span> <span class='fl'>80</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename_with</a></span><span class='op'>(</span>\<span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_title</a></span><span class='op'>(</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"_"</span>, <span class='st'>" "</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Method</th>
+<th style="text-align: right;">Percent Adequate Power</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DID</td>
+<td style="text-align: right;">0.2355026</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IV</td>
+<td style="text-align: right;">0.1987064</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">RCT</td>
+<td style="text-align: right;">0.2085661</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RDD</td>
+<td style="text-align: right;">0.2118263</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>I then plot the corresponding distributions of power and exaggeration, split by method</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
@@ -2429,7 +2552,7 @@ Show the code used to generate the graph
 </details>
 <p><img src="images/comparison/graph_power_brodeur-3.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<p>The results are rather similar across strategies. IF anything, we notice that IV and RCT perform slightly less well than DID and RDD.</p>
+<p>The results are rather similar across strategies. If anything, we notice that IV and RCT perform slightly less well than DID and RDD.</p>
 <p>However, if there is initially more exaggeration for one of the methods, considering hypothetical true effect sizes equal to half of the observed estimates will be dismissive since we would not be comparing similar things.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

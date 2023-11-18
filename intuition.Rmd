@@ -365,7 +365,7 @@ The distribution of the exaggeration ratio and power are as follows:
 ```{r camerer_retro_analysis, code_folding='Show the code used to generate the graph'}
 retro_camerer %>% 
   ggplot() +
-  geom_dotplot(aes(x = exaggeration), color = NA) +
+  geom_dotplot(aes(x = type_m), color = NA) +
   labs(
     title = "Distribution of the exaggeration ratio in the original studies",
     subtitle = "If the true effect was equal to the replicated one",
@@ -393,7 +393,7 @@ retro_camerer %>%
 #   geom_histogram(aes(x = power))
 # 
 # retro_camerer %>% 
-#   count(exaggeration > 1.5)
+#   count(type_m > 1.5)
 ```
 
 A non-negligible portion of the studies have low power and are therefore likely to produce inflated statistically significant estimates.

@@ -458,8 +458,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
 
   <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
@@ -570,9 +570,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     display: none !important;
   }
 
+  hr.section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px;
+  }
+
+
+  d-byline {
+    border-top: none;
+  }
+
   d-article {
     padding-top: 2.5rem;
     padding-bottom: 30px;
+    border-top: none;
   }
 
   d-appendix {
@@ -667,6 +679,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article div.sourceCode pre {
     padding-left: 18px;
     font-size: 14px;
+  }
+
+  /* tweak for Pandoc numbered line within distill */
+  d-article pre.numberSource code > span {
+      left: -2em;
   }
 
   d-article pre {
@@ -1428,6 +1445,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // create d-title
     $('.d-title').changeElementType('d-title');
 
+    // separator
+    var separator = '<hr class="section-separator" style="clear: both"/>';
+    // prepend separator above appendix
+    $('.d-byline').before(separator);
+    $('.d-article').before(separator);
+
     // create d-byline
     var byline = $('<d-byline></d-byline>');
     $('.d-byline').replaceWith(byline);
@@ -1505,8 +1528,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     $('.distill-force-highlighting-css').parent().remove();
 
     // remove empty line numbers inserted by pandoc when using a
-    // custom syntax highlighting theme
-    $('code.sourceCode a:empty').remove();
+    // custom syntax highlighting theme, except when numbering line
+    // in code chunk
+    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
 
     // load distill framework
     load_distill_framework();
@@ -1532,12 +1556,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // add orcid ids
       $('.authors-affiliations').find('.author').each(function(i, el) {
         var orcid_id = front_matter.authors[i].orcidID;
+        var author_name = front_matter.authors[i].author
         if (orcid_id) {
           var a = $('<a></a>');
           a.attr('href', 'https://orcid.org/' + orcid_id);
           var img = $('<img></img>');
           img.addClass('orcid-id');
-          img.attr('alt', 'ORCID ID');
+          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
           img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
           a.append(img);
           $(this).append(a);
@@ -2164,7 +2189,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2227,6 +2252,7 @@ Simulations
 
 <div class="d-title">
 <h1>Mathematical derivation</h1>
+
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p>In this document, I run simple simulations to both illustrate and check my closed form solutions.</p>
@@ -2331,11 +2357,11 @@ Show code
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">4.185542e-05</td>
-<td style="text-align: right;">0.03015271</td>
-<td style="text-align: right;">0.07516327</td>
-<td style="text-align: right;">5.732248</td>
-<td style="text-align: right;">0.1922235</td>
+<td style="text-align: right;">0.0001781194</td>
+<td style="text-align: right;">0.03133982</td>
+<td style="text-align: right;">0.07950535</td>
+<td style="text-align: right;">5.743844</td>
+<td style="text-align: right;">0.193571</td>
 <td style="text-align: right;">100</td>
 </tr>
 </tbody>
@@ -2543,10 +2569,10 @@ Show code used to generate the table
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<table style="width:100%;">
+<table>
 <colgroup>
 <col style="width: 4%" />
-<col style="width: 15%" />
+<col style="width: 16%" />
 <col style="width: 16%" />
 <col style="width: 16%" />
 <col style="width: 16%" />
@@ -2567,57 +2593,57 @@ Show code used to generate the table
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.6783388</td>
-<td style="text-align: right;">-0.5848994</td>
-<td style="text-align: right;">-0.6081403</td>
-<td style="text-align: right;">0.5835911</td>
-<td style="text-align: right;">-0.6322952</td>
-<td style="text-align: right;">1.658846</td>
+<td style="text-align: right;">0.7082564</td>
+<td style="text-align: right;">0.5330806</td>
+<td style="text-align: right;">-0.6575301</td>
+<td style="text-align: right;">1.2289234</td>
+<td style="text-align: right;">0.7089199</td>
+<td style="text-align: right;">4.204384</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">0.7333891</td>
-<td style="text-align: right;">-0.3182818</td>
-<td style="text-align: right;">-2.8241994</td>
-<td style="text-align: right;">-1.4284572</td>
-<td style="text-align: right;">0.9396802</td>
-<td style="text-align: right;">1.352082</td>
+<td style="text-align: right;">0.6021520</td>
+<td style="text-align: right;">-0.3580137</td>
+<td style="text-align: right;">-0.8102137</td>
+<td style="text-align: right;">0.4566996</td>
+<td style="text-align: right;">-0.0506412</td>
+<td style="text-align: right;">2.227051</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">0.6917607</td>
-<td style="text-align: right;">-0.4463383</td>
-<td style="text-align: right;">0.8321638</td>
-<td style="text-align: right;">2.1177694</td>
-<td style="text-align: right;">0.6754814</td>
-<td style="text-align: right;">4.570082</td>
+<td style="text-align: right;">1.1852132</td>
+<td style="text-align: right;">-1.0863053</td>
+<td style="text-align: right;">-2.1817404</td>
+<td style="text-align: right;">-0.8853530</td>
+<td style="text-align: right;">-0.2732513</td>
+<td style="text-align: right;">0.298243</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">0.5488409</td>
-<td style="text-align: right;">-0.2122439</td>
-<td style="text-align: right;">0.7865171</td>
-<td style="text-align: right;">2.0982434</td>
-<td style="text-align: right;">-0.8092501</td>
-<td style="text-align: right;">3.182871</td>
+<td style="text-align: right;">-0.1426198</td>
+<td style="text-align: right;">-0.5836775</td>
+<td style="text-align: right;">1.2509310</td>
+<td style="text-align: right;">1.7866287</td>
+<td style="text-align: right;">-0.9714632</td>
+<td style="text-align: right;">2.523327</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">0.4931920</td>
-<td style="text-align: right;">-0.3401877</td>
-<td style="text-align: right;">0.6876211</td>
-<td style="text-align: right;">1.8780621</td>
-<td style="text-align: right;">0.2442364</td>
-<td style="text-align: right;">3.952205</td>
+<td style="text-align: right;">-0.0211240</td>
+<td style="text-align: right;">0.8013549</td>
+<td style="text-align: right;">-0.1365855</td>
+<td style="text-align: right;">1.3273283</td>
+<td style="text-align: right;">-0.4319313</td>
+<td style="text-align: right;">3.296075</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">0.0037723</td>
-<td style="text-align: right;">-0.4913914</td>
-<td style="text-align: right;">-0.5020926</td>
-<td style="text-align: right;">0.2060904</td>
-<td style="text-align: right;">-0.0679018</td>
-<td style="text-align: right;">1.892493</td>
+<td style="text-align: right;">0.7952627</td>
+<td style="text-align: right;">0.1348475</td>
+<td style="text-align: right;">0.0955039</td>
+<td style="text-align: right;">1.8126226</td>
+<td style="text-align: right;">-0.4942488</td>
+<td style="text-align: right;">3.385797</td>
 </tr>
 </tbody>
 </table>
@@ -2696,36 +2722,36 @@ Show the code of lint_reg_maths
 <tr class="odd">
 <td style="text-align: left;">ctrl</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0005884</td>
-<td style="text-align: right;">0.0033806</td>
-<td style="text-align: right;">295.98101</td>
+<td style="text-align: right;">1.0044659</td>
+<td style="text-align: right;">0.0033429</td>
+<td style="text-align: right;">300.47437</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ovb</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0846140</td>
-<td style="text-align: right;">0.0036592</td>
-<td style="text-align: right;">296.40664</td>
+<td style="text-align: right;">1.0882694</td>
+<td style="text-align: right;">0.0036215</td>
+<td style="text-align: right;">300.50321</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">reduced_form</td>
 <td style="text-align: left;">z</td>
-<td style="text-align: right;">0.8047289</td>
-<td style="text-align: right;">0.0219265</td>
-<td style="text-align: right;">36.70127</td>
+<td style="text-align: right;">0.7785458</td>
+<td style="text-align: right;">0.0219179</td>
+<td style="text-align: right;">35.52093</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">iv</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0056945</td>
-<td style="text-align: right;">0.0123312</td>
-<td style="text-align: right;">81.55679</td>
+<td style="text-align: right;">0.9923824</td>
+<td style="text-align: right;">0.0124786</td>
+<td style="text-align: right;">79.52645</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>

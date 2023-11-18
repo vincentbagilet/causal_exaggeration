@@ -458,8 +458,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
 
   <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
@@ -570,9 +570,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     display: none !important;
   }
 
+  hr.section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px;
+  }
+
+
+  d-byline {
+    border-top: none;
+  }
+
   d-article {
     padding-top: 2.5rem;
     padding-bottom: 30px;
+    border-top: none;
   }
 
   d-appendix {
@@ -667,6 +679,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article div.sourceCode pre {
     padding-left: 18px;
     font-size: 14px;
+  }
+
+  /* tweak for Pandoc numbered line within distill */
+  d-article pre.numberSource code > span {
+      left: -2em;
   }
 
   d-article pre {
@@ -1428,6 +1445,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // create d-title
     $('.d-title').changeElementType('d-title');
 
+    // separator
+    var separator = '<hr class="section-separator" style="clear: both"/>';
+    // prepend separator above appendix
+    $('.d-byline').before(separator);
+    $('.d-article').before(separator);
+
     // create d-byline
     var byline = $('<d-byline></d-byline>');
     $('.d-byline').replaceWith(byline);
@@ -1505,8 +1528,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     $('.distill-force-highlighting-css').parent().remove();
 
     // remove empty line numbers inserted by pandoc when using a
-    // custom syntax highlighting theme
-    $('code.sourceCode a:empty').remove();
+    // custom syntax highlighting theme, except when numbering line
+    // in code chunk
+    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
 
     // load distill framework
     load_distill_framework();
@@ -1532,12 +1556,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // add orcid ids
       $('.authors-affiliations').find('.author').each(function(i, el) {
         var orcid_id = front_matter.authors[i].orcidID;
+        var author_name = front_matter.authors[i].author
         if (orcid_id) {
           var a = $('<a></a>');
           a.attr('href', 'https://orcid.org/' + orcid_id);
           var img = $('<img></img>');
           img.addClass('orcid-id');
-          img.attr('alt', 'ORCID ID');
+          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
           img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
           a.append(img);
           $(this).append(a);
@@ -2164,7 +2189,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2227,6 +2252,7 @@ Simulations
 
 <div class="d-title">
 <h1>Simulations IV</h1>
+
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p>In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.</p>
@@ -2305,9 +2331,9 @@ Code to load packages used
 Show code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/malcolmbarrett/ggdag'>ggdag</a></span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/r-causal/ggdag'>ggdag</a></span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/pkg/ggdag/man/dagify.html'>dagify</a></span><span class='op'>(</span><span class='va'>Share</span> <span class='op'>~</span> <span class='va'>Turnout</span> <span class='op'>+</span> <span class='va'>W</span>,</span>
+<span><span class='fu'><a href='https://r-causal.github.io/ggdag/reference/dagify.html'>dagify</a></span><span class='op'>(</span><span class='va'>Share</span> <span class='op'>~</span> <span class='va'>Turnout</span> <span class='op'>+</span> <span class='va'>W</span>,</span>
 <span>       <span class='va'>Turnout</span> <span class='op'>~</span> <span class='va'>W</span> <span class='op'>+</span> <span class='va'>Rainfall</span>,</span>
 <span>       outcome <span class='op'>=</span> <span class='st'>"Share"</span>,</span>
 <span>       latent <span class='op'>=</span> <span class='st'>"W"</span>,</span>
@@ -2315,9 +2341,9 @@ Show code
 <span>                     y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>Share <span class='op'>=</span> <span class='fl'>1</span>, Turnout <span class='op'>=</span> <span class='fl'>1</span>, W <span class='op'>=</span> <span class='fl'>0</span>, Rainfall <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span>  <span class='co'># ggdag() +</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span>, xend <span class='op'>=</span> <span class='va'>xend</span>, yend <span class='op'>=</span> <span class='va'>yend</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggdag/man/node_point.html'>geom_dag_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0</span>, stroke <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggdag/man/geom_dag_edges.html'>geom_dag_edges</a></span><span class='op'>(</span>edge_colour <span class='op'>=</span> <span class='va'>colors_mediocre</span><span class='op'>[[</span><span class='st'>"base"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggdag/man/geom_dag_text.html'>geom_dag_text</a></span><span class='op'>(</span></span>
+<span>  <span class='fu'><a href='https://r-causal.github.io/ggdag/reference/node_point.html'>geom_dag_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0</span>, stroke <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://r-causal.github.io/ggdag/reference/geom_dag_edges.html'>geom_dag_edges</a></span><span class='op'>(</span>edge_colour <span class='op'>=</span> <span class='va'>colors_mediocre</span><span class='op'>[[</span><span class='st'>"base"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://r-causal.github.io/ggdag/reference/geom_dag_text.html'>geom_dag_text</a></span><span class='op'>(</span></span>
 <span>    </span>
 <span>    colour <span class='op'>=</span> <span class='va'>colors_mediocre</span><span class='op'>[[</span><span class='st'>"base"</span><span class='op'>]</span><span class='op'>]</span>, </span>
 <span>    size <span class='op'>=</span> <span class='fl'>4</span></span>
@@ -2506,18 +2532,18 @@ Show the code used to generate the table
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<table style="width:100%;">
+<table>
 <colgroup>
 <col style="width: 3%" />
-<col style="width: 10%" />
 <col style="width: 11%" />
-<col style="width: 11%" />
-<col style="width: 9%" />
-<col style="width: 11%" />
-<col style="width: 9%" />
-<col style="width: 9%" />
 <col style="width: 12%" />
+<col style="width: 11%" />
 <col style="width: 9%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 11%" />
+<col style="width: 10%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2536,123 +2562,123 @@ Show the code used to generate the table
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">9.7819720</td>
-<td style="text-align: right;">-11.975490</td>
+<td style="text-align: right;">1.8831835</td>
+<td style="text-align: right;">-14.3093372</td>
 <td style="text-align: right;">6.489992</td>
 <td style="text-align: right;">13.32779</td>
-<td style="text-align: right;">3.281670</td>
-<td style="text-align: right;">59.78578</td>
+<td style="text-align: right;">-2.060718</td>
+<td style="text-align: right;">58.85956</td>
 <td style="text-align: right;">13.79391</td>
-<td style="text-align: right;">-8.6460779</td>
-<td style="text-align: right;">42.98025</td>
+<td style="text-align: right;">-7.846463</td>
+<td style="text-align: right;">43.405713</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">0.0553106</td>
-<td style="text-align: right;">-9.921799</td>
+<td style="text-align: right;">0.0582482</td>
+<td style="text-align: right;">-21.5842008</td>
 <td style="text-align: right;">6.489992</td>
 <td style="text-align: right;">13.32779</td>
-<td style="text-align: right;">6.242390</td>
-<td style="text-align: right;">67.19909</td>
+<td style="text-align: right;">15.104909</td>
+<td style="text-align: right;">78.39262</td>
 <td style="text-align: right;">13.79391</td>
-<td style="text-align: right;">-9.8125686</td>
-<td style="text-align: right;">41.48316</td>
+<td style="text-align: right;">1.494219</td>
+<td style="text-align: right;">49.338116</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">0.0332662</td>
-<td style="text-align: right;">10.801281</td>
+<td style="text-align: right;">0.0001066</td>
+<td style="text-align: right;">6.8631264</td>
 <td style="text-align: right;">6.489992</td>
 <td style="text-align: right;">13.32779</td>
-<td style="text-align: right;">3.047872</td>
-<td style="text-align: right;">59.87098</td>
+<td style="text-align: right;">5.672327</td>
+<td style="text-align: right;">63.29965</td>
 <td style="text-align: right;">13.79391</td>
-<td style="text-align: right;">6.4993473</td>
-<td style="text-align: right;">62.67251</td>
+<td style="text-align: right;">21.384581</td>
+<td style="text-align: right;">76.427241</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">4.4654712</td>
-<td style="text-align: right;">-23.250680</td>
+<td style="text-align: right;">2.3341902</td>
+<td style="text-align: right;">11.3573719</td>
 <td style="text-align: right;">6.489992</td>
 <td style="text-align: right;">13.32779</td>
-<td style="text-align: right;">-32.977136</td>
-<td style="text-align: right;">28.44026</td>
+<td style="text-align: right;">5.505353</td>
+<td style="text-align: right;">61.06678</td>
 <td style="text-align: right;">13.79391</td>
-<td style="text-align: right;">19.9287746</td>
-<td style="text-align: right;">72.43461</td>
+<td style="text-align: right;">16.226581</td>
+<td style="text-align: right;">72.391377</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">0.0846570</td>
-<td style="text-align: right;">10.015160</td>
+<td style="text-align: right;">0.1592684</td>
+<td style="text-align: right;">-17.6769546</td>
 <td style="text-align: right;">6.489992</td>
 <td style="text-align: right;">13.32779</td>
-<td style="text-align: right;">-28.427879</td>
-<td style="text-align: right;">28.52676</td>
+<td style="text-align: right;">16.633218</td>
+<td style="text-align: right;">79.08897</td>
 <td style="text-align: right;">13.79391</td>
-<td style="text-align: right;">-4.8338124</td>
-<td style="text-align: right;">54.31654</td>
+<td style="text-align: right;">24.339629</td>
+<td style="text-align: right;">72.895341</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">0.0002698</td>
-<td style="text-align: right;">-7.657682</td>
+<td style="text-align: right;">0.0000170</td>
+<td style="text-align: right;">4.9554884</td>
 <td style="text-align: right;">6.489992</td>
 <td style="text-align: right;">13.32779</td>
-<td style="text-align: right;">-29.315152</td>
-<td style="text-align: right;">31.21625</td>
+<td style="text-align: right;">-2.863959</td>
+<td style="text-align: right;">55.14493</td>
 <td style="text-align: right;">13.79391</td>
-<td style="text-align: right;">7.2073456</td>
-<td style="text-align: right;">62.55418</td>
+<td style="text-align: right;">-12.224712</td>
+<td style="text-align: right;">43.251892</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">0.0000001</td>
-<td style="text-align: right;">-1.230288</td>
+<td style="text-align: right;">2.5413703</td>
 <td style="text-align: right;">6.489992</td>
 <td style="text-align: right;">13.32779</td>
-<td style="text-align: right;">2.283875</td>
-<td style="text-align: right;">61.52993</td>
+<td style="text-align: right;">8.995067</td>
+<td style="text-align: right;">67.48679</td>
 <td style="text-align: right;">13.79391</td>
-<td style="text-align: right;">15.6531077</td>
-<td style="text-align: right;">69.25406</td>
+<td style="text-align: right;">-22.437051</td>
+<td style="text-align: right;">31.322544</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">8</td>
-<td style="text-align: right;">5.1805920</td>
-<td style="text-align: right;">-4.011829</td>
+<td style="text-align: right;">15.8503815</td>
+<td style="text-align: right;">-14.7673672</td>
 <td style="text-align: right;">6.489992</td>
 <td style="text-align: right;">13.32779</td>
-<td style="text-align: right;">13.743475</td>
-<td style="text-align: right;">70.95555</td>
+<td style="text-align: right;">7.346747</td>
+<td style="text-align: right;">61.37503</td>
 <td style="text-align: right;">13.79391</td>
-<td style="text-align: right;">-0.9088984</td>
-<td style="text-align: right;">51.19318</td>
+<td style="text-align: right;">-47.284912</td>
+<td style="text-align: right;">3.624112</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">0.0054030</td>
-<td style="text-align: right;">5.690076</td>
+<td style="text-align: right;">6.2926072</td>
+<td style="text-align: right;">-7.2254548</td>
 <td style="text-align: right;">6.489992</td>
 <td style="text-align: right;">13.32779</td>
-<td style="text-align: right;">-7.404197</td>
-<td style="text-align: right;">50.45509</td>
+<td style="text-align: right;">8.588544</td>
+<td style="text-align: right;">65.88733</td>
 <td style="text-align: right;">13.79391</td>
-<td style="text-align: right;">-2.5651286</td>
-<td style="text-align: right;">53.52738</td>
+<td style="text-align: right;">9.167034</td>
+<td style="text-align: right;">61.133209</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">10</td>
-<td style="text-align: right;">2.7625484</td>
-<td style="text-align: right;">-10.109932</td>
+<td style="text-align: right;">1.5650347</td>
+<td style="text-align: right;">0.9747322</td>
 <td style="text-align: right;">6.489992</td>
 <td style="text-align: right;">13.32779</td>
-<td style="text-align: right;">3.153839</td>
-<td style="text-align: right;">62.79455</td>
+<td style="text-align: right;">2.797402</td>
+<td style="text-align: right;">60.81994</td>
 <td style="text-align: right;">13.79391</td>
-<td style="text-align: right;">-23.2565063</td>
-<td style="text-align: right;">28.44205</td>
+<td style="text-align: right;">-9.472097</td>
+<td style="text-align: right;">44.640855</td>
 </tr>
 </tbody>
 </table>
@@ -2767,93 +2793,93 @@ Show the code used to generate the table
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">0.1</td>
-<td style="text-align: right;">54.10393</td>
-<td style="text-align: right;">14.16679</td>
-<td style="text-align: right;">59.27001</td>
-<td style="text-align: right;">14.01111</td>
-<td style="text-align: right;">2.331203</td>
-<td style="text-align: right;">6.447180</td>
+<td style="text-align: right;">54.09045</td>
+<td style="text-align: right;">14.20156</td>
+<td style="text-align: right;">59.20812</td>
+<td style="text-align: right;">14.02093</td>
+<td style="text-align: right;">2.357004</td>
+<td style="text-align: right;">6.617246</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">0.2</td>
-<td style="text-align: right;">54.10386</td>
-<td style="text-align: right;">14.23889</td>
-<td style="text-align: right;">59.36225</td>
-<td style="text-align: right;">14.02992</td>
-<td style="text-align: right;">2.325475</td>
-<td style="text-align: right;">6.474704</td>
+<td style="text-align: right;">54.16425</td>
+<td style="text-align: right;">14.19564</td>
+<td style="text-align: right;">59.49400</td>
+<td style="text-align: right;">14.00437</td>
+<td style="text-align: right;">2.309033</td>
+<td style="text-align: right;">6.418119</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">0.3</td>
-<td style="text-align: right;">54.03215</td>
-<td style="text-align: right;">14.22986</td>
-<td style="text-align: right;">59.76385</td>
-<td style="text-align: right;">14.01323</td>
-<td style="text-align: right;">2.381920</td>
-<td style="text-align: right;">6.574024</td>
+<td style="text-align: right;">54.10401</td>
+<td style="text-align: right;">14.16690</td>
+<td style="text-align: right;">59.66717</td>
+<td style="text-align: right;">14.01431</td>
+<td style="text-align: right;">2.330728</td>
+<td style="text-align: right;">6.493397</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">0.4</td>
-<td style="text-align: right;">54.00585</td>
-<td style="text-align: right;">14.18604</td>
-<td style="text-align: right;">59.96442</td>
-<td style="text-align: right;">13.96585</td>
-<td style="text-align: right;">2.366436</td>
-<td style="text-align: right;">6.686083</td>
+<td style="text-align: right;">54.01390</td>
+<td style="text-align: right;">14.16459</td>
+<td style="text-align: right;">59.90165</td>
+<td style="text-align: right;">13.97135</td>
+<td style="text-align: right;">2.351484</td>
+<td style="text-align: right;">6.479010</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">0.5</td>
-<td style="text-align: right;">53.97362</td>
-<td style="text-align: right;">14.16975</td>
-<td style="text-align: right;">60.18789</td>
-<td style="text-align: right;">14.01333</td>
-<td style="text-align: right;">2.356004</td>
-<td style="text-align: right;">6.647004</td>
+<td style="text-align: right;">53.99069</td>
+<td style="text-align: right;">14.24192</td>
+<td style="text-align: right;">60.15165</td>
+<td style="text-align: right;">13.98573</td>
+<td style="text-align: right;">2.329982</td>
+<td style="text-align: right;">6.476582</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">0.6</td>
-<td style="text-align: right;">53.90581</td>
-<td style="text-align: right;">14.21589</td>
-<td style="text-align: right;">60.44389</td>
-<td style="text-align: right;">13.98284</td>
-<td style="text-align: right;">2.327881</td>
-<td style="text-align: right;">6.487488</td>
+<td style="text-align: right;">53.95689</td>
+<td style="text-align: right;">14.20073</td>
+<td style="text-align: right;">60.40136</td>
+<td style="text-align: right;">13.98617</td>
+<td style="text-align: right;">2.364699</td>
+<td style="text-align: right;">6.569843</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">0.7</td>
-<td style="text-align: right;">54.01652</td>
-<td style="text-align: right;">14.19405</td>
-<td style="text-align: right;">60.58887</td>
-<td style="text-align: right;">14.02967</td>
-<td style="text-align: right;">2.347006</td>
-<td style="text-align: right;">6.550013</td>
+<td style="text-align: right;">53.96238</td>
+<td style="text-align: right;">14.18765</td>
+<td style="text-align: right;">60.64277</td>
+<td style="text-align: right;">13.94219</td>
+<td style="text-align: right;">2.327725</td>
+<td style="text-align: right;">6.462719</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">0.8</td>
-<td style="text-align: right;">53.88278</td>
-<td style="text-align: right;">14.17229</td>
-<td style="text-align: right;">60.89297</td>
-<td style="text-align: right;">14.00796</td>
-<td style="text-align: right;">2.326901</td>
-<td style="text-align: right;">6.436696</td>
+<td style="text-align: right;">53.86204</td>
+<td style="text-align: right;">14.21665</td>
+<td style="text-align: right;">60.87009</td>
+<td style="text-align: right;">13.96798</td>
+<td style="text-align: right;">2.323843</td>
+<td style="text-align: right;">6.486566</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">0.9</td>
-<td style="text-align: right;">53.85643</td>
-<td style="text-align: right;">14.24543</td>
-<td style="text-align: right;">61.10439</td>
-<td style="text-align: right;">13.96095</td>
-<td style="text-align: right;">2.321697</td>
-<td style="text-align: right;">6.467408</td>
+<td style="text-align: right;">53.87727</td>
+<td style="text-align: right;">14.22899</td>
+<td style="text-align: right;">61.09930</td>
+<td style="text-align: right;">14.00051</td>
+<td style="text-align: right;">2.342128</td>
+<td style="text-align: right;">6.520144</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1.0</td>
-<td style="text-align: right;">53.86276</td>
-<td style="text-align: right;">14.12927</td>
-<td style="text-align: right;">61.33956</td>
-<td style="text-align: right;">14.01778</td>
-<td style="text-align: right;">2.347233</td>
-<td style="text-align: right;">6.514372</td>
+<td style="text-align: right;">53.86740</td>
+<td style="text-align: right;">14.16197</td>
+<td style="text-align: right;">61.33588</td>
+<td style="text-align: right;">14.04672</td>
+<td style="text-align: right;">2.352479</td>
+<td style="text-align: right;">6.579669</td>
 </tr>
 </tbody>
 </table>
@@ -2952,10 +2978,10 @@ Show the code used to generate the table
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">-0.0766697</td>
-<td style="text-align: right;">0.1115428</td>
-<td style="text-align: right;">0.0481764</td>
-<td style="text-align: right;">464.1993</td>
+<td style="text-align: right;">-0.1185878</td>
+<td style="text-align: right;">0.0059296</td>
+<td style="text-align: right;">0.0430877</td>
+<td style="text-align: right;">566.7893</td>
 <td style="text-align: left;">IV</td>
 <td style="text-align: right;">-0.5</td>
 <td style="text-align: right;">0.2</td>
@@ -2963,9 +2989,9 @@ Show the code used to generate the table
 <td style="text-align: right;">-0.1</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">-0.1424551</td>
+<td style="text-align: right;">-0.1442974</td>
 <td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0101265</td>
+<td style="text-align: right;">0.0099768</td>
 <td style="text-align: right;">NA</td>
 <td style="text-align: left;">OLS</td>
 <td style="text-align: right;">-0.5</td>
@@ -2974,9 +3000,9 @@ Show the code used to generate the table
 <td style="text-align: right;">-0.1</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">-0.1001889</td>
+<td style="text-align: right;">-0.1032463</td>
 <td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0101478</td>
+<td style="text-align: right;">0.0100151</td>
 <td style="text-align: right;">NA</td>
 <td style="text-align: left;">OLS unbiased</td>
 <td style="text-align: right;">-0.5</td>

@@ -418,7 +418,7 @@ retro_camerer %>%
   )
 ```
 
-All these results shows that even the experimental literature suffers from power and exaggeration issues, despite power being central to this literature. 
+All these results show that even the experimental literature suffers from power and exaggeration issues, despite power being central to this literature. 
 
 <!-- ## Randomized Control Trials -->
 

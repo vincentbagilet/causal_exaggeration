@@ -90,27 +90,27 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>Causal Exaggeration: Simulations controls</title>
 
-  <meta property="description" itemprop="description" content="In this document, I run a simulation exercise to illustrate how controling for a confounder may lead to a loss in power and inflated effect sizes."/>
+  <meta property="description" itemprop="description" content="In this document, I run a simulation exercise to illustrate how controling for a confounder can lead to a loss in power and inflated effect sizes."/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Causal Exaggeration: Simulations controls"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="In this document, I run a simulation exercise to illustrate how controling for a confounder may lead to a loss in power and inflated effect sizes."/>
+  <meta property="og:description" content="In this document, I run a simulation exercise to illustrate how controling for a confounder can lead to a loss in power and inflated effect sizes."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Causal Exaggeration"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Causal Exaggeration: Simulations controls"/>
-  <meta property="twitter:description" content="In this document, I run a simulation exercise to illustrate how controling for a confounder may lead to a loss in power and inflated effect sizes."/>
+  <meta property="twitter:description" content="In this document, I run a simulation exercise to illustrate how controling for a confounder can lead to a loss in power and inflated effect sizes."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations controls"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how controling for a confounder may lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations controls"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how controling for a confounder can lead to a loss in power and inflated effect sizes."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2209,7 +2209,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Simulations controls","description":"In this document, I run a simulation exercise to illustrate how controling for a confounder may lead to a loss in power and inflated effect sizes.","authors":[]}
+{"title":"Simulations controls","description":"In this document, I run a simulation exercise to illustrate how controling for a confounder can lead to a loss in power and inflated effect sizes.","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2223,6 +2223,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <a href="causal_exaggeration_paper.pdf">Paper</a>
 <a href="summary.html">Summary</a>
 <a href="intuition.html">Intuition</a>
+<a href="air_pollution.html">Example lit.</a>
 <a href="maths.html">Maths</a>
 <div class="nav-dropdown">
 <button class="nav-dropbtn">
@@ -2255,7 +2256,7 @@ Simulations
 
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p>In this document, I run a simulation exercise to illustrate how controling for a confounder may lead to a loss in power and inflated effect sizes.</p>
+<p>In this document, I run a simulation exercise to illustrate how controling for a confounder can lead to a loss in power and inflated effect sizes.</p>
 </div>
 
 
@@ -2298,11 +2299,15 @@ text-align: justify}
 <!--         - VB_Rmd.sty -->
 <!-- --- -->
 <h2 id="summary-and-intuition">Summary and intuition</h2>
-<p>As discussed in the introduction and the math section of the paper, when controlling for confounders may cause a confounding / exaggeration trade-off mediated by the proportion of the variation that the control absorbs more variation in the explanatory variable of interest (<span class="math inline">\(x\)</span>) than in the outcome variable (<span class="math inline">\(y\)</span>). Controlling for a variable (<span class="math inline">\(w\)</span>) is equivalent to partialling out this variable from both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. Since the variance of the estimator is given by the ratio of the variance of the residuals <span class="math inline">\(\sigma_{y^{\perp x, w}}^2\)</span> over <span class="math inline">\(n\)</span> times the variance of the explanatory variable after partialling out <span class="math inline">\(w\)</span> (<span class="math inline">\(\sigma_{x^{\perp w}}^2\)</span>), if controlling absorbs more of the variance in <span class="math inline">\(x\)</span> than in <span class="math inline">\(y\)</span>, it will increase the variance of the resulting estimator and create exaggeration.</p>
+<p>As discussed in the introduction of the paper and the math section, controlling for confounders can cause a confounding / exaggeration trade-off mediated by the proportion of the variation when the control absorbs more variation in the explanatory variable of interest (<span class="math inline">\(x\)</span>) than in the outcome variable (<span class="math inline">\(y\)</span>). Controlling for a variable (<span class="math inline">\(w\)</span>) is equivalent to partialling out this variable from both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. Since the variance of the estimator is given by the ratio of the variance of the residuals <span class="math inline">\(\sigma_{y^{\perp x, w}}^2\)</span> over <span class="math inline">\(n\)</span> times the variance of the explanatory variable after partialling out <span class="math inline">\(w\)</span> (<span class="math inline">\(\sigma_{x^{\perp w}}^2\)</span>), if controlling absorbs more of the variance in <span class="math inline">\(x\)</span> than in <span class="math inline">\(y\)</span>, it will increase the variance of the resulting estimator and create exaggeration.</p>
 <h2 id="an-illustrative-example">An illustrative example</h2>
-<p>For readability and to illustrate this exaggeration, let’s consider an example setting.</p>
+<p>For readability and to illustrate this exaggeration, let’s consider an example setting that can be thought of as canonical: the impact of climate change (and temperature) on agricultural profits. Usual approaches to explore this question typical rely either on cross-sectional variation (comparing hot areas to cold areas) or use variation over time to compare hot and cold conditions for a given area. The later have been implemented in fear of omitted variable if climate is correlated with other time invariant unobserved variables.
+A large set of papers investigate this question such as <a href="https://www.aeaweb.org/articles?id=10.1257/aer.97.1.354">Deschênes and Greenstone (2007)</a>, <a href="https://www.pnas.org/doi/10.1073/pnas.0906865106">Schlenker and Roberts (2009)</a> or <a href="https://www.aeaweb.org/articles?id=10.1257/pol.20130025">Burke and Emerick (2016)</a>.</p>
+<p>Approaches
+As discussed for instance by Burke and Emerick, the</p>
 <h3 id="modeling-choices">Modeling choices</h3>
-<p>To simplify, I make the assumptions described below. Of course these assumptions are arbitrary and I invite interested readers to play around with them.</p>
+<p>In the present analysis, I build my simulations to replicate a similar setting, measuring the impact
+To simplify, I make the assumptions described below. Of course these assumptions are arbitrary and I invite interested readers to play around with them.</p>
 <ul>
 <li>In order for the variation of one factor not to impact other factors of interest, I consider the variances of the variables (<span class="math inline">\(\sigma_{y}^{2}, \sigma_{x}^{2}, \sigma_{w}^{2} \text{ and } \sigma_{z}^{2}\)</span>) as fixed but adjust for the variances of the error terms (<span class="math inline">\(\sigma_{u}^{2} \text{ and } \sigma_{\epsilon}^{2}\)</span>) when varying the values of one of the parameters (<span class="math inline">\(\gamma, \delta \text{ and } \pi_{1}\)</span>). This corresponds to thinking in terms of shares of the variance of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> explained by ``defined’’ variables (<em>i.e.</em>, observed variables and <span class="math inline">\(w\)</span>) <em>versus</em> by residuals.</li>
 <li>I set the bias to be fixed. Comparison between cases with and without OVB for different parameter values is only relevant if varying the parameter of interest does not affect the OVB. Based on the maths (and confirmed below by the simulatations), this corresponds to assuming that <span class="math inline">\(\gamma \delta = \kappa = cst\)</span>.</li>

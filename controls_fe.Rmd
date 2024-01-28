@@ -1,0 +1,473 @@
+---
+title: "Simulations controls"
+description: "In this document, I run a simulation exercise to illustrate how controling for a confounder can lead to a loss in power and inflated effect sizes."
+output: 
+  distill::distill_article:
+    toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+<style>
+body {
+text-align: justify}
+</style>
+
+<!-- To export it as pdf, use this yaml -->
+<!-- but run it in another document. I do not know why but there is a bug otherwise -->
+<!-- --- -->
+<!-- title: "Simulations exogenous shocks" -->
+<!-- geometry: false -->
+<!-- output:  -->
+<!--   pdf_document: -->
+<!--     includes: -->
+<!--       in_header: -->
+<!--         - VB_Rmd.sty -->
+<!-- --- -->
+
+```{r setup_controls, include=FALSE, results='hide', warning=FALSE}
+library(knitr)
+opts_chunk$set(fig.path = "images/controls/",
+               cache.path = "cache/",
+               cache = FALSE,
+               echo = TRUE, #set to false to hide code
+               message = FALSE,
+               warning = FALSE,
+               out.width = "85%",
+               dpi = 300,
+               fig.align = "center",
+               dev.args = list(bg="transparent"))  
+```  
+
+```{r packages_controls, message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse) 
+library(knitr) 
+library(mediocrethemes)
+library(broom)
+library(here)
+
+set_mediocre_all(pal = "coty")
+set.seed(12)
+```
+
+## Summary and intuition
+
+As discussed in the introduction of the paper and the math section, controlling for confounders can cause a confounding / exaggeration trade-off mediated by the proportion of the variation when the control absorbs more variation in the explanatory variable of interest ($x$) than in the outcome variable ($y$). Controlling for a variable ($w$) is equivalent to partialling out this variable from both $x$ and $y$. Since the variance of the estimator is given by the ratio of the variance of the residuals $\sigma_{y^{\perp x, w}}^2$ over $n$ times the variance of the explanatory variable after partialling out $w$ ($\sigma_{x^{\perp w}}^2$), if controlling absorbs more of the variance in $x$ than in $y$, it will increase the variance of the resulting estimator and create exaggeration.
+
+## An illustrative example
+
+For readability and to illustrate this exaggeration, let's consider an example setting that can be thought of as canonical: the impact of climate change (and temperature) on agricultural profits. Usual approaches to explore this question typical rely either on cross-sectional variation (comparing hot areas to cold areas) or use variation over time to compare hot and cold conditions for a given area. The later have been implemented in fear of omitted variable if climate is correlated with other time invariant unobserved variables. 
+A large set of papers investigate this question such as [Deschênes and Greenstone (2007)](https://www.aeaweb.org/articles?id=10.1257/aer.97.1.354), [Schlenker and Roberts (2009)](https://www.pnas.org/doi/10.1073/pnas.0906865106) or [Burke and Emerick (2016)](https://www.aeaweb.org/articles?id=10.1257/pol.20130025).
+
+Approaches
+As discussed for instance by Burke and Emerick, the 
+
+### Modeling choices
+
+In the present analysis, I build my simulations to replicate a similar setting, measuring the impact of high temperature on agricultural yields. To simplify, I make the assumptions described below. Of course these assumptions are arbitrary and I invite interested readers to play around with them. 
+
+- 
+- In order for the variation of one factor not to impact other factors of interest, I consider the variances of the variables ($\sigma_{y}^{2}, \sigma_{x}^{2}, \sigma_{w}^{2} \text{ and } \sigma_{z}^{2}$) as fixed but adjust for the variances of the error terms ($\sigma_{u}^{2} \text{ and } \sigma_{\epsilon}^{2}$) when varying the values of one of the parameters ($\gamma, \delta \text{ and } \pi_{1}$). This corresponds to thinking in terms of shares of the variance of $x$ and $y$ explained by ``defined'' variables (*i.e.*, observed variables and $w$) *versus* by residuals.
+- I set the bias to be fixed. Comparison between cases with and without OVB for different parameter values is only relevant if varying the parameter of interest does not affect the OVB. Based on the maths (and confirmed below by the simulatations), this corresponds to assuming that $\gamma \delta = \kappa = cst$.
+
+
+More precisely, I set: 
+
+- $N$ the number of observations,
+
+### Data generation
+
+#### Generating function
+
+I write a simple function that generates the data. It takes as input the values of the different parameters and returns a data frame containing all the variables for this analysis. 
+
+Note that, to work with constant $\sigma_{y}^{2}, \sigma_{x}^{2}, \sigma_{w}^{2} \text{ and } \sigma_{z}^{2}$, I need to define $\sigma_{u}^{2} \text{ and } \sigma_{\epsilon}^{2}$ as a function of the variances of defined variables:
+
+$$\sigma_{\epsilon}^2 = \sigma_x^2 - \gamma^2\sigma_w^2$$
+
+$$\sigma_{u}^2 = \sigma_y^2 - \beta_1^2\sigma_x^2 - \delta^2\sigma_w^2 - 2 \beta_1\delta\gamma\sigma_w^2$$
+
+These expressions directly follow from the DGP. Note that the parameters space is restricted by the necessity of having positive variances. Hence, $\sigma_{x}^{2}$ needs to be strictly larger than $\gamma_{max}^2\sigma_{w}^{2}$ where $\gamma_{max}$ is the maximum value taken by $\gamma$ when varying this parameter. Similarly, $\sigma_{y}^{2}$ needs to be strictly larger than $\beta_1^2\sigma_x^2 + \frac{\kappa^2}{\gamma_{min}^2}\sigma_w^2 + 2 \beta_1\kappa\sigma_w^2$. 
+
+```{r generate_data_controls}
+generate_data_controls <- function(N,
+                                   mu_x,
+                                   sigma_x,
+                                   sigma_y,
+                                   sigma_w,
+                                   beta_0,
+                                   beta_1,
+                                   gamma,
+                                   kappa) {
+  # gamma <- rho_xw*sigma_x/sigma_w #by def of rho_xw
+  # delta <- bias*sigma_x/(rho_xw*sigma_w)
+  delta <- kappa/gamma
+  
+  data <- tibble(id = 1:N) |> 
+    mutate(
+      w = rnorm(N, 0, sigma_w), 
+      # sigma_epsilon = sigma_x*(1 - rho_xw^2),
+      sigma_epsilon = sqrt(sigma_x^2 - gamma^2*sigma_w^2),
+      epsilon = rnorm(N, 0, sigma_epsilon),
+      x = mu_x + gamma*w + epsilon,
+      sigma_u = sqrt(sigma_y^2 - beta_1^2*sigma_x^2 - delta^2*sigma_w^2 - 2*beta_1*delta*gamma*sigma_w^2),
+      # sigma_u = sqrt(sigma_y^2 - sigma_x^2*(beta_1^2 + 2*beta_1*bias + bias^2*sigma_x^2/rho_xw^2),
+      u = rnorm(N, 0, sigma_u),
+      y = beta_0 + beta_1*x + delta*w + u
+    )
+}
+```
+
+#### Baseline parameters' values
+
+<!-- I set baseline values for the parameters to emulate a somehow realistic observational study`. -->
+
+<!-- We get "inspiration" for the values of parameters from [Lavaine and Neidell (2017)](https://www.journals.uchicago.edu/doi/full/10.1086/691554). -->
+
+<!-- I consider that: -->
+I then set baseline values for the parameters.
+
+Due to the constrains on the parameters to ensure positive variances, this example required some tuning. 
+
+```{r baseline_param_controls, echo=FALSE}
+baseline_param_controls <- tibble(
+  N = 2000,
+  mu_x = 1.2, 
+  sigma_x = 2,
+  sigma_y = 5,
+  sigma_w = 1.1,
+  beta_0 = 0.5,
+  beta_1 = 0.2,
+  gamma = 1,
+  kappa = 0.22
+)
+
+baseline_param_controls |> kable()
+```
+
+Here is an example of data created with the data generating process and baseline parameter values, for 10 observations:
+
+```{r example_data_controls, echo=FALSE}
+baseline_param_controls |> 
+  mutate(N = 10) |> 
+  pmap(generate_data_controls) |> 
+  list_rbind() |>  #use pmap to pass the set of parameters
+  kable()
+```
+
+#### Quick data exploration
+
+I quickly explore a generated data set to get a sense of how the data is distributed. 
+
+### Estimation
+
+I then define a function to run the estimation. Since we want to compare the case with and without control, we run both regressions.
+
+```{r estimate_controls}
+estimate_controls <- function(data) {
+  reg_ctrl <- lm(data = data, y ~ x + w) |> 
+    broom::tidy() |> 
+    filter(term == "x") |> 
+    mutate(model = "ctrl")
+  
+  reg_ovb <- lm(data = data, y ~ x) |> 
+    broom::tidy() |> 
+    filter(term == "x") |> 
+    mutate(model = "ovb")
+  
+  reg_ctrl |> 
+    rbind(reg_ovb) |>
+    select(estimate, se = std.error, p_value = p.value, model) |> 
+    mutate(#to compute corr(x,w)
+      sigma_epsilon = unique(data$sigma_epsilon),
+      sigma_u = unique(data$sigma_u)
+    )
+}
+```
+
+Here is an example of an output of this function:
+
+```{r one_estimation_controls, echo=FALSE}
+baseline_param_controls %>% 
+  pmap_dfr(generate_data_controls) |> 
+  estimate_controls() |> 
+  kable()
+```
+
+### One simulation
+
+We can now run a simulation, combining `generate_data_controls` and `estimate_controls`. To do so I create the function `compute_sim_controls`. This simple function takes as input the various parameters. It returns a table with the model considered, the estimate of the treatment, its p-value and standard error and parameters values. 
+
+```{r compute_sim_controls, echo=FALSE}
+compute_sim_controls <- function(...) {
+  generate_data_controls(...) |> 
+    estimate_controls() |>
+    cbind(as_tibble(list(...))) #add parameters used for generation
+} 
+```
+
+Here is an example of an output of this function.
+
+```{r example_output_sim_RDD, echo=FALSE}
+baseline_param_controls |> 
+  pmap_dfr(compute_sim_controls) |> 
+  kable()
+```
+
+### All simulations
+
+I will run the simulations for different sets of parameters by looping the `compute_sim_controls` function over the set of parameters. I thus create a table with all the values of the parameters to test, `param_controls`. Note that in this table each set of parameters appears `N_iter` times as we want to run the analysis $n_{iter}$ times for each set of parameters.
+
+```{r set_param_controls}
+N_iter <- 2000
+vect_gamma <- seq(1, 1.6, 0.2)
+
+param_controls <- baseline_param_controls |> 
+  crossing(rep_id = 1:N_iter) |>
+  select(-gamma) |> 
+  crossing(gamma = vect_gamma) |>  
+  select(-rep_id) 
+```
+
+I then run the simulations by looping our `compute_sim_controls` function on `param_controls` using the `purrr` package (`pmap` function).
+
+```{r run_sim_controls, eval=FALSE}
+sim_controls <- pmap(param_controls, compute_sim_controls) |> 
+  list_rbind() |> 
+  as_tibble() 
+
+sim_controls <- sim_controls |> 
+  mutate(ratio_gamma_delta = round(1/((1/(gamma^2/kappa) + beta_1)*sigma_x/sigma_y), 1))
+
+# beepr::beep()
+
+# saveRDS(sim_controls, here("Outputs/sim_controls.RDS"))
+```
+
+## Analysis of the results
+
+### Quick exploration
+
+First, I quickly explore the results. I plot the distribution of the estimated effect sizes, along with the true effect. The control estimator is unbiased and recover, on average, the true effect while the OVB one is of course biased and does not recover the true effect:
+
+```{r exploration_results_controls, fig.asp=1.5, code_folding="Show code used to generate the graph"}
+sim_controls <- readRDS(here("Outputs/sim_controls.RDS"))
+
+sim_controls |> 
+  mutate(model_name = ifelse(model == "ctrl", "Controlled", "Omitted")) |>
+  ggplot(aes(x = estimate)) + 
+  geom_histogram(bins = 60) + 
+  geom_vline(xintercept = unique(sim_controls$beta_1)) +
+  # geom_vline(aes(xintercept = 0, linetype = "solid")) +
+  facet_grid(ratio_gamma_delta ~ model_name) +
+  labs(
+    title = "Distribution of the estimates of the treatment effect",
+    subtitle = "For different values of gamma",
+    x = "Estimate of the treatment effect",
+    y = "Count",
+    caption = "The vertical line represents the true effect"
+  )
+```
+
+### Computing bias and exaaggeration ratio
+
+We want to compare $\mathbb{E}[\widehat{\beta}]/\beta_0$ and $\mathbb{E}[ \widehat{\beta}|signif]/\beta_0$. The first term represents the normalized bias and the second term represents the exaggeration ratio. These terms depend on the true effect size.
+
+To do so, I use the function `summmarise_sim` defined in the `functions.R` file.
+
+```{r summarise_controls}
+source(here("functions.R"), echo = TRUE, local = knitr::knit_global())
+
+summary_sim_controls <- summarise_sim(
+  data = sim_controls, 
+  varying_params = c(model, ratio_gamma_delta), 
+  true_effect = beta_1
+)
+
+# saveRDS(summary_sim_controls, here("Outputs/summary_sim_controls.RDS"))
+```
+
+### Main graph
+
+To analyze our results, I build a unique and simple graph:
+
+```{r main_graph_controls, code_folding='Show the code used to generate the graph', fig.asp=0.7}
+summary_sim_controls |> 
+  mutate(model_name = ifelse(model == "ctrl", "Controlled", "Omitted")) |>
+  ggplot(aes(x = ratio_gamma_delta, y = exag_ratio, color = model_name)) + 
+  geom_line() +
+  ylim(c(1, NA)) +
+  labs(
+    x = expression(frac("cor(w, x)", "cor(w, y)")),
+    y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
+    title = "Evolution of bias with the correlations of the omitted variable",
+    subtitle = "For statistically significant estimates, 2000 simulations",
+    color = "Model"
+  ) +
+  scale_mediocre_d()
+```
+
+```{r main_graph_controls_paper, dpi=600, include=FALSE}
+summary_sim_controls |> 
+  mutate(model_name = ifelse(model == "ctrl", "Controlled", "Omitted")) |>
+  ggplot(aes(x = ratio_gamma_delta, y = exag_ratio, color = model_name)) + 
+  geom_line() +
+  ylim(c(1, NA)) +
+  labs(
+    x = expression(frac("corr(omitted, x)", "corr(omitted, y)")),
+    y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
+    # title = "Evolution of bias with gamma",
+    # subtitle = "For statistically significant estimates",
+    color = "Model"
+  ) +
+  scale_mediocre_d()
+
+ggsave(
+  "main_graph_controls_paper.pdf", 
+  path = "paper/current_version/images", 
+  width = 8, 
+  height = 4.5
+)
+```
+
+
+I then graph the distribution of estimates conditional on significativity. It represents the same phenomenon but with additional information.
+
+```{r graph_distrib_ctrl, code_folding='Show the code used to generate the graph', fig.asp=0.8}
+graph_distrib_ctrl <- sim_controls %>% 
+  # filter(model == "ctrl") |> 
+  mutate(
+    signif = ifelse(p_value < 0.05, "Significant", "Non-significant"),
+    ratio_exagg = estimate/beta_1,
+    model = ifelse(model == "ctrl", "Control", "No ctrl")
+  ) %>% 
+  group_by(ratio_gamma_delta, model) %>%
+  mutate(
+    mean_signif = mean(ifelse(p_value < 0.05, ratio_exagg, NA), na.rm = TRUE),
+    mean_all = mean(ratio_exagg, na.rm = TRUE)
+  ) %>%
+  ungroup() |> 
+  # filter(between(ratio_exagg, -1, 3)) |> 
+  ggplot(aes(x = ratio_exagg, fill = "All Estimates")) + 
+  # geom_area(stat ="bin", bins = 50, alpha = 0.85) +
+  facet_grid(model ~ ratio_gamma_delta, switch = "x") +
+  # geom_vline(xintercept = unique(sim_controls$beta_1)) +
+  geom_vline(xintercept = 1) +
+  geom_vline(xintercept = 0, linetype = "solid", linewidth = 0.12) +  
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 6)) +
+  coord_flip() +
+  scale_y_continuous(breaks = NULL) +
+  labs(
+    y = expression(frac("corr(w, x)", "corr(w, y)")),
+    x = expression(paste(frac("Estimate", "True Effect"))),
+    fill = "",
+    title = "Distribution of estimates from 1000 simulated datasets",
+    subtitle = "Comparison with or without controls"
+    # subtitle = "Conditional on significativity", 
+    # caption = 
+      # "The green dashed line represents the result aimed for
+      # "The brown solid line represents the average of significant estimates"
+  ) 
+
+graph_distrib_ctrl +
+  geom_histogram(bins = 45, alpha = 0.85) 
+
+graph_distrib_ctrl_signif <- graph_distrib_ctrl +
+  geom_histogram(bins = 45, alpha = 0.85, aes(fill = signif)) +
+  geom_vline(xintercept = 1) 
+
+graph_distrib_ctrl_signif
+
+graph_distrib_ctrl_signif +
+  geom_vline(
+    aes(xintercept = mean_signif),
+    color = "#976B21",
+    linetype = "solid",
+    linewidth = 0.5
+  ) 
+```
+
+```{r test_distrib, eval=FALSE, include=FALSE}
+#test for diffferent distribution 
+library(ggdist)
+library(ggridges)
+
+data_graph_controls <- sim_controls %>% 
+  # filter(model == "ctrl") |> 
+  mutate(
+    signif = ifelse(p_value < 0.05, "Significant", "Non-significant"),
+    ratio_exagg = estimate/beta_1,
+    model = ifelse(model == "ctrl", "Control", "No ctrl")
+  ) %>% 
+  group_by(ratio_gamma_delta, model) %>%
+  mutate(
+    mean_signif = mean(ifelse(p_value < 0.05, ratio_exagg, NA), na.rm = TRUE),
+    mean_all = mean(ratio_exagg, na.rm = TRUE)
+  ) %>%
+  ungroup() 
+
+g <- data_graph_controls |> 
+  group_by(model, ratio_gamma_delta) |> 
+  mutate(mean_r_e = mean(ratio_exagg)) |> 
+  group_by(model, ratio_gamma_delta, signif) |> 
+  mutate(mean_r_e_signif = mean(ifelse(p_value < 0.05, ratio_exagg, NA), na.rm = TRUE)) |> 
+  ungroup() |> 
+  ggplot() +
+  ggdist::stat_slab(
+    aes(
+      x = ratio_gamma_delta,
+      y = ratio_exagg,
+      fill = model,
+      alpha = signif
+    ),
+    density = "histogram",
+    breaks = 10
+  ) +
+  geom_hline(yintercept = 1) +
+  scale_alpha_discrete(range = c(0.2, 0.5))
+
+g
+
+g +
+  geom_line(aes(x = ratio_gamma_delta, y = mean_r_e, color = model)) + 
+  geom_line(
+    data = g$data |> filter(model == "Control"),
+    aes(x = ratio_gamma_delta, y = mean_r_e_signif, color = signif)) + 
+  # scale_fill_ramp_discrete(range = c(1, 0.4)) +
+  # scale_fill_ramp_discrete(from = "darkred") +
+  # mediocrethemes::scale_mediocre_d(pal = "autumn")
+  # geom_hline(yintercept = 0, linetype = "solid")
+  geom_hline(yintercept = 1) +
+  scale_alpha_discrete(range = c(0.2, 0.5))
+
+
+
+data_graph_controls |> 
+  ggplot(
+    aes(
+      x = ratio_exagg,
+      y = factor(ratio_gamma_delta),
+      fill = model,
+      color = model,
+      fill = after_stat(quantile)
+    )
+  ) +
+  geom_density_ridges(alpha = 0.3) +
+  coord_flip()
+
++
+  stat_density_ridges(quantile_lines = FALSE,
+                      calc_ecdf = TRUE,
+                      geom = "density_ridges_gradient")
+
+
+data_graph_controls |> 
+  ggplot(aes(x = ratio_exagg, fill = model, alpha = signif)) + 
+  geom_histogram(bins = 50, position = "identity") +
+  facet_wrap(~ ratio_gamma_delta, nrow = 1) +
+  scale_alpha_discrete(range = c(0.3, 0.7)) + 
+  coord_flip()
+
+```
+
+

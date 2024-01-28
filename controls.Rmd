@@ -1,6 +1,6 @@
 ---
 title: "Simulations controls"
-description: "In this document, I run a simulation exercise to illustrate how controling for a confounder may lead to a loss in power and inflated effect sizes."
+description: "In this document, I run a simulation exercise to illustrate how controling for a confounder can lead to a loss in power and inflated effect sizes."
 output: 
   distill::distill_article:
     toc: true
@@ -52,14 +52,19 @@ set.seed(12)
 
 ## Summary and intuition
 
-As discussed in the introduction and the math section of the paper, when controlling for confounders may cause a confounding / exaggeration trade-off mediated by the proportion of the variation that the control absorbs more variation in the explanatory variable of interest ($x$) than in the outcome variable ($y$). Controlling for a variable ($w$) is equivalent to partialling out this variable from both $x$ and $y$. Since the variance of the estimator is given by the ratio of the variance of the residuals $\sigma_{y^{\perp x, w}}^2$ over $n$ times the variance of the explanatory variable after partialling out $w$ ($\sigma_{x^{\perp w}}^2$), if controlling absorbs more of the variance in $x$ than in $y$, it will increase the variance of the resulting estimator and create exaggeration.
+As discussed in the introduction of the paper and the math section, controlling for confounders can cause a confounding / exaggeration trade-off mediated by the proportion of the variation when the control absorbs more variation in the explanatory variable of interest ($x$) than in the outcome variable ($y$). Controlling for a variable ($w$) is equivalent to partialling out this variable from both $x$ and $y$. Since the variance of the estimator is given by the ratio of the variance of the residuals $\sigma_{y^{\perp x, w}}^2$ over $n$ times the variance of the explanatory variable after partialling out $w$ ($\sigma_{x^{\perp w}}^2$), if controlling absorbs more of the variance in $x$ than in $y$, it will increase the variance of the resulting estimator and create exaggeration.
 
 ## An illustrative example
 
-For readability and to illustrate this exaggeration, let's consider an example setting. 
+For readability and to illustrate this exaggeration, let's consider an example setting that can be thought of as canonical: the impact of climate change (and temperature) on agricultural profits. Usual approaches to explore this question typical rely either on cross-sectional variation (comparing hot areas to cold areas) or use variation over time to compare hot and cold conditions for a given area. The later have been implemented in fear of omitted variable if climate is correlated with other time invariant unobserved variables. 
+A large set of papers investigate this question such as [Deschênes and Greenstone (2007)](https://www.aeaweb.org/articles?id=10.1257/aer.97.1.354), [Schlenker and Roberts (2009)](https://www.pnas.org/doi/10.1073/pnas.0906865106) or [Burke and Emerick (2016)](https://www.aeaweb.org/articles?id=10.1257/pol.20130025).
+
+Approaches
+As discussed for instance by Burke and Emerick, the 
 
 ### Modeling choices
 
+In the present analysis, I build my simulations to replicate a similar setting, measuring the impact 
 To simplify, I make the assumptions described below. Of course these assumptions are arbitrary and I invite interested readers to play around with them. 
 
 - In order for the variation of one factor not to impact other factors of interest, I consider the variances of the variables ($\sigma_{y}^{2}, \sigma_{x}^{2}, \sigma_{w}^{2} \text{ and } \sigma_{z}^{2}$) as fixed but adjust for the variances of the error terms ($\sigma_{u}^{2} \text{ and } \sigma_{\epsilon}^{2}$) when varying the values of one of the parameters ($\gamma, \delta \text{ and } \pi_{1}$). This corresponds to thinking in terms of shares of the variance of $x$ and $y$ explained by ``defined'' variables (*i.e.*, observed variables and $w$) *versus* by residuals.

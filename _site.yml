@@ -13,6 +13,8 @@ navbar:
       href: summary.html
     - text: "Intuition"
       href: intuition.html
+    - text: "Example lit."
+      href: air_pollution.html
     - text: "Maths"
       href: maths.html
     - text: "Simulations"

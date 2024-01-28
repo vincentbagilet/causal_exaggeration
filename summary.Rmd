@@ -135,8 +135,8 @@ RDD discards variation by only considering observations within the bandwidth. It
 On average significant estimates may never get close to the true effect.
 
 ```{r echo=FALSE, fig.align="center"} 
-knitr::include_graphics("images/graph_result_distrib_RDD-1.png")
-knitr::include_graphics("images/main_graph_RDD-1.png")
+knitr::include_graphics("images/RDD/graph_distrib_RDD-3.png")
+knitr::include_graphics("images/RDD/main_graph_RDD-1.png")
 ```
 
 #### Tweet 5/N

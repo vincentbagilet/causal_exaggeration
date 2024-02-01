@@ -566,7 +566,7 @@ graph_distrib_RDD <- sim_rdd %>%
   ungroup() %>% 
   ggplot(aes(x = ratio, fill = "All estimates")) + 
   facet_grid(~ bw, switch = "x") +
-  geom_vline(aes(xintercept = 1))+
+  geom_vline(aes(xintercept = 1)) +
   # geom_vline(
   #   aes(xintercept = mean_all_bw),
   #   linetype = "solid", 
@@ -584,6 +584,39 @@ graph_distrib_RDD <- sim_rdd %>%
     caption = "Bandwidth size as a proportion of the total number of observations"
   )
 
+graph_distrib_RDD <- sim_rdd %>% 
+  filter(factor(bw) %in% seq(0.1, 0.9, 0.1)) %>%
+  mutate(
+    significant = ifelse(p_value < 0.05, "Significant", "Non-significant"),
+    ratio = estimate/true_effect
+  ) %>% 
+  group_by(bw) %>% 
+  mutate(
+    mean_signif_bw = mean(ifelse(p_value < 0.05, ratio, NA), na.rm = TRUE),
+    mean_all_bw = mean(ratio, na.rm = TRUE)
+  ) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = ratio, fill = "All estimates")) +
+  ggridges::geom_density_ridges(aes(y = as.factor(bw)), scale = 4)
+
++ 
+  facet_wrap(~ bw, nrow = 9, strip.position = "left", as.table = FALSE) + 
+  geom_vline(aes(xintercept = 1)) +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 5)) +
+  theme(panel.grid.major.x = element_line()) +
+  # coord_flip() +
+  scale_y_continuous(breaks = NULL) +
+  labs(
+    y = "Bandwidth size", 
+    x = expression(paste(frac("Estimate", "True Effect" ))),
+    fill = "",
+    title = "Distribution of RDD estimates for 1000 simulated datasets",
+    subtitle = "Comparison across bandwidth sizes", 
+    caption = "Bandwidth size as a proportion of the total number of observations"
+  )
+
+graph_distrib_RDD +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 20), limits = c(-5, 8)) 
 
 graph_distrib_RDD +
   geom_histogram(bins = 45, alpha = 0.85) 

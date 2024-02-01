@@ -148,7 +148,25 @@ estimates_interest |>
   )
 ```
 
-It seems that the magnitude of the estimates vary a lot from study to study. 
+It seems that the magnitude of the estimates vary a lot from study to study.
+
+```{r}
+estimates_interest |> 
+  filter(empirical_strategy %in% c("conventional time series", "instrumental variable")) |> 
+  filter(control_outcome == 0) |> #remove placebos
+  ggplot(aes(x = estimate, y = independent_variable, color = empirical_strategy)) + 
+  # geom_histogram(bins = 10) + 
+  geom_beeswarm(cex = 1.5) +
+  # facet_wrap(~ independent_variable, scales = "free") +
+  scale_x_log10() +
+  labs(
+    title = "Distribution of effect sizes in the IV literature",
+    x = "Point estimate", 
+    y = NULL,
+    color = NULL
+  )
+```
+
 
 <!-- I then carry out the analysis of interest, by adding the info from Shah and computing the ratio between the obtained estimate and the "true effect" -->
 

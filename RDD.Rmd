@@ -19,6 +19,7 @@ opts_chunk$set(fig.path = "images/RDD/",
                cache.path = "cache/",
                cache = FALSE,
                echo = TRUE, #set to false to hide code
+               code_folding = FALSE,
                message = FALSE,
                warning = FALSE,
                out.width = "85%",
@@ -67,7 +68,7 @@ dagify(Final ~ U + T + Qual,
        outcome = "Final",
        latent = "U",
        coords = list(x = c(Final = 3, T = 2, U = 2, Qual = 1),
-                     y = c(Final = 0, T = 0, U = 1, Qual = 1))) %>% 
+                     y = c(Final = 0, T = 0, U = 1, Qual = 1))) |> 
   # ggdag() +
   ggplot(ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
   geom_dag_point(alpha = 0, stroke = TRUE) +
@@ -94,17 +95,18 @@ Where $\alpha^f$ is a constant, $f$ a non linear function and $e \sim \mathcal{N
 To simplify, we consider the following assumptions:
 
 - Full compliance and a sharp treatment allocation such that $T_i = \mathbb{I}[Qual_{i} < C]$. All students with a qualification score below the threshold are treated and receive additional lessons. None of the students with a qualification score above the threshold are treated. 
-- The unobserved ability affects qualification and final test scores in a cubic way. A large ability has a strong positive impact on test scores. Similarly a particularly low ability strongly impacts test scores negatively. An average ability does not have much impact on test scores. Such a functional form seems realistic. Note that ability creates an OVB only if it has a non linear impact on test scores.
-- We assume constant treatment effects. This assumption is not necessary and our results hold if we consider non-constant treatment effects. We thus may drop this assumption in the future.
+- We assume constant treatment effects.
+<!-- This assumption is not necessary and our results hold if we consider non-constant treatment effects. We thus may drop this assumption in the future. -->
+- The unobserved ability affects qualification and final test scores in a cubic way. A large ability has a strong positive impact on test scores. Similarly a particularly low ability strongly impacts test scores negatively. An average ability does not have much impact on test scores. Such a functional form seems realistic, even though it is in essence impossible to evaluate. Note that ability creates an OVB only if it has a non linear impact on test scores.
 - We assume that the unobserved availability affects the qualification and final score in a similar way and therefore with the same intensity $\delta$. However, since the unobserved ability affects the final score through the qualification score, we adjust for that so that the ability has actually the same effect on both test scores. As a consequence, $\delta^f= \delta \times (1 - \gamma)$.
 
 More precisely, we set: 
 
-- $N$ the number of students
-- $U \sim \mathcal{U}(-b_u, b_u)$ the unobserved ability.
+- $N$ the number of students,
+- $U \sim \mathcal{U}(-b_u, b_u)$ the unobserved ability. We assume an uniform distribution for simplicity and because it yields a rather realistic distribution of test scores. Note that a cubic transformation is performed on this uniform distribution, making the effect of ability not uniformly distributed,
 - $Qual_i = \alpha^q + \delta U_i^{3} + e^q_i$ where $e^q \sim \mathcal{N}(0, \sigma_q^{2})$
-- $T_i = \mathbb{I}[Qual_{i} < q_c]$ where for now and for simplicity, $q_c$ is a fixed grade threshold given as the quantile in the qualification score distribution.
-- $e^f \sim \mathcal{N}(0, \sigma_f^2)$
+- $T_i = \mathbb{I}[Qual_{i} < q_c]$ where for now and for simplicity, $q_c$ is a fixed grade threshold given as the quantile in the qualification score distribution,
+- $e^f \sim \mathcal{N}(0, \sigma_f^2)$,
 - $Final_{i} = \alpha^f  + \beta T_i + \gamma Qual_{i} +  \delta^f U_i^{3} + e^f_{i}$ (where $\delta^f = \delta (1-\gamma)$)
 
 ### Data generation
@@ -127,12 +129,12 @@ generate_data_RDD <- function(N,
                               delta,
                               q_c) {
   
-  data <- tibble(id = 1:N) %>% 
+  data <- tibble(id = 1:N) |>  
     mutate(
-      u = runif(nrow(.), -bound_u, bound_u),
-      e_q = rnorm(nrow(.), 0, sigma_q),
+      u = runif(N, -bound_u, bound_u),
+      e_q = rnorm(N, 0, sigma_q),
       qual = alpha_q + delta*u^3 + e_q,
-      e_f = rnorm(nrow(.), 0, sigma_f),
+      e_f = rnorm(N, 0, sigma_f),
       treated = qual < quantile(qual, q_c),
       final0 = alpha_f + gamma*qual + delta*(1-gamma)*u^3 + e_f,
       final1 = final0 + beta,
@@ -148,7 +150,7 @@ In a RDD, the model is estimated only for observations close enough to the thres
 
 ```{r define_bw_RDD}
 define_bw <- function (data, bw) {
-  data <- data %>% 
+  data <- data |> 
     mutate(
       treated_bw = ifelse(
         dplyr::between(
@@ -169,10 +171,11 @@ We set baseline values for the parameters to emulate a somehow realistic observa
 
 - We assumes that grades are SAT scores. One can think of the qualifying exam as a state level exam that gives the opportunity to students with lower grades to receive additional lessons. For simplicity, we assume that the **scores have a mean of 1060 and standard error of 200** (based on [statistics provided by the Department of Education](https://nces.ed.gov/programs/digest/d20/tables/dt20_226.40.asp)). Since these scores depend on the unobserved ability, we adjust the values of the parameters to get appropriate distributions.
 - Typical treatment effect sizes in economics of education are of the order of magnitude of 0.1 sd. [Kraft 2020](https://journals.sagepub.com/doi/abs/10.3102/0013189X20912798?journalCode=edra), reviewing 747 RCTs of education intervention finds that the median effect size is 0.1 sd. Interestingly, he finds that "larger studies with broad achievement measures have systematically smaller effect sizes". This might hint to publication bias as he underlines. In studies with more than 2000 individuals, the median effect is 0.03 sd. The same median effect size is observed in preregistered studies. We therefore consider an **effect size of 0.03 sd**, *ie* $\beta = 6 = 200\times 0.03$.
-- We assume that the unobserved ability is uniformly distributed between -2.5 and 2.5. We chose this values because it produces the right relationships between the variables.
 - We consider that the threshold is located at the center of the distribution ($q_c = 0.5$). The bandwidth is symmetric around the cutoff. Considering a cutoff in the middle of the distribution enables us to consider very wide bandwidths, up to including the whole sample in the analysis. Based on the functional form chosen for the effect of $U$ on grades ($f: U \mapsto U^3$), choosing a cutoff in the middle of the distribution enables to have units that are relatively similar in terms of unobserved variable close to the cut-off and different far away from it. 
+- We assume that the unobserved ability is uniformly distributed between -2.5 and 2.5. We do this tuning by iteration in order to get a desired distribution (with corresponding standard deviation, distribution of test scores, etc). Importantly, such values yield a maximum variation in test scores caused by unobserved ability of $\pm \delta \cdot u^{3} = \pm 30\times (2.5)^3 = \pm 468.75$pts and for each quartile, a variation of
+$\pm \delta \cdot u^{3} = \pm 30\times (1.25)^3 \sim \pm 59$pts. The former corresponds to a variation in test scores of more than 2 standard deviations and the later of 0.5 sd.^[Note that unobserved ability explains a large share of the variation in test scores, about 63% <!-- ex_data_RDD |> lm(formula = qual ~ u) |> summary() %>% .$r.squared -->] The case we consider is therefore conservative, with a large OVB. 
 
-The set of parameters may produce test score outside of the range 0-100 in some iterations but that does not affect the analysis. We add the parameter value for delta separately as we will vary the value later and will reuse the table `baseline_param_RDD`.
+The set of parameters may produce test score outside of the range 400–1600 in some iterations but that does not affect the analysis. We add the parameter value for delta separately as we will vary the value later and will reuse the table `baseline_param_RDD`.
 
 ```{r baseline_param_RDD, echo=FALSE}
 baseline_param_RDD <- tibble(
@@ -185,40 +188,39 @@ baseline_param_RDD <- tibble(
   beta = 6,
   gamma = 0.5,
   q_c = 0.5,
-  delta = 30
+  delta = 20
 )
 
-baseline_param_RDD %>% kable()
+baseline_param_RDD |> kable()
 ```
 
 Here is an example of data created with our data generating process:
 
 ```{r example_data_RDD, code_folding='Show the code used to generate the table'}
-baseline_param_RDD %>%
-  mutate(N = 10) %>%
-  pmap_dfr(generate_data_RDD) %>% #use pmap to pass the set of parameters
+baseline_param_RDD |>
+  mutate(N = 10) |>
+  pmap_dfr(generate_data_RDD) |> #use pmap to pass the set of parameters
   kable()
 ```
 
-We check the standard deviation and means of the generated exam scores to make sure that they correspond to w to make:
+We check the standard deviation and means of the generated exam scores to make sure that they correspond to what we expect:
 
-```{r check_sd_mean_RDD, echo=FALSE}
-ex_data_RDD <- baseline_param_RDD %>% 
-  # mutate(N = 10000) %>% 
+```{r check_sd_mean_RDD, code_folding=TRUE}
+ex_data_RDD <- baseline_param_RDD |> 
   pmap_dfr(generate_data_RDD) 
 
-ex_data_RDD_mean <- ex_data_RDD %>% 
-  summarise(across(.cols = c(qual, final0), .fns = mean)) %>% 
-  mutate(Statistic = "Mean") %>% 
+ex_data_RDD_mean <- ex_data_RDD |> 
+  summarise(across(.cols = c(qual, final0), .fns = mean)) |> 
+  mutate(Statistic = "Mean") |> 
   select(Statistic, everything())
 
-ex_data_RDD_sd <- ex_data_RDD %>% 
-  summarise(across(.cols = c(qual, final0), .fns = stats::sd)) %>% 
-  mutate(Statistic = "Standard Deviation") %>% 
+ex_data_RDD_sd <- ex_data_RDD |> 
+  summarise(across(.cols = c(qual, final0), .fns = stats::sd)) |> 
+  mutate(Statistic = "Standard Deviation") |> 
   select(Statistic, everything())
 
-ex_data_RDD_mean %>% 
-  rbind(ex_data_RDD_sd) %>% 
+ex_data_RDD_mean |> 
+  rbind(ex_data_RDD_sd) |> 
   kable()
 ```
 
@@ -227,9 +229,9 @@ ex_data_RDD_mean %>%
 The following graph illustrates this process by plotting final test scores against qualification ones depending on the value of `treated_bw`.
 
 ```{r graph_bandwidth_RDD, fig.asp=1, code_folding='Show the code used to generate the graph'}
-baseline_param_RDD %>% 
-  pmap_dfr(generate_data_RDD) %>% #use pmap to pass the set of parameters
-  define_bw(0.5) %>%
+baseline_param_RDD |> 
+  pmap_dfr(generate_data_RDD) |> #use pmap to pass the set of parameters
+  define_bw(0.5) |>
   # mutate(
   #   treated_bw_phrase = case_when(
   #     treated_bw ~ "Treated and inside bandwidth",
@@ -257,9 +259,9 @@ baseline_param_RDD %>%
 
 Then, we quickly look at the distributions of the different variables to check that they have a shape similar to what we expect.
 
-```{r explore_distrib_RDD, echo=FALSE}
-ex_data_RDD %>% 
-  mutate(is_treated = ifelse(treated, "Treated", "Non treated")) %>% 
+```{r explore_distrib_RDD, code_folding=TRUE, fig.asp=0.8}
+ex_data_RDD |> 
+  mutate(is_treated = ifelse(treated, "Treated", "Non treated")) |> 
   ggplot(aes(x = qual, fill = is_treated)) +
   geom_histogram() + 
   labs(
@@ -269,10 +271,10 @@ ex_data_RDD %>%
     fill = ""
   ) 
 
-ex_data_RDD %>% 
-  mutate(is_treated = ifelse(treated, "Treated", "Non treated")) %>% 
+ex_data_RDD |> 
+  mutate(is_treated = ifelse(treated, "Treated", "Non treated")) |> 
   ggplot(aes(x = final, fill = is_treated)) +
-  geom_histogram() + 
+  geom_histogram(position = "identity", alpha = 0.8, bins = 50) + 
   labs(
     title = "Distribution of final scores depending on treatment status",
     x = "Final Score",
@@ -283,9 +285,9 @@ ex_data_RDD %>%
 
 We then look at relation between the qualifying score and the unobserved ability. This enables us to understand how where the bias comes form:
 
-```{r explore_relations_RDD, echo=FALSE}
-ex_data_RDD %>% 
-  define_bw(0.5) %>%
+```{r explore_relations_RDD, code_folding=TRUE}
+ex_data_RDD |> 
+  define_bw(0.5) |>
   ggplot(aes(x = qual, y = u, color = treated_bw)) + 
   geom_point() + 
   labs(
@@ -311,9 +313,9 @@ Note that to run power calculations, we need to have access to the true effects.
 
 ```{r compute_true_effect_RDD}
 compute_true_effect_RDD <- function(data) {
-  treated_data <- data %>% 
+  treated_data <- data |> 
     filter(treated) 
-  return(mean(treated_data$final1 - treated_data$final0))
+  return(round(mean(treated_data$final1 - treated_data$final0)))
 }  
 ```
 
@@ -321,18 +323,18 @@ We then run the estimation. To do so, we only consider observations within the b
 
 ```{r estimate_RDD}
 estimate_RDD <- function(data, bw) {
-  data_in_bw <- data %>% 
-    define_bw(bw = bw) %>% 
+  data_in_bw <- data |> 
+    define_bw(bw = bw) |> 
     filter(!is.na(treated_bw))
   
   reg <- lm(
     data = data_in_bw, 
     formula = final ~ treated + qual
-  ) %>% 
-    broom::tidy() %>%
-    filter(term == "treatedTRUE") %>%
-    rename(p_value = p.value, se = std.error) %>%
-    select(estimate, p_value, se) %>%
+  ) |> 
+    broom::tidy() |>
+    filter(term == "treatedTRUE") |>
+    rename(p_value = p.value, se = std.error) |>
+    select(estimate, p_value, se) |>
     mutate(
       true_effect = compute_true_effect_RDD(data),
       bw = bw
@@ -358,8 +360,8 @@ compute_sim_RDD <- function(vect_bw, ...) {
 Here is an example of an output of this function.
 
 ```{r example_output_sim_RDD, echo=FALSE}
-baseline_param_RDD %>% 
-  pmap_dfr(compute_sim_RDD, vect_bw = c(0.1, 0.2)) %>% 
+baseline_param_RDD |> 
+  pmap_dfr(compute_sim_RDD, vect_bw = c(0.1, 0.2)) |> 
   kable()
 ```
 
@@ -368,18 +370,18 @@ baseline_param_RDD %>%
 We will run the simulations for different sets of parameters by mapping our `compute_sim_RDD` function on each set of parameters. We thus create a table with all the values of the parameters we want to test `param_rdd`. Note that in this table each set of parameters appears `n_iter` times as we want to run the analysis $n_{iter}$ times for each set of parameters.
 
 ```{r set_param_RDD}
-fixed_param_RDD <- baseline_param_RDD %>% #%>% rbind(...)
+fixed_param_RDD <- baseline_param_RDD |> #|> rbind(...)
   mutate(vect_bw = 0.1)
 # vect_bw <- seq(0.05, 0.4, 0.05)
 vect_bw <- c(seq(0.1, 0.4, 0.05), seq(0.5, 0.9, 0.1))
 # vect_delta <- c(3)
 n_iter <- 1000
 
-param_rdd <- fixed_param_RDD %>% 
-  select(-vect_bw) %>% #parameters we modify
-  # crossing(delta = vect_delta) %>% 
-  mutate(vect_bw = list(vect_bw)) %>% 
-  crossing(rep_id = 1:n_iter) %>% 
+param_rdd <- fixed_param_RDD |> 
+  select(-vect_bw) |> #parameters we modify
+  # crossing(delta = vect_delta) |> 
+  mutate(vect_bw = list(vect_bw)) |> 
+  crossing(rep_id = 1:n_iter) |> 
   select(-rep_id)
 ```
 
@@ -400,12 +402,12 @@ toc()
 
 First, we quickly explore the results. In the following figure, we can see that for small bandwidth estimates are unbiased but imprecise while for large bandwidths estimates are precise but biased.
 
-```{r result_density_RDD, echo=FALSE, fig.asp=0.8}
-sim_rdd <- readRDS(here("Outputs/sim_rdd.RDS"))
+```{r result_density_RDD, code_folding=TRUE, fig.asp=0.8}
+sim_rdd <- readRDS(here("Outputs", "sim_rdd.RDS"))
 
-sim_rdd %>%
-  filter(bw %in% seq(0.1, 0.9, 0.1)) %>% 
-  mutate(bw_name = str_c("Bandwidth: ", bw)) %>% 
+sim_rdd |>
+  filter(bw %in% seq(0.1, 0.9, 0.1)) |> 
+  mutate(bw_name = str_c("Bandwidth: ", bw)) |> 
   ggplot(aes(x = estimate)) +
   geom_density() +
   # geom_vline(aes(xintercept = mean(estimate))) +
@@ -421,10 +423,10 @@ sim_rdd %>%
 
 When the bandwidth is relatively small, estimates are spread out and the mean of statistically significant estimates is larger than the true effect. Note that the average of all estimates, significant and non-significant, is close to the true effect. Applying a statistical significance filter leads to overestimate the true effect in this case.
 
-```{r result_histogram_RDD, echo=FALSE}
-sim_rdd %>% 
-  filter(bw == vect_bw[2]) %>%
-  mutate(significant = ifelse(p_value < 0.05, "Significant", "Non-significant")) %>% 
+```{r result_histogram_RDD, code_folding=TRUE}
+sim_rdd |> 
+  filter(bw == vect_bw[2]) |>
+  mutate(significant = ifelse(p_value < 0.05, "Significant", "Non-significant")) |> 
   ggplot(aes(x = estimate, fill = significant)) + 
   geom_histogram(bins = 25) +
   geom_vline(
@@ -443,38 +445,39 @@ sim_rdd %>%
     estimates (in absolute value), the dashed line represents the true effect"
   )
 
-# sim_rdd %>% 
-#   filter(bw == 0.2) %>% 
-#   mutate(significant = (p_value < 0.05)) %>% 
-#   group_by(delta) %>% 
-#   mutate(sim_id = row_number()) %>% 
-#   ungroup() %>% 
+# sim_rdd |> 
+#   filter(bw == 0.2) |> 
+#   mutate(significant = (p_value < 0.05)) |> 
+#   group_by(delta) |> 
+#   mutate(sim_id = row_number()) |> 
+#   ungroup() |> 
 #   ggplot(aes(x = estimate, color = significant)) + 
 #   geom_point(aes(x = sim_id, y = estimate)) +
 #   geom_hline(aes(yintercept = mean(estimate))) +
 #   facet_wrap(~ delta)
 # 
-# sim_rdd %>% 
-#   group_by(delta, bw) %>% 
+# sim_rdd |> 
+#   group_by(delta, bw) |> 
 #   summarise(average_effect = mean(estimate))
 ```
 
 
 ### Computing the bias and exaggeration ratio
 
-We want to compare $\mathbb{E}\left[\frac{\widehat{\beta_{RDD}}}{\beta_0}\right]$ and $\mathbb{E}\left[ \frac{\widehat{\beta_{RDD}}}{\beta_0} | \text{signif} \right]$. The first term represents the bias and the second term represents the exaggeration ratio. This terms depend on the true effect size. To enable comparison across simulations and getting terms independent of effect sizes, we also compute the average of the ratios between the estimate and the true effect, conditional on significance. 
+We want to compare $\mathbb{E}\left[ \left| \frac{\widehat{\beta_{RDD}}}{\beta_0}\right|\right]$ and $\mathbb{E}\left[  \left| \frac{\widehat{\beta_{RDD}}}{\beta_0} \right| | \text{signif} \right]$. The first term represents the bias and the second term represents the exaggeration ratio. This terms depend on the true effect size. To enable comparison across simulations and getting terms independent of effect sizes, we also compute the average of the ratios between the estimate and the true effect, conditional on significance. 
 
 ```{r summarise_RDD}
 summarise_simulations <- function(data) {
-  data %>%
-    mutate(significant = (p_value <= 0.05)) %>% 
-    group_by(delta, bw) %>%
+  data |>
+    mutate(significant = (p_value <= 0.05)) |> 
+    group_by(delta, bw) |>
     summarise(
       power = mean(significant, na.rm = TRUE)*100, 
-      type_m = mean(ifelse(significant, estimate/true_effect, NA), na.rm = TRUE),
+      type_m = mean(ifelse(significant, abs(estimate/true_effect), NA), 
+                    na.rm = TRUE),
       bias_all = mean(estimate/true_effect, na.rm = TRUE),
       .groups	= "drop"
-    ) %>% 
+    ) |> 
     ungroup()
 }
 
@@ -486,13 +489,13 @@ summary_sim_rdd <- summarise_simulations(sim_rdd)
 
 To analyze our results, we build a unique and simple graph:
 
-```{r main_graph_RDD, echo=FALSE}
-summary_sim_rdd %>% 
-  pivot_longer(cols = c(type_m, bias_all), names_to = "measure") %>% 
+```{r main_graph_RDD, code_folding=TRUE, fig.asp=0.8}
+summary_sim_rdd |> 
+  pivot_longer(cols = c(type_m, bias_all), names_to = "measure") |> 
   mutate(
     measure = ifelse(measure == "type_m", "Significant", "All"),
     delta_name = paste("OVB intensity:", delta)
-  ) %>% 
+  ) |> 
   ggplot(aes(x = bw, y = value, color = measure)) + 
   geom_line() +
   labs(
@@ -506,14 +509,14 @@ summary_sim_rdd %>%
   scale_y_continuous(breaks = scales::pretty_breaks(n = 5))
 ```
 
-```{r main_graph_RDD_paper, dpi=600, echo=FALSE, eval=FALSE, include=FALSE}
+```{r main_graph_RDD_ini_paper, dpi=600, echo=FALSE, eval=FALSE, include=FALSE}
 #graph to be displayed in the paper
-summary_sim_rdd %>% 
-  pivot_longer(cols = c(type_m, bias_all), names_to = "measure") %>% 
+summary_sim_rdd |> 
+  pivot_longer(cols = c(type_m, bias_all), names_to = "measure") |> 
   mutate(
     measure = ifelse(measure == "type_m", "Significant", "All"),
     delta_name = paste("OVB intensity:", delta)
-  ) %>% 
+  ) |> 
   ggplot(aes(x = bw, y = value, color = measure)) + #, linetype = fct_rev(measure))) +
   geom_line() +
   labs(
@@ -527,7 +530,7 @@ summary_sim_rdd %>%
   scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) 
 
 ggsave(
-  "main_graph_RDD_paper.pdf", 
+  "main_graph_RDD_ini_paper.pdf", 
   path = "paper/current_version/images", 
   width = 8, 
   height = 4.5
@@ -537,7 +540,7 @@ ggsave(
 We notice that, the smaller the bandwidth size, the closer the average of all estimates is to the true effect. Yet, when the bandwidth gets small significant estimates overestimate the true effect. This arises because of a loss of power, as shown in the graph below.
 
 ```{r graph_results_RDD_power, echo=FALSE}
-summary_sim_rdd %>% 
+summary_sim_rdd |> 
   ggplot(aes(x = bw, y = power)) + 
   geom_line(size = 0.8) +
   labs(
@@ -551,19 +554,19 @@ summary_sim_rdd %>%
 
 We can then look in more details to the distribution of the estimates for different bandwidths. Statistically significant estimates, when power is low (*ie* when the bandwidth is small) are located in the tail of the distribution all estimates that is itself centered around the true effect.
 
-```{r graph_distrib_RDD, fig.asp=0.8, echo=FALSE}
-graph_distrib_RDD <- sim_rdd %>% 
-  filter(factor(bw) %in% seq(0.1, 0.9, 0.1)) %>%
+```{r graph_distrib_RDD, fig.asp=0.8, code_folding=TRUE}
+graph_distrib_RDD <- sim_rdd |> 
+  filter(factor(bw) %in% seq(0.1, 0.9, 0.1)) |>
   mutate(
     significant = ifelse(p_value < 0.05, "Significant", "Non-significant"),
     ratio = estimate/true_effect
-  ) %>% 
-  group_by(bw) %>% 
+  ) |> 
+  group_by(bw) |> 
   mutate(
-    mean_signif_bw = mean(ifelse(p_value < 0.05, ratio, NA), na.rm = TRUE),
+    mean_signif_bw = mean(ifelse(p_value < 0.05, abs(ratio), NA), na.rm = TRUE),
     mean_all_bw = mean(ratio, na.rm = TRUE)
-  ) %>% 
-  ungroup() %>% 
+  ) |> 
+  ungroup() |> 
   ggplot(aes(x = ratio, fill = "All estimates")) + 
   facet_grid(~ bw, switch = "x") +
   geom_vline(aes(xintercept = 1)) +
@@ -575,37 +578,6 @@ graph_distrib_RDD <- sim_rdd %>%
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
   coord_flip() +
   scale_y_continuous(breaks = NULL) + 
-  labs(
-    y = "Bandwidth size", 
-    x = expression(paste(frac("Estimate", "True Effect" ))),
-    fill = "",
-    title = "Distribution of RDD estimates for 1000 simulated datasets",
-    subtitle = "Comparison across bandwidth sizes", 
-    caption = "Bandwidth size as a proportion of the total number of observations"
-  )
-
-graph_distrib_RDD <- sim_rdd %>% 
-  filter(factor(bw) %in% seq(0.1, 0.9, 0.1)) %>%
-  mutate(
-    significant = ifelse(p_value < 0.05, "Significant", "Non-significant"),
-    ratio = estimate/true_effect
-  ) %>% 
-  group_by(bw) %>% 
-  mutate(
-    mean_signif_bw = mean(ifelse(p_value < 0.05, ratio, NA), na.rm = TRUE),
-    mean_all_bw = mean(ratio, na.rm = TRUE)
-  ) %>% 
-  ungroup() %>% 
-  ggplot(aes(x = ratio, fill = "All estimates")) +
-  ggridges::geom_density_ridges(aes(y = as.factor(bw)), scale = 4)
-
-+ 
-  facet_wrap(~ bw, nrow = 9, strip.position = "left", as.table = FALSE) + 
-  geom_vline(aes(xintercept = 1)) +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 5)) +
-  theme(panel.grid.major.x = element_line()) +
-  # coord_flip() +
-  scale_y_continuous(breaks = NULL) +
   labs(
     y = "Bandwidth size", 
     x = expression(paste(frac("Estimate", "True Effect" ))),
@@ -628,38 +600,62 @@ graph_distrib_RDD_signif <- graph_distrib_RDD +
 
 graph_distrib_RDD_signif
 
-graph_distrib_RDD_signif +
+graph_distrib_RDD_complete <- graph_distrib_RDD_signif +
   geom_vline(
     aes(xintercept = mean_signif_bw),
     color = "#976B21",
     linetype = "solid",
     linewidth = 0.9
   ) 
+
+graph_distrib_RDD_complete
 ```
 
+```{r main_graph_RDD_paper, dpi=600, echo=FALSE, eval=FALSE, include=FALSE}
+#graph to be displayed in the paper
+graph_distrib_RDD_complete +
+  labs(title = NULL, subtitle = NULL)
 
-```{r graph_result_distrib_RDD_pres, eval=FALSE, include=FALSE}
-sim_rdd %>% 
-  filter(factor(bw) %in% seq(0.1, 0.9, 0.1)) %>%
-  mutate(
-    significant = ifelse(p_value < 0.05, "Significant", "Non-significant"),
-    all = "All estimates",
-    ratio = estimate/true_effect
-  ) %>% 
-  ggplot(aes(x = ratio, fill = all)) + 
-  geom_histogram(bins = 45, alpha = 0.85) +
-  facet_grid(~bw, switch = "x") +
-  geom_vline(xintercept = 1) +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
-  coord_flip() +
-  scale_y_continuous(breaks = NULL) +
-  labs(
-    y = "Bandwidth size", 
-    x = "Estimate",
-    fill = "",
-    title = "Distribution of RDD estimates for different bandwidths",
-    subtitle = "Unconditional on significativity", 
-    caption = "Bandwidth size as a proportion of the total number of observations \n The horizontal line represents the true effect size"
-  )
+ggsave(
+  "main_graph_RDD_paper.pdf", 
+  path = "paper/current_version/images", 
+  width = 8, 
+  height = 5
+)
 ```
+
+## Representativeness of the estimation
+
+We chose the values of the variables and parameters to emulate a typical study from this literature. To further check that the results are realistic, we compare the average Signal-to-Noise Ratio (SNR) of our regressions to the range of SNR of an existing study. The closest study to our simulation is [Jacob and Lefgren (2004)](https://direct.mit.edu/rest/article/86/1/226/57489/Remedial-Education-and-Student-Achievement-A). In their main result table, Table 3, the SNRs range from 0.3 to 8.
+
+I find SNR in a similar range or even larger.
+
+```{r SNR, echo=FALSE}
+sim_rdd |> 
+  group_by(bw) |> 
+  summarise(
+    # mean_SNR = mean(estimate/se, na.rm = TRUE), 
+    median_SNR = median(estimate/se, na.rm = TRUE), 
+    .groups = "drop"
+  ) |> 
+  kable(col.names = c("Bandwidth size", "Median SNR"))
+```
+
+The precision of our results is therefore in line with precision that can be found in the literature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

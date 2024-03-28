@@ -9,7 +9,7 @@ navbar:
   right:
     - text: "Paper"
       href: causal_exaggeration_paper.pdf
-    - text: "Summary"
+    - text: "Summaries"
       href: summary.html
     - text: "Intuition"
       href: intuition.html

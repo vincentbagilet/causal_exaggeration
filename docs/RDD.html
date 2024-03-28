@@ -2189,7 +2189,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2221,7 +2221,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <div class="nav-right">
 <a href="causal_exaggeration_paper.pdf">Paper</a>
-<a href="summary.html">Summary</a>
+<a href="summary.html">Summaries</a>
 <a href="intuition.html">Intuition</a>
 <a href="air_pollution.html">Example lit.</a>
 <a href="maths.html">Maths</a>
@@ -2280,6 +2280,7 @@ Simulations
 <li><a href="#computing-the-bias-and-exaggeration-ratio" id="toc-computing-the-bias-and-exaggeration-ratio">Computing the bias and exaggeration ratio</a></li>
 <li><a href="#graph" id="toc-graph">Graph</a></li>
 </ul></li>
+<li><a href="#representativeness-of-the-estimation" id="toc-representativeness-of-the-estimation">Representativeness of the estimation</a></li>
 </ul>
 </nav>
 </div>
@@ -2310,17 +2311,18 @@ Where <span class="math inline">\(\alpha^f\)</span> is a constant, <span class="
 <p>To simplify, we consider the following assumptions:</p>
 <ul>
 <li>Full compliance and a sharp treatment allocation such that <span class="math inline">\(T_i = \mathbb{I}[Qual_{i} &lt; C]\)</span>. All students with a qualification score below the threshold are treated and receive additional lessons. None of the students with a qualification score above the threshold are treated.</li>
-<li>The unobserved ability affects qualification and final test scores in a cubic way. A large ability has a strong positive impact on test scores. Similarly a particularly low ability strongly impacts test scores negatively. An average ability does not have much impact on test scores. Such a functional form seems realistic. Note that ability creates an OVB only if it has a non linear impact on test scores.</li>
-<li>We assume constant treatment effects. This assumption is not necessary and our results hold if we consider non-constant treatment effects. We thus may drop this assumption in the future.</li>
+<li>We assume constant treatment effects.
+<!-- This assumption is not necessary and our results hold if we consider non-constant treatment effects. We thus may drop this assumption in the future. --></li>
+<li>The unobserved ability affects qualification and final test scores in a cubic way. A large ability has a strong positive impact on test scores. Similarly a particularly low ability strongly impacts test scores negatively. An average ability does not have much impact on test scores. Such a functional form seems realistic, even though it is in essence impossible to evaluate. Note that ability creates an OVB only if it has a non linear impact on test scores.</li>
 <li>We assume that the unobserved availability affects the qualification and final score in a similar way and therefore with the same intensity <span class="math inline">\(\delta\)</span>. However, since the unobserved ability affects the final score through the qualification score, we adjust for that so that the ability has actually the same effect on both test scores. As a consequence, <span class="math inline">\(\delta^f= \delta \times (1 - \gamma)\)</span>.</li>
 </ul>
 <p>More precisely, we set:</p>
 <ul>
-<li><span class="math inline">\(N\)</span> the number of students</li>
-<li><span class="math inline">\(U \sim \mathcal{U}(-b_u, b_u)\)</span> the unobserved ability.</li>
+<li><span class="math inline">\(N\)</span> the number of students,</li>
+<li><span class="math inline">\(U \sim \mathcal{U}(-b_u, b_u)\)</span> the unobserved ability. We assume an uniform distribution for simplicity and because it yields a rather realistic distribution of test scores. Note that a cubic transformation is performed on this uniform distribution, making the effect of ability not uniformly distributed,</li>
 <li><span class="math inline">\(Qual_i = \alpha^q + \delta U_i^{3} + e^q_i\)</span> where <span class="math inline">\(e^q \sim \mathcal{N}(0, \sigma_q^{2})\)</span></li>
-<li><span class="math inline">\(T_i = \mathbb{I}[Qual_{i} &lt; q_c]\)</span> where for now and for simplicity, <span class="math inline">\(q_c\)</span> is a fixed grade threshold given as the quantile in the qualification score distribution.</li>
-<li><span class="math inline">\(e^f \sim \mathcal{N}(0, \sigma_f^2)\)</span></li>
+<li><span class="math inline">\(T_i = \mathbb{I}[Qual_{i} &lt; q_c]\)</span> where for now and for simplicity, <span class="math inline">\(q_c\)</span> is a fixed grade threshold given as the quantile in the qualification score distribution,</li>
+<li><span class="math inline">\(e^f \sim \mathcal{N}(0, \sigma_f^2)\)</span>,</li>
 <li><span class="math inline">\(Final_{i} = \alpha^f + \beta T_i + \gamma Qual_{i} + \delta^f U_i^{3} + e^f_{i}\)</span> (where <span class="math inline">\(\delta^f = \delta (1-\gamma)\)</span>)</li>
 </ul>
 <h3 id="data-generation">Data generation</h3>
@@ -2340,12 +2342,12 @@ Where <span class="math inline">\(\alpha^f\)</span> is a constant, <span class="
 <span>                              <span class='va'>delta</span>,</span>
 <span>                              <span class='va'>q_c</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>  </span>
-<span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N</span><span class='op'>)</span> <span class='op'>|&gt;</span>  </span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
-<span>      u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='op'>-</span><span class='va'>bound_u</span>, <span class='va'>bound_u</span><span class='op'>)</span>,</span>
-<span>      e_q <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_q</span><span class='op'>)</span>,</span>
+<span>      u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='op'>-</span><span class='va'>bound_u</span>, <span class='va'>bound_u</span><span class='op'>)</span>,</span>
+<span>      e_q <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>0</span>, <span class='va'>sigma_q</span><span class='op'>)</span>,</span>
 <span>      qual <span class='op'>=</span> <span class='va'>alpha_q</span> <span class='op'>+</span> <span class='va'>delta</span><span class='op'>*</span><span class='va'>u</span><span class='op'>^</span><span class='fl'>3</span> <span class='op'>+</span> <span class='va'>e_q</span>,</span>
-<span>      e_f <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_f</span><span class='op'>)</span>,</span>
+<span>      e_f <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>0</span>, <span class='va'>sigma_f</span><span class='op'>)</span>,</span>
 <span>      treated <span class='op'>=</span> <span class='va'>qual</span> <span class='op'>&lt;</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span><span class='op'>(</span><span class='va'>qual</span>, <span class='va'>q_c</span><span class='op'>)</span>,</span>
 <span>      final0 <span class='op'>=</span> <span class='va'>alpha_f</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>*</span><span class='va'>qual</span> <span class='op'>+</span> <span class='va'>delta</span><span class='op'>*</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>-</span><span class='va'>gamma</span><span class='op'>)</span><span class='op'>*</span><span class='va'>u</span><span class='op'>^</span><span class='fl'>3</span> <span class='op'>+</span> <span class='va'>e_f</span>,</span>
 <span>      final1 <span class='op'>=</span> <span class='va'>final0</span> <span class='op'>+</span> <span class='va'>beta</span>,</span>
@@ -2360,7 +2362,7 @@ Where <span class="math inline">\(\alpha^f\)</span> is a constant, <span class="
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>define_bw</span> <span class='op'>&lt;-</span> <span class='kw'>function</span> <span class='op'>(</span><span class='va'>data</span>, <span class='va'>bw</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>|&gt;</span> </span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
 <span>      treated_bw <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span></span>
 <span>        <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/between.html'>between</a></span><span class='op'>(</span></span>
@@ -2380,8 +2382,8 @@ Where <span class="math inline">\(\alpha^f\)</span> is a constant, <span class="
 <ul>
 <li>We assumes that grades are SAT scores. One can think of the qualifying exam as a state level exam that gives the opportunity to students with lower grades to receive additional lessons. For simplicity, we assume that the <strong>scores have a mean of 1060 and standard error of 200</strong> (based on <a href="https://nces.ed.gov/programs/digest/d20/tables/dt20_226.40.asp">statistics provided by the Department of Education</a>). Since these scores depend on the unobserved ability, we adjust the values of the parameters to get appropriate distributions.</li>
 <li>Typical treatment effect sizes in economics of education are of the order of magnitude of 0.1 sd. <a href="https://journals.sagepub.com/doi/abs/10.3102/0013189X20912798?journalCode=edra">Kraft 2020</a>, reviewing 747 RCTs of education intervention finds that the median effect size is 0.1 sd. Interestingly, he finds that “larger studies with broad achievement measures have systematically smaller effect sizes”. This might hint to publication bias as he underlines. In studies with more than 2000 individuals, the median effect is 0.03 sd. The same median effect size is observed in preregistered studies. We therefore consider an <strong>effect size of 0.03 sd</strong>, <em>ie</em> <span class="math inline">\(\beta = 6 = 200\times 0.03\)</span>.</li>
-<li>We assume that the unobserved ability is uniformly distributed between -2.5 and 2.5. We chose this values because it produces the right relationships between the variables.</li>
 <li>We consider that the threshold is located at the center of the distribution (<span class="math inline">\(q_c = 0.5\)</span>). The bandwidth is symmetric around the cutoff. Considering a cutoff in the middle of the distribution enables us to consider very wide bandwidths, up to including the whole sample in the analysis. Based on the functional form chosen for the effect of <span class="math inline">\(U\)</span> on grades (<span class="math inline">\(f: U \mapsto U^3\)</span>), choosing a cutoff in the middle of the distribution enables to have units that are relatively similar in terms of unobserved variable close to the cut-off and different far away from it.</li>
+<li>We assume that the unobserved ability is uniformly distributed between -2.5 and 2.5. We do this tuning by iteration in order to get a desired distribution (with corresponding standarad deviation, distribution of test scores, etc). Importantly, such values yield a variation in test scores caused by unobserved ability of <span class="math inline">\(\pm \delta \cdot u^{3} = \pm 30\times (2.5)^3 = \pm 468.75\)</span>pts which corresponds to more than 2 standard deviations.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> We thus consider a very conservative case where OVB is extremely large.</li>
 </ul>
 <p>The set of parameters may produce test score outside of the range 0-100 in some iterations but that does not affect the analysis. We add the parameter value for delta separately as we will vary the value later and will reuse the table <code>baseline_param_RDD</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2423,7 +2425,7 @@ Where <span class="math inline">\(\alpha^f\)</span> is a constant, <span class="
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">0.5</td>
 <td style="text-align: right;">0.5</td>
-<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
 </tr>
 </tbody>
 </table>
@@ -2435,9 +2437,9 @@ Where <span class="math inline">\(\alpha^f\)</span> is a constant, <span class="
 Show the code used to generate the table
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_RDD</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
-<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>generate_data_RDD</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='co'>#use pmap to pass the set of parameters</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_RDD</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>generate_data_RDD</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='co'>#use pmap to pass the set of parameters</span></span>
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
@@ -2445,9 +2447,9 @@ Show the code used to generate the table
 <colgroup>
 <col style="width: 3%" />
 <col style="width: 12%" />
-<col style="width: 12%" />
+<col style="width: 13%" />
 <col style="width: 11%" />
-<col style="width: 12%" />
+<col style="width: 11%" />
 <col style="width: 9%" />
 <col style="width: 11%" />
 <col style="width: 11%" />
@@ -2471,122 +2473,122 @@ Show the code used to generate the table
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">2.0779949</td>
-<td style="text-align: right;">-79.70242</td>
-<td style="text-align: right;">1249.4850</td>
-<td style="text-align: right;">-4.548884</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: right;">1294.7873</td>
-<td style="text-align: right;">1300.7873</td>
-<td style="text-align: right;">1294.7873</td>
+<td style="text-align: right;">-2.1531954</td>
+<td style="text-align: right;">-27.229604</td>
+<td style="text-align: right;">833.1153</td>
+<td style="text-align: right;">-56.27714</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">800.4530</td>
+<td style="text-align: right;">806.4530</td>
+<td style="text-align: right;">806.4530</td>
 <td style="text-align: right;">0.5</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">0.6324039</td>
-<td style="text-align: right;">6.51651</td>
-<td style="text-align: right;">1074.1041</td>
-<td style="text-align: right;">16.765798</td>
+<td style="text-align: right;">1.5888760</td>
+<td style="text-align: right;">-31.534871</td>
+<td style="text-align: right;">1108.6883</td>
+<td style="text-align: right;">95.11033</td>
 <td style="text-align: left;">FALSE</td>
-<td style="text-align: right;">1097.6117</td>
-<td style="text-align: right;">1103.6117</td>
-<td style="text-align: right;">1097.6117</td>
+<td style="text-align: right;">1229.5661</td>
+<td style="text-align: right;">1235.5661</td>
+<td style="text-align: right;">1229.5661</td>
 <td style="text-align: right;">0.5</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">-1.2121860</td>
-<td style="text-align: right;">10.68097</td>
-<td style="text-align: right;">1017.2456</td>
-<td style="text-align: right;">69.341049</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">1091.2461</td>
-<td style="text-align: right;">1097.2461</td>
-<td style="text-align: right;">1097.2461</td>
+<td style="text-align: right;">2.2131087</td>
+<td style="text-align: right;">-62.825524</td>
+<td style="text-align: right;">1213.9640</td>
+<td style="text-align: right;">27.24098</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">1282.6177</td>
+<td style="text-align: right;">1288.6177</td>
+<td style="text-align: right;">1282.6177</td>
 <td style="text-align: right;">0.5</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">-1.1414686</td>
-<td style="text-align: right;">-46.58832</td>
-<td style="text-align: right;">968.7934</td>
-<td style="text-align: right;">21.039500</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">1023.1270</td>
-<td style="text-align: right;">1029.1270</td>
-<td style="text-align: right;">1029.1270</td>
+<td style="text-align: right;">-1.1530906</td>
+<td style="text-align: right;">-10.646389</td>
+<td style="text-align: right;">1018.6902</td>
+<td style="text-align: right;">40.55745</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">1074.5709</td>
+<td style="text-align: right;">1080.5709</td>
+<td style="text-align: right;">1074.5709</td>
 <td style="text-align: right;">0.5</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">-1.8997477</td>
-<td style="text-align: right;">-159.37910</td>
-<td style="text-align: right;">694.9329</td>
-<td style="text-align: right;">-5.346115</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">779.2763</td>
-<td style="text-align: right;">785.2763</td>
-<td style="text-align: right;">785.2763</td>
+<td style="text-align: right;">-1.6532594</td>
+<td style="text-align: right;">42.801480</td>
+<td style="text-align: right;">1012.4255</td>
+<td style="text-align: right;">-23.46441</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">977.5604</td>
+<td style="text-align: right;">983.5604</td>
+<td style="text-align: right;">977.5604</td>
 <td style="text-align: right;">0.5</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">0.0908274</td>
-<td style="text-align: right;">-40.97945</td>
-<td style="text-align: right;">1019.0430</td>
-<td style="text-align: right;">40.875984</td>
+<td style="text-align: right;">-2.3305219</td>
+<td style="text-align: right;">-77.771958</td>
+<td style="text-align: right;">729.0713</td>
+<td style="text-align: right;">17.89131</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">1090.4087</td>
-<td style="text-align: right;">1096.4087</td>
-<td style="text-align: right;">1096.4087</td>
+<td style="text-align: right;">795.8486</td>
+<td style="text-align: right;">801.8486</td>
+<td style="text-align: right;">801.8486</td>
 <td style="text-align: right;">0.5</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">7</td>
-<td style="text-align: right;">-0.0649454</td>
-<td style="text-align: right;">-132.41446</td>
-<td style="text-align: right;">927.5773</td>
-<td style="text-align: right;">-60.113724</td>
+<td style="text-align: right;">-1.6060750</td>
+<td style="text-align: right;">-129.388230</td>
+<td style="text-align: right;">847.7551</td>
+<td style="text-align: right;">160.57612</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">943.6708</td>
-<td style="text-align: right;">949.6708</td>
-<td style="text-align: right;">949.6708</td>
+<td style="text-align: right;">1083.0253</td>
+<td style="text-align: right;">1089.0253</td>
+<td style="text-align: right;">1089.0253</td>
 <td style="text-align: right;">0.5</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">8</td>
-<td style="text-align: right;">1.5960237</td>
-<td style="text-align: right;">-36.34014</td>
-<td style="text-align: right;">1145.6260</td>
-<td style="text-align: right;">-19.746879</td>
+<td style="text-align: right;">0.7083268</td>
+<td style="text-align: right;">-77.956651</td>
+<td style="text-align: right;">989.1511</td>
+<td style="text-align: right;">80.95833</td>
 <td style="text-align: left;">FALSE</td>
-<td style="text-align: right;">1154.0492</td>
-<td style="text-align: right;">1160.0492</td>
-<td style="text-align: right;">1154.0492</td>
+<td style="text-align: right;">1119.0877</td>
+<td style="text-align: right;">1125.0877</td>
+<td style="text-align: right;">1119.0877</td>
 <td style="text-align: right;">0.5</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">2.0110618</td>
-<td style="text-align: right;">69.80429</td>
-<td style="text-align: right;">1373.8086</td>
-<td style="text-align: right;">36.908192</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: right;">1385.8146</td>
-<td style="text-align: right;">1391.8146</td>
-<td style="text-align: right;">1385.8146</td>
+<td style="text-align: right;">-2.3856113</td>
+<td style="text-align: right;">1.195176</td>
+<td style="text-align: right;">789.6582</td>
+<td style="text-align: right;">-24.19674</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">774.8638</td>
+<td style="text-align: right;">780.8638</td>
+<td style="text-align: right;">780.8638</td>
 <td style="text-align: right;">0.5</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">10</td>
-<td style="text-align: right;">1.3556211</td>
-<td style="text-align: right;">28.66920</td>
-<td style="text-align: right;">1163.4063</td>
-<td style="text-align: right;">27.404462</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: right;">1186.4762</td>
-<td style="text-align: right;">1192.4762</td>
-<td style="text-align: right;">1186.4762</td>
+<td style="text-align: right;">-2.4583759</td>
+<td style="text-align: right;">-15.241624</td>
+<td style="text-align: right;">747.6090</td>
+<td style="text-align: right;">-82.01959</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">683.2102</td>
+<td style="text-align: right;">689.2102</td>
+<td style="text-align: right;">689.2102</td>
 <td style="text-align: right;">0.5</td>
 </tr>
 </tbody>
@@ -2594,6 +2596,29 @@ Show the code used to generate the table
 </div>
 <p>We check the standard deviation and means of the generated exam scores to make sure that they correspond to w to make:</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ex_data_RDD</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_RDD</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>generate_data_RDD</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>ex_data_RDD_mean</span> <span class='op'>&lt;-</span> <span class='va'>ex_data_RDD</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>.cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>qual</span>, <span class='va'>final0</span><span class='op'>)</span>, .fns <span class='op'>=</span> <span class='va'>mean</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>Statistic <span class='op'>=</span> <span class='st'>"Mean"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>Statistic</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ex_data_RDD_sd</span> <span class='op'>&lt;-</span> <span class='va'>ex_data_RDD</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>.cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>qual</span>, <span class='va'>final0</span><span class='op'>)</span>, .fns <span class='op'>=</span> <span class='fu'>stats</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>Statistic <span class='op'>=</span> <span class='st'>"Standard Deviation"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>Statistic</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ex_data_RDD_mean</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>ex_data_RDD_sd</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
 <table>
 <thead>
 <tr class="header">
@@ -2605,13 +2630,13 @@ Show the code used to generate the table
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Mean</td>
-<td style="text-align: right;">1060.5111</td>
-<td style="text-align: right;">1071.1901</td>
+<td style="text-align: right;">1060.6988</td>
+<td style="text-align: right;">1072.0017</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Standard Deviation</td>
-<td style="text-align: right;">205.6935</td>
-<td style="text-align: right;">202.5777</td>
+<td style="text-align: right;">155.5679</td>
+<td style="text-align: right;">151.6817</td>
 </tr>
 </tbody>
 </table>
@@ -2624,9 +2649,9 @@ Show the code used to generate the table
 Show the code used to generate the graph
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_RDD</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>generate_data_RDD</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='co'>#use pmap to pass the set of parameters</span></span>
-<span>  <span class='fu'>define_bw</span><span class='op'>(</span><span class='fl'>0.5</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_RDD</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>generate_data_RDD</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='co'>#use pmap to pass the set of parameters</span></span>
+<span>  <span class='fu'>define_bw</span><span class='op'>(</span><span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='co'># mutate(</span></span>
 <span>  <span class='co'>#   treated_bw_phrase = case_when(</span></span>
 <span>  <span class='co'>#     treated_bw ~ "Treated and inside bandwidth",</span></span>
@@ -2656,10 +2681,68 @@ Show the code used to generate the graph
 </div>
 <p>Then, we quickly look at the distributions of the different variables to check that they have a shape similar to what we expect.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/RDD/explore_distrib_RDD-1.png" width="85%" style="display: block; margin: auto;" /><img src="images/RDD/explore_distrib_RDD-2.png" width="85%" style="display: block; margin: auto;" /></p>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ex_data_RDD</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>is_treated <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>treated</span>, <span class='st'>"Treated"</span>, <span class='st'>"Non treated"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>qual</span>, fill <span class='op'>=</span> <span class='va'>is_treated</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of qualifying scores depending on treatment status"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Qualifying Score"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Count"</span>,</span>
+<span>    fill <span class='op'>=</span> <span class='st'>""</span></span>
+<span>  <span class='op'>)</span> </span></code></pre>
+</div>
+</details>
+<img src="images/RDD/explore_distrib_RDD-1.png" width="85%" style="display: block; margin: auto;" />
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ex_data_RDD</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>is_treated <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>treated</span>, <span class='st'>"Treated"</span>, <span class='st'>"Non treated"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>final</span>, fill <span class='op'>=</span> <span class='va'>is_treated</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"identity"</span>, alpha <span class='op'>=</span> <span class='fl'>0.8</span>, bins <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of final scores depending on treatment status"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Final Score"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Count"</span>,</span>
+<span>    fill <span class='op'>=</span> <span class='st'>""</span></span>
+<span>  <span class='op'>)</span> </span></code></pre>
+</div>
+</details>
+<p><img src="images/RDD/explore_distrib_RDD-2.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <p>We then look at relation between the qualifying score and the unobserved ability. This enables us to understand how where the bias comes form:</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ex_data_RDD</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'>define_bw</span><span class='op'>(</span><span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>qual</span>, y <span class='op'>=</span> <span class='va'>u</span>, color <span class='op'>=</span> <span class='va'>treated_bw</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Relationship between unobserved ability and qualifying score"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Qualifying score"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Unobserved ability"</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>""</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html'>scale_color_discrete</a></span><span class='op'>(</span></span>
+<span>    labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span>      <span class='st'>"Non treated and inside bandwidth"</span>,</span>
+<span>      <span class='st'>"Treated and inside bandwidth"</span>,</span>
+<span>      <span class='st'>"Outside bandwidth"</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> </span></code></pre>
+</div>
+</details>
 <p><img src="images/RDD/explore_relations_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <h3 id="estimation">Estimation</h3>
@@ -2668,9 +2751,9 @@ Show the code used to generate the graph
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>compute_true_effect_RDD</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>treated_data</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='va'>treated_data</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>|&gt;</span> </span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>treated</span><span class='op'>)</span> </span>
-<span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>treated_data</span><span class='op'>$</span><span class='va'>final1</span> <span class='op'>-</span> <span class='va'>treated_data</span><span class='op'>$</span><span class='va'>final0</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>treated_data</span><span class='op'>$</span><span class='va'>final1</span> <span class='op'>-</span> <span class='va'>treated_data</span><span class='op'>$</span><span class='va'>final0</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
 <span><span class='op'>}</span>  </span></code></pre>
 </div>
 </div>
@@ -2678,18 +2761,18 @@ Show the code used to generate the graph
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>estimate_RDD</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>bw</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>data_in_bw</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
-<span>    <span class='fu'>define_bw</span><span class='op'>(</span>bw <span class='op'>=</span> <span class='va'>bw</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='va'>data_in_bw</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'>define_bw</span><span class='op'>(</span>bw <span class='op'>=</span> <span class='va'>bw</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>treated_bw</span><span class='op'>)</span><span class='op'>)</span></span>
 <span>  </span>
 <span>  <span class='va'>reg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span></span>
 <span>    data <span class='op'>=</span> <span class='va'>data_in_bw</span>, </span>
 <span>    formula <span class='op'>=</span> <span class='va'>final</span> <span class='op'>~</span> <span class='va'>treated</span> <span class='op'>+</span> <span class='va'>qual</span></span>
-<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
-<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>term</span> <span class='op'>==</span> <span class='st'>"treatedTRUE"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>p_value <span class='op'>=</span> <span class='va'>p.value</span>, se <span class='op'>=</span> <span class='va'>std.error</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>p_value</span>, <span class='va'>se</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>term</span> <span class='op'>==</span> <span class='st'>"treatedTRUE"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>p_value <span class='op'>=</span> <span class='va'>p.value</span>, se <span class='op'>=</span> <span class='va'>std.error</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>p_value</span>, <span class='va'>se</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
 <span>      true_effect <span class='op'>=</span> <span class='fu'>compute_true_effect_RDD</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>,</span>
 <span>      bw <span class='op'>=</span> <span class='va'>bw</span></span>
@@ -2726,20 +2809,20 @@ Show the code used to generate the graph
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">4.412760</td>
-<td style="text-align: right;">0.6939302</td>
-<td style="text-align: right;">11.210111</td>
+<td style="text-align: right;">-2.167779</td>
+<td style="text-align: right;">0.8371564</td>
+<td style="text-align: right;">10.544396</td>
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">0.1</td>
-<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">8.641417</td>
-<td style="text-align: right;">0.2654314</td>
-<td style="text-align: right;">7.757401</td>
+<td style="text-align: right;">-7.069832</td>
+<td style="text-align: right;">0.3464634</td>
+<td style="text-align: right;">7.507571</td>
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">0.2</td>
-<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
 </tr>
 </tbody>
 </table>
@@ -2748,18 +2831,18 @@ Show the code used to generate the graph
 <p>We will run the simulations for different sets of parameters by mapping our <code>compute_sim_RDD</code> function on each set of parameters. We thus create a table with all the values of the parameters we want to test <code>param_rdd</code>. Note that in this table each set of parameters appears <code>n_iter</code> times as we want to run the analysis <span class="math inline">\(n_{iter}\)</span> times for each set of parameters.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>fixed_param_RDD</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_RDD</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='co'>#%&gt;% rbind(...)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>fixed_param_RDD</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_RDD</span> <span class='op'>|&gt;</span> <span class='co'>#|&gt; rbind(...)</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>vect_bw <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span></span>
 <span><span class='co'># vect_bw &lt;- seq(0.05, 0.4, 0.05)</span></span>
 <span><span class='va'>vect_bw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.4</span>, <span class='fl'>0.05</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.9</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span></span>
 <span><span class='co'># vect_delta &lt;- c(3)</span></span>
 <span><span class='va'>n_iter</span> <span class='op'>&lt;-</span> <span class='fl'>1000</span></span>
 <span></span>
-<span><span class='va'>param_rdd</span> <span class='op'>&lt;-</span> <span class='va'>fixed_param_RDD</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>vect_bw</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='co'>#parameters we modify</span></span>
-<span>  <span class='co'># crossing(delta = vect_delta) %&gt;% </span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>vect_bw <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>vect_bw</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>rep_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n_iter</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span><span class='va'>param_rdd</span> <span class='op'>&lt;-</span> <span class='va'>fixed_param_RDD</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>vect_bw</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='co'>#parameters we modify</span></span>
+<span>  <span class='co'># crossing(delta = vect_delta) |&gt; </span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>vect_bw <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>vect_bw</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>rep_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n_iter</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>rep_id</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
@@ -2778,26 +2861,98 @@ Show the code used to generate the graph
 <h3 id="quick-exploration">Quick exploration</h3>
 <p>First, we quickly explore the results. In the following figure, we can see that for small bandwidth estimates are unbiased but imprecise while for large bandwidths estimates are precise but biased.</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_rdd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_rdd.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>sim_rdd</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>bw</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.9</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>bw_name <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_c.html'>str_c</a></span><span class='op'>(</span><span class='st'>"Bandwidth: "</span>, <span class='va'>bw</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>estimate</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='co'># geom_vline(aes(xintercept = mean(estimate))) +</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='va'>true_effect</span><span class='op'>)</span>, linetype <span class='op'>=</span> <span class='st'>"dashed"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>bw_name</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of the estimates of the treatment effect"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"For different bandwidth sizes, as proportion of observations in the bandwidth"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Estimate of the treatment effect"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Density"</span>,</span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
 <p><img src="images/RDD/result_density_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <p>When the bandwidth is relatively small, estimates are spread out and the mean of statistically significant estimates is larger than the true effect. Note that the average of all estimates, significant and non-significant, is close to the true effect. Applying a statistical significance filter leads to overestimate the true effect in this case.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/RDD/result_histogram_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_rdd</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>bw</span> <span class='op'>==</span> <span class='va'>vect_bw</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span>, <span class='st'>"Significant"</span>, <span class='st'>"Non-significant"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>estimate</span>, fill <span class='op'>=</span> <span class='va'>significant</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>[</span><span class='va'>significant</span> <span class='op'>==</span> <span class='st'>"Significant"</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    linetype <span class='op'>=</span> <span class='st'>"solid"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='co'># facet_wrap(~ bw) +</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of the estimates of the treatment effect"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_c.html'>str_c</a></span><span class='op'>(</span><span class='st'>"For a bandwidth containing "</span>, <span class='va'>vect_bw</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>*</span><span class='fl'>100</span>, <span class='st'>"% of the observations"</span><span class='op'>)</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Estimate of the treatment effect"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Count"</span>,</span>
+<span>    fill <span class='op'>=</span> <span class='st'>""</span>,</span>
+<span>    caption <span class='op'>=</span> <span class='st'>"The solid line represents the average mean effect for significant </span></span>
+<span><span class='st'>    estimates (in absolute value), the dashed line represents the true effect"</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<img src="images/RDD/result_histogram_RDD-1.png" width="85%" style="display: block; margin: auto;" />
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># sim_rdd |&gt; </span></span>
+<span><span class='co'>#   filter(bw == 0.2) |&gt; </span></span>
+<span><span class='co'>#   mutate(significant = (p_value &lt; 0.05)) |&gt; </span></span>
+<span><span class='co'>#   group_by(delta) |&gt; </span></span>
+<span><span class='co'>#   mutate(sim_id = row_number()) |&gt; </span></span>
+<span><span class='co'>#   ungroup() |&gt; </span></span>
+<span><span class='co'>#   ggplot(aes(x = estimate, color = significant)) + </span></span>
+<span><span class='co'>#   geom_point(aes(x = sim_id, y = estimate)) +</span></span>
+<span><span class='co'>#   geom_hline(aes(yintercept = mean(estimate))) +</span></span>
+<span><span class='co'>#   facet_wrap(~ delta)</span></span>
+<span><span class='co'># </span></span>
+<span><span class='co'># sim_rdd |&gt; </span></span>
+<span><span class='co'>#   group_by(delta, bw) |&gt; </span></span>
+<span><span class='co'>#   summarise(average_effect = mean(estimate))</span></span></code></pre>
+</div>
+</details>
 </div>
 <h3 id="computing-the-bias-and-exaggeration-ratio">Computing the bias and exaggeration ratio</h3>
-<p>We want to compare <span class="math inline">\(\mathbb{E}\left[\frac{\widehat{\beta_{RDD}}}{\beta_0}\right]\)</span> and <span class="math inline">\(\mathbb{E}\left[ \frac{\widehat{\beta_{RDD}}}{\beta_0} | \text{signif} \right]\)</span>. The first term represents the bias and the second term represents the exaggeration ratio. This terms depend on the true effect size. To enable comparison across simulations and getting terms independent of effect sizes, we also compute the average of the ratios between the estimate and the true effect, conditional on significance.</p>
+<p>We want to compare <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{RDD}}}{\beta_0}\right|\right]\)</span> and <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{RDD}}}{\beta_0} \right| | \text{signif} \right]\)</span>. The first term represents the bias and the second term represents the exaggeration ratio. This terms depend on the true effect size. To enable comparison across simulations and getting terms independent of effect sizes, we also compute the average of the ratios between the estimate and the true effect, conditional on significance.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summarise_simulations</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
-<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>delta</span>, <span class='va'>bw</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>data</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>delta</span>, <span class='va'>bw</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span></span>
 <span>      power <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>significant</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>100</span>, </span>
-<span>      type_m <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>      type_m <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span><span class='op'>)</span>, <span class='cn'>NA</span><span class='op'>)</span>, </span>
+<span>                    na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
 <span>      bias_all <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
 <span>      .groups  <span class='op'>=</span> <span class='st'>"drop"</span></span>
-<span>    <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span><span class='op'>}</span></span>
 <span></span>
@@ -2808,6 +2963,30 @@ Show the code used to generate the graph
 <h3 id="graph">Graph</h3>
 <p>To analyze our results, we build a unique and simple graph:</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summary_sim_rdd</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>type_m</span>, <span class='va'>bias_all</span><span class='op'>)</span>, names_to <span class='op'>=</span> <span class='st'>"measure"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    measure <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>measure</span> <span class='op'>==</span> <span class='st'>"type_m"</span>, <span class='st'>"Significant"</span>, <span class='st'>"All"</span><span class='op'>)</span>,</span>
+<span>    delta_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"OVB intensity:"</span>, <span class='va'>delta</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>bw</span>, y <span class='op'>=</span> <span class='va'>value</span>, color <span class='op'>=</span> <span class='va'>measure</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Bandwidth size"</span>, </span>
+<span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Average  "</span>, <span class='fu'>frac</span><span class='op'>(</span><span class='st'>"Estimate"</span>, <span class='st'>"True Effect"</span> <span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"Estimates"</span>,</span>
+<span>    title <span class='op'>=</span> <span class='st'>"Evolution of the bias with bandwidth size for the RDD"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"Conditional on significativity"</span>,</span>
+<span>    caption <span class='op'>=</span> <span class='st'>"Bandwidth size as a proportion of the total number of observations"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/pretty_breaks.html'>pretty_breaks</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
 <p><img src="images/RDD/main_graph_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <p>We notice that, the smaller the bandwidth size, the closer the average of all estimates is to the true effect. Yet, when the bandwidth gets small significant estimates overestimate the true effect. This arises because of a loss of power, as shown in the graph below.</p>
@@ -2816,9 +2995,162 @@ Show the code used to generate the graph
 </div>
 <p>We can then look in more details to the distribution of the estimates for different bandwidths. Statistically significant estimates, when power is low (<em>ie</em> when the bandwidth is small) are located in the tail of the distribution all estimates that is itself centered around the true effect.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/RDD/graph_distrib_RDD-1.png" width="85%" style="display: block; margin: auto;" /><img src="images/RDD/graph_distrib_RDD-2.png" width="85%" style="display: block; margin: auto;" /><img src="images/RDD/graph_distrib_RDD-3.png" width="85%" style="display: block; margin: auto;" /><img src="images/RDD/graph_distrib_RDD-4.png" width="85%" style="display: block; margin: auto;" /></p>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>graph_distrib_RDD</span> <span class='op'>&lt;-</span> <span class='va'>sim_rdd</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>bw</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.9</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    significant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span>, <span class='st'>"Significant"</span>, <span class='st'>"Non-significant"</span><span class='op'>)</span>,</span>
+<span>    ratio <span class='op'>=</span> <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>bw</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    mean_signif_bw <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>ratio</span><span class='op'>)</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>    mean_all_bw <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>ratio</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ratio</span>, fill <span class='op'>=</span> <span class='st'>"All estimates"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>bw</span>, switch <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='co'># geom_vline(</span></span>
+<span>  <span class='co'>#   aes(xintercept = mean_all_bw),</span></span>
+<span>  <span class='co'>#   linetype = "solid", </span></span>
+<span>  <span class='co'>#   size = 0.5</span></span>
+<span>  <span class='co'># ) +</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/pretty_breaks.html'>pretty_breaks</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    y <span class='op'>=</span> <span class='st'>"Bandwidth size"</span>, </span>
+<span>    x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'>frac</span><span class='op'>(</span><span class='st'>"Estimate"</span>, <span class='st'>"True Effect"</span> <span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    fill <span class='op'>=</span> <span class='st'>""</span>,</span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of RDD estimates for 1000 simulated datasets"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"Comparison across bandwidth sizes"</span>, </span>
+<span>    caption <span class='op'>=</span> <span class='st'>"Bandwidth size as a proportion of the total number of observations"</span></span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>graph_distrib_RDD</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/pretty_breaks.html'>pretty_breaks</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>, limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span> </span></code></pre>
 </div>
+</details>
+<img src="images/RDD/graph_distrib_RDD-1.png" width="85%" style="display: block; margin: auto;" />
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>graph_distrib_RDD</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>45</span>, alpha <span class='op'>=</span> <span class='fl'>0.85</span><span class='op'>)</span> </span></code></pre>
+</div>
+</details>
+<img src="images/RDD/graph_distrib_RDD-2.png" width="85%" style="display: block; margin: auto;" />
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>graph_distrib_RDD_signif</span> <span class='op'>&lt;-</span> <span class='va'>graph_distrib_RDD</span> <span class='op'>+</span></span>
+<span>  <span class='co'># geom_area(stat ="bin", bins = 50, alpha = 0.85) +</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>45</span>, alpha <span class='op'>=</span> <span class='fl'>0.85</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>significant</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>graph_distrib_RDD_signif</span></span></code></pre>
+</div>
+</details>
+<img src="images/RDD/graph_distrib_RDD-3.png" width="85%" style="display: block; margin: auto;" />
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>graph_distrib_RDD_complete</span> <span class='op'>&lt;-</span> <span class='va'>graph_distrib_RDD_signif</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='va'>mean_signif_bw</span><span class='op'>)</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"#976B21"</span>,</span>
+<span>    linetype <span class='op'>=</span> <span class='st'>"solid"</span>,</span>
+<span>    linewidth <span class='op'>=</span> <span class='fl'>0.9</span></span>
+<span>  <span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>graph_distrib_RDD_complete</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/RDD/graph_distrib_RDD-4.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<h2 id="representativeness-of-the-estimation">Representativeness of the estimation</h2>
+<p>We chose the values of the variables and parameters to emulate a typical study from this literature. To further check that the results are realistic, we compare the average Signal-to-Noise Ratio (SNR) of our regressions to the range of SNR of an existing study. The closest study to our simulation is <a href="https://direct.mit.edu/rest/article/86/1/226/57489/Remedial-Education-and-Student-Achievement-A">Jacob and Lefgren (2004)</a>. In their main result table, Table 3, the SNRs range from 0.3 to 8.</p>
+<p>I find SNR in a similar range or even larger.</p>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Bandwidth size</th>
+<th style="text-align: right;">Median SNR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.5906470</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.7060012</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.7613015</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">0.9194151</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">1.0340986</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">1.2046161</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">1.3427613</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">1.7638830</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">2.5230297</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">4.0379567</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.80</td>
+<td style="text-align: right;">6.9876453</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.90</td>
+<td style="text-align: right;">11.2283770</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The precision of our results is therefore in line with precision that can be found in the literature.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Note that unobserved ability explains a large share of the variation in test scores.
+<!-- ex_data_RDD |> lm(formula = qual ~ u) |> summary() %>% .$r.squared --><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

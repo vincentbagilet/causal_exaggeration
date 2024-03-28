@@ -1,11 +1,11 @@
 ---
-title: "Causal Exaggeration"
+title: "Causal Exaggeration: Unconfounded but Inflated Causal Estimates"
 image: "images/balloon.jpg"
 angle: 130
 site: distill::distill_website
 links:
   # - label: '`r fontawesome::fa("github")` GitHub'
-  #   url: "https://github.com/vincentbagilet/causal_inflation"
+  #   url: "https://github.com/vincentbagilet/causal_exaggeration"
   - label: 'Vincent Bagilet'
     url: "https://vincentbagilet.github.io/"
 output:

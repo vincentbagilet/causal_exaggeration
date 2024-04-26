@@ -1,0 +1,3147 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { color: #00769e; background-color: #f1f3f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #00769e; } /* Normal */
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #657422; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #00769e; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #00769e; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #00769e; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Causal Exaggeration: Simulations exogenous shocks</title>
+
+  <meta property="description" itemprop="description" content="In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of air pollution reduction shocks on birthweight of newborn babies."/>
+
+
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Causal Exaggeration: Simulations exogenous shocks"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of air pollution reduction shocks on birthweight of newborn babies."/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:site_name" content="Causal Exaggeration"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Causal Exaggeration: Simulations exogenous shocks"/>
+  <meta property="twitter:description" content="In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of air pollution reduction shocks on birthweight of newborn babies."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations exogenous shocks"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of air pollution reduction shocks on birthweight of newborn babies."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  <!--radix_placeholder_navigation_in_header-->
+  <meta name="distill:offset" content=""/>
+
+  <script type="application/javascript">
+
+    window.headroom_prevent_pin = false;
+
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+
+      // initialize headroom for banner
+      var header = $('header').get(0);
+      var headerHeight = header.offsetHeight;
+      var headroom = new Headroom(header, {
+        tolerance: 5,
+        onPin : function() {
+          if (window.headroom_prevent_pin) {
+            window.headroom_prevent_pin = false;
+            headroom.unpin();
+          }
+        }
+      });
+      headroom.init();
+      if(window.location.hash)
+        headroom.unpin();
+      $(header).addClass('headroom--transition');
+
+      // offset scroll location for banner on hash change
+      // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+      window.addEventListener("hashchange", function(event) {
+        window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+      });
+
+      // responsive menu
+      $('.distill-site-header').each(function(i, val) {
+        var topnav = $(this);
+        var toggle = topnav.find('.nav-toggle');
+        toggle.on('click', function() {
+          topnav.toggleClass('responsive');
+        });
+      });
+
+      // nav dropdowns
+      $('.nav-dropbtn').click(function(e) {
+        $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+        $(this).parent().siblings('.nav-dropdown')
+           .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $("body").click(function(e){
+        $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $(".nav-dropdown").click(function(e){
+        e.stopPropagation();
+      });
+    });
+  </script>
+
+  <style type="text/css">
+
+  /* Theme (user-documented overrideables for nav appearance) */
+
+  .distill-site-nav {
+    color: rgba(255, 255, 255, 0.8);
+    background-color: #0F2E3D;
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  .distill-site-nav a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .distill-site-nav a:hover {
+    color: white;
+  }
+
+  @media print {
+    .distill-site-nav {
+      display: none;
+    }
+  }
+
+  .distill-site-header {
+
+  }
+
+  .distill-site-footer {
+
+  }
+
+
+  /* Site Header */
+
+  .distill-site-header {
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 3;
+  }
+
+  .distill-site-header .nav-left {
+    display: inline-block;
+    margin-left: 8px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header .nav-left {
+      margin-left: 0;
+    }
+  }
+
+
+  .distill-site-header .nav-right {
+    float: right;
+    margin-right: 8px;
+  }
+
+  .distill-site-header a,
+  .distill-site-header .title {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 10px 14px 10px;
+  }
+
+  .distill-site-header .title {
+    font-size: 18px;
+    min-width: 150px;
+  }
+
+  .distill-site-header .logo {
+    padding: 0;
+  }
+
+  .distill-site-header .logo img {
+    display: none;
+    max-height: 20px;
+    width: auto;
+    margin-bottom: -4px;
+  }
+
+  .distill-site-header .nav-image img {
+    max-height: 18px;
+    width: auto;
+    display: inline-block;
+    margin-bottom: -3px;
+  }
+
+
+
+  @media screen and (min-width: 1000px) {
+    .distill-site-header .logo img {
+      display: inline-block;
+    }
+    .distill-site-header .nav-left {
+      margin-left: 20px;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 20px;
+    }
+    .distill-site-header .title {
+      padding-left: 12px;
+    }
+  }
+
+
+  .distill-site-header .nav-toggle {
+    display: none;
+  }
+
+  .nav-dropdown {
+    display: inline-block;
+    position: relative;
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    border: none;
+    outline: none;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 16px 10px;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+    margin-top: 1px;
+    z-index: 2;
+  }
+
+  .nav-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 4px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+    margin-top: 2px;
+    white-space: nowrap;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .nav-dropdown-content hr {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-dropdown-active {
+    display: block;
+  }
+
+  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+    color: black;
+    padding: 6px 24px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  .nav-dropdown-content .nav-dropdown-header {
+    display: block;
+    padding: 5px 24px;
+    padding-bottom: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #999999;
+    white-space: nowrap;
+  }
+
+  .nav-dropdown:hover .nav-dropbtn {
+    color: white;
+  }
+
+  .nav-dropdown-content a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .nav-right .nav-dropdown-content {
+    margin-left: -45%;
+    right: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+    .distill-site-header a.nav-toggle {
+      float: right;
+      display: block;
+    }
+    .distill-site-header .title {
+      margin-left: 0;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 0;
+    }
+    .distill-site-header {
+      overflow: hidden;
+    }
+    .nav-right .nav-dropdown-content {
+      margin-left: 0;
+    }
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header.responsive {position: relative; min-height: 500px; }
+    .distill-site-header.responsive a.nav-toggle {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .distill-site-header.responsive a,
+    .distill-site-header.responsive .nav-dropdown {
+      display: block;
+      text-align: left;
+    }
+    .distill-site-header.responsive .nav-left,
+    .distill-site-header.responsive .nav-right {
+      width: 100%;
+    }
+    .distill-site-header.responsive .nav-dropdown {float: none;}
+    .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+    .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+  }
+
+  /* Site Footer */
+
+  .distill-site-footer {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 3;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+  }
+
+  /* Headroom */
+
+  d-title {
+    padding-top: 6rem;
+  }
+
+  @media print {
+    d-title {
+      padding-top: 4rem;
+    }
+  }
+
+  .headroom {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .headroom--transition {
+    transition: all .4s ease-in-out;
+  }
+
+  .headroom--unpinned {
+    top: -100px;
+  }
+
+  .headroom--pinned {
+    top: 0;
+  }
+
+  /* adjust viewport for navbar height */
+  /* helps vertically center bootstrap (non-distill) content */
+  .min-vh-100 {
+    min-height: calc(100vh - 100px) !important;
+  }
+
+  </style>
+
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
+  <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+    font-size: 100%;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  hr.section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px;
+  }
+
+
+  d-byline {
+    border-top: none;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+    border-top: none;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  /* tweak for Pandoc numbered line within distill */
+  d-article pre.numberSource code > span {
+      left: -2em;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // separator
+    var separator = '<hr class="section-separator" style="clear: both"/>';
+    // prepend separator above appendix
+    $('.d-byline').before(separator);
+    $('.d-article').before(separator);
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme, except when numbering line
+    // in code chunk
+    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        var author_name = front_matter.authors[i].author
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <style type="text/css">
+  /* base variables */
+
+  /* Edit the CSS properties in this file to create a custom
+     Distill theme. Only edit values in the right column
+     for each row; values shown are the CSS defaults.
+     To return any property to the default,
+     you may set its value to: unset
+     All rows must end with a semi-colon.                      */
+
+  /* Optional: embed custom fonts here with `@import`          */
+  /* This must remain at the top of this file.                 */
+
+
+
+  html {
+    /*-- Main font sizes --*/
+    --title-size:      50px;
+    --body-size:       1.06rem;
+    --code-size:       14px;
+    --aside-size:      12px;
+    --fig-cap-size:    13px;
+    /*-- Main font colors --*/
+    --title-color:     #000000;
+    --header-color:    rgba(0, 0, 0, 0.8);
+    --body-color:      rgba(0, 0, 0, 0.8);
+    --aside-color:     rgba(0, 0, 0, 0.6);
+    --fig-cap-color:   rgba(0, 0, 0, 0.6);
+    /*-- Specify custom fonts ~~~ must be imported above   --*/
+    --heading-font:    sans-serif;
+    --mono-font:       monospace;
+    --body-font:       sans-serif;
+    --navbar-font:     sans-serif;  /* websites + blogs only */
+  }
+
+  /*-- ARTICLE METADATA --*/
+  d-byline {
+    --heading-size:    0.6rem;
+    --heading-color:   rgba(0, 0, 0, 0.5);
+    --body-size:       0.8rem;
+    --body-color:      rgba(0, 0, 0, 0.8);
+  }
+
+  /*-- ARTICLE TABLE OF CONTENTS --*/
+  .d-contents {
+    --heading-size:    18px;
+    --contents-size:   13px;
+  }
+
+  /*-- ARTICLE APPENDIX --*/
+  d-appendix {
+    --heading-size:    15px;
+    --heading-color:   rgba(0, 0, 0, 0.65);
+    --text-size:       0.8em;
+    --text-color:      rgba(0, 0, 0, 0.5);
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  /* These properties only apply to Distill sites and blogs  */
+
+  .distill-site-header {
+    --title-size:       18px;
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #0F2E3D;
+  }
+
+  .distill-site-footer {
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #0F2E3D;
+  }
+
+  /*-- Additional custom styles --*/
+  /* Add any additional CSS rules below                      */
+  </style>
+  <style type="text/css">
+  /* base variables */
+
+  /* Edit the CSS properties in this file to create a custom
+     Distill theme. Only edit values in the right column
+     for each row; values shown are the CSS defaults.
+     To return any property to the default,
+     you may set its value to: unset
+     All rows must end with a semi-colon.                      */
+
+  /* Optional: embed custom fonts here with `@import`          */
+  /* This must remain at the top of this file.                 */
+  @import url('https://fonts.googleapis.com/css2?family=Lato');
+  @import url('https://fonts.googleapis.com/css2?family=Lora');
+
+
+  html {
+    /*-- Main font sizes --*/
+    --title-size:      50px;
+    --body-size:       1.06rem;
+    --code-size:       13px;
+    --aside-size:      12px;
+    --fig-cap-size:    12px;
+    /*-- Main font colors --*/
+    --title-color:     rgba(29, 71, 73, 0.9);
+    --header-color:    rgba(29, 71, 73, 0.9);
+    --body-color:      rgba(0, 0, 0, 0.8);
+    --aside-color:     rgba(0, 0, 0, 0.6);
+    --fig-cap-color:   rgba(0, 0, 0, 0.6);
+    --hover-color:     rgba(29, 71, 73, 0.5);
+    /*-- Specify custom fonts ~~~ must be imported above   --*/
+    --heading-font:    "Lato", sans-serif;
+    --body-font:       "Lora", serif;
+    --navbar-font:     "Lato", sans-serif;  /* websites + blogs only */
+  }
+
+  /*-- ARTICLE METADATA --*/
+  d-byline {
+    --heading-size:    0.6rem;
+    --heading-color:   rgba(0, 0, 0, 0.5);
+    --body-size:       0.8rem;
+    --body-color:      rgba(0, 0, 0, 0.8);
+  }
+
+  /*-- ARTICLE TABLE OF CONTENTS --*/
+  .d-contents {
+    --heading-size:    18px;
+    --contents-size:   13px;
+  }
+
+  /*-- ARTICLE APPENDIX --*/
+  d-appendix {
+    --heading-size:    15px;
+    --heading-color:   rgba(0, 0, 0, 0.65);
+    --text-size:       0.8em;
+    --text-color:      rgba(0, 0, 0, 0.5);
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  /* These properties only apply to Distill sites and blogs  */
+
+  .distill-site-header {
+    --font-family:      'Lato', sans-serif;
+    --title-size:       21px;
+    --text-color:       rgba(29, 71, 73, 0.9);
+    --text-size:        18px;
+    --hover-color:      rgba(29, 71, 73, 0.5);
+    --bkgd-color:       rgba(255, 255, 255, 0.8);
+    font-variant:       small-caps;
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    font-variant: small-caps;
+  }
+
+  .distill-site-footer {
+    --text-color:       rgba(10, 10, 10, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       rgba(240, 240, 240, 0.8); 
+  }
+
+  /*-- Additional custom styles --*/
+  /* Add any additional CSS rules below                      */
+
+  /* Postcard headers */
+  h1, h2, h3 {
+    color:              rgba(29, 71, 73, 0.9);
+    font-variant:       small-caps;
+  }
+
+  p {
+    color:              rgba(0, 0, 0, 0.8);
+  }
+
+  a {
+  	color:              rgba(29, 71, 73, 0.9);
+  }
+
+  a:hover {
+  	color:              rgba(29, 71, 73, 0.5);
+  }
+
+  /* Buttons on postcard */
+  .btn-outline-dark {
+    color:              rgba(29, 71, 73, 0.9);
+    border-color:       rgba(29, 71, 73, 0.9);
+  }
+
+  .btn-outline-dark:hover {
+    background-color:   rgba(29, 71, 73, 0.9);
+    color:              white;
+  }
+
+  /*body {
+    background-color: rgba(249, 250, 247, 0.8);
+  }*/</style>
+  <style type="text/css">
+  /* base style */
+
+  /* FONT FAMILIES */
+
+  :root {
+    --heading-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    --mono-default: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    --body-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  body,
+  .posts-list .post-preview p,
+  .posts-list .description p {
+    font-family: var(--body-font), var(--body-default);
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .posts-list .post-preview h2,
+  .posts-list .description h2 {
+    font-family: var(--heading-font), var(--heading-default);
+  }
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: var(--mono-font), var(--mono-default);
+  }
+
+
+  /*-- TITLE --*/
+  d-title h1,
+  .posts-list > h1 {
+    color: var(--title-color, black);
+  }
+
+  d-title h1 {
+    font-size: var(--title-size, 50px);
+  }
+
+  /*-- HEADERS --*/
+  d-article h1,
+  d-article h2,
+  d-article h3,
+  d-article h4,
+  d-article h5,
+  d-article h6 {
+    color: var(--header-color, rgba(0, 0, 0, 0.8));
+  }
+
+  /*-- BODY --*/
+  d-article > p,  /* only text inside of <p> tags */
+  d-article > ul, /* lists */
+  d-article > ol {
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+    font-size: var(--body-size, 1.06rem);
+  }
+
+
+  /*-- CODE --*/
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-size: var(--code-size, 14px);
+  }
+
+  /*-- ASIDE --*/
+  d-article aside {
+    font-size: var(--aside-size, 12px);
+    color: var(--aside-color, rgba(0, 0, 0, 0.6));
+  }
+
+  /*-- FIGURE CAPTIONS --*/
+  figure .caption,
+  figure figcaption,
+  .figure .caption {
+    font-size: var(--fig-cap-size, 13px);
+    color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+  }
+
+  /*-- METADATA --*/
+  d-byline h3 {
+    font-size: var(--heading-size, 0.6rem);
+    color: var(--heading-color, rgba(0, 0, 0, 0.5));
+  }
+
+  d-byline {
+    font-size: var(--body-size, 0.8rem);
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+  }
+
+  d-byline a,
+  d-article d-byline a {
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+  }
+
+  /*-- TABLE OF CONTENTS --*/
+  .d-contents nav h3 {
+    font-size: var(--heading-size, 18px);
+  }
+
+  .d-contents nav a {
+    font-size: var(--contents-size, 13px);
+  }
+
+  /*-- APPENDIX --*/
+  d-appendix h3 {
+    font-size: var(--heading-size, 15px);
+    color: var(--heading-color, rgba(0, 0, 0, 0.65));
+  }
+
+  d-appendix {
+    font-size: var(--text-size, 0.8em);
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
+  }
+
+  d-appendix d-footnote-list a.footnote-backlink {
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  .distill-site-header .title {
+    font-size: var(--title-size, 18px);
+    font-family: var(--navbar-font), var(--heading-default);
+  }
+
+  .distill-site-header a,
+  .nav-dropdown .nav-dropbtn {
+    font-family: var(--navbar-font), var(--heading-default);
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    font-size: var(--text-size, 15px);
+  }
+
+  .distill-site-header a:hover,
+  .nav-dropdown:hover .nav-dropbtn {
+    color: var(--hover-color, white);
+  }
+
+  .distill-site-header {
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
+  }
+
+  .distill-site-footer {
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
+  }
+
+  .distill-site-footer a:hover {
+    color: var(--hover-color, white);
+  }</style>
+  <!--/radix_placeholder_distill-->
+  <script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
+  <script src="site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Simulations exogenous shocks","description":"In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of air pollution reduction shocks on birthweight of newborn babies.","authors":[]}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a href="index.html" class="title">Causal Exaggeration</a>
+</div>
+<div class="nav-right">
+<a href="causal_exaggeration_paper.pdf">Paper</a>
+<a href="summary.html">Summaries</a>
+<a href="intuition.html">Intuition</a>
+<a href="air_pollution.html">Example lit.</a>
+<a href="maths.html">Maths</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Simulations
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="RDD.html">RDD</a>
+<a href="IV.html">IV</a>
+<span class="nav-dropdown-header">Matching</span>
+<a href="shocks.html">Shocks</a>
+<span class="nav-dropdown-header">Fixed-Effects</span>
+<span class="nav-dropdown-header">Controls</span>
+</div>
+</div>
+<a href="reporting.html">Reporting</a>
+<a href="https://github.com/vincentbagilet/causal_exaggeration" aria-label="Link to source">
+<i class="fab fa-github" aria-hidden="true"></i>
+</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Simulations exogenous shocks</h1>
+
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p>In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of air pollution reduction shocks on birthweight of newborn babies.</p>
+</div>
+
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#summary-and-intuition" id="toc-summary-and-intuition">Summary and intuition</a>
+<ul>
+<li><a href="#a-trade-off-mediated-by-the-number-of-treated-observations" id="toc-a-trade-off-mediated-by-the-number-of-treated-observations">A trade-off mediated by the number of treated observations</a></li>
+<li><a href="#intuition-to-explain-the-variation-of-power-with-the-number-of-treated-observations" id="toc-intuition-to-explain-the-variation-of-power-with-the-number-of-treated-observations">Intuition to explain the variation of power with the number of treated observations</a></li>
+</ul></li>
+<li><a href="#an-illustrative-example" id="toc-an-illustrative-example">An illustrative example</a>
+<ul>
+<li><a href="#modeling-choices" id="toc-modeling-choices">Modeling choices</a></li>
+<li><a href="#data-generation" id="toc-data-generation">Data generation</a></li>
+<li><a href="#estimation" id="toc-estimation">Estimation</a></li>
+<li><a href="#one-simulation" id="toc-one-simulation">One simulation</a></li>
+<li><a href="#all-simulations" id="toc-all-simulations">All simulations</a></li>
+</ul></li>
+<li><a href="#analysis-of-the-results" id="toc-analysis-of-the-results">Analysis of the results</a>
+<ul>
+<li><a href="#quick-exploration" id="toc-quick-exploration">Quick exploration</a></li>
+<li><a href="#computing-bias-and-exaaggeration-ratio" id="toc-computing-bias-and-exaaggeration-ratio">Computing bias and exaaggeration ratio</a></li>
+<li><a href="#main-graph" id="toc-main-graph">Main graph</a></li>
+<li><a href="#representativeness-of-the-estimation" id="toc-representativeness-of-the-estimation">Representativeness of the estimation</a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+<style>
+body {
+text-align: justify}
+</style>
+<!-- To export it as pdf, use this yaml -->
+<!-- but run it in another document. I do not know why but there is a bug otherwise -->
+<!-- --- -->
+<!-- title: "Simulations exogenous shocks" -->
+<!-- geometry: false -->
+<!-- output:  -->
+<!--   pdf_document: -->
+<!--     includes: -->
+<!--       in_header: -->
+<!--         - VB_Rmd.sty -->
+<!-- --- -->
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show packages
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span> </span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://yihui.org/knitr/'>knitr</a></span><span class='op'>)</span> </span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://lrberge.github.io/fixest/'>fixest</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://vincentbagilet.github.io/mediocrethemes/'>mediocrethemes</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://broom.tidymodels.org/'>broom</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/jabiru/tictoc'>tictoc</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>beepr</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/set_mediocre_all.html'>set_mediocre_all</a></span><span class='op'>(</span>pal <span class='op'>=</span> <span class='st'>"coty"</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+</div>
+<h2 id="summary-and-intuition">Summary and intuition</h2>
+<h3 id="a-trade-off-mediated-by-the-number-of-treated-observations">A trade-off mediated by the number of treated observations</h3>
+<p>In the case of studies using exogenous shocks, a confounding / exaggeration trade-off is mediated by the number of (un)treated observations. In some settings, while the number of observations is large, the number of events might be limited. Pinpointing exogenous shocks is never easy and we are sometimes only able to find a limited number of occurrences of this shock or shocks affecting a small portion of the population. More precisely, the number of observations with a non-null treatment status might be small (or conversely the number of non-treated units might be small). In this instance, the variation available to identify the treatment is limited, possibly leading power to be low and exaggeration issues to arise.</p>
+<h3 id="intuition-to-explain-the-variation-of-power-with-the-number-of-treated-observations">Intuition to explain the variation of power with the number of treated observations</h3>
+<p>The number of treated observations can be decomposed into two parts: the total number of observations times the proportion of observations in the treated group. Of course, if one reduces the total sample size, precision and thus statistical power will decrease. At a fixed total sample size and as commonly discussed in the Randomized Control Trial literature, statistical power is maximized when the proportion of treated observations is equal to the proportion of untreated ones. If we consider a fixed number of observations, decreasing the proportion of treated observations below 0.5 will decrease precision and power. The intuition for this relationship can be given by studying the simple formula for the standard error of the difference between the mean of the outcome for the control and treatment groups. It does not represent the actual standard error of the DiD estimator but can be useful to get an intuition for this trade-off. The formula is the following:</p>
+<p><span class="math display">\[se_{\bar{y_T} - \bar{y_c}} = \sqrt{\dfrac{\sigma_T^2}{n_T} + \dfrac{\sigma_C^2}{n_C}}\]</span>
+where <span class="math inline">\(n_T\)</span> and <span class="math inline">\(n_C\)</span> are the number of observation in the treated group and the control group respectively and <span class="math inline">\(\sigma_T\)</span> and <span class="math inline">\(\sigma_C\)</span> the standard deviations of the outcome in the treated group and the control group respectively. In many cases, we can assume that <span class="math inline">\(\sigma_T = \sigma_C = \sigma\)</span>. Under this assumption we have:</p>
+<p><span class="math display">\[se_{\bar{y_T} - \bar{y_c}} = \dfrac{\sigma}{\sqrt{n}} \times \sqrt{\dfrac{1}{p_T(1-p_T)}}\]</span>
+where <span class="math inline">\(n\)</span> is the total number of observations (<span class="math inline">\(n = n_T + n_C\)</span>) and <span class="math inline">\(p_T\)</span> the proportion of treated observations.</p>
+<p>From this simple formula it is obvious that the standard error of interest increases when <span class="math inline">\(n\)</span> decreases and that, for <span class="math inline">\(n\)</span> constant, it is minimized when the proportion of treated is 0.5. Since statistical power is a decreasing function of the variance of an estimator, it will decrease when the proportion of treated diverges from 0.5 and has an infinity limit in 0 and 1, leading to extremely large standard errors when the proportion of treated units is close to 0 or 1. Plotting the function <span class="math inline">\(x \mapsto \sqrt{\dfrac{1}{x \times(1 - x)}}\)</span> illustrates this:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_function.html'>geom_function</a></span><span class='op'>(</span>fun <span class='op'>=</span> \<span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fl'>1</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>*</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>-</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Evolution of s.e. with the proportion of treated units"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"p"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fu'>frac</span><span class='op'>(</span><span class='fl'>1</span>, <span class='fu'>p</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>-</span><span class='va'>p</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/shocks/fct_se-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<p>The issue caused by a limited number of treated or control observations does not only affect event studies and DiD but is particularly salient in this case.</p>
+<h2 id="an-illustrative-example">An illustrative example</h2>
+<p>For readability and to illustrate this loss in power, let’s consider an example setting. For this illustration we could use a large variety of Data Genereting Processes (DGP), both in terms of distribution of the variables and of relations between them. I narrow this down to an example setting, considering an analysis of health impacts of air pollution. More precisely, I simulate and analyze the <strong>impacts of air pollution reduction in birthweights</strong>. Air pollution might vary with other variables that may also affect birthweight (for instance economic activity). Some of these variables might be unobserved and bias estimates of a simple regression of birthweight on pollution levels. A strategy to avoid such issues is to consider exogenous shocks to air pollution such as plant closures, plant openings, creation of a low emission zone or an urban toll, strikes, etc.</p>
+<p>Although I consider an example setting for clarity, this confounding / exaggeration trade-off mediated by a number of treated observations arises in other settings.</p>
+<h3 id="modeling-choices">Modeling choices</h3>
+<p>To simplify, I make the assumptions described below. Of course these assumptions are arbitrary and I invite interested readers to play around with them.
+<!-- Note that, fixed effects and the covariate are not necessary to the analysis. I only add them to make the analysis more realistic if necessary but I set their baseline values to 0. --></p>
+<p>Many studies in the literature, such as <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20121656">Currie et al. (2015)</a> and <a href="https://www.journals.uchicago.edu/doi/full/10.1086/691554">Lavaine and Neidell (2017)</a> for instance, aggregate observations to build a panel. I follow this approach and look at the evolution of birthweights in zip codes in time.</p>
+<p>For clarity in the explanations, let’s assume that the exogenous shock considered is a permanent plant closure and that this reduces air pollution level. One can also think of it as any permanent exogenous change in air pollution levels. Here, I only estimate a reduced form model and am therefore not interested in modeling the effect of the plant closure on pollution levels. I consider that the plant closure leads to some air pollution reduction and want to estimate the effect of this closure on birth-weight.
+<!-- I plan to add pollution in the future in order to compare the performance of the reduced form and a straight regression of birthweight on pollution. Yet, generating pollution is rather complex and we therefore only consider the reduced form for now. --></p>
+<p>For each time period, a zip code is either treated (plant closed) or not treated. Over the whole period, some zip codes experience a plant closure, others do not, either because they do not have a plant that affect their air pollution levels or because their plant did not close.</p>
+<p>I consider that the average birthweight in zip code <span class="math inline">\(z\)</span> at time period <span class="math inline">\(t\)</span>, <span class="math inline">\(w_{zt}\)</span>, depends on a zip code fixed-effect <span class="math inline">\(\zeta_z\)</span>, a time fixed-effect <span class="math inline">\(\tau_t\)</span> and the treatment status <span class="math inline">\(T_i\)</span>, <em>ie</em> whether a plant is closed in this period or not. For now, I do not simulate omitted variable biases as I consider that the shocks are truly exogenous. Thus, birthweight is defined as follows:</p>
+<p><span class="math display">\[w_{zt} = \beta_0 + \beta_1 T_{zt} + \zeta_z + \tau_t + u_{zt}\]</span>
+<!-- 
+is correlated with the average birthweight in this zip code in other periods and in nearby zip codes and also depends the treatment status $T_i$, *ie* whether a plant closed in this period or not. For now, we do not simulate omitted variable biases as we consider that the shocks are truly exogenous.
+
+We consider an AR(1) process along each dimension. Thus, birthweight is defined as follows: --></p>
+<!-- $$Birthweight_{z,t} = \beta_0 + \beta T_{z, t} + \tau Birthweight_{z, (t-1)} + \zeta Birthweight_{(z-1), t} + \epsilon_{z,t}$$ -->
+<!-- The DGP can be represented using the following Directed Acyclic Graph (DAG):  -->
+<!-- ```{r DAG_RDD, echo=FALSE, out.width='60%'} -->
+<!-- include_graphics(here("images/DAGs/DAGs.004.png")) -->
+<!-- ``` -->
+<p>To simplify, I consider the following additional assumptions:</p>
+<ul>
+<li>Treatment is constant in time and homogeneous across zip codes. In this case, the two ways fixed effect estimation should yield a correct estimate of the ATET (as discussed in <a href="https://www.nber.org/papers/w29691">de Chaisemartin and d’Haultfoeuille (2022)</a> for instance)</li>
+<li>Treatment allocation is non-staggered: all the plant closings happen at the same time.
+I assume that they happen in the middle of the period for simplicity</li>
+<li>A proportion <span class="math inline">\(p_{treat}\)</span> of zip codes are treated over the period. Hence, a proportion of <span class="math inline">\(1-p_{treat}\)</span> zip codes are never treated over the period. I draw these zip codes at random. Note that drawing at random is not necessary here. Without loss of generality, we could assume that the non-treated zip codes are those with the larger zip codes identifiers for instance,</li>
+</ul>
+<!-- - The implementation of the treatment can be staggered or not. If it is not staggered, the treatment date is set to be in the middle of the period. For now we only analyze the non staggered version. -->
+<p>More precisely, I set:</p>
+<ul>
+<li><span class="math inline">\(N_z\)</span> the number of zip codes,</li>
+<li><span class="math inline">\(N_t\)</span> the number of periods (months),</li>
+<li><span class="math inline">\(\zeta_z \sim \mathcal{N}(\mu_{\zeta}, \sigma_{\zeta}^{2})\)</span> the fixed effect for zip code <span class="math inline">\(z\)</span>,</li>
+<li><span class="math inline">\(\tau_t \sim \mathcal{N}(\mu_{\tau}, \sigma_{\tau}^{2})\)</span> the fixed effect for time period <span class="math inline">\(t\)</span>,</li>
+<li><span class="math inline">\(u_{zt} \sim \mathcal{N}(0, \sigma_{u}^{2})\)</span> some noise,</li>
+<li><span class="math inline">\(T_{zt}\)</span> represent the treatment allocation, it is equal to 1 if zip code <span class="math inline">\(z\)</span> is treated at time <span class="math inline">\(t\)</span> and 0 otherwise,</li>
+<li><span class="math inline">\(w_{zt} = \beta_0 + \beta_1 T_{zt} + \zeta_z + \tau_t + u_{zt}\)</span> where <span class="math inline">\(\beta_0\)</span> is a constant,</li>
+<li><span class="math inline">\(\beta_1\)</span> is represents the magnitude of the treatment,
+<!-- - We define `staggered` as a logical variable. --></li>
+</ul>
+<p>I also create a bunch of useful variables:</p>
+<ul>
+<li><span class="math inline">\(InTreatment_z\)</span> equal to 1 if zip code <span class="math inline">\(z\)</span> ever gets treated,
+<!-- - $t^{event}_z$ equal to the date at which zip code $z$ gets treated, especially useful in the staggered setting, -->
+<!-- - $t^{centered}_z$ representing the distance in terms of periods to the beginning of the treatment for zip code $z$, -->
+<!-- - $Post_{zt}$ equal to 1 if the period $t$ is after the treatment has begun for zip code $z$.  -->
+<!-- This variable is only useful for non-staggered treatment allocation case. --></li>
+</ul>
+<h3 id="data-generation">Data generation</h3>
+<h4 id="generating-function">Generating function</h4>
+<p>I write a simple function that generates the data. It takes as input the values of the different parameters and returns a data frame containing all the variables for this analysis.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>generate_data_shocks</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>N_z</span>,</span>
+<span>                              <span class='va'>N_t</span>,</span>
+<span>                              <span class='va'>length_closed</span>,</span>
+<span>                              <span class='va'>sigma_u</span>,</span>
+<span>                              <span class='va'>p_treat</span>,</span>
+<span>                              <span class='va'>beta_0</span>,</span>
+<span>                              <span class='va'>beta_1</span>,</span>
+<span>                              <span class='va'>mu_zip_fe</span>, </span>
+<span>                              <span class='va'>sigma_zip_fe</span>,</span>
+<span>                              <span class='va'>mu_time_fe</span>, </span>
+<span>                              <span class='va'>sigma_time_fe</span></span>
+<span>                             <span class='op'>)</span> <span class='op'>{</span></span>
+<span>  </span>
+<span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>zip <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N_z</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>in_treatment <span class='op'>=</span> <span class='op'>(</span><span class='va'>zip</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>N_z</span>, <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>floor</a></span><span class='op'>(</span><span class='va'>N_z</span><span class='op'>*</span><span class='va'>p_treat</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>t <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N_t</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>zip</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>zip_fe <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>mu_zip_fe</span>, <span class='va'>sigma_zip_fe</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>time_fe <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>mu_time_fe</span>, <span class='va'>sigma_time_fe</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      closed <span class='op'>=</span> <span class='op'>(</span><span class='va'>t</span> <span class='op'>&gt;</span> <span class='op'>(</span><span class='va'>N_t</span> <span class='op'>-</span> <span class='va'>length_closed</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>2</span> <span class='op'>&amp;</span> <span class='va'>t</span> <span class='op'>&lt;=</span> <span class='op'>(</span><span class='va'>N_t</span> <span class='op'>+</span> <span class='va'>length_closed</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>,</span>
+<span>      treated <span class='op'>=</span> <span class='va'>in_treatment</span> <span class='op'>&amp;</span> <span class='va'>closed</span>, </span>
+<span>      u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_u</span><span class='op'>)</span>,</span>
+<span>      birthweight0 <span class='op'>=</span> <span class='va'>beta_0</span> <span class='op'>+</span> <span class='va'>zip_fe</span> <span class='op'>+</span> <span class='va'>time_fe</span> <span class='op'>+</span> <span class='va'>u</span>,</span>
+<span>      birthweight1 <span class='op'>=</span> <span class='va'>birthweight0</span> <span class='op'>+</span> <span class='va'>beta_1</span>,</span>
+<span>      birthweight <span class='op'>=</span> <span class='va'>treated</span><span class='op'>*</span><span class='va'>birthweight1</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>-</span> <span class='va'>treated</span><span class='op'>)</span><span class='op'>*</span><span class='va'>birthweight0</span></span>
+<span>    <span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+</div>
+<h4 id="calibration-and-baseline-parameters-values">Calibration and baseline parameters’ values</h4>
+<p>I set baseline values for the parameters to emulate a somehow realistic observational study`. I get “inspiration” for the values of parameters from <a href="https://www.journals.uchicago.edu/doi/full/10.1086/691554">Lavaine and Neidell (2017)</a> and <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20121656">Currie et al. (2015)</a>. The former investigates the impact of oil refinery strikes in France on birth-weight and gestational age of newborn. The latter studies the impact of air pollution from plants (openings and closures) on WTP (housing value) and health (incidence of low birthweights).</p>
+<p>I consider that:</p>
+<ul>
+<li><strong>Number of observations</strong>: Lavaine and Neidell (2017) has about 150000 observations at the month x census tract level, from 2007 to 2011 and for 2531 census tracts, with 240 treated (census tract close to refinery closing for the month of October 2010) and 151,384 controls. Curie et al (2015) have data for 13 years, 3438 plants and 2 groups (close or far away from the plant) for 89000 observation and about 1600 changes in status.</li>
+<li><strong>Treated units</strong>: Both studies consider different treatment allocation procedures. For simplicity, we choose to follow one of the two, Lavaine and Neidell (2017). Their data is at the monthly level and consider a shock that lasts one month they have 240 treated observations, <em>i.e</em>, 10% census tracts are treated (and 0.16% of observations). I thus set <strong>length_closed = 1 and p_treat = 0.1</strong></li>
+<li><strong>Distribution of birthweight</strong>: Birthweight is expressed in grams. In Lavaine and Neidell’s sample made of babies born in France, the average birthweight is 3228g (sd = 353). I choose <code>beta_0</code> and <code>sigma_u</code> to yield a similar distribution. These values depend on the values of the other parameters and are therefore set last</li>
+<li><strong>Treatment effect size</strong> A usual treatment effect size in published studies is a change of about 1 to 3% in birthweight (<em>eg</em> in <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20121656">Currie et al. (2015)</a>). I thus consider a 2% effect size and set <span class="math inline">\(\beta_1 = 3228 \times 0.02 \simeq 65\)</span></li>
+<li><strong>Fixed effects</strong> : I set time and individual fixed effects to be of half of the order of magnitude of the treatment effect and with a standard deviation roughly equal to their mean. This choice is rather arbitrary but produces a signal to noise ratio that is consistent with what is observed in the literature.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 3%" />
+<col style="width: 13%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 9%" />
+<col style="width: 12%" />
+<col style="width: 10%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">N_z</th>
+<th style="text-align: right;">N_t</th>
+<th style="text-align: right;">length_closed</th>
+<th style="text-align: right;">p_treat</th>
+<th style="text-align: right;">sigma_u</th>
+<th style="text-align: right;">beta_0</th>
+<th style="text-align: right;">beta_1</th>
+<th style="text-align: right;">mu_zip_fe</th>
+<th style="text-align: right;">sigma_zip_fe</th>
+<th style="text-align: right;">mu_time_fe</th>
+<th style="text-align: right;">sigma_time_fe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2500</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">350</td>
+<td style="text-align: right;">3163</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">33</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here is an example of variables created with the data generating process and baseline parameter values, for 2 zip codes and 8 time periods (not displaying parameters):</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_shocks</span> <span class='op'>|&gt;</span>  </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>N_z <span class='op'>=</span> <span class='fl'>2</span>, N_t <span class='op'>=</span> <span class='fl'>8</span>, p_treat <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>generate_data_shocks</span><span class='op'>)</span> <span class='op'>|&gt;</span>  <span class='co'>#use pmap to pass the set of parameters</span></span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>zip</span>, <span class='va'>t</span>, <span class='va'>treated</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"birthweight"</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span><span class='op'>(</span><span class='st'>"fe"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span>  </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 3%" />
+<col style="width: 9%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 13%" />
+<col style="width: 10%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">zip</th>
+<th style="text-align: right;">t</th>
+<th style="text-align: left;">treated</th>
+<th style="text-align: right;">birthweight0</th>
+<th style="text-align: right;">birthweight1</th>
+<th style="text-align: right;">birthweight</th>
+<th style="text-align: right;">u</th>
+<th style="text-align: right;">zip_fe</th>
+<th style="text-align: right;">time_fe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3478.285</td>
+<td style="text-align: right;">3543.285</td>
+<td style="text-align: right;">3478.285</td>
+<td style="text-align: right;">279.62773</td>
+<td style="text-align: right;">62.92833</td>
+<td style="text-align: right;">-27.270935</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3464.416</td>
+<td style="text-align: right;">3529.416</td>
+<td style="text-align: right;">3464.416</td>
+<td style="text-align: right;">193.51133</td>
+<td style="text-align: right;">62.92833</td>
+<td style="text-align: right;">44.976155</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2963.249</td>
+<td style="text-align: right;">3028.249</td>
+<td style="text-align: right;">2963.249</td>
+<td style="text-align: right;">-216.66550</td>
+<td style="text-align: right;">62.92833</td>
+<td style="text-align: right;">-46.013694</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2979.283</td>
+<td style="text-align: right;">3044.283</td>
+<td style="text-align: right;">2979.283</td>
+<td style="text-align: right;">-309.09044</td>
+<td style="text-align: right;">62.92833</td>
+<td style="text-align: right;">62.445486</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3402.713</td>
+<td style="text-align: right;">3467.713</td>
+<td style="text-align: right;">3402.713</td>
+<td style="text-align: right;">153.79499</td>
+<td style="text-align: right;">62.92833</td>
+<td style="text-align: right;">22.989503</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3689.319</td>
+<td style="text-align: right;">3754.319</td>
+<td style="text-align: right;">3689.319</td>
+<td style="text-align: right;">435.42792</td>
+<td style="text-align: right;">62.92833</td>
+<td style="text-align: right;">27.962313</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3574.841</td>
+<td style="text-align: right;">3639.841</td>
+<td style="text-align: right;">3574.841</td>
+<td style="text-align: right;">312.53934</td>
+<td style="text-align: right;">62.92833</td>
+<td style="text-align: right;">36.373142</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3766.312</td>
+<td style="text-align: right;">3831.312</td>
+<td style="text-align: right;">3766.312</td>
+<td style="text-align: right;">547.38907</td>
+<td style="text-align: right;">62.92833</td>
+<td style="text-align: right;">-7.005873</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3501.871</td>
+<td style="text-align: right;">3566.871</td>
+<td style="text-align: right;">3501.871</td>
+<td style="text-align: right;">353.42678</td>
+<td style="text-align: right;">12.71544</td>
+<td style="text-align: right;">-27.270935</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3123.960</td>
+<td style="text-align: right;">3188.960</td>
+<td style="text-align: right;">3123.960</td>
+<td style="text-align: right;">-96.73133</td>
+<td style="text-align: right;">12.71544</td>
+<td style="text-align: right;">44.976155</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3156.466</td>
+<td style="text-align: right;">3221.466</td>
+<td style="text-align: right;">3156.466</td>
+<td style="text-align: right;">26.76459</td>
+<td style="text-align: right;">12.71544</td>
+<td style="text-align: right;">-46.013694</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">2940.645</td>
+<td style="text-align: right;">3005.645</td>
+<td style="text-align: right;">3005.645</td>
+<td style="text-align: right;">-297.51630</td>
+<td style="text-align: right;">12.71544</td>
+<td style="text-align: right;">62.445486</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2740.060</td>
+<td style="text-align: right;">2805.060</td>
+<td style="text-align: right;">2740.060</td>
+<td style="text-align: right;">-458.64488</td>
+<td style="text-align: right;">12.71544</td>
+<td style="text-align: right;">22.989503</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2613.528</td>
+<td style="text-align: right;">2678.528</td>
+<td style="text-align: right;">2613.528</td>
+<td style="text-align: right;">-590.15009</td>
+<td style="text-align: right;">12.71544</td>
+<td style="text-align: right;">27.962313</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3476.155</td>
+<td style="text-align: right;">3541.155</td>
+<td style="text-align: right;">3476.155</td>
+<td style="text-align: right;">264.06649</td>
+<td style="text-align: right;">12.71544</td>
+<td style="text-align: right;">36.373142</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3044.664</td>
+<td style="text-align: right;">3109.664</td>
+<td style="text-align: right;">3044.664</td>
+<td style="text-align: right;">-124.04605</td>
+<td style="text-align: right;">12.71544</td>
+<td style="text-align: right;">-7.005873</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A quick check on a full data set shows that the standard deviation and mean of the birthweight correspond to what we aimed for:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ex_data_shocks</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_shocks</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>generate_data_shocks</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>ex_data_shocks_mean</span> <span class='op'>&lt;-</span> <span class='va'>ex_data_shocks</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>.cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>birthweight0</span><span class='op'>)</span>, <span class='va'>mean</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>Statistic <span class='op'>=</span> <span class='st'>"Mean"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>Statistic</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ex_data_shocks_sd</span> <span class='op'>&lt;-</span> <span class='va'>ex_data_shocks</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>.cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>birthweight0</span><span class='op'>)</span>, <span class='fu'>stats</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>Statistic <span class='op'>=</span> <span class='st'>"Standard Deviation"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>Statistic</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ex_data_shocks_mean</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>ex_data_shocks_sd</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Statistic</th>
+<th style="text-align: right;">birthweight0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mean</td>
+<td style="text-align: right;">3234.6513</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Standard Deviation</td>
+<td style="text-align: right;">353.1789</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The treatment allocation when the proportion of treated is 30% is as follows:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_shocks</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>N_z <span class='op'>=</span> <span class='fl'>20</span>, N_t <span class='op'>=</span> <span class='fl'>60</span>, p_treat <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>generate_data_shocks</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>treated <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>treated</span>, <span class='st'>"Treated"</span>, <span class='st'>"Not treated"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>t</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>zip</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_rev.html'>fct_rev</a></span><span class='op'>(</span><span class='va'>treated</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_tile</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"white"</span>, lwd <span class='op'>=</span> <span class='fl'>0.3</span>, linetype <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_fixed.html'>coord_fixed</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_y_discrete</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Treatment assignment across time and zip codes"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Time index"</span>, </span>
+<span>    y <span class='op'>=</span> <span class='st'>"Zip code id"</span>, </span>
+<span>    fill <span class='op'>=</span> <span class='st'>"Treatment status"</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/shocks/treatment_allocation_shocks-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<p>Under this set of parameters, a very limited number of observations are treated.</p>
+<h4 id="quick-data-exploration">Quick data exploration</h4>
+<p>I quickly explore a generated data set to get a sense of how the data is distributed. First, I display the distribution of potential outcomes.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ex_data_shocks</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span></span>
+<span>    cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>birthweight0</span>, <span class='va'>birthweight1</span><span class='op'>)</span>,</span>
+<span>    names_to <span class='op'>=</span> <span class='st'>"potential_outcome"</span>,</span>
+<span>    values_to <span class='op'>=</span> <span class='st'>"potential_birthweight"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>potential_outcome <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></span><span class='op'>(</span><span class='va'>potential_outcome</span>, <span class='st'>"birthweight"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>potential_birthweight</span>, fill <span class='op'>=</span> <span class='va'>potential_outcome</span>, color <span class='op'>=</span> <span class='va'>potential_outcome</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Birthweight (in g)"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Density"</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"Potential Outcome"</span>,</span>
+<span>    fill <span class='op'>=</span> <span class='st'>"Potential Outcome"</span>,</span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of potential birthweight"</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/shocks/eda_distrib_outcome-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<h3 id="estimation">Estimation</h3>
+<p>I then define a function to run the estimation.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>estimate_shocks</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>reg</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      zip <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>zip</span><span class='op'>)</span>,</span>
+<span>      t <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span>,</span>
+<span>      treated <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>treated</span><span class='op'>)</span></span>
+<span>    <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'><a href='https://lrberge.github.io/fixest/reference/feols.html'>feols</a></span><span class='op'>(</span></span>
+<span>      data <span class='op'>=</span> <span class='va'>.</span>, </span>
+<span>      fml <span class='op'>=</span> <span class='va'>birthweight</span> <span class='op'>~</span> <span class='va'>treated</span> <span class='op'>|</span> <span class='va'>zip</span> <span class='op'>+</span> <span class='va'>t</span></span>
+<span>    <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>p_value <span class='op'>=</span> <span class='va'>p.value</span>, se <span class='op'>=</span> <span class='va'>std.error</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>statistic</span><span class='op'>)</span> </span>
+<span>  </span>
+<span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>reg</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+</div>
+<p>Here is an example of an output of this function:</p>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">se</th>
+<th style="text-align: right;">p_value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">treated</td>
+<td style="text-align: right;">86.95759</td>
+<td style="text-align: right;">22.80669</td>
+<td style="text-align: right;">0.0001407</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="one-simulation">One simulation</h3>
+<!-- Note that to run power calculations, we need to have access to the true effects which are not directly input parameters. Therefore, before running the estimation, I write a short function to compute the average treatment effect on the treated (ATET). I will add this information to the estimation results.  -->
+<!-- ```{r compute_true_effect_shocks} -->
+<!-- compute_true_effect_shocks <- function(data) { -->
+<!--   data |>  -->
+<!--     filter(treated) |>  -->
+<!--     summarise(true_effect = mean(birthweight1 - birthweight0)) %>% -->
+<!--     .$true_effect -->
+<!-- }   -->
+<!-- ``` -->
+<p>I now run a simulation, combining <code>generate_data_shocks</code> and <code>estimate_shocks</code>. To do so I create the function <code>compute_sim_shocks</code>. This simple function takes as input the various parameters. It returns a table with the estimate of the treatment, its p-value and standard error, the true effect and the proportion of treated units. Note that for now, I do not store the values of the other parameters for simplicity because I consider them fixed over the study.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>compute_sim_shocks</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>args</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>generate_data_shocks</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> </span>
+<span>  </span>
+<span>  <span class='va'>data</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'>estimate_shocks</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      N_z <span class='op'>=</span> <span class='va'>args</span><span class='op'>$</span><span class='va'>N_z</span>,</span>
+<span>      N_t <span class='op'>=</span> <span class='va'>args</span><span class='op'>$</span><span class='va'>N_t</span>,</span>
+<span>      p_treat <span class='op'>=</span> <span class='va'>args</span><span class='op'>$</span><span class='va'>p_treat</span>,</span>
+<span>      true_effect <span class='op'>=</span> <span class='va'>args</span><span class='op'>$</span><span class='va'>beta_1</span></span>
+<span>    <span class='op'>)</span></span>
+<span><span class='op'>}</span> </span></code></pre>
+</div>
+</details>
+</div>
+<p>Here is an example of an output of this function.</p>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 15%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">se</th>
+<th style="text-align: right;">p_value</th>
+<th style="text-align: right;">N_z</th>
+<th style="text-align: right;">N_t</th>
+<th style="text-align: right;">p_treat</th>
+<th style="text-align: right;">true_effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">treated</td>
+<td style="text-align: right;">78.31618</td>
+<td style="text-align: right;">24.95759</td>
+<td style="text-align: right;">0.0017211</td>
+<td style="text-align: right;">2500</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">65</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="all-simulations">All simulations</h3>
+<p>I will run the simulations for different sets of parameters by looping the <code>compute_sim_shocks</code> function over the set of parameters. I thus create a table with all the values of the parameters to test, <code>param_shocks</code>. Note that in this table each set of parameters appears <code>N_iter</code> times as we want to run the analysis <span class="math inline">\(n_{iter}\)</span> times for each set of parameters.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>vect_p_treat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.002</span>, <span class='fl'>0.005</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.01</span>, <span class='fl'>0.15</span>, <span class='fl'>0.02</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>n_iter</span> <span class='op'>&lt;-</span> <span class='fl'>1000</span></span>
+<span></span>
+<span><span class='va'>param_shocks</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_shocks</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>p_treat</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span><span class='va'>vect_p_treat</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>p_treat <span class='op'>=</span> <span class='va'>vect_p_treat</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>rep_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n_iter</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>rep_id</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>I then run the simulations by looping our <code>compute_sim_shocks</code> function on <code>param_shocks</code> using the <code>purrr</code> package (<code>pmap_dfr</code> function).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>tic</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='va'>sim_shocks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_shocks</span>, <span class='va'>compute_sim_shocks</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/beepr/man/beep.html'>beep</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>toc</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_shocks</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/sim_shocks.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h2 id="analysis-of-the-results">Analysis of the results</h2>
+<h3 id="quick-exploration">Quick exploration</h3>
+<p>First, I quickly explore the results. I plot the distribution of the estimated effect sizes, along with the true effect. The estimator is unbiased and recover, on average, the true effect:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_shocks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/sim_shocks.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>sim_shocks</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>p_treat</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>vect_p_treat</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span>  </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    n_treat <span class='op'>=</span> <span class='va'>p_treat</span><span class='op'>*</span><span class='va'>N_z</span><span class='op'>*</span><span class='va'>N_t</span>,</span>
+<span>    n_treat_name <span class='op'>=</span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_inorder.html'>fct_inseq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>n_treat</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    N_z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Number zip codes: "</span>, <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_pad.html'>str_pad</a></span><span class='op'>(</span><span class='va'>N_z</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    N_t <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Number periods: "</span>, <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_pad.html'>str_pad</a></span><span class='op'>(</span><span class='va'>N_t</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>estimate</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>sim_shocks</span><span class='op'>$</span><span class='va'>true_effect</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relabel.html'>fct_relabel</a></span><span class='op'>(</span><span class='va'>n_treat_name</span>, \<span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"treated"</span><span class='op'>)</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of the estimates of the treatment effect"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"For different number of treated observations"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Estimate of the treatment effect"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Density"</span>,</span>
+<span>    caption <span class='op'>=</span> <span class='st'>"The vertical line represents the true effect"</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/shocks/exploration_results_shocks-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<h3 id="computing-bias-and-exaaggeration-ratio">Computing bias and exaaggeration ratio</h3>
+<p>We want to compare <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{red}}}{\beta_1}\right|\right]\)</span> and <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{red}}}{\beta_1} \right| | \text{signif} \right]\)</span>. The first term represents the bias and the second term represents the exaggeration ratio. These terms depend on the true effect size.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"functions.R"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>summary_sim_shocks</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='fu'>summarise_sim</span><span class='op'>(</span></span>
+<span>    data <span class='op'>=</span> <span class='va'>sim_shocks</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>true_effect <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>true_effect</span><span class='op'>)</span><span class='op'>)</span>, </span>
+<span>    varying_params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>p_treat</span>, <span class='va'>N_t</span>, <span class='va'>N_z</span><span class='op'>)</span>, </span>
+<span>    true_effect <span class='op'>=</span> <span class='va'>true_effect</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>n_treated <span class='op'>=</span> <span class='va'>p_treat</span><span class='op'>*</span><span class='va'>N_z</span><span class='op'>*</span><span class='va'>N_t</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># saveRDS(summary_sim_shocks, here("Outputs/summary_sim_shocks.RDS"))</span></span></code></pre>
+</div>
+</div>
+<h3 id="main-graph">Main graph</h3>
+<p>To analyze our results, I build a unique and simple graph:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summary_sim_shocks</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='co'># filter(n_treated &lt; 3000) |&gt; </span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>n_treated</span>, y <span class='op'>=</span> <span class='va'>type_m</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='co'># geom_point() +</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>linewidth <span class='op'>=</span> <span class='fl'>1.2</span>, color <span class='op'>=</span> <span class='st'>"#E5C38A"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Number of treated observations"</span>, </span>
+<span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Average  "</span>, <span class='fu'>frac</span><span class='op'>(</span><span class='st'>"|Estimate|"</span>, <span class='st'>"|True Effect|"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    title <span class='op'>=</span> <span class='st'>"Evolution of bias with the number of treated observations"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"For statistically significant estimates"</span>,</span>
+<span>    caption <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Fixed sample size:"</span>,</span>
+<span>                    <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>summary_sim_shocks</span><span class='op'>$</span><span class='va'>N_z</span><span class='op'>)</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>summary_sim_shocks</span><span class='op'>$</span><span class='va'>N_t</span><span class='op'>)</span>,</span>
+<span>                    <span class='st'>"observations \n"</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> </span></code></pre>
+</div>
+</details>
+<p><img src="images/shocks/main_graph_shocks-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<h3 id="representativeness-of-the-estimation">Representativeness of the estimation</h3>
+<p>We calibrated our simulations to emulate a typical study from this literature. To further check that the results are realistic, we compare the average Signal-to-Noise Ratio (SNR) of our regressions to the range of SNR of existing studies investigating similar questions. Levaine and Neildel (2017) find SNRs in the range 0.4 to 2.3 in their table 3 and 4. Currie et al (2015) find SNRs in the range 0.5 to 4 (both in table 6 but SNRs in this range in table 4 and 5 as well).</p>
+<p>I find SNR in a similar range or even larger and corresponding to substantial exaggeration ratios.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summary_sim_shocks</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>n_treated</span>, <span class='va'>median_snr</span>, <span class='va'>type_m</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span></span>
+<span>    digits <span class='op'>=</span> <span class='fl'>2</span>,</span>
+<span>    col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Number of treated observations"</span>, <span class='st'>"Median SNR"</span>, <span class='st'>"Bias ratio"</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Number of treated observations</th>
+<th style="text-align: right;">Median SNR</th>
+<th style="text-align: right;">Bias ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">4.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">750</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">3.35</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1500</td>
+<td style="text-align: right;">1.07</td>
+<td style="text-align: right;">2.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4500</td>
+<td style="text-align: right;">1.57</td>
+<td style="text-align: right;">1.68</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7500</td>
+<td style="text-align: right;">2.02</td>
+<td style="text-align: right;">1.37</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10500</td>
+<td style="text-align: right;">2.38</td>
+<td style="text-align: right;">1.27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13500</td>
+<td style="text-align: right;">2.62</td>
+<td style="text-align: right;">1.16</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16500</td>
+<td style="text-align: right;">2.86</td>
+<td style="text-align: right;">1.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19500</td>
+<td style="text-align: right;">3.07</td>
+<td style="text-align: right;">1.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22500</td>
+<td style="text-align: right;">3.30</td>
+<td style="text-align: right;">1.05</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

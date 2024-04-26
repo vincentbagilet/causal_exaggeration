@@ -1,0 +1,3574 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { color: #00769e; background-color: #f1f3f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #00769e; } /* Normal */
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #657422; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #00769e; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #00769e; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #00769e; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Causal Exaggeration: Simulations IV</title>
+
+  <meta property="description" itemprop="description" content="In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.  To make these simulations realistic, I emulate a typical study estimating the impact of turnout on vote shares."/>
+
+
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Causal Exaggeration: Simulations IV"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.  To make these simulations realistic, I emulate a typical study estimating the impact of turnout on vote shares."/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:site_name" content="Causal Exaggeration"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Causal Exaggeration: Simulations IV"/>
+  <meta property="twitter:description" content="In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.  To make these simulations realistic, I emulate a typical study estimating the impact of turnout on vote shares."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations IV"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.  To make these simulations realistic, I emulate a typical study estimating the impact of turnout on vote shares."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  <!--radix_placeholder_navigation_in_header-->
+  <meta name="distill:offset" content=""/>
+
+  <script type="application/javascript">
+
+    window.headroom_prevent_pin = false;
+
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+
+      // initialize headroom for banner
+      var header = $('header').get(0);
+      var headerHeight = header.offsetHeight;
+      var headroom = new Headroom(header, {
+        tolerance: 5,
+        onPin : function() {
+          if (window.headroom_prevent_pin) {
+            window.headroom_prevent_pin = false;
+            headroom.unpin();
+          }
+        }
+      });
+      headroom.init();
+      if(window.location.hash)
+        headroom.unpin();
+      $(header).addClass('headroom--transition');
+
+      // offset scroll location for banner on hash change
+      // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+      window.addEventListener("hashchange", function(event) {
+        window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+      });
+
+      // responsive menu
+      $('.distill-site-header').each(function(i, val) {
+        var topnav = $(this);
+        var toggle = topnav.find('.nav-toggle');
+        toggle.on('click', function() {
+          topnav.toggleClass('responsive');
+        });
+      });
+
+      // nav dropdowns
+      $('.nav-dropbtn').click(function(e) {
+        $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+        $(this).parent().siblings('.nav-dropdown')
+           .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $("body").click(function(e){
+        $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $(".nav-dropdown").click(function(e){
+        e.stopPropagation();
+      });
+    });
+  </script>
+
+  <style type="text/css">
+
+  /* Theme (user-documented overrideables for nav appearance) */
+
+  .distill-site-nav {
+    color: rgba(255, 255, 255, 0.8);
+    background-color: #0F2E3D;
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  .distill-site-nav a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .distill-site-nav a:hover {
+    color: white;
+  }
+
+  @media print {
+    .distill-site-nav {
+      display: none;
+    }
+  }
+
+  .distill-site-header {
+
+  }
+
+  .distill-site-footer {
+
+  }
+
+
+  /* Site Header */
+
+  .distill-site-header {
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 3;
+  }
+
+  .distill-site-header .nav-left {
+    display: inline-block;
+    margin-left: 8px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header .nav-left {
+      margin-left: 0;
+    }
+  }
+
+
+  .distill-site-header .nav-right {
+    float: right;
+    margin-right: 8px;
+  }
+
+  .distill-site-header a,
+  .distill-site-header .title {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 10px 14px 10px;
+  }
+
+  .distill-site-header .title {
+    font-size: 18px;
+    min-width: 150px;
+  }
+
+  .distill-site-header .logo {
+    padding: 0;
+  }
+
+  .distill-site-header .logo img {
+    display: none;
+    max-height: 20px;
+    width: auto;
+    margin-bottom: -4px;
+  }
+
+  .distill-site-header .nav-image img {
+    max-height: 18px;
+    width: auto;
+    display: inline-block;
+    margin-bottom: -3px;
+  }
+
+
+
+  @media screen and (min-width: 1000px) {
+    .distill-site-header .logo img {
+      display: inline-block;
+    }
+    .distill-site-header .nav-left {
+      margin-left: 20px;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 20px;
+    }
+    .distill-site-header .title {
+      padding-left: 12px;
+    }
+  }
+
+
+  .distill-site-header .nav-toggle {
+    display: none;
+  }
+
+  .nav-dropdown {
+    display: inline-block;
+    position: relative;
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    border: none;
+    outline: none;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 16px 10px;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+    margin-top: 1px;
+    z-index: 2;
+  }
+
+  .nav-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 4px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+    margin-top: 2px;
+    white-space: nowrap;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .nav-dropdown-content hr {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-dropdown-active {
+    display: block;
+  }
+
+  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+    color: black;
+    padding: 6px 24px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  .nav-dropdown-content .nav-dropdown-header {
+    display: block;
+    padding: 5px 24px;
+    padding-bottom: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #999999;
+    white-space: nowrap;
+  }
+
+  .nav-dropdown:hover .nav-dropbtn {
+    color: white;
+  }
+
+  .nav-dropdown-content a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .nav-right .nav-dropdown-content {
+    margin-left: -45%;
+    right: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+    .distill-site-header a.nav-toggle {
+      float: right;
+      display: block;
+    }
+    .distill-site-header .title {
+      margin-left: 0;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 0;
+    }
+    .distill-site-header {
+      overflow: hidden;
+    }
+    .nav-right .nav-dropdown-content {
+      margin-left: 0;
+    }
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header.responsive {position: relative; min-height: 500px; }
+    .distill-site-header.responsive a.nav-toggle {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .distill-site-header.responsive a,
+    .distill-site-header.responsive .nav-dropdown {
+      display: block;
+      text-align: left;
+    }
+    .distill-site-header.responsive .nav-left,
+    .distill-site-header.responsive .nav-right {
+      width: 100%;
+    }
+    .distill-site-header.responsive .nav-dropdown {float: none;}
+    .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+    .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+  }
+
+  /* Site Footer */
+
+  .distill-site-footer {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 3;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+  }
+
+  /* Headroom */
+
+  d-title {
+    padding-top: 6rem;
+  }
+
+  @media print {
+    d-title {
+      padding-top: 4rem;
+    }
+  }
+
+  .headroom {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .headroom--transition {
+    transition: all .4s ease-in-out;
+  }
+
+  .headroom--unpinned {
+    top: -100px;
+  }
+
+  .headroom--pinned {
+    top: 0;
+  }
+
+  /* adjust viewport for navbar height */
+  /* helps vertically center bootstrap (non-distill) content */
+  .min-vh-100 {
+    min-height: calc(100vh - 100px) !important;
+  }
+
+  </style>
+
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
+  <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+    font-size: 100%;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  hr.section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px;
+  }
+
+
+  d-byline {
+    border-top: none;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+    border-top: none;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  /* tweak for Pandoc numbered line within distill */
+  d-article pre.numberSource code > span {
+      left: -2em;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // separator
+    var separator = '<hr class="section-separator" style="clear: both"/>';
+    // prepend separator above appendix
+    $('.d-byline').before(separator);
+    $('.d-article').before(separator);
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme, except when numbering line
+    // in code chunk
+    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        var author_name = front_matter.authors[i].author
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <style type="text/css">
+  /* base variables */
+
+  /* Edit the CSS properties in this file to create a custom
+     Distill theme. Only edit values in the right column
+     for each row; values shown are the CSS defaults.
+     To return any property to the default,
+     you may set its value to: unset
+     All rows must end with a semi-colon.                      */
+
+  /* Optional: embed custom fonts here with `@import`          */
+  /* This must remain at the top of this file.                 */
+
+
+
+  html {
+    /*-- Main font sizes --*/
+    --title-size:      50px;
+    --body-size:       1.06rem;
+    --code-size:       14px;
+    --aside-size:      12px;
+    --fig-cap-size:    13px;
+    /*-- Main font colors --*/
+    --title-color:     #000000;
+    --header-color:    rgba(0, 0, 0, 0.8);
+    --body-color:      rgba(0, 0, 0, 0.8);
+    --aside-color:     rgba(0, 0, 0, 0.6);
+    --fig-cap-color:   rgba(0, 0, 0, 0.6);
+    /*-- Specify custom fonts ~~~ must be imported above   --*/
+    --heading-font:    sans-serif;
+    --mono-font:       monospace;
+    --body-font:       sans-serif;
+    --navbar-font:     sans-serif;  /* websites + blogs only */
+  }
+
+  /*-- ARTICLE METADATA --*/
+  d-byline {
+    --heading-size:    0.6rem;
+    --heading-color:   rgba(0, 0, 0, 0.5);
+    --body-size:       0.8rem;
+    --body-color:      rgba(0, 0, 0, 0.8);
+  }
+
+  /*-- ARTICLE TABLE OF CONTENTS --*/
+  .d-contents {
+    --heading-size:    18px;
+    --contents-size:   13px;
+  }
+
+  /*-- ARTICLE APPENDIX --*/
+  d-appendix {
+    --heading-size:    15px;
+    --heading-color:   rgba(0, 0, 0, 0.65);
+    --text-size:       0.8em;
+    --text-color:      rgba(0, 0, 0, 0.5);
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  /* These properties only apply to Distill sites and blogs  */
+
+  .distill-site-header {
+    --title-size:       18px;
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #0F2E3D;
+  }
+
+  .distill-site-footer {
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #0F2E3D;
+  }
+
+  /*-- Additional custom styles --*/
+  /* Add any additional CSS rules below                      */
+  </style>
+  <style type="text/css">
+  /* base variables */
+
+  /* Edit the CSS properties in this file to create a custom
+     Distill theme. Only edit values in the right column
+     for each row; values shown are the CSS defaults.
+     To return any property to the default,
+     you may set its value to: unset
+     All rows must end with a semi-colon.                      */
+
+  /* Optional: embed custom fonts here with `@import`          */
+  /* This must remain at the top of this file.                 */
+  @import url('https://fonts.googleapis.com/css2?family=Lato');
+  @import url('https://fonts.googleapis.com/css2?family=Lora');
+
+
+  html {
+    /*-- Main font sizes --*/
+    --title-size:      50px;
+    --body-size:       1.06rem;
+    --code-size:       13px;
+    --aside-size:      12px;
+    --fig-cap-size:    12px;
+    /*-- Main font colors --*/
+    --title-color:     rgba(29, 71, 73, 0.9);
+    --header-color:    rgba(29, 71, 73, 0.9);
+    --body-color:      rgba(0, 0, 0, 0.8);
+    --aside-color:     rgba(0, 0, 0, 0.6);
+    --fig-cap-color:   rgba(0, 0, 0, 0.6);
+    --hover-color:     rgba(29, 71, 73, 0.5);
+    /*-- Specify custom fonts ~~~ must be imported above   --*/
+    --heading-font:    "Lato", sans-serif;
+    --body-font:       "Lora", serif;
+    --navbar-font:     "Lato", sans-serif;  /* websites + blogs only */
+  }
+
+  /*-- ARTICLE METADATA --*/
+  d-byline {
+    --heading-size:    0.6rem;
+    --heading-color:   rgba(0, 0, 0, 0.5);
+    --body-size:       0.8rem;
+    --body-color:      rgba(0, 0, 0, 0.8);
+  }
+
+  /*-- ARTICLE TABLE OF CONTENTS --*/
+  .d-contents {
+    --heading-size:    18px;
+    --contents-size:   13px;
+  }
+
+  /*-- ARTICLE APPENDIX --*/
+  d-appendix {
+    --heading-size:    15px;
+    --heading-color:   rgba(0, 0, 0, 0.65);
+    --text-size:       0.8em;
+    --text-color:      rgba(0, 0, 0, 0.5);
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  /* These properties only apply to Distill sites and blogs  */
+
+  .distill-site-header {
+    --font-family:      'Lato', sans-serif;
+    --title-size:       21px;
+    --text-color:       rgba(29, 71, 73, 0.9);
+    --text-size:        18px;
+    --hover-color:      rgba(29, 71, 73, 0.5);
+    --bkgd-color:       rgba(255, 255, 255, 0.8);
+    font-variant:       small-caps;
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    font-variant: small-caps;
+  }
+
+  .distill-site-footer {
+    --text-color:       rgba(10, 10, 10, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       rgba(240, 240, 240, 0.8); 
+  }
+
+  /*-- Additional custom styles --*/
+  /* Add any additional CSS rules below                      */
+
+  /* Postcard headers */
+  h1, h2, h3 {
+    color:              rgba(29, 71, 73, 0.9);
+    font-variant:       small-caps;
+  }
+
+  p {
+    color:              rgba(0, 0, 0, 0.8);
+  }
+
+  a {
+  	color:              rgba(29, 71, 73, 0.9);
+  }
+
+  a:hover {
+  	color:              rgba(29, 71, 73, 0.5);
+  }
+
+  /* Buttons on postcard */
+  .btn-outline-dark {
+    color:              rgba(29, 71, 73, 0.9);
+    border-color:       rgba(29, 71, 73, 0.9);
+  }
+
+  .btn-outline-dark:hover {
+    background-color:   rgba(29, 71, 73, 0.9);
+    color:              white;
+  }
+
+  /*body {
+    background-color: rgba(249, 250, 247, 0.8);
+  }*/</style>
+  <style type="text/css">
+  /* base style */
+
+  /* FONT FAMILIES */
+
+  :root {
+    --heading-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    --mono-default: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    --body-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  body,
+  .posts-list .post-preview p,
+  .posts-list .description p {
+    font-family: var(--body-font), var(--body-default);
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .posts-list .post-preview h2,
+  .posts-list .description h2 {
+    font-family: var(--heading-font), var(--heading-default);
+  }
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: var(--mono-font), var(--mono-default);
+  }
+
+
+  /*-- TITLE --*/
+  d-title h1,
+  .posts-list > h1 {
+    color: var(--title-color, black);
+  }
+
+  d-title h1 {
+    font-size: var(--title-size, 50px);
+  }
+
+  /*-- HEADERS --*/
+  d-article h1,
+  d-article h2,
+  d-article h3,
+  d-article h4,
+  d-article h5,
+  d-article h6 {
+    color: var(--header-color, rgba(0, 0, 0, 0.8));
+  }
+
+  /*-- BODY --*/
+  d-article > p,  /* only text inside of <p> tags */
+  d-article > ul, /* lists */
+  d-article > ol {
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+    font-size: var(--body-size, 1.06rem);
+  }
+
+
+  /*-- CODE --*/
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-size: var(--code-size, 14px);
+  }
+
+  /*-- ASIDE --*/
+  d-article aside {
+    font-size: var(--aside-size, 12px);
+    color: var(--aside-color, rgba(0, 0, 0, 0.6));
+  }
+
+  /*-- FIGURE CAPTIONS --*/
+  figure .caption,
+  figure figcaption,
+  .figure .caption {
+    font-size: var(--fig-cap-size, 13px);
+    color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+  }
+
+  /*-- METADATA --*/
+  d-byline h3 {
+    font-size: var(--heading-size, 0.6rem);
+    color: var(--heading-color, rgba(0, 0, 0, 0.5));
+  }
+
+  d-byline {
+    font-size: var(--body-size, 0.8rem);
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+  }
+
+  d-byline a,
+  d-article d-byline a {
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+  }
+
+  /*-- TABLE OF CONTENTS --*/
+  .d-contents nav h3 {
+    font-size: var(--heading-size, 18px);
+  }
+
+  .d-contents nav a {
+    font-size: var(--contents-size, 13px);
+  }
+
+  /*-- APPENDIX --*/
+  d-appendix h3 {
+    font-size: var(--heading-size, 15px);
+    color: var(--heading-color, rgba(0, 0, 0, 0.65));
+  }
+
+  d-appendix {
+    font-size: var(--text-size, 0.8em);
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
+  }
+
+  d-appendix d-footnote-list a.footnote-backlink {
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  .distill-site-header .title {
+    font-size: var(--title-size, 18px);
+    font-family: var(--navbar-font), var(--heading-default);
+  }
+
+  .distill-site-header a,
+  .nav-dropdown .nav-dropbtn {
+    font-family: var(--navbar-font), var(--heading-default);
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    font-size: var(--text-size, 15px);
+  }
+
+  .distill-site-header a:hover,
+  .nav-dropdown:hover .nav-dropbtn {
+    color: var(--hover-color, white);
+  }
+
+  .distill-site-header {
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
+  }
+
+  .distill-site-footer {
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
+  }
+
+  .distill-site-footer a:hover {
+    color: var(--hover-color, white);
+  }</style>
+  <!--/radix_placeholder_distill-->
+  <script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
+  <script src="site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Simulations IV","description":"In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.  To make these simulations realistic, I emulate a typical study estimating the impact of turnout on vote shares.","authors":[]}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a href="index.html" class="title">Causal Exaggeration</a>
+</div>
+<div class="nav-right">
+<a href="causal_exaggeration_paper.pdf">Paper</a>
+<a href="summary.html">Summaries</a>
+<a href="intuition.html">Intuition</a>
+<a href="air_pollution.html">Example lit.</a>
+<a href="maths.html">Maths</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Simulations
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="RDD.html">RDD</a>
+<a href="IV.html">IV</a>
+<span class="nav-dropdown-header">Matching</span>
+<a href="shocks.html">Shocks</a>
+<span class="nav-dropdown-header">Fixed-Effects</span>
+<span class="nav-dropdown-header">Controls</span>
+</div>
+</div>
+<a href="reporting.html">Reporting</a>
+<a href="https://github.com/vincentbagilet/causal_exaggeration" aria-label="Link to source">
+<i class="fab fa-github" aria-hidden="true"></i>
+</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Simulations IV</h1>
+
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p>In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of turnout on vote shares.</p>
+</div>
+
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#intuition" id="toc-intuition">Intuition</a></li>
+<li><a href="#simulation-framework" id="toc-simulation-framework">Simulation framework</a>
+<ul>
+<li><a href="#illustrative-example" id="toc-illustrative-example">Illustrative example</a></li>
+<li><a href="#modeling-choices" id="toc-modeling-choices">Modeling choices</a></li>
+<li><a href="#data-generation" id="toc-data-generation">Data generation</a></li>
+<li><a href="#estimation" id="toc-estimation">Estimation</a></li>
+<li><a href="#one-simulation" id="toc-one-simulation">One simulation</a></li>
+<li><a href="#all-simulations" id="toc-all-simulations">All simulations</a></li>
+</ul></li>
+<li><a href="#analysis-of-the-results" id="toc-analysis-of-the-results">Analysis of the results</a>
+<ul>
+<li><a href="#quick-exploration" id="toc-quick-exploration">Quick exploration</a></li>
+<li><a href="#computing-bias-and-exaggeration-ratios" id="toc-computing-bias-and-exaggeration-ratios">Computing bias and exaggeration ratios</a></li>
+<li><a href="#graph" id="toc-graph">Graph</a></li>
+</ul></li>
+<li><a href="#further-checks" id="toc-further-checks">Further checks</a>
+<ul>
+<li><a href="#representativeness-of-the-estimation" id="toc-representativeness-of-the-estimation">Representativeness of the estimation</a></li>
+<li><a href="#f-statistic-analysis" id="toc-f-statistic-analysis">F-statistic analysis</a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+<style>
+body {
+text-align: justify}
+</style>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Code to load packages used
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span> </span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://yihui.org/knitr/'>knitr</a></span><span class='op'>)</span> </span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://vincentbagilet.github.io/mediocrethemes/'>mediocrethemes</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://broom.tidymodels.org/'>broom</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>AER</span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/jabiru/tictoc'>tictoc</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>beepr</span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://wilkelab.org/ggridges/'>ggridges</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/r-causal/ggdag'>ggdag</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/set_mediocre_all.html'>set_mediocre_all</a></span><span class='op'>(</span>pal <span class='op'>=</span> <span class='st'>"coty"</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+</div>
+<h2 id="intuition">Intuition</h2>
+<p>In the case of the IV, the unconfoundedness / exaggeration trade-off is mediated by the ‘strength’ of the instrument considered. When the instrument only explains a limited portion of the variation in the explanatory variable, the IV can still be successful in avoiding confounders but power can low, potentially leading to exaggeration issues to arise.</p>
+<h2 id="simulation-framework">Simulation framework</h2>
+<h3 id="illustrative-example">Illustrative example</h3>
+<p>To illustrate this loss in power, we could consider a large variety of settings, distribution of the parameters or parameter values. I narrow this down to an example setting, considering only one setting and one set of parameter values. I examine an analysis of the impact of voter turnout on election results, instrumenting voter turnout with rainfall on the day of the election. My point should stand in more general settings and the choice of values is mostly for illustration.</p>
+<p>A threat of confounders often arises when analyzing the link between voter turnout and election results. To estimate such an effect causally, one can consider exogenous shocks to voter turnout such as rainfall. Some potential exclusion restriction problems <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3715610">have been highlighted</a> in this instance but I abstract from them and simulate no exclusion restriction violations here.</p>
+<h3 id="modeling-choices">Modeling choices</h3>
+<p>For simplicity, I make several assumptions:</p>
+<ul>
+<li>Observations are at the location level,</li>
+<li>Abstract from the panel dimension in this analysis and consider only one time period. This is could be considered as looking at the outcomes of a unique election,</li>
+<li>Only consider the impact of rain on the day of the election,</li>
+<li>Assume no correlation in rainfall between locations. This could be equivalent to considering only a set of remote locations,</li>
+<li>Assume simplify the data generating process and thus do not add any exclusion restriction violations.</li>
+</ul>
+<p>The DGP can be represented using the following Directed Acyclic Graph (DAG):</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/r-causal/ggdag'>ggdag</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>second_color</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_sub.html'>str_sub</a></span><span class='op'>(</span><span class='va'>colors_mediocre</span><span class='op'>[[</span><span class='st'>"four_colors"</span><span class='op'>]</span><span class='op'>]</span>, <span class='fl'>10</span>, <span class='fl'>16</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://r-causal.github.io/ggdag/reference/dagify.html'>dagify</a></span><span class='op'>(</span><span class='va'>S</span> <span class='op'>~</span> <span class='cn'>T</span> <span class='op'>+</span> <span class='va'>w</span> <span class='op'>+</span> <span class='va'>u</span>,</span>
+<span>       <span class='cn'>T</span> <span class='op'>~</span> <span class='va'>R</span> <span class='op'>+</span> <span class='va'>w</span> <span class='op'>+</span> <span class='va'>e</span>,</span>
+<span>       exposure <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"S"</span>, <span class='st'>"T"</span>, <span class='st'>"R"</span>, <span class='st'>"w"</span><span class='op'>)</span>,</span>
+<span>       <span class='co'># outcome = "w",</span></span>
+<span>       latent <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"u"</span>, <span class='st'>"e"</span><span class='op'>)</span>,</span>
+<span>       coords <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>S <span class='op'>=</span> <span class='fl'>3</span>, T <span class='op'>=</span> <span class='fl'>2</span>, w <span class='op'>=</span> <span class='fl'>2.5</span>, R <span class='op'>=</span> <span class='fl'>1</span>, e <span class='op'>=</span> <span class='fl'>1.6</span>, u <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>,</span>
+<span>                     y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>S <span class='op'>=</span> <span class='fl'>1</span>, T <span class='op'>=</span> <span class='fl'>1</span>, w <span class='op'>=</span> <span class='fl'>0</span>, R <span class='op'>=</span> <span class='fl'>1</span>, e <span class='op'>=</span> <span class='fl'>0.7</span>, u <span class='op'>=</span> <span class='fl'>1.5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://r-causal.github.io/ggdag/reference/status.html'>ggdag_status</a></span><span class='op'>(</span>text_size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://r-causal.github.io/ggdag/reference/theme_dag_blank.html'>theme_dag_blank</a></span><span class='op'>(</span>base_family <span class='op'>=</span> <span class='st'>"Lato"</span>, legend.position <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/scale_mediocre_d.html'>scale_mediocre_d</a></span><span class='op'>(</span>pal <span class='op'>=</span> <span class='st'>"coty"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span><span class='op'>(</span><span class='co'>#parameters</span></span>
+<span>    <span class='st'>"text"</span>, </span>
+<span>    x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.5</span>, <span class='fl'>1.5</span>, <span class='fl'>2.8</span>, <span class='fl'>2.2</span><span class='op'>)</span>, </span>
+<span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.1</span>, <span class='fl'>1.1</span>, <span class='fl'>0.45</span>, <span class='fl'>0.45</span><span class='op'>)</span>, </span>
+<span>    label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"beta"</span>, <span class='st'>"pi"</span>, <span class='st'>"delta"</span>, <span class='st'>"gamma"</span><span class='op'>)</span>,</span>
+<span>    parse <span class='op'>=</span> <span class='cn'>TRUE</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"black"</span>,</span>
+<span>    size <span class='op'>=</span> <span class='fl'>5</span></span>
+<span>  <span class='op'>)</span> </span></code></pre>
+</div>
+</details>
+<p><img src="images/IV/DAG_iv-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<!-- ```{r DAG_RDD, code_folding=TRUE, out.width='70%'} -->
+<!-- include_graphics(here("images/DAGs/DAGs.001.png")) -->
+<!-- ``` -->
+<p>The DGP for the vote share of let’s say the republican party in location <span class="math inline">\(i\)</span>, <span class="math inline">\(Share_i\)</span>, is defined as follows:</p>
+<p><span class="math display">\[Share_{i} = \beta_{0} + \beta_{1} Turnout_{i} + \delta w_{i} + u_{i}\]</span></p>
+<p>Where <span class="math inline">\(\beta_0\)</span> is a constant, <span class="math inline">\(w\)</span> represents an unobserved variable and <span class="math inline">\(u \sim \mathcal{N}(0, \sigma_{u}^{2})\)</span> noise. <span class="math inline">\(\beta_1\)</span> is the parameter of interest. Let’s call it ‘treatment effect’. Note that parameters names are consistent with the maths section and the other simulation exercises.</p>
+<p>The DGP for the turnout data is as follows:</p>
+<p><span class="math display">\[Turnout_{i} = \pi_0 + \pi_1 Rain_{i} + \gamma w_{i} + e_{i}\]</span></p>
+<p>Where <span class="math inline">\(\pi_0\)</span> is a constant, <span class="math inline">\(Rain\)</span> is either a continuous variable (amount of rain in location <span class="math inline">\(i\)</span> on the day of the election) or a dummy variable (whether it rained or not) and <span class="math inline">\(e \sim \mathcal{N}(0, \sigma_{e}^{2})\)</span> noise. Let’s refer to <span class="math inline">\(\pi_1\)</span> as “IV strength”.</p>
+<p>The impact of voter turnout on election outcome (share of the republican party) is estimated using 2 Stages Least Squares.</p>
+<p>More precisely, let’s set:</p>
+<ul>
+<li><span class="math inline">\(N\)</span> the number of observations</li>
+<li><span class="math inline">\(Rain \sim \text{Gamma}(k, \theta)\)</span>, <span class="math inline">\(Rain \sim \mathcal{N}(0, \sigma_{R}^{2})\)</span> or <span class="math inline">\(Rain \sim \text{Bernoulli}(p_R)\)</span> the instrument</li>
+<li><span class="math inline">\(w \sim \mathcal{N}(0, \sigma_{w}^{2})\)</span> the unobserved variable</li>
+<li><span class="math inline">\(u \sim \mathcal{N}(0, \sigma_{u}^{2})\)</span></li>
+<li><span class="math inline">\(e \sim \mathcal{N}(0, \sigma_{e}^{2})\)</span> with <span class="math inline">\(\sigma_{e}^{2}\)</span> depending on <span class="math inline">\(\pi_1\)</span> and defined such that <span class="math inline">\(\sigma_{Turnout}^{2}\)</span> does not vary when we vary <span class="math inline">\(\pi_1\)</span>: <span class="math inline">\(\sigma_{e}^{2} = \sigma_{Turnout}^{2} - \pi_1^{2} \sigma_{Rain}^2 - \gamma^2\sigma_w^2\)</span></li>
+<li>For simplicity, I assume that <span class="math inline">\(\delta = -\gamma\)</span>. There is no actual basis for that and we may change that in the future. The minus sign is just to get an upward bias, which makes the comparison between OLS and IV easier since the bias and the exaggeration go in the same direction.</li>
+</ul>
+<p>If one abstracts from the name of the variable, they can notice that this setting is actually very general.</p>
+<h3 id="data-generation">Data generation</h3>
+<h4 id="generating-function">Generating function</h4>
+<p>Let’s first write a simple function that generates the data. It takes as input the values of the different parameters and returns a data frame containing all the variables for this analysis.</p>
+<p>Note that the parameter <code>type_rain</code> describes whether <span class="math inline">\(Rain\)</span> is a random sample from a normal or Bernoulli distribution. The distributions of rainfall heights can be approximated with a gamma distribution. The Bernoulli distribution is used if one only consider the impact of rain or no rain on voter turnout. A normal distribution does not represent actual rainfall distributions but is added to run these simulations in other contexts than linking rainfall, voter turnout and election outcomes.</p>
+<p><code>type_rain</code> can take the values <code>gamma</code>, <code>bernoulli</code> or <code>normal</code>. <code>param_rain</code> represents either <span class="math inline">\(\sigma_R\)</span> if <span class="math inline">\(Rain\)</span> is normal, <span class="math inline">\(p_R\)</span> if it is Bernoulli or a vector of shape and scale parameters for the gamma distribution.</p>
+<!-- Note that, for readability, in this document, I only display the chunks of code that may be important to understand the assumptions behind our simulations and the way we built our simulation. I do not display all the arguably "technical" code, in particular the one used to generate tables and graphs. All this code is however openly available on the GitHub of the project. -->
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>generate_data_iv</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>N</span>,</span>
+<span>                             <span class='va'>type_rain</span>, <span class='co'>#"gamma", "normal" or "bernoulli"</span></span>
+<span>                             <span class='va'>param_rain</span>,</span>
+<span>                             <span class='va'>sigma_w</span>,</span>
+<span>                             <span class='va'>sigma_share</span>,</span>
+<span>                             <span class='va'>sigma_turnout</span>,</span>
+<span>                             <span class='va'>beta_0</span>,</span>
+<span>                             <span class='va'>beta_1</span>,</span>
+<span>                             <span class='va'>pi_0</span>,</span>
+<span>                             <span class='va'>pi_1</span>,</span>
+<span>                             <span class='va'>delta</span>,</span>
+<span>                             <span class='va'>gamma</span> <span class='op'>=</span> <span class='op'>-</span><span class='va'>delta</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  </span>
+<span>  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>type_rain</span> <span class='op'>==</span> <span class='st'>"bernoulli"</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>    <span class='va'>rain_gen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>1</span>, <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span>
+<span>    <span class='va'>sd_rain</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>*</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>-</span><span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='op'>}</span> <span class='kw'>else</span> <span class='kw'>if</span> <span class='op'>(</span><span class='va'>type_rain</span> <span class='op'>==</span> <span class='st'>"normal"</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>    <span class='va'>rain_gen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N</span>, <span class='fl'>0</span>, <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span>
+<span>  <span class='op'>}</span> <span class='kw'>else</span> <span class='kw'>if</span> <span class='op'>(</span><span class='va'>type_rain</span> <span class='op'>==</span> <span class='st'>"gamma"</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>    <span class='va'>rain_gen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/GammaDist.html'>rgamma</a></span><span class='op'>(</span><span class='va'>N</span>, shape <span class='op'>=</span> <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, scale <span class='op'>=</span> <span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span></span>
+<span>    <span class='va'>sd_rain</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>*</span><span class='va'>param_rain</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span>  <span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span></span>
+<span>    <span class='kw'><a href='https://rdrr.io/r/base/stop.html'>stop</a></span><span class='op'>(</span><span class='st'>"type_rain must be either 'bernoulli', 'gamma' or 'normal'"</span><span class='op'>)</span></span>
+<span>  <span class='op'>}</span></span>
+<span>  </span>
+<span>  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      rain <span class='op'>=</span> <span class='va'>rain_gen</span>,</span>
+<span>      w <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_w</span><span class='op'>)</span>,</span>
+<span>      sigma_rain <span class='op'>=</span> <span class='va'>sd_rain</span>,</span>
+<span>      sigma_e <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>sigma_turnout</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>-</span> <span class='va'>pi_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_rain</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>-</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,</span>
+<span>      e <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_e</span><span class='op'>)</span>,</span>
+<span>      turnout <span class='op'>=</span> <span class='va'>pi_0</span> <span class='op'>+</span> <span class='va'>pi_1</span><span class='op'>*</span><span class='va'>rain</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>*</span><span class='va'>w</span> <span class='op'>+</span> <span class='va'>e</span>,</span>
+<span>      sigma_u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span></span>
+<span>        <span class='va'>sigma_share</span><span class='op'>^</span><span class='fl'>2</span> </span>
+<span>        <span class='op'>-</span> <span class='va'>beta_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_turnout</span><span class='op'>^</span><span class='fl'>2</span> </span>
+<span>        <span class='op'>-</span> <span class='va'>delta</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span> </span>
+<span>        <span class='op'>-</span> <span class='fl'>2</span><span class='op'>*</span><span class='va'>beta_1</span><span class='op'>*</span><span class='va'>delta</span><span class='op'>*</span><span class='va'>gamma</span><span class='op'>*</span><span class='va'>sigma_w</span><span class='op'>^</span><span class='fl'>2</span></span>
+<span>      <span class='op'>)</span>,</span>
+<span>      u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>sigma_u</span><span class='op'>)</span>,</span>
+<span>      share <span class='op'>=</span> <span class='va'>beta_0</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>*</span><span class='va'>turnout</span> <span class='op'>+</span> <span class='va'>delta</span><span class='op'>*</span><span class='va'>w</span> <span class='op'>+</span> <span class='va'>u</span></span>
+<span>    <span class='op'>)</span></span>
+<span></span>
+<span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+</div>
+<h4 id="calibration-and-baseline-parameters-values">Calibration and baseline parameters’ values</h4>
+<p>We can now set baseline values for the parameters to emulate a somehow realistic observational study. I get “inspiration” for the values of parameters from
+<a href="https://www.aeaweb.org/articles?id=10.1257/app.20140533">Fujiwara et al. (2016)</a>
+and
+<a href="https://www.cambridge.org/core/journals/political-analysis/article/randomization-inference-with-rainfall-data-using-historical-weather-patterns-for-variance-estimation/2F86BE9EB79FDFF9FF97C8C5CC4A2ED3">Cooperman (2017)</a>
+who replicates a work by
+<a href="https://www.jstor.org/stable/10.1111/j.1468-2508.2007.00565.x?pq-origsite=360link&amp;seq=1#metadata_info_tab_contents">Gomez et al. (2007)</a>.</p>
+<p>I consider that:</p>
+<ul>
+<li><strong>Number of observations</strong>: We consider data at the US county level as in <a href="https://www.cambridge.org/core/journals/american-political-science-review/article/estimating-the-electoral-effects-of-voter-turnout/8A880C28E79BE770A5CA1A9BB6CF933C">Hansford and Gomez (2010)</a> and <a href="https://www.aeaweb.org/articles?id=10.1257/app.20140533">Fujiwara et al. (2016)</a>. The former use data for presidential elections between 1948 and 2000, restricting their sample of counties to non-Southern ones (2000 per election year). That leads to a sample size of 28000. The latter data for presidential elections between 1952 and 2012 leading to a sample size of about 50000. I thus consider <strong>30000 observations</strong>.</li>
+<li><strong>Rainfall distribution</strong>: A gamma distribution represents well the distribution of rainfall. Gamma distribution can have two parameters a shape and a scale. The mean is <span class="math inline">\(shape \times scale\)</span> and the variance <span class="math inline">\(shape \times scale^{2}\)</span>. The parameters of the distribution of rainfall are comparable in both Fujiwara et al. and Cooperman (2017) after a conversion into centimeters: mean 2.4 and standard deviation 6.6. I solve the system of mean and variance for shape and scale and set <strong>param_rain to 0.13 and 18</strong>.</li>
+<li><strong>Standard deviation of the omitted variable</strong> is set to be of the order of magnitude of the error terms. Being conservative, let’s set its intensity to be twice as large as the treatment effect.</li>
+<li><strong>Effect of rainfall on turnout</strong>: Fujiwara et al. find that “The trends specifications suggest that 1 millimeter of rainfall decreases turnout by 0.05–0.07 percentage points” and Gomez et al. (and thus Cooperman) find “a county that receives one inch of rainfall on election day is likely to have approximately 1 percentage point lower voter turnout” which is equivalent to a 1mm increase in rainfall is associated with about a 0.04 percentage points decrease in voter turnout. For simplicity in interpretation, when rainfall is not a dummy, I express in centimeters. So, I consider <strong>pi_1 in the range -0.1 and -1.3</strong>, assuming linearity.</li>
+<li><strong>Effect of interest</strong> (turnout on vote share): it is subject to intense debate in the literature (cf <a href="https://oxford.universitypressscholarship.com/view/10.1093/oso/9780190089450.001.0001/oso-9780190089450">Shaw and Petrocik (2020)</a> for instance). As underlined by Shaw and Petrocik and in <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1816649">Fowler (2013)</a>, some studies find large effects, others no effects or small effects. Fowler (2013) falls into the large effects category as <a href="https://www.cambridge.org/core/journals/political-science-research-and-methods/article/regular-voters-marginal-voters-and-the-electoral-effects-of-turnout/F835F3CAE47B7ACB5D49AAE5B97FBD79">described by the author himself</a>. The study, for an extremely large shock in voter turnout, compulsory voting, finds “that the policy increased voter turnout by 24 percentage points which in turn increased the vote shares and seat shares of the Labor Party by 7 to 10 percentage points.” This correspond to a decrease in Republican vote share of approximately 0.3-0.4 percentage point when turnout increases by 1% (considering that this result is causal and linear). This effect being large, I consider effects that are smaller but of a similar magnitude: I simulate that when turnout increases by 1%, Republican vote share decreases by 0.1 and thus <strong>beta_1 = -0.1</strong></li>
+<li><strong>Effect of the omitted variable</strong>. The effect of the omitted variable cannot be observed, I pick it somehow at random such that OVB is substantial without being massive. Since the instrument is valid in these simulations, the IV estimates will not be affected by the intensity of the OVB, only the OLS estimates will (the larger this intensity, the larger the average ratio of the estimate over the true effect).</li>
+<li><strong>Turnout and vote share</strong> are expressed in percent. I set intercepts and residual standard deviations to produce turnouts and vote shares consistent with Cooperman (2017) and Fujiwara et al. (2016). Voter turnout parameters are roughly similar in both papers (mean 58 sd 14). The mean and standard deviation of Republican vote share are given in Fujiwara et al. (mean 55.3 and sd 14.2). Thus, I set <strong>sigma_share = 14.2 and sigma_turnout = 14</strong>. <strong>pi_0 and beta_0 are manually ajusted</strong> to get the correct mean of turnout and vote share (for pi_1 in the mid-range of its values)</li>
+</ul>
+<p>Let’s thus consider the following parameters:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the table
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_iv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span></span>
+<span>  N <span class='op'>=</span> <span class='fl'>30000</span>,</span>
+<span>  <span class='co'># type_rain = "bernoulli",</span></span>
+<span>  <span class='co'># param_rain = 0.4,</span></span>
+<span>  type_rain <span class='op'>=</span> <span class='st'>"gamma"</span>,</span>
+<span>  param_rain <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.13</span>, <span class='fl'>18</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>  sigma_w <span class='op'>=</span> <span class='fl'>14</span>,</span>
+<span>  sigma_share <span class='op'>=</span> <span class='fl'>14.2</span>,</span>
+<span>  sigma_turnout <span class='op'>=</span> <span class='fl'>14</span>,</span>
+<span>  beta_0 <span class='op'>=</span> <span class='fl'>60</span>,</span>
+<span>  pi_0 <span class='op'>=</span> <span class='fl'>59</span>,</span>
+<span>  beta_1 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.1</span>,</span>
+<span>  pi_1 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.5</span>, </span>
+<span>  delta <span class='op'>=</span> <span class='fl'>0.2</span></span>
+<span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>baseline_param_iv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 10%" />
+<col style="width: 13%" />
+<col style="width: 8%" />
+<col style="width: 13%" />
+<col style="width: 15%" />
+<col style="width: 7%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">N</th>
+<th style="text-align: left;">type_rain</th>
+<th style="text-align: left;">param_rain</th>
+<th style="text-align: right;">sigma_w</th>
+<th style="text-align: right;">sigma_share</th>
+<th style="text-align: right;">sigma_turnout</th>
+<th style="text-align: right;">beta_0</th>
+<th style="text-align: right;">pi_0</th>
+<th style="text-align: right;">beta_1</th>
+<th style="text-align: right;">pi_1</th>
+<th style="text-align: right;">delta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">30000</td>
+<td style="text-align: left;">gamma</td>
+<td style="text-align: left;">0.13, 18.00</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">14.2</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">-0.1</td>
+<td style="text-align: right;">-0.5</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here is an example of data created with this data generating process:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the table
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>baseline_param_iv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map_dfr.html'>pmap_dfr</a></span><span class='op'>(</span><span class='va'>generate_data_iv</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='co'>#use pmap to pass the set of parameters</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 3%" />
+<col style="width: 10%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">rain</th>
+<th style="text-align: right;">w</th>
+<th style="text-align: right;">sigma_rain</th>
+<th style="text-align: right;">sigma_e</th>
+<th style="text-align: right;">e</th>
+<th style="text-align: right;">turnout</th>
+<th style="text-align: right;">sigma_u</th>
+<th style="text-align: right;">u</th>
+<th style="text-align: right;">share</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000003</td>
+<td style="text-align: right;">-8.2155639</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">-19.374254</td>
+<td style="text-align: right;">41.26886</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-10.152007</td>
+<td style="text-align: right;">44.07799</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0043522</td>
+<td style="text-align: right;">-11.0556342</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">-10.615773</td>
+<td style="text-align: right;">50.59318</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">4.737556</td>
+<td style="text-align: right;">57.46711</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">22.5030157</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">-4.907682</td>
+<td style="text-align: right;">49.59172</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">7.707067</td>
+<td style="text-align: right;">67.24850</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4.7328542</td>
+<td style="text-align: right;">-9.8748770</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">5.948958</td>
+<td style="text-align: right;">64.55751</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-4.975409</td>
+<td style="text-align: right;">46.59387</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.0000863</td>
+<td style="text-align: right;">-0.4140597</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">7.991664</td>
+<td style="text-align: right;">67.07443</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">3.423550</td>
+<td style="text-align: right;">56.63329</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.0015507</td>
+<td style="text-align: right;">-5.4276009</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">-14.015526</td>
+<td style="text-align: right;">46.06922</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-16.858995</td>
+<td style="text-align: right;">37.44856</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.4799312</td>
+<td style="text-align: right;">-21.4047656</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">21.804853</td>
+<td style="text-align: right;">84.84584</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">1.026430</td>
+<td style="text-align: right;">48.26089</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.0502115</td>
+<td style="text-align: right;">-9.3138741</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">4.295612</td>
+<td style="text-align: right;">65.13328</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">6.000701</td>
+<td style="text-align: right;">57.62460</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.0790413</td>
+<td style="text-align: right;">-2.0722652</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">8.420960</td>
+<td style="text-align: right;">67.79589</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-10.664136</td>
+<td style="text-align: right;">42.14182</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.0009223</td>
+<td style="text-align: right;">9.5970450</td>
+<td style="text-align: right;">6.489992</td>
+<td style="text-align: right;">13.32779</td>
+<td style="text-align: right;">2.594389</td>
+<td style="text-align: right;">59.67452</td>
+<td style="text-align: right;">13.79391</td>
+<td style="text-align: right;">-15.218752</td>
+<td style="text-align: right;">40.73321</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="exploring-the-distribution-of-the-data">Exploring the distribution of the data</h4>
+<p>I just quickly explore the distribution of the data for a baseline set of parameters. For this, I consider a mid-range value for IV strength (-0.5).</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the graph
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ex_data</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_iv</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='co'># mutate(N = 10000) %&gt;% </span></span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>generate_data_iv</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ex_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>turnout</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of turnout"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Turnout (in %)"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Density"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<img src="images/IV/explore_data_iv-1.png" width="85%" style="display: block; margin: auto;" />
+<details>
+<summary>
+Show the code used to generate the graph
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># ex_data %&gt;%</span></span>
+<span><span class='co'>#   ggplot(aes(x = rain)) +</span></span>
+<span><span class='co'>#   geom_density()</span></span>
+<span></span>
+<span><span class='va'>ex_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>share</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of Republican shares"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Share (in %)"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Density"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/IV/explore_data_iv-2.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<p>I also check the standard deviation and means of the variables and at the same time verify that they do not do not change when we vary <span class="math inline">\(\pi_1\)</span>. They are consistent with what we wanted:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the table
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>vect_pi_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>param_iv</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_iv</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='co'># mutate(N = 100000) |&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>pi_1</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span><span class='va'>vect_pi_1</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>pi_1 <span class='op'>=</span> <span class='va'>vect_pi_1</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>gen_with_param</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='fu'>generate_data_iv</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>pi_1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span><span class='op'>$</span><span class='va'>pi_1</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>ex_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_iv</span>, <span class='va'>gen_with_param</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ex_data_mean</span> <span class='op'>&lt;-</span> <span class='va'>ex_data</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>.cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>share</span>, <span class='va'>turnout</span>, <span class='va'>rain</span><span class='op'>)</span>, <span class='va'>mean</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"mean"</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>ex_data_sd</span> <span class='op'>&lt;-</span> <span class='va'>ex_data</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span>.cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>share</span>, <span class='va'>turnout</span>, <span class='va'>rain</span><span class='op'>)</span>, <span class='va'>sd</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"sd"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ex_data_mean</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>ex_data_sd</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>stat</span>, values_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>share</span>, <span class='va'>turnout</span>, <span class='va'>rain</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 16%" />
+<col style="width: 14%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">pi_1</th>
+<th style="text-align: right;">share_mean</th>
+<th style="text-align: right;">share_sd</th>
+<th style="text-align: right;">turnout_mean</th>
+<th style="text-align: right;">turnout_sd</th>
+<th style="text-align: right;">rain_mean</th>
+<th style="text-align: right;">rain_sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">53.99285</td>
+<td style="text-align: right;">14.26360</td>
+<td style="text-align: right;">59.25917</td>
+<td style="text-align: right;">13.96598</td>
+<td style="text-align: right;">2.320063</td>
+<td style="text-align: right;">6.574221</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">54.02406</td>
+<td style="text-align: right;">14.23398</td>
+<td style="text-align: right;">59.53944</td>
+<td style="text-align: right;">14.03234</td>
+<td style="text-align: right;">2.367790</td>
+<td style="text-align: right;">6.429612</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">54.03630</td>
+<td style="text-align: right;">14.21791</td>
+<td style="text-align: right;">59.76317</td>
+<td style="text-align: right;">13.97766</td>
+<td style="text-align: right;">2.281051</td>
+<td style="text-align: right;">6.138917</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">53.89030</td>
+<td style="text-align: right;">14.32784</td>
+<td style="text-align: right;">59.90097</td>
+<td style="text-align: right;">14.01508</td>
+<td style="text-align: right;">2.320802</td>
+<td style="text-align: right;">6.488280</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">53.97445</td>
+<td style="text-align: right;">14.20907</td>
+<td style="text-align: right;">60.16076</td>
+<td style="text-align: right;">13.94800</td>
+<td style="text-align: right;">2.304321</td>
+<td style="text-align: right;">6.308877</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">53.87031</td>
+<td style="text-align: right;">14.20107</td>
+<td style="text-align: right;">60.37935</td>
+<td style="text-align: right;">13.96833</td>
+<td style="text-align: right;">2.375658</td>
+<td style="text-align: right;">6.579245</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">54.01716</td>
+<td style="text-align: right;">14.13741</td>
+<td style="text-align: right;">60.61198</td>
+<td style="text-align: right;">13.88935</td>
+<td style="text-align: right;">2.304649</td>
+<td style="text-align: right;">6.445715</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">53.86835</td>
+<td style="text-align: right;">14.26096</td>
+<td style="text-align: right;">60.87089</td>
+<td style="text-align: right;">13.96232</td>
+<td style="text-align: right;">2.322503</td>
+<td style="text-align: right;">6.554110</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">53.84301</td>
+<td style="text-align: right;">14.22424</td>
+<td style="text-align: right;">61.17229</td>
+<td style="text-align: right;">13.96819</td>
+<td style="text-align: right;">2.309919</td>
+<td style="text-align: right;">6.503217</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">53.74508</td>
+<td style="text-align: right;">14.24909</td>
+<td style="text-align: right;">61.53484</td>
+<td style="text-align: right;">13.99151</td>
+<td style="text-align: right;">2.384839</td>
+<td style="text-align: right;">6.708181</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="estimation">Estimation</h3>
+<p>After generating the data, we can run an estimation. The goal is to compare the IV and the OLS for different IV strength values. Hence, we need to estimate both an IV and an OLS and return both set of outcomes of interest.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>estimate_iv</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>reg_iv</span> <span class='op'>&lt;-</span> <span class='fu'>AER</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/AER/man/ivreg.html'>ivreg</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data</span>, formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span> <span class='op'>|</span> <span class='va'>rain</span><span class='op'>)</span> </span>
+<span>  </span>
+<span>  <span class='va'>fstat_iv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span></span>
+<span>                <span class='va'>reg_iv</span>, </span>
+<span>                diagnostics <span class='op'>=</span> <span class='cn'>TRUE</span></span>
+<span>              <span class='op'>)</span><span class='op'>$</span><span class='va'>diagnostics</span><span class='op'>[</span><span class='st'>"Weak instruments"</span>, <span class='st'>"statistic"</span><span class='op'>]</span></span>
+<span>  </span>
+<span>  <span class='va'>reg_iv</span> <span class='op'>&lt;-</span> <span class='va'>reg_iv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"IV"</span>, fstat <span class='op'>=</span> <span class='va'>fstat_iv</span><span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='va'>reg_OLS</span> <span class='op'>&lt;-</span> </span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data</span>, formula <span class='op'>=</span> <span class='va'>share</span> <span class='op'>~</span> <span class='va'>turnout</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"OLS"</span>, fstat <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='co'># reg_OLS_unbiased &lt;- </span></span>
+<span>  <span class='co'>#   lm(data = data, formula = share ~ turnout + w) %&gt;% </span></span>
+<span>  <span class='co'>#   broom::tidy() %&gt;%</span></span>
+<span>  <span class='co'>#   mutate(model = "OLS unbiased", fstat = NA)</span></span>
+<span>  </span>
+<span>  <span class='va'>reg</span> <span class='op'>&lt;-</span> <span class='va'>reg_iv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>reg_OLS</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>    <span class='co'># rbind(reg_OLS_unbiased) %&gt;% </span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>term</span> <span class='op'>==</span> <span class='st'>"turnout"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>p_value <span class='op'>=</span> <span class='va'>p.value</span>, se <span class='op'>=</span> <span class='va'>std.error</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>p_value</span>, <span class='va'>se</span>, <span class='va'>fstat</span>, <span class='va'>model</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>reg</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+</div>
+<h3 id="one-simulation">One simulation</h3>
+<p>We can now run a simulation, combining <code>generate_data_iv</code> and <code>estimate_iv</code>. To do so I create the function <code>compute_sim_iv</code>. This simple function takes as input the various parameters. It returns a table with the estimate of the treatment, its p-value and standard error, the F-statistic for the IV, the true effect, the IV strength and the intensity of the OVB considered (delta). Note that for now, we do not store the values of the other parameters since we consider them fixed over the study.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>compute_sim_iv</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>args</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='fu'>generate_data_iv</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'>estimate_iv</span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      pi_1 <span class='op'>=</span> <span class='va'>args</span><span class='op'>$</span><span class='va'>pi_1</span>,</span>
+<span>      delta <span class='op'>=</span> <span class='va'>args</span><span class='op'>$</span><span class='va'>delta</span>,</span>
+<span>      param_rain <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>args</span><span class='op'>$</span><span class='va'>param_rain</span><span class='op'>)</span>,</span>
+<span>      true_effect <span class='op'>=</span> <span class='va'>args</span><span class='op'>$</span><span class='va'>beta_1</span></span>
+<span>    <span class='op'>)</span></span>
+<span><span class='op'>}</span> </span></code></pre>
+</div>
+</div>
+<p>The output of one simulation, for baseline parameters values is:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the table
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>baseline_param_iv</span>, <span class='va'>compute_sim_iv</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">p_value</th>
+<th style="text-align: right;">se</th>
+<th style="text-align: right;">fstat</th>
+<th style="text-align: left;">model</th>
+<th style="text-align: right;">pi_1</th>
+<th style="text-align: right;">delta</th>
+<th style="text-align: left;">param_rain</th>
+<th style="text-align: right;">true_effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">-0.0927705</td>
+<td style="text-align: right;">0.0004581</td>
+<td style="text-align: right;">0.0264715</td>
+<td style="text-align: right;">1542.776</td>
+<td style="text-align: left;">IV</td>
+<td style="text-align: right;">-0.5</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: left;">0.13, 18.00</td>
+<td style="text-align: right;">-0.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.1402656</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">0.0058481</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">OLS</td>
+<td style="text-align: right;">-0.5</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: left;">0.13, 18.00</td>
+<td style="text-align: right;">-0.1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="all-simulations">All simulations</h3>
+<p>I then run the simulations for different sets of parameters by mapping the <code>compute_sim_iv</code> function on each set of parameters. I thus create a table with all the values of the parameters we want to test, <code>param_iv</code>. Note that in this table each set of parameters appears <code>n_iter</code> times as we want to run the analysis <span class="math inline">\(n_{iter}\)</span> times for each set of parameters.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>vect_pi_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.4</span>, <span class='fl'>0.05</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0.8</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>n_iter</span> <span class='op'>&lt;-</span> <span class='fl'>1000</span></span>
+<span></span>
+<span><span class='va'>param_iv</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_iv</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>pi_1</span><span class='op'>)</span> <span class='op'>|&gt;</span>  </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span><span class='va'>vect_pi_1</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>pi_1 <span class='op'>=</span> <span class='va'>vect_pi_1</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>rep_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n_iter</span><span class='op'>)</span> <span class='op'>|&gt;</span>  </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>rep_id</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+</div>
+<p>Finally, I run all the simulations by looping the <code>compute_sim_iv</code> function on the set of parameters <code>param_iv</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>tic</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='va'>sim_iv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_iv</span>, <span class='va'>compute_sim_iv</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/beepr/man/beep.html'>beep</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>toc</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_iv</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/sim_iv.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+</div>
+<h2 id="analysis-of-the-results">Analysis of the results</h2>
+<h3 id="quick-exploration">Quick exploration</h3>
+<p>First, I quickly explore the results.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_iv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/sim_iv.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>sim_iv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/between.html'>between</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='op'>-</span><span class='fl'>1.3</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='co'># filter(delta == sample(vect_delta, 1)) %&gt;% </span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>pi_1</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.4</span>, <span class='fl'>0.6</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>iv_strength <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_c.html'>str_c</a></span><span class='op'>(</span><span class='st'>"IV strength: "</span>, <span class='va'>pi_1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>estimate</span>, fill <span class='op'>=</span> <span class='va'>model</span>, color <span class='op'>=</span> <span class='va'>model</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>sim_iv</span><span class='op'>$</span><span class='va'>true_effect</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>iv_strength</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of the estimates of the treatment effect"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"For different IV strengths and models"</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>""</span>,</span>
+<span>    fill <span class='op'>=</span> <span class='st'>""</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Estimate of the treatment effect"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Density"</span>,</span>
+<span>    caption <span class='op'>=</span> <span class='st'>"The vertical line represents the true effect"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/scale_mediocre_d.html'>scale_mediocre_d</a></span><span class='op'>(</span><span class='op'>)</span> </span></code></pre>
+</div>
+</details>
+<img src="images/IV/exploration_results_iv-1.png" width="85%" style="display: block; margin: auto;" />
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_iv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/between.html'>between</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='op'>-</span><span class='fl'>1.2</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='co'># filter(delta == sample(vect_delta, 1)) %&gt;%</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='co'># geom_density_ridges(aes(</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='va'>estimate</span>, </span>
+<span>    <span class='co'># y = pi_1,</span></span>
+<span>    color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    alpha <span class='op'>=</span> <span class='fl'>0</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>sim_iv</span><span class='op'>$</span><span class='va'>true_effect</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of the estimates of the treatment effect"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"Comparison across IV strengths"</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"IV strength"</span>,</span>
+<span>    fill <span class='op'>=</span> <span class='st'>"IV strength"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Estimate of the treatment effect"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Density"</span>,</span>
+<span>    caption <span class='op'>=</span> <span class='st'>"For readibility, extreme estimates are filtered out</span></span>
+<span><span class='st'>    The vertical line represents the true effect"</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/IV/exploration_results_iv-2.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>data_one_sim_iv</span> <span class='op'>&lt;-</span> <span class='va'>sim_iv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/between.html'>between</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>pi_1</span> <span class='op'>==</span> <span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='co'># filter(delta == sample(vect_delta, 1)) %&gt;% </span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span>, <span class='st'>"Significant"</span>, <span class='st'>"Non significant"</span><span class='op'>)</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>data_one_sim_iv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>estimate</span>, fill <span class='op'>=</span> <span class='va'>significant</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>70</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>sim_iv</span><span class='op'>$</span><span class='va'>true_effect</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>0</span>, linetype <span class='op'>=</span> <span class='st'>"solid"</span>, alpha <span class='op'>=</span> <span class='fl'>0.3</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>model</span>, nrow <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of the estimates of the treatment effect conditional on significativity"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span></span>
+<span>      <span class='st'>"For different models (IV strength ="</span>, </span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>data_one_sim_iv</span><span class='op'>$</span><span class='va'>pi_1</span><span class='op'>)</span>, <span class='st'>")"</span></span>
+<span>    <span class='op'>)</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Estimate of the treatment effect"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Count"</span>,</span>
+<span>    fill <span class='op'>=</span> <span class='st'>""</span>,</span>
+<span>    caption <span class='op'>=</span> <span class='st'>"The sample is restricted to estimates relatively close to the true value</span></span>
+<span><span class='st'>    The vertical doted line represents the true effect"</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/IV/graph_distrib_one-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<p>We notice that the OLS is always biased and that the IV is never biased. However, for limited IV strengths, the distribution of the estimates flattens. The smaller the IV strength, the most like it is to get an estimate away from the true value, even though the expected value remains equal to the true effect size.
+<!-- We can notice that statistically significant estimates are on average located further away from zero that  --></p>
+<!-- #### Signal-to-Noise Ratio -->
+<!-- In order to evaluate whether my simulations are realistic, I compute the average Signal-to-Noise Ratio (SNR) for each IV strength and compare it to SNRs in this literature. To do so, I would need a literature review of this literature.  -->
+<!-- ```{r} -->
+<!-- sim_iv |>  -->
+<!--   group_by(model, pi_1) |>  -->
+<!--   summarise( -->
+<!--     snr_estimate = mean(abs(estimate)/se), -->
+<!--     snr_true_effect = mean(abs(true_effect)/se) -->
+<!--   )  -->
+<!-- ``` -->
+<h3 id="computing-bias-and-exaggeration-ratios">Computing bias and exaggeration ratios</h3>
+<p>We want to compare <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{IV}}}{\beta_1}\right|\right]\)</span> and <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{IV}}}{\beta_1} \right| | \text{signif} \right]\)</span>. The first term represents the bias and the second term represents the exaggeration ratio.</p>
+<p>To do so, I use the function <code>summmarise_sim</code> defined in the <a href=""><code>functions.R</code></a> file.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"functions.R"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>summary_sim_iv</span> <span class='op'>&lt;-</span> <span class='fu'>summarise_sim</span><span class='op'>(</span></span>
+<span>  data <span class='op'>=</span> <span class='va'>sim_iv</span>, </span>
+<span>  varying_params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>pi_1</span><span class='op'>)</span>, </span>
+<span>  true_effect <span class='op'>=</span> <span class='va'>true_effect</span></span>
+<span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># saveRDS(summary_sim_iv, here("Outputs/summary_sim_iv.RDS"))</span></span></code></pre>
+</div>
+</div>
+<h3 id="graph">Graph</h3>
+<p>To analyze our results, we build a unique and simple graph:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the graph
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>main_graph_iv</span> <span class='op'>&lt;-</span> <span class='va'>summary_sim_iv</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>type_m</span>, color <span class='op'>=</span> <span class='va'>model</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>1.2</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>linetype <span class='op'>=</span> <span class='va'>model</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='co'># geom_point(size = 3) +</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"|IV strength|"</span>, </span>
+<span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Average  "</span>, <span class='fu'>frac</span><span class='op'>(</span><span class='st'>"|Estimate|"</span>, <span class='st'>"|True Effect|"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"Model"</span>,</span>
+<span>    linetype <span class='op'>=</span> <span class='st'>"Model"</span>,</span>
+<span>    title <span class='op'>=</span> <span class='st'>"Evolution of bias with intensity of the IV"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"For statistically significant estimates"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/pretty_breaks.html'>pretty_breaks</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/theme_mediocre.html'>theme_mediocre</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/scale_mediocre_d.html'>scale_mediocre_d</a></span><span class='op'>(</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>main_graph_iv</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/IV/main_graph_iv-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<p>We notice that, if the IV strength is low, on average, statistically significant estimates overestimate the true effect. If the IV strength is too low, it might even be the case that the benefit of the IV is overturned by the exaggeration issue. The IV yields an unbiased estimate and enables to get rid of the OVB but such statistically significant estimates fall, on average, even further away from the true effect.</p>
+<p>Of course, if one considers all estimates, as the IV is unbiased, this issue does not arise.</p>
+<!-- ```{r graph_results_all_iv, code_folding=TRUE, fig.asp=0.7} -->
+<!-- summary_sim_iv %>%  -->
+<!--   mutate( -->
+<!--     ovb_intensity_name = paste("OVB intensity:", delta) -->
+<!--   ) %>% -->
+<!--   ggplot(aes(x = pi_1, y = bias_all_median, color = model)) +  -->
+<!--   # geom_point() + -->
+<!--   geom_line(linewidth = 0.8) + -->
+<!--   facet_wrap(~ ovb_intensity_name) + -->
+<!--   labs( -->
+<!--     x = "IV strength",  -->
+<!--     y = expression(paste("Median  ", frac("Estimate", "True Effect"))), -->
+<!--     color = "Model", -->
+<!--     title = "Evolution of bias with intensity of the IV", -->
+<!--     subtitle = "For all estimates" -->
+<!--   ) + -->
+<!--   ylim(c(0.9, 1.4)) -->
+<!-- ``` -->
+<h4 id="distribution-of-the-estimates">Distribution of the estimates</h4>
+<p>I then graph the distribution of estimates conditional on significativity. It represents the same phenomenon but with additional information.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the graph
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/set_mediocre_all.html'>set_mediocre_all</a></span><span class='op'>(</span>pal <span class='op'>=</span> <span class='st'>"coty"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>sim_iv</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"IV"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    signif <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span>, <span class='st'>"Significant"</span>, <span class='st'>"Non-significant"</span><span class='op'>)</span>,</span>
+<span>    ratio_exagg <span class='op'>=</span> <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>pi_1</span>, <span class='va'>model</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    mean_signif <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span>, <span class='va'>ratio_exagg</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>    mean_all <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>ratio_exagg</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>pi_1</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.6</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ratio_exagg</span>, fill <span class='op'>=</span> <span class='st'>"All Estimates"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>pi_1</span>, switch <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>0</span>, linetype <span class='op'>=</span> <span class='st'>"solid"</span>, linewidth <span class='op'>=</span> <span class='fl'>0.12</span><span class='op'>)</span> <span class='op'>+</span>  </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/pretty_breaks.html'>pretty_breaks</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    y <span class='op'>=</span> <span class='st'>"|IV strength|"</span>, </span>
+<span>    x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'>frac</span><span class='op'>(</span><span class='st'>"Estimate"</span>, <span class='st'>"True Effect"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    fill <span class='op'>=</span> <span class='st'>""</span>,</span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of estimates from 1000 simulated datasets"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"Conditional on significativity"</span>,</span>
+<span>    <span class='co'># caption = </span></span>
+<span>      <span class='co'># "The green dashed line represents the result aimed for</span></span>
+<span>      <span class='co'># "The brown solid line represents the average of significant estimates"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>100</span>, alpha <span class='op'>=</span> <span class='fl'>0.85</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>signif</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>  <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='va'>mean_signif</span><span class='op'>)</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"#976B21"</span>,</span>
+<span>    linetype <span class='op'>=</span> <span class='st'>"solid"</span>,</span>
+<span>    size <span class='op'>=</span> <span class='fl'>0.5</span></span>
+<span>  <span class='op'>)</span> </span></code></pre>
+</div>
+</details>
+<p><img src="images/IV/graph_distrib_iv-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<h2 id="further-checks">Further checks</h2>
+<h3 id="representativeness-of-the-estimation">Representativeness of the estimation</h3>
+<p>I calibrated the simulations to emulate a typical study from this literature. To further check that the results are realistic, I compare the average Signal-to-Noise Ratio (SNR) of the simulations to the range of SNR of an existing study.
+The influential study <a href="https://www.jstor.org/stable/10.1111/j.1468-2508.2007.00565.x?pq-origsite=360link&amp;seq=1#metadata_info_tab_contents">Gomez et al. (2007)</a> have a SNR of about 8. Yet the reanalysis by <a href="https://www.cambridge.org/core/journals/political-analysis/article/abs/randomization-inference-with-rainfall-data-using-historical-weather-patterns-for-variance-estimation/2F86BE9EB79FDFF9FF97C8C5CC4A2ED3">Cooperman (2017)</a> shows using randomization inference that accounting for spatial correlation in rain patters yield a larger standard error (a point estimate of -1.052 and with a <em>p</em>-value of 0.084).</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code to compute the SNR in Gomez et al. (2007)
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dmetar.protectlab.org'>dmetar</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>effect_gomez</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>1.052</span> <span class='co'>#value from replication by Cooperman</span></span>
+<span></span>
+<span><span class='va'>se_gomez</span> <span class='op'>&lt;-</span>  </span>
+<span>  <span class='fu'><a href='http://dmetar.protectlab.org/reference/se.from.p.html'>se.from.p</a></span><span class='op'>(</span></span>
+<span>    <span class='va'>effect_gomez</span>,</span>
+<span>    p <span class='op'>=</span> <span class='fl'>0.084</span>,</span>
+<span>    N <span class='op'>=</span> <span class='fl'>43340</span>,</span>
+<span>    effect.size.type <span class='op'>=</span> <span class='st'>"difference"</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>.</span><span class='op'>$</span><span class='va'>StandardError</span></span>
+<span></span>
+<span><span class='va'>snr_gomez</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>effect_gomez</span><span class='op'>)</span><span class='op'>/</span><span class='va'>se_gomez</span></span></code></pre>
+</div>
+</details>
+</div>
+<p>This would yield a SNR of 1.73. For such an SNR, there is some non-negligible exaggeration in my simulations:</p>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">IV strength</th>
+<th style="text-align: right;">Median SNR</th>
+<th style="text-align: right;">Exaggeration Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">3.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">1.24</td>
+<td style="text-align: right;">2.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">1.65</td>
+<td style="text-align: right;">1.66</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: right;">1.40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">2.43</td>
+<td style="text-align: right;">1.23</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">2.79</td>
+<td style="text-align: right;">1.13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">3.22</td>
+<td style="text-align: right;">1.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">3.97</td>
+<td style="text-align: right;">1.01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">4.77</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">5.58</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.80</td>
+<td style="text-align: right;">6.33</td>
+<td style="text-align: right;">0.99</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>This result does not mean that Gomez et al. (2007) suffer from exaggeration but rather indicates that my simulations are in line with SNRs that can be observed in actual studies and their calibration is not disconnected from existing studies.</p>
+<h3 id="f-statistic-analysis">F-statistic analysis</h3>
+<p>I then run some exploratory analysis to study the link between type M and F-stat (under construction).</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the graph
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_iv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>signif <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>pi_1</span>, y <span class='op'>=</span> <span class='va'>fstat</span>, color <span class='op'>=</span> <span class='va'>signif</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"A correlation between IV strength and F-statistic"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"By significance"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"IV strength"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"F-statistic"</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"Significant"</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<img src="images/IV/IV_strength_fstat_graph-1.png" width="85%" style="display: block; margin: auto;" />
+<details>
+<summary>
+Show the code used to generate the graph
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span>  <span class='co'># ylim(c(0, 40))</span></span>
+<span></span>
+<span><span class='co'># lm(data = sim_iv, fstat ~ pi_1) %&gt;% </span></span>
+<span><span class='co'>#   summary() %&gt;% </span></span>
+<span><span class='co'>#   .$adj.r.squared</span></span>
+<span></span>
+<span><span class='co'># sim_iv %&gt;% </span></span>
+<span><span class='co'>#   mutate(significant = (p_value &lt;= 0.05)) %&gt;% </span></span>
+<span><span class='co'>#   filter(model == "IV") %&gt;% </span></span>
+<span><span class='co'>#   ggplot() +</span></span>
+<span><span class='co'>#   geom_density_ridges(aes(x = fstat, y = factor(pi_1), fill = significant, color = significant), alpha = 0.6)+</span></span>
+<span><span class='co'>#   coord_flip() +</span></span>
+<span><span class='co'>#   xlim(c(0, 50)) +</span></span>
+<span><span class='co'>#   labs(</span></span>
+<span><span class='co'>#     title = "F-statistics larger than 10, even for small IV strength",</span></span>
+<span><span class='co'>#     subtitle = "Distribution of F-statistics by IV strength and significance",</span></span>
+<span><span class='co'>#     x = "F-statistic",</span></span>
+<span><span class='co'>#     y = "IV strength",</span></span>
+<span><span class='co'>#     fill = "Significant",</span></span>
+<span><span class='co'>#     color = "Significant"</span></span>
+<span><span class='co'>#   )</span></span>
+<span></span>
+<span><span class='co'># sim_iv %&gt;% </span></span>
+<span><span class='co'>#   filter(model == "IV") %&gt;% </span></span>
+<span><span class='co'>#   mutate(</span></span>
+<span><span class='co'>#     significant = (p_value &lt;= 0.05),</span></span>
+<span><span class='co'>#     bias = abs((estimate - true_effect)/true_effect)</span></span>
+<span><span class='co'>#   ) %&gt;% </span></span>
+<span><span class='co'>#   filter(fstat &gt; 10) %&gt;% </span></span>
+<span><span class='co'>#   ggplot(aes(x = pi_1, y = fstat, color = bias)) +</span></span>
+<span><span class='co'>#   geom_point(alpha = 0.5) +</span></span>
+<span><span class='co'>#   geom_jitter(alpha = 0.5) +</span></span>
+<span><span class='co'>#   labs(</span></span>
+<span><span class='co'>#     title = "A correlation between IV strength and F-statistic",</span></span>
+<span><span class='co'>#     subtitle = "By significance",</span></span>
+<span><span class='co'>#     x = "IV strength",</span></span>
+<span><span class='co'>#     y = "F-statistic"</span></span>
+<span><span class='co'>#     # color = "Significant"</span></span>
+<span><span class='co'>#   )</span></span>
+<span></span>
+<span><span class='co'># sim_iv %&gt;% </span></span>
+<span><span class='co'>#   filter(model == "IV") %&gt;% </span></span>
+<span><span class='co'>#   mutate(</span></span>
+<span><span class='co'>#     significant = (p_value &lt;= 0.05)</span></span>
+<span><span class='co'>#   ) %&gt;% </span></span>
+<span><span class='co'>#   group_by(pi_1) %&gt;% </span></span>
+<span><span class='co'>#   summarise(</span></span>
+<span><span class='co'>#     mean_fstat = mean(fstat),</span></span>
+<span><span class='co'>#     type_m = median(ifelse(significant, abs(estimate/true_effect), NA), na.rm = TRUE)</span></span>
+<span><span class='co'>#   ) %&gt;% </span></span>
+<span><span class='co'>#   ggplot(aes(x = pi_1, y = mean_fstat, color = type_m)) +</span></span>
+<span><span class='co'>#   geom_point() +</span></span>
+<span><span class='co'>#   # geom_jitter(alpha = 0.5) +</span></span>
+<span><span class='co'>#   labs(</span></span>
+<span><span class='co'>#     title = "A correlation between IV strength and F-statistic",</span></span>
+<span><span class='co'>#     subtitle = "By significance",</span></span>
+<span><span class='co'>#     x = "IV strength",</span></span>
+<span><span class='co'>#     y = "F-statistic"</span></span>
+<span><span class='co'>#     # color = "Significant"</span></span>
+<span><span class='co'>#   ) +</span></span>
+<span><span class='co'>#   ylim(c(0,20))</span></span></code></pre>
+</div>
+</details>
+</div>
+<p>Unsurprisingly, there is a clear positive correlation between what we call IV strength and the F-statistic. I then investigate the link between exaggeration ratios and F-statistics.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_iv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>bias <span class='op'>=</span> <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>fstat</span> <span class='op'>&gt;</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>  </span>
+<span>  <span class='co'># .$bias %&gt;% mean(., na.rm = TRUE)</span></span>
+<span>  <span class='co'># filter(abs(bias) &lt; 10) %&gt;% </span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>fstat</span>, y <span class='op'>=</span> <span class='va'>bias</span>, color <span class='op'>=</span> <span class='va'>significant</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_hline</a></span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Bias as a function of the F-statistic in the simulations"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"By significance and only for F-stat above 10"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"F-statistic"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'>frac</span><span class='op'>(</span><span class='st'>"Estimate"</span>, <span class='st'>"True Effect"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"Significant"</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/IV/fstat_bias_graph-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<p>We notice that, even when the F-statistic is greater than the usual but arbitrary threshold of 10, statistically significant estimates may, on average overestimate the true effect.</p>
+<p>We cannot compute directly the bias of interest against the F-statistic because the F-statistic is not a parameter of the simulations and we do not control them, only the IV strength. To overcome this, I compute the median power by binned F-statistic. However, this is not correct as we end up comparing and pulling together simulations with different parameter values. I still display the graph, keeping this limitation in mind:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_iv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"IV"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    significant <span class='op'>=</span> <span class='op'>(</span><span class='va'>p_value</span> <span class='op'>&lt;=</span> <span class='fl'>0.05</span><span class='op'>)</span>,</span>
+<span>    bin_fstat <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_number</a></span><span class='op'>(</span><span class='va'>fstat</span>, n <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_extract.html'>str_extract</a></span><span class='op'>(</span><span class='st'>"(?&lt;=,)(\\d|\\.)+"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>      <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>delta</span>, <span class='va'>bin_fstat</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span></span>
+<span>    power <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>significant</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>100</span>, </span>
+<span>    type_m <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>estimate</span> <span class='op'>-</span> <span class='va'>true_effect</span><span class='op'>)</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>    bias_signif <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>significant</span>, <span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>    bias_all <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>    bias_all_median <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>estimate</span><span class='op'>/</span><span class='va'>true_effect</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>    median_fstat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>fstat</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>    .groups  <span class='op'>=</span> <span class='st'>"drop"</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>bin_fstat</span>, y <span class='op'>=</span> <span class='va'>bias_signif</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>linetype <span class='op'>=</span> <span class='st'>"dashed"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>10</span>, linetype <span class='op'>=</span><span class='st'>"solid"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>80</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Binned F-statistic"</span>, </span>
+<span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Average  "</span>, <span class='fu'>frac</span><span class='op'>(</span><span class='st'>"Estimate"</span>, <span class='st'>"True Effect"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"Model"</span>,</span>
+<span>    title <span class='op'>=</span> <span class='st'>"Evolution of bias with binned F-statistic"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"For statistically significant estimates"</span>,</span>
+<span>    caption <span class='op'>=</span> <span class='st'>"This graph does not acurately represent </span></span>
+<span><span class='st'>    what we are interested in"</span></span>
+<span>  <span class='op'>)</span> </span></code></pre>
+</div>
+</details>
+<p><img src="images/IV/binned_fstat-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

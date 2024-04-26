@@ -1,0 +1,58 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.27)  22 APR 2024 11:40
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**VB.sty
+(./VB.sty
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2023-02-22>
+
+LaTeX Warning: You have requested package `',
+               but the package provides `VB'.
+
+Package: VB 2020/01/30 Extension personnelle, V3.1
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2023/02/13 3.86 The Babel package
+\babel@savecnt=\count185
+\U@D=\dimen140
+\l@unhyphenated=\language87
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count186
+
+/usr/local/texlive/2023/texmf-dist/tex/generic/babel/babel.sty:4369: Missing \e
+ndcsname inserted.
+<to be read again> 
+                   \@classoptionslist 
+l.4369   \fi}
+             
+? 
+/usr/local/texlive/2023/texmf-dist/tex/generic/babel/babel.sty:4369: Emergency 
+stop.
+<to be read again> 
+                   \@classoptionslist 
+l.4369   \fi}
+             
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 1176 strings out of 476025
+ 18590 string characters out of 5790016
+ 1849388 words of memory out of 5000000
+ 21714 multiletter control sequences out of 15000+600000
+ 513050 words of font info for 33 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 35i,0n,41p,180b,40s stack positions out of 10000i,1000n,20000p,200000b,200000s
+/usr/local/texlive/2023/texmf-dist/tex/generic/babel/babel.sty:4369:  ==> Fatal
+ error occurred, no output PDF file produced!

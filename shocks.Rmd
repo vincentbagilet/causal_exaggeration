@@ -1,0 +1,505 @@
+---
+title: "Simulations exogenous shocks"
+description: "In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of air pollution reduction shocks on birthweight of newborn babies."
+output: 
+  distill::distill_article:
+    toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+<style>
+body {
+text-align: justify}
+</style>
+
+<!-- To export it as pdf, use this yaml -->
+<!-- but run it in another document. I do not know why but there is a bug otherwise -->
+<!-- --- -->
+<!-- title: "Simulations exogenous shocks" -->
+<!-- geometry: false -->
+<!-- output:  -->
+<!--   pdf_document: -->
+<!--     includes: -->
+<!--       in_header: -->
+<!--         - VB_Rmd.sty -->
+<!-- --- -->
+
+```{r setup_shocks, include=FALSE, results='hide', warning=FALSE}
+library(knitr)
+opts_chunk$set(fig.path = "images/shocks/",
+               cache.path = "cache/",
+               cache = FALSE,
+               echo = TRUE, #set to false to hide code
+               message = FALSE,
+               warning = FALSE,
+               out.width = "85%",
+               dpi = 300,
+               fig.align = "center",
+               dev.args = list(bg="transparent"))  
+```  
+
+```{r packages_shocks, message=FALSE, warning=FALSE, code_folding='Show packages'}
+library(tidyverse) 
+library(knitr) 
+library(fixest)
+library(mediocrethemes)
+library(broom)
+library(tictoc)
+library(here)
+library(beepr)
+
+set_mediocre_all(pal = "coty")
+set.seed(12)
+```
+
+## Summary and intuition
+
+### A trade-off mediated by the number of treated observations
+
+In the case of studies using exogenous shocks, a confounding / exaggeration trade-off is mediated by the number of (un)treated observations. In some settings, while the number of observations is large, the number of events might be limited. Pinpointing exogenous shocks is never easy and we are sometimes only able to find a limited number of occurrences of this shock or shocks affecting a small portion of the population. More precisely, the number of observations with a non-null treatment status might be small (or conversely the number of non-treated units might be small). In this instance, the variation available to identify the treatment is limited, possibly leading power to be low and exaggeration issues to arise. 
+
+### Intuition to explain the variation of power with the number of treated observations
+
+The number of treated observations can be decomposed into two parts: the total number of observations times the proportion of observations in the treated group. Of course, if one reduces the total sample size, precision and thus statistical power will decrease. At a fixed total sample size and as commonly discussed in the Randomized Control Trial literature, statistical power is maximized when the proportion of treated observations is equal to the proportion of untreated ones. If we consider a fixed number of observations, decreasing the proportion of treated observations below 0.5 will decrease precision and power. The intuition for this relationship can be given by studying the simple formula for the standard error of the difference between the mean of the outcome for the control and treatment groups. It does not represent the actual standard error of the DiD estimator but can be useful to get an intuition for this trade-off. The formula is the following:
+
+$$se_{\bar{y_T} - \bar{y_c}} = \sqrt{\dfrac{\sigma_T^2}{n_T} + \dfrac{\sigma_C^2}{n_C}}$$
+where $n_T$ and $n_C$ are the number of observation in the treated group and the control group respectively and $\sigma_T$ and $\sigma_C$ the standard deviations of the outcome in the treated group and the control group respectively. In many cases, we can assume that $\sigma_T = \sigma_C = \sigma$. Under this assumption we have: 
+
+$$se_{\bar{y_T} - \bar{y_c}} = \dfrac{\sigma}{\sqrt{n}} \times \sqrt{\dfrac{1}{p_T(1-p_T)}}$$
+where $n$ is the total number of observations ($n = n_T + n_C$) and $p_T$ the proportion of treated observations. 
+
+From this simple formula it is obvious that the standard error of interest increases when $n$ decreases and that, for $n$ constant, it is minimized when the proportion of treated is 0.5. Since statistical power is a decreasing function of the variance of an estimator, it will decrease when the proportion of treated diverges from 0.5 and has an infinity limit in 0 and 1, leading to extremely large standard errors when the proportion of treated units is close to 0 or 1. Plotting the function $x \mapsto \sqrt{\dfrac{1}{x \times(1 - x)}}$ illustrates this:
+
+```{r fct_se, code_folding=TRUE}
+ggplot() + 
+  geom_function(fun = \(x) 1/sqrt(x*(1-x))) +
+  labs(
+    title = "Evolution of s.e. with the proportion of treated units",
+    x = "p",
+    y = expression(sqrt(frac(1, p(1-p))))
+  )
+```
+
+The issue caused by a limited number of treated or control observations does not only affect event studies and DiD but is particularly salient in this case.
+
+## An illustrative example
+
+For readability and to illustrate this loss in power, let's consider an example setting. For this illustration we could use a large variety of Data Genereting Processes (DGP), both in terms of distribution of the variables and of relations between them. I narrow this down to an example setting, considering an analysis of health impacts of air pollution. More precisely, I simulate and analyze the **impacts of air pollution reduction in birthweights**. Air pollution might vary with other variables that may also affect birthweight (for instance economic activity). Some of these variables might be unobserved and bias estimates of a simple regression of birthweight on pollution levels. A strategy to avoid such issues is to consider exogenous shocks to air pollution such as plant closures, plant openings, creation of a low emission zone or an urban toll, strikes, etc.
+
+Although I consider an example setting for clarity, this confounding / exaggeration trade-off mediated by a number of treated observations arises in other settings.
+
+### Modeling choices
+
+To simplify, I make the assumptions described below. Of course these assumptions are arbitrary and I invite interested readers to play around with them. 
+<!-- Note that, fixed effects and the covariate are not necessary to the analysis. I only add them to make the analysis more realistic if necessary but I set their baseline values to 0. -->
+
+Many studies in the literature, such as [Currie et al. (2015)](https://www.aeaweb.org/articles?id=10.1257/aer.20121656) and [Lavaine and Neidell (2017)](https://www.journals.uchicago.edu/doi/full/10.1086/691554) for instance, aggregate observations to build a panel. I follow this approach and look at the evolution of birthweights in zip codes in time. 
+
+For clarity in the explanations, let's assume that the exogenous shock considered is a permanent plant closure and that this reduces air pollution level. One can also think of it as any permanent exogenous change in air pollution levels. Here, I only estimate a reduced form model and am therefore not interested in modeling the effect of the plant closure on pollution levels. I consider that the plant closure leads to some air pollution reduction and want to estimate the effect of this closure on birth-weight. 
+<!-- I plan to add pollution in the future in order to compare the performance of the reduced form and a straight regression of birthweight on pollution. Yet, generating pollution is rather complex and we therefore only consider the reduced form for now. -->
+
+For each time period, a zip code is either treated (plant closed) or not treated. Over the whole period, some zip codes experience a plant closure, others do not, either because they do not have a plant that affect their air pollution levels or because their plant did not close. 
+
+I consider that the average birthweight in zip code $z$ at time period $t$, $w_{zt}$, depends on a zip code fixed-effect $\zeta_z$, a time fixed-effect $\tau_t$ and the treatment status $T_i$, *ie* whether a plant is closed in this period or not. For now, I do not simulate omitted variable biases as I consider that the shocks are truly exogenous. Thus, birthweight is defined as follows:
+
+$$w_{zt} = \beta_0 + \beta_1 T_{zt} + \zeta_z + \tau_t + u_{zt}$$
+<!-- 
+is correlated with the average birthweight in this zip code in other periods and in nearby zip codes and also depends the treatment status $T_i$, *ie* whether a plant closed in this period or not. For now, we do not simulate omitted variable biases as we consider that the shocks are truly exogenous.
+
+We consider an AR(1) process along each dimension. Thus, birthweight is defined as follows: -->
+
+<!-- $$Birthweight_{z,t} = \beta_0 + \beta T_{z, t} + \tau Birthweight_{z, (t-1)} + \zeta Birthweight_{(z-1), t} + \epsilon_{z,t}$$ -->
+
+<!-- The DGP can be represented using the following Directed Acyclic Graph (DAG):  -->
+
+<!-- ```{r DAG_RDD, echo=FALSE, out.width='60%'} -->
+<!-- include_graphics(here("images/DAGs/DAGs.004.png")) -->
+<!-- ``` -->
+
+
+To simplify, I consider the following additional assumptions:
+
+- Treatment is constant in time and homogeneous across zip codes. In this case, the two ways fixed effect estimation should yield a correct estimate of the ATET (as discussed in [de Chaisemartin and d'Haultfoeuille (2022)](https://www.nber.org/papers/w29691) for instance)
+- Treatment allocation is non-staggered: all the plant closings happen at the same time. 
+I assume that they happen in the middle of the period for simplicity
+- A proportion $p_{treat}$ of zip codes are treated over the period. Hence, a proportion of $1-p_{treat}$ zip codes are never treated over the period. I draw these zip codes at random. Note that drawing at random is not necessary here. Without loss of generality, we could assume that the non-treated zip codes are those with the larger zip codes identifiers for instance,
+
+<!-- - The implementation of the treatment can be staggered or not. If it is not staggered, the treatment date is set to be in the middle of the period. For now we only analyze the non staggered version. -->
+
+More precisely, I set: 
+
+- $N_z$ the number of zip codes,
+- $N_t$ the number of periods (months),
+- $\zeta_z \sim \mathcal{N}(\mu_{\zeta}, \sigma_{\zeta}^{2})$ the fixed effect for zip code $z$,
+- $\tau_t \sim \mathcal{N}(\mu_{\tau}, \sigma_{\tau}^{2})$ the fixed effect for time period $t$,
+- $u_{zt} \sim \mathcal{N}(0, \sigma_{u}^{2})$ some noise,
+- $T_{zt}$ represent the treatment allocation, it is equal to 1 if zip code $z$ is treated at time $t$ and 0 otherwise,
+- $w_{zt} = \beta_0 + \beta_1 T_{zt} + \zeta_z + \tau_t + u_{zt}$ where $\beta_0$ is a constant,
+- $\beta_1$ is represents the magnitude of the treatment,
+<!-- - We define `staggered` as a logical variable. -->
+
+I also create a bunch of useful variables:
+
+- $InTreatment_z$ equal to 1 if zip code $z$ ever gets treated,
+<!-- - $t^{event}_z$ equal to the date at which zip code $z$ gets treated, especially useful in the staggered setting, -->
+<!-- - $t^{centered}_z$ representing the distance in terms of periods to the beginning of the treatment for zip code $z$, -->
+<!-- - $Post_{zt}$ equal to 1 if the period $t$ is after the treatment has begun for zip code $z$.  -->
+<!-- This variable is only useful for non-staggered treatment allocation case. -->
+
+### Data generation
+
+#### Generating function
+
+I write a simple function that generates the data. It takes as input the values of the different parameters and returns a data frame containing all the variables for this analysis. 
+
+```{r DGP_shocks}
+generate_data_shocks <- function(N_z,
+                              N_t,
+                              length_closed,
+                              sigma_u,
+                              p_treat,
+                              beta_0,
+                              beta_1,
+                              mu_zip_fe, 
+                              sigma_zip_fe,
+                              mu_time_fe, 
+                              sigma_time_fe
+                             ) {
+  
+  data <- tibble(zip = 1:N_z) |> 
+    mutate(in_treatment = (zip %in% sample(1:N_z, floor(N_z*p_treat)))) |> 
+    crossing(t = 1:N_t) |>
+    group_by(zip) |>
+    mutate(zip_fe = rnorm(1, mu_zip_fe, sigma_zip_fe)) |>
+    ungroup() |>
+    group_by(t) |>
+    mutate(time_fe = rnorm(1, mu_time_fe, sigma_time_fe)) |>
+    ungroup() %>%
+    mutate(
+      closed = (t > (N_t - length_closed)/2 & t <= (N_t + length_closed)/2),
+      treated = in_treatment & closed, 
+      u = rnorm(nrow(.), 0, sigma_u),
+      birthweight0 = beta_0 + zip_fe + time_fe + u,
+      birthweight1 = birthweight0 + beta_1,
+      birthweight = treated*birthweight1 + (1 - treated)*birthweight0
+    )
+  
+  return(data)
+}
+```
+
+#### Calibration and baseline parameters' values
+
+I set baseline values for the parameters to emulate a somehow realistic observational study`. I get "inspiration" for the values of parameters from [Lavaine and Neidell (2017)](https://www.journals.uchicago.edu/doi/full/10.1086/691554) and [Currie et al. (2015)](https://www.aeaweb.org/articles?id=10.1257/aer.20121656). The former investigates the impact of oil refinery strikes in France on birth-weight and gestational age of newborn. The latter studies the impact of air pollution from plants (openings and closures) on WTP (housing value) and health (incidence of low birthweights). 
+
+I consider that:
+
+- **Number of observations**: Lavaine and Neidell (2017) has about 150000 observations at the month x census tract level, from 2007 to 2011 and for 2531 census tracts, with 240 treated (census tract close to refinery closing for the month of October 2010) and 151,384 controls. Curie et al (2015) have data for 13 years, 3438 plants and 2 groups (close or far away from the plant) for 89000 observation and about 1600 changes in status.
+- **Treated units**: Both studies consider different treatment allocation procedures. For simplicity, we choose to follow one of the two, Lavaine and Neidell (2017). Their data is at the monthly level and consider a shock that lasts one month they have 240 treated observations, *i.e*, 10% census tracts are treated (and 0.16% of observations). I thus set **length_closed = 1 and p_treat = 0.1**
+- **Distribution of birthweight**: Birthweight is expressed in grams. In Lavaine and Neidell's sample made of babies born in France, the average birthweight is 3228g (sd = 353). I choose `beta_0` and `sigma_u` to yield a similar distribution. These values depend on the values of the other parameters and are therefore set last
+- **Treatment effect size** A usual treatment effect size in published studies is a change of about 1 to 3% in birthweight (*eg* in [Currie et al. (2015)](https://www.aeaweb.org/articles?id=10.1257/aer.20121656)). I thus consider a 2% effect size and set $\beta_1 = 3228 \times 0.02 \simeq 65$
+- **Fixed effects** : I set time and individual fixed effects to be of half of the order of magnitude of the treatment effect and with a standard deviation roughly equal to their mean. This choice is rather arbitrary but produces a signal to noise ratio that is consistent with what is observed in the literature. 
+
+```{r baseline_param_shocks, echo=FALSE}
+baseline_param_shocks <- tibble(
+  N_z = 2500,
+  N_t = 60,
+  length_closed = 1,
+  p_treat = 0.1,
+  sigma_u = 350, #65,
+  beta_0 = 3163,
+  beta_1 = 65,
+  mu_zip_fe = 33, 
+  sigma_zip_fe = 33,
+  mu_time_fe = 33, 
+  sigma_time_fe = 33
+)
+
+baseline_param_shocks |> kable()
+```
+
+Here is an example of variables created with the data generating process and baseline parameter values, for 2 zip codes and 8 time periods (not displaying parameters):
+
+```{r example_data_shocks, code_folding=TRUE}
+baseline_param_shocks |>  
+  mutate(N_z = 2, N_t = 8, p_treat = 0.5) |> 
+  pmap(generate_data_shocks) |>  #use pmap to pass the set of parameters
+  list_rbind() |> 
+  select(zip, t, treated, starts_with("birthweight"), u, ends_with("fe")) |>  
+  kable()
+```
+
+A quick check on a full data set shows that the standard deviation and mean of the birthweight correspond to what we aimed for:
+
+```{r check_sd_mean_shocks, code_folding=TRUE}
+ex_data_shocks <- baseline_param_shocks |> 
+  pmap_dfr(generate_data_shocks) 
+
+ex_data_shocks_mean <- ex_data_shocks |> 
+  summarise(across(.cols = c(birthweight0), mean)) |> 
+  mutate(Statistic = "Mean") |> 
+  select(Statistic, everything())
+
+ex_data_shocks_sd <- ex_data_shocks |> 
+  summarise(across(.cols = c(birthweight0), stats::sd)) |> 
+  mutate(Statistic = "Standard Deviation") |> 
+  select(Statistic, everything())
+
+ex_data_shocks_mean |> 
+  rbind(ex_data_shocks_sd) |> 
+  kable()
+```
+
+The treatment allocation when the proportion of treated is 30% is as follows:
+
+```{r treatment_allocation_shocks, code_folding=TRUE}
+baseline_param_shocks |> 
+  mutate(N_z = 20, N_t = 60, p_treat = 0.1) |>
+  pmap_dfr(generate_data_shocks) |> 
+  mutate(treated = ifelse(treated, "Treated", "Not treated")) |> 
+  ggplot(aes(x = t, y = factor(zip), fill = fct_rev(treated))) + 
+  geom_tile(color = "white", lwd = 0.3, linetype = 1) +
+  coord_fixed() +
+  scale_y_discrete(breaks = c(1, 5, 10, 15, 20)) +
+  labs(
+    title = "Treatment assignment across time and zip codes",
+    x = "Time index", 
+    y = "Zip code id", 
+    fill = "Treatment status"
+  )
+```
+
+Under this set of parameters, a very limited number of observations are treated. 
+
+#### Quick data exploration
+
+I quickly explore a generated data set to get a sense of how the data is distributed. First, I display the distribution of potential outcomes.
+
+```{r eda_distrib_outcome, code_folding=TRUE}
+ex_data_shocks |> 
+  pivot_longer(
+    cols = c(birthweight0, birthweight1),
+    names_to = "potential_outcome",
+    values_to = "potential_birthweight"
+  ) |> 
+  mutate(potential_outcome = factor(str_remove(potential_outcome, "birthweight"))) |> 
+  ggplot(aes(x = potential_birthweight, fill = potential_outcome, color = potential_outcome)) +
+  geom_density() +
+  labs(
+    x = "Birthweight (in g)",
+    y = "Density",
+    color = "Potential Outcome",
+    fill = "Potential Outcome",
+    title = "Distribution of potential birthweight"
+  )
+```
+
+### Estimation
+
+I then define a function to run the estimation.
+
+```{r estimate_shocks}
+estimate_shocks <- function(data) {
+  reg <- data |> 
+    mutate(
+      zip = as.factor(zip),
+      t = as.factor(t),
+      treated = as.numeric(treated)
+    ) %>% 
+    feols(
+      data = ., 
+      fml = birthweight ~ treated | zip + t
+    ) |> 
+    broom::tidy() |> 
+    rename(p_value = p.value, se = std.error) |> 
+    select(-statistic) 
+  
+  return(reg)
+}
+```
+
+Here is an example of an output of this function:
+
+```{r one_estimation_shocks, echo=FALSE}
+baseline_param_shocks |> 
+  pmap_dfr(generate_data_shocks) |>
+  estimate_shocks() |> 
+  slice(1:15) |> 
+  kable()
+```
+
+### One simulation
+
+<!-- Note that to run power calculations, we need to have access to the true effects which are not directly input parameters. Therefore, before running the estimation, I write a short function to compute the average treatment effect on the treated (ATET). I will add this information to the estimation results.  -->
+
+<!-- ```{r compute_true_effect_shocks} -->
+<!-- compute_true_effect_shocks <- function(data) { -->
+<!--   data |>  -->
+<!--     filter(treated) |>  -->
+<!--     summarise(true_effect = mean(birthweight1 - birthweight0)) %>% -->
+<!--     .$true_effect -->
+<!-- }   -->
+<!-- ``` -->
+
+I now run a simulation, combining `generate_data_shocks` and `estimate_shocks`. To do so I create the function `compute_sim_shocks`. This simple function takes as input the various parameters. It returns a table with the estimate of the treatment, its p-value and standard error, the true effect and the proportion of treated units. Note that for now, I do not store the values of the other parameters for simplicity because I consider them fixed over the study.
+
+```{r compute_sim_shocks, code_folding=TRUE}
+compute_sim_shocks <- function(...) {
+  args <- list(...)
+  
+  data <- generate_data_shocks(...) 
+  
+  data |>
+    estimate_shocks() |> 
+    mutate(
+      N_z = args$N_z,
+      N_t = args$N_t,
+      p_treat = args$p_treat,
+      true_effect = args$beta_1
+    )
+} 
+```
+
+Here is an example of an output of this function.
+
+```{r example_output_sim_RDD, echo=FALSE}
+baseline_param_shocks |>
+  pmap_dfr(compute_sim_shocks) |> 
+  kable()
+```
+
+### All simulations
+
+I will run the simulations for different sets of parameters by looping the `compute_sim_shocks` function over the set of parameters. I thus create a table with all the values of the parameters to test, `param_shocks`. Note that in this table each set of parameters appears `N_iter` times as we want to run the analysis $n_{iter}$ times for each set of parameters.
+
+```{r set_param_shocks}
+vect_p_treat <- c(0.002, 0.005, seq(0.01, 0.15, 0.02))
+n_iter <- 1000
+
+param_shocks <- baseline_param_shocks |> 
+  select(-p_treat) |> 
+  crossing(vect_p_treat) |> 
+  rename(p_treat = vect_p_treat) |> 
+  crossing(rep_id = 1:n_iter) |> 
+  select(-rep_id)
+```
+
+I then run the simulations by looping our `compute_sim_shocks` function on `param_shocks` using the `purrr` package (`pmap_dfr` function).
+
+```{r run_sim_shocks, eval=FALSE}
+tic()
+sim_shocks <- pmap(param_shocks, compute_sim_shocks, .progress = TRUE) |> 
+  list_rbind()
+beep()
+toc()
+
+saveRDS(sim_shocks, here("Outputs/sim_shocks.RDS"))
+```
+
+## Analysis of the results
+
+### Quick exploration
+
+First, I quickly explore the results. I plot the distribution of the estimated effect sizes, along with the true effect. The estimator is unbiased and recover, on average, the true effect:
+
+```{r exploration_results_shocks, code_folding=TRUE, fig.asp=0.9}
+sim_shocks <- readRDS(here("Outputs/sim_shocks.RDS"))
+
+sim_shocks |> 
+  filter(p_treat %in% sample(vect_p_treat, 4)) |>  
+  mutate(
+    n_treat = p_treat*N_z*N_t,
+    n_treat_name = fct_inseq(paste(n_treat)),
+    N_z = paste("Number zip codes: ", str_pad(N_z, 2)),
+    N_t = paste("Number periods: ", str_pad(N_t, 2))
+  ) |> 
+  ggplot(aes(x = estimate)) +
+  geom_vline(xintercept = unique(sim_shocks$true_effect)) +
+  geom_density() +
+  facet_wrap(~ fct_relabel(n_treat_name, \(x) paste(x, "treated")), nrow = 2) +
+  labs(
+    title = "Distribution of the estimates of the treatment effect",
+    subtitle = "For different number of treated observations",
+    x = "Estimate of the treatment effect",
+    y = "Density",
+    caption = "The vertical line represents the true effect"
+  )
+```
+
+### Computing bias and exaaggeration ratio
+
+We want to compare $\mathbb{E}\left[ \left| \frac{\widehat{\beta_{red}}}{\beta_1}\right|\right]$ and $\mathbb{E}\left[  \left| \frac{\widehat{\beta_{red}}}{\beta_1} \right| | \text{signif} \right]$. The first term represents the bias and the second term represents the exaggeration ratio. These terms depend on the true effect size.
+
+```{r summarise_shocks}
+source(here("functions.R"))
+
+summary_sim_shocks <- 
+  summarise_sim(
+    data = sim_shocks |> mutate(true_effect = round(true_effect)), 
+    varying_params = c(p_treat, N_t, N_z), 
+    true_effect = true_effect
+  ) |> 
+  mutate(n_treated = p_treat*N_z*N_t)
+
+# saveRDS(summary_sim_shocks, here("Outputs/summary_sim_shocks.RDS"))
+```
+
+### Main graph
+
+To analyze our results, I build a unique and simple graph:
+
+```{r main_graph_shocks, code_folding=TRUE, fig.asp=0.7}
+summary_sim_shocks |> 
+  # filter(n_treated < 3000) |> 
+  ggplot(aes(x = n_treated, y = type_m)) + 
+  # geom_point() +
+  geom_line(linewidth = 1.2, color = "#E5C38A") +
+  labs(
+    x = "Number of treated observations", 
+    y = expression(paste("Average  ", frac("|Estimate|", "|True Effect|"))),
+    title = "Evolution of bias with the number of treated observations",
+    subtitle = "For statistically significant estimates",
+    caption = paste("Fixed sample size:",
+                    unique(summary_sim_shocks$N_z)*unique(summary_sim_shocks$N_t),
+                    "observations \n")
+  ) 
+```
+
+```{r main_graph_shocks_paper, dpi=600, include=FALSE}
+summary_sim_shocks |> 
+  # filter(n_treated < 3000) |> 
+  ggplot(aes(x = n_treated, y = type_m)) + 
+  # geom_point() +
+  geom_line(linewidth = 1.5, color = "#E5C38A") +
+  labs(
+    x = "Number of treated observations", 
+    y = expression(paste("Average  ", frac("|Estimate|", "|True Effect|")))
+  ) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) 
+# +
+#   theme_mediocre(base_family = "Lora", pal = "coty") 
+
+ggsave(
+  "main_graph_shocks_paper.pdf", 
+  path = "paper/current_version/images", 
+  width = 8, 
+  height = 4.5
+)
+```
+
+### Representativeness of the estimation
+
+We calibrated our simulations to emulate a typical study from this literature. To further check that the results are realistic, we compare the average Signal-to-Noise Ratio (SNR) of our regressions to the range of SNR of existing studies investigating similar questions. Levaine and Neildel (2017) find SNRs in the range 0.4 to 2.3 in their table 3 and 4. Currie et al (2015) find SNRs in the range 0.5 to 4 (both in table 6 but SNRs in this range in table 4 and 5 as well).
+
+I find SNR in a similar range or even larger and corresponding to substantial exaggeration ratios.
+
+```{r SNR, code_folding=TRUE}
+summary_sim_shocks |> 
+  select(n_treated, median_snr, type_m) |> 
+  kable(
+    digits = 2,
+    col.names = c("Number of treated observations", "Median SNR", "Bias ratio")
+  )
+```
+

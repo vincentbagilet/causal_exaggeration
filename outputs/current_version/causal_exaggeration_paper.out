@@ -1,0 +1,33 @@
+\BOOKMARK [1][]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][]{section.2}{Mathematical derivation}{}% 2
+\BOOKMARK [2][]{subsection.2.1}{Properties of the exaggeration ratio}{section.2}% 3
+\BOOKMARK [2][]{subsection.2.2}{Setting and data generating process}{section.2}% 4
+\BOOKMARK [2][]{subsection.2.3}{Asymptotic distributions of the estimators}{section.2}% 5
+\BOOKMARK [3][]{subsubsection.2.3.1}{Naive regression \(OVB\)}{subsection.2.3}% 6
+\BOOKMARK [3][]{subsubsection.2.3.2}{Controlled regression}{subsection.2.3}% 7
+\BOOKMARK [3][]{subsubsection.2.3.3}{Instrumental Variables}{subsection.2.3}% 8
+\BOOKMARK [3][]{subsubsection.2.3.4}{Reduced form}{subsection.2.3}% 9
+\BOOKMARK [2][]{subsection.2.4}{Exaggeration ratios}{section.2}% 10
+\BOOKMARK [1][]{section.3}{Simulations}{}% 11
+\BOOKMARK [2][]{subsection.3.1}{Controlling for confounders}{section.3}% 12
+\BOOKMARK [2][]{subsection.3.2}{Matching}{section.3}% 13
+\BOOKMARK [2][]{subsection.3.3}{Regression Discontinuity Design}{section.3}% 14
+\BOOKMARK [2][]{subsection.3.4}{Instrumental Variables Strategy}{section.3}% 15
+\BOOKMARK [2][]{subsection.3.5}{Exogenous shocks}{section.3}% 16
+\BOOKMARK [1][]{section.4}{Navigating the trade-off}{}% 17
+\BOOKMARK [2][]{subsection.4.1}{Gauging omitted variable bias}{section.4}% 18
+\BOOKMARK [2][]{subsection.4.2}{Evaluating risks of exaggeration}{section.4}% 19
+\BOOKMARK [3][]{subsubsection.4.2.1}{Prospective power calculations}{subsection.4.2}% 20
+\BOOKMARK [3][]{subsubsection.4.2.2}{Retrospective power calculations}{subsection.4.2}% 21
+\BOOKMARK [2][]{subsection.4.3}{Driver of the trade-off}{section.4}% 22
+\BOOKMARK [3][]{subsubsection.4.3.1}{Navigating the bias-variance trade-off}{subsection.4.3}% 23
+\BOOKMARK [3][]{subsubsection.4.3.2}{Visualizing the driver of the trade-off}{subsection.4.3}% 24
+\BOOKMARK [2][]{subsection.4.4}{Attitude Towards Statistical Significance and Replication}{section.4}% 25
+\BOOKMARK [1][]{section.5}{Conclusion}{}% 26
+\BOOKMARK [1][]{section.6}{Next steps}{}% 27
+\BOOKMARK [1][]{appendix.A}{Mathematical proofs}{}% 28
+\BOOKMARK [2][]{subsection.A.1}{Variation of the exaggeration ratio \(lemma II. 1\)}{appendix.A}% 29
+\BOOKMARK [2][]{subsection.A.2}{Asymptotic distribution of ovb \(lemma 2\)}{appendix.A}% 30
+\BOOKMARK [2][]{subsection.A.3}{Asymptotic distribution of ctrl \(lemma 3\)}{appendix.A}% 31
+\BOOKMARK [2][]{subsection.A.4}{Asymptotic distribution of iv \(lemma 4\)}{appendix.A}% 32
+\BOOKMARK [2][]{subsection.A.5}{Asymptotic distribution of red \(lemma 5\)}{appendix.A}% 33

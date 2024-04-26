@@ -1,0 +1,63 @@
+\documentclass[usletter, 12pt]{article}
+ 
+\usepackage{../VB}
+\usepackage{cleveref}
+\usepackage{caption}
+
+%\doublespacing
+
+\begin{document}
+
+\lhead{\textsc{Causal Exaggeration}}
+
+\selectlanguage{english}
+	
+	\title{Causal Exaggeration:\\ Unconfounded but Inflated Causal Estimates}
+
+	\author{Vincent Bagilet
+		\thanks{Columbia University, New York, USA. Email: \url{vincent.bagilet@columbia.edu}. 
+			A previous version of this paper was co-authored with Léo Zabrocki-Hallak; I cannot thank him enough for his invaluable contributions to the project. I am very grateful to Hélène Ollivier and Jeffrey Shrader for their guidance and thank Sylvain Chabé-Ferret, Jesse McDevitt-Irwin, David McKenzie, José Luis Montiel Olea, Suresh Naidu, Claire Palandri, Stephan Thies and Roberto Zuniga Valladares for helpful comments, as well as lab members at Columbia and seminars participants at Columbia, IPWSD, the Paris School of Economics and the Toulouse School of Economics.}
+	}
+	
+	\institution{Sustainable Development PhD Program, Columbia University}
+
+	\date{February 21, 2023}
+	
+	
+	\maketitle
+	
+	\begin{center}
+		\large \textsc{\textbf{Abstract}}\\
+	\end{center}
+		
+		\input{../abstract/causal_exaggeration_abstract.tex}
+		
+		%To avoid confounding, causal identification strategies focus on a subset of the variation in the data; the plausibly exogenous part. In this paper, I argue that this can reduce statistical power and lead estimates to exaggerate true effects sizes. Using realistic Monte Carlo simulations and a mathematical derivation, I show that for the main causal strategies, a perfectly convincing identification does not guaranty an absence of ``bias'' and that improving identification can actually pull us away from the true effect. I then discuss potential avenues to address this issue.
+		
+		%Quasi-experimental studies make empirical economics credible. To avoid confounding, causal identification strategies focus on a subset of the variation in the data, the plausibly exogenous part. In this paper, I argue that it can reduce statistical power and lead published estimates to exaggerate true effects sizes. Using realistic fake data simulations and a mathematical derivation, I show that %for the main causal strategies, there can be a trade-off between confounding and exaggeration: we may avoid a bias at the risk of generating another one.
+		%using the main causal identification strategies to avoid a bias can also generate another one. I then discuss potential avenues to address this issue.\\~\\
+	
+	\begin{center}
+		\Large \textsc{\textbf{Preliminary introduction}}\\
+	\end{center}
+	
+	
+	\newpage
+	
+	\section{Introduction}
+			 	 		
+		
+		\input{causal_exaggeration_intro_text.tex}
+			
+	\newpage
+	
+\bibliographystyle{agsm}
+\bibliography{causal_exaggeration}	
+	
+	
+	
+	
+	
+	
+		
+\end{document}

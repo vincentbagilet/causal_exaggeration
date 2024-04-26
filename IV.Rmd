@@ -1,0 +1,929 @@
+---
+title: "Simulations IV"
+description: "In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.  To make these simulations realistic, I emulate a typical study estimating the impact of turnout on vote shares."
+output: 
+  distill::distill_article:
+    toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+<style>
+body {
+text-align: justify}
+</style>
+
+```{r setup_iv, echo=FALSE, results='hide', warning=FALSE}
+library(knitr)
+opts_chunk$set(fig.path = "images/IV/",
+               cache.path = "cache/",
+               cache = FALSE,
+               echo = TRUE, #set to false to hide code
+               message = FALSE,
+               warning = FALSE,
+               out.width = "85%",
+               dpi = 300,
+               fig.align = "center",
+               dev.args = list(bg="transparent"))  
+```  
+
+```{r packages_iv, message=FALSE, warning=FALSE, code_folding='Code to load packages used'}
+library(tidyverse) 
+library(knitr) 
+library(mediocrethemes)
+library(broom)
+library(AER)
+library(tictoc)
+library(here)
+library(beepr)
+library(ggridges)
+library(ggdag)
+
+set_mediocre_all(pal = "coty")
+```
+
+## Intuition
+
+In the case of the IV, the unconfoundedness / exaggeration trade-off is  mediated by the 'strength' of the instrument considered. When the instrument only explains a limited portion of the variation in the explanatory variable, the IV can still be successful in avoiding confounders but power can low, potentially leading to exaggeration issues to arise. 
+
+## Simulation framework
+
+### Illustrative example
+
+To illustrate this loss in power, we could consider a large variety of settings, distribution of the parameters or parameter values. I narrow this down to an example setting, considering only one setting and one set of parameter values. I examine an analysis of the impact of voter turnout on election results, instrumenting voter turnout with rainfall on the day of the election. My point should stand in more general settings and the choice of values is mostly for illustration. 
+
+A threat of confounders often arises when analyzing the link between voter turnout and election results. To estimate such an effect causally, one can consider exogenous shocks to voter turnout such as rainfall. Some potential exclusion restriction problems [have been highlighted](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3715610) in this instance but I abstract from them and simulate no exclusion restriction violations here.
+
+### Modeling choices
+
+For simplicity, I make several assumptions:
+
+- Observations are at the location level,
+- Abstract from the panel dimension in this analysis and consider only one time period. This is could be considered as looking at the outcomes of a unique election,
+- Only consider the impact of rain on the day of the election,
+- Assume no correlation in rainfall between locations. This could be equivalent to considering only a set of remote locations,
+- Assume simplify the data generating process and thus do not add any exclusion restriction violations.
+
+The DGP can be represented using the following Directed Acyclic Graph (DAG): 
+
+```{r DAG_iv, code_folding=TRUE, fig.asp=0.5, out.width='70%'}
+library(ggdag)
+
+second_color <- str_sub(colors_mediocre[["four_colors"]], 10, 16)
+
+dagify(S ~ T + w + u,
+       T ~ R + w + e,
+       exposure = c("S", "T", "R", "w"),
+       # outcome = "w",
+       latent = c("u", "e"),
+       coords = list(x = c(S = 3, T = 2, w = 2.5, R = 1, e = 1.6, u = 3),
+                     y = c(S = 1, T = 1, w = 0, R = 1, e = 0.7, u = 1.5))
+  ) |> 
+  ggdag_status(text_size = 5) +
+  theme_dag_blank(base_family = "Lato", legend.position = "none") +
+  scale_mediocre_d(pal = "coty") + 
+  annotate(#parameters
+    "text", 
+    x = c(2.5, 1.5, 2.8, 2.2), 
+    y = c(1.1, 1.1, 0.45, 0.45), 
+    label = c("beta", "pi", "delta", "gamma"),
+    parse = TRUE,
+    color = "black",
+    size = 5
+  ) 
+```
+
+<!-- ```{r DAG_RDD, code_folding=TRUE, out.width='70%'} -->
+<!-- include_graphics(here("images/DAGs/DAGs.001.png")) -->
+<!-- ``` -->
+
+The DGP for the vote share of let's say the republican party in location $i$, $Share_i$, is defined as follows:
+
+$$Share_{i} = \beta_{0} + \beta_{1} Turnout_{i} + \delta w_{i} + u_{i}$$
+
+Where $\beta_0$ is a constant, $w$ represents an unobserved variable and $u \sim \mathcal{N}(0, \sigma_{u}^{2})$ noise. $\beta_1$ is the parameter of interest. Let's call it 'treatment effect'. Note that parameters names are consistent with the maths section and the other simulation exercises.
+
+The DGP for the turnout data is as follows: 
+
+$$Turnout_{i} = \pi_0 + \pi_1 Rain_{i} + \gamma w_{i} + e_{i}$$
+
+Where $\pi_0$ is a constant, $Rain$ is either a continuous variable (amount of rain in location $i$ on the day of the election) or a dummy variable (whether it rained or not) and $e \sim \mathcal{N}(0, \sigma_{e}^{2})$ noise. Let's refer to $\pi_1$ as "IV strength".
+
+The impact of voter turnout on election outcome (share of the republican party) is estimated using 2 Stages Least Squares.
+
+More precisely, let's set: 
+
+- $N$ the number of observations
+- $Rain \sim \text{Gamma}(k, \theta)$, $Rain \sim \mathcal{N}(0, \sigma_{R}^{2})$ or $Rain \sim \text{Bernoulli}(p_R)$ the instrument
+- $w \sim \mathcal{N}(0, \sigma_{w}^{2})$ the unobserved variable
+- $u \sim \mathcal{N}(0, \sigma_{u}^{2})$
+- $e \sim \mathcal{N}(0, \sigma_{e}^{2})$ with $\sigma_{e}^{2}$ depending on $\pi_1$ and defined such that $\sigma_{Turnout}^{2}$ does not vary when we vary $\pi_1$: $\sigma_{e}^{2} = \sigma_{Turnout}^{2} - \pi_1^{2} \sigma_{Rain}^2 - \gamma^2\sigma_w^2$
+- For simplicity, I assume that $\delta = -\gamma$. There is no actual basis for that and we may change that in the future. The minus sign is just to get an upward bias, which makes the comparison between OLS and IV easier since the bias and the exaggeration go in the same direction.
+
+If one abstracts from the name of the variable, they can notice that this setting is actually very general.
+
+### Data generation
+
+#### Generating function
+
+Let's first write a simple function that generates the data. It takes as input the values of the different parameters and returns a data frame containing all the variables for this analysis. 
+
+Note that the parameter `type_rain` describes whether $Rain$ is a random sample from a normal or Bernoulli distribution. The distributions of rainfall heights can be approximated with a gamma distribution. The Bernoulli distribution is used if one only consider the impact of rain or no rain on voter turnout. A normal distribution does not represent actual rainfall distributions but is added to run these simulations in other contexts than linking rainfall, voter turnout and election outcomes.
+
+`type_rain` can take the values `gamma`, `bernoulli` or `normal`. `param_rain` represents either $\sigma_R$ if $Rain$ is normal, $p_R$ if it is Bernoulli or a vector of shape and scale parameters for the gamma distribution.
+
+<!-- Note that, for readability, in this document, I only display the chunks of code that may be important to understand the assumptions behind our simulations and the way we built our simulation. I do not display all the arguably "technical" code, in particular the one used to generate tables and graphs. All this code is however openly available on the GitHub of the project. -->
+ 
+```{r DGP_iv}
+generate_data_iv <- function(N,
+                             type_rain, #"gamma", "normal" or "bernoulli"
+                             param_rain,
+                             sigma_w,
+                             sigma_share,
+                             sigma_turnout,
+                             beta_0,
+                             beta_1,
+                             pi_0,
+                             pi_1,
+                             delta,
+                             gamma = -delta) {
+  
+  if (type_rain == "bernoulli") {
+    rain_gen <- rbinom(N, 1, param_rain[1])
+    sd_rain <- sqrt(param_rain[1]*(1-param_rain[1]))
+  } else if (type_rain == "normal") {
+    rain_gen <- rnorm(N, 0, param_rain[1])
+  } else if (type_rain == "gamma") {
+    rain_gen <- rgamma(N, shape = param_rain[1], scale = param_rain[2])
+    sd_rain <- sqrt(param_rain[1]*param_rain[2]^2)
+  } else {
+    stop("type_rain must be either 'bernoulli', 'gamma' or 'normal'")
+  }
+  
+  data <- tibble(id = 1:N) %>%
+    mutate(
+      rain = rain_gen,
+      w = rnorm(nrow(.), 0, sigma_w),
+      sigma_rain = sd_rain,
+      sigma_e = sqrt(sigma_turnout^2 - pi_1^2*sigma_rain^2 - gamma^2*sigma_w^2),
+      e = rnorm(nrow(.), 0, sigma_e),
+      turnout = pi_0 + pi_1*rain + gamma*w + e,
+      sigma_u = sqrt(
+        sigma_share^2 
+        - beta_1^2*sigma_turnout^2 
+        - delta^2*sigma_w^2 
+        - 2*beta_1*delta*gamma*sigma_w^2
+      ),
+      u = rnorm(nrow(.), 0, sigma_u),
+      share = beta_0 + beta_1*turnout + delta*w + u
+    )
+
+  return(data)
+}
+```
+
+#### Calibration and baseline parameters' values
+
+We can now set baseline values for the parameters to emulate a somehow realistic observational study. I get "inspiration" for the values of parameters from 
+[Fujiwara et al. (2016)](https://www.aeaweb.org/articles?id=10.1257/app.20140533)
+and 
+[Cooperman (2017)](https://www.cambridge.org/core/journals/political-analysis/article/randomization-inference-with-rainfall-data-using-historical-weather-patterns-for-variance-estimation/2F86BE9EB79FDFF9FF97C8C5CC4A2ED3) 
+who replicates a work by 
+[Gomez et al. (2007)](https://www.jstor.org/stable/10.1111/j.1468-2508.2007.00565.x?pq-origsite=360link&seq=1#metadata_info_tab_contents). 
+
+I consider that:
+
+- **Number of observations**: We consider data at the US county level as in [Hansford and Gomez (2010)](https://www.cambridge.org/core/journals/american-political-science-review/article/estimating-the-electoral-effects-of-voter-turnout/8A880C28E79BE770A5CA1A9BB6CF933C) and [Fujiwara et al. (2016)](https://www.aeaweb.org/articles?id=10.1257/app.20140533). The former use data for presidential elections between 1948 and 2000, restricting their sample of counties to non-Southern ones (2000 per election year). That leads to a sample size of 28000. The latter data for presidential elections between 1952 and 2012 leading to a sample size of about 50000. I thus consider **30000 observations**. 
+- **Rainfall distribution**: A gamma distribution represents well the distribution of rainfall. Gamma distribution can have two parameters a shape and a scale. The mean is $shape \times scale$ and the variance $shape \times scale^{2}$. The parameters of the distribution of rainfall are comparable in both Fujiwara et al. and Cooperman (2017) after a conversion into centimeters: mean 2.4 and standard deviation 6.6. I solve the system of mean and variance for shape and scale and set **param_rain to 0.13 and 18**.
+- **Standard deviation of the omitted variable** is set to be of the order of magnitude of the error terms. Being conservative, let's set its intensity to be twice as large as the treatment effect.
+- **Effect of rainfall on turnout**: Fujiwara et al. find that "The trends specifications suggest that 1 millimeter of rainfall decreases turnout by 0.05–0.07 percentage points" and Gomez et al. (and thus Cooperman) find "a county that receives one inch of rainfall on election day is likely to have approximately 1 percentage point lower voter turnout" which is equivalent to a 1mm increase in rainfall is associated with about a 0.04 percentage points decrease in voter turnout. For simplicity in interpretation, when rainfall is not a dummy, I express in centimeters. So, I consider **pi_1 in the range -0.1 and -1.3**, assuming linearity.
+- **Effect of interest** (turnout on vote share): it is subject to intense debate in the literature (cf [Shaw and Petrocik (2020)](https://oxford.universitypressscholarship.com/view/10.1093/oso/9780190089450.001.0001/oso-9780190089450) for instance). As underlined by Shaw and Petrocik and in [Fowler (2013)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1816649), some studies find large effects, others no effects or small effects. Fowler (2013) falls into the large effects category as [described by the author himself](https://www.cambridge.org/core/journals/political-science-research-and-methods/article/regular-voters-marginal-voters-and-the-electoral-effects-of-turnout/F835F3CAE47B7ACB5D49AAE5B97FBD79). The study, for an extremely large shock in voter turnout, compulsory voting, finds "that the policy increased voter turnout by 24 percentage points which in turn increased the vote shares and seat shares of the Labor Party by 7 to 10 percentage points." This correspond to a decrease in Republican vote share of approximately 0.3-0.4 percentage point when turnout increases by 1% (considering that this result is causal and linear). This effect being large, I consider effects that are smaller but of a similar magnitude: I simulate that when turnout increases by 1%, Republican vote share decreases by 0.1 and thus **beta_1 = -0.1**
+- **Effect of the omitted variable**. The effect of the omitted variable cannot be observed, I pick it somehow at random such that OVB is substantial without being massive. Since the instrument is valid in these simulations, the IV estimates will not be affected by the intensity of the OVB, only the OLS estimates will (the larger this intensity, the larger the average ratio of the estimate over the true effect).
+- **Turnout and vote share** are expressed in percent. I set intercepts and residual standard deviations to produce turnouts and vote shares consistent with Cooperman (2017) and Fujiwara et al. (2016). Voter turnout parameters are roughly similar in both papers (mean 58 sd 14). The mean and standard deviation of Republican vote share are given in Fujiwara et al. (mean 55.3 and sd 14.2). Thus, I set **sigma_share = 14.2 and sigma_turnout = 14**. **pi_0 and beta_0 are manually ajusted** to get the correct mean of turnout and vote share (for pi_1 in the mid-range of its values)
+
+Let's thus consider the following parameters:
+
+```{r simple_param_iv, code_folding='Show the code used to generate the table'}
+baseline_param_iv <- tibble(
+  N = 30000,
+  # type_rain = "bernoulli",
+  # param_rain = 0.4,
+  type_rain = "gamma",
+  param_rain = list(c(0.13, 18)),
+  sigma_w = 14,
+  sigma_share = 14.2,
+  sigma_turnout = 14,
+  beta_0 = 60,
+  pi_0 = 59,
+  beta_1 = -0.1,
+  pi_1 = -0.5, 
+  delta = 0.2
+)
+
+baseline_param_iv %>% kable()
+```
+
+Here is an example of data created with this data generating process:
+
+```{r example_data_iv, code_folding='Show the code used to generate the table'}
+baseline_param_iv %>% 
+  mutate(N = 10) %>% 
+  pmap_dfr(generate_data_iv) %>% #use pmap to pass the set of parameters
+  kable()
+```
+
+#### Exploring the distribution of the data
+
+I just quickly explore the distribution of the data for a baseline set of parameters. For this, I consider a mid-range value for IV strength (-0.5).
+
+```{r explore_data_iv, code_folding='Show the code used to generate the graph'}
+ex_data <- baseline_param_iv |> 
+  # mutate(N = 10000) %>% 
+  pmap(generate_data_iv) |> 
+  list_rbind()
+
+ex_data %>% 
+  ggplot(aes(x = turnout)) +
+  geom_density() + 
+  labs(
+    title = "Distribution of turnout",
+    x = "Turnout (in %)",
+    y = "Density"
+  ) +
+  xlim(c(0,100))
+
+# ex_data %>%
+#   ggplot(aes(x = rain)) +
+#   geom_density()
+
+ex_data %>% 
+  ggplot(aes(x = share)) +
+  geom_density() +
+  labs(
+    title = "Distribution of Republican shares",
+    x = "Share (in %)",
+    y = "Density"
+  ) +
+  xlim(c(0,100))
+```
+
+I also check the standard deviation and means of the variables and at the same time verify that they do not do not change when we vary $\pi_1$. They are consistent with what we wanted:
+
+```{r check_sd_mean, code_folding='Show the code used to generate the table'}
+vect_pi_1 <- c(seq(0.1, 1, 0.1))
+
+param_iv <- baseline_param_iv |> 
+  # mutate(N = 100000) |>
+  select(-pi_1) |> 
+  crossing(vect_pi_1) |> 
+  rename(pi_1 = vect_pi_1)
+
+gen_with_param <- function(...) {
+  generate_data_iv(...) |> 
+    mutate(pi_1 = list(...)$pi_1)
+}
+
+ex_data <- pmap(param_iv, gen_with_param) |> 
+  list_rbind()
+
+ex_data_mean <- ex_data |> 
+  group_by(pi_1) |> 
+  summarise(across(.cols = c(share, turnout, rain), mean)) |> 
+  mutate(stat = "mean") 
+
+ex_data_sd <- ex_data |> 
+  group_by(pi_1) |> 
+  summarise(across(.cols = c(share, turnout, rain), sd)) |> 
+  mutate(stat = "sd")
+
+ex_data_mean |> 
+  rbind(ex_data_sd) |> 
+  pivot_wider(names_from = stat, values_from = c(share, turnout, rain)) |> 
+  kable()
+```
+
+
+### Estimation
+
+After generating the data, we can run an estimation. The goal is to compare the IV and the OLS for different IV strength values. Hence, we need to estimate both an IV and an OLS and return both set of outcomes of interest.
+
+```{r estimate_iv}
+estimate_iv <- function(data) {
+  reg_iv <- AER::ivreg(data = data, formula = share ~ turnout | rain) 
+  
+  fstat_iv <- summary(
+                reg_iv, 
+                diagnostics = TRUE
+              )$diagnostics["Weak instruments", "statistic"]
+  
+  reg_iv <- reg_iv %>% 
+    broom::tidy() %>%
+    mutate(model = "IV", fstat = fstat_iv)
+  
+  reg_OLS <- 
+    lm(data = data, formula = share ~ turnout) %>% 
+    broom::tidy() %>%
+    mutate(model = "OLS", fstat = NA)
+  
+  # reg_OLS_unbiased <- 
+  #   lm(data = data, formula = share ~ turnout + w) %>% 
+  #   broom::tidy() %>%
+  #   mutate(model = "OLS unbiased", fstat = NA)
+  
+  reg <- reg_iv %>% 
+    rbind(reg_OLS) %>% 
+    # rbind(reg_OLS_unbiased) %>% 
+    filter(term == "turnout") %>%
+    rename(p_value = p.value, se = std.error) %>%
+    select(estimate, p_value, se, fstat, model) %>% 
+  
+  return(reg)
+}
+```
+
+### One simulation
+
+We can now run a simulation, combining `generate_data_iv` and `estimate_iv`. To do so I create the function `compute_sim_iv`. This simple function takes as input the various parameters. It returns a table with the estimate of the treatment, its p-value and standard error, the F-statistic for the IV, the true effect, the IV strength and the intensity of the OVB considered (delta). Note that for now, we do not store the values of the other parameters since we consider them fixed over the study.
+
+```{r compute_sim_iv}
+compute_sim_iv <- function(...) {
+  args <- list(...)
+  
+  generate_data_iv(...) %>%
+    estimate_iv() %>%
+    mutate(
+      pi_1 = args$pi_1,
+      delta = args$delta,
+      param_rain = list(args$param_rain),
+      true_effect = args$beta_1
+    )
+} 
+```
+
+The output of one simulation, for baseline parameters values is:
+
+```{r example_sim_iv, code_folding='Show the code used to generate the table'}
+pmap(baseline_param_iv, compute_sim_iv) |> 
+  list_rbind() |> 
+  kable()
+```
+
+### All simulations
+
+I then run the simulations for different sets of parameters by mapping the `compute_sim_iv` function on each set of parameters. I thus create a table with all the values of the parameters we want to test, `param_iv`. Note that in this table each set of parameters appears `n_iter` times as we want to run the analysis $n_{iter}$ times for each set of parameters.
+
+```{r set_param_iv, code_folding=TRUE}
+vect_pi_1 <- c(seq(0.1, 0.4, 0.05), seq(0.4, 0.8, 0.1))
+n_iter <- 1000
+
+param_iv <- baseline_param_iv |> 
+  select(-pi_1) |>  
+  crossing(vect_pi_1) |> 
+  rename(pi_1 = vect_pi_1) |> 
+  crossing(rep_id = 1:n_iter) |>  
+  select(-rep_id)
+```
+
+Finally, I run all the simulations by looping the `compute_sim_iv` function on the set of parameters `param_iv`.
+
+```{r run_sim_iv, eval=FALSE, code_folding=TRUE}
+tic()
+sim_iv <- pmap(param_iv, compute_sim_iv, .progress = TRUE) |> 
+  list_rbind()
+beep()
+toc()
+
+saveRDS(sim_iv, here("Outputs/sim_iv.RDS"))
+```
+
+## Analysis of the results
+
+### Quick exploration
+
+First, I quickly explore the results.
+
+```{r exploration_results_iv, code_folding=TRUE, fig.asp=0.7}
+sim_iv <- readRDS(here("Outputs/sim_iv.RDS"))
+
+sim_iv %>% 
+  filter(between(estimate, -1.3, 0.5)) %>%
+  # filter(delta == sample(vect_delta, 1)) %>% 
+  filter(pi_1 %in% c(0.1, 0.4, 0.6)) %>% 
+  mutate(iv_strength = str_c("IV strength: ", pi_1)) %>% 
+  ggplot(aes(x = estimate, fill = model, color = model)) +
+  geom_vline(xintercept = unique(sim_iv$true_effect)) +
+  geom_density() +
+  facet_wrap(~ iv_strength) +
+  labs(
+    title = "Distribution of the estimates of the treatment effect",
+    subtitle = "For different IV strengths and models",
+    color = "",
+    fill = "",
+    x = "Estimate of the treatment effect",
+    y = "Density",
+    caption = "The vertical line represents the true effect"
+  ) +
+  scale_mediocre_d() 
+
+sim_iv %>%
+  filter(between(estimate, -1.2, 1)) %>%
+  filter(model == "IV") %>%
+  # filter(delta == sample(vect_delta, 1)) %>%
+  ggplot() +
+  # geom_density_ridges(aes(
+  geom_density(aes(
+    x = estimate, 
+    # y = pi_1,
+    color = as.factor(pi_1)),
+    alpha = 0
+  ) +
+  geom_vline(xintercept = unique(sim_iv$true_effect)) +
+  labs(
+    title = "Distribution of the estimates of the treatment effect",
+    subtitle = "Comparison across IV strengths",
+    color = "IV strength",
+    fill = "IV strength",
+    x = "Estimate of the treatment effect",
+    y = "Density",
+    caption = "For readibility, extreme estimates are filtered out
+    The vertical line represents the true effect"
+  )
+```
+
+```{r graph_distrib_one, code_folding=TRUE, fig.asp=1.2}
+data_one_sim_iv <- sim_iv %>% 
+  filter(between(estimate, -3, 1)) %>%
+  filter(pi_1 == 0.2) %>% 
+  # filter(delta == sample(vect_delta, 1)) %>% 
+  mutate(significant = ifelse(p_value < 0.05, "Significant", "Non significant")) 
+
+data_one_sim_iv %>% 
+  ggplot(aes(x = estimate, fill = significant)) +
+  geom_histogram(bins = 70) +
+  geom_vline(xintercept = unique(sim_iv$true_effect)) +
+  geom_vline(xintercept = 0, linetype = "solid", alpha = 0.3) +
+  facet_wrap(~ model, nrow = 3) +
+  labs(
+    title = "Distribution of the estimates of the treatment effect conditional on significativity",
+    subtitle = paste(
+      "For different models (IV strength =", 
+      unique(data_one_sim_iv$pi_1), ")"
+    ),
+    x = "Estimate of the treatment effect",
+    y = "Count",
+    fill = "",
+    caption = "The sample is restricted to estimates relatively close to the true value
+    The vertical doted line represents the true effect"
+  )
+```
+
+
+We notice that the OLS is always biased and that the IV is never biased. However, for limited IV strengths, the distribution of the estimates flattens. The smaller the IV strength, the most like it is to get an estimate away from the true value, even though the expected value remains equal to the true effect size. 
+<!-- We can notice that statistically significant estimates are on average located further away from zero that  -->
+
+```{r distrib_for_presentation, eval=TRUE, include=FALSE}
+#Graph only for presentations, not compiled in the main .Rmd
+sim_iv %>% 
+  filter(between(estimate, -1.3, 0.5)) %>%
+  # filter(delta == sample(vect_delta, 1)) %>% 
+  filter(pi_1 == 0.4) %>% 
+  mutate(iv_strength = str_c("IV strength: ", pi_1)) %>% 
+  ggplot(aes(x = estimate, fill = model, color = model)) +
+  geom_vline(xintercept = unique(sim_iv$true_effect)) +
+  geom_density() +
+  # facet_wrap(~ iv_strength) +
+  labs(
+    title = "Distribution of the estimates of the treatment effect",
+    subtitle = "Comparison across models different models",
+    color = "",
+    fill = "",
+    x = "Estimate of the treatment effect",
+    y = "Density",
+    caption = "The vertical line represents the true effect"
+  ) +
+  theme_mediocre(pal = "coty", background = TRUE)
+```
+
+<!-- #### Signal-to-Noise Ratio -->
+
+<!-- In order to evaluate whether my simulations are realistic, I compute the average Signal-to-Noise Ratio (SNR) for each IV strength and compare it to SNRs in this literature. To do so, I would need a literature review of this literature.  -->
+
+<!-- ```{r} -->
+<!-- sim_iv |>  -->
+<!--   group_by(model, pi_1) |>  -->
+<!--   summarise( -->
+<!--     snr_estimate = mean(abs(estimate)/se), -->
+<!--     snr_true_effect = mean(abs(true_effect)/se) -->
+<!--   )  -->
+<!-- ``` -->
+
+### Computing bias and exaggeration ratios
+
+We want to compare $\mathbb{E}\left[ \left| \frac{\widehat{\beta_{IV}}}{\beta_1}\right|\right]$ and $\mathbb{E}\left[  \left| \frac{\widehat{\beta_{IV}}}{\beta_1} \right| | \text{signif} \right]$. The first term represents the bias and the second term represents the exaggeration ratio.
+
+To do so, I use the function `summmarise_sim` defined in the [`functions.R`]() file.
+
+```{r summarise_iv}
+source(here("functions.R"))
+
+summary_sim_iv <- summarise_sim(
+  data = sim_iv, 
+  varying_params = c(model, pi_1), 
+  true_effect = true_effect
+)
+
+# saveRDS(summary_sim_iv, here("Outputs/summary_sim_iv.RDS"))
+```
+
+### Graph
+
+To analyze our results, we build a unique and simple graph:
+
+```{r main_graph_iv, code_folding='Show the code used to generate the graph', fig.asp=0.7}
+main_graph_iv <- summary_sim_iv |> 
+  ggplot(aes(x = abs(pi_1), y = type_m, color = model)) + 
+  geom_line(size = 1.2, aes(linetype = model)) +
+  # geom_point(size = 3) +
+  labs(
+    x = "|IV strength|", 
+    y = expression(paste("Average  ", frac("|Estimate|", "|True Effect|"))),
+    color = "Model",
+    linetype = "Model",
+    title = "Evolution of bias with intensity of the IV",
+    subtitle = "For statistically significant estimates"
+  ) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 4)) +
+  theme_mediocre() +
+  scale_mediocre_d() 
+
+main_graph_iv
+```
+
+```{r main_graph_iv_paper, dpi=600, include=FALSE}
+main_graph_iv +
+  labs(title = NULL, subtitle = NULL) 
+  # annotate(
+  #   geom = "curve", 
+  #   x = 0.23, y = 2.1, xend = 0.19, yend = 1.85, 
+  #   curvature = .5, 
+  #   color = "#00313C",
+  #   linewidth = 0.6,
+  #   arrow = arrow(length = unit(2, "mm"), type = "closed")
+  # ) +
+  # annotate(
+  #   geom = "text", 
+  #   x = 0.24, y = 2.1, 
+  #   label = "IV", 
+  #   hjust = "left",
+  #   color = "#00313C",
+  #   size = 4,
+  #   family = "Lato"
+  # ) +
+  # annotate(
+  #   geom = "curve", 
+  #   x = 0.426, y = 1.65, xend = 0.39, yend = 1.43, 
+  #   curvature = .5, 
+  #   color = "#FB9637",
+  #   linewidth = 0.6,
+  #   arrow = arrow(length = unit(2, "mm"), type = "closed")
+  # ) +
+  # annotate(
+  #   geom = "text", 
+  #   x = 0.436, y = 1.65, 
+  #   label = "OLS", 
+  #   hjust = "left",
+  #   color = "#FB9637",
+  #   size = 4,
+  #   family = "Lato"
+  # )
+
+ggsave(
+  "main_graph_iv_paper.pdf", 
+  path = "paper/current_version/images", 
+  width = 8, 
+  height = 4.5
+)
+```
+
+We notice that, if the IV strength is low, on average, statistically significant estimates overestimate the true effect. If the IV strength is too low, it might even be the case that the benefit of the IV is overturned by the exaggeration issue. The IV yields an unbiased estimate and enables to get rid of the OVB but such statistically significant estimates fall, on average, even further away from the true effect.
+
+Of course, if one considers all estimates, as the IV is unbiased, this issue does not arise. 
+
+<!-- ```{r graph_results_all_iv, code_folding=TRUE, fig.asp=0.7} -->
+<!-- summary_sim_iv %>%  -->
+<!--   mutate( -->
+<!--     ovb_intensity_name = paste("OVB intensity:", delta) -->
+<!--   ) %>% -->
+<!--   ggplot(aes(x = pi_1, y = bias_all_median, color = model)) +  -->
+<!--   # geom_point() + -->
+<!--   geom_line(linewidth = 0.8) + -->
+<!--   facet_wrap(~ ovb_intensity_name) + -->
+<!--   labs( -->
+<!--     x = "IV strength",  -->
+<!--     y = expression(paste("Median  ", frac("Estimate", "True Effect"))), -->
+<!--     color = "Model", -->
+<!--     title = "Evolution of bias with intensity of the IV", -->
+<!--     subtitle = "For all estimates" -->
+<!--   ) + -->
+<!--   ylim(c(0.9, 1.4)) -->
+<!-- ``` -->
+
+#### Distribution of the estimates
+
+I then graph the distribution of estimates conditional on significativity. It represents the same phenomenon but with additional information.
+
+```{r graph_distrib_iv, code_folding='Show the code used to generate the graph', fig.asp=0.8}
+set_mediocre_all(pal = "coty")
+
+sim_iv |> 
+  filter(model %in% c("IV")) |> 
+  mutate(
+    signif = ifelse(p_value < 0.05, "Significant", "Non-significant"),
+    ratio_exagg = estimate/true_effect
+  ) %>% 
+  group_by(pi_1, model) %>%
+  mutate(
+    mean_signif = mean(ifelse(p_value < 0.05, ratio_exagg, NA), na.rm = TRUE),
+    mean_all = mean(ratio_exagg, na.rm = TRUE)
+  ) %>%
+  ungroup() |> 
+  filter(as_factor(pi_1) %in% seq(0.2, 0.6, 0.1)) |> 
+  ggplot(aes(x = ratio_exagg, fill = "All Estimates")) + 
+  facet_grid(~ pi_1, switch = "x") +
+  geom_vline(xintercept = 1) +
+  geom_vline(xintercept = 0, linetype = "solid", linewidth = 0.12) +  
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 6)) +
+  coord_flip() +
+  scale_y_continuous(breaks = NULL) +
+  labs(
+    y = "|IV strength|", 
+    x = expression(paste(frac("Estimate", "True Effect"))),
+    fill = "",
+    title = "Distribution of estimates from 1000 simulated datasets",
+    subtitle = "Conditional on significativity",
+    # caption = 
+      # "The green dashed line represents the result aimed for
+      # "The brown solid line represents the average of significant estimates"
+  ) +
+  geom_histogram(bins = 100, alpha = 0.85, aes(fill = signif)) +
+  geom_vline(xintercept = 1)  +
+  geom_vline(
+    aes(xintercept = mean_signif),
+    color = "#976B21",
+    linetype = "solid",
+    size = 0.5
+  ) 
+```
+
+## Further checks
+
+### Representativeness of the estimation
+
+I calibrated the simulations to emulate a typical study from this literature. To further check that the results are realistic, I compare the average Signal-to-Noise Ratio (SNR) of the simulations to the range of SNR of an existing study. 
+The influential study [Gomez et al. (2007)](https://www.jstor.org/stable/10.1111/j.1468-2508.2007.00565.x?pq-origsite=360link&seq=1#metadata_info_tab_contents) have a SNR of about 8. Yet the reanalysis by [Cooperman (2017)](https://www.cambridge.org/core/journals/political-analysis/article/abs/randomization-inference-with-rainfall-data-using-historical-weather-patterns-for-variance-estimation/2F86BE9EB79FDFF9FF97C8C5CC4A2ED3) shows using randomization inference that accounting for spatial correlation in rain patters yield a larger standard error (a point estimate of -1.052 and with a *p*-value of 0.084). 
+
+```{r snr_gomez, code_folding='Show code to compute the SNR in Gomez et al. (2007)'}
+library(dmetar)
+
+effect_gomez <- -1.052 #value from replication by Cooperman
+
+se_gomez <-  
+  se.from.p(
+    effect_gomez,
+    p = 0.084,
+    N = 43340,
+    effect.size.type = "difference"
+  ) %>%
+  .$StandardError
+
+snr_gomez <- abs(effect_gomez)/se_gomez
+```
+
+This would yield a SNR of `r round(snr_gomez, 2)`. For such an SNR, there is some non-negligible exaggeration in my simulations:
+
+```{r SNR, echo=FALSE}
+summary_sim_iv |> 
+  filter(model == "IV") |> 
+  select(pi_1, median_snr, type_m) |> 
+  kable(
+    digits = 2,
+    col.names = c("IV strength", "Median SNR", "Exaggeration Ratio")
+  )
+```
+
+This result does not mean that Gomez et al. (2007) suffer from exaggeration but rather indicates that my simulations are in line with SNRs that can be observed in actual studies and their calibration is not disconnected from existing studies.
+
+### F-statistic analysis
+
+I then run some exploratory analysis to study the link between type M and F-stat (under construction).
+
+```{r IV_strength_fstat_graph, code_folding='Show the code used to generate the graph', fig.asp=0.8}
+sim_iv %>% 
+  filter(model == "IV") %>% 
+  mutate(signif = (p_value <= 0.05)) %>% 
+  ggplot(aes(x = pi_1, y = fstat, color = signif)) +
+  geom_point(alpha = 0.5) +
+  geom_jitter(alpha = 0.5) +
+  labs(
+    title = "A correlation between IV strength and F-statistic",
+    subtitle = "By significance",
+    x = "IV strength",
+    y = "F-statistic",
+    color = "Significant"
+  )
+  # ylim(c(0, 40))
+
+# lm(data = sim_iv, fstat ~ pi_1) %>% 
+#   summary() %>% 
+#   .$adj.r.squared
+
+# sim_iv %>% 
+#   mutate(significant = (p_value <= 0.05)) %>% 
+#   filter(model == "IV") %>% 
+#   ggplot() +
+#   geom_density_ridges(aes(x = fstat, y = factor(pi_1), fill = significant, color = significant), alpha = 0.6)+
+#   coord_flip() +
+#   xlim(c(0, 50)) +
+#   labs(
+#     title = "F-statistics larger than 10, even for small IV strength",
+#     subtitle = "Distribution of F-statistics by IV strength and significance",
+#     x = "F-statistic",
+#     y = "IV strength",
+#     fill = "Significant",
+#     color = "Significant"
+#   )
+
+# sim_iv %>% 
+#   filter(model == "IV") %>% 
+#   mutate(
+#     significant = (p_value <= 0.05),
+#     bias = abs((estimate - true_effect)/true_effect)
+#   ) %>% 
+#   filter(fstat > 10) %>% 
+#   ggplot(aes(x = pi_1, y = fstat, color = bias)) +
+#   geom_point(alpha = 0.5) +
+#   geom_jitter(alpha = 0.5) +
+#   labs(
+#     title = "A correlation between IV strength and F-statistic",
+#     subtitle = "By significance",
+#     x = "IV strength",
+#     y = "F-statistic"
+#     # color = "Significant"
+#   )
+
+# sim_iv %>% 
+#   filter(model == "IV") %>% 
+#   mutate(
+#     significant = (p_value <= 0.05)
+#   ) %>% 
+#   group_by(pi_1) %>% 
+#   summarise(
+#     mean_fstat = mean(fstat),
+#     type_m = median(ifelse(significant, abs(estimate/true_effect), NA), na.rm = TRUE)
+#   ) %>% 
+#   ggplot(aes(x = pi_1, y = mean_fstat, color = type_m)) +
+#   geom_point() +
+#   # geom_jitter(alpha = 0.5) +
+#   labs(
+#     title = "A correlation between IV strength and F-statistic",
+#     subtitle = "By significance",
+#     x = "IV strength",
+#     y = "F-statistic"
+#     # color = "Significant"
+#   ) +
+#   ylim(c(0,20))
+```
+
+Unsurprisingly, there is a clear positive correlation between what we call IV strength and the F-statistic. I then investigate the link between exaggeration ratios and F-statistics.
+
+```{r fstat_bias_graph, code_folding=TRUE, fig.asp=0.7}
+sim_iv %>% 
+  filter(model == "IV") %>% 
+  mutate(significant = (p_value <= 0.05)) %>% 
+  mutate(bias = estimate/true_effect) %>% 
+  filter(fstat > 10) %>%  
+  # .$bias %>% mean(., na.rm = TRUE)
+  # filter(abs(bias) < 10) %>% 
+  ggplot(aes(x = fstat, y = bias, color = significant)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 1) + 
+  labs(
+    title = "Bias as a function of the F-statistic in the simulations",
+    subtitle = "By significance and only for F-stat above 10",
+    x = "F-statistic",
+    y = expression(paste(frac("Estimate", "True Effect"))),
+    color = "Significant"
+  )
+```
+
+```{r fstat_bias_graph_paper, dpi=600, include=FALSE}
+sim_iv %>% 
+  filter(model == "IV") %>% 
+  mutate(
+    significant = ifelse(p_value <= 0.05, "Significant", "Non Significant"),
+    bias = estimate/true_effect,
+  ) %>% 
+  filter(fstat > 10) %>%  
+  ggplot(aes(x = fstat, y = bias, color = significant)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 1) + 
+  labs(
+    x = "F-statistic",
+    y = expression(paste(frac("Estimate", "True Effect"))),
+    color = "Estimate"
+  ) +
+  theme_mediocre(base_family = "Lora", pal = "coty") +
+  theme(
+    legend.title = element_text(size = rel(0.9)),
+    legend.text = element_text(size = rel(0.9))
+  )
+  # theme_mediocre(pal = "blackandwhite", base_family = "Lora") +
+  # scale_mediocre_d(pal = "blackandwhite")
+
+ggsave(
+  "fstat_bias_graph_paper.pdf", 
+  path = "paper/current_version/images", 
+  width = 8, 
+  height = 4.5
+)
+```
+
+We notice that, even when the F-statistic is greater than the usual but arbitrary threshold of 10, statistically significant estimates may, on average overestimate the true effect.
+
+We cannot compute directly the bias of interest against the F-statistic because the F-statistic is not a parameter of the simulations and we do not control them, only the IV strength. To overcome this, I compute the median power by binned F-statistic. However, this is not correct as we end up comparing and pulling together simulations with different parameter values. I still display the graph, keeping this limitation in mind:
+
+```{r binned_fstat, code_folding=TRUE, fig.asp=0.8}
+sim_iv %>% 
+  filter(model == "IV") %>%
+  mutate(
+    significant = (p_value <= 0.05),
+    bin_fstat = cut_number(fstat, n = 20) %>% 
+      paste() %>% 
+      str_extract("(?<=,)(\\d|\\.)+") %>% 
+      as.numeric()
+  ) %>% 
+  group_by(delta, bin_fstat) %>%
+  summarise(
+    power = mean(significant, na.rm = TRUE)*100, 
+    type_m = mean(ifelse(significant, abs(estimate - true_effect), NA), na.rm = TRUE),
+    bias_signif = mean(ifelse(significant, estimate/true_effect, NA), na.rm = TRUE),
+    bias_all = mean(estimate/true_effect, na.rm = TRUE),
+    bias_all_median = median(estimate/true_effect, na.rm = TRUE),
+    median_fstat = mean(fstat, na.rm = TRUE),
+    .groups	= "drop"
+  ) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = bin_fstat, y = bias_signif)) +
+  geom_line(linetype = "dashed") +
+  geom_vline(xintercept = 10, linetype ="solid") +
+  xlim(c(0, 80)) +
+  labs(
+    x = "Binned F-statistic", 
+    y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
+    color = "Model",
+    title = "Evolution of bias with binned F-statistic",
+    subtitle = "For statistically significant estimates",
+    caption = "This graph does not acurately represent 
+    what we are interested in"
+  ) 
+```
+
+```{r binned_fstat_facet, code_folding=TRUE, fig.asp=0.8, include=FALSE}
+sim_iv %>% 
+  filter(model == "IV") %>%
+  mutate(
+    significant = (p_value <= 0.05),
+    bin_fstat = cut_number(fstat, n = 20) %>% 
+      paste() %>% 
+      str_extract("(?<=,)(\\d|\\.)+") %>% 
+      as.numeric()
+  ) %>% 
+  group_by(delta, bin_fstat, pi_1) %>%
+  summarise(
+    power = mean(significant, na.rm = TRUE)*100, 
+    type_m = mean(ifelse(significant, abs(estimate/true_effect), NA), na.rm = TRUE),
+    bias_signif = mean(ifelse(significant, estimate/true_effect, NA), na.rm = TRUE),
+    bias_all = mean(estimate/true_effect, na.rm = TRUE),
+    bias_all_median = median(estimate/true_effect, na.rm = TRUE),
+    median_fstat = mean(fstat, na.rm = TRUE),
+    .groups	= "drop"
+  ) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = bin_fstat, y = bias_signif)) +
+  geom_line(linetype = "dashed") +
+  geom_vline(xintercept = 10) +
+  xlim(c(0, 50)) +
+  facet_wrap(~ pi_1) +
+  labs(
+    x = "Binned F-statistic", 
+    y = expression(paste("Average  ", frac("Estimate", "True Effect"))),
+    color = "Model",
+    title = "Evolution of bias with binned F-statistic",
+    subtitle = "For statistically significant estimates",
+    caption = "This graph does not acurately represent 
+    what wwe are interested in"
+  ) 
+```
+
+
+

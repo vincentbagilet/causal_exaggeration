@@ -1,0 +1,55 @@
+Changelog for "Data and Code for: Methods Matter: P-Hacking and Publication
+Bias in Causal Analysis in Economics"
+V1: Original version
+V2: Change in directory structure and some corrections
+  - Adapted directory structure to mirror CodeOcean
+(https://doi.org/10.24433/CO.5791758.V1)
+  - Various changes to code and data, as outlined below
+
+The data and code in this deposit have been updated after publication of the article. For changes made, see below.
+
+Details of version 1 on openicpsr for "Data and Code for: Methods Matter: P-Hacking and Publication Bias in Causal Analysis in Economics"
+
+Note: In Stata you can type the command datasignature to get a unique dataset identifier.
+The version 1 Methods Matter data files, and their data signatures are:
+
+Fstat.dta		datasignature 3256:10(95591):2755832633:3425838957
+MM Data with WP.dta	datasignature 31027:107(119074):1438339394:1335359924
+MM Data.dta		datasignature 21740:148(68890):3956062851:2692497238
+Star Wars Data.dta	datasignature 17883:12(76413):4077728055:3114314280
+
+
+Changes Made
+
+1. There have been no changes to Fstat.dta.
+
+2. We applied "change1.do"
+This do file changes the calculated z-statistics from reported p-values from one-sided to two-sided tests. 
+We thank Sebastian Kranz and Peter Putz for pointing this out. 
+In "MM Data.dta" this makes 1003 changes in total. 
+In "MM Data with WP.dta" this makes 1003 changes in total.
+
+The resulting data signatures are:
+
+MM Data with WP.dta	datasignature 31027:107(119074):2119239319:1058122093
+MM Data.dta		datasignature 21740:148(68890):325086678:2415259150
+
+2. The next change made to "MM Data.dta" was the authors manually checked test statistics where z = 2, in order to help Putz and Kranz with their comment. The process took in this file 
+
+MM Data.dta		datasignature 21740:148(68890):325086678:2415259150
+
+And produced this file
+
+MM Data.dta 		datasignature 21740:160(61238):2901585861:4006186001
+
+Which is the most current version of the "MM Data" files.
+
+3. The next change for the project is an updated Star Wars Data to include all of the variables from the original 2016 study, while retaining the same subset of observations used in MM's publication. This new file is:
+
+Star Wars Data.dta	datasignature 17883:143(63128):3722800302:911165737
+
+To confirm it is the same observations as originally used in methods matter apply this line:
+keep year journal issue article_page first_author t method IV DID RCT RDD MULTI
+And the data signatures will now match.
+
+4. The next change for the project corrects a typo in make_AK_model_csv.do. The original version of this code dropped t>100, when the published figure used t>10 (row 14 of do-file). The newly uploaded version of make_AK_model_csv.do is corrected.

@@ -1,0 +1,97 @@
+\begin{thebibliography}{xx}
+
+\harvarditem{Bind}{2019}{bind_causal_2019}
+Bind, M.-A.  \harvardyearleft 2019\harvardyearright , `Causal {Modeling} in
+  {Environmental} {Health}', {\em Annual Review of Public Health} {\bf
+  40}(1),~23--43.
+\newline\harvardurl{https://www.annualreviews.org/doi/10.1146/annurev-publhealth-040218-044048}
+
+\harvarditem[Brodeur et~al.]{Brodeur, Cook \harvardand\
+  Heyes}{2020}{brodeur_methods_2020}
+Brodeur, A., Cook, N. \harvardand\ Heyes, A.  \harvardyearleft
+  2020\harvardyearright , `Methods {{Matter}}: P-{{Hacking}} and {{Publication
+  Bias}} in {{Causal Analysis}} in {{Economics}}', {\em American Economic
+  Review} {\bf 110}(11),~3634--3660.
+
+\harvarditem[Brodeur et~al.]{Brodeur, Lé, Sangnier \harvardand\
+  Zylberberg}{2016}{brodeur_star_2016}
+Brodeur, A., Lé, M., Sangnier, M. \harvardand\ Zylberberg, Y.
+  \harvardyearleft 2016\harvardyearright , `Star {Wars}: {The} {Empirics}
+  {Strike} {Back}', {\em American Economic Journal: Applied Economics} {\bf
+  8}(1),~1--32.
+\newline\harvardurl{https://pubs.aeaweb.org/doi/10.1257/app.20150044}
+
+\harvarditem[Deryugina et~al.]{Deryugina, Heutel, Miller, Molitor \harvardand\
+  Reif}{2019}{deryugina_mortality_2019}
+Deryugina, T., Heutel, G., Miller, N.~H., Molitor, D. \harvardand\ Reif, J.
+  \harvardyearleft 2019\harvardyearright , `The {{Mortality}} and {{Medical
+  Costs}} of {{Air Pollution}}: {{Evidence}} from {{Changes}} in {{Wind
+  Direction}}', {\em American Economic Review} {\bf 109}(12),~4178--4219.
+
+\harvarditem{Dominici \harvardand\ Zigler}{2017}{dominici_best_2017}
+Dominici, F. \harvardand\ Zigler, C.  \harvardyearleft 2017\harvardyearright ,
+  `Best {Practices} for {Gauging} {Evidence} of {Causality} in {Air}
+  {Pollution} {Epidemiology}', {\em American Journal of Epidemiology} {\bf
+  186}(12),~1303--1309.
+\newline\harvardurl{https://academic.oup.com/aje/article/186/12/1303/4105921}
+
+\harvarditem{Ferraro \harvardand\ Shukla}{2020}{ferraro_featureis_2020}
+Ferraro, P.~J. \harvardand\ Shukla, P.  \harvardyearleft 2020\harvardyearright
+  , `Feature\textemdash{{Is}} a {{Replicability Crisis}} on the {{Horizon}} for
+  {{Environmental}} and {{Resource Economics}}?', {\em Review of Environmental
+  Economics and Policy} {\bf 14}(2),~339--351.
+
+\harvarditem[He et~al.]{He, Liu \harvardand\ Zhou}{2020}{he_straw_2020}
+He, G., Liu, T. \harvardand\ Zhou, M.  \harvardyearleft 2020\harvardyearright ,
+  `Straw burning, {{PM2}}.5, and death: {{Evidence}} from {{China}}', {\em
+  Journal of Development Economics} {\bf 145},~102468.
+
+\harvarditem[Ioannidis et~al.]{Ioannidis, Stanley \harvardand\
+  Doucouliagos}{2017}{ioannidis_power_2017}
+Ioannidis, J. P.~A., Stanley, T.~D. \harvardand\ Doucouliagos, H.
+  \harvardyearleft 2017\harvardyearright , `The {{Power}} of {{Bias}} in
+  {{Economics Research}}', {\em The Economic Journal} {\bf
+  127}(605),~F236--F265.
+
+\harvarditem{Peng \harvardand\ Dominici}{2008}{peng2008statistical}
+Peng, R.~D. \harvardand\ Dominici, F.  \harvardyearleft 2008\harvardyearright ,
+  `Statistical methods for environmental epidemiology with r', {\em R: a case
+  study in air pollution and health} .
+
+\harvarditem[Peng et~al.]{Peng, Dominici \harvardand\
+  Louis}{2006}{peng2006model}
+Peng, R.~D., Dominici, F. \harvardand\ Louis, T.~A.  \harvardyearleft
+  2006\harvardyearright , `Model choice in time series studies of air pollution
+  and mortality', {\em Journal of the Royal Statistical Society: Series A
+  (Statistics in Society)} {\bf 169}(2),~179--203.
+
+\harvarditem[Schwartz et~al.]{Schwartz, Austin, Bind, Zanobetti \harvardand\
+  Koutrakis}{2015}{schwartz_estimating_2015}
+Schwartz, J., Austin, E., Bind, M.-A., Zanobetti, A. \harvardand\ Koutrakis, P.
+   \harvardyearleft 2015\harvardyearright , `Estimating {Causal} {Associations}
+  of {Fine} {Particles} {With} {Daily} {Deaths} in {Boston}: {Table} 1.', {\em
+  American Journal of Epidemiology} {\bf 182}(7),~644--650.
+\newline\harvardurl{https://academic.oup.com/aje/article-lookup/doi/10.1093/aje/kwv101}
+
+\harvarditem[Schwartz et~al.]{Schwartz, Fong \harvardand\
+  Zanobetti}{2018}{schwartz_national_2018}
+Schwartz, J., Fong, K. \harvardand\ Zanobetti, A.  \harvardyearleft
+  2018\harvardyearright , `A {{National Multicity Analysis}} of the {{Causal
+  Effect}} of {{Local Pollution}}, {{NO2}}, and {{PM2}}.5 on {{Mortality}}',
+  {\em Environmental Health Perspectives} {\bf 126}(8),~087004.
+
+\harvarditem[Shah et~al.]{Shah, Lee, McAllister, Hunter, Nair, Whiteley,
+  Langrish, Newby \harvardand\ Mills}{2015}{shah_short_2015}
+Shah, A. S.~V., Lee, K.~K., McAllister, D.~A., Hunter, A., Nair, H., Whiteley,
+  W., Langrish, J.~P., Newby, D.~E. \harvardand\ Mills, N.~L.  \harvardyearleft
+  2015\harvardyearright , `Short term exposure to air pollution and stroke:
+  systematic review and meta-analysis', {\em BMJ} p.~h1295.
+\newline\harvardurl{https://www.bmj.com/lookup/doi/10.1136/bmj.h1295}
+
+\harvarditem{Weidmann \harvardand\ Miratrix}{2021}{weidmann_lurking_2021}
+Weidmann, B. \harvardand\ Miratrix, L.  \harvardyearleft 2021\harvardyearright
+  , `Lurking {{Inferential Monsters}}? {{Quantifying Selection Bias}} in
+  {{Evaluations}} of {{School Programs}}', {\em Journal of Policy Analysis and
+  Management} {\bf 40}(3),~964--986.
+
+\end{thebibliography}

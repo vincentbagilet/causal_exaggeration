@@ -1,0 +1,28 @@
+---
+title: "Causal Exaggeration: Unconfounded but Inflated Causal Estimates"
+image: "images/balloon.jpg"
+angle: 130
+site: distill::distill_website
+links:
+  # - label: '`r fontawesome::fa("github")` GitHub'
+  #   url: "https://github.com/vincentbagilet/causal_exaggeration"
+  - label: '`r fontawesome::fa("user")` Vincent Bagilet'
+    url: "https://vincentbagilet.github.io/"
+output:
+  postcards::trestles
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Hi and welcome!
+
+This website gathers code and additional material for the paper [Causal Exaggeration: Unconfounded but Inflated Causal Estimates](causal_exaggeration_paper.pdf).
+
+In this paper I show that the use of causal identification strategies induces a trade-off between two biases: avoiding confounding and exaggerating true effect sizes due to a loss in statistical power.
+
+<br>
+
+Resources: [Paper `r fontawesome::fa("file-pdf")`](causal_exaggeration_paper.pdf), [Non-technical summary `r fontawesome::fa("file-pdf")`](causal_exaggeration_non_technical_summary.pdf)
+<!-- , Slides, Non-technical summary  -->

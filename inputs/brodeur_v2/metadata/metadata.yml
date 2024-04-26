@@ -1,0 +1,16 @@
+metadata_version: 1
+name: 'Compute Capsule for: Methods Matter: P-Hacking and Publication Bias in Causal Analysis in Economics'
+description: |-
+  The credibility revolution in economics has promoted causal identification using randomized control trials (RCT), difference-in-differences (DID), instrumental variables (IV) and regression discontinuity design (RDD). Applying multiple approaches to over 21,000 hypothesis tests published in 25 leading economics journals we find that the extent of p-hacking and publication bias varies greatly by method. IV (and to a lesser extent DID) are particularly problematic. We find no evidence that: (1) Papers published in the `Top 5' journals are different to other; (2) The journal revise and resubmit process mitigates the problem; (3) Things are improving through time.
+
+  Forked from https://doi.org/10.3886/E120246V1
+authors:
+- name: Abel Brodeur
+  affiliations:
+  - name: University of Ottawa
+- name: Nikolai Cook
+  affiliations:
+  - name: University of Ottawa
+- name: Anthony Heyes
+  affiliations:
+  - name: University of Ottawa

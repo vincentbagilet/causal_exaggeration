@@ -1,0 +1,38 @@
+name: "."
+title: "Causal Exaggeration"
+theme: causal_exaggeration_website.css
+description: |
+  Causal Inflation
+output_dir: "docs"
+exclude: ["tests", "misc", "inputs", "outputs", "maths", "paper", "presentations"]
+navbar:
+  right:
+    - text: "Paper"
+      href: causal_exaggeration_paper.pdf
+    - text: "Summaries"
+      href: summary.html
+    - text: "Intuition"
+      href: intuition.html
+    - text: "Example lit."
+      href: air_pollution.html
+    - text: "Maths"
+      href: maths.html
+    - text: "Simulations"
+      menu:
+        - text: "RDD"
+          href: RDD.html
+        - text: "IV"
+          href: IV.html
+        - text: "Matching"
+          # href: Matching.html
+        - text: "Shocks"
+          href: shocks.html
+        - text: "Fixed-Effects"
+          # href: FE.html
+        - text: "Controls"
+          # href: controls.html
+    - text: "Reporting"
+      href: reporting.html
+  source_url: https://github.com/vincentbagilet/causal_exaggeration
+  search: false
+output: distill::distill_article

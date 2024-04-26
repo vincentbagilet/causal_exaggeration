@@ -1,0 +1,204 @@
+\NeedsTeXFormat{LaTeX2e}
+ 
+\ProvidesPackage{VB}[2020/01/30 Extension personnelle, V3.1]
+ 
+ %%%%%%% Loading package %%%%%%%
+ 
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[english, francais]{babel}
+\RequirePackage[top=2.6cm,bottom=2.6cm,left=2cm,right=2cm]{geometry}
+\RequirePackage[pdftex]{graphicx}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{bm}
+\RequirePackage{mathrsfs}
+\RequirePackage{setspace}
+\RequirePackage{fancyhdr}
+\RequirePackage{wrapfig}
+\RequirePackage[hyphens]{url}
+\RequirePackage[final]{pdfpages} 
+%\RequirePackage[Rejne]{fncychap}
+\RequirePackage{titlesec}
+\RequirePackage{cancel}
+\RequirePackage[pagebackref]{hyperref}
+\RequirePackage{lscape}
+\RequirePackage{sectsty}
+\RequirePackage{ulem}
+\RequirePackage{lscape}
+\RequirePackage{multicol}
+\RequirePackage{eurosym}
+\RequirePackage{nameref}
+\RequirePackage{natbib}
+\RequirePackage{csquotes}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage[bottom]{footmisc}
+\RequirePackage{multirow}
+\RequirePackage[flushleft]{threeparttable}
+\RequirePackage{titling}
+\RequirePackage{bibunits}
+\RequirePackage{soul}
+
+\sloppy
+
+\definecolor{green_website}{RGB}{6, 90, 73}
+
+\hypersetup{backref=true, %permet d'ajouter des liens dans...
+pagebackref=true, %...les bibliographies
+hyperindex=true, %ajoute des liens dans les index.
+colorlinks=true, %colorise les liens
+breaklinks=true, %permet le retour à la ligne dans les liens trop longs
+urlcolor= {green_website}, %couleur des hyperliens
+linkcolor={green_website},, %couleur des liens internes
+citecolor={green_website},
+bookmarks=true, %créé des signets pour Acrobat
+bookmarksopen=true,
+pdftitle={\@title}, pdfauthor={\@author}, pdfsubject={}
+%si les signets Acrobat sont créés, %les afficher complètement. %informations apparaissant dans %dans les informations du document %sous Acrobat.
+}
+
+% fix color of brackets for citations
+\bibpunct{\textcolor{green_website}{(}}{\textcolor{green_website}{)}}{,}{a}{}{;}
+
+%%%%%%%%%%% Main style %%%%%%%%
+
+\onehalfspacing
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\sectionmark}[1]{\markboth{\textit{\bsc{\thesection~ #1}}}{}}
+%\chead{\leftmark}
+\fancypagestyle{plain}{
+\fancyhead{}
+\renewcommand{\headrulewidth}{0pt}}
+\renewcommand{\footrulewidth}{0.5pt}
+\fancyfoot[C]{\textbf{Page \thepage}} 
+%\fancyfoot[R]{\begin{picture}(63,12) \put(-80,-13){\includegraphics[width=5cm]{logo.png}}
+%\end{picture}}
+
+% What is in page headers
+\@ifclassloaded{article}{%
+	\lhead{\textsc{\@title}} 
+}{%
+  \@ifclassloaded{report}{%
+	\lhead{\nouppercase{\leftmark}}
+  }
+}
+
+\renewcommand{\thesection}{\Roman{section}}
+\sectionfont{{} \scshape}
+\renewcommand{\thesubsection}{\Roman{section}. \arabic{subsection}}
+\subsectionfont{{} \quad \scshape}
+\subsubsectionfont{{} \quad \quad \mdseries \scshape}
+
+% Style for chapter titles
+
+%\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+\titlespacing{\chapter}{0pt}{-30pt}{22pt}[0pt]
+
+\titleformat{\chapter}[display]
+{\normalfont\Large\flushright\scshape}
+{
+\vspace{-30pt}%
+\LARGE\bfseries{ \ \chaptertitlename} \thechapter
+}{3pc}
+{
+\vspace{-3pc}%
+\flushright \Huge \textbf \textsc}[
+\vspace{-0.5ex}%
+\rule{\textwidth}{0.5pt}
+]
+
+%%%%%% Table of contents %%%%%
+
+%\setcounter{tocdepth}{3}     % Depth table of contents
+\setcounter{secnumdepth}{3} 
+
+%\RequirePackage[shortlabels]{enumitem}
+%\setlist[itemize]{label=\textbullet}
+
+%%%%%%% Colors %%%%%%%%%
+
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+\renewcommand{\emph}[1]{\textcolor{darkblue}{#1}}
+
+%%%%% Tables %%%%%%
+
+\newcolumntype{H}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{}} %to hide one column in tables
+\newcolumntype{L}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+
+%%%%%%% Bibliography %%%%%%
+
+\renewcommand{\bibname}{References}
+%\renewcommand{\title}[4]{{\huge \textbf{\textsc{#1}}}{ \Large \\~\\ \textit{\textsc{#2}}}{\large \\~\\ - \\~\\ \textbf{#3} \\~\\}{\normalsize #4}}
+
+%%%%%%% Matlab in LaTeX %%%%%%% 
+
+\usepackage[framed]{matlab-prettifier} %numbered,
+
+\let\ph\mlplaceholder % shorter macro
+\lstMakeShortInline"
+
+\lstset{
+  style              = Matlab-editor,
+  basicstyle         = \mlttfamily,
+  escapechar         = ",
+  mlshowsectionrules = true,
+}
+
+%%%%% Title, author, date format %%%%%%
+
+\@ifclassloaded{article}{%
+         \pretitle{\vspace{-2.4cm} \begin{center} \LARGE \bfseries \scshape}
+         \posttitle{\end{center}}
+         
+         \newcommand{\subtitle}[1]{%
+          \posttitle{%
+            \par\end{center}
+            \begin{center}\scshape \large#1\end{center}
+           }%
+        }
+        
+        \preauthor{\begin{center}\large \mdseries \scshape}
+        \postauthor{\end{center}}
+        
+        \newcommand{\institution}[1]{}
+        
+        \predate{\begin{center}\small}
+         \postdate{\end{center}\vspace{-1cm}}
+}{%
+  \@ifclassloaded{report}{%
+         \pretitle{\begin{center} \huge \bfseries \scshape}
+         \posttitle{\end{center}}
+         
+        \preauthor{\begin{center} ~\\-\\  \large \mdseries \vspace{0.5cm}}
+        \postauthor{\vspace{0.5cm} \end{center}}
+        
+        \newcommand{\subtitle}[1]{%
+          \posttitle{%
+            \par\end{center}
+            \vskip1cm
+            \begin{center}\scshape \Large#1\end{center}
+           }%
+        }
+        
+        \newcommand{\institution}[1]{%
+          \postauthor{%
+            \par\end{center}
+            \vskip1cm
+            \begin{center}#1\end{center}
+            \vskip3em}%
+        }
+  }
+}
+
+
+ 
+ %%%%%%%%%%%%%
+ 
+\emergencystretch 1.5em
+\sloppy
+

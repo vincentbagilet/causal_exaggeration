@@ -1,0 +1,153 @@
+\begin{thebibliography}{xx}
+
+\harvarditem{Abadie}{2020}{abadie_statistical_2020}
+Abadie, A.  \harvardyearleft 2020\harvardyearright , `Statistical
+  {{Nonsignificance}} in {{Empirical Economics}}', {\em American Economic
+  Review: Insights} {\bf 2}(2),~193--208.
+
+\harvarditem{Andrews \harvardand\ Kasy}{2019}{andrews_identification_2019}
+Andrews, I. \harvardand\ Kasy, M.  \harvardyearleft 2019\harvardyearright ,
+  `Identification of and {{Correction}} for {{Publication Bias}}', {\em
+  American Economic Review} {\bf 109}(8),~2766--2794.
+
+\harvarditem[Black et~al.]{Black, Hollingsworth, Nunes \harvardand\
+  Simon}{2021}{black_simulated_2021}
+Black, B.~S., Hollingsworth, A., Nunes, L. \harvardand\ Simon, K.~I.
+  \harvardyearleft 2021\harvardyearright , Simulated {{Power Analyses}} for
+  {{Observational Studies}}: {{An Application}} to the {{Affordable Care Act
+  Medicaid Expansion}}, {{SSRN Scholarly Paper}} ID 3368187, {Social Science
+  Research Network}, {Rochester, NY}.
+
+\harvarditem[Brodeur et~al.]{Brodeur, Cook \harvardand\
+  Heyes}{2020}{brodeur_methods_2020}
+Brodeur, A., Cook, N. \harvardand\ Heyes, A.  \harvardyearleft
+  2020\harvardyearright , `Methods {{Matter}}: P-{{Hacking}} and {{Publication
+  Bias}} in {{Causal Analysis}} in {{Economics}}', {\em American Economic
+  Review} {\bf 110}(11),~3634--3660.
+
+\harvarditem[Button et~al.]{Button, Ioannidis, Mokrysz, Nosek, Flint, Robinson
+  \harvardand\ Munaf{\`o}}{2013}{button_power_2013}
+Button, K.~S., Ioannidis, J. P.~A., Mokrysz, C., Nosek, B.~A., Flint, J.,
+  Robinson, E. S.~J. \harvardand\ Munaf{\`o}, M.~R.  \harvardyearleft
+  2013\harvardyearright , `Power failure: Why small sample size undermines the
+  reliability of neuroscience', {\em Nature Reviews Neuroscience} {\bf
+  14}(5),~365--376.
+
+\harvarditem[Camerer et~al.]{Camerer, Dreber, Forsell, Ho, Huber, Johannesson,
+  Kirchler, Almenberg, Altmejd, Chan, Heikensten, Holzmeister, Imai, Isaksson,
+  Nave, Pfeiffer, Razen \harvardand\ Wu}{2016}{camerer_evaluating_2016}
+Camerer, C.~F., Dreber, A., Forsell, E., Ho, T.-H., Huber, J., Johannesson, M.,
+  Kirchler, M., Almenberg, J., Altmejd, A., Chan, T., Heikensten, E.,
+  Holzmeister, F., Imai, T., Isaksson, S., Nave, G., Pfeiffer, T., Razen, M.
+  \harvardand\ Wu, H.  \harvardyearleft 2016\harvardyearright , `Evaluating
+  replicability of laboratory experiments in economics', {\em Science} {\bf
+  351}(6280),~1433--1436.
+
+\harvarditem{Chang \harvardand\ Li}{2022}{chang_is_2022}
+Chang, A.~C. \harvardand\ Li, P.  \harvardyearleft 2022\harvardyearright , `Is
+  {{Economics Research Replicable}}? {{Sixty Published Papers From Thirteen
+  Journals Say}} ``{{Often Not}}''', {\em Critical Finance Review} {\bf 11}.
+
+\harvarditem{Christensen \harvardand\
+  Miguel}{2018}{christensen_transparency_2018}
+Christensen, G. \harvardand\ Miguel, E.  \harvardyearleft 2018\harvardyearright
+  , `Transparency, {{Reproducibility}}, and the {{Credibility}} of {{Economics
+  Research}}', {\em Journal of Economic Literature} {\bf 56}(3),~920--980.
+
+\harvarditem{Cinelli \harvardand\ Hazlett}{2020}{cinelli_making_2020}
+Cinelli, C. \harvardand\ Hazlett, C.  \harvardyearleft 2020\harvardyearright ,
+  `Making sense of sensitivity: Extending omitted variable bias', {\em Journal
+  of the Royal Statistical Society: Series B (Statistical Methodology)} {\bf
+  82}(1),~39--67.
+
+\harvarditem{Deaton \harvardand\ Cartwright}{2018}{deaton_understanding_2018}
+Deaton, A. \harvardand\ Cartwright, N.  \harvardyearleft 2018\harvardyearright
+  , `Understanding and misunderstanding randomized controlled trials', {\em
+  Social Science \& Medicine} {\bf 210},~2--21.
+
+\harvarditem{Gelman}{2020}{gelman_regression_2020}
+Gelman, A.  \harvardyearleft 2020\harvardyearright , {\em {Regression and Other
+  Stories}}, {Cambridge University Press}, {Cambridge New York, NY Port
+  Melbourne, VIC New Delhi Singapore}.
+
+\harvarditem{Gelman \harvardand\ Carlin}{2014}{gelman_beyond_2014}
+Gelman, A. \harvardand\ Carlin, J.  \harvardyearleft 2014\harvardyearright ,
+  `Beyond {{Power Calculations}}: {{Assessing Type S}} ({{Sign}}) and {{Type
+  M}} ({{Magnitude}}) {{Errors}}', {\em Perspectives on Psychological Science}
+  {\bf 9}(6),~641--651.
+
+\harvarditem{Hern{\'a}n \harvardand\ Robins}{2020}{hernan_causal_2020}
+Hern{\'a}n, M.~A. \harvardand\ Robins, J.~M.  \harvardyearleft
+  2020\harvardyearright , {\em Causal {{Inference}}: {{What If}}}, boca raton:
+  chapman \& hall/crc edn.
+
+\harvarditem{Imbens \harvardand\ Kalyanaraman}{2012}{imbens_optimal_2012}
+Imbens, G. \harvardand\ Kalyanaraman, K.  \harvardyearleft
+  2012\harvardyearright , `Optimal {{Bandwidth Choice}} for the {{Regression
+  Discontinuity Estimator}}', {\em The Review of Economic Studies} {\bf
+  79}(3),~933--959.
+
+\harvarditem{Ioannidis}{2008}{ioannidis_why_2008}
+Ioannidis, J. P.~A.  \harvardyearleft 2008\harvardyearright , `Why {{Most
+  Discovered True Associations Are Inflated}}', {\em Epidemiology} {\bf
+  19}(5),~640--648.
+
+\harvarditem[Ioannidis et~al.]{Ioannidis, Stanley \harvardand\
+  Doucouliagos}{2017}{ioannidis_power_2017}
+Ioannidis, J. P.~A., Stanley, T.~D. \harvardand\ Doucouliagos, H.
+  \harvardyearleft 2017\harvardyearright , `The {{Power}} of {{Bias}} in
+  {{Economics Research}}', {\em The Economic Journal} {\bf
+  127}(605),~F236--F265.
+
+\harvarditem{Kasy}{2021}{kasy_forking_2021}
+Kasy, M.  \harvardyearleft 2021\harvardyearright , `Of {{Forking Paths}} and
+  {{Tied Hands}}: {{Selective Publication}} of {{Findings}}, and {{What
+  Economists Should Do}} about {{It}}', {\em Journal of Economic Perspectives}
+  {\bf 35}(3),~175--192.
+
+\harvarditem[Lu et~al.]{Lu, Qiu \harvardand\ Deng}{2019}{lu_note_2019}
+Lu, J., Qiu, Y. \harvardand\ Deng, A.  \harvardyearleft 2019\harvardyearright ,
+  `A note on {{Type S}}/{{M}} errors in hypothesis testing', {\em British
+  Journal of Mathematical and Statistical Psychology} {\bf 72}(1),~1--17.
+
+\harvarditem{{Open Science
+  Collaboration}}{2015}{open_science_collaboration_estimating_2015}
+{Open Science Collaboration}  \harvardyearleft 2015\harvardyearright ,
+  `Estimating the reproducibility of psychological science', {\em Science} {\bf
+  349}(6251),~aac4716.
+
+\harvarditem{Ravallion}{2020}{ravallion_should_2020}
+Ravallion, M.  \harvardyearleft 2020\harvardyearright , Should the
+  {{Randomistas}} ({{Continue}} to) {{Rule}}?, Working {{Paper}} 27554,
+  {National Bureau of Economic Research}.
+
+\harvarditem{Rosenthal}{1979}{rosenthal_file_1979}
+Rosenthal, R.  \harvardyearleft 1979\harvardyearright , `The file drawer
+  problem and tolerance for null results', {\em Psychological Bulletin} {\bf
+  86}(3),~638--641.
+
+\harvarditem[Schell et~al.]{Schell, Griffin \harvardand\
+  Morral}{2018}{schell_evaluating_2018}
+Schell, T.~L., Griffin, B.~A. \harvardand\ Morral, A.~R.  \harvardyearleft
+  2018\harvardyearright , Evaluating {{Methods}} to {{Estimate}} the {{Effect}}
+  of {{State Laws}} on {{Firearm Deaths}}: {{A Simulation Study}}, Technical
+  report, {RAND Corporation}.
+
+\harvarditem[Stommes et~al.]{Stommes, Aronow \harvardand\
+  S{\"a}vje}{2021}{stommes_reliability_2021}
+Stommes, D., Aronow, P.~M. \harvardand\ S{\"a}vje, F.  \harvardyearleft
+  2021\harvardyearright , `On the reliability of published findings using the
+  regression discontinuity design in political science', {\em arXiv:2109.14526
+  [stat]} .
+
+\harvarditem{Young}{2021}{young_leverage_2021}
+Young, A.  \harvardyearleft 2021\harvardyearright , `Leverage,
+  {{Heteroskedasticity}} and {{Instrumental Variables}} in {{Practical
+  Application}}',  p.~43.
+
+\harvarditem{Zwet \harvardand\ Cator}{2021}{zwet_significance_2021}
+Zwet, E.~W. \harvardand\ Cator, E.~A.  \harvardyearleft 2021\harvardyearright ,
+  `The significance filter, the winner's curse and the need to shrink', {\em
+  Statistica Neerlandica} {\bf 75}(4),~437--452.
+
+\end{thebibliography}

@@ -45,7 +45,7 @@ set_mediocre_all(pal = "coty")
 
 ## What is exaggeration?
 
-Exaggeration is one of the key concepts in the present paper. To understand how low statistical power can cause exaggeration in the presence of publication bias, let's analyze replications of laboratory experiments in economics ran by [Camerer et al (2016)](https://www.science.org/doi/10.1126/science.aaf0918). 
+Exaggeration is one of the key concepts in the present paper. To understand how low statistical power can cause exaggeration in the presence of publication bias, let's analyze replications of laboratory experiments in economics ran by [Camerer et al (2016)](https://www.science.org/doi/10.1126/science.aaf0918).
 
 First, I retrieve their replication results, alongside the results of the initial studies, from their [project website](http://experimentaleconreplications.com/scripts.html). I just ran their Stata script `create_studydetails.do` to generate their data set. Since the standard errors of the estimates are not reported in this data set, I recompute them.
 

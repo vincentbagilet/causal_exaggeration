@@ -1,6 +1,7 @@
 ---
 title: "Causal Exaggeration: Unconfounded but Inflated Causal Estimates"
-image: "images/balloon.jpg"
+image: "images/site/balloon.jpg"
+favicon: images/site/favicon.ico
 angle: 130
 site: distill::distill_website
 links:

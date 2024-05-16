@@ -175,7 +175,7 @@ A systematic reporting of pre and post analysis power calculations in observatio
 The paper summed up in a picture:
 
 ```{r echo=FALSE, out.width=400, fig.align="center"} 
-knitr::include_graphics("images/drowning.jpg")
+knitr::include_graphics("images/summary/drowning.jpg")
 ```
 
 

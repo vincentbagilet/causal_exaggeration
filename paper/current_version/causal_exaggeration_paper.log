@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.27)  24 APR 2024 09:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.27)  12 MAY 2024 17:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1126,10 +1126,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [5]
 
-Package natbib Warning: Citation `stommes_reliability_2021' on page 6 undefined
- on input line 83.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -1137,12 +1133,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[6]
-
-Package natbib Warning: Citation `stommes_reliability_2021' on page 7 undefined
- on input line 91.
-
-)
+[6])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1161,7 +1152,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 92--97
+Underfull \hbox (badness 10000) in paragraph at lines 94--99
 
  []
 
@@ -1178,11 +1169,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./images/graph_he_th_annotat
 ed.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allo
 wed
-<images/graph_he_th_annotated.pdf, id=450, 578.16pt x 289.08pt>
+<images/graph_he_th_annotated.pdf, id=477, 578.16pt x 289.08pt>
 File: images/graph_he_th_annotated.pdf Graphic file (type pdf)
 <use images/graph_he_th_annotated.pdf>
 Package pdftex.def Info: images/graph_he_th_annotated.pdf  used on input line 1
-07.
+09.
 (pdftex.def)             Requested size: 425.41444pt x 212.70723pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1227,14 +1218,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 180--181
 
  []
 
-<images/DAG_maths.png, id=567, 3914.625pt x 1957.3125pt>
+<images/DAG_maths.png, id=587, 3914.625pt x 1957.3125pt>
 File: images/DAG_maths.png Graphic file (type png)
 <use images/DAG_maths.png>
 Package pdftex.def Info: images/DAG_maths.png  used on input line 188.
 (pdftex.def)             Requested size: 300.29344pt x 150.13712pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1243,7 +1231,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[13]
+[13 <./images/DAG_maths.png>]
 
 LaTeX Font Warning: Font shape `T1/cmr/m/scit' undefined
 (Font)              using `T1/cmr/m/scsl' instead on input line 238.
@@ -1281,7 +1269,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[14 <./images/DAG_maths.png>]
+[14]
 
 LaTeX Font Warning: Font shape `T1/cmr/m/scit' undefined
 (Font)              using `T1/cmr/m/scsl' instead on input line 272.
@@ -1311,6 +1299,10 @@ LaTeX Font Warning: Font shape `T1/cmr/m/scit' undefined
 (Font)              using `T1/cmr/m/scsl' instead on input line 293.
 
 
+LaTeX Font Warning: Font shape `T1/cmr/m/scit' undefined
+(Font)              using `T1/cmr/m/scsl' instead on input line 295.
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -1319,10 +1311,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [15]
-
-LaTeX Font Warning: Font shape `T1/cmr/m/scit' undefined
-(Font)              using `T1/cmr/m/scsl' instead on input line 295.
-
 
 LaTeX Font Warning: Font shape `T1/cmr/m/scit' undefined
 (Font)              using `T1/cmr/m/scsl' instead on input line 322.
@@ -1427,11 +1415,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./images/main_graph_RDD_pape
 r_annotated.pdf): PDF inclusion: found PDF version <1.7>, but at most version <
 1.5> allowed
-<images/main_graph_RDD_paper_annotated.pdf, id=636, 578.16pt x 361.35pt>
+<images/main_graph_RDD_paper_annotated.pdf, id=659, 578.16pt x 361.35pt>
 File: images/main_graph_RDD_paper_annotated.pdf Graphic file (type pdf)
 <use images/main_graph_RDD_paper_annotated.pdf>
 Package pdftex.def Info: images/main_graph_RDD_paper_annotated.pdf  used on inp
-ut line 399.
+ut line 400.
 (pdftex.def)             Requested size: 400.38872pt x 250.24153pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1445,11 +1433,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [19]
-<images/main_graph_controls_paper.pdf, id=653, 578.16pt x 325.215pt>
+<images/main_graph_controls_paper.pdf, id=675, 578.16pt x 325.215pt>
 File: images/main_graph_controls_paper.pdf Graphic file (type pdf)
 <use images/main_graph_controls_paper.pdf>
 Package pdftex.def Info: images/main_graph_controls_paper.pdf  used on input li
-ne 425.
+ne 426.
 (pdftex.def)             Requested size: 400.38872pt x 225.21738pt.
 
 
@@ -1465,6 +1453,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [20 <./images/main_graph_RDD_paper_annotated.pdf>]
 
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./images/main_graph_IV_paper
+_annotated.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1
+.5> allowed
+<images/main_graph_IV_paper_annotated.pdf, id=737, 578.16pt x 325.215pt>
+File: images/main_graph_IV_paper_annotated.pdf Graphic file (type pdf)
+<use images/main_graph_IV_paper_annotated.pdf>
+Package pdftex.def Info: images/main_graph_IV_paper_annotated.pdf  used on inpu
+t line 455.
+(pdftex.def)             Requested size: 400.38872pt x 225.21738pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -1474,16 +1475,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [21 <./images/main_graph_controls_paper.pdf>]
 
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./images/main_graph_IV_paper
-_annotated.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1
-.5> allowed
-<images/main_graph_IV_paper_annotated.pdf, id=725, 578.16pt x 325.215pt>
-File: images/main_graph_IV_paper_annotated.pdf Graphic file (type pdf)
-<use images/main_graph_IV_paper_annotated.pdf>
-Package pdftex.def Info: images/main_graph_IV_paper_annotated.pdf  used on inpu
-t line 454.
-(pdftex.def)             Requested size: 400.38872pt x 225.21738pt.
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -1492,12 +1483,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [22 <./images/main_graph_IV_paper_annotated.pdf>]
-<images/main_graph_DID_paper.pdf, id=771, 578.16pt x 325.215pt>
+<images/main_graph_DID_paper.pdf, id=795, 578.16pt x 325.215pt>
 File: images/main_graph_DID_paper.pdf Graphic file (type pdf)
 <use images/main_graph_DID_paper.pdf>
 Package pdftex.def Info: images/main_graph_DID_paper.pdf  used on input line 48
-5.
+6.
 (pdftex.def)             Requested size: 400.38872pt x 225.21738pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1518,10 +1512,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [24 <./images/main_graph_DID_paper.pdf>]
 
-Package natbib Warning: Citation `mcconnell_going_2015' on page 25 undefined on
- input line 512.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -1530,10 +1520,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [25]
-
-Package natbib Warning: Citation `stommes_reliability_2021' on page 26 undefine
-d on input line 525.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1609,13 +1595,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [32]
-Underfull \hbox (badness 1540) in paragraph at lines 238--238
+Underfull \hbox (badness 1540) in paragraph at lines 230--230
 []\T1/cmr/m/n/12 Hill, J. L. []([]2011[])[], `Bayesian Non-para-met-ric Mod-el-
 ing for Causal In-fer-ence', |   []   |   []
  []
 
 
-Underfull \hbox (badness 1590) in paragraph at lines 254--254
+Underfull \hbox (badness 1590) in paragraph at lines 246--246
 []\T1/cmr/m/n/12 Imbens, G. W. and Ru-bin, D. B. []([]2015[])[], |   []   |   [
 ]   |   []   |   []   |   []   |   []
  []
@@ -1629,7 +1615,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [33]
-Underfull \hbox (badness 6927) in paragraph at lines 369--369
+Underfull \hbox (badness 6927) in paragraph at lines 373--373
 []\T1/cmr/m/n/12 Shadish, W. R., Cook, T. D. and Camp-bell, D. T. []([]2002[])[
 ], |   []   |   []
  []
@@ -1654,23 +1640,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [35]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 641.
+(hyperref)                removing `math shift' on input line 639.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 641.
+(hyperref)                removing `subscript' on input line 639.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 641.
+(hyperref)                removing `math shift' on input line 639.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 643--644
+Underfull \hbox (badness 10000) in paragraph at lines 641--642
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 652--653
+Underfull \hbox (badness 10000) in paragraph at lines 650--651
 
  []
 
@@ -1692,19 +1678,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [37]
-Underfull \hbox (badness 6412) in paragraph at lines 770--771
+Underfull \hbox (badness 6412) in paragraph at lines 768--769
 []\T1/cmr/m/n/12 Thus, un-der our set of as-sump-tions, $\U/msb/m/n/12 E\OT1/cm
 r/m/n/12 [\OML/cmm/m/it/12 u[]\OMS/cmsy/m/n/12 j[][]\OT1/cmr/m/n/12 ]$ \T1/cmr/
 m/n/12 does not de-pend on $\OML/cmm/m/it/12 x[]$ \T1/cmr/m/n/12 and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 770--771
+Underfull \hbox (badness 10000) in paragraph at lines 768--769
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 772--773
+Underfull \hbox (badness 10000) in paragraph at lines 770--771
 
  []
 
@@ -1719,18 +1705,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [38]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 790.
+(hyperref)                removing `math shift' on input line 788.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 790.
+(hyperref)                removing `subscript' on input line 788.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 790.
+(hyperref)                removing `math shift' on input line 788.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 821--822
+Underfull \hbox (badness 10000) in paragraph at lines 819--820
 
  []
 
@@ -1745,18 +1731,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [39]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 844.
+(hyperref)                removing `math shift' on input line 842.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 844.
+(hyperref)                removing `subscript' on input line 842.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 844.
+(hyperref)                removing `math shift' on input line 842.
 
 
-Overfull \hbox (23.03137pt too wide) detected at line 883
+Overfull \hbox (23.03137pt too wide) detected at line 881
  \U/msb/m/n/12 E\OT1/cmr/m/n/12 [[][][][]] = [] = [] = []
  []
 
@@ -1771,21 +1757,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [40]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 922.
+(hyperref)                removing `math shift' on input line 920.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 922.
+(hyperref)                removing `subscript' on input line 920.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 922.
+(hyperref)                removing `math shift' on input line 920.
 
-<images/main_graph_matching_paper.pdf, id=1145, 578.16pt x 325.215pt>
+<images/main_graph_matching_paper.pdf, id=1178, 578.16pt x 325.215pt>
 File: images/main_graph_matching_paper.pdf Graphic file (type pdf)
 <use images/main_graph_matching_paper.pdf>
 Package pdftex.def Info: images/main_graph_matching_paper.pdf  used on input li
-ne 945.
+ne 943.
 (pdftex.def)             Requested size: 400.38872pt x 225.21738pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1796,9 +1782,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [41]
-
-Package natbib Warning: There were undefined citations.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1815,23 +1798,18 @@ LaTeX Warning: There were multiply-defined labels.
 Package rerunfilecheck Info: File `causal_exaggeration_paper.out' has not chang
 ed.
 (rerunfilecheck)             Checksum: 03F08189D92D0BF427C1246D57A30F48;7240.
-
-Package rerunfilecheck Warning: File `causal_exaggeration_paper.brf' has change
-d.
-(rerunfilecheck)                Rerun to get bibliographical references right.
-
-Package rerunfilecheck Info: Checksums for `causal_exaggeration_paper.brf':
-(rerunfilecheck)             Before: 38D1B67ED0A773CFBB3782E1C853C85A;8801
-(rerunfilecheck)             After:  8C55704A5CC6E29DEEACF1B792261B3E;8747.
+Package rerunfilecheck Info: File `causal_exaggeration_paper.brf' has not chang
+ed.
+(rerunfilecheck)             Checksum: 70AC0BC8FF206EADD19E5F6ED8693959;9335.
  ) 
 Here is how much of TeX's memory you used:
- 23085 strings out of 476025
- 393687 string characters out of 5790016
+ 23103 strings out of 476025
+ 394039 string characters out of 5790016
  1873388 words of memory out of 5000000
- 42902 multiletter control sequences out of 15000+600000
+ 42916 multiletter control sequences out of 15000+600000
  550254 words of font info for 126 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 105i,18n,104p,2128b,742s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 105i,18n,104p,2516b,742s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
 , replaced by a fixed one
@@ -1870,10 +1848,10 @@ e1/public/cm-super/sfxc1000.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1
 /public/cm-super/sfxc1440.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/p
 ublic/cm-super/sfxc1728.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/pub
 lic/cm-super/sfxc2074.pfb>
-Output written on causal_exaggeration_paper.pdf (42 pages, 1665872 bytes).
+Output written on causal_exaggeration_paper.pdf (42 pages, 1668697 bytes).
 PDF statistics:
- 1354 PDF objects out of 1440 (max. 8388607)
- 1130 compressed objects within 12 object streams
- 199 named destinations out of 1000 (max. 500000)
+ 1387 PDF objects out of 1440 (max. 8388607)
+ 1163 compressed objects within 12 object streams
+ 203 named destinations out of 1000 (max. 500000)
  313 words of extra memory for PDF output out of 10000 (max. 10000000)
 

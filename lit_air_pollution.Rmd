@@ -27,7 +27,7 @@ opts_chunk$set(fig.path = "images/air_pollution/",
                dev.args = list(bg="transparent"))  
 ```  
 
-```{r packages_pollution, message=FALSE, warning=FALSE, code_folding='Show packages used in this document'}
+```{r packages_pollution, message=FALSE, warning=FALSE, code_folding='Show the packages used in this document'}
 library(tidyverse) 
 library(knitr) 
 library(mediocrethemes)
@@ -40,9 +40,9 @@ library(ggbeeswarm)
 set_mediocre_all(pal = "coty")
 ```
 
-First, I load the dataset containing results of the meta-analysis. I then print the whole table:
+First, I load the data set containing results of the meta-analysis. I then print the whole table:
 
-```{r load_data, code_folding='Show code used to generate the table'}
+```{r load_data, code_folding=TRUE, layout="l-body-outset"}
 data_lit_review <-
   readRDS(here(
     "inputs",

@@ -47,9 +47,9 @@ Athey, S. \harvardand\ Imbens, G.  \harvardyearleft 2016\harvardyearright ,
   `The {{Econometrics}} of {{Randomized Experiments}}', {\em arXiv:1607.00698
   [econ, stat]} .
 
-\harvarditem{Bagilet}{2023}{bagilet_accurately_2023}
-Bagilet, V.  \harvardyearleft 2023\harvardyearright , `Accurately {{Estimating
-  Relatively Small Effects}}: {{Air Pollution}} and {{Health}}'.
+\harvarditem{Bagilet}{2023}{bagilet_accurate_2023}
+Bagilet, V.  \harvardyearleft 2023\harvardyearright , `Accurate {{Estimation}}
+  of {{Small Effects}}: {{Illustration Through Air Pollution}} and {{Health}}'.
 
 \harvarditem{Bind}{2019}{bind_causal_2019}
 Bind, M.-A.  \harvardyearleft 2019\harvardyearright , `Causal {{Modeling}} in
@@ -57,19 +57,11 @@ Bind, M.-A.  \harvardyearleft 2019\harvardyearright , `Causal {{Modeling}} in
   40}(1),~23--43.
 
 \harvarditem[Black et~al.]{Black, Hollingsworth, Nunes \harvardand\
-  Simon}{2022}{blackSimulatedPowerAnalyses2022}
+  Simon}{2022}{black_simulated_2022}
 Black, B., Hollingsworth, A., Nunes, L. \harvardand\ Simon, K.
   \harvardyearleft 2022\harvardyearright , `Simulated power analyses for
   observational studies: {{An}} application to the {{Affordable Care Act
   Medicaid}} expansion', {\em Journal of Public Economics} {\bf 213},~104713.
-
-\harvarditem[Black et~al.]{Black, Hollingsworth, Nunes \harvardand\
-  Simon}{2021}{black_simulated_2021}
-Black, B.~S., Hollingsworth, A., Nunes, L. \harvardand\ Simon, K.~I.
-  \harvardyearleft 2021\harvardyearright , Simulated {{Power Analyses}} for
-  {{Observational Studies}}: {{An Application}} to the {{Affordable Care Act
-  Medicaid Expansion}}, {{SSRN Scholarly Paper}} ID 3368187, Social Science
-  Research Network, Rochester, NY.
 
 \harvarditem[Brodeur et~al.]{Brodeur, Cook \harvardand\
   Heyes}{2020}{brodeur_methods_2020}
@@ -221,10 +213,10 @@ He, G., Liu, T. \harvardand\ Zhou, M.  \harvardyearleft 2020\harvardyearright ,
   `Straw burning, {{PM2}}.5, and death: {{Evidence}} from {{China}}', {\em
   Journal of Development Economics} {\bf 145},~102468.
 
-\harvarditem{Hern{\'a}n}{2021}{hernan_causal_2021}
-Hern{\'a}n, M.~A.  \harvardyearleft 2021\harvardyearright , `Causal analyses of
+\harvarditem{Hern{\'a}n}{2022}{hernan_causal_2022}
+Hern{\'a}n, M.~A.  \harvardyearleft 2022\harvardyearright , `Causal analyses of
   existing databases: No power calculations required', {\em Journal of Clinical
-  Epidemiology} p.~S0895435621002730.
+  Epidemiology} {\bf 144},~203--205.
 
 \harvarditem{Hern{\'a}n \harvardand\ Robins}{2020}{hernan_causal_2020}
 Hern{\'a}n, M.~A. \harvardand\ Robins, J.~M.  \harvardyearleft
@@ -281,6 +273,12 @@ Kraft, M.~A.  \harvardyearleft 2020\harvardyearright , `Interpreting {{Effect
   Sizes}} of {{Education Interventions}}', {\em Educational Researcher} {\bf
   49}(4),~241--253.
 
+\harvarditem[Lal et~al.]{Lal, Lockhart, Xu \harvardand\ Zu}{2024}{lalHow2024}
+Lal, A., Lockhart, M., Xu, Y. \harvardand\ Zu, Z.  \harvardyearleft
+  2024\harvardyearright , `How {{Much Should We Trust Instrumental Variable
+  Estimates}} in {{Political Science}}? {{Practical Advice Based}} on 67
+  {{Replicated Studies}}', {\em Political Analysis} pp.~1--20.
+
 \harvarditem{Linden}{2019}{linden_retrodesign_2019}
 Linden, A.  \harvardyearleft 2019\harvardyearright , `{{RETRODESIGN}}:
   {{Stata}} module to compute type-{{S}} ({{Sign}}) and type-{{M}}
@@ -290,6 +288,12 @@ Linden, A.  \harvardyearleft 2019\harvardyearright , `{{RETRODESIGN}}:
 Lu, J., Qiu, Y. \harvardand\ Deng, A.  \harvardyearleft 2019\harvardyearright ,
   `A note on {{Type S}}/{{M}} errors in hypothesis testing', {\em British
   Journal of Mathematical and Statistical Psychology} {\bf 72}(1),~1--17.
+
+\harvarditem{McConnell \harvardand\
+  {Vera-Hern{\'a}ndez}}{2015}{mcconnellGoingSimpleSample2015}
+McConnell, B. \harvardand\ {Vera-Hern{\'a}ndez}, M.  \harvardyearleft
+  2015\harvardyearright , Going beyond simple sample size calculations: {{A}}
+  practitioner's guide, Working {{Paper}} W15/17, IFS Working Papers.
 
 \harvarditem[McShane et~al.]{McShane, Gal, Gelman, Robert \harvardand\
   Tackett}{2019}{mcshane_abandon_2019}
@@ -381,6 +385,12 @@ Simmons, J.~P., Nelson, L.~D. \harvardand\ Simonsohn, U.  \harvardyearleft
   Flexibility}} in {{Data Collection}} and {{Analysis Allows Presenting
   Anything}} as {{Significant}}', {\em Psychological Science} {\bf
   22}(11),~1359--1366.
+
+\harvarditem[Stommes et~al.]{Stommes, Aronow \harvardand\
+  S{\"a}vje}{2021}{stommes_reliability_2021}
+Stommes, D., Aronow, P.~M. \harvardand\ S{\"a}vje, F.  \harvardyearleft
+  2021\harvardyearright , `On the reliability of published findings using the
+  regression discontinuity design in political science', {\em arXiv} .
 
 \harvarditem{Thistlethwaite \harvardand\
   Campbell}{1960}{thistlethwaite_regression-discontinuity_1960}

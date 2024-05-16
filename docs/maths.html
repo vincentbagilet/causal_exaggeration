@@ -92,6 +92,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <meta property="description" itemprop="description" content="In this document, I run simple simulations to both illustrate and check my closed form solutions."/>
 
+  <link rel="icon" type="image/vnd.microsoft.icon" href="images/site/favicon.ico"/>
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -2222,8 +2223,20 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="nav-right">
 <a href="causal_exaggeration_paper.pdf">Paper</a>
 <a href="summary.html">Summaries</a>
-<a href="intuition.html">Intuition</a>
-<a href="air_pollution.html">Example lit.</a>
+<a href="FAQ.html">FAQ</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Literature
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="lit_top_journals.html">Top journals</a>
+<a href="lit_IVs.html">IVs</a>
+<a href="lit_exp.html">Experiments</a>
+<a href="lit_air_pollution.html">Air pollution lit.</a>
+</div>
+</div>
 <a href="maths.html">Maths</a>
 <div class="nav-dropdown">
 <button class="nav-dropbtn">
@@ -2234,10 +2247,9 @@ Simulations
 <div class="nav-dropdown-content">
 <a href="RDD.html">RDD</a>
 <a href="IV.html">IV</a>
-<span class="nav-dropdown-header">Matching</span>
+<a href="Matching.html">Matching</a>
 <a href="shocks.html">Shocks</a>
 <span class="nav-dropdown-header">Fixed-Effects</span>
-<span class="nav-dropdown-header">Controls</span>
 </div>
 </div>
 <a href="reporting.html">Reporting</a>
@@ -2359,11 +2371,11 @@ Show code
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.0001094449</td>
-<td style="text-align: right;">0.03042518</td>
-<td style="text-align: right;">0.08654728</td>
-<td style="text-align: right;">5.719155</td>
-<td style="text-align: right;">0.1987745</td>
+<td style="text-align: right;">2.779596e-05</td>
+<td style="text-align: right;">0.03254358</td>
+<td style="text-align: right;">0.08335859</td>
+<td style="text-align: right;">5.727599</td>
+<td style="text-align: right;">0.183036</td>
 <td style="text-align: right;">100</td>
 </tr>
 </tbody>
@@ -2574,12 +2586,12 @@ Show code used to generate the table
 <table>
 <colgroup>
 <col style="width: 4%" />
-<col style="width: 15%" />
-<col style="width: 15%" />
-<col style="width: 15%" />
-<col style="width: 15%" />
-<col style="width: 15%" />
-<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 14%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2595,57 +2607,57 @@ Show code used to generate the table
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">1.8815721</td>
-<td style="text-align: right;">-0.6405656</td>
-<td style="text-align: right;">0.3911073</td>
-<td style="text-align: right;">2.5120256</td>
-<td style="text-align: right;">-0.1888887</td>
-<td style="text-align: right;">4.0028541</td>
+<td style="text-align: right;">0.3220351</td>
+<td style="text-align: right;">0.7237079</td>
+<td style="text-align: right;">0.9970756</td>
+<td style="text-align: right;">2.6889284</td>
+<td style="text-align: right;">0.8342314</td>
+<td style="text-align: right;">5.8850137</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">0.8031546</td>
-<td style="text-align: right;">0.3090672</td>
-<td style="text-align: right;">-1.2604209</td>
-<td style="text-align: right;">0.5675431</td>
-<td style="text-align: right;">-0.3022617</td>
-<td style="text-align: right;">2.4198151</td>
+<td style="text-align: right;">0.0914217</td>
+<td style="text-align: right;">-0.7312455</td>
+<td style="text-align: right;">-2.3476205</td>
+<td style="text-align: right;">-1.7132305</td>
+<td style="text-align: right;">0.4590175</td>
+<td style="text-align: right;">0.3801643</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">0.3631788</td>
-<td style="text-align: right;">0.6600073</td>
-<td style="text-align: right;">0.4622102</td>
-<td style="text-align: right;">2.1487576</td>
-<td style="text-align: right;">0.0187074</td>
-<td style="text-align: right;">4.4974686</td>
+<td style="text-align: right;">1.0407498</td>
+<td style="text-align: right;">-1.1589892</td>
+<td style="text-align: right;">2.3229350</td>
+<td style="text-align: right;">3.4601413</td>
+<td style="text-align: right;">0.0057838</td>
+<td style="text-align: right;">4.8864305</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">0.4501371</td>
-<td style="text-align: right;">-1.6927995</td>
-<td style="text-align: right;">-0.2403243</td>
-<td style="text-align: right;">0.1041057</td>
-<td style="text-align: right;">-1.8454113</td>
-<td style="text-align: right;">-0.5877053</td>
+<td style="text-align: right;">0.3293447</td>
+<td style="text-align: right;">0.5720586</td>
+<td style="text-align: right;">-1.6822717</td>
+<td style="text-align: right;">-0.0755608</td>
+<td style="text-align: right;">0.2350407</td>
+<td style="text-align: right;">2.4455092</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">0.0288796</td>
-<td style="text-align: right;">1.3170674</td>
-<td style="text-align: right;">1.2689390</td>
-<td style="text-align: right;">3.0822831</td>
-<td style="text-align: right;">0.4151077</td>
-<td style="text-align: right;">6.1559245</td>
+<td style="text-align: right;">0.8295697</td>
+<td style="text-align: right;">-0.2500454</td>
+<td style="text-align: right;">-0.0734531</td>
+<td style="text-align: right;">1.4401755</td>
+<td style="text-align: right;">-0.4794277</td>
+<td style="text-align: right;">2.8357251</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">-0.1284560</td>
-<td style="text-align: right;">-2.0824853</td>
-<td style="text-align: right;">-1.3610048</td>
-<td style="text-align: right;">-1.7132608</td>
-<td style="text-align: right;">-0.2401602</td>
-<td style="text-align: right;">-0.9946636</td>
+<td style="text-align: right;">0.8018252</td>
+<td style="text-align: right;">-1.1186928</td>
+<td style="text-align: right;">-1.3409391</td>
+<td style="text-align: right;">-0.3706947</td>
+<td style="text-align: right;">0.8800102</td>
+<td style="text-align: right;">1.9499691</td>
 </tr>
 </tbody>
 </table>
@@ -2724,36 +2736,36 @@ Show the code of lint_reg_maths
 <tr class="odd">
 <td style="text-align: left;">ctrl</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0027095</td>
-<td style="text-align: right;">0.0034002</td>
-<td style="text-align: right;">294.89766</td>
+<td style="text-align: right;">1.0014256</td>
+<td style="text-align: right;">0.0033833</td>
+<td style="text-align: right;">295.98645</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ovb</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0879705</td>
-<td style="text-align: right;">0.0036837</td>
-<td style="text-align: right;">295.34835</td>
+<td style="text-align: right;">1.0857669</td>
+<td style="text-align: right;">0.0036320</td>
+<td style="text-align: right;">298.94165</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">reduced_form</td>
 <td style="text-align: left;">z</td>
-<td style="text-align: right;">0.8218289</td>
-<td style="text-align: right;">0.0219393</td>
-<td style="text-align: right;">37.45914</td>
+<td style="text-align: right;">0.8300935</td>
+<td style="text-align: right;">0.0219069</td>
+<td style="text-align: right;">37.89189</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">iv</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0062629</td>
-<td style="text-align: right;">0.0121477</td>
-<td style="text-align: right;">82.83554</td>
+<td style="text-align: right;">1.0039390</td>
+<td style="text-align: right;">0.0118772</td>
+<td style="text-align: right;">84.52622</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>

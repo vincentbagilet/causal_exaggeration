@@ -4,6 +4,7 @@ description: "In this document, we run a simulation exercise to illustrate how u
 output: 
   distill::distill_article:
     toc: true 
+bibliography: paper/causal_exaggeration.bib
 editor_options: 
   chunk_output_type: console
 ---
@@ -52,7 +53,7 @@ In the case of the RDD, the trade-off between avoiding confounding and inflated 
 
 To illustrate this trade-off, we consider a standard application of the RD design in economics of education where a grant or additional lessons are assigned based on the score obtained by students on a standardized test. Students with test scores below a given threshold receive the treatment while those above do not. Yet, students far above and far below the threshold may differ along unobserved characteristics such as ability. To limit this bias, the effect of the treatment is estimated by comparing the outcomes of students just below and just above this threshold. This enable to limit disparities in terms of unobserved characteristics.
 
-[Thistlewaite and Campbell (1960)](https://psycnet.apa.org/record/1962-00061-001) introduced the concept of RDD using this type of quasi-experiment. In their paper, they take advantage of a sharp discontinuity in the assignment of an award (a Certificate of Merit) based on qualifying scores at a test. This type of analysis is still used today and many papers leveraging similar methodologies have been published since this seminal work. For instance, [Jacob and Lefgren (2004)](https://direct.mit.edu/rest/article/86/1/226/57489/Remedial-Education-and-Student-Achievement-A) exploit this type of discontinuity to study the impact of  summer school and grade retention programs on test scores. Students who score below a given score are required to attend a summer school and to retake the test. Students who do not pass the second have to repeat the grade. 
+@thistlethwaite_regression-discontinuity_1960 introduced the concept of RDD using this type of quasi-experiment. In their paper, they take advantage of a sharp discontinuity in the assignment of an award (a Certificate of Merit) based on qualifying scores at a test. This type of analysis is still used today and many papers leveraging similar methodologies have been published since this seminal work. For instance, @jacob_remedial_2004 exploit this type of discontinuity to study the impact of  summer school and grade retention programs on test scores. Students who score below a given score are required to attend a summer school and to retake the test. Students who do not pass the second have to repeat the grade. 
 
 ### Modeling choices
 
@@ -186,10 +187,10 @@ define_bw <- function (data, bw) {
 
 We set baseline values for the parameters to emulate a somehow realistic observational study in this field. We make the following assumptions:
 
-- **Number of observations, bandwidth and cutoff**: to emulate an existing study, we consider a number of observation consistent with [Jacob and Lefgren (2004)](https://direct.mit.edu/rest/article/86/1/226/57489/Remedial-Education-and-Student-Achievement-A). In their design, they have 75000 observations per grade and approximately 5000 individuals in their preferred bandwidth, *ie* 6% of the total sample size. We choose a slightly smaller but comparable number of observations, **N = 60000**, so that the number of observations in their bandwidth correspond to 0.1 of our sample. In their setting, the cutoff is close to the center of the distribution (roughly 40% of the students get assigned). We consider that the threshold is located at the center of the distribution (**q_c = 0.5**) and a bandwidth that is symmetric around the cutoff in terms of number of observations. A cut-off in the middle of the distribution enables us to consider very wide bandwidths, up to including the whole sample in the analysis.
+- **Number of observations, bandwidth and cutoff**: to emulate an existing study, we consider a number of observation consistent with @jacob_remedial_2004. In their design, they have 75000 observations per grade and approximately 5000 individuals in their preferred bandwidth, *ie* 6% of the total sample size. We choose a slightly smaller but comparable number of observations, **N = 60000**, so that the number of observations in their bandwidth correspond to 0.1 of our sample. In their setting, the cutoff is close to the center of the distribution (roughly 40% of the students get assigned). We consider that the threshold is located at the center of the distribution (**q_c = 0.5**) and a bandwidth that is symmetric around the cutoff in terms of number of observations. A cut-off in the middle of the distribution enables us to consider very wide bandwidths, up to including the whole sample in the analysis.
 - **Grades distribution**: we assume that grades are SAT scores. One can think of the qualifying exam as a state level exam that gives the opportunity to students with lower grades to receive additional lessons. For simplicity, we assume that the **scores have a mean of 1060 and standard error of 200** (based on [statistics provided by the Department of Education](https://nces.ed.gov/programs/digest/d20/tables/dt20_226.40.asp)). We adjust the values of the intercept parameters (`mu_q` and `beta_0`) and their standard error (`sigma_epsilon` and `sigma_u`) to get appropriate distributions. These parameters are the last to be set. The resulting set of parameters may produce some test scores outside of the range 400–1600 but that does not affect the analysis. 
 - **Correlation between final and qualifying scores**: most of the correlation between these two variables comes from the (omitted) ability. The "direct" parameter $\eta$ only plays a limited role. It makes sense for this parameter to be in the $[0, 1]$ range, closer to the 0 side, considering that we also model "ability". Modifying its value withing this range does not alter the results.
-- **Treatment effect size**: typical treatment effect sizes in economics of education are of the order of magnitude of 0.1 sd. [Kraft 2020](https://journals.sagepub.com/doi/abs/10.3102/0013189X20912798?journalCode=edra), reviewing 747 RCTs of education intervention finds that the median effect size is 0.1 sd. Interestingly, he finds that "larger studies with broad achievement measures have systematically smaller effect sizes". This might hint to publication bias as he underlines. In studies with more than 2000 individuals, the median effect is 0.03 sd. The same median effect size is observed in preregistered studies. We therefore consider an **effect size of 0.03 sd**, *ie* $\beta_1 = 6 = 200\times 0.03$.
+- **Treatment effect size**: typical treatment effect sizes in economics of education are of the order of magnitude of 0.1 sd. @kraft_interpreting_2020, reviewing 747 RCTs of education intervention finds that the median effect size is 0.1 sd. Interestingly, he finds that "larger studies with broad achievement measures have systematically smaller effect sizes". This might hint to publication bias as he underlines. In studies with more than 2000 individuals, the median effect is 0.03 sd. The same median effect size is observed in preregistered studies. We therefore consider an **effect size of 0.03 sd**, *ie* $\beta_1 = 6 = 200\times 0.03$.
 - **Modeling of ability**. Modeling ability is rather challenging. Since it is unobserved, there is no actual way of mimicking an existing study to simulate its impact. In the modeling stage, we considered that ability is uniformly distributed between -1 and 1 and affect tests scores through its cube. As a consequence, $\gamma$ takes rather large value. It roughly corresponds to the difference in tests score between the median student and the "best" performing one caused by their differences in ability. We therefore want to set it such that **$\gamma \simeq 300$**. We fine tune it by hand so that it generates enough OVB.
 
 ```{r baseline_param_RDD, echo=FALSE}
@@ -474,7 +475,7 @@ summary_sim_rdd <- summarise_sim(
 
 To analyze our results, we build a unique and simple graph:
 
-```{r main_graph_RDD, code_folding=TRUE, fig.asp=0.8}
+```{r main_graph_RDD, code_folding=TRUE, fig.asp=0.7}
 main_graph_RDD <- summary_sim_rdd |> 
   pivot_longer(cols = c(type_m, bias_all), names_to = "measure") |> 
   mutate(
@@ -590,13 +591,13 @@ ggsave(
 )
 ```
 
-Note that a [Jacob and Lefgren (2004)](https://direct.mit.edu/rest/article/86/1/226/57489/Remedial-Education-and-Student-Achievement-A) have about 5000 observations inside their bandwidth. In our simulations, the 0.1 bandwidth has even more observations (6000) and displays particularly large exaggeration. 
+Note that a @jacob_remedial_2004 have about 5000 observations inside their bandwidth. In our simulations, the 0.1 bandwidth has even more observations (6000) and displays particularly large exaggeration. 
 
 ## Further checks
 
 ### Representativeness of the estimation
 
-We calibrated our simulations to emulate a typical study from this literature. To further check that the results are realistic, we compare the average Signal-to-Noise Ratio (SNR) of our regressions to the range of SNR of an existing study. The closest study to our simulation is [Jacob and Lefgren (2004)](https://direct.mit.edu/rest/article/86/1/226/57489/Remedial-Education-and-Student-Achievement-A). In their main result table, Table 3, the SNRs range from 0.3 to 8.
+We calibrated our simulations to emulate a typical study from this literature. To further check that the results are realistic, we compare the average Signal-to-Noise Ratio (SNR) of our regressions to the range of SNR of an existing study. The closest study to our simulation is @jacob_remedial_2004. In their main result table, Table 3, the SNRs range from 0.3 to 8.
 
 I find SNR in a similar range or even larger.
 
@@ -609,7 +610,7 @@ summary_sim_rdd |>
   )
 ```
 
-The precision of our results is therefore in line with precision that can be found in the literature. It is important to acknowledge that our simulation in no means reproduces the study in Jacob and Lefgren (2004) and can be used to analyze their results directly. Rather, it combine insights from several studies to mimic a "typical" study from this literature, while remaining conservative with regards to many assumptions, in particular in terms of data generating model (constant and homogenous treatment, ect). Parameters values however are such that they yield a design that can be underpowered, something that can happen in this literature but does not affect every single study.
+The precision of our results is therefore in line with precision that can be found in the literature. It is important to acknowledge that our simulation in no means reproduces the study in @jacob_remedial_2004 and can be used to analyze their results directly. Rather, it combine insights from several studies to mimic a "typical" study from this literature, while remaining conservative with regards to many assumptions, in particular in terms of data generating model (constant and homogenous treatment, ect). Parameters values however are such that they yield a design that can be underpowered, something that can happen in this literature but does not affect every single study.
 
 ### Variation in effect size
 

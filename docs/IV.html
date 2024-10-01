@@ -21,7 +21,7 @@
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -86,6 +86,28 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+      margin-bottom: 0em;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
+</style>
 
   <!--radix_placeholder_meta_tags-->
   <title>Causal Exaggeration: Simulations IV</title>
@@ -108,10 +130,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="twitter:description" content="In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.  To make these simulations realistic, I emulate a typical study estimating the impact of turnout on vote shares."/>
 
   <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=Randomization Inference with Rainfall Data: Using Historical Weather Patterns for Variance Estimation;citation_publisher=Cambridge University Press;citation_volume=25;citation_doi=10.1017/pan.2017.17;citation_issn=1047-1987, 1476-4989;citation_author=Alicia Dailey Cooperman"/>
+  <meta name="citation_reference" content="citation_title=The Republicans Should Pray for Rain: Weather, Turnout, and Voting in U.S. Presidential Elections;citation_publisher=[The University of Chicago Press, Southern Political Science Association];citation_volume=69;citation_doi=10.1111/j.1468-2508.2007.00565.x;citation_issn=0022-3816;citation_author=Brad T. Gomez;citation_author=Thomas G. Hansford;citation_author=George A. Krause"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations IV"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.  To make these simulations realistic, I emulate a typical study estimating the impact of turnout on vote shares."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","bibliography","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations IV"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how using an Instrumental Variable (IV) strategy to avoid confounders may lead to a loss in power and inflated effect sizes.  To make these simulations realistic, I emulate a typical study estimating the impact of turnout on vote shares."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["paper/causal_exaggeration.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2247,12 +2272,10 @@ Simulations
 <div class="nav-dropdown-content">
 <a href="RDD.html">RDD</a>
 <a href="IV.html">IV</a>
-<a href="Matching.html">Matching</a>
 <a href="shocks.html">Shocks</a>
-<span class="nav-dropdown-header">Fixed-Effects</span>
+<a href="FE.html">Fixed-Effects</a>
 </div>
 </div>
-<a href="reporting.html">Reporting</a>
 <a href="https://github.com/vincentbagilet/causal_exaggeration" aria-label="Link to source">
 <i class="fab fa-github" aria-hidden="true"></i>
 </a>
@@ -2335,7 +2358,7 @@ Code to load packages used
 <h2 id="simulation-framework">Simulation framework</h2>
 <h3 id="illustrative-example">Illustrative example</h3>
 <p>To illustrate this loss in power, we could consider a large variety of settings, distribution of the parameters or parameter values. I narrow this down to an example setting, considering only one setting and one set of parameter values. I examine an analysis of the impact of voter turnout on election results, instrumenting voter turnout with rainfall on the day of the election. My point should stand in more general settings and the choice of values is mostly for illustration.</p>
-<p>A threat of confounders often arises when analyzing the link between voter turnout and election results. To estimate such an effect causally, one can consider exogenous shocks to voter turnout such as rainfall. Some potential exclusion restriction problems <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3715610">have been highlighted</a> in this instance but I abstract from them and simulate no exclusion restriction violations here.</p>
+<p>A threat of confounders often arises when analyzing the link between voter turnout and election results. To estimate such an effect causally, one can consider exogenous shocks to voter turnout such as rainfall. Some potential exclusion restriction problems have been highlighted in this instance <span class="citation" data-cites="mellon_rain_2021">Mellon (<a href="#ref-mellon_rain_2021" role="doc-biblioref">2021</a>)</span> but I abstract from them and simulate no exclusion restriction violations here.</p>
 <h3 id="modeling-choices">Modeling choices</h3>
 <p>For simplicity, I make several assumptions:</p>
 <ul>
@@ -2456,21 +2479,16 @@ Show code
 </div>
 </div>
 <h4 id="calibration-and-baseline-parameters-values">Calibration and baseline parameters’ values</h4>
-<p>We can now set baseline values for the parameters to emulate a somehow realistic observational study. I get “inspiration” for the values of parameters from
-<a href="https://www.aeaweb.org/articles?id=10.1257/app.20140533">Fujiwara et al. (2016)</a>
-and
-<a href="https://www.cambridge.org/core/journals/political-analysis/article/randomization-inference-with-rainfall-data-using-historical-weather-patterns-for-variance-estimation/2F86BE9EB79FDFF9FF97C8C5CC4A2ED3">Cooperman (2017)</a>
-who replicates a work by
-<a href="https://www.jstor.org/stable/10.1111/j.1468-2508.2007.00565.x?pq-origsite=360link&amp;seq=1#metadata_info_tab_contents">Gomez et al. (2007)</a>.</p>
+<p>We can now set baseline values for the parameters to emulate a somehow realistic observational study. I get “inspiration” for the values of parameters from <span class="citation" data-cites="fujiwara_habit_2016">Fujiwara, Meng, and Vogl (<a href="#ref-fujiwara_habit_2016" role="doc-biblioref">2016</a>)</span> and <span class="citation" data-cites="cooperman_randomization_2017">Cooperman (<a href="#ref-cooperman_randomization_2017" role="doc-biblioref">2017</a>)</span> who replicates a work by <span class="citation" data-cites="gomez_republicans_2007">Gomez, Hansford, and Krause (<a href="#ref-gomez_republicans_2007" role="doc-biblioref">2007</a>)</span>.</p>
 <p>I consider that:</p>
 <ul>
-<li><strong>Number of observations</strong>: We consider data at the US county level as in <a href="https://www.cambridge.org/core/journals/american-political-science-review/article/estimating-the-electoral-effects-of-voter-turnout/8A880C28E79BE770A5CA1A9BB6CF933C">Hansford and Gomez (2010)</a> and <a href="https://www.aeaweb.org/articles?id=10.1257/app.20140533">Fujiwara et al. (2016)</a>. The former use data for presidential elections between 1948 and 2000, restricting their sample of counties to non-Southern ones (2000 per election year). That leads to a sample size of 28000. The latter data for presidential elections between 1952 and 2012 leading to a sample size of about 50000. I thus consider <strong>30000 observations</strong>.</li>
-<li><strong>Rainfall distribution</strong>: A gamma distribution represents well the distribution of rainfall. Gamma distribution can have two parameters a shape and a scale. The mean is <span class="math inline">\(shape \times scale\)</span> and the variance <span class="math inline">\(shape \times scale^{2}\)</span>. The parameters of the distribution of rainfall are comparable in both Fujiwara et al. and Cooperman (2017) after a conversion into centimeters: mean 2.4 and standard deviation 6.6. I solve the system of mean and variance for shape and scale and set <strong>param_rain to 0.13 and 18</strong>.</li>
+<li><strong>Number of observations</strong>: We consider data at the US county level as in <span class="citation" data-cites="hansford_estimating_2010">Hansford and Gomez (<a href="#ref-hansford_estimating_2010" role="doc-biblioref">2010</a>)</span> and <span class="citation" data-cites="fujiwara_habit_2016">Fujiwara, Meng, and Vogl (<a href="#ref-fujiwara_habit_2016" role="doc-biblioref">2016</a>)</span>. The former use data for presidential elections between 1948 and 2000, restricting their sample of counties to non-Southern ones (2000 per election year). That leads to a sample size of 28000. The latter data for presidential elections between 1952 and 2012 leading to a sample size of about 50000. I thus consider <strong>30000 observations</strong>.</li>
+<li><strong>Rainfall distribution</strong>: A gamma distribution represents well the distribution of rainfall. Gamma distribution can have two parameters a shape and a scale. The mean is <span class="math inline">\(shape \times scale\)</span> and the variance <span class="math inline">\(shape \times scale^{2}\)</span>. The parameters of the distribution of rainfall are comparable in both <span class="citation" data-cites="fujiwara_habit_2016">Fujiwara, Meng, and Vogl (<a href="#ref-fujiwara_habit_2016" role="doc-biblioref">2016</a>)</span> and <span class="citation" data-cites="cooperman_randomization_2017">Cooperman (<a href="#ref-cooperman_randomization_2017" role="doc-biblioref">2017</a>)</span> after a conversion into centimeters: mean 2.4 and standard deviation 6.6. I solve the system of mean and variance for shape and scale and set <strong>param_rain to 0.13 and 18</strong>.</li>
 <li><strong>Standard deviation of the omitted variable</strong> is set to be of the order of magnitude of the error terms. Being conservative, let’s set its intensity to be twice as large as the treatment effect.</li>
-<li><strong>Effect of rainfall on turnout</strong>: Fujiwara et al. find that “The trends specifications suggest that 1 millimeter of rainfall decreases turnout by 0.05–0.07 percentage points” and Gomez et al. (and thus Cooperman) find “a county that receives one inch of rainfall on election day is likely to have approximately 1 percentage point lower voter turnout” which is equivalent to a 1mm increase in rainfall is associated with about a 0.04 percentage points decrease in voter turnout. For simplicity in interpretation, when rainfall is not a dummy, I express in centimeters. So, I consider <strong>pi_1 in the range -0.1 and -1.3</strong>, assuming linearity.</li>
-<li><strong>Effect of interest</strong> (turnout on vote share): it is subject to intense debate in the literature (cf <a href="https://oxford.universitypressscholarship.com/view/10.1093/oso/9780190089450.001.0001/oso-9780190089450">Shaw and Petrocik (2020)</a> for instance). As underlined by Shaw and Petrocik and in <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1816649">Fowler (2013)</a>, some studies find large effects, others no effects or small effects. Fowler (2013) falls into the large effects category as <a href="https://www.cambridge.org/core/journals/political-science-research-and-methods/article/regular-voters-marginal-voters-and-the-electoral-effects-of-turnout/F835F3CAE47B7ACB5D49AAE5B97FBD79">described by the author himself</a>. The study, for an extremely large shock in voter turnout, compulsory voting, finds “that the policy increased voter turnout by 24 percentage points which in turn increased the vote shares and seat shares of the Labor Party by 7 to 10 percentage points.” This correspond to a decrease in Republican vote share of approximately 0.3-0.4 percentage point when turnout increases by 1% (considering that this result is causal and linear). This effect being large, I consider effects that are smaller but of a similar magnitude: I simulate that when turnout increases by 1%, Republican vote share decreases by 0.1 and thus <strong>beta_1 = -0.1</strong></li>
+<li><strong>Effect of rainfall on turnout</strong>: <span class="citation" data-cites="fujiwara_habit_2016">Fujiwara, Meng, and Vogl (<a href="#ref-fujiwara_habit_2016" role="doc-biblioref">2016</a>)</span> find that “The trends specifications suggest that 1 millimeter of rainfall decreases turnout by 0.05–0.07 percentage points” and <span class="citation" data-cites="gomez_republicans_2007">Gomez, Hansford, and Krause (<a href="#ref-gomez_republicans_2007" role="doc-biblioref">2007</a>)</span> (and thus <span class="citation" data-cites="cooperman_randomization_2017">Cooperman (<a href="#ref-cooperman_randomization_2017" role="doc-biblioref">2017</a>)</span>) find “a county that receives one inch of rainfall on election day is likely to have approximately 1 percentage point lower voter turnout” which is equivalent to a 1mm increase in rainfall is associated with about a 0.04 percentage points decrease in voter turnout. For simplicity in interpretation, when rainfall is not a dummy, I express in centimeters. So, I consider <strong>pi_1 in the range -0.1 and -1.3</strong>, assuming linearity.</li>
+<li><strong>Effect of interest</strong> (turnout on vote share): it is subject to intense debate in the literature (cf <span class="citation" data-cites="shaw_theoretical_2020">Shaw and Petrocik (<a href="#ref-shaw_theoretical_2020" role="doc-biblioref">2020</a>)</span> for instance). As underlined by <span class="citation" data-cites="shaw_theoretical_2020">Shaw and Petrocik (<a href="#ref-shaw_theoretical_2020" role="doc-biblioref">2020</a>)</span> and in <span class="citation" data-cites="fowler_electoral_2013">Fowler (<a href="#ref-fowler_electoral_2013" role="doc-biblioref">2013</a>)</span>, some studies find large effects, others no effects or small effects. <span class="citation" data-cites="fowler_electoral_2013">Fowler (<a href="#ref-fowler_electoral_2013" role="doc-biblioref">2013</a>)</span> falls into the large effects category as described by the author himself <span class="citation" data-cites="fowler_regular_2015">(<a href="#ref-fowler_regular_2015" role="doc-biblioref">Fowler 2015</a>)</span>. The study, for an extremely large shock in voter turnout, compulsory voting, finds “that the policy increased voter turnout by 24 percentage points which in turn increased the vote shares and seat shares of the Labor Party by 7 to 10 percentage points.” This correspond to a decrease in Republican vote share of approximately 0.3-0.4 percentage point when turnout increases by 1% (considering that this result is causal and linear). This effect being large, I consider effects that are smaller but of a similar magnitude: I simulate that when turnout increases by 1%, Republican vote share decreases by 0.1 and thus <strong>beta_1 = -0.1</strong></li>
 <li><strong>Effect of the omitted variable</strong>. The effect of the omitted variable cannot be observed, I pick it somehow at random such that OVB is substantial without being massive. Since the instrument is valid in these simulations, the IV estimates will not be affected by the intensity of the OVB, only the OLS estimates will (the larger this intensity, the larger the average ratio of the estimate over the true effect).</li>
-<li><strong>Turnout and vote share</strong> are expressed in percent. I set intercepts and residual standard deviations to produce turnouts and vote shares consistent with Cooperman (2017) and Fujiwara et al. (2016). Voter turnout parameters are roughly similar in both papers (mean 58 sd 14). The mean and standard deviation of Republican vote share are given in Fujiwara et al. (mean 55.3 and sd 14.2). Thus, I set <strong>sigma_share = 14.2 and sigma_turnout = 14</strong>. <strong>pi_0 and beta_0 are manually ajusted</strong> to get the correct mean of turnout and vote share (for pi_1 in the mid-range of its values)</li>
+<li><strong>Turnout and vote share</strong> are expressed in percent. I set intercepts and residual standard deviations to produce turnouts and vote shares consistent with <span class="citation" data-cites="cooperman_randomization_2017">Cooperman (<a href="#ref-cooperman_randomization_2017" role="doc-biblioref">2017</a>)</span> and <span class="citation" data-cites="fujiwara_habit_2016">Fujiwara, Meng, and Vogl (<a href="#ref-fujiwara_habit_2016" role="doc-biblioref">2016</a>)</span>. Voter turnout parameters are roughly similar in both papers (mean 58 sd 14). The mean and standard deviation of Republican vote share are given in @<span class="citation" data-cites="fujiwara_habit_2016">Fujiwara, Meng, and Vogl (<a href="#ref-fujiwara_habit_2016" role="doc-biblioref">2016</a>)</span> (mean 55.3 and sd 14.2). Thus, I set <strong>sigma_share = 14.2 and sigma_turnout = 14</strong>. <strong>pi_0 and beta_0 are manually adjusted</strong> to get the correct mean of turnout and vote share (for pi_1 in the mid-range of its values)</li>
 </ul>
 <p>Let’s thus consider the following parameters:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -3176,7 +3194,7 @@ Show code
 <!--   )  -->
 <!-- ``` -->
 <h3 id="computing-bias-and-exaggeration-ratios">Computing bias and exaggeration ratios</h3>
-<p>We want to compare <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{IV}}}{\beta_1}\right|\right]\)</span> and <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{IV}}}{\beta_1} \right| | \text{signif} \right]\)</span>. The first term represents the bias and the second term represents the exaggeration ratio.</p>
+<p>We want to compare <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{IV}}}{\beta_1}\right|\right]\)</span> and <span class="math inline">\(\mathbb{E}\left[  \left| \frac{\widehat{\beta_{IV}}}{\beta_1} \right| | \text{signif} \right]\)</span>. The first term represents the bias and the second term represents the exaggeration ratio.</p>
 <p>To do so, I use the function <code>summmarise_sim</code> defined in the <a href=""><code>functions.R</code></a> file.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -3295,7 +3313,7 @@ Show the code used to generate the graph
 <h2 id="further-checks">Further checks</h2>
 <h3 id="representativeness-of-the-estimation">Representativeness of the estimation</h3>
 <p>I calibrated the simulations to emulate a typical study from this literature. To further check that the results are realistic, I compare the average Signal-to-Noise Ratio (SNR) of the simulations to the range of SNR of an existing study.
-The influential study <a href="https://www.jstor.org/stable/10.1111/j.1468-2508.2007.00565.x?pq-origsite=360link&amp;seq=1#metadata_info_tab_contents">Gomez et al. (2007)</a> have a SNR of about 8. Yet the reanalysis by <a href="https://www.cambridge.org/core/journals/political-analysis/article/abs/randomization-inference-with-rainfall-data-using-historical-weather-patterns-for-variance-estimation/2F86BE9EB79FDFF9FF97C8C5CC4A2ED3">Cooperman (2017)</a> shows using randomization inference that accounting for spatial correlation in rain patters yield a larger standard error (a point estimate of -1.052 and with a <em>p</em>-value of 0.084).</p>
+The influential study <span class="citation" data-cites="gomez_republicans_2007">Gomez, Hansford, and Krause (<a href="#ref-gomez_republicans_2007" role="doc-biblioref">2007</a>)</span> have a SNR of about 8. Yet the reanalysis by <span class="citation" data-cites="cooperman_randomization_2017">Cooperman (<a href="#ref-cooperman_randomization_2017" role="doc-biblioref">2017</a>)</span> shows using randomization inference that accounting for spatial correlation in rain patters yield a larger standard error (a point estimate of -1.052 and with a <em>p</em>-value of 0.084).</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -3388,7 +3406,7 @@ Show code to compute the SNR in Gomez et al. (2007)
 </tbody>
 </table>
 </div>
-<p>This result does not mean that Gomez et al. (2007) suffer from exaggeration but rather indicates that my simulations are in line with SNRs that can be observed in actual studies and their calibration is not disconnected from existing studies.</p>
+<p>This result does not mean that <span class="citation" data-cites="gomez_republicans_2007">Gomez, Hansford, and Krause (<a href="#ref-gomez_republicans_2007" role="doc-biblioref">2007</a>)</span> suffer from exaggeration but rather indicates that my simulations are in line with SNRs that can be observed in actual studies and their calibration is not disconnected from existing studies.</p>
 <h3 id="f-statistic-analysis">F-statistic analysis</h3>
 <p>I then run some exploratory analysis to study the link between type M and F-stat (under construction).</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -3556,6 +3574,32 @@ Show code
 <p><img src="images/IV/binned_fstat-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-cooperman_randomization_2017" class="csl-entry" role="listitem">
+Cooperman, Alicia Dailey. 2017. <span>“Randomization <span>Inference</span> with <span>Rainfall Data</span>: <span>Using Historical Weather Patterns</span> for <span>Variance Estimation</span>.”</span> <em>Political Analysis</em> 25 (3): 277–88. <a href="https://doi.org/10.1017/pan.2017.17">https://doi.org/10.1017/pan.2017.17</a>.
+</div>
+<div id="ref-fowler_electoral_2013" class="csl-entry" role="listitem">
+Fowler, Anthony. 2013. <span>“Electoral and <span>Policy Consequences</span> of <span>Voter Turnout</span>: <span>Evidence</span> from <span>Compulsory Voting</span> in <span>Australia</span>.”</span> <em>Quarterly Journal of Political Science</em> 8 (2): 159–82.
+</div>
+<div id="ref-fowler_regular_2015" class="csl-entry" role="listitem">
+———. 2015. <span>“Regular <span>Voters</span>, <span>Marginal Voters</span> and the <span>Electoral Effects</span> of <span>Turnout</span>.”</span> <em>Political Science Research and Methods</em> 3 (2): 205–19. <a href="https://doi.org/10.1017/psrm.2015.18">https://doi.org/10.1017/psrm.2015.18</a>.
+</div>
+<div id="ref-fujiwara_habit_2016" class="csl-entry" role="listitem">
+Fujiwara, Thomas, Kyle Meng, and Tom Vogl. 2016. <span>“Habit <span>Formation</span> in <span>Voting</span>: <span>Evidence</span> from <span>Rainy Elections</span>.”</span> <em>American Economic Journal: Applied Economics</em> 8 (4): 160–88. <a href="https://doi.org/10.1257/app.20140533">https://doi.org/10.1257/app.20140533</a>.
+</div>
+<div id="ref-gomez_republicans_2007" class="csl-entry" role="listitem">
+Gomez, Brad T., Thomas G. Hansford, and George A. Krause. 2007. <span>“The <span>Republicans Should Pray</span> for <span>Rain</span>: <span>Weather</span>, <span>Turnout</span>, and <span>Voting</span> in <span>U</span>.<span>S</span>. <span>Presidential Elections</span>.”</span> <em>The Journal of Politics</em> 69 (3): 649–63. <a href="https://doi.org/10.1111/j.1468-2508.2007.00565.x">https://doi.org/10.1111/j.1468-2508.2007.00565.x</a>.
+</div>
+<div id="ref-hansford_estimating_2010" class="csl-entry" role="listitem">
+Hansford, Thomas G., and Brad T. Gomez. 2010. <span>“Estimating the <span>Electoral Effects</span> of <span>Voter Turnout</span>.”</span> <em>American Political Science Review</em> 104 (2): 268–88. <a href="https://doi.org/10.1017/S0003055410000109">https://doi.org/10.1017/S0003055410000109</a>.
+</div>
+<div id="ref-mellon_rain_2021" class="csl-entry" role="listitem">
+Mellon, Jonathan. 2021. <span>“Rain, <span>Rain</span>, <span>Go Away</span>: 176 <span>Potential Exclusion-Restriction Violations</span> for <span>Studies Using Weather</span> as an <span>Instrumental Variable</span>,”</span> July, 112.
+</div>
+<div id="ref-shaw_theoretical_2020" class="csl-entry" role="listitem">
+Shaw, Daron R., and John R. Petrocik. 2020. <span>“A <span>Theoretical Exploration</span> of <span>Turnout</span> and <span>Voting</span>.”</span> In <em>The <span>Turnout Myth</span></em>. New York: Oxford University Press. <a href="https://doi.org/10.1093/oso/9780190089450.003.0003">https://doi.org/10.1093/oso/9780190089450.003.0003</a>.
+</div>
+</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -3576,7 +3620,10 @@ Show code
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

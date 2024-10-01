@@ -1,10 +1,11 @@
 ---
 title: "Exaggeration in experimental economics"
-description: "In this document, leveraging data form [Camerer et al. (2016)](https://www.science.org/doi/10.1126/science.aaf0918), I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies."
+description: "In this document, leveraging data form @camerer_evaluating_2016, I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies."
 output: 
   distill::distill_article:
     toc: true
     float: true
+bibliography: paper/causal_exaggeration.bib
 editor_options: 
   chunk_output_type: console
 ---
@@ -43,7 +44,7 @@ set_mediocre_all(pal = "coty")
 
 ## Setting and data
 
-[Camerer et al. (2016)](https://www.science.org/doi/10.1126/science.aaf0918) replicate 18 experimental economics studies published in the *American Economic Review* and the *Quarterly Journal of Economics* between 2011 and 2014. They find that original studies on average overestimate the replicated effect by a factor of 1.5 and only 61% of the replication find a significant effect in the same direction as the original study.
+@camerer_evaluating_2016 replicate 18 experimental economics studies published in the *American Economic Review* and the *Quarterly Journal of Economics* between 2011 and 2014. They find that original studies on average overestimate the replicated effect by a factor of 1.5 and only 61% of the replication find a significant effect in the same direction as the original study.
 
 **In this document, I report and replicate their results and further explore exaggeration in the original studies.** This data allows to have a convincing estimate of the true effect (the replicated point estimate) and to evaluate the ability of the original design to accurately capture this estimate. 
 
@@ -76,7 +77,7 @@ data_camerer <- data_camerer_raw |>
 
 ## Replicability and Ratio Origingal/Replicated Estimate
 
-I first reproduce the results in Camerer et al, evaluating the proportion of studies that find results in the same direction as the original study. I also compute the median ratio of the original over the replicated estimate.
+I first reproduce the results in @camerer_evaluating_2016, evaluating the proportion of studies that find results in the same direction as the original study. I also compute the median ratio of the original over the replicated estimate.
 
 ```{r replicability, code_folding=TRUE}
 data_camerer |> 

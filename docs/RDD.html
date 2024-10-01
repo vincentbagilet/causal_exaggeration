@@ -21,7 +21,7 @@
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -86,6 +86,28 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+      margin-bottom: 0em;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
+</style>
 
   <!--radix_placeholder_meta_tags-->
   <title>Causal Exaggeration: Simulations RDD</title>
@@ -108,10 +130,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="twitter:description" content="In this document, we run a simulation exercise to illustrate how using a Regression Discontinuity Design (RDD) to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of additional lessons on students&#39;grades."/>
 
   <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=Remedial Education and Student Achievement: A Regression-Discontinuity Analysis;citation_volume=86;citation_doi=10.1162/003465304323023778;citation_issn=0034-6535;citation_author=Brian A. Jacob;citation_author=Lars Lefgren"/>
+  <meta name="citation_reference" content="citation_title=Interpreting Effect Sizes of Education Interventions;citation_publisher=American Educational Research Association;citation_volume=49;citation_doi=10.3102/0013189X20912798;citation_issn=0013-189X;citation_author=Matthew A. Kraft"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations RDD"]},{"type":"character","attributes":{},"value":["In this document, we run a simulation exercise to illustrate how using a Regression Discontinuity Design (RDD) to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of additional lessons on students'grades."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","bibliography","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations RDD"]},{"type":"character","attributes":{},"value":["In this document, we run a simulation exercise to illustrate how using a Regression Discontinuity Design (RDD) to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of additional lessons on students'grades."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["paper/causal_exaggeration.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2247,12 +2272,10 @@ Simulations
 <div class="nav-dropdown-content">
 <a href="RDD.html">RDD</a>
 <a href="IV.html">IV</a>
-<a href="Matching.html">Matching</a>
 <a href="shocks.html">Shocks</a>
-<span class="nav-dropdown-header">Fixed-Effects</span>
+<a href="FE.html">Fixed-Effects</a>
 </div>
 </div>
-<a href="reporting.html">Reporting</a>
 <a href="https://github.com/vincentbagilet/causal_exaggeration" aria-label="Link to source">
 <i class="fab fa-github" aria-hidden="true"></i>
 </a>
@@ -2314,7 +2337,7 @@ text-align: justify}
 <h2 id="simulation-framework">Simulation framework</h2>
 <h3 id="illustrative-example">Illustrative example</h3>
 <p>To illustrate this trade-off, we consider a standard application of the RD design in economics of education where a grant or additional lessons are assigned based on the score obtained by students on a standardized test. Students with test scores below a given threshold receive the treatment while those above do not. Yet, students far above and far below the threshold may differ along unobserved characteristics such as ability. To limit this bias, the effect of the treatment is estimated by comparing the outcomes of students just below and just above this threshold. This enable to limit disparities in terms of unobserved characteristics.</p>
-<p><a href="https://psycnet.apa.org/record/1962-00061-001">Thistlewaite and Campbell (1960)</a> introduced the concept of RDD using this type of quasi-experiment. In their paper, they take advantage of a sharp discontinuity in the assignment of an award (a Certificate of Merit) based on qualifying scores at a test. This type of analysis is still used today and many papers leveraging similar methodologies have been published since this seminal work. For instance, <a href="https://direct.mit.edu/rest/article/86/1/226/57489/Remedial-Education-and-Student-Achievement-A">Jacob and Lefgren (2004)</a> exploit this type of discontinuity to study the impact of summer school and grade retention programs on test scores. Students who score below a given score are required to attend a summer school and to retake the test. Students who do not pass the second have to repeat the grade.</p>
+<p><span class="citation" data-cites="thistlethwaite_regression-discontinuity_1960">Thistlethwaite and Campbell (<a href="#ref-thistlethwaite_regression-discontinuity_1960" role="doc-biblioref">1960</a>)</span> introduced the concept of RDD using this type of quasi-experiment. In their paper, they take advantage of a sharp discontinuity in the assignment of an award (a Certificate of Merit) based on qualifying scores at a test. This type of analysis is still used today and many papers leveraging similar methodologies have been published since this seminal work. For instance, <span class="citation" data-cites="jacob_remedial_2004">Jacob and Lefgren (<a href="#ref-jacob_remedial_2004" role="doc-biblioref">2004</a>)</span> exploit this type of discontinuity to study the impact of summer school and grade retention programs on test scores. Students who score below a given score are required to attend a summer school and to retake the test. Students who do not pass the second have to repeat the grade.</p>
 <h3 id="modeling-choices">Modeling choices</h3>
 <p>In the present analysis, we build our simulations to replicate a similar type of quasi-experiment. In our fictional example, all students scoring below a cutoff <span class="math inline">\(C\)</span> in a qualification test are required to take additional lessons. We want to estimate the effect of these additional lessons on scores on a final test taken by all students a year later.</p>
 <p>We assume that the final score of student <span class="math inline">\(i\)</span>, <span class="math inline">\(Final_i\)</span>, is correlated with their qualification score <span class="math inline">\(Qual_i\)</span> and their treatment status <span class="math inline">\(T_i\)</span>, <em>ie</em> whether student <span class="math inline">\(i\)</span> received additional lessons or not. We further assume that both qualification and final test scores are affected by students’ unobserved ability <span class="math inline">\(w_i\)</span> in a non linear way.</p>
@@ -2406,10 +2429,10 @@ text-align: justify}
 <h4 id="calibration-and-baseline-parameters-values">Calibration and baseline parameters’ values</h4>
 <p>We set baseline values for the parameters to emulate a somehow realistic observational study in this field. We make the following assumptions:</p>
 <ul>
-<li><strong>Number of observations, bandwidth and cutoff</strong>: to emulate an existing study, we consider a number of observation consistent with <a href="https://direct.mit.edu/rest/article/86/1/226/57489/Remedial-Education-and-Student-Achievement-A">Jacob and Lefgren (2004)</a>. In their design, they have 75000 observations per grade and approximately 5000 individuals in their preferred bandwidth, <em>ie</em> 6% of the total sample size. We choose a slightly smaller but comparable number of observations, <strong>N = 60000</strong>, so that the number of observations in their bandwidth correspond to 0.1 of our sample. In their setting, the cutoff is close to the center of the distribution (roughly 40% of the students get assigned). We consider that the threshold is located at the center of the distribution (<strong>q_c = 0.5</strong>) and a bandwidth that is symmetric around the cutoff in terms of number of observations. A cut-off in the middle of the distribution enables us to consider very wide bandwidths, up to including the whole sample in the analysis.</li>
+<li><strong>Number of observations, bandwidth and cutoff</strong>: to emulate an existing study, we consider a number of observation consistent with <span class="citation" data-cites="jacob_remedial_2004">Jacob and Lefgren (<a href="#ref-jacob_remedial_2004" role="doc-biblioref">2004</a>)</span>. In their design, they have 75000 observations per grade and approximately 5000 individuals in their preferred bandwidth, <em>ie</em> 6% of the total sample size. We choose a slightly smaller but comparable number of observations, <strong>N = 60000</strong>, so that the number of observations in their bandwidth correspond to 0.1 of our sample. In their setting, the cutoff is close to the center of the distribution (roughly 40% of the students get assigned). We consider that the threshold is located at the center of the distribution (<strong>q_c = 0.5</strong>) and a bandwidth that is symmetric around the cutoff in terms of number of observations. A cut-off in the middle of the distribution enables us to consider very wide bandwidths, up to including the whole sample in the analysis.</li>
 <li><strong>Grades distribution</strong>: we assume that grades are SAT scores. One can think of the qualifying exam as a state level exam that gives the opportunity to students with lower grades to receive additional lessons. For simplicity, we assume that the <strong>scores have a mean of 1060 and standard error of 200</strong> (based on <a href="https://nces.ed.gov/programs/digest/d20/tables/dt20_226.40.asp">statistics provided by the Department of Education</a>). We adjust the values of the intercept parameters (<code>mu_q</code> and <code>beta_0</code>) and their standard error (<code>sigma_epsilon</code> and <code>sigma_u</code>) to get appropriate distributions. These parameters are the last to be set. The resulting set of parameters may produce some test scores outside of the range 400–1600 but that does not affect the analysis.</li>
 <li><strong>Correlation between final and qualifying scores</strong>: most of the correlation between these two variables comes from the (omitted) ability. The “direct” parameter <span class="math inline">\(\eta\)</span> only plays a limited role. It makes sense for this parameter to be in the <span class="math inline">\([0, 1]\)</span> range, closer to the 0 side, considering that we also model “ability”. Modifying its value withing this range does not alter the results.</li>
-<li><strong>Treatment effect size</strong>: typical treatment effect sizes in economics of education are of the order of magnitude of 0.1 sd. <a href="https://journals.sagepub.com/doi/abs/10.3102/0013189X20912798?journalCode=edra">Kraft 2020</a>, reviewing 747 RCTs of education intervention finds that the median effect size is 0.1 sd. Interestingly, he finds that “larger studies with broad achievement measures have systematically smaller effect sizes”. This might hint to publication bias as he underlines. In studies with more than 2000 individuals, the median effect is 0.03 sd. The same median effect size is observed in preregistered studies. We therefore consider an <strong>effect size of 0.03 sd</strong>, <em>ie</em> <span class="math inline">\(\beta_1 = 6 = 200\times 0.03\)</span>.</li>
+<li><strong>Treatment effect size</strong>: typical treatment effect sizes in economics of education are of the order of magnitude of 0.1 sd. <span class="citation" data-cites="kraft_interpreting_2020">Kraft (<a href="#ref-kraft_interpreting_2020" role="doc-biblioref">2020</a>)</span>, reviewing 747 RCTs of education intervention finds that the median effect size is 0.1 sd. Interestingly, he finds that “larger studies with broad achievement measures have systematically smaller effect sizes”. This might hint to publication bias as he underlines. In studies with more than 2000 individuals, the median effect is 0.03 sd. The same median effect size is observed in preregistered studies. We therefore consider an <strong>effect size of 0.03 sd</strong>, <em>ie</em> <span class="math inline">\(\beta_1 = 6 = 200\times 0.03\)</span>.</li>
 <li><strong>Modeling of ability</strong>. Modeling ability is rather challenging. Since it is unobserved, there is no actual way of mimicking an existing study to simulate its impact. In the modeling stage, we considered that ability is uniformly distributed between -1 and 1 and affect tests scores through its cube. As a consequence, <span class="math inline">\(\gamma\)</span> takes rather large value. It roughly corresponds to the difference in tests score between the median student and the “best” performing one caused by their differences in ability. We therefore want to set it such that <strong><span class="math inline">\(\gamma \simeq 300\)</span></strong>. We fine tune it by hand so that it generates enough OVB.</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
@@ -2919,7 +2942,7 @@ Show code
 <p><img src="images/RDD/result_histogram_RDD-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <h3 id="computing-the-bias-and-exaggeration-ratio">Computing the bias and exaggeration ratio</h3>
-<p>We want to compare <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{RDD}}}{\beta_1}\right|\right]\)</span> and <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{RDD}}}{\beta_1} \right| | \text{signif} \right]\)</span>. The first term represents the bias and the second term represents the exaggeration ratio. This terms depend on the true effect size. To enable comparison across simulations and getting terms independent of effect sizes, we also compute the average of the ratios between the estimate and the true effect, conditional on significance.</p>
+<p>We want to compare <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{RDD}}}{\beta_1}\right|\right]\)</span> and <span class="math inline">\(\mathbb{E}\left[  \left| \frac{\widehat{\beta_{RDD}}}{\beta_1} \right| | \text{signif} \right]\)</span>. The first term represents the bias and the second term represents the exaggeration ratio. This terms depend on the true effect size. To enable comparison across simulations and getting terms independent of effect sizes, we also compute the average of the ratios between the estimate and the true effect, conditional on significance.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"functions.R"</span><span class='op'>)</span><span class='op'>)</span></span>
@@ -3048,10 +3071,10 @@ Show code
 </details>
 <p><img src="images/RDD/graph_distrib_RDD-4.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<p>Note that a <a href="https://direct.mit.edu/rest/article/86/1/226/57489/Remedial-Education-and-Student-Achievement-A">Jacob and Lefgren (2004)</a> have about 5000 observations inside their bandwidth. In our simulations, the 0.1 bandwidth has even more observations (6000) and displays particularly large exaggeration.</p>
+<p>Note that a <span class="citation" data-cites="jacob_remedial_2004">Jacob and Lefgren (<a href="#ref-jacob_remedial_2004" role="doc-biblioref">2004</a>)</span> have about 5000 observations inside their bandwidth. In our simulations, the 0.1 bandwidth has even more observations (6000) and displays particularly large exaggeration.</p>
 <h2 id="further-checks">Further checks</h2>
 <h3 id="representativeness-of-the-estimation">Representativeness of the estimation</h3>
-<p>We calibrated our simulations to emulate a typical study from this literature. To further check that the results are realistic, we compare the average Signal-to-Noise Ratio (SNR) of our regressions to the range of SNR of an existing study. The closest study to our simulation is <a href="https://direct.mit.edu/rest/article/86/1/226/57489/Remedial-Education-and-Student-Achievement-A">Jacob and Lefgren (2004)</a>. In their main result table, Table 3, the SNRs range from 0.3 to 8.</p>
+<p>We calibrated our simulations to emulate a typical study from this literature. To further check that the results are realistic, we compare the average Signal-to-Noise Ratio (SNR) of our regressions to the range of SNR of an existing study. The closest study to our simulation is <span class="citation" data-cites="jacob_remedial_2004">Jacob and Lefgren (<a href="#ref-jacob_remedial_2004" role="doc-biblioref">2004</a>)</span>. In their main result table, Table 3, the SNRs range from 0.3 to 8.</p>
 <p>I find SNR in a similar range or even larger.</p>
 <div class="layout-chunk" data-layout="l-body">
 <table>
@@ -3111,7 +3134,7 @@ Show code
 </tbody>
 </table>
 </div>
-<p>The precision of our results is therefore in line with precision that can be found in the literature. It is important to acknowledge that our simulation in no means reproduces the study in Jacob and Lefgren (2004) and can be used to analyze their results directly. Rather, it combine insights from several studies to mimic a “typical” study from this literature, while remaining conservative with regards to many assumptions, in particular in terms of data generating model (constant and homogenous treatment, ect). Parameters values however are such that they yield a design that can be underpowered, something that can happen in this literature but does not affect every single study.</p>
+<p>The precision of our results is therefore in line with precision that can be found in the literature. It is important to acknowledge that our simulation in no means reproduces the study in <span class="citation" data-cites="jacob_remedial_2004">Jacob and Lefgren (<a href="#ref-jacob_remedial_2004" role="doc-biblioref">2004</a>)</span> and can be used to analyze their results directly. Rather, it combine insights from several studies to mimic a “typical” study from this literature, while remaining conservative with regards to many assumptions, in particular in terms of data generating model (constant and homogenous treatment, ect). Parameters values however are such that they yield a design that can be underpowered, something that can happen in this literature but does not affect every single study.</p>
 <h3 id="variation-in-effect-size">Variation in effect size</h3>
 <p>I then explore where between bandwidth size for one given data set comes from. To do so, I run a few simulations and plot the results.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -3146,6 +3169,17 @@ Show code
 <p><img src="images/RDD/few_sim-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-jacob_remedial_2004" class="csl-entry" role="listitem">
+Jacob, Brian A., and Lars Lefgren. 2004. <span>“Remedial <span>Education</span> and <span>Student Achievement</span>: <span>A Regression-Discontinuity Analysis</span>.”</span> <em>The Review of Economics and Statistics</em> 86 (1): 226–44. <a href="https://doi.org/10.1162/003465304323023778">https://doi.org/10.1162/003465304323023778</a>.
+</div>
+<div id="ref-kraft_interpreting_2020" class="csl-entry" role="listitem">
+Kraft, Matthew A. 2020. <span>“Interpreting <span>Effect Sizes</span> of <span>Education Interventions</span>.”</span> <em>Educational Researcher</em> 49 (4): 241–53. <a href="https://doi.org/10.3102/0013189X20912798">https://doi.org/10.3102/0013189X20912798</a>.
+</div>
+<div id="ref-thistlethwaite_regression-discontinuity_1960" class="csl-entry" role="listitem">
+Thistlethwaite, Donald L., and Donald T. Campbell. 1960. <span>“Regression-Discontinuity Analysis: <span>An</span> Alternative to the Ex Post Facto Experiment.”</span> <em>Journal of Educational Psychology</em> 51 (6): 309–17. <a href="https://doi.org/10.1037/h0044319">https://doi.org/10.1037/h0044319</a>.
+</div>
+</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -3166,7 +3200,10 @@ Show code
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

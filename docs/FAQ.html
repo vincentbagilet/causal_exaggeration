@@ -21,7 +21,7 @@
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -86,6 +86,28 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+      margin-bottom: 0em;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
+</style>
 
   <!--radix_placeholder_meta_tags-->
   <title>Causal Exaggeration: Frequently Asked Questions</title>
@@ -108,10 +130,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="twitter:description" content="In this document, I give intuition for causal exaggeration and answers to FAQs."/>
 
   <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=Reference Points and Effort Provision;citation_volume=101;citation_doi=10.1257/aer.101.2.470;citation_issn=0002-8282;citation_author=Johannes Abeler;citation_author=Armin Falk;citation_author=Lorenz Goette;citation_author=David Huffman"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Frequently Asked Questions"]},{"type":"character","attributes":{},"value":["In this document, I give intuition for causal exaggeration and answers to FAQs."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","bibliography","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Frequently Asked Questions"]},{"type":"character","attributes":{},"value":["In this document, I give intuition for causal exaggeration and answers to FAQs."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["paper/causal_exaggeration.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2247,12 +2271,10 @@ Simulations
 <div class="nav-dropdown-content">
 <a href="RDD.html">RDD</a>
 <a href="IV.html">IV</a>
-<a href="Matching.html">Matching</a>
 <a href="shocks.html">Shocks</a>
-<span class="nav-dropdown-header">Fixed-Effects</span>
+<a href="FE.html">Fixed-Effects</a>
 </div>
 </div>
-<a href="reporting.html">Reporting</a>
 <a href="https://github.com/vincentbagilet/causal_exaggeration" aria-label="Link to source">
 <i class="fab fa-github" aria-hidden="true"></i>
 </a>
@@ -2289,7 +2311,7 @@ body {
 text-align: justify}
 </style>
 <h2 id="what-is-exaggeration">What is exaggeration?</h2>
-<p>Exaggeration is one of the key concepts in the present paper. To understand how low statistical power can cause exaggeration in the presence of publication bias, let’s analyze replications of laboratory experiments in economics ran by <a href="https://www.science.org/doi/10.1126/science.aaf0918">Camerer et al (2016)</a>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Exaggeration is one of the key concepts in the present paper. To understand how low statistical power can cause exaggeration in the presence of publication bias, let’s analyze replications of laboratory experiments in economics ran by <span class="citation" data-cites="camerer_evaluating_2016">Camerer et al. (<a href="#ref-camerer_evaluating_2016" role="doc-biblioref">2016</a>)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>First, I retrieve their replication results, alongside the results of the initial studies, from their <a href="http://experimentaleconreplications.com/scripts.html">project website</a>. I just ran their Stata script <code>create_studydetails.do</code> to generate their data set. Since the standard errors of the estimates are not reported in this data set, I recompute them.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
@@ -2305,7 +2327,7 @@ Show code
 </div>
 </details>
 </div>
-<p>First, I focus on one particular study, Abeler et al. (2011), in order to illustrate in more details the issue of interest. I first plot in red the estimate and 95% confidence interva Abeler et al. obtained in their experiment (note that I will run replications and there will be several draws of estimates in subsequent graphs, hence why the x-axis of the graph below):</p>
+<p>First, I focus on one particular study, <span class="citation" data-cites="abeler_reference_2011">Abeler et al. (<a href="#ref-abeler_reference_2011" role="doc-biblioref">2011</a>)</span>, in order to illustrate in more details the issue of interest. I first plot in red the estimate and 95% confidence intervals <span class="citation" data-cites="abeler_reference_2011">Abeler et al. (<a href="#ref-abeler_reference_2011" role="doc-biblioref">2011</a>)</span> obtained in their experiment (note that I will run replications and there will be several draws of estimates in subsequent graphs, hence why the x-axis of the graph below):</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/intuition/graph_camerer_initial_study-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
@@ -2363,6 +2385,14 @@ Show code
 </ul>
 <p>The first literatures I explore are very broad but necessitate strong assumptions regarding true effect sizes. I then focus on narrower and narrower literatures but that allow relaxing these assumptions.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-abeler_reference_2011" class="csl-entry" role="listitem">
+Abeler, Johannes, Armin Falk, Lorenz Goette, and David Huffman. 2011. <span>“Reference <span>Points</span> and <span>Effort Provision</span>.”</span> <em>American Economic Review</em> 101 (2): 470–92. <a href="https://doi.org/10.1257/aer.101.2.470">https://doi.org/10.1257/aer.101.2.470</a>.
+</div>
+<div id="ref-camerer_evaluating_2016" class="csl-entry" role="listitem">
+Camerer, Colin F., Anna Dreber, Eskil Forsell, Teck-Hua Ho, Jürgen Huber, Magnus Johannesson, Michael Kirchler, et al. 2016. <span>“Evaluating Replicability of Laboratory Experiments in Economics.”</span> <em>Science</em> 351 (6280): 1433–36. <a href="https://doi.org/10.1126/science.aaf0918">https://doi.org/10.1126/science.aaf0918</a>.
+</div>
+</div>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
@@ -2389,7 +2419,10 @@ Show code
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

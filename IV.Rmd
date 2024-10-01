@@ -4,6 +4,7 @@ description: "In this document, I run a simulation exercise to illustrate how us
 output: 
   distill::distill_article:
     toc: true
+bibliography: paper/causal_exaggeration.bib
 editor_options: 
   chunk_output_type: console
 ---
@@ -52,7 +53,7 @@ In the case of the IV, the unconfoundedness / exaggeration trade-off is  mediate
 
 To illustrate this loss in power, we could consider a large variety of settings, distribution of the parameters or parameter values. I narrow this down to an example setting, considering only one setting and one set of parameter values. I examine an analysis of the impact of voter turnout on election results, instrumenting voter turnout with rainfall on the day of the election. My point should stand in more general settings and the choice of values is mostly for illustration. 
 
-A threat of confounders often arises when analyzing the link between voter turnout and election results. To estimate such an effect causally, one can consider exogenous shocks to voter turnout such as rainfall. Some potential exclusion restriction problems [have been highlighted](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3715610) in this instance but I abstract from them and simulate no exclusion restriction violations here.
+A threat of confounders often arises when analyzing the link between voter turnout and election results. To estimate such an effect causally, one can consider exogenous shocks to voter turnout such as rainfall. Some potential exclusion restriction problems have been highlighted in this instance @mellon_rain_2021 but I abstract from them and simulate no exclusion restriction violations here.
 
 ### Modeling choices
 
@@ -184,22 +185,17 @@ generate_data_iv <- function(N,
 
 #### Calibration and baseline parameters' values
 
-We can now set baseline values for the parameters to emulate a somehow realistic observational study. I get "inspiration" for the values of parameters from 
-[Fujiwara et al. (2016)](https://www.aeaweb.org/articles?id=10.1257/app.20140533)
-and 
-[Cooperman (2017)](https://www.cambridge.org/core/journals/political-analysis/article/randomization-inference-with-rainfall-data-using-historical-weather-patterns-for-variance-estimation/2F86BE9EB79FDFF9FF97C8C5CC4A2ED3) 
-who replicates a work by 
-[Gomez et al. (2007)](https://www.jstor.org/stable/10.1111/j.1468-2508.2007.00565.x?pq-origsite=360link&seq=1#metadata_info_tab_contents). 
+We can now set baseline values for the parameters to emulate a somehow realistic observational study. I get "inspiration" for the values of parameters from @fujiwara_habit_2016 and @cooperman_randomization_2017 who replicates a work by @gomez_republicans_2007. 
 
 I consider that:
 
-- **Number of observations**: We consider data at the US county level as in [Hansford and Gomez (2010)](https://www.cambridge.org/core/journals/american-political-science-review/article/estimating-the-electoral-effects-of-voter-turnout/8A880C28E79BE770A5CA1A9BB6CF933C) and [Fujiwara et al. (2016)](https://www.aeaweb.org/articles?id=10.1257/app.20140533). The former use data for presidential elections between 1948 and 2000, restricting their sample of counties to non-Southern ones (2000 per election year). That leads to a sample size of 28000. The latter data for presidential elections between 1952 and 2012 leading to a sample size of about 50000. I thus consider **30000 observations**. 
-- **Rainfall distribution**: A gamma distribution represents well the distribution of rainfall. Gamma distribution can have two parameters a shape and a scale. The mean is $shape \times scale$ and the variance $shape \times scale^{2}$. The parameters of the distribution of rainfall are comparable in both Fujiwara et al. and Cooperman (2017) after a conversion into centimeters: mean 2.4 and standard deviation 6.6. I solve the system of mean and variance for shape and scale and set **param_rain to 0.13 and 18**.
+- **Number of observations**: We consider data at the US county level as in @hansford_estimating_2010 and @fujiwara_habit_2016. The former use data for presidential elections between 1948 and 2000, restricting their sample of counties to non-Southern ones (2000 per election year). That leads to a sample size of 28000. The latter data for presidential elections between 1952 and 2012 leading to a sample size of about 50000. I thus consider **30000 observations**. 
+- **Rainfall distribution**: A gamma distribution represents well the distribution of rainfall. Gamma distribution can have two parameters a shape and a scale. The mean is $shape \times scale$ and the variance $shape \times scale^{2}$. The parameters of the distribution of rainfall are comparable in both @fujiwara_habit_2016 and @cooperman_randomization_2017 after a conversion into centimeters: mean 2.4 and standard deviation 6.6. I solve the system of mean and variance for shape and scale and set **param_rain to 0.13 and 18**.
 - **Standard deviation of the omitted variable** is set to be of the order of magnitude of the error terms. Being conservative, let's set its intensity to be twice as large as the treatment effect.
-- **Effect of rainfall on turnout**: Fujiwara et al. find that "The trends specifications suggest that 1 millimeter of rainfall decreases turnout by 0.05–0.07 percentage points" and Gomez et al. (and thus Cooperman) find "a county that receives one inch of rainfall on election day is likely to have approximately 1 percentage point lower voter turnout" which is equivalent to a 1mm increase in rainfall is associated with about a 0.04 percentage points decrease in voter turnout. For simplicity in interpretation, when rainfall is not a dummy, I express in centimeters. So, I consider **pi_1 in the range -0.1 and -1.3**, assuming linearity.
-- **Effect of interest** (turnout on vote share): it is subject to intense debate in the literature (cf [Shaw and Petrocik (2020)](https://oxford.universitypressscholarship.com/view/10.1093/oso/9780190089450.001.0001/oso-9780190089450) for instance). As underlined by Shaw and Petrocik and in [Fowler (2013)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1816649), some studies find large effects, others no effects or small effects. Fowler (2013) falls into the large effects category as [described by the author himself](https://www.cambridge.org/core/journals/political-science-research-and-methods/article/regular-voters-marginal-voters-and-the-electoral-effects-of-turnout/F835F3CAE47B7ACB5D49AAE5B97FBD79). The study, for an extremely large shock in voter turnout, compulsory voting, finds "that the policy increased voter turnout by 24 percentage points which in turn increased the vote shares and seat shares of the Labor Party by 7 to 10 percentage points." This correspond to a decrease in Republican vote share of approximately 0.3-0.4 percentage point when turnout increases by 1% (considering that this result is causal and linear). This effect being large, I consider effects that are smaller but of a similar magnitude: I simulate that when turnout increases by 1%, Republican vote share decreases by 0.1 and thus **beta_1 = -0.1**
-- **Effect of the omitted variable**. The effect of the omitted variable cannot be observed, I pick it somehow at random such that OVB is substantial without being massive. Since the instrument is valid in these simulations, the IV estimates will not be affected by the intensity of the OVB, only the OLS estimates will (the larger this intensity, the larger the average ratio of the estimate over the true effect).
-- **Turnout and vote share** are expressed in percent. I set intercepts and residual standard deviations to produce turnouts and vote shares consistent with Cooperman (2017) and Fujiwara et al. (2016). Voter turnout parameters are roughly similar in both papers (mean 58 sd 14). The mean and standard deviation of Republican vote share are given in Fujiwara et al. (mean 55.3 and sd 14.2). Thus, I set **sigma_share = 14.2 and sigma_turnout = 14**. **pi_0 and beta_0 are manually ajusted** to get the correct mean of turnout and vote share (for pi_1 in the mid-range of its values)
+- **Effect of rainfall on turnout**: @fujiwara_habit_2016 find that "The trends specifications suggest that 1 millimeter of rainfall decreases turnout by 0.05–0.07 percentage points" and @gomez_republicans_2007 (and thus @cooperman_randomization_2017) find "a county that receives one inch of rainfall on election day is likely to have approximately 1 percentage point lower voter turnout" which is equivalent to a 1mm increase in rainfall is associated with about a 0.04 percentage points decrease in voter turnout. For simplicity in interpretation, when rainfall is not a dummy, I express in centimeters. So, I consider **pi_1 in the range -0.1 and -1.3**, assuming linearity.
+- **Effect of interest** (turnout on vote share): it is subject to intense debate in the literature (cf @shaw_theoretical_2020 for instance). As underlined by @shaw_theoretical_2020 and in @fowler_electoral_2013, some studies find large effects, others no effects or small effects. @fowler_electoral_2013 falls into the large effects category as described by the author himself [@fowler_regular_2015]. The study, for an extremely large shock in voter turnout, compulsory voting, finds "that the policy increased voter turnout by 24 percentage points which in turn increased the vote shares and seat shares of the Labor Party by 7 to 10 percentage points." This correspond to a decrease in Republican vote share of approximately 0.3-0.4 percentage point when turnout increases by 1% (considering that this result is causal and linear). This effect being large, I consider effects that are smaller but of a similar magnitude: I simulate that when turnout increases by 1%, Republican vote share decreases by 0.1 and thus **beta_1 = -0.1**
+- **Effect of the omitted variable**. The effect of the omitted variable cannot be observed, I pick it somehow at random such that OVB is substantial without being massive. Since the instrument is valid in these simulations, the IV estimates will not be affected by the intensity of the OVB, only the OLS estimates will (the larger this intensity, the larger the average ratio of the estimate over the true effect). 
+- **Turnout and vote share** are expressed in percent. I set intercepts and residual standard deviations to produce turnouts and vote shares consistent with @cooperman_randomization_2017 and @fujiwara_habit_2016. Voter turnout parameters are roughly similar in both papers (mean 58 sd 14). The mean and standard deviation of Republican vote share are given in @@fujiwara_habit_2016 (mean 55.3 and sd 14.2). Thus, I set **sigma_share = 14.2 and sigma_turnout = 14**. **pi_0 and beta_0 are manually adjusted** to get the correct mean of turnout and vote share (for pi_1 in the mid-range of its values)
 
 Let's thus consider the following parameters:
 
@@ -680,7 +676,7 @@ sim_iv |>
 ### Representativeness of the estimation
 
 I calibrated the simulations to emulate a typical study from this literature. To further check that the results are realistic, I compare the average Signal-to-Noise Ratio (SNR) of the simulations to the range of SNR of an existing study. 
-The influential study [Gomez et al. (2007)](https://www.jstor.org/stable/10.1111/j.1468-2508.2007.00565.x?pq-origsite=360link&seq=1#metadata_info_tab_contents) have a SNR of about 8. Yet the reanalysis by [Cooperman (2017)](https://www.cambridge.org/core/journals/political-analysis/article/abs/randomization-inference-with-rainfall-data-using-historical-weather-patterns-for-variance-estimation/2F86BE9EB79FDFF9FF97C8C5CC4A2ED3) shows using randomization inference that accounting for spatial correlation in rain patters yield a larger standard error (a point estimate of -1.052 and with a *p*-value of 0.084). 
+The influential study @gomez_republicans_2007 have a SNR of about 8. Yet the reanalysis by @cooperman_randomization_2017 shows using randomization inference that accounting for spatial correlation in rain patters yield a larger standard error (a point estimate of -1.052 and with a *p*-value of 0.084). 
 
 ```{r snr_gomez, code_folding='Show code to compute the SNR in Gomez et al. (2007)'}
 library(dmetar)
@@ -711,7 +707,7 @@ summary_sim_iv |>
   )
 ```
 
-This result does not mean that Gomez et al. (2007) suffer from exaggeration but rather indicates that my simulations are in line with SNRs that can be observed in actual studies and their calibration is not disconnected from existing studies.
+This result does not mean that @gomez_republicans_2007 suffer from exaggeration but rather indicates that my simulations are in line with SNRs that can be observed in actual studies and their calibration is not disconnected from existing studies.
 
 ### F-statistic analysis
 

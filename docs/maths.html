@@ -21,7 +21,7 @@
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -2247,12 +2247,10 @@ Simulations
 <div class="nav-dropdown-content">
 <a href="RDD.html">RDD</a>
 <a href="IV.html">IV</a>
-<a href="Matching.html">Matching</a>
 <a href="shocks.html">Shocks</a>
-<span class="nav-dropdown-header">Fixed-Effects</span>
+<a href="FE.html">Fixed-Effects</a>
 </div>
 </div>
-<a href="reporting.html">Reporting</a>
 <a href="https://github.com/vincentbagilet/causal_exaggeration" aria-label="Link to source">
 <i class="fab fa-github" aria-hidden="true"></i>
 </a>
@@ -2371,11 +2369,11 @@ Show code
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">2.779596e-05</td>
-<td style="text-align: right;">0.03254358</td>
-<td style="text-align: right;">0.08335859</td>
-<td style="text-align: right;">5.727599</td>
-<td style="text-align: right;">0.183036</td>
+<td style="text-align: right;">0.0003872196</td>
+<td style="text-align: right;">0.0322401</td>
+<td style="text-align: right;">0.08514258</td>
+<td style="text-align: right;">5.727281</td>
+<td style="text-align: right;">0.1810614</td>
 <td style="text-align: right;">100</td>
 </tr>
 </tbody>
@@ -2583,15 +2581,15 @@ Show code used to generate the table
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<table>
+<table style="width:100%;">
 <colgroup>
 <col style="width: 4%" />
-<col style="width: 14%" />
 <col style="width: 16%" />
 <col style="width: 16%" />
 <col style="width: 16%" />
+<col style="width: 15%" />
 <col style="width: 16%" />
-<col style="width: 14%" />
+<col style="width: 13%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2607,57 +2605,57 @@ Show code used to generate the table
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.3220351</td>
-<td style="text-align: right;">0.7237079</td>
-<td style="text-align: right;">0.9970756</td>
-<td style="text-align: right;">2.6889284</td>
-<td style="text-align: right;">0.8342314</td>
-<td style="text-align: right;">5.8850137</td>
+<td style="text-align: right;">-0.2036233</td>
+<td style="text-align: right;">0.2082102</td>
+<td style="text-align: right;">0.5409551</td>
+<td style="text-align: right;">1.5029826</td>
+<td style="text-align: right;">-0.2607888</td>
+<td style="text-align: right;">3.346299</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">0.0914217</td>
-<td style="text-align: right;">-0.7312455</td>
-<td style="text-align: right;">-2.3476205</td>
-<td style="text-align: right;">-1.7132305</td>
-<td style="text-align: right;">0.4590175</td>
-<td style="text-align: right;">0.3801643</td>
+<td style="text-align: right;">0.6957053</td>
+<td style="text-align: right;">-0.8185347</td>
+<td style="text-align: right;">0.7007563</td>
+<td style="text-align: right;">1.7661997</td>
+<td style="text-align: right;">-0.5922087</td>
+<td style="text-align: right;">2.764724</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">1.0407498</td>
-<td style="text-align: right;">-1.1589892</td>
-<td style="text-align: right;">2.3229350</td>
-<td style="text-align: right;">3.4601413</td>
-<td style="text-align: right;">0.0057838</td>
-<td style="text-align: right;">4.8864305</td>
+<td style="text-align: right;">-0.0985846</td>
+<td style="text-align: right;">0.3077048</td>
+<td style="text-align: right;">2.0894239</td>
+<td style="text-align: right;">3.1951791</td>
+<td style="text-align: right;">-0.2063957</td>
+<td style="text-align: right;">5.142636</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">0.3293447</td>
-<td style="text-align: right;">0.5720586</td>
-<td style="text-align: right;">-1.6822717</td>
-<td style="text-align: right;">-0.0755608</td>
-<td style="text-align: right;">0.2350407</td>
-<td style="text-align: right;">2.4455092</td>
+<td style="text-align: right;">0.8123107</td>
+<td style="text-align: right;">-0.9246691</td>
+<td style="text-align: right;">0.9058542</td>
+<td style="text-align: right;">2.0009013</td>
+<td style="text-align: right;">-0.8730807</td>
+<td style="text-align: right;">2.665486</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">0.8295697</td>
-<td style="text-align: right;">-0.2500454</td>
-<td style="text-align: right;">-0.0734531</td>
-<td style="text-align: right;">1.4401755</td>
-<td style="text-align: right;">-0.4794277</td>
-<td style="text-align: right;">2.8357251</td>
+<td style="text-align: right;">1.0685678</td>
+<td style="text-align: right;">-1.1339191</td>
+<td style="text-align: right;">-0.9684056</td>
+<td style="text-align: right;">0.2060972</td>
+<td style="text-align: right;">-0.5838509</td>
+<td style="text-align: right;">1.055287</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">0.8018252</td>
-<td style="text-align: right;">-1.1186928</td>
-<td style="text-align: right;">-1.3409391</td>
-<td style="text-align: right;">-0.3706947</td>
-<td style="text-align: right;">0.8800102</td>
-<td style="text-align: right;">1.9499691</td>
+<td style="text-align: right;">1.1172508</td>
+<td style="text-align: right;">0.1651025</td>
+<td style="text-align: right;">-0.7038945</td>
+<td style="text-align: right;">1.2889676</td>
+<td style="text-align: right;">0.2073542</td>
+<td style="text-align: right;">3.578873</td>
 </tr>
 </tbody>
 </table>
@@ -2736,36 +2734,36 @@ Show the code of lint_reg_maths
 <tr class="odd">
 <td style="text-align: left;">ctrl</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0014256</td>
-<td style="text-align: right;">0.0033833</td>
-<td style="text-align: right;">295.98645</td>
+<td style="text-align: right;">1.0030284</td>
+<td style="text-align: right;">0.0033486</td>
+<td style="text-align: right;">299.53501</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ovb</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0857669</td>
-<td style="text-align: right;">0.0036320</td>
-<td style="text-align: right;">298.94165</td>
+<td style="text-align: right;">1.0823400</td>
+<td style="text-align: right;">0.0036272</td>
+<td style="text-align: right;">298.39810</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">reduced_form</td>
 <td style="text-align: left;">z</td>
-<td style="text-align: right;">0.8300935</td>
-<td style="text-align: right;">0.0219069</td>
-<td style="text-align: right;">37.89189</td>
+<td style="text-align: right;">0.8228543</td>
+<td style="text-align: right;">0.0215564</td>
+<td style="text-align: right;">38.17221</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">iv</td>
 <td style="text-align: left;">x</td>
-<td style="text-align: right;">1.0039390</td>
-<td style="text-align: right;">0.0118772</td>
-<td style="text-align: right;">84.52622</td>
+<td style="text-align: right;">1.0136881</td>
+<td style="text-align: right;">0.0118846</td>
+<td style="text-align: right;">85.29395</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">TRUE</td>
 </tr>

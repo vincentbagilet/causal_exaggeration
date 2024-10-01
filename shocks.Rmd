@@ -4,6 +4,7 @@ description: "In this document, I run a simulation exercise to illustrate how us
 output: 
   distill::distill_article:
     toc: true
+bibliography: paper/causal_exaggeration.bib
 editor_options: 
   chunk_output_type: console
 ---
@@ -94,7 +95,7 @@ Although I consider an example setting for clarity, this confounding / exaggerat
 To simplify, I make the assumptions described below. Of course these assumptions are arbitrary and I invite interested readers to play around with them. 
 <!-- Note that, fixed effects and the covariate are not necessary to the analysis. I only add them to make the analysis more realistic if necessary but I set their baseline values to 0. -->
 
-Many studies in the literature, such as [Currie et al. (2015)](https://www.aeaweb.org/articles?id=10.1257/aer.20121656) and [Lavaine and Neidell (2017)](https://www.journals.uchicago.edu/doi/full/10.1086/691554) for instance, aggregate observations to build a panel. I follow this approach and look at the evolution of birthweights in zip codes in time. 
+Many studies in the literature, such as @currie_environmental_2015 and @lavaine_energy_2017 for instance, aggregate observations to build a panel. I follow this approach and look at the evolution of birthweights in zip codes in time. 
 
 For clarity in the explanations, let's assume that the exogenous shock considered is a permanent plant closure and that this reduces air pollution level. One can also think of it as any permanent exogenous change in air pollution levels. Here, I only estimate a reduced form model and am therefore not interested in modeling the effect of the plant closure on pollution levels. I consider that the plant closure leads to some air pollution reduction and want to estimate the effect of this closure on birth-weight. 
 <!-- I plan to add pollution in the future in order to compare the performance of the reduced form and a straight regression of birthweight on pollution. Yet, generating pollution is rather complex and we therefore only consider the reduced form for now. -->
@@ -120,7 +121,7 @@ We consider an AR(1) process along each dimension. Thus, birthweight is defined 
 
 To simplify, I consider the following additional assumptions:
 
-- Treatment is constant in time and homogeneous across zip codes. In this case, the two ways fixed effect estimation should yield a correct estimate of the ATET (as discussed in [de Chaisemartin and d'Haultfoeuille (2022)](https://www.nber.org/papers/w29691) for instance)
+- Treatment is constant in time and homogeneous across zip codes. In this case, the two ways fixed effect estimation should yield a correct estimate of the ATET (as discussed in @de_chaisemartin_two-way_2022 for instance)
 - Treatment allocation is non-staggered: all the plant closings happen at the same time. 
 I assume that they happen in the middle of the period for simplicity
 - A proportion $p_{treat}$ of zip codes are treated over the period. Hence, a proportion of $1-p_{treat}$ zip codes are never treated over the period. I draw these zip codes at random. Note that drawing at random is not necessary here. Without loss of generality, we could assume that the non-treated zip codes are those with the larger zip codes identifiers for instance,
@@ -191,14 +192,14 @@ generate_data_shocks <- function(N_z,
 
 #### Calibration and baseline parameters' values
 
-I set baseline values for the parameters to emulate a somehow realistic observational study`. I get "inspiration" for the values of parameters from [Lavaine and Neidell (2017)](https://www.journals.uchicago.edu/doi/full/10.1086/691554) and [Currie et al. (2015)](https://www.aeaweb.org/articles?id=10.1257/aer.20121656). The former investigates the impact of oil refinery strikes in France on birth-weight and gestational age of newborn. The latter studies the impact of air pollution from plants (openings and closures) on WTP (housing value) and health (incidence of low birthweights). 
+I set baseline values for the parameters to emulate a somehow realistic observational study`. I get "inspiration" for the values of parameters from @lavaine_energy_2017 and @currie_environmental_2015. The former investigates the impact of oil refinery strikes in France on birth-weight and gestational age of newborn. The latter studies the impact of air pollution from plants (openings and closures) on WTP (housing value) and health (incidence of low birthweights). 
 
 I consider that:
 
-- **Number of observations**: Lavaine and Neidell (2017) has about 150000 observations at the month x census tract level, from 2007 to 2011 and for 2531 census tracts, with 240 treated (census tract close to refinery closing for the month of October 2010) and 151,384 controls. Curie et al (2015) have data for 13 years, 3438 plants and 2 groups (close or far away from the plant) for 89000 observation and about 1600 changes in status.
-- **Treated units**: Both studies consider different treatment allocation procedures. For simplicity, we choose to follow one of the two, Lavaine and Neidell (2017). Their data is at the monthly level and consider a shock that lasts one month they have 240 treated observations, *i.e*, 10% census tracts are treated (and 0.16% of observations). I thus set **length_closed = 1 and p_treat = 0.1**
-- **Distribution of birthweight**: Birthweight is expressed in grams. In Lavaine and Neidell's sample made of babies born in France, the average birthweight is 3228g (sd = 353). I choose `beta_0` and `sigma_u` to yield a similar distribution. These values depend on the values of the other parameters and are therefore set last
-- **Treatment effect size** A usual treatment effect size in published studies is a change of about 1 to 3% in birthweight (*eg* in [Currie et al. (2015)](https://www.aeaweb.org/articles?id=10.1257/aer.20121656)). I thus consider a 2% effect size and set $\beta_1 = 3228 \times 0.02 \simeq 65$
+- **Number of observations**: @lavaine_energy_2017 has about 150000 observations at the month x census tract level, from 2007 to 2011 and for 2531 census tracts, with 240 treated (census tract close to refinery closing for the month of October 2010) and 151,384 controls. @currie_environmental_2015. have data for 13 years, 3438 plants and 2 groups (close or far away from the plant) for 89000 observation and about 1600 changes in status.
+- **Treated units**: Both studies consider different treatment allocation procedures. For simplicity, we choose to follow one of the two, @lavaine_energy_2017. Their data is at the monthly level and consider a shock that lasts one month they have 240 treated observations, *i.e*, 10% census tracts are treated (and 0.16% of observations). I thus set **length_closed = 1 and p_treat = 0.1**
+- **Distribution of birthweight**: Birthweight is expressed in grams. In @lavaine_energy_2017's sample made of babies born in France, the average birthweight is 3228g (sd = 353). I choose `beta_0` and `sigma_u` to yield a similar distribution. These values depend on the values of the other parameters and are therefore set last
+- **Treatment effect size** A usual treatment effect size in published studies is a change of about 1 to 3% in birthweight (*eg* in @currie_environmental_2015). I thus consider a 2% effect size and set $\beta_1 = 3228 \times 0.02 \simeq 65$
 - **Fixed effects** : I set time and individual fixed effects to be of half of the order of magnitude of the treatment effect and with a standard deviation roughly equal to their mean. This choice is rather arbitrary but produces a signal to noise ratio that is consistent with what is observed in the literature. 
 
 ```{r baseline_param_shocks, echo=FALSE}
@@ -490,7 +491,7 @@ ggsave(
 
 ### Representativeness of the estimation
 
-We calibrated our simulations to emulate a typical study from this literature. To further check that the results are realistic, we compare the average Signal-to-Noise Ratio (SNR) of our regressions to the range of SNR of existing studies investigating similar questions. Levaine and Neildel (2017) find SNRs in the range 0.4 to 2.3 in their table 3 and 4. Currie et al (2015) find SNRs in the range 0.5 to 4 (both in table 6 but SNRs in this range in table 4 and 5 as well).
+We calibrated our simulations to emulate a typical study from this literature. To further check that the results are realistic, we compare the average Signal-to-Noise Ratio (SNR) of our regressions to the range of SNR of existing studies investigating similar questions. @lavaine_energy_2017 find SNRs in the range 0.4 to 2.3 in their table 3 and 4. @currie_environmental_2015 find SNRs in the range 0.5 to 4 (both in table 6 but SNRs in this range in table 4 and 5 as well).
 
 I find SNR in a similar range or even larger and corresponding to substantial exaggeration ratios.
 

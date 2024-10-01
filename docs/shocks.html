@@ -21,7 +21,7 @@
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -86,6 +86,28 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+      margin-bottom: 0em;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
+</style>
 
   <!--radix_placeholder_meta_tags-->
   <title>Causal Exaggeration: Simulations exogenous shocks</title>
@@ -108,10 +130,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="twitter:description" content="In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of air pollution reduction shocks on birthweight of newborn babies."/>
 
   <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=Environmental Health Risks and Housing Values: Evidence from 1,600 Toxic Plant Openings and Closings;citation_volume=105;citation_doi=10.1257/aer.20121656;citation_issn=0002-8282;citation_author=Janet Currie;citation_author=Lucas Davis;citation_author=Michael Greenstone;citation_author=Reed Walker"/>
+  <meta name="citation_reference" content="citation_title=Two-Way Fixed Effects and Differences-in-Differences with Heterogeneous Treatment Effects: A Survey;citation_publisher=National Bureau of Economic Research;citation_number=29691;citation_doi=10.3386/w29691;citation_author=Clément Chaisemartin;citation_author=Xavier D’Haultfoeuille"/>
+  <meta name="citation_reference" content="citation_title=Energy Production and Health Externalities: Evidence from Oil Refinery Strikes in France;citation_publisher=The University of Chicago Press;citation_volume=4;citation_doi=10.1086/691554;citation_issn=2333-5955;citation_author=Emmanuelle Lavaine;citation_author=Mathew Neidell"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations exogenous shocks"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of air pollution reduction shocks on birthweight of newborn babies."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","bibliography","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations exogenous shocks"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate how using a exogenous shocks to avoid confounders may lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of air pollution reduction shocks on birthweight of newborn babies."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["paper/causal_exaggeration.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2247,12 +2273,10 @@ Simulations
 <div class="nav-dropdown-content">
 <a href="RDD.html">RDD</a>
 <a href="IV.html">IV</a>
-<a href="Matching.html">Matching</a>
 <a href="shocks.html">Shocks</a>
-<span class="nav-dropdown-header">Fixed-Effects</span>
+<a href="FE.html">Fixed-Effects</a>
 </div>
 </div>
-<a href="reporting.html">Reporting</a>
 <a href="https://github.com/vincentbagilet/causal_exaggeration" aria-label="Link to source">
 <i class="fab fa-github" aria-hidden="true"></i>
 </a>
@@ -2370,7 +2394,7 @@ Show code
 <h3 id="modeling-choices">Modeling choices</h3>
 <p>To simplify, I make the assumptions described below. Of course these assumptions are arbitrary and I invite interested readers to play around with them.
 <!-- Note that, fixed effects and the covariate are not necessary to the analysis. I only add them to make the analysis more realistic if necessary but I set their baseline values to 0. --></p>
-<p>Many studies in the literature, such as <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20121656">Currie et al. (2015)</a> and <a href="https://www.journals.uchicago.edu/doi/full/10.1086/691554">Lavaine and Neidell (2017)</a> for instance, aggregate observations to build a panel. I follow this approach and look at the evolution of birthweights in zip codes in time.</p>
+<p>Many studies in the literature, such as <span class="citation" data-cites="currie_environmental_2015">Currie et al. (<a href="#ref-currie_environmental_2015" role="doc-biblioref">2015</a>)</span> and <span class="citation" data-cites="lavaine_energy_2017">Lavaine and Neidell (<a href="#ref-lavaine_energy_2017" role="doc-biblioref">2017</a>)</span> for instance, aggregate observations to build a panel. I follow this approach and look at the evolution of birthweights in zip codes in time.</p>
 <p>For clarity in the explanations, let’s assume that the exogenous shock considered is a permanent plant closure and that this reduces air pollution level. One can also think of it as any permanent exogenous change in air pollution levels. Here, I only estimate a reduced form model and am therefore not interested in modeling the effect of the plant closure on pollution levels. I consider that the plant closure leads to some air pollution reduction and want to estimate the effect of this closure on birth-weight.
 <!-- I plan to add pollution in the future in order to compare the performance of the reduced form and a straight regression of birthweight on pollution. Yet, generating pollution is rather complex and we therefore only consider the reduced form for now. --></p>
 <p>For each time period, a zip code is either treated (plant closed) or not treated. Over the whole period, some zip codes experience a plant closure, others do not, either because they do not have a plant that affect their air pollution levels or because their plant did not close.</p>
@@ -2387,7 +2411,7 @@ We consider an AR(1) process along each dimension. Thus, birthweight is defined 
 <!-- ``` -->
 <p>To simplify, I consider the following additional assumptions:</p>
 <ul>
-<li>Treatment is constant in time and homogeneous across zip codes. In this case, the two ways fixed effect estimation should yield a correct estimate of the ATET (as discussed in <a href="https://www.nber.org/papers/w29691">de Chaisemartin and d’Haultfoeuille (2022)</a> for instance)</li>
+<li>Treatment is constant in time and homogeneous across zip codes. In this case, the two ways fixed effect estimation should yield a correct estimate of the ATET (as discussed in <span class="citation" data-cites="de_chaisemartin_two-way_2022">de Chaisemartin and D’Haultfoeuille (<a href="#ref-de_chaisemartin_two-way_2022" role="doc-biblioref">2022</a>)</span> for instance)</li>
 <li>Treatment allocation is non-staggered: all the plant closings happen at the same time.
 I assume that they happen in the middle of the period for simplicity</li>
 <li>A proportion <span class="math inline">\(p_{treat}\)</span> of zip codes are treated over the period. Hence, a proportion of <span class="math inline">\(1-p_{treat}\)</span> zip codes are never treated over the period. I draw these zip codes at random. Note that drawing at random is not necessary here. Without loss of generality, we could assume that the non-treated zip codes are those with the larger zip codes identifiers for instance,</li>
@@ -2454,13 +2478,13 @@ I assume that they happen in the middle of the period for simplicity</li>
 </div>
 </div>
 <h4 id="calibration-and-baseline-parameters-values">Calibration and baseline parameters’ values</h4>
-<p>I set baseline values for the parameters to emulate a somehow realistic observational study`. I get “inspiration” for the values of parameters from <a href="https://www.journals.uchicago.edu/doi/full/10.1086/691554">Lavaine and Neidell (2017)</a> and <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20121656">Currie et al. (2015)</a>. The former investigates the impact of oil refinery strikes in France on birth-weight and gestational age of newborn. The latter studies the impact of air pollution from plants (openings and closures) on WTP (housing value) and health (incidence of low birthweights).</p>
+<p>I set baseline values for the parameters to emulate a somehow realistic observational study`. I get “inspiration” for the values of parameters from <span class="citation" data-cites="lavaine_energy_2017">Lavaine and Neidell (<a href="#ref-lavaine_energy_2017" role="doc-biblioref">2017</a>)</span> and <span class="citation" data-cites="currie_environmental_2015">Currie et al. (<a href="#ref-currie_environmental_2015" role="doc-biblioref">2015</a>)</span>. The former investigates the impact of oil refinery strikes in France on birth-weight and gestational age of newborn. The latter studies the impact of air pollution from plants (openings and closures) on WTP (housing value) and health (incidence of low birthweights).</p>
 <p>I consider that:</p>
 <ul>
-<li><strong>Number of observations</strong>: Lavaine and Neidell (2017) has about 150000 observations at the month x census tract level, from 2007 to 2011 and for 2531 census tracts, with 240 treated (census tract close to refinery closing for the month of October 2010) and 151,384 controls. Curie et al (2015) have data for 13 years, 3438 plants and 2 groups (close or far away from the plant) for 89000 observation and about 1600 changes in status.</li>
-<li><strong>Treated units</strong>: Both studies consider different treatment allocation procedures. For simplicity, we choose to follow one of the two, Lavaine and Neidell (2017). Their data is at the monthly level and consider a shock that lasts one month they have 240 treated observations, <em>i.e</em>, 10% census tracts are treated (and 0.16% of observations). I thus set <strong>length_closed = 1 and p_treat = 0.1</strong></li>
-<li><strong>Distribution of birthweight</strong>: Birthweight is expressed in grams. In Lavaine and Neidell’s sample made of babies born in France, the average birthweight is 3228g (sd = 353). I choose <code>beta_0</code> and <code>sigma_u</code> to yield a similar distribution. These values depend on the values of the other parameters and are therefore set last</li>
-<li><strong>Treatment effect size</strong> A usual treatment effect size in published studies is a change of about 1 to 3% in birthweight (<em>eg</em> in <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20121656">Currie et al. (2015)</a>). I thus consider a 2% effect size and set <span class="math inline">\(\beta_1 = 3228 \times 0.02 \simeq 65\)</span></li>
+<li><strong>Number of observations</strong>: <span class="citation" data-cites="lavaine_energy_2017">Lavaine and Neidell (<a href="#ref-lavaine_energy_2017" role="doc-biblioref">2017</a>)</span> has about 150000 observations at the month x census tract level, from 2007 to 2011 and for 2531 census tracts, with 240 treated (census tract close to refinery closing for the month of October 2010) and 151,384 controls. <span class="citation" data-cites="currie_environmental_2015">Currie et al. (<a href="#ref-currie_environmental_2015" role="doc-biblioref">2015</a>)</span>. have data for 13 years, 3438 plants and 2 groups (close or far away from the plant) for 89000 observation and about 1600 changes in status.</li>
+<li><strong>Treated units</strong>: Both studies consider different treatment allocation procedures. For simplicity, we choose to follow one of the two, <span class="citation" data-cites="lavaine_energy_2017">Lavaine and Neidell (<a href="#ref-lavaine_energy_2017" role="doc-biblioref">2017</a>)</span>. Their data is at the monthly level and consider a shock that lasts one month they have 240 treated observations, <em>i.e</em>, 10% census tracts are treated (and 0.16% of observations). I thus set <strong>length_closed = 1 and p_treat = 0.1</strong></li>
+<li><strong>Distribution of birthweight</strong>: Birthweight is expressed in grams. In <span class="citation" data-cites="lavaine_energy_2017">Lavaine and Neidell (<a href="#ref-lavaine_energy_2017" role="doc-biblioref">2017</a>)</span>’s sample made of babies born in France, the average birthweight is 3228g (sd = 353). I choose <code>beta_0</code> and <code>sigma_u</code> to yield a similar distribution. These values depend on the values of the other parameters and are therefore set last</li>
+<li><strong>Treatment effect size</strong> A usual treatment effect size in published studies is a change of about 1 to 3% in birthweight (<em>eg</em> in <span class="citation" data-cites="currie_environmental_2015">Currie et al. (<a href="#ref-currie_environmental_2015" role="doc-biblioref">2015</a>)</span>). I thus consider a 2% effect size and set <span class="math inline">\(\beta_1 = 3228 \times 0.02 \simeq 65\)</span></li>
 <li><strong>Fixed effects</strong> : I set time and individual fixed effects to be of half of the order of magnitude of the treatment effect and with a standard deviation roughly equal to their mean. This choice is rather arbitrary but produces a signal to noise ratio that is consistent with what is observed in the literature.</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
@@ -3007,7 +3031,7 @@ Show code
 <p><img src="images/shocks/exploration_results_shocks-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <h3 id="computing-bias-and-exaaggeration-ratio">Computing bias and exaaggeration ratio</h3>
-<p>We want to compare <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{red}}}{\beta_1}\right|\right]\)</span> and <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{red}}}{\beta_1} \right| | \text{signif} \right]\)</span>. The first term represents the bias and the second term represents the exaggeration ratio. These terms depend on the true effect size.</p>
+<p>We want to compare <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{red}}}{\beta_1}\right|\right]\)</span> and <span class="math inline">\(\mathbb{E}\left[  \left| \frac{\widehat{\beta_{red}}}{\beta_1} \right| | \text{signif} \right]\)</span>. The first term represents the bias and the second term represents the exaggeration ratio. These terms depend on the true effect size.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"functions.R"</span><span class='op'>)</span><span class='op'>)</span></span>
@@ -3050,7 +3074,7 @@ Show code
 <p><img src="images/shocks/main_graph_shocks-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <h3 id="representativeness-of-the-estimation">Representativeness of the estimation</h3>
-<p>We calibrated our simulations to emulate a typical study from this literature. To further check that the results are realistic, we compare the average Signal-to-Noise Ratio (SNR) of our regressions to the range of SNR of existing studies investigating similar questions. Levaine and Neildel (2017) find SNRs in the range 0.4 to 2.3 in their table 3 and 4. Currie et al (2015) find SNRs in the range 0.5 to 4 (both in table 6 but SNRs in this range in table 4 and 5 as well).</p>
+<p>We calibrated our simulations to emulate a typical study from this literature. To further check that the results are realistic, we compare the average Signal-to-Noise Ratio (SNR) of our regressions to the range of SNR of existing studies investigating similar questions. <span class="citation" data-cites="lavaine_energy_2017">Lavaine and Neidell (<a href="#ref-lavaine_energy_2017" role="doc-biblioref">2017</a>)</span> find SNRs in the range 0.4 to 2.3 in their table 3 and 4. <span class="citation" data-cites="currie_environmental_2015">Currie et al. (<a href="#ref-currie_environmental_2015" role="doc-biblioref">2015</a>)</span> find SNRs in the range 0.5 to 4 (both in table 6 but SNRs in this range in table 4 and 5 as well).</p>
 <p>I find SNR in a similar range or even larger and corresponding to substantial exaggeration ratios.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
@@ -3129,6 +3153,17 @@ Show code
 </table>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-currie_environmental_2015" class="csl-entry" role="listitem">
+Currie, Janet, Lucas Davis, Michael Greenstone, and Reed Walker. 2015. <span>“Environmental <span>Health Risks</span> and <span>Housing Values</span>: <span>Evidence</span> from 1,600 <span>Toxic Plant Openings</span> and <span>Closings</span>.”</span> <em>American Economic Review</em> 105 (2): 678–709. <a href="https://doi.org/10.1257/aer.20121656">https://doi.org/10.1257/aer.20121656</a>.
+</div>
+<div id="ref-de_chaisemartin_two-way_2022" class="csl-entry" role="listitem">
+de Chaisemartin, Clément, and Xavier D’Haultfoeuille. 2022. <span>“Two-<span>Way Fixed Effects</span> and <span class="nocase">Differences-in-Differences</span> with <span>Heterogeneous Treatment Effects</span>: <span>A Survey</span>.”</span> Working {{Paper}} 29691. Working <span>Paper Series</span>. National Bureau of Economic Research. <a href="https://doi.org/10.3386/w29691">https://doi.org/10.3386/w29691</a>.
+</div>
+<div id="ref-lavaine_energy_2017" class="csl-entry" role="listitem">
+Lavaine, Emmanuelle, and Mathew Neidell. 2017. <span>“Energy <span>Production</span> and <span>Health Externalities</span>: <span>Evidence</span> from <span>Oil Refinery Strikes</span> in <span>France</span>.”</span> <em>Journal of the Association of Environmental and Resource Economists</em> 4 (2): 447–77. <a href="https://doi.org/10.1086/691554">https://doi.org/10.1086/691554</a>.
+</div>
+</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -3149,7 +3184,10 @@ Show code
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

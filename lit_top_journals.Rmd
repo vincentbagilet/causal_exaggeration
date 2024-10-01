@@ -1,10 +1,11 @@
 ---
 title: "Exaggeration in top economic journals and across strategies"
-description: "In this document, leveraging data form [Brodeur et al. (2020)](https://www.aeaweb.org/articles?id=10.1257/aer.20190687), I examine potential exaggeration of significant estimates from papers published in top economics journals. This analysis shows that while exaggeration is reassuringly limited in some papers, it can be substantial in many others. There does not seem to be substantial differences across methods."
+description: "In this document, leveraging data form @brodeur_methods_2020, I examine potential exaggeration of significant estimates from papers published in top economics journals. This analysis shows that while exaggeration is reassuringly limited in some papers, it can be substantial in many others. There does not seem to be substantial differences across methods."
 output: 
   distill::distill_article:
     toc: true
     float: true
+bibliography: paper/causal_exaggeration.bib
 editor_options: 
   chunk_output_type: console
 ---
@@ -45,21 +46,21 @@ set_mediocre_all(pal = "coty")
 
 ### Approach and Limitations
 
-[Brodeur et al. (2020)](https://www.aeaweb.org/articles?id=10.1257/aer.20190687) assesses selection on significance in the universe hypothesis tests reported in articles published in 2015 and 2018 in the 25 top economics journals and using RCT, DID, RDD or IV. I leverage this data to investigate statistical power and exaggeration in this literature and then compare them across methods. 
+@brodeur_methods_2020 assesses selection on significance in the universe hypothesis tests reported in articles published in 2015 and 2018 in the 25 top economics journals and using RCT, DID, RDD or IV. I leverage this data to investigate statistical power and exaggeration in this literature and then compare them across methods. 
 
 To do so, I first run a naive analysis: I **explore whether the design of each study would enable to retrieve the true effect if it was twice smaller that the one found in the study**.
 
-There is no *a priori* reason to believe that the magnitude of the true effect of a specific study would be half of that of the estimate and not the estimate obtained. I am not claiming that these would be the true effect. Rather, I wonder what would be the power and exaggeration under this reasonable assumption, [Ioannidis et al. (2017)](https://onlinelibrary.wiley.com/doi/abs/10.1111/ecoj.12461) finding a typical exaggeration of two in the economics literature. This approach is also to some extent conservative: hypothesized effect sizes based on exaggerated estimates will be too large and will thus minimize exaggeration.
+There is no *a priori* reason to believe that the magnitude of the true effect of a specific study would be half of that of the estimate and not the estimate obtained. I am not claiming that these would be the true effect. Rather, I wonder what would be the power and exaggeration under this reasonable assumption, @ioannidis_power_2017 finding a typical exaggeration of two in the economics literature. This approach is also to some extent conservative: hypothesized effect sizes based on exaggerated estimates will be too large and will thus minimize exaggeration.
 
-Note that [Gelman and Carlin (2014)](https://journals.sagepub.com/doi/10.1177/1745691614551642), the seminal article on exaggeration, warns against using estimates from the study as true effects since they might be exaggerated. It instead recommends using estimate from other studies or meta analyses. Since meta-analyses estimates are not readily available for the studies in Brodeur et al. (2020), I however run an analysis where hypothetical true effects are based on the published estimates. Even though the approach can be discussed, it allows quickly analyzing a very broad literature, in particular comparing the vulnerability of various studies.
+Note that @gelman_beyond_2014, the seminal article on exaggeration, warns against using estimates from the study as true effects since they might be exaggerated. It instead recommends using estimate from other studies or meta analyses. Since meta-analyses estimates are not readily available for the studies in @brodeur_methods_2020, I however run an analysis where hypothetical true effects are based on the published estimates. Even though the approach can be discussed, it allows a quick analysis of a very broad literature, in particular comparing the vulnerability of various studies.
 
 <!-- Statistical significance is evaluated using p-values and t-statistics in the analysis. This allows avoiding issues if the null is not a null of no effect. -->
 
-In this document, I explore potential exaggeration of significant estimates. I exclude non-significant as they have not been selected on significance.^[Note that this exclusion is conservative]. This also allows abstracting from specifications for which significance was not even an objective (placebo tests or when trying to show an absence of effect). 
+In this document, I explore potential exaggeration of significant estimates. I exclude non-significant as they have not been selected on significance.^[Note that this exclusion is conservative.] This also allows abstracting from specifications for which significance was not even an objective (placebo tests or when trying to show an absence of effect). 
 
 ### Data
 
-To run the analysis, I first retrieve the Brodeur et al. (2020) data from [OPENIPCSR](https://www.openicpsr.org/openicpsr/project/120246/version/V2/view) and store it locally. I load it and wrangle it. The authors fixed some of their data after the publication of the article (changes explained in the `Changelog.txt` file). I keep the most recent data.
+To run the analysis, I first retrieve the @brodeur_methods_2020 data from [OPENIPCSR](https://www.openicpsr.org/openicpsr/project/120246/version/V2/view) and store it locally. I load it and wrangle it. The authors fixed some of their data after the publication of the article (changes explained in the `Changelog.txt` file). I keep the most recent data.
 
 ```{r wrangle_brodeur}
 data_brodeur_raw <- read_dta(here("inputs", "brodeur_v2", "data", "MM Data.dta"))
@@ -207,7 +208,7 @@ In order to explore whether some causal identification methods are more prone to
 
 ### Differences of publication bias across methods
 
-Studying differences across methods in terms of selection on significance is the main goal of [Brodeur et al. (2020)](https://www.aeaweb.org/articles?id=10.1257/aer.20190687). The paper shows that IV and to a lesser extent DiD are particularly problematic in this regard. RDD and RCT seem to be less prone to this issue.
+Studying differences across methods in terms of selection on significance is the main goal of @brodeur_methods_2020. The paper shows that IV and to a lesser extent DiD are particularly problematic in this regard. RDD and RCT seem to be less prone to this issue.
 
 ### Differences of statistical power and exaggeration across methods
 
@@ -266,6 +267,18 @@ ggsave(here("images", "comparison", "exagg_brodeur.pdf"), height = 5, width = 8)
 The results are rather similar across strategies. If anything, we notice that DID performs slightly better. However, if there is initially more exaggeration for one of the methods, considering hypothetical true effect sizes equal to half of the observed estimates would attenuate this difference.
 
 
+<!-- Test MDE -->
+
+<!-- ```{r} -->
+<!-- data_brodeur |>  -->
+<!--   mutate( -->
+<!--     MDE = 2.8*se, -->
+<!--     ratio = MDE/estimate -->
+<!--   ) |>  -->
+<!--   summarise( -->
+<!--     mean_ratio = median(ratio, na.rm = TRUE) -->
+<!--   ) -->
+<!-- ``` -->
 
 
 

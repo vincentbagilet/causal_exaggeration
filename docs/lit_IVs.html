@@ -21,7 +21,7 @@
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -86,11 +86,33 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+      margin-bottom: 0em;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
+</style>
 
   <!--radix_placeholder_meta_tags-->
   <title>Causal Exaggeration: Exaggeration in IV papers</title>
 
-  <meta property="description" itemprop="description" content="In this document, leveraging data form [Young (2022)](https://www.sciencedirect.com/science/article/pii/S001429212200054X) and [Lal et al. (2024)](https://www.cambridge.org/core/journals/political-analysis/article/how-much-should-we-trust-instrumental-variable-estimates-in-political-science-practical-advice-based-on-67-replicated-studies/70A232CA0CD55FE8B97E93543CDD6361#article), I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is **likely substantial in many others due to the imprecision of IV designs**. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it."/>
+  <meta property="description" itemprop="description" content="In this document, leveraging data form @youngConsistencyInferenceInstrumental2022 and @lalHow2024, I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is **likely substantial in many others due to the imprecision of IV designs**. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it."/>
 
   <link rel="icon" type="image/vnd.microsoft.icon" href="images/site/favicon.ico"/>
 
@@ -98,20 +120,23 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Causal Exaggeration: Exaggeration in IV papers"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="In this document, leveraging data form [Young (2022)](https://www.sciencedirect.com/science/article/pii/S001429212200054X) and [Lal et al. (2024)](https://www.cambridge.org/core/journals/political-analysis/article/how-much-should-we-trust-instrumental-variable-estimates-in-political-science-practical-advice-based-on-67-replicated-studies/70A232CA0CD55FE8B97E93543CDD6361#article), I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is **likely substantial in many others due to the imprecision of IV designs**. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it."/>
+  <meta property="og:description" content="In this document, leveraging data form @youngConsistencyInferenceInstrumental2022 and @lalHow2024, I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is **likely substantial in many others due to the imprecision of IV designs**. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Causal Exaggeration"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Causal Exaggeration: Exaggeration in IV papers"/>
-  <meta property="twitter:description" content="In this document, leveraging data form [Young (2022)](https://www.sciencedirect.com/science/article/pii/S001429212200054X) and [Lal et al. (2024)](https://www.cambridge.org/core/journals/political-analysis/article/how-much-should-we-trust-instrumental-variable-estimates-in-political-science-practical-advice-based-on-67-replicated-studies/70A232CA0CD55FE8B97E93543CDD6361#article), I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is **likely substantial in many others due to the imprecision of IV designs**. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it."/>
+  <meta property="twitter:description" content="In this document, leveraging data form @youngConsistencyInferenceInstrumental2022 and @lalHow2024, I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is **likely substantial in many others due to the imprecision of IV designs**. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it."/>
 
   <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=How Much Should We Trust Instrumental Variable Estimates in Political Science? Practical Advice Based on 67 Replicated Studies;citation_doi=10.1017/pan.2024.2;citation_issn=1047-1987, 1476-4989;citation_author=Apoorva Lal;citation_author=Mackenzie Lockhart;citation_author=Yiqing Xu;citation_author=Ziwen Zu"/>
+  <meta name="citation_reference" content="citation_title=Consistency without Inference: Instrumental Variables in Practical Application;citation_volume=147;citation_doi=10.1016/j.euroecorev.2022.104112;citation_issn=0014-2921;citation_author=Alwyn Young"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Exaggeration in IV papers"]},{"type":"character","attributes":{},"value":["In this document, leveraging data form [Young (2022)](https://www.sciencedirect.com/science/article/pii/S001429212200054X) and [Lal et al. (2024)](https://www.cambridge.org/core/journals/political-analysis/article/how-much-should-we-trust-instrumental-variable-estimates-in-political-science-practical-advice-based-on-67-replicated-studies/70A232CA0CD55FE8B97E93543CDD6361#article), I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is **likely substantial in many others due to the imprecision of IV designs**. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","float"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","bibliography","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Exaggeration in IV papers"]},{"type":"character","attributes":{},"value":["In this document, leveraging data form @youngConsistencyInferenceInstrumental2022 and @lalHow2024, I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is **likely substantial in many others due to the imprecision of IV designs**. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","float"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["paper/causal_exaggeration.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2210,7 +2235,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Exaggeration in IV papers","description":"In this document, leveraging data form [Young (2022)](https://www.sciencedirect.com/science/article/pii/S001429212200054X) and [Lal et al. (2024)](https://www.cambridge.org/core/journals/political-analysis/article/how-much-should-we-trust-instrumental-variable-estimates-in-political-science-practical-advice-based-on-67-replicated-studies/70A232CA0CD55FE8B97E93543CDD6361#article), I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is **likely substantial in many others due to the imprecision of IV designs**. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it.","authors":[]}
+{"title":"Exaggeration in IV papers","description":"In this document, leveraging data form @youngConsistencyInferenceInstrumental2022 and @lalHow2024, I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is **likely substantial in many others due to the imprecision of IV designs**. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it.","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2247,12 +2272,10 @@ Simulations
 <div class="nav-dropdown-content">
 <a href="RDD.html">RDD</a>
 <a href="IV.html">IV</a>
-<a href="Matching.html">Matching</a>
 <a href="shocks.html">Shocks</a>
-<span class="nav-dropdown-header">Fixed-Effects</span>
+<a href="FE.html">Fixed-Effects</a>
 </div>
 </div>
-<a href="reporting.html">Reporting</a>
 <a href="https://github.com/vincentbagilet/causal_exaggeration" aria-label="Link to source">
 <i class="fab fa-github" aria-hidden="true"></i>
 </a>
@@ -2269,7 +2292,7 @@ Simulations
 
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p>In this document, leveraging data form <a href="https://www.sciencedirect.com/science/article/pii/S001429212200054X">Young (2022)</a> and <a href="https://www.cambridge.org/core/journals/political-analysis/article/how-much-should-we-trust-instrumental-variable-estimates-in-political-science-practical-advice-based-on-67-replicated-studies/70A232CA0CD55FE8B97E93543CDD6361#article">Lal et al. (2024)</a>, I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is <strong>likely substantial in many others due to the imprecision of IV designs</strong>. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it.</p>
+<p>In this document, leveraging data form <span class="citation" data-cites="youngConsistencyInferenceInstrumental2022">Young (<a href="#ref-youngConsistencyInferenceInstrumental2022" role="doc-biblioref">2022</a>)</span> and <span class="citation" data-cites="lalHow2024">Lal et al. (<a href="#ref-lalHow2024" role="doc-biblioref">2024</a>)</span>, I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is <strong>likely substantial in many others due to the imprecision of IV designs</strong>. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it.</p>
 </div>
 
 
@@ -2321,11 +2344,11 @@ Show the packages used in this document
 </div>
 <h2 id="motivation-and-assumptions">Motivation and assumptions</h2>
 <p>Despite being very broad, the analysis of studies published in top economics journals I implement <a href="lit_top_journals.html">here</a> relies on assumptions regarding the effect size that may lack theoretical grounding and that may seem arbitrary, to some extent. To overcome this limitation and to be able to make more grounded hypotheses for true effect sizes, I focus on studies using IVs. They allow to compare the OLS estimate to the 2SLS, to evaluate whether the IV would have enough power to “detect” the OLS estimate and to compute exaggeration of the IV if the true effect was close to the OLS point estimate.</p>
-<p>In this document, I therefore leverage the reviews by <a href="https://www.sciencedirect.com/science/article/pii/S001429212200054X">Young (2022)</a> and <a href="https://www.cambridge.org/core/journals/political-analysis/article/how-much-should-we-trust-instrumental-variable-estimates-in-political-science-practical-advice-based-on-67-replicated-studies/70A232CA0CD55FE8B97E93543CDD6361#article">Lal et al. (2024)</a> to explore potential exaggeration of the IVs in the economics and political science literature.</p>
+<p>In this document, I therefore leverage the reviews by <span class="citation" data-cites="youngConsistencyInferenceInstrumental2022">Young (<a href="#ref-youngConsistencyInferenceInstrumental2022" role="doc-biblioref">2022</a>)</span> and <span class="citation" data-cites="lalHow2024">Lal et al. (<a href="#ref-lalHow2024" role="doc-biblioref">2024</a>)</span> to explore potential exaggeration of the IVs in the economics and political science literature.</p>
 <p>Here too, I am not claiming that the OLS is the true effect. I am however evaluating the ability of the IV to retrieve an effect of the magnitude of the OLS. It may seem reasonable to expect the design of the IV to be good enough to accurately capture this effect, if it was the true effect.</p>
-<p>To compute these analyses, I use the standard errors reported by the authors of each analysis, even though some of these are likely understated, as underlined by Young (2022) and Lal et al. (2024). This approach is therefore conservative.</p>
+<p>To compute these analyses, I use the standard errors reported by the authors of each analysis, even though some of these are likely understated, as underlined by <span class="citation" data-cites="youngConsistencyInferenceInstrumental2022">Young (<a href="#ref-youngConsistencyInferenceInstrumental2022" role="doc-biblioref">2022</a>)</span> and <span class="citation" data-cites="lalHow2024">Lal et al. (<a href="#ref-lalHow2024" role="doc-biblioref">2024</a>)</span>. This approach is therefore conservative.</p>
 <h2 id="ivs-in-the-economics-literature">IVs in the Economics Literature</h2>
-<p>I first compute the aforementioned measures for the economics literature, leveraging data gathered in <a href="https://www.sciencedirect.com/science/article/pii/S001429212200054X">Young (2022)</a>. This paper analyzes 30 papers published in journals of the American Economics Association published through July 2016, for a total of 1309 2SLS regressions. To carry out his analysis, Young retrieved all these estimates and associated standard errors.</p>
+<p>I first compute the aforementioned measures for the economics literature, leveraging data gathered in <span class="citation" data-cites="youngConsistencyInferenceInstrumental2022">Young (<a href="#ref-youngConsistencyInferenceInstrumental2022" role="doc-biblioref">2022</a>)</span>. This paper analyzes 30 papers published in journals of the American Economics Association published through July 2016, for a total of 1309 2SLS regressions. To carry out his analysis, Young retrieved all these estimates and associated standard errors.</p>
 <p>This analysis yielded several findings, including some that are of particular interest for the present paper:</p>
 <ul>
 <li>When errors are non-iid, first stage F-statistics are often uninformative when the strength of the first stage weakens and in high-leverage settings</li>
@@ -2768,7 +2791,7 @@ Show code
 </div>
 <p>Power is lower here than in the analysis of Brodeur et al’s data because here I included all estimates and did not limit the sample to statistically significant results.</p>
 <h2 id="ivs-in-the-political-science-literature">IVs in the Political Science Literature</h2>
-<p>I then turn to a comparable review, <a href="https://www.cambridge.org/core/journals/political-analysis/article/how-much-should-we-trust-instrumental-variable-estimates-in-political-science-practical-advice-based-on-67-replicated-studies/70A232CA0CD55FE8B97E93543CDD6361#article">Lal et al. (2024)</a> but in political science. This paper replicates the 67 papers (70 designs) replicable papers published in three top political science journals (American Political Science Review, American Journal of Political Science, and the Journal Of Politics) between 2010 and 2022. They focus on design with one endogenous variable.</p>
+<p>I then turn to a comparable review, <span class="citation" data-cites="lalHow2024">Lal et al. (<a href="#ref-lalHow2024" role="doc-biblioref">2024</a>)</span> but in political science. This paper replicates the 67 papers (70 designs) replicable papers published in three top political science journals (American Political Science Review, American Journal of Political Science, and the Journal Of Politics) between 2010 and 2022. They focus on design with one endogenous variable.</p>
 <p>This paper also provides a set of results that are of particular interest to the present paper:</p>
 <ul>
 <li>IV in political science estimates are often very imprecise and this uncertainty is underestimated</li>
@@ -2883,7 +2906,7 @@ Show code
 <p><img src="images/lit_IVs/distrib_ratio_lal-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
 <h2 id="power-calculations-1">Power calculations</h2>
-<p>I then run similar power calculations as for Young (2022), computing what would be the statistical power and exaggeration if the true effect was equal to the OLS point estimate. Re</p>
+<p>I then run similar power calculations as for <span class="citation" data-cites="youngConsistencyInferenceInstrumental2022">Young (<a href="#ref-youngConsistencyInferenceInstrumental2022" role="doc-biblioref">2022</a>)</span>, computing what would be the statistical power and exaggeration if the true effect was equal to the OLS point estimate. Re</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -2988,6 +3011,14 @@ Show code
 </table>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-lalHow2024" class="csl-entry" role="listitem">
+Lal, Apoorva, Mackenzie Lockhart, Yiqing Xu, and Ziwen Zu. 2024. <span>“How <span>Much Should We Trust Instrumental Variable Estimates</span> in <span>Political Science</span>? <span>Practical Advice Based</span> on 67 <span>Replicated Studies</span>.”</span> <em>Political Analysis</em>, May, 1–20. <a href="https://doi.org/10.1017/pan.2024.2">https://doi.org/10.1017/pan.2024.2</a>.
+</div>
+<div id="ref-youngConsistencyInferenceInstrumental2022" class="csl-entry" role="listitem">
+Young, Alwyn. 2022. <span>“Consistency Without <span>Inference</span>: <span>Instrumental Variables</span> in <span>Practical Application</span>.”</span> <em>European Economic Review</em> 147 (August): 104112. <a href="https://doi.org/10.1016/j.euroecorev.2022.104112">https://doi.org/10.1016/j.euroecorev.2022.104112</a>.
+</div>
+</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2999,7 +3030,10 @@ Show code
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

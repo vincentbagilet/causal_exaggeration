@@ -4,6 +4,7 @@ description: "In this document, I give intuition for causal exaggeration and ans
 output: 
   distill::distill_article:
     toc: true
+bibliography: paper/causal_exaggeration.bib
 editor_options: 
   chunk_output_type: console
 ---
@@ -45,7 +46,7 @@ set_mediocre_all(pal = "coty")
 
 ## What is exaggeration?
 
-Exaggeration is one of the key concepts in the present paper. To understand how low statistical power can cause exaggeration in the presence of publication bias, let's analyze replications of laboratory experiments in economics ran by [Camerer et al (2016)](https://www.science.org/doi/10.1126/science.aaf0918).^[I further explore exaggeration in these experiments [here](lit_exp.html).]
+Exaggeration is one of the key concepts in the present paper. To understand how low statistical power can cause exaggeration in the presence of publication bias, let's analyze replications of laboratory experiments in economics ran by @camerer_evaluating_2016.^[I further explore exaggeration in these experiments [here](lit_exp.html).]
 
 First, I retrieve their replication results, alongside the results of the initial studies, from their [project website](http://experimentaleconreplications.com/scripts.html). I just ran their Stata script `create_studydetails.do` to generate their data set. Since the standard errors of the estimates are not reported in this data set, I recompute them.
 
@@ -57,7 +58,7 @@ rep_camerer <- read_dta("Inputs/studydetails.dta") |>
   )
 ```
 
-First, I focus on one particular study, Abeler et al. (2011), in order to illustrate in more details the issue of interest. I first plot in red the estimate and 95% confidence interva Abeler et al. obtained in their experiment (note that I will run replications and there will be several draws of estimates in subsequent graphs, hence why the x-axis of the graph below):
+First, I focus on one particular study, @abeler_reference_2011, in order to illustrate in more details the issue of interest. I first plot in red the estimate and 95% confidence intervals @abeler_reference_2011 obtained in their experiment (note that I will run replications and there will be several draws of estimates in subsequent graphs, hence why the x-axis of the graph below):
 
 ```{r graph_camerer_initial_study, echo=FALSE}
 random_study <- rep_camerer |> 
@@ -174,7 +175,7 @@ In some cases we would get statistically significant estimates (the beige dots) 
 
 Zooming in on the first draws and plotting their 95% confidence intervals (approximately $[\hat{\beta} - 1.96 \cdot \sigma_{\hat{\beta}}, \hat{\beta} + 1.96 \cdot \sigma_{\hat{\beta}}]$) helps understand why some estimates are deemed significant and not others. By definition, significant estimates are those whose confidence interval does not contain 0:
 
-```{r graph_camerer_zoom, echo=FALSE}
+```{r graph_camerer_zoom, echo=FALSE, fig.asp=0.6}
 data_graph_distrib |>
   slice(1:40) |> 
   mutate(
@@ -188,14 +189,17 @@ data_graph_distrib |>
     ymin = conf_low,
     ymax = conf_high
   )) +
-  geom_pointrange(lwd = 0.5) +
   geom_hline(yintercept = 0, linetype = "solid") +
+  geom_hline(yintercept = random_study$erep) +
+  geom_pointrange(lwd = 0.5) +
   labs(
-    title = "Illustration of the exaggeration and power issues",
-    subtitle = "The first 40 draws of the estimator ~ N(Effect size in replication, std err in original study)",
+    title = "Draws from the distribution of an estimator",
+    # title = "Illustration of the exaggeration and power issues",
+    # subtitle = "First 40 draws ~ N(Effect size in replication, std err in original study)",
     x = "Draw",
     y = "Point estimate",
-    color = NULL
+    color = NULL,
+    caption = 'The dashed line represents the "true" effect'#, i.e. the replication estimate'
   )
 ```
 

@@ -21,7 +21,7 @@
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -86,11 +86,33 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+      margin-bottom: 0em;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
+</style>
 
   <!--radix_placeholder_meta_tags-->
   <title>Causal Exaggeration: Exaggeration in experimental economics</title>
 
-  <meta property="description" itemprop="description" content="In this document, leveraging data form [Camerer et al. (2016)](https://www.science.org/doi/10.1126/science.aaf0918), I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies."/>
+  <meta property="description" itemprop="description" content="In this document, leveraging data form @camerer_evaluating_2016, I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies."/>
 
   <link rel="icon" type="image/vnd.microsoft.icon" href="images/site/favicon.ico"/>
 
@@ -98,20 +120,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Causal Exaggeration: Exaggeration in experimental economics"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="In this document, leveraging data form [Camerer et al. (2016)](https://www.science.org/doi/10.1126/science.aaf0918), I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies."/>
+  <meta property="og:description" content="In this document, leveraging data form @camerer_evaluating_2016, I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Causal Exaggeration"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Causal Exaggeration: Exaggeration in experimental economics"/>
-  <meta property="twitter:description" content="In this document, leveraging data form [Camerer et al. (2016)](https://www.science.org/doi/10.1126/science.aaf0918), I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies."/>
+  <meta property="twitter:description" content="In this document, leveraging data form @camerer_evaluating_2016, I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies."/>
 
   <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=Evaluating replicability of laboratory experiments in economics;citation_publisher=American Association for the Advancement of Science;citation_volume=351;citation_doi=10.1126/science.aaf0918;citation_author=Colin F. Camerer;citation_author=Anna Dreber;citation_author=Eskil Forsell;citation_author=Teck-Hua Ho;citation_author=Jürgen Huber;citation_author=Magnus Johannesson;citation_author=Michael Kirchler;citation_author=Johan Almenberg;citation_author=Adam Altmejd;citation_author=Taizan Chan;citation_author=Emma Heikensten;citation_author=Felix Holzmeister;citation_author=Taisuke Imai;citation_author=Siri Isaksson;citation_author=Gideon Nave;citation_author=Thomas Pfeiffer;citation_author=Michael Razen;citation_author=Hang Wu"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Exaggeration in experimental economics"]},{"type":"character","attributes":{},"value":["In this document, leveraging data form [Camerer et al. (2016)](https://www.science.org/doi/10.1126/science.aaf0918), I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","float"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","bibliography","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Exaggeration in experimental economics"]},{"type":"character","attributes":{},"value":["In this document, leveraging data form @camerer_evaluating_2016, I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","float"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["paper/causal_exaggeration.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2210,7 +2234,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Exaggeration in experimental economics","description":"In this document, leveraging data form [Camerer et al. (2016)](https://www.science.org/doi/10.1126/science.aaf0918), I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies.","authors":[]}
+{"title":"Exaggeration in experimental economics","description":"In this document, leveraging data form @camerer_evaluating_2016, I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies.","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2247,12 +2271,10 @@ Simulations
 <div class="nav-dropdown-content">
 <a href="RDD.html">RDD</a>
 <a href="IV.html">IV</a>
-<a href="Matching.html">Matching</a>
 <a href="shocks.html">Shocks</a>
-<span class="nav-dropdown-header">Fixed-Effects</span>
+<a href="FE.html">Fixed-Effects</a>
 </div>
 </div>
-<a href="reporting.html">Reporting</a>
 <a href="https://github.com/vincentbagilet/causal_exaggeration" aria-label="Link to source">
 <i class="fab fa-github" aria-hidden="true"></i>
 </a>
@@ -2269,7 +2291,7 @@ Simulations
 
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p>In this document, leveraging data form <a href="https://www.science.org/doi/10.1126/science.aaf0918">Camerer et al. (2016)</a>, I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies.</p>
+<p>In this document, leveraging data form <span class="citation" data-cites="camerer_evaluating_2016">Camerer et al. (<a href="#ref-camerer_evaluating_2016" role="doc-biblioref">2016</a>)</span>, I examine potential exaggeration in experimental economics using replication results as hypothetical true effect sizes. The experimental literature seems to display less exaggeration on average that non-experimental ones but this figure hides substantial heterogeneity, exaggeration being large for some studies.</p>
 </div>
 
 
@@ -2312,7 +2334,7 @@ Show the packages used in this document
 </details>
 </div>
 <h2 id="setting-and-data">Setting and data</h2>
-<p><a href="https://www.science.org/doi/10.1126/science.aaf0918">Camerer et al. (2016)</a> replicate 18 experimental economics studies published in the <em>American Economic Review</em> and the <em>Quarterly Journal of Economics</em> between 2011 and 2014. They find that original studies on average overestimate the replicated effect by a factor of 1.5 and only 61% of the replication find a significant effect in the same direction as the original study.</p>
+<p><span class="citation" data-cites="camerer_evaluating_2016">Camerer et al. (<a href="#ref-camerer_evaluating_2016" role="doc-biblioref">2016</a>)</span> replicate 18 experimental economics studies published in the <em>American Economic Review</em> and the <em>Quarterly Journal of Economics</em> between 2011 and 2014. They find that original studies on average overestimate the replicated effect by a factor of 1.5 and only 61% of the replication find a significant effect in the same direction as the original study.</p>
 <p><strong>In this document, I report and replicate their results and further explore exaggeration in the original studies.</strong> This data allows to have a convincing estimate of the true effect (the replicated point estimate) and to evaluate the ability of the original design to accurately capture this estimate.</p>
 <p>I retrieve the data from the <a href="http://experimentaleconreplications.com/scripts.html">project website</a>. I just ran their Stata script <code>create_studydetails.do</code> to generate their data set. Since the standard errors of the estimates are not reported in this data set, I recompute them based on a normal distribution.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2347,7 +2369,7 @@ Show code
 </details>
 </div>
 <h2 id="replicability-and-ratio-origingalreplicated-estimate">Replicability and Ratio Origingal/Replicated Estimate</h2>
-<p>I first reproduce the results in Camerer et al, evaluating the proportion of studies that find results in the same direction as the original study. I also compute the median ratio of the original over the replicated estimate.</p>
+<p>I first reproduce the results in <span class="citation" data-cites="camerer_evaluating_2016">Camerer et al. (<a href="#ref-camerer_evaluating_2016" role="doc-biblioref">2016</a>)</span>, evaluating the proportion of studies that find results in the same direction as the original study. I also compute the median ratio of the original over the replicated estimate.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -2726,6 +2748,11 @@ Show code
 <!-- rep_dvpt |> count(Title) -->
 <!-- ``` -->
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-camerer_evaluating_2016" class="csl-entry" role="listitem">
+Camerer, Colin F., Anna Dreber, Eskil Forsell, Teck-Hua Ho, Jürgen Huber, Magnus Johannesson, Michael Kirchler, et al. 2016. <span>“Evaluating Replicability of Laboratory Experiments in Economics.”</span> <em>Science</em> 351 (6280): 1433–36. <a href="https://doi.org/10.1126/science.aaf0918">https://doi.org/10.1126/science.aaf0918</a>.
+</div>
+</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2737,7 +2764,10 @@ Show code
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

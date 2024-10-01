@@ -1,0 +1,3642 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { color: #00769e; background-color: #f1f3f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #00769e; } /* Normal */
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #657422; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #00769e; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #00769e; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #00769e; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+      margin-bottom: 0em;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Causal Exaggeration: Simulations fixed effects</title>
+
+  <meta property="description" itemprop="description" content="In this document, I run a simulation exercise to illustrate that, under some circumstances, adding fixed effects to a model can lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of high temperatures on worker productivity."/>
+
+  <link rel="icon" type="image/vnd.microsoft.icon" href="images/site/favicon.ico"/>
+
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Causal Exaggeration: Simulations fixed effects"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="In this document, I run a simulation exercise to illustrate that, under some circumstances, adding fixed effects to a model can lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of high temperatures on worker productivity."/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:site_name" content="Causal Exaggeration"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Causal Exaggeration: Simulations fixed effects"/>
+  <meta property="twitter:description" content="In this document, I run a simulation exercise to illustrate that, under some circumstances, adding fixed effects to a model can lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of high temperatures on worker productivity."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=Game, Sweat, Match: Temperature and Elite Worker Productivity;citation_publisher=National Bureau of Economic Research;citation_number=31650;citation_doi=10.3386/w31650;citation_author=Marshall Burke;citation_author=Vincent Tanutama;citation_author=Sam Heft-Neal;citation_author=Miyuki Hino;citation_author=David Lobell"/>
+  <meta name="citation_reference" content="citation_title=The impact of temperature on manufacturing worker productivity: Evidence from personnel data;citation_volume=46;citation_doi=10.1016/j.jce.2018.06.003;citation_issn=0147-5967;citation_author=Xiqian Cai;citation_author=Yi Lu;citation_author=Jin Wang"/>
+  <meta name="citation_reference" content="citation_title=Temperatures and cyclones strongly associated with economic production in the Caribbean and Central America;citation_publisher=Proceedings of the National Academy of Sciences;citation_volume=107;citation_doi=10.1073/pnas.1009510107;citation_author=Solomon M. Hsiang"/>
+  <meta name="citation_reference" content="citation_title=Temperature, Worker Productivity, and Adaptation: Evidence from Survey Data Production;citation_volume=15;citation_doi=10.1257/app.20200547;citation_issn=1945-7782;citation_author=Melissa LoPalo"/>
+  <meta name="citation_reference" content="citation_title=The Impact of Temperature on Productivity and Labor Supply: Evidence from Indian Manufacturing;citation_publisher=The University of Chicago Press;citation_volume=129;citation_doi=10.1086/713733;citation_issn=0022-3808;citation_author=E. Somanathan;citation_author=Rohini Somanathan;citation_author=Anant Sudarshan;citation_author=Meenu Tewari"/>
+  <meta name="citation_reference" content="citation_title=Wet-Bulb Globe Temperature, Universal Thermal Climate Index, and Other Heat Metrics for US Counties, 2000–2020;citation_publisher=Nature Publishing Group;citation_volume=9;citation_doi=10.1038/s41597-022-01405-3;citation_issn=2052-4463;citation_author=Keith R. Spangler;citation_author=Shixin Liang;citation_author=Gregory A. Wellenius"/>
+  <meta name="citation_reference" content="citation_title=Temperature, Wages, and Agricultural Labor Productivity;citation_author=Andrew Stevens"/>
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","bibliography","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Simulations fixed effects"]},{"type":"character","attributes":{},"value":["In this document, I run a simulation exercise to illustrate that, under some circumstances, adding fixed effects to a model can lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of high temperatures on worker productivity."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["paper/causal_exaggeration.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  <!--radix_placeholder_navigation_in_header-->
+  <meta name="distill:offset" content=""/>
+
+  <script type="application/javascript">
+
+    window.headroom_prevent_pin = false;
+
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+
+      // initialize headroom for banner
+      var header = $('header').get(0);
+      var headerHeight = header.offsetHeight;
+      var headroom = new Headroom(header, {
+        tolerance: 5,
+        onPin : function() {
+          if (window.headroom_prevent_pin) {
+            window.headroom_prevent_pin = false;
+            headroom.unpin();
+          }
+        }
+      });
+      headroom.init();
+      if(window.location.hash)
+        headroom.unpin();
+      $(header).addClass('headroom--transition');
+
+      // offset scroll location for banner on hash change
+      // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+      window.addEventListener("hashchange", function(event) {
+        window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+      });
+
+      // responsive menu
+      $('.distill-site-header').each(function(i, val) {
+        var topnav = $(this);
+        var toggle = topnav.find('.nav-toggle');
+        toggle.on('click', function() {
+          topnav.toggleClass('responsive');
+        });
+      });
+
+      // nav dropdowns
+      $('.nav-dropbtn').click(function(e) {
+        $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+        $(this).parent().siblings('.nav-dropdown')
+           .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $("body").click(function(e){
+        $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $(".nav-dropdown").click(function(e){
+        e.stopPropagation();
+      });
+    });
+  </script>
+
+  <style type="text/css">
+
+  /* Theme (user-documented overrideables for nav appearance) */
+
+  .distill-site-nav {
+    color: rgba(255, 255, 255, 0.8);
+    background-color: #0F2E3D;
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  .distill-site-nav a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .distill-site-nav a:hover {
+    color: white;
+  }
+
+  @media print {
+    .distill-site-nav {
+      display: none;
+    }
+  }
+
+  .distill-site-header {
+
+  }
+
+  .distill-site-footer {
+
+  }
+
+
+  /* Site Header */
+
+  .distill-site-header {
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 3;
+  }
+
+  .distill-site-header .nav-left {
+    display: inline-block;
+    margin-left: 8px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header .nav-left {
+      margin-left: 0;
+    }
+  }
+
+
+  .distill-site-header .nav-right {
+    float: right;
+    margin-right: 8px;
+  }
+
+  .distill-site-header a,
+  .distill-site-header .title {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 10px 14px 10px;
+  }
+
+  .distill-site-header .title {
+    font-size: 18px;
+    min-width: 150px;
+  }
+
+  .distill-site-header .logo {
+    padding: 0;
+  }
+
+  .distill-site-header .logo img {
+    display: none;
+    max-height: 20px;
+    width: auto;
+    margin-bottom: -4px;
+  }
+
+  .distill-site-header .nav-image img {
+    max-height: 18px;
+    width: auto;
+    display: inline-block;
+    margin-bottom: -3px;
+  }
+
+
+
+  @media screen and (min-width: 1000px) {
+    .distill-site-header .logo img {
+      display: inline-block;
+    }
+    .distill-site-header .nav-left {
+      margin-left: 20px;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 20px;
+    }
+    .distill-site-header .title {
+      padding-left: 12px;
+    }
+  }
+
+
+  .distill-site-header .nav-toggle {
+    display: none;
+  }
+
+  .nav-dropdown {
+    display: inline-block;
+    position: relative;
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    border: none;
+    outline: none;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 16px 10px;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+    margin-top: 1px;
+    z-index: 2;
+  }
+
+  .nav-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 4px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+    margin-top: 2px;
+    white-space: nowrap;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .nav-dropdown-content hr {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-dropdown-active {
+    display: block;
+  }
+
+  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+    color: black;
+    padding: 6px 24px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  .nav-dropdown-content .nav-dropdown-header {
+    display: block;
+    padding: 5px 24px;
+    padding-bottom: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #999999;
+    white-space: nowrap;
+  }
+
+  .nav-dropdown:hover .nav-dropbtn {
+    color: white;
+  }
+
+  .nav-dropdown-content a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .nav-right .nav-dropdown-content {
+    margin-left: -45%;
+    right: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+    .distill-site-header a.nav-toggle {
+      float: right;
+      display: block;
+    }
+    .distill-site-header .title {
+      margin-left: 0;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 0;
+    }
+    .distill-site-header {
+      overflow: hidden;
+    }
+    .nav-right .nav-dropdown-content {
+      margin-left: 0;
+    }
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header.responsive {position: relative; min-height: 500px; }
+    .distill-site-header.responsive a.nav-toggle {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .distill-site-header.responsive a,
+    .distill-site-header.responsive .nav-dropdown {
+      display: block;
+      text-align: left;
+    }
+    .distill-site-header.responsive .nav-left,
+    .distill-site-header.responsive .nav-right {
+      width: 100%;
+    }
+    .distill-site-header.responsive .nav-dropdown {float: none;}
+    .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+    .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+  }
+
+  /* Site Footer */
+
+  .distill-site-footer {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 3;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+  }
+
+  /* Headroom */
+
+  d-title {
+    padding-top: 6rem;
+  }
+
+  @media print {
+    d-title {
+      padding-top: 4rem;
+    }
+  }
+
+  .headroom {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .headroom--transition {
+    transition: all .4s ease-in-out;
+  }
+
+  .headroom--unpinned {
+    top: -100px;
+  }
+
+  .headroom--pinned {
+    top: 0;
+  }
+
+  /* adjust viewport for navbar height */
+  /* helps vertically center bootstrap (non-distill) content */
+  .min-vh-100 {
+    min-height: calc(100vh - 100px) !important;
+  }
+
+  </style>
+
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
+  <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+    font-size: 100%;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  hr.section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px;
+  }
+
+
+  d-byline {
+    border-top: none;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+    border-top: none;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  /* tweak for Pandoc numbered line within distill */
+  d-article pre.numberSource code > span {
+      left: -2em;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // separator
+    var separator = '<hr class="section-separator" style="clear: both"/>';
+    // prepend separator above appendix
+    $('.d-byline').before(separator);
+    $('.d-article').before(separator);
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme, except when numbering line
+    // in code chunk
+    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        var author_name = front_matter.authors[i].author
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <style type="text/css">
+  /* base variables */
+
+  /* Edit the CSS properties in this file to create a custom
+     Distill theme. Only edit values in the right column
+     for each row; values shown are the CSS defaults.
+     To return any property to the default,
+     you may set its value to: unset
+     All rows must end with a semi-colon.                      */
+
+  /* Optional: embed custom fonts here with `@import`          */
+  /* This must remain at the top of this file.                 */
+
+
+
+  html {
+    /*-- Main font sizes --*/
+    --title-size:      50px;
+    --body-size:       1.06rem;
+    --code-size:       14px;
+    --aside-size:      12px;
+    --fig-cap-size:    13px;
+    /*-- Main font colors --*/
+    --title-color:     #000000;
+    --header-color:    rgba(0, 0, 0, 0.8);
+    --body-color:      rgba(0, 0, 0, 0.8);
+    --aside-color:     rgba(0, 0, 0, 0.6);
+    --fig-cap-color:   rgba(0, 0, 0, 0.6);
+    /*-- Specify custom fonts ~~~ must be imported above   --*/
+    --heading-font:    sans-serif;
+    --mono-font:       monospace;
+    --body-font:       sans-serif;
+    --navbar-font:     sans-serif;  /* websites + blogs only */
+  }
+
+  /*-- ARTICLE METADATA --*/
+  d-byline {
+    --heading-size:    0.6rem;
+    --heading-color:   rgba(0, 0, 0, 0.5);
+    --body-size:       0.8rem;
+    --body-color:      rgba(0, 0, 0, 0.8);
+  }
+
+  /*-- ARTICLE TABLE OF CONTENTS --*/
+  .d-contents {
+    --heading-size:    18px;
+    --contents-size:   13px;
+  }
+
+  /*-- ARTICLE APPENDIX --*/
+  d-appendix {
+    --heading-size:    15px;
+    --heading-color:   rgba(0, 0, 0, 0.65);
+    --text-size:       0.8em;
+    --text-color:      rgba(0, 0, 0, 0.5);
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  /* These properties only apply to Distill sites and blogs  */
+
+  .distill-site-header {
+    --title-size:       18px;
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #0F2E3D;
+  }
+
+  .distill-site-footer {
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #0F2E3D;
+  }
+
+  /*-- Additional custom styles --*/
+  /* Add any additional CSS rules below                      */
+  </style>
+  <style type="text/css">
+  /* base variables */
+
+  /* Edit the CSS properties in this file to create a custom
+     Distill theme. Only edit values in the right column
+     for each row; values shown are the CSS defaults.
+     To return any property to the default,
+     you may set its value to: unset
+     All rows must end with a semi-colon.                      */
+
+  /* Optional: embed custom fonts here with `@import`          */
+  /* This must remain at the top of this file.                 */
+  @import url('https://fonts.googleapis.com/css2?family=Lato');
+  @import url('https://fonts.googleapis.com/css2?family=Lora');
+
+
+  html {
+    /*-- Main font sizes --*/
+    --title-size:      50px;
+    --body-size:       1.06rem;
+    --code-size:       13px;
+    --aside-size:      12px;
+    --fig-cap-size:    12px;
+    /*-- Main font colors --*/
+    --title-color:     rgba(29, 71, 73, 0.9);
+    --header-color:    rgba(29, 71, 73, 0.9);
+    --body-color:      rgba(0, 0, 0, 0.8);
+    --aside-color:     rgba(0, 0, 0, 0.6);
+    --fig-cap-color:   rgba(0, 0, 0, 0.6);
+    --hover-color:     rgba(29, 71, 73, 0.5);
+    /*-- Specify custom fonts ~~~ must be imported above   --*/
+    --heading-font:    "Lato", sans-serif;
+    --body-font:       "Lora", serif;
+    --navbar-font:     "Lato", sans-serif;  /* websites + blogs only */
+  }
+
+  /*-- ARTICLE METADATA --*/
+  d-byline {
+    --heading-size:    0.6rem;
+    --heading-color:   rgba(0, 0, 0, 0.5);
+    --body-size:       0.8rem;
+    --body-color:      rgba(0, 0, 0, 0.8);
+  }
+
+  /*-- ARTICLE TABLE OF CONTENTS --*/
+  .d-contents {
+    --heading-size:    18px;
+    --contents-size:   13px;
+  }
+
+  /*-- ARTICLE APPENDIX --*/
+  d-appendix {
+    --heading-size:    15px;
+    --heading-color:   rgba(0, 0, 0, 0.65);
+    --text-size:       0.8em;
+    --text-color:      rgba(0, 0, 0, 0.5);
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  /* These properties only apply to Distill sites and blogs  */
+
+  .distill-site-header {
+    --font-family:      'Lato', sans-serif;
+    --title-size:       21px;
+    --text-color:       rgba(29, 71, 73, 0.9);
+    --text-size:        18px;
+    --hover-color:      rgba(29, 71, 73, 0.5);
+    --bkgd-color:       rgba(255, 255, 255, 0.8);
+    font-variant:       small-caps;
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    font-variant: small-caps;
+  }
+
+  .distill-site-footer {
+    --text-color:       rgba(10, 10, 10, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       rgba(240, 240, 240, 0.8); 
+  }
+
+  /*-- Additional custom styles --*/
+  /* Add any additional CSS rules below                      */
+
+  /* Postcard headers */
+  h1, h2, h3 {
+    color:              rgba(29, 71, 73, 0.9);
+    font-variant:       small-caps;
+  }
+
+  p {
+    color:              rgba(0, 0, 0, 0.8);
+  }
+
+  a {
+  	color:              rgba(29, 71, 73, 0.9);
+  }
+
+  a:hover {
+  	color:              rgba(29, 71, 73, 0.5);
+  }
+
+  /* Buttons on postcard */
+  .btn-outline-dark {
+    color:              rgba(29, 71, 73, 0.9);
+    border-color:       rgba(29, 71, 73, 0.9);
+  }
+
+  .btn-outline-dark:hover {
+    background-color:   rgba(29, 71, 73, 0.9);
+    color:              white;
+  }
+
+  /*body {
+    background-color: rgba(249, 250, 247, 0.8);
+  }*/</style>
+  <style type="text/css">
+  /* base style */
+
+  /* FONT FAMILIES */
+
+  :root {
+    --heading-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    --mono-default: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    --body-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  body,
+  .posts-list .post-preview p,
+  .posts-list .description p {
+    font-family: var(--body-font), var(--body-default);
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .posts-list .post-preview h2,
+  .posts-list .description h2 {
+    font-family: var(--heading-font), var(--heading-default);
+  }
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: var(--mono-font), var(--mono-default);
+  }
+
+
+  /*-- TITLE --*/
+  d-title h1,
+  .posts-list > h1 {
+    color: var(--title-color, black);
+  }
+
+  d-title h1 {
+    font-size: var(--title-size, 50px);
+  }
+
+  /*-- HEADERS --*/
+  d-article h1,
+  d-article h2,
+  d-article h3,
+  d-article h4,
+  d-article h5,
+  d-article h6 {
+    color: var(--header-color, rgba(0, 0, 0, 0.8));
+  }
+
+  /*-- BODY --*/
+  d-article > p,  /* only text inside of <p> tags */
+  d-article > ul, /* lists */
+  d-article > ol {
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+    font-size: var(--body-size, 1.06rem);
+  }
+
+
+  /*-- CODE --*/
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-size: var(--code-size, 14px);
+  }
+
+  /*-- ASIDE --*/
+  d-article aside {
+    font-size: var(--aside-size, 12px);
+    color: var(--aside-color, rgba(0, 0, 0, 0.6));
+  }
+
+  /*-- FIGURE CAPTIONS --*/
+  figure .caption,
+  figure figcaption,
+  .figure .caption {
+    font-size: var(--fig-cap-size, 13px);
+    color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+  }
+
+  /*-- METADATA --*/
+  d-byline h3 {
+    font-size: var(--heading-size, 0.6rem);
+    color: var(--heading-color, rgba(0, 0, 0, 0.5));
+  }
+
+  d-byline {
+    font-size: var(--body-size, 0.8rem);
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+  }
+
+  d-byline a,
+  d-article d-byline a {
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+  }
+
+  /*-- TABLE OF CONTENTS --*/
+  .d-contents nav h3 {
+    font-size: var(--heading-size, 18px);
+  }
+
+  .d-contents nav a {
+    font-size: var(--contents-size, 13px);
+  }
+
+  /*-- APPENDIX --*/
+  d-appendix h3 {
+    font-size: var(--heading-size, 15px);
+    color: var(--heading-color, rgba(0, 0, 0, 0.65));
+  }
+
+  d-appendix {
+    font-size: var(--text-size, 0.8em);
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
+  }
+
+  d-appendix d-footnote-list a.footnote-backlink {
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  .distill-site-header .title {
+    font-size: var(--title-size, 18px);
+    font-family: var(--navbar-font), var(--heading-default);
+  }
+
+  .distill-site-header a,
+  .nav-dropdown .nav-dropbtn {
+    font-family: var(--navbar-font), var(--heading-default);
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    font-size: var(--text-size, 15px);
+  }
+
+  .distill-site-header a:hover,
+  .nav-dropdown:hover .nav-dropbtn {
+    color: var(--hover-color, white);
+  }
+
+  .distill-site-header {
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
+  }
+
+  .distill-site-footer {
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
+  }
+
+  .distill-site-footer a:hover {
+    color: var(--hover-color, white);
+  }</style>
+  <!--/radix_placeholder_distill-->
+  <script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
+  <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+  <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+  <link href="site_libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+  <script src="site_libs/bsTable-3.3.7/bootstrapTable.js"></script>
+  <script src="site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Simulations fixed effects","description":"In this document, I run a simulation exercise to illustrate that, under some circumstances, adding fixed effects to a model can lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of high temperatures on worker productivity.","authors":[]}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a href="index.html" class="title">Causal Exaggeration</a>
+</div>
+<div class="nav-right">
+<a href="causal_exaggeration_paper.pdf">Paper</a>
+<a href="summary.html">Summaries</a>
+<a href="FAQ.html">FAQ</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Literature
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="lit_top_journals.html">Top journals</a>
+<a href="lit_IVs.html">IVs</a>
+<a href="lit_exp.html">Experiments</a>
+<a href="lit_air_pollution.html">Air pollution lit.</a>
+</div>
+</div>
+<a href="maths.html">Maths</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Simulations
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="RDD.html">RDD</a>
+<a href="IV.html">IV</a>
+<a href="shocks.html">Shocks</a>
+<a href="FE.html">Fixed-Effects</a>
+</div>
+</div>
+<a href="https://github.com/vincentbagilet/causal_exaggeration" aria-label="Link to source">
+<i class="fab fa-github" aria-hidden="true"></i>
+</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Simulations fixed effects</h1>
+
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p>In this document, I run a simulation exercise to illustrate that, under some circumstances, adding fixed effects to a model can lead to a loss in power and inflated effect sizes. To make these simulations realistic, I emulate a typical study estimating the impact of high temperatures on worker productivity.</p>
+</div>
+
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#intuition" id="toc-intuition">Intuition</a></li>
+<li><a href="#simulation-framework" id="toc-simulation-framework">Simulation Framework</a>
+<ul>
+<li><a href="#illustrative-example" id="toc-illustrative-example">Illustrative example</a></li>
+<li><a href="#modeling-choices" id="toc-modeling-choices">Modeling choices</a></li>
+<li><a href="#data-generation" id="toc-data-generation">Data generation</a></li>
+<li><a href="#estimation" id="toc-estimation">Estimation</a></li>
+<li><a href="#one-simulation" id="toc-one-simulation">One simulation</a></li>
+<li><a href="#all-simulations" id="toc-all-simulations">All simulations</a></li>
+</ul></li>
+<li><a href="#analysis-of-the-results" id="toc-analysis-of-the-results">Analysis of the results</a>
+<ul>
+<li><a href="#quick-exploration" id="toc-quick-exploration">Quick exploration</a></li>
+<li><a href="#computing-bias-and-exaaggeration-ratio" id="toc-computing-bias-and-exaaggeration-ratio">Computing bias and exaaggeration ratio</a></li>
+<li><a href="#main-graph" id="toc-main-graph">Main graph</a></li>
+</ul></li>
+<li><a href="#further-checks" id="toc-further-checks">Further checks</a>
+<ul>
+<li><a href="#variance-of-the-variables" id="toc-variance-of-the-variables">Variance of the variables</a></li>
+<li><a href="#representativeness-of-the-estimation" id="toc-representativeness-of-the-estimation">Representativeness of the estimation</a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+<style>
+body {
+text-align: justify}
+</style>
+<!-- To export it as pdf, use this yaml -->
+<!-- but run it in another document. I do not know why but there is a bug otherwise -->
+<!-- --- -->
+<!-- title: "Simulations exogenous shocks" -->
+<!-- geometry: false -->
+<!-- output:  -->
+<!--   pdf_document: -->
+<!--     includes: -->
+<!--       in_header: -->
+<!--         - VB_Rmd.sty -->
+<!-- --- -->
+<h2 id="intuition">Intuition</h2>
+<p>As discussed in the introduction of the paper and the math section, controlling for confounders can cause a confounding / exaggeration trade-off mediated by the proportion of the variation absorbed by the controls.
+<!-- Controls increase variance of the OLS estimator and exaggeration when they absorb more variation in the explanatory variable of interest ($x$) than in the outcome variable ($y$). -->
+Adjusting for a variable (<span class="math inline">\(w\)</span>) or adding fixed effects is equivalent to partialling out this variable or fixed effects from both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. Since the variance of the estimator is given by the ratio of the variance of the residuals <span class="math inline">\(\sigma_{y^{\perp x, w}}^2\)</span> over <span class="math inline">\(n\)</span> times the variance of the explanatory variable after partialling out <span class="math inline">\(w\)</span> (<span class="math inline">\(\sigma_{x^{\perp w}}^2\)</span>), if controlling absorbs more of the variance in <span class="math inline">\(x\)</span> than in <span class="math inline">\(y\)</span>, it will increase the variance of the resulting estimator and create exaggeration.</p>
+<h2 id="simulation-framework">Simulation Framework</h2>
+<h3 id="illustrative-example">Illustrative example</h3>
+<p>To illustrate this causal exaggeration and show that it can arise in realistic settings, let’s consider an example setting: the <strong>impact of high temperatures on worker productivity</strong>.
+This setting might be particularly relevant as time and location fixed-effects are likely more correlated with temperature than with residual productivity. In addition, since this type of analysis focuses on effects in the tail of the temperature distribution, we may expect statistical power to be low: only a small subset of the observations contribute to the estimation of the treatment effect.</p>
+<p><span class="citation" data-cites="lai_effects_2023">Lai et al. (<a href="#ref-lai_effects_2023" role="doc-biblioref">2023</a>)</span> reviews this literature. <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span> have explored this question in the context of manufacturing in India and production of data for Demographic and Health Surveys (DHS) in a large range of countries respectively. Other examples of studies that leverage micro-data at the worker level study the impacts of high temperature on blueberry picking in California
+<span class="citation" data-cites="stevens_temperature_2017">Stevens (<a href="#ref-stevens_temperature_2017" role="doc-biblioref">2017</a>)</span>, factory worker productivity in China <span class="citation" data-cites="cai_impact_2018">(<a href="#ref-cai_impact_2018" role="doc-biblioref">Cai, Lu, and Wang 2018</a>)</span>, archers in China <span class="citation" data-cites="qiu_adaptation_2022">Qiu and Zhao (<a href="#ref-qiu_adaptation_2022" role="doc-biblioref">2022</a>)</span> or
+errors made by tennis players <span class="citation" data-cites="burke_game_2023">(<a href="#ref-burke_game_2023" role="doc-biblioref">Burke et al. 2023</a>)</span>. Other studies also leverage micro-data to study the impact of temperature on productivity but at the firm-level <span class="citation" data-cites="zhang_temperature_2018">Cachon, Gallino, and Olivares (<a href="#ref-cachon_severe_2012" role="doc-biblioref">2012</a>)</span></p>
+<p>Even though not exactly belonging to this literature, <span class="citation" data-cites="heyes_temperature_2019">Heyes and Saberian (<a href="#ref-heyes_temperature_2019" role="doc-biblioref">2019</a>)</span> provides a nice illustration of the phenomenon of interest. They show that US immigration judges are less likely to give decision that are favorable to the applicant on hotter days. In their table 3, comparing specifications with different level of fixed effects, we can see that the more FEs (and actually the more correlated with temperature), the larger the p-values:</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/FE/heyes_saberian_FE.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<p>In the present analysis, I build my simulations to emulate a canonical study from this literature, measuring the impact of high temperature on worker productivity.
+A typical approach consists in estimating the link between different temperature bins and productivity, focusing in particular on high temperature bins. Usual approaches to explore this question typically rely on High Dimensional Fixed Effects models, including time and location fixed-effects to adjust for invariant characteristics such as seasonal demand (in <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="cai_impact_2018">Cai, Lu, and Wang (<a href="#ref-cai_impact_2018" role="doc-biblioref">2018</a>)</span> for instance) or location differences. As underlined by <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span>, fixed effects limit the variation used for identification: location “fixed effects restrict the variation used in the analysis to variation within a survey wave [i.e., a time ”period”]”.</p>
+<h3 id="modeling-choices">Modeling choices</h3>
+<h4 id="overview-of-the-dgp">Overview of the DGP</h4>
+<p>To simplify and since negative effects of temperature on production are only found for high temperatures, in the DGP, I assume that only high temperatures affect productivity (the effect of low temperatures therefore does not need to be modeled). For simplicity, I only consider time fixed-effects and abstract from location ones. This is equivalent to assuming that all the individuals in the analysis work in locations that experience the same contemporaneous weather, <em>e.g.</em>, are close to one another. Regardless, location fixed effect would be absorbed by the individual fixed-effects in include in the analysis.</p>
+<p>The DGP can be represented using the following Directed Acyclic Graph (DAG), where <span class="math inline">\(InBin\)</span> represents high temperatures within a given temperature bin of interest, such that <span class="math inline">\(InBin = \mathbb{1}\{Temp \in (T_L,T_H ] \}\)</span> where <span class="math inline">\((T_L,T_H ]\)</span> is the temperature bin of interest.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>second_color</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_sub.html'>str_sub</a></span><span class='op'>(</span><span class='va'>colors_mediocre</span><span class='op'>[[</span><span class='st'>"four_colors"</span><span class='op'>]</span><span class='op'>]</span>, <span class='fl'>10</span>, <span class='fl'>16</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://r-causal.github.io/ggdag/reference/dagify.html'>dagify</a></span><span class='op'>(</span><span class='va'>Prod</span> <span class='op'>~</span> <span class='va'>InBin</span> <span class='op'>+</span> <span class='va'>Period</span> <span class='op'>+</span> <span class='va'>u</span> <span class='op'>+</span> <span class='va'>Indiv</span>,</span>
+<span>       <span class='va'>Temp</span> <span class='op'>~</span> <span class='va'>Period</span> <span class='op'>+</span> <span class='va'>e</span>,</span>
+<span>       <span class='va'>InBin</span> <span class='op'>~</span> <span class='va'>Temp</span>,</span>
+<span>       exposure <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Prod"</span>, <span class='st'>"Temp"</span>, <span class='st'>"InBin"</span>, <span class='st'>"Period"</span>, <span class='st'>"Indiv"</span><span class='op'>)</span>,</span>
+<span>       <span class='co'># outcome = "w",</span></span>
+<span>       latent <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"u"</span>, <span class='st'>"e"</span><span class='op'>)</span>,</span>
+<span>       coords <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span>         x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>Prod <span class='op'>=</span> <span class='fl'>3</span>, Temp <span class='op'>=</span> <span class='fl'>2</span>, InBin <span class='op'>=</span> <span class='fl'>2.5</span>, Period <span class='op'>=</span> <span class='fl'>2.5</span>, e <span class='op'>=</span> <span class='fl'>1.5</span>, u <span class='op'>=</span> <span class='fl'>3</span>, Indiv <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>,</span>
+<span>         y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>Prod <span class='op'>=</span> <span class='fl'>1</span>, Temp <span class='op'>=</span> <span class='fl'>1</span>, InBin <span class='op'>=</span> <span class='fl'>1</span>, Period <span class='op'>=</span> <span class='fl'>0</span>, e <span class='op'>=</span> <span class='fl'>1</span>, u <span class='op'>=</span> <span class='fl'>1.5</span>, Indiv <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://r-causal.github.io/ggdag/reference/status.html'>ggdag_status</a></span><span class='op'>(</span>text_size <span class='op'>=</span> <span class='fl'>3.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://r-causal.github.io/ggdag/reference/theme_dag_blank.html'>theme_dag_blank</a></span><span class='op'>(</span>base_family <span class='op'>=</span> <span class='st'>"Lato"</span>, legend.position <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/scale_mediocre_d.html'>scale_mediocre_d</a></span><span class='op'>(</span>pal <span class='op'>=</span> <span class='st'>"coty"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span><span class='op'>(</span><span class='co'>#parameters</span></span>
+<span>    <span class='st'>"text"</span>, </span>
+<span>    x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.75</span>, <span class='fl'>2.8</span>, <span class='fl'>2.2</span><span class='op'>)</span>, </span>
+<span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.1</span>, <span class='fl'>0.45</span>, <span class='fl'>0.45</span><span class='op'>)</span>, </span>
+<span>    label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"beta"</span>, <span class='st'>"delta"</span>, <span class='st'>"gamma"</span><span class='op'>)</span>,</span>
+<span>    parse <span class='op'>=</span> <span class='cn'>TRUE</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"black"</span>,</span>
+<span>    size <span class='op'>=</span> <span class='fl'>5</span></span>
+<span>  <span class='op'>)</span> </span></code></pre>
+</div>
+</details>
+<p><img src="images/FE/DAG_fe-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<p>Individual production (<span class="math inline">\(Prod\)</span>) and temperature (<span class="math inline">\(Temp\)</span>) depend on period fixed effects (<span class="math inline">\(Period\)</span>), individual fixed effects (<span class="math inline">\(Indiv\)</span>) and non-modeled components (<span class="math inline">\(u\)</span> and <span class="math inline">\(e\)</span>). Note that this DAG encompasses a set of further modeling choices, in particular regarding the absence of causal relationships between some variables.</p>
+<h4 id="discussion-of-modeling-choices">Discussion of modeling choices</h4>
+<p>Other variables than individual or period fixed effects and high temperatures may affect productivity (precipitation for instance). I do not model them to simplify the data generating process. While this may limit the representativity of my simulations, it does not affect its results since the models I consider accurately represent the data generating process.
+Including additional controls may however increase the precision of the resulting estimator. To address such concerns, I include individual fixed effects which intensity I can vary to adjust the non-explained variation in productivity. In addition, at the end of this document, I compare the Signal-to-Noise Ratios in my simulations to those in existing studies to confirm that my simulations are in line with existing studies in terms of precision.</p>
+<p>I do not generate correlation between periods. While this may seem restrictive, it is a conservative assumption as it eases the recovery of the effect of interest by simplifying the actual DGP.</p>
+<p>Finally, I assume that the effect of temperature on productivity is non-null in only one of the bins, as it is often the case in existing studies.</p>
+<h4 id="dgp-equations">DGP equations</h4>
+<p>I assume that the temperature at time <span class="math inline">\(t\)</span> in period <span class="math inline">\(\tau\)</span> is defined as follows:</p>
+<p><span class="math display">\[Temp_{t\tau} = \mu_{Temp} +  \gamma\lambda_{\tau} + \epsilon_{t}\]</span></p>
+<p>where <span class="math inline">\(\mu_{Temp}\)</span> is an intercept representing the average temperature. <span class="math inline">\(\lambda_{\tau}\)</span> are period fixed-effects with mean 0 and variance 1, such that their variance can be modified <em>via</em> <span class="math inline">\(\gamma\)</span>. This particular structure of fixed effects allows to control for the intensity of the fixed effects via a parameter. It assumes that the data generating process for temperature is as follows:</p>
+<ol type="1">
+<li>Observations are drawn for all the time indexes (<em>e.g.</em> days) from a distribution shared across period (<em>e.g.</em> months): <span class="math inline">\(\epsilon\)</span></li>
+<li>These distributions are “shifted” period-by-period by adding period fixed-effects—drawn from a distribution with mean 0, leaving the average of temperature unchanged—: <span class="math inline">\(\gamma\lambda_{\tau}\)</span>.</li>
+</ol>
+<p>This is equivalent to assuming that the variance of temperature can be decomposed into a between-months component and a within-month one. This is quite representative of the distribution of existing temperatures, as discussed below. The same structure is retained for productivity.</p>
+<p><span class="math inline">\(Prod_{it\tau}\)</span>, the production of worker <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span> in period <span class="math inline">\(\tau\)</span> is defined as:</p>
+<p><span class="math display">\[Prod_{it\tau} = \beta_0 + \eta_i + \delta\lambda_{\tau} + \beta_1 \cdot \mathbb{1}\{Temp_{t\tau} \in (T_L,T_H ] \} + u_{it}\]</span>
+where <span class="math inline">\(\eta_i\)</span> are individual fixed-effects. <span class="math inline">\(\lambda_{\tau}\)</span> are period (month) fixed-effects.</p>
+<h4 id="dgp-and-varying-parmeters">DGP and varying parmeters</h4>
+<p>The goal of these simulations is to vary the proportion of the variation in temperature and production the period fixed-effect explain (i.e., to vary <span class="math inline">\(\gamma\)</span> and <span class="math inline">\(\delta\)</span> to modify the month-to-month variation in temperature and production). However, to make results across parameter sets comparable and these variations <em>ceteris paribus</em>, it is crucial that varying <span class="math inline">\(\gamma\)</span> and <span class="math inline">\(\delta\)</span> does not affect the variance of the temperature within the bin of interest and production (our <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> in the regression). I therefore fix the variance of temperature and productivity by defining the non-modeled variance, i.e., the variance of the residuals, as a function of <span class="math inline">\(\gamma\)</span> and <span class="math inline">\(\delta\)</span>. Since the variance of interest for <span class="math inline">\(x\)</span> is actually the variance within a bin and not temperature itself, I consider bins of interest that are closed. That way, the variance remains relatively stable when <span class="math inline">\(\gamma\)</span> and <span class="math inline">\(\delta\)</span> vary (it is very roughly equal to the variance of a uniform distribution defined over the width of the bin).
+<!-- This is equivalent to varying the period-specific component of the variance of temperature and production without modifying their overall variance.  --></p>
+<p>As discussed in the maths section of the paper, the omitted variable bias is also a function of <span class="math inline">\(\delta\)</span> and <span class="math inline">\(\gamma\)</span>: <span class="math inline">\(OVB = \dfrac{\delta \gamma \sigma_{\lambda}^{2}}{\sigma_{InBin}^{2}}\)</span>. Thus, to keep the OVB constant when <span class="math inline">\(\gamma\)</span> varies, I set <span class="math inline">\(\kappa = \delta\gamma\)</span> to be fixed.</p>
+<!-- Production can be interpreted as the sum of: -->
+<!-- 1. A draw from a shared distribution (with variance $\sigma_u^2$) whose mean is region dependent ($\beta_0 + \delta\lambda_r$) -->
+<!-- 1. An effect of high temperatures ($\beta_1 Temp_{irt}$), affecting the variance and mean the production. -->
+<h4 id="details-on-parameters-and-variables">Details on parameters and variables</h4>
+<p>More precisely, I set:</p>
+<ul>
+<li><span class="math inline">\(N_i\)</span> the number of workers</li>
+<li><span class="math inline">\(N_t\)</span> the number of time steps (e.g., days)</li>
+<li><span class="math inline">\(l_\tau\)</span> the length of a period (e.g., 30 days)</li>
+<li><span class="math inline">\(FE_{\tau} = \lambda_{\tau} \sim \mathcal{U}(-\sqrt{3}, \sqrt{3})\)</span> such that it as mean 0 and variance 1 and the period fixed effects for production and temperature have mean 0 and variance <span class="math inline">\(\delta^2\)</span> and <span class="math inline">\(\gamma^2\)</span> respectively,</li>
+<li><span class="math inline">\(Temp_{t\tau} = \mu_{Temp} + \gamma\lambda_{\tau} + \epsilon_{t}\)</span></li>
+<li><span class="math inline">\(\epsilon_{rt} \sim \mathcal{N}(0, \sigma_{\epsilon}^{2})\)</span> the within-period component of <span class="math inline">\(Temp_{t\tau}\)</span>. For the variance of temperature to remain constant when <span class="math inline">\(\gamma\)</span> varies, I set <span class="math inline">\(\sigma_{\epsilon}^2 = \sigma_{Temp}^2 - \gamma^2\)</span>. This bounds <span class="math inline">\(\gamma\)</span> to be smaller than <span class="math inline">\(\sigma_{Temp}\)</span></li>
+<li>Bins: I do not parametrize the bins and set them as fixed, only parametrizing the bin of interest. In define bins of with 2 degree Celsius (or about 5 Fahrenheit) as most papers in this literature. I define the bin of interest by setting <span class="math inline">\(T_L\)</span> such that the bin of interest is <span class="math inline">\((T_L,T_L + 2]\)</span>.</li>
+<li><span class="math inline">\(FE_i = \eta_i \sim  \mathcal{N}(0, \sigma_{\eta}^{2})\)</span>, individual fixed effects.</li>
+<li><span class="math inline">\(u_{it} \sim \mathcal{N}(0, \sigma_{u}^{2})\)</span></li>
+<li><span class="math inline">\(Prod_{it\tau} = \beta_0 + \eta_i + \delta\lambda_{\tau} + \beta_1 \mathbb{1}\{Temp_{t\tau} \in (T_L,T_H ] \} + u_{it}\)</span>. For the variance of productivity to remain constant when <span class="math inline">\(\gamma\)</span> varies, I set <span class="math inline">\(\sigma_u^2 = \sigma_{P}^2 - \sigma_{\eta}^2 - \delta^2 - \beta_1^2\sigma_{InBin}^2   - 2\delta\beta_1\text{cov}(InBin_{t\tau}, \lambda_{\tau})\)</span>. There is a complex correlation structure between <span class="math inline">\(InBin\)</span> and <span class="math inline">\(\lambda_{\tau}\)</span>. I simplify this by assuming that <span class="math inline">\(\text{cov}(InBin_{t\tau}, \lambda_{\tau}) = \text{cov}(Temp_{t\tau}, \lambda_{\tau}) = \gamma\)</span> and therefore, the last term reduces to <span class="math inline">\(2\beta_1\delta\gamma = 2\beta_1\kappa\)</span>. Since <span class="math inline">\(\kappa = \gamma\delta\)</span> is fixed, this term does not vary with <span class="math inline">\(\gamma\)</span> and is therefore only a scaling parameter that one can adjust by modifying the value given of <span class="math inline">\(\sigma_P^2\)</span>. I double check post-hoc, that this hypothesis regarding the covariance holds (that <span class="math inline">\(\sigma_P^2\)</span> does not vary with <span class="math inline">\(\gamma\)</span>). Also note that this expression for <span class="math inline">\(\sigma_u^2\)</span> bounds <span class="math inline">\(\delta\)</span>.</li>
+</ul>
+<h3 id="data-generation">Data generation</h3>
+<h4 id="generating-function">Generating function</h4>
+<p>I write a simple function that generates the data. It takes as input the values of the different parameters and returns a data frame containing all the variables for this analysis.</p>
+<p>Note that I use the <code>truncnorm</code> package to compute the theoretical mean and variance of high temperature (as they are drawn from a truncated normal).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>generate_data_fe</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>N_i</span>,</span>
+<span>                             <span class='va'>N_t</span>,</span>
+<span>                             <span class='va'>length_period_fe</span>,</span>
+<span>                             <span class='va'>mu_temp</span>,</span>
+<span>                             <span class='va'>sigma_temp</span>,</span>
+<span>                             <span class='va'>mu_prod</span>,</span>
+<span>                             <span class='va'>sigma_prod</span>,</span>
+<span>                             <span class='va'>sigma_indiv_fe</span>,</span>
+<span>                             <span class='va'>bin_interest_low</span>,</span>
+<span>                             <span class='va'>bin_ref_low</span>, </span>
+<span>                             <span class='va'>beta_1</span>,</span>
+<span>                             <span class='va'>gamma</span>, </span>
+<span>                             <span class='va'>kappa</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span></span>
+<span>  <span class='va'>delta</span> <span class='op'>&lt;-</span> <span class='va'>kappa</span><span class='op'>/</span><span class='va'>gamma</span></span>
+<span>  </span>
+<span>  <span class='va'>data</span> <span class='op'>&lt;-</span> </span>
+<span>    <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>t <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N_t</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>period <span class='op'>=</span> <span class='va'>t</span> <span class='op'><a href='https://rdrr.io/r/base/Arithmetic.html'>%/%</a></span> <span class='va'>length_period_fe</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>period</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>period_fe <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='co'># mutate(period_fe = 3*(rbeta(1, 0.5, 0.5) - 1/2)) |&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      sigma_epsilon <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>sigma_temp</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>-</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,</span>
+<span>      epsilon <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N_t</span>, <span class='fl'>0</span>, <span class='va'>sigma_epsilon</span><span class='op'>)</span>,</span>
+<span>      temp <span class='op'>=</span> <span class='va'>mu_temp</span> <span class='op'>+</span> <span class='va'>gamma</span><span class='op'>*</span><span class='va'>period_fe</span> <span class='op'>+</span> <span class='va'>epsilon</span>,</span>
+<span>      bin_temp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>temp</span>, breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>50</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>11</span>, <span class='fl'>35</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>      bin_temp <span class='op'>=</span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_relevel.html'>fct_relevel</a></span><span class='op'>(</span><span class='va'>bin_temp</span>, </span>
+<span>                             <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_c.html'>str_c</a></span><span class='op'>(</span><span class='st'>"("</span>, <span class='va'>bin_ref_low</span>, <span class='st'>","</span>, <span class='va'>bin_ref_low</span> <span class='op'>+</span> <span class='fl'>2</span>,<span class='st'>"]"</span><span class='op'>)</span>, </span>
+<span>                             after <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,</span>
+<span>      bin_interest <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_c.html'>str_c</a></span><span class='op'>(</span><span class='st'>"("</span>, <span class='va'>bin_interest_low</span>, <span class='st'>","</span>, <span class='va'>bin_interest_low</span> <span class='op'>+</span> <span class='fl'>2</span>,<span class='st'>"]"</span><span class='op'>)</span></span>
+<span>    <span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>indiv <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>N_i</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>indiv</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>indiv_fe <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='va'>sigma_indiv_fe</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      sigma_u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span></span>
+<span>        <span class='va'>sigma_prod</span><span class='op'>^</span><span class='fl'>2</span></span>
+<span>        <span class='op'>-</span> <span class='va'>sigma_indiv_fe</span><span class='op'>^</span><span class='fl'>2</span></span>
+<span>        <span class='op'>-</span> <span class='va'>delta</span><span class='op'>^</span><span class='fl'>2</span></span>
+<span>        <span class='op'>-</span> <span class='va'>beta_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='fl'>0.3</span> <span class='co'>#roughly var of a uniform distribution of width 2</span></span>
+<span>        <span class='op'>-</span> <span class='fl'>2</span><span class='op'>*</span><span class='va'>kappa</span><span class='op'>*</span><span class='va'>beta_1</span> <span class='co'>#NEEDS TO BE CHANGED</span></span>
+<span>      <span class='op'>)</span>,</span>
+<span>      u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N_i</span><span class='op'>*</span><span class='va'>N_t</span>, <span class='fl'>0</span>, <span class='va'>sigma_u</span><span class='op'>)</span>,</span>
+<span>      prod <span class='op'>=</span> <span class='va'>mu_prod</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>*</span><span class='op'>(</span><span class='va'>bin_temp</span> <span class='op'>==</span> <span class='va'>bin_interest</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>        <span class='va'>indiv_fe</span> <span class='op'>+</span> <span class='va'>delta</span><span class='op'>*</span><span class='va'>period_fe</span> <span class='op'>+</span> <span class='va'>u</span></span>
+<span>    <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>indiv</span>, <span class='va'>t</span>, <span class='va'>period</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='op'>-</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"sigma"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+</div>
+<h4 id="calibration-and-baseline-parameters-values">Calibration and baseline parameters’ values</h4>
+<p>I set baseline values for the parameters to emulate a realistic observational study in this field. These values are coherent with several analyses from the literature. However, not all analyses in this literature suffer from the issue discussed here but some likely do. I focus on such settings. I thus calibrate the parameters as follows:</p>
+<ul>
+<li><p><strong>Number of observations</strong>: <span class="citation" data-cites="burke_game_2023">Burke et al. (<a href="#ref-burke_game_2023" role="doc-biblioref">2023</a>)</span> summarises the number of observations in recent papers from this literature (table S1): it ranges from 202 to 19 milions, with a median of 140,000. <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span>, one of the most thorough papers in this literature. My simulation is closed to their “Temperature Effects on Worker Output” section in which the various specifications have between 9 and 147 units and between 365 and 3337 time steps for a number of observations ranging between 7300 and 54020. I select a number of observations in line with a typical analysis in this paper and literature, setting <span class="math inline">\(N_i = 70\)</span> and <span class="math inline">\(N_t = 700\)</span>, for a total of 49000 observations.</p></li>
+<li><p><strong>Distribution of the production</strong>: I consider that production is normally distributed. <span class="citation" data-cites="stevens_temperature_2017">Stevens (<a href="#ref-stevens_temperature_2017" role="doc-biblioref">2017</a>)</span> reports the distribution of the average productivity by worker (blueberry pickers) in Figure 3. While the distribution is not perfectly normal, it seems to be a relatively reasonable assumption. Production is a function of the way units are defined; any mean may be realistic. The value of interest is the ratio mean/standard deviation. In <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span>, this ratio is roughly equal to 0.9. In <span class="citation" data-cites="stevens_temperature_2017">Stevens (<a href="#ref-stevens_temperature_2017" role="doc-biblioref">2017</a>)</span>, it ranges between 0.4 and 0.6 (Table 1). To avoid negative values considering the normality assumption, I choose an intermediary value and set <code>mu_prod = 100</code> and <code>sigma_prod = 0.5*mu_prod</code>.</p></li>
+<li><p><strong>Individual fixed effects</strong>: <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span> reports the individual FEs observed in their setting in figure 7 panel A. The distribution is not exactly normal but it might be an acceptable approximation. In their setting, individual fixed effects account for about half of the standard deviation of the outcome. I thus set <code>sigma_indiv_fe = 0.5*sigma_prod</code>. I set their mean to 0, assuming that it is encompassed in <span class="math inline">\(\beta_0\)</span>.</p></li>
+<li><p><strong>Distribution of temperature</strong>: I set the mean and standard deviation of the wet bulb temperature to be equal to the values experienced in New York City. I set <code>mu_temp = 16.5</code> and <code>sigma_temp = 9</code>. The results hold with other distributions of temperature.</p></li>
+<li><p>Results from the literature: <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span> documents a reduction in productivity between 2 and 8% when a day below 19°C is swapped with a day above 35°C dry bulb (and comparable results between 33 and 35). <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span> finds that productivity decreases by 13.6% on a day with wet bulb temperature above 29.5°C as compared to a day between 10 and 15.5°C. <span class="citation" data-cites="stevens_temperature_2017">Stevens (<a href="#ref-stevens_temperature_2017" role="doc-biblioref">2017</a>)</span> documents a 12% reduction in productivity when a day in the (27, 29.5]°C bin is swapped with a day above 38°C. <span class="citation" data-cites="cai_impact_2018">Cai, Lu, and Wang (<a href="#ref-cai_impact_2018" role="doc-biblioref">2018</a>)</span> a 8.5% reduction in temperature above 35°C wet bulb as compared to a day between 24°C and 26.5°C. <span class="citation" data-cites="hsiang_temperatures_2010">Hsiang (<a href="#ref-hsiang_temperatures_2010" role="doc-biblioref">2010</a>)</span> finds effects above 25°C in wet bulb temperature.</p>
+<ul>
+<li><strong>Bin of interest</strong>: To keep the variance of temperature within the bin constant when <span class="math inline">\(\gamma\)</span> varies (to not affect the precision of the estimator through this mean), I consider a close bin. Since I model thew wet bulb temperature, I choose a bin of interest of (29, 31] such that <code>bin_interest_low = 29</code>.</li>
+<li><strong>Reference bin</strong>: Based on the literature above, in particular <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span>, I set a reference (or omitted) bin of (11, 13], such that <code>bin_ref_low = 11</code>.</li>
+<li><strong>Treatment effect size</strong>: Since I chose a relatively low bin of interest (and not temperature above a high threshold), I do not pick a very large treatment effect, since the magnitude of the effect is more limited for lower temperature. I however still choose a treatment effect size in line with what is observed in the literature : <code>beta_1 = -0.03*mu_prod</code></li>
+</ul></li>
+<li><p><strong>Temperature fixed effects</strong>: As noted previously, <code>gamma</code> cannot be larger than <code>sigma_temp</code>. I will thus vary it between 4 and 8.9.</p></li>
+<li><p><strong>Omitted variable bias</strong>: I consider a very large OVB, twice the magnitude of the treatment effect (OVB = 2). The OVB is given by <span class="math inline">\(\dfrac{\kappa\sigma_{\lambda}^2}{\sigma_{InBin}^2}\)</span>. Therefore, I set <code>kappa = -15</code>. I also adjust it <em>post-hoc</em> since it only changes the bias of the estimator from the model with no fixed effects. The minus sign ensures that the OVB is upward biased and therefore goes in the same direction as exaggeration. This hypothesis clarifies the results but does not change the conclusions of the analysis.</p></li>
+</ul>
+<div class="layout-chunk" data-layout="l-page">
+<table>
+<colgroup>
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 13%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 13%" />
+<col style="width: 9%" />
+<col style="width: 11%" />
+<col style="width: 5%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">N_i</th>
+<th style="text-align: right;">N_t</th>
+<th style="text-align: right;">length_period_fe</th>
+<th style="text-align: right;">mu_temp</th>
+<th style="text-align: right;">sigma_temp</th>
+<th style="text-align: right;">mu_prod</th>
+<th style="text-align: right;">sigma_prod</th>
+<th style="text-align: right;">bin_interest_low</th>
+<th style="text-align: right;">bin_ref_low</th>
+<th style="text-align: right;">sigma_indiv_fe</th>
+<th style="text-align: right;">beta_1</th>
+<th style="text-align: right;">gamma</th>
+<th style="text-align: right;">kappa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">700</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">17.5</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">-4</td>
+<td style="text-align: right;">7.4</td>
+<td style="text-align: right;">-15</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here is an example of data created with the data generating process and baseline parameter values, for 4 individuals and 2 period of 1 time steps each:</p>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 3%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 7%" />
+<col style="width: 10%" />
+<col style="width: 15%" />
+<col style="width: 10%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">indiv</th>
+<th style="text-align: right;">t</th>
+<th style="text-align: right;">period</th>
+<th style="text-align: right;">period_fe</th>
+<th style="text-align: right;">epsilon</th>
+<th style="text-align: right;">temp</th>
+<th style="text-align: left;">bin_temp</th>
+<th style="text-align: left;">bin_interest</th>
+<th style="text-align: right;">indiv_fe</th>
+<th style="text-align: right;">u</th>
+<th style="text-align: right;">prod</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">-1.49</td>
+<td style="text-align: right;">8.08</td>
+<td style="text-align: right;">14.54</td>
+<td style="text-align: left;">(13,15]</td>
+<td style="text-align: left;">(29,31]</td>
+<td style="text-align: right;">-23.00</td>
+<td style="text-align: right;">-26.25</td>
+<td style="text-align: right;">53.77</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">-1.49</td>
+<td style="text-align: right;">8.08</td>
+<td style="text-align: right;">14.54</td>
+<td style="text-align: left;">(13,15]</td>
+<td style="text-align: left;">(29,31]</td>
+<td style="text-align: right;">-49.94</td>
+<td style="text-align: right;">-4.45</td>
+<td style="text-align: right;">48.63</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">-1.49</td>
+<td style="text-align: right;">8.08</td>
+<td style="text-align: right;">14.54</td>
+<td style="text-align: left;">(13,15]</td>
+<td style="text-align: left;">(29,31]</td>
+<td style="text-align: right;">-6.81</td>
+<td style="text-align: right;">17.89</td>
+<td style="text-align: right;">114.10</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">-1.49</td>
+<td style="text-align: right;">8.08</td>
+<td style="text-align: right;">14.54</td>
+<td style="text-align: left;">(13,15]</td>
+<td style="text-align: left;">(29,31]</td>
+<td style="text-align: right;">-7.88</td>
+<td style="text-align: right;">-32.50</td>
+<td style="text-align: right;">62.64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.10</td>
+<td style="text-align: right;">-4.90</td>
+<td style="text-align: right;">20.75</td>
+<td style="text-align: left;">(19,21]</td>
+<td style="text-align: left;">(29,31]</td>
+<td style="text-align: right;">-23.00</td>
+<td style="text-align: right;">-54.07</td>
+<td style="text-align: right;">20.70</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.10</td>
+<td style="text-align: right;">-4.90</td>
+<td style="text-align: right;">20.75</td>
+<td style="text-align: left;">(19,21]</td>
+<td style="text-align: left;">(29,31]</td>
+<td style="text-align: right;">-49.94</td>
+<td style="text-align: right;">-32.58</td>
+<td style="text-align: right;">15.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.10</td>
+<td style="text-align: right;">-4.90</td>
+<td style="text-align: right;">20.75</td>
+<td style="text-align: left;">(19,21]</td>
+<td style="text-align: left;">(29,31]</td>
+<td style="text-align: right;">-6.81</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">91.46</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.10</td>
+<td style="text-align: right;">-4.90</td>
+<td style="text-align: right;">20.75</td>
+<td style="text-align: left;">(19,21]</td>
+<td style="text-align: left;">(29,31]</td>
+<td style="text-align: right;">-7.88</td>
+<td style="text-align: right;">-6.37</td>
+<td style="text-align: right;">83.52</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="quick-data-exploration">Quick data exploration</h4>
+<p>I quickly explore a generated data set to get a sense of how the data is distributed and to make sure that the calibration has been done properly.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ex_data_fe</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_fe</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>generate_data_fe</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>vars_of_interest</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"prod"</span>, <span class='st'>"temp"</span>, <span class='st'>"indiv_fe"</span>, <span class='st'>"period_fe"</span>, <span class='st'>"u"</span>, <span class='st'>"epsilon"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ex_data_fe</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='va'>vars_of_interest</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>bins <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='co'># geom_density() +</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>name</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of the variables in the data set"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Variable value"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Density"</span></span>
+<span>  <span class='op'>)</span> </span></code></pre>
+</div>
+</details>
+<img src="images/FE/distrib_fe-1.png" width="85%" style="display: block; margin: auto;" />
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#table</span></span>
+<span><span class='va'>means</span> <span class='op'>&lt;-</span> <span class='va'>ex_data_fe</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reframe.html'>reframe</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span></span>
+<span>    .cols <span class='op'>=</span> <span class='va'>vars_of_interest</span>,</span>
+<span>    \<span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>metric <span class='op'>=</span> <span class='st'>"Mean"</span>, .before <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>sds</span> <span class='op'>&lt;-</span> <span class='va'>ex_data_fe</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reframe.html'>reframe</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span></span>
+<span>    .cols <span class='op'>=</span> <span class='va'>vars_of_interest</span>,</span>
+<span>    \<span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>metric <span class='op'>=</span> <span class='st'>"Sd"</span>, .before <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind_rows.html'>bind_rows</a></span><span class='op'>(</span><span class='va'>means</span>, <span class='va'>sds</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">metric</th>
+<th style="text-align: right;">prod</th>
+<th style="text-align: right;">temp</th>
+<th style="text-align: right;">indiv_fe</th>
+<th style="text-align: right;">period_fe</th>
+<th style="text-align: right;">u</th>
+<th style="text-align: right;">epsilon</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mean</td>
+<td style="text-align: right;">95.47995</td>
+<td style="text-align: right;">18.360584</td>
+<td style="text-align: right;">-4.168381</td>
+<td style="text-align: right;">0.1376458</td>
+<td style="text-align: right;">0.1330608</td>
+<td style="text-align: right;">-0.1579947</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sd</td>
+<td style="text-align: right;">49.32695</td>
+<td style="text-align: right;">9.000084</td>
+<td style="text-align: right;">25.927697</td>
+<td style="text-align: right;">0.9876026</td>
+<td style="text-align: right;">41.8476039</td>
+<td style="text-align: right;">4.8571961</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>This looks like the desired distributions as well as do the means and standard deviations. Note that the mean of the individual fixed effects is not perfectly 0 but they are negligible as compared to the means of the other variables and as compared to their standard deviations.</p>
+<p>I then check that the distribution of temperature and its yearly variations are sensible and that they are consistent with distributions observed in actual settings.</p>
+<p>First, I explore the distribution of temperature month by month for a simulated data set, for the two extreme values of gamma considered. I define month by grouping periods into 12 groups, based on the value of their fixed effects.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>graph_ridge_sim</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>gamma_plot</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>baseline_param_fe</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>gamma <span class='op'>=</span> <span class='va'>gamma_plot</span>, N_i <span class='op'>=</span> <span class='fl'>1</span>, N_t <span class='op'>=</span> <span class='fl'>10000</span><span class='op'>)</span>  <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>generate_data_fe</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>gamma <span class='op'>=</span> <span class='va'>gamma_plot</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span>period <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>period</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>mean_temp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>temp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>mean_temp</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span><span class='op'>(</span>nst <span class='op'>=</span> <span class='op'>-</span><span class='va'>period</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>month <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/cut_interval.html'>cut_number</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/row_number.html'>row_number</a></span><span class='op'>(</span><span class='op'>)</span>, n <span class='op'>=</span> <span class='fl'>12</span>, labels <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://tidyr.tidyverse.org/reference/unnest.html'>unnest</a></span><span class='op'>(</span><span class='va'>nst</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='co'># arrange(mean_temp) |&gt;</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>temp</span>, y <span class='op'>=</span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>month</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>    <span class='fu'>ggridges</span><span class='fu'>::</span><span class='fu'><a href='https://wilkelab.org/ggridges/reference/geom_density_ridges.html'>geom_density_ridges</a></span><span class='op'>(</span></span>
+<span>      fill <span class='op'>=</span> <span class='va'>colors_mediocre</span><span class='op'>[[</span><span class='st'>"base"</span><span class='op'>]</span><span class='op'>]</span>,</span>
+<span>      color <span class='op'>=</span> <span class='va'>colors_mediocre</span><span class='op'>[[</span><span class='st'>"base"</span><span class='op'>]</span><span class='op'>]</span>,</span>
+<span>      alpha <span class='op'>=</span> <span class='fl'>0.5</span></span>
+<span>    <span class='op'>)</span> <span class='op'>+</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>20</span>, <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>      title <span class='op'>=</span> <span class='st'>"Distribution of Generated Temperatures by Month"</span>,</span>
+<span>      subtitle <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span></span>
+<span>        <span class='st'>"For gamma ="</span>, <span class='va'>gamma_plot</span>, <span class='st'>", ie"</span>,</span>
+<span>        <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>gamma_plot</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>/</span><span class='va'>baseline_param_fe</span><span class='op'>$</span><span class='va'>sigma_temp</span><span class='op'>^</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>100</span>, <span class='st'>"%"</span>,</span>
+<span>        <span class='st'>"of variance from month-to-month variation"</span><span class='op'>)</span>,</span>
+<span>      x <span class='op'>=</span> <span class='st'>"Temperature (°C)"</span>,</span>
+<span>      y <span class='op'>=</span> <span class='st'>"Month Index"</span></span>
+<span>    <span class='op'>)</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='fu'>graph_ridge_sim</span><span class='op'>(</span><span class='fl'>8.6</span><span class='op'>)</span> </span></code></pre>
+</div>
+</details>
+<img src="images/FE/ridge_temp-1.png" width="85%" style="display: block; margin: auto;" />
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>graph_ridge_sim</span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/FE/ridge_temp-2.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<p>Then, I compare these generated distribution to some observed in actual settings. To do so, I retrieve wet bulb temperature data in the US from <span class="citation" data-cites="spangler_wetbulb_2022">Spangler, Liang, and Wellenius (<a href="#ref-spangler_wetbulb_2022" role="doc-biblioref">2022</a>)</span>. I wrangle it and focus San Diego and New York counties. I pick these counties because they respectively exhibit large and small variations in month-to-month temperature. Many other counties exhibit similar patterns.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code to wrangle the data
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>fips_interest</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span></span>
+<span>  county_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"New York"</span>, <span class='st'>"San Diego"</span><span class='op'>)</span>,</span>
+<span>  fips <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"36061"</span>, <span class='st'>"06073"</span><span class='op'>)</span></span>
+<span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>temp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"misc"</span>, <span class='st'>"temp_data.Rds"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'>janitor</span><span class='fu'>::</span><span class='fu'><a href='https://sfirke.github.io/janitor/reference/clean_names.html'>clean_names</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='co'># filter(year &gt; 2015) |&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span>fips <span class='op'>=</span> <span class='va'>st_co_fips</span>, <span class='va'>date</span>, <span class='va'>tmax_c</span>, <span class='va'>wbg_tmax_c</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    month <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/month.html'>month</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span>,</span>
+<span>    year <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>month</span>, <span class='va'>fips</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>mean_wbg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>wbg_tmax_c</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>small_temp_data</span> <span class='op'>&lt;-</span> <span class='va'>temp_data</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>right_join</a></span><span class='op'>(</span><span class='va'>fips_interest</span>, by <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join_by.html'>join_by</a></span><span class='op'>(</span><span class='va'>fips</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>small_temp_data</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"small_temp_data.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code to make the graphs
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>small_temp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"small_temp_data.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>graph_ridge_actual</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>county</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>data</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>county_name</span> <span class='op'>==</span> <span class='va'>county</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>fips</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>      month <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/month.html'>month</a></span><span class='op'>(</span><span class='va'>month</span>, label <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>        <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_reorder.html'>fct_reorder</a></span><span class='op'>(</span><span class='va'>mean_wbg</span><span class='op'>)</span></span>
+<span>    <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>tmax_c</span>, y <span class='op'>=</span> <span class='va'>month</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>    <span class='fu'>ggridges</span><span class='fu'>::</span><span class='fu'><a href='https://wilkelab.org/ggridges/reference/geom_density_ridges.html'>geom_density_ridges</a></span><span class='op'>(</span></span>
+<span>      fill <span class='op'>=</span> <span class='va'>colors_mediocre</span><span class='op'>[[</span><span class='st'>"base"</span><span class='op'>]</span><span class='op'>]</span>,</span>
+<span>      color <span class='op'>=</span> <span class='va'>colors_mediocre</span><span class='op'>[[</span><span class='st'>"base"</span><span class='op'>]</span><span class='op'>]</span>,</span>
+<span>      alpha <span class='op'>=</span> <span class='fl'>0.5</span></span>
+<span>    <span class='op'>)</span> <span class='op'>+</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>20</span>, <span class='fl'>40</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>      title <span class='op'>=</span> <span class='st'>"Distribution of Observed Temperatures by Month"</span>,</span>
+<span>      subtitle <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"In the"</span>, <span class='va'>county</span>, <span class='st'>"county"</span><span class='op'>)</span>,</span>
+<span>      x <span class='op'>=</span> <span class='st'>"Temperature (°C)"</span>,</span>
+<span>      y <span class='op'>=</span> <span class='st'>"Month"</span></span>
+<span>    <span class='op'>)</span> </span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>small_temp_data</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'>graph_ridge_actual</span><span class='op'>(</span><span class='st'>"New York"</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<img src="images/FE/graph_month_temp-1.png" width="85%" style="display: block; margin: auto;" />
+<details>
+<summary>
+Show code to make the graphs
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span>    <span class='va'>small_temp_data</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'>graph_ridge_actual</span><span class='op'>(</span><span class='st'>"San Diego"</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/FE/graph_month_temp-2.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<p>The simulated distributions are not perfectly similar to the observed ones but display comparable features: the month-to-month variation in temperature in New York county is important while it is limited in San Diego county. While the simulations are not perfectly realistic, they reproduce patterns observed in actual settings, even just within the US<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<!-- ```{r eval=FALSE} -->
+<!-- library(mapview) -->
+<!-- library(usmapdata) -->
+<!-- library(sf) -->
+<!-- month_to_month_var <- temp_data |> -->
+<!--   group_by(fips) |>  -->
+<!--   mutate( -->
+<!--     sd_temp_overall = sd(wbg_tmax_c, na.rm = TRUE) -->
+<!--   ) |>  -->
+<!--   group_by(year, month, fips, sd_temp_overall) |>  -->
+<!--   summarise( -->
+<!--     mean_temp = mean(wbg_tmax_c, na.rm = TRUE) -->
+<!--   ) |>  -->
+<!--   group_by(fips, sd_temp_overall) |>  -->
+<!--   summarise( -->
+<!--     month_to_month_var = sd(mean_temp, na.rm = TRUE) -->
+<!--   ) -->
+<!-- month_to_month_var |>  -->
+<!--   left_join(usmapdata::us_map(regions = "counties"), by = join_by(fips)) |>  -->
+<!--   st_as_sf() |>  -->
+<!--   mapview::mapview( -->
+<!--     zcol = "sd_temp_overall", -->
+<!--     legend = TRUE, -->
+<!--     alpha.regions = 1, -->
+<!--     layer.name = "SD temp", -->
+<!--     col.regions = c("#F8EEDE", colors_mediocre[["text"]]), -->
+<!--     # fill = mediocrethemes::palette_mediocre_c(), -->
+<!--     alpha = 2 -->
+<!--   ) -->
+<!-- ``` -->
+<h3 id="estimation">Estimation</h3>
+<p>I then define a function to run the estimations (with and without fixed effects).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>estimate_fe</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>reg_fe</span> <span class='op'>&lt;-</span> </span>
+<span>    <span class='fu'><a href='https://lrberge.github.io/fixest/reference/feols.html'>feols</a></span><span class='op'>(</span></span>
+<span>      data <span class='op'>=</span> <span class='va'>data</span>, </span>
+<span>      fml <span class='op'>=</span> <span class='va'>prod</span> <span class='op'>~</span> <span class='va'>bin_temp</span> <span class='op'>|</span> <span class='va'>period</span> <span class='op'>+</span> <span class='va'>indiv</span>,</span>
+<span>      cluster <span class='op'>=</span> <span class='op'>~</span> <span class='va'>indiv</span></span>
+<span>    <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span>  <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"fe"</span><span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='va'>reg_no_fe</span> <span class='op'>&lt;-</span> </span>
+<span>    <span class='fu'><a href='https://lrberge.github.io/fixest/reference/feols.html'>feols</a></span><span class='op'>(</span></span>
+<span>      data <span class='op'>=</span> <span class='va'>data</span>, </span>
+<span>      fml <span class='op'>=</span> <span class='va'>prod</span> <span class='op'>~</span> <span class='va'>bin_temp</span> <span class='op'>|</span> <span class='va'>indiv</span>, </span>
+<span>      cluster <span class='op'>=</span> <span class='op'>~</span> <span class='va'>indiv</span></span>
+<span>    <span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>model <span class='op'>=</span> <span class='st'>"no_fe"</span><span class='op'>)</span> </span>
+<span>  </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind_rows.html'>bind_rows</a></span><span class='op'>(</span><span class='va'>reg_fe</span>, <span class='va'>reg_no_fe</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>term</span> <span class='op'>==</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_c.html'>str_c</a></span><span class='op'>(</span><span class='st'>"bin_temp"</span>, <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>bin_interest</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>p_value <span class='op'>=</span> <span class='va'>p.value</span>, se <span class='op'>=</span> <span class='va'>std.error</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='co'>#to check that the variance of x and y do not vary with gamma</span></span>
+<span>      var_in_bin <span class='op'>=</span> <span class='va'>data</span> <span class='op'>|&gt;</span> </span>
+<span>        <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>bin_temp</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>bin_interest</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>        <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>temp</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>        <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span>na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>      var_prod <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>prod</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span>    <span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+</div>
+<p>Here is an example of an output of this function:</p>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 13%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">se</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p_value</th>
+<th style="text-align: left;">model</th>
+<th style="text-align: right;">var_in_bin</th>
+<th style="text-align: right;">var_prod</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">bin_temp(29,31]</td>
+<td style="text-align: right;">-2.331272</td>
+<td style="text-align: right;">1.437131</td>
+<td style="text-align: right;">-1.622172</td>
+<td style="text-align: right;">0.1093274</td>
+<td style="text-align: left;">fe</td>
+<td style="text-align: right;">0.4053075</td>
+<td style="text-align: right;">2519.402</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bin_temp(29,31]</td>
+<td style="text-align: right;">-5.773004</td>
+<td style="text-align: right;">1.251857</td>
+<td style="text-align: right;">-4.611552</td>
+<td style="text-align: right;">0.0000178</td>
+<td style="text-align: left;">no_fe</td>
+<td style="text-align: right;">0.4053075</td>
+<td style="text-align: right;">2519.402</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="one-simulation">One simulation</h3>
+<p>We can now run a simulation, combining <code>generate_data_fe</code> and <code>estimate_fe</code>. To do so I create the function <code>compute_sim_fe</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>compute_sim_fe</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='fu'>generate_data_fe</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'>estimate_fe</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressMessages</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind_cols.html'>bind_cols</a></span><span class='op'>(</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='co'>#add parameters used for generation</span></span>
+<span><span class='op'>}</span> </span></code></pre>
+</div>
+</details>
+</div>
+<p>Here is an example of an output of this function.</p>
+<div class="layout-chunk" data-layout="l-page">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:100px; overflow-x: scroll; width:100%; ">
+<table class=" lightable-paper lightable-hover" style="font-family: Lora; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+term
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+estimate
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+se
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+statistic
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+p_value
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+model
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+var_in_bin
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+var_prod
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+N_i
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+N_t
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+length_period_fe
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+mu_temp
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+sigma_temp
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+mu_prod
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+sigma_prod
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+bin_interest_low
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+bin_ref_low
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+sigma_indiv_fe
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+beta_1
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+gamma
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+kappa
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+bin_temp(29,31]
+</td>
+<td style="text-align:right;">
+-3.528378
+</td>
+<td style="text-align:right;">
+1.256971
+</td>
+<td style="text-align:right;">
+-2.807048
+</td>
+<td style="text-align:right;">
+0.0064942
+</td>
+<td style="text-align:left;">
+fe
+</td>
+<td style="text-align:right;">
+0.2729781
+</td>
+<td style="text-align:right;">
+2270.595
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+700
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+17.5
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+-4
+</td>
+<td style="text-align:right;">
+7.4
+</td>
+<td style="text-align:right;">
+-15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bin_temp(29,31]
+</td>
+<td style="text-align:right;">
+-5.787941
+</td>
+<td style="text-align:right;">
+1.227412
+</td>
+<td style="text-align:right;">
+-4.715566
+</td>
+<td style="text-align:right;">
+0.0000122
+</td>
+<td style="text-align:left;">
+no_fe
+</td>
+<td style="text-align:right;">
+0.2729781
+</td>
+<td style="text-align:right;">
+2270.595
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+700
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+17.5
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+-4
+</td>
+<td style="text-align:right;">
+7.4
+</td>
+<td style="text-align:right;">
+-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h3 id="all-simulations">All simulations</h3>
+<p>I run the simulations for different sets of parameters by looping the <code>compute_sim_fe</code> function over the set of parameters. I thus create a table with all the values of the parameters to test, <code>param_fe</code>. Note that in this table each set of parameters appears <code>n_iter</code> times as we want to run the analysis <span class="math inline">\(n_{iter}\)</span> times for each set of parameters.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>n_iter</span> <span class='op'>&lt;-</span> <span class='fl'>1000</span></span>
+<span><span class='va'>vect_gamma</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>:</span><span class='fl'>8</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>8.2</span>, <span class='fl'>8.8</span>, <span class='fl'>0.2</span><span class='op'>)</span>, <span class='fl'>8.9</span><span class='op'>)</span> <span class='co'>#cannot be more than sigma_temp </span></span>
+<span></span>
+<span><span class='va'>param_fe</span> <span class='op'>&lt;-</span> <span class='va'>baseline_param_fe</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>rep_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n_iter</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>gamma</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span><span class='op'>(</span>gamma <span class='op'>=</span> <span class='va'>vect_gamma</span><span class='op'>)</span> <span class='op'>|&gt;</span>  </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>rep_id</span><span class='op'>)</span> </span></code></pre>
+</div>
+</div>
+<p>I then run the simulations by looping our <code>compute_sim_fe</code> function on <code>param_fe</code> using the <code>purrr</code> package (<code>pmap</code> function).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_fe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_fe</span>, <span class='va'>compute_sim_fe</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span>names_to <span class='op'>=</span> <span class='st'>"sim_id"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='fu'>beepr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/beepr/man/beep.html'>beep</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_fe</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_fe.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h2 id="analysis-of-the-results">Analysis of the results</h2>
+<h3 id="quick-exploration">Quick exploration</h3>
+<p>First, I quickly explore the results. I plot the distribution of the estimated effect sizes.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_fe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_fe.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>sim_fe</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    signif <span class='op'>=</span> <span class='va'>p_value</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span>,</span>
+<span>    signif_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>signif</span>, <span class='st'>"Significant"</span>, <span class='st'>"Non-significant"</span><span class='op'>)</span>,</span>
+<span>    model_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"fe"</span>, <span class='st'>"FE"</span>, <span class='st'>"No FE"</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>gamma</span>, <span class='va'>model</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    mean_signif <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>signif</span>, <span class='va'>estimate</span>, <span class='cn'>NA</span><span class='op'>)</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>    mean_all <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>estimate</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>estimate</span><span class='op'>/</span><span class='va'>beta_1</span>, fill <span class='op'>=</span> <span class='va'>signif_name</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>1</span>, linetype <span class='op'>=</span> <span class='st'>"solid"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='va'>mean_all</span><span class='op'>/</span><span class='va'>beta_1</span><span class='op'>)</span>, </span>
+<span>    linetype <span class='op'>=</span> <span class='st'>"dashed"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='va'>mean_signif</span><span class='op'>/</span><span class='va'>beta_1</span><span class='op'>)</span>, </span>
+<span>    linetype <span class='op'>=</span> <span class='st'>"solid"</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"#976B21"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/pretty_breaks.html'>pretty_breaks</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='va'>model_name</span> <span class='op'>~</span> <span class='va'>gamma</span>, switch <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Distribution of FE estimates from 1000 simulated datasets"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"Conditional on significativity"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'>frac</span><span class='op'>(</span><span class='st'>"Estimate"</span>, <span class='st'>"True Effect"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Gamma"</span>,</span>
+<span>    fill <span class='op'>=</span> <span class='cn'>NULL</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<p><img src="images/FE/distrib_estimates_FE-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<p>The fixed effects estimator is unbiased and recover, on average, the true effect while the OVB one is biased and does not recovers it. However, since the distribution of the estimator widens with gamma (and power becomes low), conditioning on significance yield different results: including omitted fixed effects can create an exaggeration bias:</p>
+<h3 id="computing-bias-and-exaaggeration-ratio">Computing bias and exaaggeration ratio</h3>
+<p>We want to compare <span class="math inline">\(\mathbb{E}\left[ \left| \frac{\widehat{\beta_{no FE}}}{\beta_1}  | \text{signif} \right|\right]\)</span> and <span class="math inline">\(\mathbb{E}\left[  \left| \frac{\widehat{\beta_{FE}}}{\beta_1} \right| | \text{signif} \right]\)</span>. The first term represents the bias and the second term represents the exaggeration ratio.</p>
+<p>To do so, I use the function <code>summmarise_sim</code> defined in the <code>functions.R</code> file.</p>
+<p>I scale the varying parameter (<span class="math inline">\(\gamma\)</span>) so that the parameters of interest is more legible and is the proportion of the variation in temperature that is explained by the period fixed-effects.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"functions.R"</span><span class='op'>)</span>, echo <span class='op'>=</span> <span class='cn'>TRUE</span>, local <span class='op'>=</span> <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/knit_global.html'>knit_global</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>
+&gt; summarise_sim &lt;- function(data, varying_params, true_effect) {
++     ungroup(summarise(group_by(data %&gt;% mutate(signif = (p_value &lt;= 
++         0.05 .... [TRUNCATED] 
+
+&gt; summary_power &lt;- function(data, lint_names = FALSE) {
++     summary_power &lt;- round(summarise(data, median_exagg = median(type_m), 
++         `3rd_qu .... [TRUNCATED] </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summary_sim_fe</span> <span class='op'>&lt;-</span> <span class='va'>sim_fe</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>prop_fe_var <span class='op'>=</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>/</span><span class='va'>sigma_temp</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'>summarise_sim</span><span class='op'>(</span> </span>
+<span>    varying_params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>prop_fe_var</span>, <span class='va'>model</span><span class='op'>)</span>, </span>
+<span>    true_effect <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>beta_1</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>summary_sim_fe</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/summary_sim_fe.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h3 id="main-graph">Main graph</h3>
+<p>I then build the main graph of this analysis, describing</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show the code used to generate the graph
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>main_graph</span> <span class='op'>&lt;-</span> <span class='va'>summary_sim_fe</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    model_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"fe"</span>, <span class='st'>"Fixed Effects"</span>, <span class='st'>"No Fixed Effects"</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>prop_fe_var</span>, y <span class='op'>=</span> <span class='va'>type_m</span>, color <span class='op'>=</span> <span class='va'>model_name</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>linewidth <span class='op'>=</span> <span class='fl'>1.2</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/scale_mediocre_d.html'>scale_mediocre_d</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/pretty_breaks.html'>pretty_breaks</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Proportion of the variance in X explained by the FEs"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Average  "</span>, <span class='fu'>frac</span><span class='op'>(</span><span class='st'>"|Estimate|"</span>, <span class='st'>"|True Effect|"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"Model"</span></span>
+<span>  <span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>main_graph</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Evolution of bias with the correlation between X and FEs"</span>,</span>
+<span>    subtitle <span class='op'>=</span> <span class='st'>"For statistically significant estimates, 1000 simulations"</span>,</span>
+<span>  <span class='op'>)</span> </span></code></pre>
+</div>
+</details>
+<p><img src="images/FE/main_graph_fe-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
+<h2 id="further-checks">Further checks</h2>
+<h3 id="variance-of-the-variables">Variance of the variables</h3>
+<p>I quickly check that the variance of the dependent and independent variables do not vary with gamma:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_fe</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>gamma</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span></span>
+<span>    var_in_bin <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>var_in_bin</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>    var_prod <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>var_prod</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span></span>
+<span>    col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Gamma"</span>, <span class='st'>"Variance Temperature (in bin)"</span>, <span class='st'>"Variance Produciton"</span><span class='op'>)</span>,</span>
+<span>    digits <span class='op'>=</span> <span class='fl'>2</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Gamma</th>
+<th style="text-align: right;">Variance Temperature (in bin)</th>
+<th style="text-align: right;">Variance Produciton</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">2367.68</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7.0</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">2369.99</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8.0</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">2364.01</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.2</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">2373.17</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8.4</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">2369.88</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.6</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">2371.78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8.8</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">2367.77</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.9</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">2367.72</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="representativeness-of-the-estimation">Representativeness of the estimation</h3>
+<p>I calibrated the simulations to emulate a typical study from this literature. To further check that the results are realistic, I compare the average Signal-to-Noise Ratio (SNR) of the simulations to the range of SNR of an existing study.</p>
+<p>In <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span>, the SNR (in table 2) varies between 0.17 and 3.75. In <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span>, in table 2, 3, 5 and A4, the SNR for the estimates of interest varies between 0.5 and 4 (and actually even 0.03 for South Asia in the heterogenity analysis). <span class="citation" data-cites="stevens_temperature_2017">Stevens (<a href="#ref-stevens_temperature_2017" role="doc-biblioref">2017</a>)</span> report SNR varying between 0.5 and 2.5 (in table 2).</p>
+<p>The SNR for the FE model in my simulations are as follow:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summary_sim_fe</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"fe"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>prop_fe_var</span>, <span class='va'>median_snr</span>, <span class='va'>type_m</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span></span>
+<span>    digits <span class='op'>=</span> <span class='fl'>2</span>,</span>
+<span>    col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"Median SNR"</span>, <span class='st'>"Exaggeration Ratio"</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: right;">Median SNR</th>
+<th style="text-align: right;">Exaggeration Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">3.09</td>
+<td style="text-align: right;">1.09</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">2.92</td>
+<td style="text-align: right;">1.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">2.63</td>
+<td style="text-align: right;">1.17</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.83</td>
+<td style="text-align: right;">2.40</td>
+<td style="text-align: right;">1.22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.87</td>
+<td style="text-align: right;">2.28</td>
+<td style="text-align: right;">1.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.91</td>
+<td style="text-align: right;">2.01</td>
+<td style="text-align: right;">1.41</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">1.43</td>
+<td style="text-align: right;">1.76</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.98</td>
+<td style="text-align: right;">1.18</td>
+<td style="text-align: right;">2.28</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>My simulations therefore display SNRs that are in line with many of those observed in the literature.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-burke_game_2023" class="csl-entry" role="listitem">
+Burke, Marshall, Vincent Tanutama, Sam Heft-Neal, Miyuki Hino, and David Lobell. 2023. <span>“Game, <span>Sweat</span>, <span>Match</span>: <span>Temperature</span> and <span>Elite Worker Productivity</span>.”</span> Working {{Paper}}. Working <span>Paper Series</span>. National Bureau of Economic Research. <a href="https://doi.org/10.3386/w31650">https://doi.org/10.3386/w31650</a>.
+</div>
+<div id="ref-cachon_severe_2012" class="csl-entry" role="listitem">
+Cachon, Gerard P., Santiago Gallino, and Marcelo Olivares. 2012. <span>“Severe <span>Weather</span> and <span>Automobile Assembly Productivity</span>.”</span> {{SSRN Scholarly Paper}}. Rochester, NY. <a href="https://doi.org/10.2139/ssrn.2099798">https://doi.org/10.2139/ssrn.2099798</a>.
+</div>
+<div id="ref-cai_impact_2018" class="csl-entry" role="listitem">
+Cai, Xiqian, Yi Lu, and Jin Wang. 2018. <span>“The Impact of Temperature on Manufacturing Worker Productivity: <span>Evidence</span> from Personnel Data.”</span> <em>Journal of Comparative Economics</em> 46 (4): 889–905. <a href="https://doi.org/10.1016/j.jce.2018.06.003">https://doi.org/10.1016/j.jce.2018.06.003</a>.
+</div>
+<div id="ref-chen_temperature_2019" class="csl-entry" role="listitem">
+Chen, Xiaoguang, and Lu Yang. 2019. <span>“Temperature and Industrial Output: <span class="nocase">Firm-level</span> Evidence from <span>China</span>.”</span> <em>Journal of Environmental Economics and Management</em> 95 (May): 257–74. <a href="https://doi.org/10.1016/j.jeem.2017.07.009">https://doi.org/10.1016/j.jeem.2017.07.009</a>.
+</div>
+<div id="ref-heyes_temperature_2019" class="csl-entry" role="listitem">
+Heyes, Anthony, and Soodeh Saberian. 2019. <span>“Temperature and <span>Decisions</span>: <span>Evidence</span> from 207,000 <span>Court Cases</span>.”</span> <em>American Economic Journal: Applied Economics</em> 11 (2): 238–65. <a href="https://doi.org/10.1257/app.20170223">https://doi.org/10.1257/app.20170223</a>.
+</div>
+<div id="ref-hsiang_temperatures_2010" class="csl-entry" role="listitem">
+Hsiang, Solomon M. 2010. <span>“Temperatures and Cyclones Strongly Associated with Economic Production in the <span>Caribbean</span> and <span>Central America</span>.”</span> <em>Proceedings of the National Academy of Sciences</em> 107 (35): 15367–72. <a href="https://doi.org/10.1073/pnas.1009510107">https://doi.org/10.1073/pnas.1009510107</a>.
+</div>
+<div id="ref-lai_effects_2023" class="csl-entry" role="listitem">
+Lai, Wangyang, Yun Qiu, Qu Tang, Chen Xi, and Peng Zhang. 2023. <span>“The <span>Effects</span> of <span>Temperature</span> on <span>Labor Productivity</span>.”</span> <em>Annual Review of Resource Economics</em> 15 (Volume 15, 2023): 213–32. <a href="https://doi.org/10.1146/annurev-resource-101222-125630">https://doi.org/10.1146/annurev-resource-101222-125630</a>.
+</div>
+<div id="ref-lopalo_temperature_2023" class="csl-entry" role="listitem">
+LoPalo, Melissa. 2023. <span>“Temperature, <span>Worker Productivity</span>, and <span>Adaptation</span>: <span>Evidence</span> from <span>Survey Data Production</span>.”</span> <em>American Economic Journal: Applied Economics</em> 15 (1): 192–229. <a href="https://doi.org/10.1257/app.20200547">https://doi.org/10.1257/app.20200547</a>.
+</div>
+<div id="ref-qiu_adaptation_2022" class="csl-entry" role="listitem">
+Qiu, Yun, and Jinhua Zhao. 2022. <span>“Adaptation and the Distributional Effects of Heat: <span>Evidence</span> from Professional Archery Competitions.”</span> <em>Southern Economic Journal</em> 88 (3): 1149–77. <a href="https://doi.org/10.1002/soej.12553">https://doi.org/10.1002/soej.12553</a>.
+</div>
+<div id="ref-somanathan_impact_2021" class="csl-entry" role="listitem">
+Somanathan, E., Rohini Somanathan, Anant Sudarshan, and Meenu Tewari. 2021. <span>“The <span>Impact</span> of <span>Temperature</span> on <span>Productivity</span> and <span>Labor Supply</span>: <span>Evidence</span> from <span>Indian Manufacturing</span>.”</span> <em>Journal of Political Economy</em> 129 (6): 1797–827. <a href="https://doi.org/10.1086/713733">https://doi.org/10.1086/713733</a>.
+</div>
+<div id="ref-spangler_wetbulb_2022" class="csl-entry" role="listitem">
+Spangler, Keith R., Shixin Liang, and Gregory A. Wellenius. 2022. <span>“Wet-<span>Bulb Globe Temperature</span>, <span>Universal Thermal Climate Index</span>, and <span>Other Heat Metrics</span> for <span>US Counties</span>, 2000–2020.”</span> <em>Scientific Data</em> 9 (1): 326. <a href="https://doi.org/10.1038/s41597-022-01405-3">https://doi.org/10.1038/s41597-022-01405-3</a>.
+</div>
+<div id="ref-stevens_temperature_2017" class="csl-entry" role="listitem">
+Stevens, Andrew. 2017. <span>“Temperature, <span>Wages</span>, and <span>Agricultural Labor Productivity</span>.”</span>
+</div>
+<div id="ref-zhang_temperature_2018" class="csl-entry" role="listitem">
+Zhang, Peng, Olivier Deschenes, Kyle Meng, and Junjie Zhang. 2018. <span>“Temperature Effects on Productivity and Factor Reallocation: <span>Evidence</span> from a Half Million Chinese Manufacturing Plants.”</span> <em>Journal of Environmental Economics and Management</em> 88 (March): 1–17. <a href="https://doi.org/10.1016/j.jeem.2017.11.001">https://doi.org/10.1016/j.jeem.2017.11.001</a>.
+</div>
+</div>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Month-to-month variation is probably even more limited in other countries and settings.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+</div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

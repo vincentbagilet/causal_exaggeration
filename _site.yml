@@ -32,14 +32,14 @@ navbar:
           href: RDD.html
         - text: "IV"
           href: IV.html
-        - text: "Matching"
-          href: Matching.html
+        # - text: "Matching"
+        #   href: Matching.html
         - text: "Shocks"
           href: shocks.html
         - text: "Fixed-Effects"
-          # href: FE.html
-    - text: "Reporting"
-      href: reporting.html
+          href: FE.html
+    # - text: "Reporting"
+    #   href: reporting.html
   source_url: https://github.com/vincentbagilet/causal_exaggeration
   search: false
 output: distill::distill_article

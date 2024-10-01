@@ -1,10 +1,11 @@
 ---
 title: "Exaggeration in IV papers"
-description: "In this document, leveraging data form [Young (2022)](https://www.sciencedirect.com/science/article/pii/S001429212200054X) and [Lal et al. (2024)](https://www.cambridge.org/core/journals/political-analysis/article/how-much-should-we-trust-instrumental-variable-estimates-in-political-science-practical-advice-based-on-67-replicated-studies/70A232CA0CD55FE8B97E93543CDD6361#article), I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is **likely substantial in many others due to the imprecision of IV designs**. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it."
+description: "In this document, leveraging data form @youngConsistencyInferenceInstrumental2022 and @lalHow2024, I examine potential exaggeration in papers using IVs published in AEA journals and in three top political science journals respectively. While exaggeration is probably limited in some papers, it is **likely substantial in many others due to the imprecision of IV designs**. They would not be able to accurately retrieve effect size of the magnitude of the OLS estimate and significant results would overestimate it."
 output: 
   distill::distill_article:
     toc: true
     float: true
+bibliography: paper/causal_exaggeration.bib
 editor_options: 
   chunk_output_type: console
 ---
@@ -46,15 +47,15 @@ set_mediocre_all(pal = "coty")
 
 Despite being very broad, the analysis of studies published in top economics journals I implement [here](lit_top_journals.html) relies on assumptions regarding the effect size that may lack theoretical grounding and that may seem arbitrary, to some extent. To overcome this limitation and to be able to make more grounded hypotheses for true effect sizes, I focus on studies using IVs. They allow to compare the OLS estimate to the 2SLS, to evaluate whether the IV would have enough power to "detect" the OLS estimate and to compute exaggeration of the IV if the true effect was close to the OLS point estimate.
 
-In this document, I therefore leverage the reviews by [Young (2022)](https://www.sciencedirect.com/science/article/pii/S001429212200054X) and [Lal et al. (2024)](https://www.cambridge.org/core/journals/political-analysis/article/how-much-should-we-trust-instrumental-variable-estimates-in-political-science-practical-advice-based-on-67-replicated-studies/70A232CA0CD55FE8B97E93543CDD6361#article) to explore potential exaggeration of the IVs in the economics and political science literature.
+In this document, I therefore leverage the reviews by @youngConsistencyInferenceInstrumental2022 and @lalHow2024 to explore potential exaggeration of the IVs in the economics and political science literature.
 
 Here too, I am not claiming that the OLS is the true effect. I am however evaluating the ability of the IV to retrieve an effect of the magnitude of the OLS. It may seem reasonable to expect the design of the IV to be good enough to accurately capture this effect, if it was the true effect.
 
-To compute these analyses, I use the standard errors reported by the authors of each analysis, even though some of these are likely understated, as underlined by Young (2022) and Lal et al. (2024). This approach is therefore conservative. 
+To compute these analyses, I use the standard errors reported by the authors of each analysis, even though some of these are likely understated, as underlined by @youngConsistencyInferenceInstrumental2022 and @lalHow2024. This approach is therefore conservative. 
 
 ## IVs in the Economics Literature
 
-I first compute the aforementioned measures for the economics literature, leveraging data gathered in [Young (2022)](https://www.sciencedirect.com/science/article/pii/S001429212200054X). This paper analyzes 30 papers published in journals of the American Economics Association published through July 2016, for a total of 1309 2SLS regressions. To carry out his analysis, Young retrieved all these estimates and associated standard errors. 
+I first compute the aforementioned measures for the economics literature, leveraging data gathered in @youngConsistencyInferenceInstrumental2022. This paper analyzes 30 papers published in journals of the American Economics Association published through July 2016, for a total of 1309 2SLS regressions. To carry out his analysis, Young retrieved all these estimates and associated standard errors. 
 
 This analysis yielded several findings, including some that are of particular interest for the present paper: 
 
@@ -298,7 +299,7 @@ Power is lower here than in the analysis of Brodeur et al's data because here I 
  
 ## IVs in the Political Science Literature
 
-I then turn to a comparable review, [Lal et al. (2024)](https://www.cambridge.org/core/journals/political-analysis/article/how-much-should-we-trust-instrumental-variable-estimates-in-political-science-practical-advice-based-on-67-replicated-studies/70A232CA0CD55FE8B97E93543CDD6361#article) but in political science. This paper replicates the 67 papers (70 designs) replicable papers published in three top political science journals (American Political Science Review, American Journal of Political Science, and the Journal Of Politics) between 2010 and 2022. They focus on design with one endogenous variable. 
+I then turn to a comparable review, @lalHow2024 but in political science. This paper replicates the 67 papers (70 designs) replicable papers published in three top political science journals (American Political Science Review, American Journal of Political Science, and the Journal Of Politics) between 2010 and 2022. They focus on design with one endogenous variable. 
 
 This paper also provides a set of results that are of particular interest to the present paper:
 
@@ -382,7 +383,7 @@ data_lal |>
 
 ## Power calculations
 
-I then run similar power calculations as for Young (2022), computing what would be the statistical power and exaggeration if the true effect was equal to the OLS point estimate. Re
+I then run similar power calculations as for @youngConsistencyInferenceInstrumental2022, computing what would be the statistical power and exaggeration if the true effect was equal to the OLS point estimate. Re
 
 ```{r exagg_ols_lal, code_folding=TRUE}
 retro_lal_ols <- data_lal |> 

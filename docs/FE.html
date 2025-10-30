@@ -20,8 +20,9 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -131,9 +132,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <!--/radix_placeholder_meta_tags-->
   
-  <meta name="citation_reference" content="citation_title=Game, Sweat, Match: Temperature and Elite Worker Productivity;citation_publisher=National Bureau of Economic Research;citation_number=31650;citation_doi=10.3386/w31650;citation_author=Marshall Burke;citation_author=Vincent Tanutama;citation_author=Sam Heft-Neal;citation_author=Miyuki Hino;citation_author=David Lobell"/>
-  <meta name="citation_reference" content="citation_title=The impact of temperature on manufacturing worker productivity: Evidence from personnel data;citation_volume=46;citation_doi=10.1016/j.jce.2018.06.003;citation_issn=0147-5967;citation_author=Xiqian Cai;citation_author=Yi Lu;citation_author=Jin Wang"/>
-  <meta name="citation_reference" content="citation_title=Temperatures and cyclones strongly associated with economic production in the Caribbean and Central America;citation_publisher=Proceedings of the National Academy of Sciences;citation_volume=107;citation_doi=10.1073/pnas.1009510107;citation_author=Solomon M. Hsiang"/>
   <meta name="citation_reference" content="citation_title=Temperature, Worker Productivity, and Adaptation: Evidence from Survey Data Production;citation_volume=15;citation_doi=10.1257/app.20200547;citation_issn=1945-7782;citation_author=Melissa LoPalo"/>
   <meta name="citation_reference" content="citation_title=The Impact of Temperature on Productivity and Labor Supply: Evidence from Indian Manufacturing;citation_publisher=The University of Chicago Press;citation_volume=129;citation_doi=10.1086/713733;citation_issn=0022-3808;citation_author=E. Somanathan;citation_author=Rohini Somanathan;citation_author=Anant Sudarshan;citation_author=Meenu Tewari"/>
   <meta name="citation_reference" content="citation_title=Wet-Bulb Globe Temperature, Universal Thermal Climate Index, and Other Heat Metrics for US Counties, 2000–2020;citation_publisher=Nature Publishing Group;citation_volume=9;citation_doi=10.1038/s41597-022-01405-3;citation_issn=2052-4463;citation_author=Keith R. Spangler;citation_author=Shixin Liang;citation_author=Gregory A. Wellenius"/>
@@ -489,8 +487,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
 
   <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
@@ -2220,7 +2218,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
   <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
   <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <link href="site_libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
@@ -2359,11 +2357,11 @@ Adjusting for a variable (<span class="math inline">\(w\)</span>) or adding fixe
 This setting might be particularly relevant as time and location fixed-effects are likely more correlated with temperature than with residual productivity. In addition, since this type of analysis focuses on effects in the tail of the temperature distribution, we may expect statistical power to be low: only a small subset of the observations contribute to the estimation of the treatment effect.</p>
 <p><span class="citation" data-cites="lai_effects_2023">Lai et al. (<a href="#ref-lai_effects_2023" role="doc-biblioref">2023</a>)</span> reviews this literature. <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span> have explored this question in the context of manufacturing in India and production of data for Demographic and Health Surveys (DHS) in a large range of countries respectively. Other examples of studies that leverage micro-data at the worker level study the impacts of high temperature on blueberry picking in California
 <span class="citation" data-cites="stevens_temperature_2017">Stevens (<a href="#ref-stevens_temperature_2017" role="doc-biblioref">2017</a>)</span>, factory worker productivity in China <span class="citation" data-cites="cai_impact_2018">(<a href="#ref-cai_impact_2018" role="doc-biblioref">Cai, Lu, and Wang 2018</a>)</span>, archers in China <span class="citation" data-cites="qiu_adaptation_2022">Qiu and Zhao (<a href="#ref-qiu_adaptation_2022" role="doc-biblioref">2022</a>)</span> or
-errors made by tennis players <span class="citation" data-cites="burke_game_2023">(<a href="#ref-burke_game_2023" role="doc-biblioref">Burke et al. 2023</a>)</span>. Other studies also leverage micro-data to study the impact of temperature on productivity but at the firm-level <span class="citation" data-cites="zhang_temperature_2018">Cachon, Gallino, and Olivares (<a href="#ref-cachon_severe_2012" role="doc-biblioref">2012</a>)</span></p>
-<p>Even though not exactly belonging to this literature, <span class="citation" data-cites="heyes_temperature_2019">Heyes and Saberian (<a href="#ref-heyes_temperature_2019" role="doc-biblioref">2019</a>)</span> provides a nice illustration of the phenomenon of interest. They show that US immigration judges are less likely to give decision that are favorable to the applicant on hotter days. In their table 3, comparing specifications with different level of fixed effects, we can see that the more FEs (and actually the more correlated with temperature), the larger the p-values:</p>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="images/FE/heyes_saberian_FE.png" width="100%" style="display: block; margin: auto;" /></p>
-</div>
+errors made by tennis players <span class="citation" data-cites="burke_game_2023">(<a href="#ref-burke_game_2023" role="doc-biblioref">Burke et al. 2023</a>)</span>. Other studies also leverage micro-data to study the impact of temperature on productivity but at the firm-level <span class="citation" data-cites="zhang_temperature_2018">(<a href="#ref-cachon_severe_2012" role="doc-biblioref">2012</a>)</span></p>
+<!-- Even though not exactly belonging to this literature, @heyes_temperature_2019 provides a nice illustration of the phenomenon of interest. They show that US immigration judges are less likely to give decision that are favorable to the applicant on hotter days. In their table 3, comparing specifications with different level of fixed effects, we can see that the more FEs (and actually the more  correlated with temperature), the larger the p-values:  -->
+<!-- ```{r table1_paper, echo=FALSE, out.width = '100%'} -->
+<!-- knitr::include_graphics(here("images", "FE", "heyes_saberian_FE.png")) -->
+<!-- ``` -->
 <p>In the present analysis, I build my simulations to emulate a canonical study from this literature, measuring the impact of high temperature on worker productivity.
 A typical approach consists in estimating the link between different temperature bins and productivity, focusing in particular on high temperature bins. Usual approaches to explore this question typically rely on High Dimensional Fixed Effects models, including time and location fixed-effects to adjust for invariant characteristics such as seasonal demand (in <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="cai_impact_2018">Cai, Lu, and Wang (<a href="#ref-cai_impact_2018" role="doc-biblioref">2018</a>)</span> for instance) or location differences. As underlined by <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span>, fixed effects limit the variation used for identification: location “fixed effects restrict the variation used in the analysis to variation within a survey wave [i.e., a time ”period”]”.</p>
 <h3 id="modeling-choices">Modeling choices</h3>
@@ -2874,7 +2872,7 @@ Show code to wrangle the data
 <span>  fips <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"36061"</span>, <span class='st'>"06073"</span><span class='op'>)</span></span>
 <span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>temp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"misc"</span>, <span class='st'>"temp_data.Rds"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span><span class='va'>temp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"misc"</span>, <span class='st'>"temp_data.Rds"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'>janitor</span><span class='fu'>::</span><span class='fu'><a href='https://sfirke.github.io/janitor/reference/clean_names.html'>clean_names</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='co'># filter(year &gt; 2015) |&gt;</span></span>
@@ -2890,7 +2888,7 @@ Show code to wrangle the data
 <span><span class='va'>small_temp_data</span> <span class='op'>&lt;-</span> <span class='va'>temp_data</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>right_join</a></span><span class='op'>(</span><span class='va'>fips_interest</span>, by <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join_by.html'>join_by</a></span><span class='op'>(</span><span class='va'>fips</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>small_temp_data</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"small_temp_data.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>small_temp_data</span>, <span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"small_temp_data.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
 </div>
@@ -2900,7 +2898,7 @@ Show code to wrangle the data
 Show code to make the graphs
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>small_temp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"small_temp_data.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>small_temp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"small_temp_data.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>graph_ridge_actual</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>county</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>  <span class='va'>data</span> <span class='op'>|&gt;</span> </span>
@@ -3304,7 +3302,7 @@ no_fe
 <span></span>
 <span><span class='fu'>beepr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/beepr/man/beep.html'>beep</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_fe</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_fe.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_fe</span>, <span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_fe.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h2 id="analysis-of-the-results">Analysis of the results</h2>
@@ -3316,7 +3314,7 @@ no_fe
 Show code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_fe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_fe.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_fe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_fe.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>sim_fe</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
@@ -3364,7 +3362,7 @@ Show code
 <p>I scale the varying parameter (<span class="math inline">\(\gamma\)</span>) so that the parameters of interest is more legible and is the proportion of the variation in temperature that is explained by the period fixed-effects.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"functions.R"</span><span class='op'>)</span>, echo <span class='op'>=</span> <span class='cn'>TRUE</span>, local <span class='op'>=</span> <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/knit_global.html'>knit_global</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"functions.R"</span><span class='op'>)</span>, echo <span class='op'>=</span> <span class='cn'>TRUE</span>, local <span class='op'>=</span> <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/knit_global.html'>knit_global</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>
 &gt; summarise_sim &lt;- function(data, varying_params, true_effect) {
@@ -3382,7 +3380,7 @@ Show code
 <span>    true_effect <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>beta_1</span><span class='op'>)</span></span>
 <span>  <span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>summary_sim_fe</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/summary_sim_fe.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>summary_sim_fe</span>, <span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs/summary_sim_fe.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h3 id="main-graph">Main graph</h3>
@@ -3574,9 +3572,6 @@ Cai, Xiqian, Yi Lu, and Jin Wang. 2018. <span>“The Impact of Temperature on Ma
 </div>
 <div id="ref-chen_temperature_2019" class="csl-entry" role="listitem">
 Chen, Xiaoguang, and Lu Yang. 2019. <span>“Temperature and Industrial Output: <span class="nocase">Firm-level</span> Evidence from <span>China</span>.”</span> <em>Journal of Environmental Economics and Management</em> 95 (May): 257–74. <a href="https://doi.org/10.1016/j.jeem.2017.07.009">https://doi.org/10.1016/j.jeem.2017.07.009</a>.
-</div>
-<div id="ref-heyes_temperature_2019" class="csl-entry" role="listitem">
-Heyes, Anthony, and Soodeh Saberian. 2019. <span>“Temperature and <span>Decisions</span>: <span>Evidence</span> from 207,000 <span>Court Cases</span>.”</span> <em>American Economic Journal: Applied Economics</em> 11 (2): 238–65. <a href="https://doi.org/10.1257/app.20170223">https://doi.org/10.1257/app.20170223</a>.
 </div>
 <div id="ref-hsiang_temperatures_2010" class="csl-entry" role="listitem">
 Hsiang, Solomon M. 2010. <span>“Temperatures and Cyclones Strongly Associated with Economic Production in the <span>Caribbean</span> and <span>Central America</span>.”</span> <em>Proceedings of the National Academy of Sciences</em> 107 (35): 15367–72. <a href="https://doi.org/10.1073/pnas.1009510107">https://doi.org/10.1073/pnas.1009510107</a>.

@@ -20,8 +20,9 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -459,8 +460,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
 
   <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
@@ -2190,7 +2191,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2437,6 +2438,32 @@ Show code used to generate the graph
 <p>The DGP is described in the following DAG:</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/maths/maths_DAG_maths-1.png" width="60%" style="display: block; margin: auto;" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>second_color</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_sub.html'>str_sub</a></span><span class='op'>(</span><span class='va'>colors_mediocre</span><span class='op'>[[</span><span class='st'>"four_colors"</span><span class='op'>]</span><span class='op'>]</span>, <span class='fl'>10</span>, <span class='fl'>16</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://r-causal.github.io/ggdag/reference/dagify.html'>dagify</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span> <span class='op'>+</span> <span class='va'>w</span> <span class='op'>+</span> <span class='va'>u</span>,</span>
+<span>       <span class='va'>x</span> <span class='op'>~</span> <span class='va'>w</span> <span class='op'>+</span> <span class='va'>e</span>,</span>
+<span>       exposure <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y"</span>, <span class='st'>"x"</span>, <span class='st'>"w"</span><span class='op'>)</span>,</span>
+<span>       <span class='co'># outcome = "w",</span></span>
+<span>       latent <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"u"</span>, <span class='st'>"e"</span><span class='op'>)</span>,</span>
+<span>       coords <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='fl'>3</span>, x <span class='op'>=</span> <span class='fl'>2</span>, w <span class='op'>=</span> <span class='fl'>2.5</span>, e <span class='op'>=</span> <span class='fl'>1.5</span>, u <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>,</span>
+<span>                     y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='fl'>1</span>, x <span class='op'>=</span> <span class='fl'>1</span>, w <span class='op'>=</span> <span class='fl'>0</span>, e <span class='op'>=</span> <span class='fl'>1</span>, u <span class='op'>=</span> <span class='fl'>1.5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://r-causal.github.io/ggdag/reference/status.html'>ggdag_status</a></span><span class='op'>(</span>text_size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://r-causal.github.io/ggdag/reference/theme_dag_blank.html'>theme_dag_blank</a></span><span class='op'>(</span>base_family <span class='op'>=</span> <span class='st'>"Lato"</span>, legend.position <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/scale_mediocre_d.html'>scale_mediocre_d</a></span><span class='op'>(</span>pal <span class='op'>=</span> <span class='st'>"coty"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span><span class='op'>(</span><span class='co'>#parameters</span></span>
+<span>    <span class='st'>"text"</span>, </span>
+<span>    x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.5</span>, <span class='fl'>2.8</span>, <span class='fl'>2.2</span><span class='op'>)</span>, </span>
+<span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.1</span>, <span class='fl'>0.45</span>, <span class='fl'>0.45</span><span class='op'>)</span>, </span>
+<span>    label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"beta"</span>, <span class='st'>"delta"</span>, <span class='st'>"gamma"</span><span class='op'>)</span>,</span>
+<span>    parse <span class='op'>=</span> <span class='cn'>TRUE</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"black"</span>,</span>
+<span>    size <span class='op'>=</span> <span class='fl'>5</span></span>
+<span>  <span class='op'>)</span> </span></code></pre>
+</div>
 </div>
 <p>As in the math section we have:</p>
 <p><span class="math display">\[y_{i} = \beta_{0} + \beta_1 x_{i} + \delta w_{i} + u_{i}\]</span>
@@ -2784,7 +2811,7 @@ Show the code of lint_reg_maths
 <span><span class='va'>sim_maths</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_maths_iter</span>, <span class='va'>compute_sim_maths</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_maths</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_maths.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_maths</span>, <span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_maths.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h3 id="results">Results</h3>
@@ -2795,7 +2822,7 @@ Show the code of lint_reg_maths
 Show the code used to generate the table
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_maths</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_maths.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_maths</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_maths.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>average_sim</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>sim_results</span>, <span class='va'>params</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>  <span class='va'>sim_results</span> <span class='op'>|&gt;</span> </span>
@@ -3019,7 +3046,7 @@ Show the code used to run the simulations
 <span><span class='va'>sim_recheck</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_recheck_iter</span>, <span class='va'>compute_sim_maths</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_recheck</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_recheck.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_recheck</span>, <span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_recheck.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
 </div>
@@ -3029,7 +3056,7 @@ Show the code used to run the simulations
 Show the code used to generate the table
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_recheck</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_recheck.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_recheck</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_recheck.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>sim_recheck</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'>average_sim</span><span class='op'>(</span><span class='va'>param_recheck</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
@@ -3151,7 +3178,7 @@ Show the code used to run the simulations
 <span><span class='va'>sim_red</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_red_iter</span>, <span class='va'>compute_sim_maths</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_red</span>, <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_red.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>sim_red</span>, <span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_red.RDS"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
 </div>
@@ -3161,7 +3188,7 @@ Show the code used to run the simulations
 Show the code used to generate the table
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_red</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_red.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_red</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"Outputs"</span>, <span class='st'>"sim_red.RDS"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>sim_red</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'>average_sim</span><span class='op'>(</span><span class='va'>param_red</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>

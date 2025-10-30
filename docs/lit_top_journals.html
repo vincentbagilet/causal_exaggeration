@@ -20,8 +20,9 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -483,8 +484,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
 
   <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
@@ -2214,7 +2215,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
   <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
   <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <link href="site_libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
@@ -2354,7 +2355,7 @@ Show the packages used in this document
 <p>To run the analysis, I first retrieve the <span class="citation" data-cites="brodeur_methods_2020">Brodeur, Cook, and Heyes (<a href="#ref-brodeur_methods_2020" role="doc-biblioref">2020</a>)</span> data from <a href="https://www.openicpsr.org/openicpsr/project/120246/version/V2/view">OPENIPCSR</a> and store it locally. I load it and wrangle it. The authors fixed some of their data after the publication of the article (changes explained in the <code>Changelog.txt</code> file). I keep the most recent data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>data_brodeur_raw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://haven.tidyverse.org/reference/read_dta.html'>read_dta</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"inputs"</span>, <span class='st'>"brodeur_v2"</span>, <span class='st'>"data"</span>, <span class='st'>"MM Data.dta"</span><span class='op'>)</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>data_brodeur_raw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://haven.tidyverse.org/reference/read_dta.html'>read_dta</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"inputs"</span>, <span class='st'>"brodeur_v2"</span>, <span class='st'>"data"</span>, <span class='st'>"MM Data.dta"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>data_brodeur</span> <span class='op'>&lt;-</span> <span class='va'>data_brodeur_raw</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
@@ -2688,7 +2689,7 @@ Show the code used to generate the table
 Show code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"functions.R"</span><span class='op'>)</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"functions.R"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='fu'>summary_power</span><span class='op'>(</span><span class='va'>retro_brodeur</span>, lint_names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>Results <span class='op'>=</span> <span class='st'>"All"</span>, .before <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
@@ -2921,7 +2922,7 @@ Show the code used to generate the graph
 Show the code used to generate the graph
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"images"</span>, <span class='st'>"comparison"</span>, <span class='st'>"exagg_brodeur.pdf"</span><span class='op'>)</span>, height <span class='op'>=</span> <span class='fl'>5</span>, width <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"images"</span>, <span class='st'>"comparison"</span>, <span class='st'>"exagg_brodeur.pdf"</span><span class='op'>)</span>, height <span class='op'>=</span> <span class='fl'>5</span>, width <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
 </div>

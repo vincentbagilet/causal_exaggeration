@@ -610,7 +610,7 @@ summary_sim_rdd |>
   )
 ```
 
-The precision of our results is therefore in line with precision that can be found in the literature. It is important to acknowledge that our simulation in no means reproduces the study in @jacob_remedial_2004 and can be used to analyze their results directly. Rather, it combine insights from several studies to mimic a "typical" study from this literature, while remaining conservative with regards to many assumptions, in particular in terms of data generating model (constant and homogenous treatment, ect). Parameters values however are such that they yield a design that can be underpowered, something that can happen in this literature but does not affect every single study.
+The precision of our results is therefore in line with precision that can be found in the literature. It is important to acknowledge that our simulation in no means reproduces the study in @jacob_remedial_2004 nor can be used to analyze their results directly. Rather, it combine insights from several studies to mimic a "typical" study from this literature, while remaining conservative with regards to many assumptions, in particular in terms of data generating model (constant and homogenous treatment, ect). Parameters values however are such that they yield a design that can be underpowered, something that can happen in this literature but does not affect every single study.
 
 ### Variation in effect size
 

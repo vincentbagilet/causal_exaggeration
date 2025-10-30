@@ -185,14 +185,39 @@ dagify(y ~ x + w + u,
     fill = second_color,
     color = second_color,
     alpha = 0.13
-  ) +
-  annotate(#epsilon label
+  ) 
+  # annotate(#epsilon label
+  #   "text", 
+  #   label = expression(epsilon),
+  #   x = 0.95, 
+  #   y = 0.6,
+  #   size = 7, 
+  #   color = second_color
+  # ) 
+```
+
+```{r DAG_maths_simple, eval=FALSE, fig.asp=0.5, out.width='60%'}
+second_color <- str_sub(colors_mediocre[["four_colors"]], 10, 16)
+
+dagify(y ~ x + w + u,
+       x ~ w + e,
+       exposure = c("y", "x", "w"),
+       # outcome = "w",
+       latent = c("u", "e"),
+       coords = list(x = c(y = 3, x = 2, w = 2.5, e = 1.5, u = 3),
+                     y = c(y = 1, x = 1, w = 0, e = 1, u = 1.5))
+  ) |> 
+  ggdag_status(text_size = 5) +
+  theme_dag_blank(base_family = "Lato", legend.position = "none") +
+  scale_mediocre_d(pal = "coty") + 
+  annotate(#parameters
     "text", 
-    label = expression(epsilon),
-    x = 0.95, 
-    y = 0.6,
-    size = 7, 
-    color = second_color
+    x = c(2.5, 2.8, 2.2), 
+    y = c(1.1, 0.45, 0.45), 
+    label = c("beta", "delta", "gamma"),
+    parse = TRUE,
+    color = "black",
+    size = 5
   ) 
 ```
 

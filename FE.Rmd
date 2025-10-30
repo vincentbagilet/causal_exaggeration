@@ -75,11 +75,11 @@ This setting might be particularly relevant as time and location fixed-effects a
 @stevens_temperature_2017, factory worker productivity in China [@cai_impact_2018], archers in China @qiu_adaptation_2022 or
 errors made by tennis players [@burke_game_2023]. Other studies also leverage micro-data to study the impact of temperature on productivity but at the firm-level [@zhang_temperature_2018-@chen_temperature_2019-@cachon_severe_2012]
 
-Even though not exactly belonging to this literature, @heyes_temperature_2019 provides a nice illustration of the phenomenon of interest. They show that US immigration judges are less likely to give decision that are favorable to the applicant on hotter days. In their table 3, comparing specifications with different level of fixed effects, we can see that the more FEs (and actually the more  correlated with temperature), the larger the p-values: 
+<!-- Even though not exactly belonging to this literature, @heyes_temperature_2019 provides a nice illustration of the phenomenon of interest. They show that US immigration judges are less likely to give decision that are favorable to the applicant on hotter days. In their table 3, comparing specifications with different level of fixed effects, we can see that the more FEs (and actually the more  correlated with temperature), the larger the p-values:  -->
 
-```{r table1_paper, echo=FALSE, out.width = '100%'}
-knitr::include_graphics(here("images", "FE", "heyes_saberian_FE.png"))
-```
+<!-- ```{r table1_paper, echo=FALSE, out.width = '100%'} -->
+<!-- knitr::include_graphics(here("images", "FE", "heyes_saberian_FE.png")) -->
+<!-- ``` -->
 
 In the present analysis, I build my simulations to emulate a canonical study from this literature, measuring the impact of high temperature on worker productivity. 
 A typical approach consists in estimating the link between different temperature bins and productivity, focusing in particular on high temperature bins. Usual approaches to explore this question typically rely on High Dimensional Fixed Effects models, including time and location fixed-effects to adjust for invariant characteristics such as seasonal demand (in @somanathan_impact_2021 and @cai_impact_2018 for instance) or location differences. As underlined by @lopalo_temperature_2023, fixed effects limit the variation used for identification: location "fixed effects restrict the variation used in the analysis to variation within a survey wave [i.e., a time "period"]". 

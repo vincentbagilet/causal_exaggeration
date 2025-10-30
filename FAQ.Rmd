@@ -318,7 +318,7 @@ I investigate this question for a set of different literatures:
 - An [example literature](lit_air_pollution.html), that on the short-term health effects of air pollution,
 - The [experimental literature](lit_exp.html)
 
-The first literatures I explore are very broad but necessitate strong assumptions regarding true effect sizes. I then focus on narrower and narrower literatures but that allow relaxing these assumptions.
+I begin by examining broad literatures that require strong assumptions about true effect sizes, then progressively narrow my focus to more specific literatures that allow me to relax these assumptions.
 
 
 

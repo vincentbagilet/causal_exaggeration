@@ -9,7 +9,7 @@
 \backcite {ioannidis_power_2017}{{2}{I}{figure.caption.1}}
 \backcite {ferraro_featureis_2020}{{2}{I}{figure.caption.1}}
 \backcite {camerer_evaluating_2016}{{2}{I}{figure.caption.1}}
-\backcite {ioannidis_power_2017}{{2}{I}{figure.caption.1}}
+\backcite {ioannidis_power_2017}{{3}{I}{figure.caption.1}}
 \backcite {gray_environmental_2023}{{3}{I}{figure.caption.1}}
 \backcite {walker_environmental_2011}{{3}{I}{figure.caption.1}}
 \backcite {greenstone_impacts_2002}{{3}{I}{figure.caption.1}}
@@ -17,14 +17,14 @@
 \backcite {walker_environmental_2011}{{3}{I}{figure.caption.1}}
 \backcite {walker_environmental_2011}{{4}{1}{Hfootnote.2}}
 \backcite {brodeur_methods_2020}{{5}{I}{figure.caption.1}}
-\backcite {youngConsistencyInferenceInstrumental2022}{{5}{I}{figure.caption.1}}
+\backcite {young_consistency_2022}{{5}{I}{figure.caption.1}}
 \backcite {bagilet_accurate_2023}{{5}{I}{figure.caption.1}}
 \backcite {lalHow2024}{{5}{I}{figure.caption.1}}
-\backcite {youngConsistencyInferenceInstrumental2022}{{5}{I}{figure.caption.1}}
+\backcite {young_consistency_2022}{{5}{I}{figure.caption.1}}
 \backcite {gelman_regression_2020}{{6}{I}{figure.caption.1}}
 \backcite {black_simulated_2022}{{6}{I}{figure.caption.1}}
 \backcite {gelman_beyond_2014}{{6}{I}{figure.caption.1}}
-\backcite {stommes_reliability_2021}{{6}{I}{figure.caption.1}}
+\backcite {stommesReliability2023}{{6}{I}{figure.caption.1}}
 \backcite {imbens_optimal_2012}{{6}{I}{figure.caption.1}}
 \backcite {deaton_understanding_2018}{{6}{I}{figure.caption.1}}
 \backcite {hernan_causal_2020}{{6}{I}{figure.caption.1}}
@@ -33,34 +33,27 @@
 \backcite {schellEvaluatingMethodsEstimate2018}{{7}{I}{figure.caption.1}}
 \backcite {ferraro_featureis_2020}{{7}{I}{figure.caption.1}}
 \backcite {black_simulated_2022}{{7}{I}{figure.caption.1}}
-\backcite {stommes_reliability_2021}{{7}{I}{figure.caption.1}}
+\backcite {stommesReliability2023}{{7}{I}{figure.caption.1}}
 \backcite {arel-bundockQuantitativePoliticalScience2022}{{7}{I}{figure.caption.1}}
 \backcite {bagilet_accurate_2023}{{7}{I}{figure.caption.1}}
+\backcite {angrist_mostly_2009}{{7}{I}{figure.caption.1}}
+\backcite {aronow_does_2016}{{7}{I}{figure.caption.1}}
 \backcite {camerer_evaluating_2016}{{7}{I}{figure.caption.1}}
 \backcite {ioannidis_power_2017}{{7}{I}{figure.caption.1}}
 \backcite {christensen_transparency_2018}{{7}{I}{figure.caption.1}}
 \backcite {kasy_forking_2021}{{7}{I}{figure.caption.1}}
-\backcite {bagilet_accurate_2023}{{7}{II}{section.2}}
-\backcite {dominici_best_2017}{{7}{II}{section.2}}
-\backcite {bind_causal_2019}{{7}{II}{section.2}}
-\backcite {schwartz_estimating_2015}{{7}{II}{section.2}}
-\backcite {schwartz_national_2018}{{7}{II}{section.2}}
-\backcite {deryugina_mortality_2019}{{7}{II}{section.2}}
-\backcite {youngConsistencyInferenceInstrumental2022}{{7}{II}{section.2}}
-\backcite {youngConsistencyInferenceInstrumental2022}{{7}{4}{Hfootnote.5}}
+\backcite {young_consistency_2022}{{8}{II}{section.2}}
 \backcite {lalHow2024}{{8}{II}{section.2}}
-\backcite {youngConsistencyInferenceInstrumental2022}{{8}{II}{section.2}}
+\backcite {bagilet_accurate_2023}{{8}{II}{section.2}}
+\backcite {young_consistency_2022}{{8}{II}{section.2}}
 \backcite {ioannidis_power_2017}{{8}{II. 1}{subsection.2.1}}
-\backcite {ferraro_featureis_2020}{{8}{II. 1}{subsection.2.1}}
 \backcite {brodeur_methods_2020}{{8}{II. 1}{subsection.2.1}}
-\backcite {brodeur_methods_2020}{{8}{II. 1}{subsection.2.1}}
-\backcite {ioannidis_power_2017}{{8}{II. 1}{subsection.2.1}}
+\backcite {young_consistency_2022}{{8}{4}{Hfootnote.5}}
 \backcite {brodeur_methods_2020}{{9}{II. 1}{subsection.2.1}}
-\backcite {youngConsistencyInferenceInstrumental2022}{{9}{II. 1}{subsection.2.1}}
-\backcite {youngConsistencyInferenceInstrumental2022}{{9}{II. 1}{subsection.2.1}}
-\backcite {bagilet_accurate_2023}{{9}{5}{Hfootnote.6}}
-\backcite {lalHow2024}{{9}{5}{Hfootnote.6}}
-\backcite {camerer_evaluating_2016}{{9}{5}{Hfootnote.6}}
+\backcite {ioannidis_power_2017}{{9}{II. 1}{subsection.2.1}}
+\backcite {brodeur_methods_2020}{{9}{II. 1}{subsection.2.1}}
+\backcite {young_consistency_2022}{{9}{II. 1}{subsection.2.1}}
+\backcite {young_consistency_2022}{{10}{II. 1}{subsection.2.1}}
 \backcite {he_straw_2020}{{10}{II. 2}{subsection.2.2}}
 \backcite {shah_short_2015}{{10}{II. 2}{subsection.2.2}}
 \backcite {deryugina_mortality_2019}{{10}{II. 2}{subsection.2.2}}
@@ -72,83 +65,93 @@
 \backcite {shah_short_2015}{{10}{II. 2}{subsection.2.2}}
 \backcite {deryugina_mortality_2019}{{10}{II. 2}{subsection.2.2}}
 \backcite {he_straw_2020}{{10}{II. 2}{subsection.2.2}}
-\backcite {shah_short_2015}{{10}{II. 2}{subsection.2.2}}
-\backcite {he_straw_2020}{{10}{II. 2}{subsection.2.2}}
-\backcite {deryugina_mortality_2019}{{10}{II. 2}{figure.caption.2}}
-\backcite {deryugina_mortality_2019}{{10}{II. 2}{figure.caption.2}}
+\backcite {bagilet_accurate_2023}{{10}{5}{Hfootnote.6}}
+\backcite {lalHow2024}{{10}{5}{Hfootnote.6}}
+\backcite {camerer_evaluating_2016}{{10}{5}{Hfootnote.6}}
+\backcite {shah_short_2015}{{11}{II. 2}{subsection.2.2}}
+\backcite {he_straw_2020}{{11}{II. 2}{subsection.2.2}}
 \backcite {he_straw_2020}{{11}{2}{figure.caption.2}}
 \backcite {shah_short_2015}{{11}{2}{figure.caption.2}}
 \backcite {he_straw_2020}{{11}{2}{figure.caption.2}}
 \backcite {he_straw_2020}{{11}{2}{figure.caption.2}}
 \backcite {he_straw_2020}{{11}{2}{figure.caption.2}}
-\backcite {gelman_beyond_2014}{{11}{III. 1}{subsection.3.1}}
+\backcite {deryugina_mortality_2019}{{11}{II. 2}{figure.caption.2}}
+\backcite {deryugina_mortality_2019}{{11}{II. 2}{figure.caption.2}}
+\backcite {gelman_beyond_2014}{{12}{III. 1}{subsection.3.1}}
 \backcite {lu_note_2019}{{12}{III. 1}{equation.3.1}}
 \backcite {zwet_significance_2021}{{12}{III. 1}{equation.3.1}}
 \backcite {thistlethwaite_regression-discontinuity_1960}{{18}{IV. 1}{section*.5}}
-\backcite {kraft_interpreting_2020}{{18}{IV. 1}{section*.5}}
-\backcite {jacob_remedial_2004}{{18}{IV. 1}{section*.5}}
+\backcite {kraft_interpreting_2020}{{19}{IV. 1}{section*.5}}
+\backcite {jacob_remedial_2004}{{19}{IV. 1}{section*.5}}
 \backcite {imbens_optimal_2012}{{19}{IV. 1}{section*.6}}
-\backcite {gomez_republicans_2007}{{21}{IV. 3}{section*.13}}
-\backcite {fujiwara_habit_2016}{{21}{IV. 3}{section*.13}}
-\backcite {cooperman_randomization_2017}{{21}{IV. 3}{section*.13}}
-\backcite {youngConsistencyInferenceInstrumental2022}{{22}{IV. 3}{section*.15}}
-\backcite {lalHow2024}{{22}{IV. 3}{section*.15}}
-\backcite {currie_environmental_2015}{{23}{IV. 4}{section*.17}}
-\backcite {lavaine_energy_2017}{{23}{IV. 4}{section*.17}}
-\backcite {currie_environmental_2015}{{23}{IV. 4}{section*.17}}
-\backcite {lavaine_energy_2017}{{23}{IV. 4}{section*.17}}
-\backcite {rosenbaum_observational_2002}{{24}{V. 1}{subsection.5.1}}
-\backcite {middleton_bias_2016}{{24}{V. 1}{subsection.5.1}}
-\backcite {oster_unobservable_2019}{{24}{V. 1}{subsection.5.1}}
-\backcite {cinelli_making_2020}{{24}{V. 1}{subsection.5.1}}
-\backcite {cinelli_making_2020}{{24}{V. 1}{subsection.5.1}}
-\backcite {duflo_using_2007}{{25}{V. 2}{subsection.5.2}}
-\backcite {mcconnellGoingSimpleSample2015}{{25}{V. 2}{subsection.5.2}}
-\backcite {athey_econometrics_2016}{{25}{V. 2}{subsection.5.2}}
-\backcite {angrist_mostly_2009}{{25}{V. 2}{subsection.5.2}}
-\backcite {angrist_mastering_2014}{{25}{V. 2}{subsection.5.2}}
-\backcite {imbens_causal_2015}{{25}{V. 2}{subsection.5.2}}
-\backcite {cunningham_causal_2021}{{25}{V. 2}{subsection.5.2}}
-\backcite {shadish_experimental_2002}{{25}{V. 2}{subsection.5.2}}
-\backcite {huntington-klein_effect_2021}{{25}{V. 2}{subsection.5.2}}
-\backcite {hill_bayesian_2011}{{25}{V. 2.1}{subsubsection.5.2.1}}
-\backcite {gelman_regression_2020}{{25}{V. 2.1}{subsubsection.5.2.1}}
-\backcite {black_simulated_2022}{{25}{V. 2.1}{subsubsection.5.2.1}}
-\backcite {bagilet_accurate_2023}{{25}{V. 2.1}{subsubsection.5.2.1}}
-\backcite {gelman_beyond_2014}{{26}{V. 2.2}{subsubsection.5.2.2}}
-\backcite {ioannidis_power_2017}{{26}{V. 2.2}{subsubsection.5.2.2}}
-\backcite {stommes_reliability_2021}{{26}{V. 2.2}{subsubsection.5.2.2}}
-\backcite {card_using_1993}{{26}{V. 2.2}{subsubsection.5.2.2}}
-\backcite {card_using_1993}{{26}{V. 2.2}{subsubsection.5.2.2}}
-\backcite {card_using_1993}{{26}{V. 2.2}{subsubsection.5.2.2}}
-\backcite {timm_retrodesign_2019}{{26}{8}{Hfootnote.9}}
-\backcite {linden_retrodesign_2019}{{26}{8}{Hfootnote.9}}
-\backcite {zwet_proposal_2021}{{26}{9}{Hfootnote.10}}
-\backcite {zwet_significance_2021}{{26}{9}{Hfootnote.10}}
-\backcite {zwet_statistical_2021}{{26}{9}{Hfootnote.10}}
-\backcite {aronow_does_2016}{{27}{V. 3}{subsection.5.3}}
-\backcite {aronow_does_2016}{{27}{V. 3}{subsection.5.3}}
-\backcite {aronow_does_2016}{{27}{V. 3}{subsection.5.3}}
-\backcite {simmons_false-positive_2011}{{28}{V. 4}{subsection.5.4}}
-\backcite {gelman_garden_2013}{{28}{V. 4}{subsection.5.4}}
-\backcite {kasy_forking_2021}{{28}{V. 4}{subsection.5.4}}
-\backcite {mcshane_abandon_2019}{{28}{V. 4}{subsection.5.4}}
-\backcite {christensen_transparency_2018}{{28}{V. 4}{subsection.5.4}}
-\backcite {hernan_causal_2022}{{28}{V. 4}{subsection.5.4}}
-\backcite {shadish_experimental_2002}{{29}{V. 4}{subsection.5.4}}
-\backcite {amrhein_inferential_2019}{{29}{V. 4}{subsection.5.4}}
-\backcite {romer_praise_2020}{{29}{V. 4}{subsection.5.4}}
-\backcite {ioannidis_power_2017}{{29}{VI}{section.6}}
-\backcite {rosenthal_file_1979}{{29}{VI}{section.6}}
-\backcite {andrews_identification_2019}{{29}{VI}{section.6}}
-\backcite {abadie_statistical_2020}{{29}{VI}{section.6}}
-\backcite {brodeur_methods_2020}{{29}{VI}{section.6}}
-\backcite {gelmanType2000}{{29}{VI}{section.6}}
-\backcite {ioannidis_why_2008}{{29}{VI}{section.6}}
-\backcite {gelman_beyond_2014}{{29}{VI}{section.6}}
-\backcite {camerer_evaluating_2016}{{29}{VI}{section.6}}
-\backcite {ioannidis_power_2017}{{29}{VI}{section.6}}
-\backcite {lu_note_2019}{{36}{I. 1}{subsection.A.1}}
-\backcite {zwet_significance_2021}{{36}{I. 1}{subsection.A.1}}
-\backcite {dehejia_causal_1999}{{41}{B}{section*.22}}
-\backcite {rubin_using_2001}{{42}{B}{section*.24}}
+\backcite {lai_effects_2023}{{20}{IV. 2}{section*.9}}
+\backcite {stevens_temperature_2017}{{21}{IV. 2}{section*.9}}
+\backcite {somanathan_impact_2021}{{21}{IV. 2}{section*.9}}
+\backcite {lai_effects_2023}{{21}{IV. 2}{section*.9}}
+\backcite {lopalo_temperature_2023}{{21}{IV. 2}{section*.9}}
+\backcite {gomez_republicans_2007}{{22}{IV. 3}{section*.13}}
+\backcite {fujiwara_habit_2016}{{22}{IV. 3}{section*.13}}
+\backcite {cooperman_randomization_2017}{{22}{IV. 3}{section*.13}}
+\backcite {young_consistency_2022}{{23}{IV. 3}{section*.15}}
+\backcite {lalHow2024}{{23}{IV. 3}{section*.15}}
+\backcite {currie_environmental_2015}{{24}{IV. 4}{section*.17}}
+\backcite {lavaine_energy_2017}{{24}{IV. 4}{section*.17}}
+\backcite {currie_environmental_2015}{{24}{IV. 4}{section*.17}}
+\backcite {lavaine_energy_2017}{{24}{IV. 4}{section*.17}}
+\backcite {rosenbaum_observational_2002}{{25}{V. 1}{subsection.5.1}}
+\backcite {middleton_bias_2016}{{25}{V. 1}{subsection.5.1}}
+\backcite {oster_unobservable_2019}{{25}{V. 1}{subsection.5.1}}
+\backcite {cinelli_making_2020}{{25}{V. 1}{subsection.5.1}}
+\backcite {cinelli_making_2020}{{25}{V. 1}{subsection.5.1}}
+\backcite {duflo_using_2007}{{26}{V. 2}{subsection.5.2}}
+\backcite {mcconnellGoingSimpleSample2015}{{26}{V. 2}{subsection.5.2}}
+\backcite {athey_econometrics_2016}{{26}{V. 2}{subsection.5.2}}
+\backcite {angrist_mostly_2009}{{26}{V. 2}{subsection.5.2}}
+\backcite {angrist_mastering_2014}{{26}{V. 2}{subsection.5.2}}
+\backcite {imbens_causal_2015}{{26}{V. 2}{subsection.5.2}}
+\backcite {cunningham_causal_2021}{{26}{V. 2}{subsection.5.2}}
+\backcite {shadish_experimental_2002}{{26}{V. 2}{subsection.5.2}}
+\backcite {huntington-klein_effect_2021}{{26}{V. 2}{subsection.5.2}}
+\backcite {hill_bayesian_2011}{{26}{V. 2.1}{subsubsection.5.2.1}}
+\backcite {gelman_regression_2020}{{26}{V. 2.1}{subsubsection.5.2.1}}
+\backcite {black_simulated_2022}{{26}{V. 2.1}{subsubsection.5.2.1}}
+\backcite {bagilet_accurate_2023}{{27}{V. 2.1}{subsubsection.5.2.1}}
+\backcite {gelman_beyond_2014}{{27}{V. 2.2}{subsubsection.5.2.2}}
+\backcite {ioannidis_power_2017}{{27}{V. 2.2}{subsubsection.5.2.2}}
+\backcite {stommesReliability2023}{{27}{V. 2.2}{subsubsection.5.2.2}}
+\backcite {card_using_1993}{{27}{V. 2.2}{subsubsection.5.2.2}}
+\backcite {card_using_1993}{{27}{V. 2.2}{subsubsection.5.2.2}}
+\backcite {card_using_1993}{{27}{V. 2.2}{subsubsection.5.2.2}}
+\backcite {zwet_proposal_2021}{{27}{V. 2.2}{subsubsection.5.2.2}}
+\backcite {zwet_significance_2021}{{27}{V. 2.2}{subsubsection.5.2.2}}
+\backcite {zwet_statistical_2021}{{27}{V. 2.2}{subsubsection.5.2.2}}
+\backcite {gelman_beyond_2014}{{27}{V. 2.2}{subsubsection.5.2.2}}
+\backcite {timm_retrodesign_2019}{{27}{8}{Hfootnote.9}}
+\backcite {linden_retrodesign_2019}{{27}{8}{Hfootnote.9}}
+\backcite {aronow_does_2016}{{29}{V. 3.1}{subsubsection.5.3.1}}
+\backcite {angrist_mostly_2009}{{29}{V. 3.1}{subsubsection.5.3.1}}
+\backcite {aronow_does_2016}{{29}{V. 3.1}{subsubsection.5.3.1}}
+\backcite {aronow_does_2016}{{29}{V. 3.1}{subsubsection.5.3.1}}
+\backcite {bryan_jennybc_2017}{{30}{V. 3.2}{subsubsection.5.3.2}}
+\backcite {simmons_false-positive_2011}{{32}{V. 4}{subsection.5.4}}
+\backcite {gelman_garden_2013}{{32}{V. 4}{subsection.5.4}}
+\backcite {kasy_forking_2021}{{32}{V. 4}{subsection.5.4}}
+\backcite {mcshane_abandon_2019}{{33}{V. 4}{subsection.5.4}}
+\backcite {christensen_transparency_2018}{{33}{V. 4}{subsection.5.4}}
+\backcite {hernan_causal_2022}{{33}{V. 4}{subsection.5.4}}
+\backcite {shadish_experimental_2002}{{33}{V. 4}{subsection.5.4}}
+\backcite {amrhein_inferential_2019}{{33}{V. 4}{subsection.5.4}}
+\backcite {romer_praise_2020}{{33}{V. 4}{subsection.5.4}}
+\backcite {ioannidis_power_2017}{{33}{VI}{section.6}}
+\backcite {rosenthal_file_1979}{{33}{VI}{section.6}}
+\backcite {andrews_identification_2019}{{33}{VI}{section.6}}
+\backcite {abadie_statistical_2020}{{33}{VI}{section.6}}
+\backcite {brodeur_methods_2020}{{33}{VI}{section.6}}
+\backcite {gelmanType2000}{{33}{VI}{section.6}}
+\backcite {ioannidis_why_2008}{{33}{VI}{section.6}}
+\backcite {gelman_beyond_2014}{{33}{VI}{section.6}}
+\backcite {ioannidis_power_2017}{{33}{VI}{section.6}}
+\backcite {lu_note_2019}{{40}{I. 1}{subsection.A.1}}
+\backcite {zwet_significance_2021}{{40}{I. 1}{subsection.A.1}}
+\backcite {dehejia_causal_1999}{{45}{B}{section*.23}}
+\backcite {rubin_using_2001}{{46}{B}{section*.25}}

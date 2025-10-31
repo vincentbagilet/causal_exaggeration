@@ -51,11 +51,6 @@ Athey, S. \harvardand\ Imbens, G.  \harvardyearleft 2016\harvardyearright ,
 Bagilet, V.  \harvardyearleft 2023\harvardyearright , `Accurate {{Estimation}}
   of {{Small Effects}}: {{Illustration Through Air Pollution}} and {{Health}}'.
 
-\harvarditem{Bind}{2019}{bind_causal_2019}
-Bind, M.-A.  \harvardyearleft 2019\harvardyearright , `Causal {{Modeling}} in
-  {{Environmental Health}}', {\em Annual Review of Public Health} {\bf
-  40}(1),~23--43.
-
 \harvarditem[Black et~al.]{Black, Hollingsworth, Nunes \harvardand\
   Simon}{2022}{black_simulated_2022}
 Black, B., Hollingsworth, A., Nunes, L. \harvardand\ Simon, K.
@@ -76,6 +71,11 @@ Brodeur, A., L{\'e}, M., Sangnier, M. \harvardand\ Zylberberg, Y.
   \harvardyearleft 2016\harvardyearright , `Star {{Wars}}: {{The Empirics
   Strike Back}}', {\em American Economic Journal: Applied Economics} {\bf
   8}(1),~1--32.
+
+\harvarditem[Bryan et~al.]{Bryan, Kim \harvardand\
+  MacDonald}{2017}{bryan_jennybc_2017}
+Bryan, J., Kim, A.~Y. \harvardand\ MacDonald, A.  \harvardyearleft
+  2017\harvardyearright , `Jennybc/gapminder: V0.3.0'.
 
 \harvarditem[Camerer et~al.]{Camerer, Dreber, Forsell, Ho, Huber, Johannesson,
   Kirchler, Almenberg, Altmejd, Chan, Heikensten, Holzmeister, Imai, Isaksson,
@@ -137,12 +137,6 @@ Deryugina, T., Heutel, G., Miller, N.~H., Molitor, D. \harvardand\ Reif, J.
   \harvardyearleft 2019\harvardyearright , `The {{Mortality}} and {{Medical
   Costs}} of {{Air Pollution}}: {{Evidence}} from {{Changes}} in {{Wind
   Direction}}', {\em American Economic Review} {\bf 109}(12),~4178--4219.
-
-\harvarditem{Dominici \harvardand\ Zigler}{2017}{dominici_best_2017}
-Dominici, F. \harvardand\ Zigler, C.  \harvardyearleft 2017\harvardyearright ,
-  `Best {{Practices}} for {{Gauging Evidence}} of {{Causality}} in {{Air
-  Pollution Epidemiology}}', {\em American Journal of Epidemiology} {\bf
-  186}(12),~1303--1309.
 
 \harvarditem[Duflo et~al.]{Duflo, Glennerster \harvardand\
   Kremer}{2007}{duflo_using_2007}
@@ -273,16 +267,35 @@ Kraft, M.~A.  \harvardyearleft 2020\harvardyearright , `Interpreting {{Effect
   Sizes}} of {{Education Interventions}}', {\em Educational Researcher} {\bf
   49}(4),~241--253.
 
+\harvarditem[Lai et~al.]{Lai, Qiu, Tang, Xi \harvardand\
+  Zhang}{2023}{lai_effects_2023}
+Lai, W., Qiu, Y., Tang, Q., Xi, C. \harvardand\ Zhang, P.  \harvardyearleft
+  2023\harvardyearright , `The {{Effects}} of {{Temperature}} on {{Labor
+  Productivity}}', {\em Annual Review of Resource Economics} {\bf 15}(Volume
+  15, 2023),~213--232.
+
 \harvarditem[Lal et~al.]{Lal, Lockhart, Xu \harvardand\ Zu}{2024}{lalHow2024}
 Lal, A., Lockhart, M., Xu, Y. \harvardand\ Zu, Z.  \harvardyearleft
   2024\harvardyearright , `How {{Much Should We Trust Instrumental Variable
   Estimates}} in {{Political Science}}? {{Practical Advice Based}} on 67
   {{Replicated Studies}}', {\em Political Analysis} pp.~1--20.
 
+\harvarditem{Lavaine \harvardand\ Neidell}{2017}{lavaine_energy_2017}
+Lavaine, E. \harvardand\ Neidell, M.  \harvardyearleft 2017\harvardyearright ,
+  `Energy {{Production}} and {{Health Externalities}}: {{Evidence}} from {{Oil
+  Refinery Strikes}} in {{France}}', {\em Journal of the Association of
+  Environmental and Resource Economists} {\bf 4}(2),~447--477.
+
 \harvarditem{Linden}{2019}{linden_retrodesign_2019}
 Linden, A.  \harvardyearleft 2019\harvardyearright , `{{RETRODESIGN}}:
   {{Stata}} module to compute type-{{S}} ({{Sign}}) and type-{{M}}
   ({{Magnitude}}) errors', Boston College Department of Economics.
+
+\harvarditem{LoPalo}{2023}{lopalo_temperature_2023}
+LoPalo, M.  \harvardyearleft 2023\harvardyearright , `Temperature, {{Worker
+  Productivity}}, and {{Adaptation}}: {{Evidence}} from {{Survey Data
+  Production}}', {\em American Economic Journal: Applied Economics} {\bf
+  15}(1),~192--229.
 
 \harvarditem[Lu et~al.]{Lu, Qiu \harvardand\ Deng}{2019}{lu_note_2019}
 Lu, J., Qiu, Y. \harvardand\ Deng, A.  \harvardyearleft 2019\harvardyearright ,
@@ -306,12 +319,6 @@ McShane, B.~B., Gal, D., Gelman, A., Robert, C. \harvardand\ Tackett, J.~L.
 Middleton, J.~A., Scott, M.~A., Diakow, R. \harvardand\ Hill, J.~L.
   \harvardyearleft 2016\harvardyearright , `Bias {{Amplification}} and {{Bias
   Unmasking}}', {\em Political Analysis} {\bf 24}(3),~307--323.
-
-\harvarditem{Neidell}{2017}{lavaine_energy_2017}
-Neidell, M.  \harvardyearleft 2017\harvardyearright , `Energy {{Production}}
-  and {{Health Externalities}}: {{Evidence}} from {{Oil Refinery Strikes}} in
-  {{France}}', {\em Journal of the Association of Environmental and Resource
-  Economists} {\bf 4}(2),~447--477.
 
 \harvarditem{Oster}{2019}{oster_unobservable_2019}
 Oster, E.  \harvardyearleft 2019\harvardyearright , `Unobservable {{Selection}}
@@ -351,20 +358,6 @@ Schell, T.~L., Griffin, B.~A. \harvardand\ Morral, A.~R.  \harvardyearleft
   of {{State Laws}} on {{Firearm Deaths}}: {{A Simulation Study}}, Technical
   report, RAND Corporation.
 
-\harvarditem[Schwartz et~al.]{Schwartz, Austin, Bind, Zanobetti \harvardand\
-  Koutrakis}{2015}{schwartz_estimating_2015}
-Schwartz, J., Austin, E., Bind, M.-A., Zanobetti, A. \harvardand\ Koutrakis, P.
-   \harvardyearleft 2015\harvardyearright , `Estimating {{Causal Associations}}
-  of {{Fine Particles With Daily Deaths}} in {{Boston}}', {\em American Journal
-  of Epidemiology} {\bf 182}(7),~644--650.
-
-\harvarditem[Schwartz et~al.]{Schwartz, Fong \harvardand\
-  Zanobetti}{2018}{schwartz_national_2018}
-Schwartz, J., Fong, K. \harvardand\ Zanobetti, A.  \harvardyearleft
-  2018\harvardyearright , `A {{National Multicity Analysis}} of the {{Causal
-  Effect}} of {{Local Pollution}}, {{NO2}}, and {{PM2}}.5 on {{Mortality}}',
-  {\em Environmental Health Perspectives} {\bf 126}(8),~087004.
-
 \harvarditem[Shadish et~al.]{Shadish, Cook \harvardand\
   Campbell}{2002}{shadish_experimental_2002}
 Shadish, W.~R., Cook, T.~D. \harvardand\ Campbell, D.~T.  \harvardyearleft
@@ -386,11 +379,24 @@ Simmons, J.~P., Nelson, L.~D. \harvardand\ Simonsohn, U.  \harvardyearleft
   Anything}} as {{Significant}}', {\em Psychological Science} {\bf
   22}(11),~1359--1366.
 
+\harvarditem[Somanathan et~al.]{Somanathan, Somanathan, Sudarshan \harvardand\
+  Tewari}{2021}{somanathan_impact_2021}
+Somanathan, E., Somanathan, R., Sudarshan, A. \harvardand\ Tewari, M.
+  \harvardyearleft 2021\harvardyearright , `The {{Impact}} of {{Temperature}}
+  on {{Productivity}} and {{Labor Supply}}: {{Evidence}} from {{Indian
+  Manufacturing}}', {\em Journal of Political Economy} {\bf
+  129}(6),~1797--1827.
+
+\harvarditem{Stevens}{2017}{stevens_temperature_2017}
+Stevens, A.  \harvardyearleft 2017\harvardyearright , `Temperature, {{Wages}},
+  and {{Agricultural Labor Productivity}}'.
+
 \harvarditem[Stommes et~al.]{Stommes, Aronow \harvardand\
-  S{\"a}vje}{2021}{stommes_reliability_2021}
+  S{\"a}vje}{2023}{stommesReliability2023}
 Stommes, D., Aronow, P.~M. \harvardand\ S{\"a}vje, F.  \harvardyearleft
-  2021\harvardyearright , `On the reliability of published findings using the
-  regression discontinuity design in political science', {\em arXiv} .
+  2023\harvardyearright , `On the reliability of published findings using the
+  regression discontinuity design in political science', {\em Research \&
+  Politics} {\bf 10}(2).
 
 \harvarditem{Thistlethwaite \harvardand\
   Campbell}{1960}{thistlethwaite_regression-discontinuity_1960}
@@ -410,7 +416,7 @@ Walker, W.~R.  \harvardyearleft 2011\harvardyearright , `Environmental
   {{Regulation}} and {{Labor Reallocation}}: {{Evidence}} from the {{Clean Air
   Act}}', {\em The American Economic Review} {\bf 101}(3),~442--447.
 
-\harvarditem{Young}{2022}{youngConsistencyInferenceInstrumental2022}
+\harvarditem{Young}{2022}{young_consistency_2022}
 Young, A.  \harvardyearleft 2022\harvardyearright , `Consistency without
   {{Inference}}: {{Instrumental Variables}} in {{Practical Application}}', {\em
   European Economic Review} {\bf 147},~104112.

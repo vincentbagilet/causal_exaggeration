@@ -5,45 +5,45 @@ The style file: agsm.bst
 A level-1 auxiliary file: bu.aux
 Database file #1: ../causal_exaggeration.bib
 Warning--empty publisher in hernan_causal_2020
-You've used 73 entries,
+You've used 74 entries,
             2909 wiz_defined-function locations,
-            1077 strings with 19256 characters,
-and the built_in function-call counts, 309336 in all, are:
-= -- 50248
-> -- 4221
+            1077 strings with 19254 characters,
+and the built_in function-call counts, 313488 in all, are:
+= -- 50904
+> -- 4312
 < -- 5
-+ -- 23978
-- -- 1283
-* -- 26960
-:= -- 62054
-add.period$ -- 73
-call.type$ -- 73
-change.case$ -- 1017
-chr.to.int$ -- 73
-cite$ -- 74
-duplicate$ -- 1153
-empty$ -- 2443
-format.name$ -- 1544
-if$ -- 55452
++ -- 24309
+- -- 1311
+* -- 27319
+:= -- 62902
+add.period$ -- 74
+call.type$ -- 74
+change.case$ -- 1031
+chr.to.int$ -- 74
+cite$ -- 75
+duplicate$ -- 1167
+empty$ -- 2463
+format.name$ -- 1575
+if$ -- 56190
 int.to.chr$ -- 5
 int.to.str$ -- 0
-missing$ -- 75
-newline$ -- 222
-num.names$ -- 759
-pop$ -- 275
+missing$ -- 76
+newline$ -- 225
+num.names$ -- 770
+pop$ -- 283
 preamble$ -- 1
-purify$ -- 1095
+purify$ -- 1110
 quote$ -- 0
-skip$ -- 949
+skip$ -- 964
 stack$ -- 0
-substring$ -- 71225
+substring$ -- 72140
 swap$ -- 195
-text.length$ -- 1027
+text.length$ -- 1041
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 274
+type$ -- 278
 warning$ -- 1
-while$ -- 1637
+while$ -- 1657
 width$ -- 0
-write$ -- 945
+write$ -- 957
 (There was 1 warning)

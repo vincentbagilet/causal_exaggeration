@@ -21,9 +21,10 @@ Hi and welcome!
 
 This website gathers code and additional material for the paper [Causal Exaggeration: Unconfounded but Inflated Causal Estimates](causal_exaggeration_paper.pdf).
 
-In this paper I show that the use of causal identification strategies induces a trade-off between two biases: avoiding confounding and exaggerating true effect sizes due to a loss in statistical power.
+This paper **shows that the use of causal identification strategies induces a trade-off between two biases: avoiding confounding and exaggerating true effect sizes due to a loss in statistical power**.
+
+This paper introduces the ididvar package. More information on the package is available on [its website](https://vincentbagilet.github.io/ididvar/).
 
 <br>
 
 Resources: [Paper `r fontawesome::fa("file-pdf")`](causal_exaggeration_paper.pdf), [Non-technical summary `r fontawesome::fa("file-pdf")`](causal_exaggeration_non_technical_summary.pdf)
-<!-- , Slides, Non-technical summary  -->

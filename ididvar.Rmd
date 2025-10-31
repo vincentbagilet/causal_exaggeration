@@ -1,6 +1,6 @@
 ---
 title: "Example use of the ididvar package"
-description: "In this document, I build a few graphs to illustrate the usefulness of the ididvar package."
+description: "In this document, I build a few graphs to illustrate the usefulness of the [ididvar package](https://vincentbagilet.github.io/ididvar/)."
 output: 
   distill::distill_article:
     toc: true
@@ -40,10 +40,19 @@ opts_chunk$set(fig.path = "images/ididvar/",
                dev.args = list(bg="transparent"))  
 ```  
 
-```{r packages_ididvar, message=FALSE, warning=FALSE, include=FALSE}
+## Background on identifying variation weights
+
+The goal of this document is to introduce identifying variation weights and to illustrate what can be done and learned thanks to the [`ididvar` package](https://vincentbagilet.github.io/ididvar/). I developed this package to provide tools to easily **identify the identifying variation in a regression**.
+
+In a nutshell, the confounding-exaggeration trade-off being driven by the variation actually used for identification. Now, in a regression, all observations and groups of observations do not contribute equally to the estimation: groups with a large variance in their treatment status contribute more. In econometrics we are often interested in the estimate of one or a few parameters only and not of the whole parameter vector. I therefore propose to compute the leverage of each observation *but* after having partialled out the controls. This yields weights that I call identifying variation weights. These weights are equivalent---up to a normalization to one---to the multiple regression weights introduced in @aronow_does_2016 and previously discussed in @angrist_mostly_2009. The weight $\omega_{i}$ of individual $i$ is the squared difference between its treatment status $T_{i}$ and the value of this treatment status as predicted by the other covariates $X$: $\omega_{i} = (T_{i} - \mathbb{E}[T_{i} | X_{i}])^{2}$. 
+
+In the present document, I run an analysis to illustrate how these weights ca be helpful and what can be learned thanks to the `ididvar` package. More information on the capabilities of the package is available on its [website](https://vincentbagilet.github.io/ididvar/).
+
+## Setting
+
+```{r packages_ididvar, message=FALSE, warning=FALSE}
 library(tidyverse) 
 library(knitr) 
-# library(mediocrethemes)
 library(here)
 library(ididvar)
 library(modelsummary)
@@ -53,21 +62,11 @@ library(rnaturalearth)
 library(rnaturalearthdata)
 library(patchwork)
 
-# set_mediocre_all(pal = "coty") 
 vect_coty <- c("#BA5813", "#F2E1C4", "#1C6C6F")
 col_coty <- "#1C6C6F"
 set.seed(12)
 ```
 
-## Background on identifying variation weights
-
-The goal of this document is to introduce identifying variation weights and to illustrate what can be done and learned thanks to the `ididvar` package. I developed this package to provide tools to easily **identify the identifying variation in a regression**.
-
-In a nutshell, the confounding-exaggeration trade-off being driven by the variation actually used for identification. Now, in a regression, all observations and groups of observations do not contribute equally to the estimation: groups with a large variance in their treatment status contribute more. In econometrics we are often interested in the estimate of one or a few parameters only and not of the whole parameter vector. I therefore propose to compute the leverage of each observation *but* after having partialled out the controls. This yields weights that I call identifying variation weights. These weights are equivalent---up to a normalization to one---to the multiple regression weights introduced in @aronow_does_2016 and previously discussed in @angrist_mostly_2009. The weight $\omega_{i}$ of individual $i$ is the squared difference between its treatment status $T_{i}$ and the value of this treatment status as predicted by the other covariates $X$: $\omega_{i} = (T_{i} - \mathbb{E}[T_{i} | X_{i}])^{2}$. 
-
-In the present document, I run an analysis to illustrate how these weights ca be helpful and what can be learned thanks to the `ididvar` package. More information on the capabilities of the package is availble on its website.
-
-## Setting
 
 Let's consider a simple and naive regression, for illustration purposes: using a 5-years-country level dataset (the `gapminder` dataset but limited to Europe and Africa for ease of exposure) to study the within-country relationship between GDP per capita and life expectancy (thus comparing years within a given country). We thus consider the following model for country $c$ in time period $t$:
 
@@ -233,7 +232,7 @@ graph_contrib_agg <- last_plot() +
   theme(strip.text.y = element_text(angle = 90)) 
 ```
 
-```{r idid_viz_contrib_map, fig.asp=1.2, fig.dpi=400}
+```{r idid_viz_contrib_map, fig.asp=1, fig.dpi=400}
 idid_viz_contrib_map(reg_ex, "l_gdpPercap", world_sf, "iso_alpha", colors = vect_coty) +
   proj_globe +
   theme(panel.grid.major = element_line(colour = "gray90")) 

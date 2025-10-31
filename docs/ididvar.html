@@ -113,7 +113,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>Causal Exaggeration: Example use of the ididvar package</title>
 
-  <meta property="description" itemprop="description" content="In this document, I build a few graphs to illustrate the usefulness of the ididvar package."/>
+  <meta property="description" itemprop="description" content="In this document, I build a few graphs to illustrate the usefulness of the [ididvar package](https://vincentbagilet.github.io/ididvar/)."/>
 
   <link rel="icon" type="image/vnd.microsoft.icon" href="images/site/favicon.ico"/>
 
@@ -121,21 +121,23 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Causal Exaggeration: Example use of the ididvar package"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="In this document, I build a few graphs to illustrate the usefulness of the ididvar package."/>
+  <meta property="og:description" content="In this document, I build a few graphs to illustrate the usefulness of the [ididvar package](https://vincentbagilet.github.io/ididvar/)."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Causal Exaggeration"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Causal Exaggeration: Example use of the ididvar package"/>
-  <meta property="twitter:description" content="In this document, I build a few graphs to illustrate the usefulness of the ididvar package."/>
+  <meta property="twitter:description" content="In this document, I build a few graphs to illustrate the usefulness of the [ididvar package](https://vincentbagilet.github.io/ididvar/)."/>
 
   <!--/radix_placeholder_meta_tags-->
   
+  <meta name="citation_reference" content="citation_title=Mostly Harmless Econometrics: An Empiricist’s Companion;citation_publisher=Princeton University Press;citation_author=Joshua D. Angrist;citation_author=Jörn-Steffen Pischke"/>
+  <meta name="citation_reference" content="citation_title=Does Regression Produce Representative Estimates of Causal Effects?;citation_volume=60;citation_doi=10.1111/ajps.12185;citation_issn=1540-5907;citation_author=Peter M. Aronow;citation_author=Cyrus Samii"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","bibliography","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Example use of the ididvar package"]},{"type":"character","attributes":{},"value":["In this document, I build a few graphs to illustrate the usefulness of the ididvar package."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["paper/causal_exaggeration.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","bibliography","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Example use of the ididvar package"]},{"type":"character","attributes":{},"value":["In this document, I build a few graphs to illustrate the usefulness of the [ididvar package](https://vincentbagilet.github.io/ididvar/)."]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["paper/causal_exaggeration.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2234,7 +2236,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Example use of the ididvar package","description":"In this document, I build a few graphs to illustrate the usefulness of the ididvar package.","authors":[]}
+{"title":"Example use of the ididvar package","description":"In this document, I build a few graphs to illustrate the usefulness of the [ididvar package](https://vincentbagilet.github.io/ididvar/).","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2292,7 +2294,7 @@ Simulations
 
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p>In this document, I build a few graphs to illustrate the usefulness of the ididvar package.</p>
+<p>In this document, I build a few graphs to illustrate the usefulness of the <a href="https://vincentbagilet.github.io/ididvar/">ididvar package</a>.</p>
 </div>
 
 
@@ -2325,10 +2327,28 @@ text-align: justify}
 <!--         - VB_Rmd.sty -->
 <!-- --- -->
 <h2 id="background-on-identifying-variation-weights">Background on identifying variation weights</h2>
-<p>The goal of this document is to introduce identifying variation weights and to illustrate what can be done and learned thanks to the <code>ididvar</code> package. I developed this package to provide tools to easily <strong>identify the identifying variation in a regression</strong>.</p>
+<p>The goal of this document is to introduce identifying variation weights and to illustrate what can be done and learned thanks to the <a href="https://vincentbagilet.github.io/ididvar/"><code>ididvar</code> package</a>. I developed this package to provide tools to easily <strong>identify the identifying variation in a regression</strong>.</p>
 <p>In a nutshell, the confounding-exaggeration trade-off being driven by the variation actually used for identification. Now, in a regression, all observations and groups of observations do not contribute equally to the estimation: groups with a large variance in their treatment status contribute more. In econometrics we are often interested in the estimate of one or a few parameters only and not of the whole parameter vector. I therefore propose to compute the leverage of each observation <em>but</em> after having partialled out the controls. This yields weights that I call identifying variation weights. These weights are equivalent—up to a normalization to one—to the multiple regression weights introduced in <span class="citation" data-cites="aronow_does_2016">Aronow and Samii (<a href="#ref-aronow_does_2016" role="doc-biblioref">2016</a>)</span> and previously discussed in <span class="citation" data-cites="angrist_mostly_2009">Angrist and Pischke (<a href="#ref-angrist_mostly_2009" role="doc-biblioref">2009</a>)</span>. The weight <span class="math inline">\(\omega_{i}\)</span> of individual <span class="math inline">\(i\)</span> is the squared difference between its treatment status <span class="math inline">\(T_{i}\)</span> and the value of this treatment status as predicted by the other covariates <span class="math inline">\(X\)</span>: <span class="math inline">\(\omega_{i} = (T_{i} - \mathbb{E}[T_{i} | X_{i}])^{2}\)</span>.</p>
-<p>In the present document, I run an analysis to illustrate how these weights ca be helpful and what can be learned thanks to the <code>ididvar</code> package. More information on the capabilities of the package is availble on its website.</p>
+<p>In the present document, I run an analysis to illustrate how these weights ca be helpful and what can be learned thanks to the <code>ididvar</code> package. More information on the capabilities of the package is available on its <a href="https://vincentbagilet.github.io/ididvar/">website</a>.</p>
 <h2 id="setting">Setting</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span> </span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://yihui.org/knitr/'>knitr</a></span><span class='op'>)</span> </span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://vincentbagilet.github.io/ididvar/'>ididvar</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modelsummary.com'>modelsummary</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/jennybc/gapminder'>gapminder</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://lrberge.github.io/fixest/'>fixest</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://docs.ropensci.org/rnaturalearth/'>rnaturalearth</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://docs.ropensci.org/rnaturalearthdata/'>rnaturalearthdata</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://patchwork.data-imaginist.com'>patchwork</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>vect_coty</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#BA5813"</span>, <span class='st'>"#F2E1C4"</span>, <span class='st'>"#1C6C6F"</span><span class='op'>)</span></span>
+<span><span class='va'>col_coty</span> <span class='op'>&lt;-</span> <span class='st'>"#1C6C6F"</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
 <p>Let’s consider a simple and naive regression, for illustration purposes: using a 5-years-country level dataset (the <code>gapminder</code> dataset but limited to Europe and Africa for ease of exposure) to study the within-country relationship between GDP per capita and life expectancy (thus comparing years within a given country). We thus consider the following model for country <span class="math inline">\(c\)</span> in time period <span class="math inline">\(t\)</span>:</p>
 <p><span class="math display">\[log(PerCapitaGDP_{ct}) = \alpha_c + \beta LifeExp_{ct} + u_{ct}\]</span>
 We also add a <code>decade</code> variable and ISO codes from the <code>gapminder::country_codes</code> dataset that as we are going to use those later.</p>

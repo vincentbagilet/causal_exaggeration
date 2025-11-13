@@ -29,12 +29,11 @@ Angrist, J.~D. \harvardand\ Pischke, J.-S.  \harvardyearleft
   {{Cause}} to {{Effect}}}, Princeton University Press.
 
 \harvarditem[{Arel-Bundock} et~al.]{{Arel-Bundock}, Briggs, Doucouliagos,
-  Mendoza~Avi{\~n}a \harvardand\
-  Stanley}{2022}{arel-bundockQuantitativePoliticalScience2022}
-{Arel-Bundock}, V., Briggs, R.~C., Doucouliagos, H., Mendoza~Avi{\~n}a, M.
-  \harvardand\ Stanley, T.~D.  \harvardyearleft 2022\harvardyearright ,
-  Quantitative {{Political Science Research}} is {{Greatly Underpowered}},
-  Working {{Paper}}~6, I4R Discussion Paper Series.
+  Avi{\~n}a \harvardand\ Stanley}{2024}{arel-bundock_quantitative_2024}
+{Arel-Bundock}, V., Briggs, R.~C., Doucouliagos, H., Avi{\~n}a, M.~M.
+  \harvardand\ Stanley, T.~D.  \harvardyearleft 2024\harvardyearright ,
+  `Quantitative {{Political Science Research Is Greatly Underpowered}}', {\em
+  The Journal of Politics} pp.~000--000.
 
 \harvarditem{Aronow \harvardand\ Samii}{2016}{aronow_does_2016}
 Aronow, P.~M. \harvardand\ Samii, C.  \harvardyearleft 2016\harvardyearright ,
@@ -42,10 +41,10 @@ Aronow, P.~M. \harvardand\ Samii, C.  \harvardyearleft 2016\harvardyearright ,
   Effects}}?', {\em American Journal of Political Science} {\bf
   60}(1),~250--267.
 
-\harvarditem{Athey \harvardand\ Imbens}{2016}{athey_econometrics_2016}
-Athey, S. \harvardand\ Imbens, G.  \harvardyearleft 2016\harvardyearright ,
-  `The {{Econometrics}} of {{Randomized Experiments}}', {\em arXiv:1607.00698
-  [econ, stat]} .
+\harvarditem{Athey \harvardand\ Imbens}{2017}{athey_econometrics_2017}
+Athey, S. \harvardand\ Imbens, G.  \harvardyearleft 2017\harvardyearright , The
+  {{Econometrics}} of {{Randomized Experiments}}, {\em in} `Handbook of
+  {{Economic Field Experiments}}', Vol.~1, North-Holland, pp.~73--140.
 
 \harvarditem{Bagilet}{2023}{bagilet_accurate_2023}
 Bagilet, V.  \harvardyearleft 2023\harvardyearright , `Accurate {{Estimation}}
@@ -303,10 +302,10 @@ Lu, J., Qiu, Y. \harvardand\ Deng, A.  \harvardyearleft 2019\harvardyearright ,
   Journal of Mathematical and Statistical Psychology} {\bf 72}(1),~1--17.
 
 \harvarditem{McConnell \harvardand\
-  {Vera-Hern{\'a}ndez}}{2015}{mcconnellGoingSimpleSample2015}
+  {Vera-Hern{\'a}ndez}}{2025}{mcconnell_going_2025}
 McConnell, B. \harvardand\ {Vera-Hern{\'a}ndez}, M.  \harvardyearleft
-  2015\harvardyearright , Going beyond simple sample size calculations: {{A}}
-  practitioner's guide, Working {{Paper}} W15/17, IFS Working Papers.
+  2025\harvardyearright , `Going beyond simple sample size calculations: A
+  practitioner's guide', {\em Fiscal Studies} {\bf 46}(3),~323--348.
 
 \harvarditem[McShane et~al.]{McShane, Gal, Gelman, Robert \harvardand\
   Tackett}{2019}{mcshane_abandon_2019}
@@ -325,10 +324,12 @@ Oster, E.  \harvardyearleft 2019\harvardyearright , `Unobservable {{Selection}}
   and {{Coefficient Stability}}: {{Theory}} and {{Evidence}}', {\em Journal of
   Business \& Economic Statistics} {\bf 37}(2),~187--204.
 
-\harvarditem{Ravallion}{2020}{ravallion_should_2020}
+\harvarditem{Ravallion}{2020}{ravallion_should_2020a}
 Ravallion, M.  \harvardyearleft 2020\harvardyearright , Should the
-  {{Randomistas}} ({{Continue}} to) {{Rule}}?, Working {{Paper}} 27554,
-  National Bureau of Economic Research.
+  {{Randomistas}} ({{Continue}} to) {{Rule}}?, {\em in} F.~B{\'e}d{\'e}carrats,
+  I.~Gu{\'e}rin \harvardand\ F.~Roubaud, eds, `Randomized {{Control Trials}} in
+  the {{Field}} of {{Development}}: {{A Critical Perspective}}', Oxford
+  University Press, p.~0.
 
 \harvarditem{Romer}{2020}{romer_praise_2020}
 Romer, D.  \harvardyearleft 2020\harvardyearright , `In {{Praise}} of
@@ -410,6 +411,10 @@ Thistlethwaite, D.~L. \harvardand\ Campbell, D.~T.  \harvardyearleft
 Timm, A., Gelman, A. \harvardand\ Carlin, J.  \harvardyearleft
   2019\harvardyearright , `Retrodesign: {{Tools}} for {{Type S}} ({{Sign}}) and
   {{Type M}} ({{Magnitude}}) {{Errors}}'.
+
+\harvarditem{Vu}{2025}{vu_standard_2025}
+Vu, P.  \harvardyearleft 2025\harvardyearright , `Do {{Standard Error
+  Corrections Exacerbate Publication Bias}}?'.
 
 \harvarditem{Walker}{2011}{walker_environmental_2011}
 Walker, W.~R.  \harvardyearleft 2011\harvardyearright , `Environmental

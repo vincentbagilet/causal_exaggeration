@@ -5,7 +5,7 @@ description: |
   Causal Inflation
 favicon: images/site/favicon.ico
 output_dir: "docs"
-exclude: ["tests", "misc", "inputs", "outputs", "maths", "paper", "presentations"]
+exclude: ["tests", "misc", "inputs", "outputs", "maths", "paper", "presentations", "data"]
 navbar:
   right:
     - text: "Paper"

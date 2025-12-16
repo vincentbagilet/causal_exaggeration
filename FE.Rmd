@@ -53,6 +53,8 @@ library(kableExtra)
 library(ggridges)
 library(janitor)
 library(scales)
+library(furrr)
+library(ncdf4) #to load India data
 
 set_mediocre_all(pal = "coty") 
 set.seed(12)
@@ -106,7 +108,7 @@ dagify(Prod ~ InBin + Period + u + Indiv,
          y = c(Prod = 1, Temp = 1, InBin = 1, Period = 0, e = 1, u = 1.5, Indiv = 0))
   ) |> 
   ggdag_status(text_size = 3.5) +
-  theme_dag_blank(base_family = "Lato", legend.position = "none") +
+  theme_dag_blank(legend.position = "none") +
   scale_mediocre_d(pal = "coty") + 
   annotate(#parameters
     "text", 
@@ -139,7 +141,7 @@ $$Temp_{t\tau} = \mu_{Temp} +  \gamma\lambda_{\tau} + \epsilon_{t}$$
 where $\mu_{Temp}$ is an intercept representing the average temperature. $\lambda_{\tau}$ are period fixed-effects with mean 0 and variance 1, such that their variance can be modified *via* $\gamma$. This particular structure of fixed effects allows to control for the intensity of the fixed effects via a parameter. It assumes that the data generating process for temperature is as follows:
 
 1. Observations are drawn for all the time indexes (*e.g.* days) from a distribution shared across period (*e.g.* months): $\epsilon$
-2. These distributions are "shifted" period-by-period by adding period fixed-effects---drawn from a distribution with mean 0, leaving the average of temperature unchanged---: $\gamma\lambda_{\tau}$.
+2. These distributions are "shifted" period-by-period by adding period fixed-effects---drawn from a distribution with mean 0, leaving the average of temperature unchanged: $\gamma\lambda_{\tau}$.
 
 This is equivalent to assuming that the variance of temperature can be decomposed into a between-months component and a within-month one. This is quite representative of the distribution of existing temperatures, as discussed below. The same structure is retained for productivity. 
 
@@ -173,7 +175,7 @@ More precisely, I set:
 - Bins: I do not parametrize the bins and set them as fixed, only parametrizing the bin of interest. In define bins of with 2 degree Celsius (or about 5 Fahrenheit) as most papers in this literature. I define the bin of interest by setting $T_L$ such that the bin of interest is $(T_L,T_L + 2]$. 
 - $FE_i = \eta_i \sim  \mathcal{N}(0, \sigma_{\eta}^{2})$, individual fixed effects.
 - $u_{it} \sim \mathcal{N}(0, \sigma_{u}^{2})$
-- $Prod_{it\tau} = \beta_0 + \eta_i + \delta\lambda_{\tau} + \beta_1 \mathbb{1}\{Temp_{t\tau} \in (T_L,T_H ] \} + u_{it}$. For the variance of productivity to remain constant when $\gamma$ varies, I set $\sigma_u^2 = \sigma_{P}^2 - \sigma_{\eta}^2 - \delta^2 - \beta_1^2\sigma_{InBin}^2   - 2\delta\beta_1\text{cov}(InBin_{t\tau}, \lambda_{\tau})$. There is a complex correlation structure between $InBin$ and $\lambda_{\tau}$. I simplify this by assuming that $\text{cov}(InBin_{t\tau}, \lambda_{\tau}) = \text{cov}(Temp_{t\tau}, \lambda_{\tau}) = \gamma$ and therefore, the last term reduces to $2\beta_1\delta\gamma = 2\beta_1\kappa$. Since $\kappa = \gamma\delta$ is fixed, this term does not vary with $\gamma$ and is therefore only a scaling parameter that one can adjust by modifying the value given of $\sigma_P^2$. I double check post-hoc, that this hypothesis regarding the covariance holds (that $\sigma_P^2$ does not vary with $\gamma$). Also note that this expression for $\sigma_u^2$ bounds $\delta$. 
+- $Prod_{it\tau} = \beta_0 + \eta_i + \delta\lambda_{\tau} + \beta_1 \mathbb{1}\{Temp_{t\tau} \in (T_L,T_H ] \} + u_{it}$. For the variance of productivity to remain constant when $\gamma$ varies, I set $\sigma_u^2 = \sigma_{P}^2 - \sigma_{\eta}^2 - \delta^2 - \beta_1^2\sigma_{InBin}^2   - 2\delta\beta_1\text{cov}(InBin_{t\tau}, \lambda_{\tau})$. There is a complex correlation structure between $InBin$ and $\lambda_{\tau}$. I simplify this by assuming that $\text{cov}(InBin_{t\tau}, \lambda_{\tau}) \propto \text{cov}(Temp_{t\tau}, \lambda_{\tau}) = \gamma$ and therefore, the last term reduces to $2\beta_1\delta\gamma = 2\beta_1\kappa C$. Since $\kappa = \gamma\delta$ is fixed, this term does not vary with $\gamma$ and is therefore only a scaling parameter that one can adjust by modifying the value given of $\sigma_P^2$. I thus set C to 1 and adjust $\sigma_P^2$ to get a distribution of production as desired. I double check post-hoc, that the hypothesis regarding the covariance holds (that $\sigma_P^2$ does not vary with $\gamma$). Also note that this expression for $\sigma_u^2$ bounds $\delta$. 
 
 ### Data generation
 
@@ -181,7 +183,7 @@ More precisely, I set:
 
 I write a simple function that generates the data. It takes as input the values of the different parameters and returns a data frame containing all the variables for this analysis. 
 
-Note that I use the `truncnorm` package to compute the theoretical mean and variance of high temperature (as they are drawn from a truncated normal).
+<!-- Note that I use the `truncnorm` package to compute the theoretical mean and variance of high temperature (as they are drawn from a truncated normal). -->
 
 ```{r generate_data_fe}
 generate_data_fe <- function(N_i,
@@ -227,7 +229,7 @@ generate_data_fe <- function(N_i,
         - sigma_indiv_fe^2
         - delta^2
         - beta_1^2*0.3 #roughly var of a uniform distribution of width 2
-        - 2*kappa*beta_1 #NEEDS TO BE CHANGED
+        - 2*kappa*beta_1
       ),
       u = rnorm(N_i*N_t, 0, sigma_u),
       prod = mu_prod + beta_1*(bin_temp == bin_interest) + 
@@ -243,15 +245,15 @@ generate_data_fe <- function(N_i,
 
 I set baseline values for the parameters to emulate a realistic observational study in this field. These values are coherent with several analyses from the literature. However, not all analyses in this literature suffer from the issue discussed here but some likely do. I focus on such settings. I thus calibrate the parameters as follows:
 
-- **Number of observations**: @burke_game_2023 summarises the number of observations in recent papers from this literature (table S1): it ranges from 202 to 19 milions, with a median of 140,000. @somanathan_impact_2021, one of the most thorough papers in this literature. My simulation is closed to their "Temperature Effects on Worker Output" section in which the various specifications have between 9 and 147 units and between 365 and 3337 time steps for a number of observations ranging between 7300 and 54020. I select a number of observations in line with a typical analysis in this paper and literature, setting $N_i = 70$ and $N_t = 700$, for a total of 49000 observations.
+- **Number of observations**: @burke_game_2023 summarizes the number of observations in recent papers from this literature (table S1): it ranges from 202 to 19 millions, with a median of 140,000. @somanathan_impact_2021 is one of the most thorough papers in this literature. My simulation is closed to their "Temperature Effects on Worker Output" section in which the various specifications have between 9 and 147 units and between 365 and 3337 time steps for a number of observations ranging between 7300 and 54020. I select a number of observations in line with a typical analysis in this paper and literature, setting `N_i = 70` and `N_t = 700`, for a total of 49000 observations.
 - **Distribution of the production**: I consider that production is normally distributed. @stevens_temperature_2017 reports the distribution of the average productivity by worker (blueberry pickers) in Figure 3. While the distribution is not perfectly normal, it seems to be a relatively reasonable assumption. Production is a function of the way units are defined; any mean may be realistic. The value of interest is the ratio mean/standard deviation. In @lopalo_temperature_2023, this ratio is roughly equal to 0.9. In @stevens_temperature_2017, it ranges between 0.4 and 0.6 (Table 1). To avoid negative values considering the normality assumption, I choose an intermediary value and set `mu_prod = 100` and `sigma_prod = 0.5*mu_prod`.
 - **Individual fixed effects**: @lopalo_temperature_2023 reports the individual FEs observed in their setting in figure 7 panel A. The distribution is not exactly normal but it might be an acceptable approximation. In their setting, individual fixed effects account for about half of the standard deviation of the outcome. I thus set `sigma_indiv_fe = 0.5*sigma_prod`. I set their mean to 0, assuming that it is encompassed in $\beta_0$.
-- **Distribution of temperature**: I set the mean and standard deviation of the wet bulb temperature to be equal to the values experienced in New York City. I set `mu_temp = 16.5` and `sigma_temp = 9`. The results hold with other distributions of temperature.
+- **Distribution of temperature**: I set the mean and standard deviation of the wet bulb temperature to be equal to the values experienced in New York City. I set `mu_temp = 16.5` and `sigma_temp = 9`. <!-- The results hold with other distributions of temperature. -->
 - Results from the literature: @somanathan_impact_2021 documents a reduction in productivity between 2 and 8% when a day below 19°C is swapped with a day above 35°C dry bulb (and comparable results between 33 and 35). @lopalo_temperature_2023 finds that productivity decreases by 13.6% on a day with wet bulb temperature above 29.5°C as compared to a day between 10 and 15.5°C. @stevens_temperature_2017 documents a 12% reduction in productivity when a day in the (27, 29.5]°C bin is swapped with a day above 38°C. @cai_impact_2018 a 8.5% reduction in temperature above 35°C wet bulb as compared to a day between 24°C and 26.5°C. @hsiang_temperatures_2010 finds effects above 25°C in wet bulb temperature. 
 
   - **Bin of interest**: To keep the variance of temperature within the bin constant when $\gamma$ varies (to not affect the precision of the estimator through this mean), I consider a close bin. Since I model thew wet bulb temperature, I choose a bin of interest of (29, 31] such that `bin_interest_low = 29`.
   - **Reference bin**: Based on the literature above, in particular @somanathan_impact_2021 and @lopalo_temperature_2023, I set a reference (or omitted) bin of (11, 13], such that `bin_ref_low = 11`.
-  - **Treatment effect size**: Since I chose a relatively low bin of interest (and not temperature above a high threshold), I do not pick a very large treatment effect, since the magnitude of the effect is more limited for lower temperature. I however still choose a treatment effect size in line with what is observed in the literature : `beta_1 = -0.03*mu_prod`
+  - **Treatment effect size**: Since I chose a relatively low bin of interest (and not temperature above a high threshold), I do not pick a very large treatment effect, since the magnitude of the effect is more limited for lower temperature. I however still choose a treatment effect size in line with what is observed in the literature: `beta_1 = -0.03*mu_prod`
 - **Temperature fixed effects**: As noted previously, `gamma` cannot be larger than `sigma_temp`. I will thus vary it between 4 and 8.9.
 - **Omitted variable bias**: I consider a very large OVB, twice the magnitude of the treatment effect (OVB = 2). The OVB is given by $\dfrac{\kappa\sigma_{\lambda}^2}{\sigma_{InBin}^2}$.  Therefore, I set `kappa = -15`. I also adjust it *post-hoc* since it only changes the bias of the estimator from the model with no fixed effects. The minus sign ensures that the OVB is upward biased and therefore goes in the same direction as exaggeration. This hypothesis clarifies the results but does not change the conclusions of the analysis.
 
@@ -370,7 +372,7 @@ graph_ridge_sim(8.6)
 graph_ridge_sim(4)
 ```
 
-Then, I compare these generated distribution to some observed in actual settings. To do so, I retrieve wet bulb temperature data in the US from @spangler_wetbulb_2022. I wrangle it and focus San Diego and New York counties. I pick these counties because they respectively exhibit large and small variations in month-to-month temperature. Many other counties exhibit similar patterns. 
+Then, I compare these generated distribution to some observed in actual settings. To do so, I retrieve wet bulb temperature data in the US from @spangler_wetbulb_2022. I wrangle it and focus on San Diego and New York counties. I picked these counties because they respectively exhibit large and small variations in month-to-month temperature. Many other counties exhibit similar patterns. 
 
 ```{r clean_data_temperature, code_folding='Show code to wrangle the data', eval=FALSE}
 fips_interest <- tibble(
@@ -378,7 +380,7 @@ fips_interest <- tibble(
   fips = c("36061", "06073")
 )
 
-temp_data <- readRDS(here("misc", "temp_data.Rds")) |> 
+temp_data <- readRDS(here("data", "temp", "temp_data.Rds")) |> 
   as_tibble() |> 
   janitor::clean_names() |> 
   # filter(year > 2015) |>
@@ -468,7 +470,7 @@ The simulated distributions are not perfectly similar to the observed ones but d
 
 ### Estimation
 
-I then define a function to run the estimations (with and without fixed effects). 
+I then define a function to run the estimations (with and without fixed effects). I cluster standard errors at the individual level, following @somanathan_impact_2021.
 
 ```{r estimate_fe}
 estimate_fe <- function(data) {
@@ -494,10 +496,8 @@ estimate_fe <- function(data) {
     filter(term == str_c("bin_temp", unique(data$bin_interest))) |>
     rename(p_value = p.value, se = std.error) |> 
     mutate(#to check that the variance of x and y do not vary with gamma
-      var_in_bin = data |> 
-        filter(bin_temp == unique(data$bin_interest)) |> 
-        pull(temp) |> 
-        var(na.rm = TRUE),
+      var_u = var(data$u, na.rm = TRUE),
+      var_temp = var(data$temp, na.rm = TRUE),
       var_prod = var(data$prod, na.rm = TRUE)
     )
 }
@@ -553,7 +553,9 @@ param_fe <- baseline_param_fe |>
 I then run the simulations by looping our `compute_sim_fe` function on `param_fe` using the `purrr` package (`pmap` function).
 
 ```{r run_sim_fe, eval=FALSE}
-sim_fe <- pmap(param_fe, compute_sim_fe, .progress = TRUE) |> 
+future::plan(multisession, workers = availableCores() - 1)
+
+sim_fe <- future_pmap(param_fe, compute_sim_fe, .progress = TRUE) |> 
   list_rbind(names_to = "sim_id") |> 
   as_tibble() 
 
@@ -624,7 +626,7 @@ source(here("functions.R"), echo = TRUE, local = knitr::knit_global())
 summary_sim_fe <- sim_fe |> 
   mutate(prop_fe_var = gamma^2/sigma_temp^2) |>
   summarise_sim( 
-    varying_params = c(prop_fe_var, model), 
+    varying_params = c(prop_fe_var, model, gamma), 
     true_effect = unique(beta_1)
   )
 
@@ -633,7 +635,7 @@ saveRDS(summary_sim_fe, here("Outputs/summary_sim_fe.RDS"))
 
 ### Main graph
 
-I then build the main graph of this analysis, describing 
+I then build the main graph of this analysis, describing the evolution of exaggeration with the proportion of the variance in temperature explained by the period fixed-effects.
 
 ```{r main_graph_fe, code_folding='Show the code used to generate the graph', fig.asp=0.7}
 main_graph <- summary_sim_fe |>
@@ -645,14 +647,14 @@ main_graph <- summary_sim_fe |>
   scale_mediocre_d() +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 7)) +
   labs(
-    x = "Proportion of the variance in X explained by the FEs",
+    x = "Proportion of the variance in temperature explained by the FEs",
     y = expression(paste("Average  ", frac("|Estimate|", "|True Effect|"))),
     color = "Model"
   ) 
 
 main_graph +
   labs(
-    title = "Evolution of bias with the correlation between X and FEs",
+    title = "Evolution of bias with the correlation between temperature and FEs",
     subtitle = "For statistically significant estimates, 1000 simulations",
   ) 
 ```
@@ -668,42 +670,178 @@ ggsave(
 )
 ```
 
+Importantly, note that the explanatory variable of interest in the regression is not the temperature itself the but a dummy equal to one iff the temperature falls into the bin of interest `r str_c("(",baseline_param_fe$bin_interest_low, ", ", baseline_param_fe$bin_interest_low + 2, "]")`. As a consequence, the fact that variation in temperature are mostly explained by FEs does not mean that it is also the case for our dependent variable of interest.
+
 ## Further checks
 
 ### Variance of the variables
 
-I quickly check that the variance of the dependent and independent variables do not vary with gamma:
+I quickly check that the variance of the temperature, production and of the residuals do not vary with gamma:
 
 ```{r check_var_x_y, code_folding=TRUE}
 sim_fe |> 
   group_by(gamma) |> 
   summarise(
-    var_in_bin = mean(var_in_bin, na.rm = TRUE),
-    var_prod = mean(var_prod, na.rm = TRUE)
-  ) |> 
+    var_temp = mean(var_temp, na.rm = TRUE),
+    var_prod = mean(var_prod, na.rm = TRUE),
+    var_u = mean(var_u, na.rm = TRUE)
+  )|> 
   kable(
-    col.names = c("Gamma", "Variance Temperature (in bin)", "Variance Produciton"),
+    col.names = c("Gamma", "Variance Temperature", "Variance Production", "Variance of u"),
     digits = 2
   )
 ```
 
-### Representativeness of the estimation
+### Magnitude of exaggeration
 
-I calibrated the simulations to emulate a typical study from this literature. To further check that the results are realistic, I compare the average Signal-to-Noise Ratio (SNR) of the simulations to the range of SNR of an existing study. 
+To be able to determine where an actual setting could fall on the graph above, I quickly explore the proportion of the variation in temperature coming from within vs between month variation for some example cities. 
 
-In @somanathan_impact_2021, the SNR (in table 2) varies between 0.17 and 3.75. In @lopalo_temperature_2023, in table 2, 3, 5 and A4, the SNR for the estimates of interest varies between 0.5 and 4 (and actually even 0.03 for South Asia in the heterogenity analysis). @stevens_temperature_2017 report SNR varying between 0.5 and 2.5 (in table 2).
+I implement the decomposition by regressing wet bulb temperature on month fixed effects and computing the variance of the predicted values and residuals.
 
-The SNR for the FE model in my simulations are as follow:
+For New York and San Diego, I use the data introduced above. I also implement this decomposition for the Indian capital, New Delhi, as @somanathan_impact_2021 focuses on this country. I did not hand-picked the city, just focused on the capital; one could probably identify cities that display more between-months variation. The data comes from @dong_gsdmwbt_2022 and can be accessed [here](https://zenodo.org/records/7014332).^[The New Delhi weather station is from the Safdarjung Airport on and has id 421820-99999.] Using the same data, I computed the same analysis for all weather stations and find, at the top of the distribution, stations for which about 94% of the variation in wet bulb temperature is explained by between months variation.^[These stations are located in Iakoutia, Siberia, *eg* station 246560].
 
-```{r SNR, code_folding=TRUE}
-summary_sim_fe |> 
-  filter(model == "fe") |> 
-  select(prop_fe_var, median_snr, type_m) |> 
+```{r decompose_var_real, code_folding=TRUE}
+decompose_var <- function(data, indep_var) {
+  reg <- data |> 
+    feols(as.formula(paste(indep_var, "~ -1 | period"))) 
+
+  tibble(
+    var_between = var(predict(reg)),
+    var_within  = var(resid(reg)),
+    var_total   = var(data[[indep_var]], na.rm = TRUE),
+    share_between = var_between / var_total,
+    share_within  = var_within  / var_total
+  )
+}
+
+#share of temp explained by FEs
+temp_data_ex <- small_temp_data |> 
+  mutate(
+    in_bin = (wbg_tmax_c > 29 & wbg_tmax_c <= 31),
+    period = floor_date(date, "month")
+  ) 
+
+# New York
+decomp_ny <- temp_data_ex |> 
+  filter(county_name == "New York") |> 
+  decompose_var("wbg_tmax_c") |> 
+  mutate(region = "New York", .before = 1)
+
+#San Diego
+decomp_sd <- temp_data_ex |> 
+  filter(county_name == "San Diego") |> 
+  decompose_var("wbg_tmax_c") |> 
+  mutate(region = "San Diego", .before = 1)
+
+#New Delhi
+nc_newdelhi <- 
+  nc_open(here("data", "temp", "GSDM-WBT_421820-99999_19810101-20201231.nc"))
+names(nc_newdelhi$var)
+names(nc_newdelhi$dim)
+wbt <- ncvar_get(nc_newdelhi, "WBT")
+measure_time <- nc_newdelhi$dim$time$vals
+measure_date <- as_date(measure_time, origin = "1981-01-01")
+
+temp_delhi <- tibble(date = measure_date, wbt) |> 
+  mutate(
+    period = floor_date(date, unit = "month"),
+    wbt = as.double(wbt)
+  )
+
+decomp_delhi <- decompose_var(temp_delhi, "wbt") |> 
+  mutate(region = "New Delhi")
+
+bind_rows(decomp_sd, decomp_ny, decomp_delhi) |> 
+  select(region, starts_with("share")) |> 
   kable(
-    digits = 2,
-    col.names = c("", "Median SNR", "Exaggeration Ratio")
+    col.names = c(
+      "Region", 
+      "Between-months variation (share)",
+      "Within-month variation (share)"
+    )
   )
 ```
 
-My simulations therefore display SNRs that are in line with many of those observed in the literature.
+```{r decompose_var_world, eval=FALSE, include=FALSE}
+#then, I replicate this analysis for the entire world to find cities 
+#I manually removed the two last files as they were not working properly
+files_temp_world <- list.files(here("misc", "temp_world"))
+
+decomp_var_world <- function(file_name) {
+  nc_newdelhi <- nc_open(here("misc", "temp_world", file_name), return_on_error = TRUE)
+  names(nc_newdelhi$var)
+  names(nc_newdelhi$dim)
+  wbt <- ncvar_get(nc_newdelhi, "WBT")
+  measure_time <- nc_newdelhi$dim$time$vals
+  measure_date <- as_date(measure_time, origin = "1981-01-01")
+  
+  temp_data <- tibble(date = measure_date, wbt) |> 
+    mutate(
+      period = floor_date(date, unit = "month"),
+      year = year(date),
+      wbt = as.double(wbt)
+    )
+  
+  reg <- feols(wbt ~ 0 | period, data = temp_data)
+  
+  out <- tibble(
+    file_name = file_name,
+    var_between = var(predict(reg)),
+    var_within  = var(resid(reg)),
+    var_total   = var(temp_data$wbt),
+    share_between = var_between / var_total,
+    share_within  = var_within  / var_total
+  )
+  
+  gc()
+  
+  return(out)
+} 
+
+decomp_var_world_safe <- safely(decomp_var_world)
+
+#I need to split the analysis in batches (of 500) iterations otherwise R crashes
+#Use files_temp_world[501:1000]
+results_decomp_world <- files_temp_world[1501:1833] |> 
+  map(decomp_var_world_safe) |> 
+  suppressMessages()
+
+
+results_decomp_world_clean <- results_decomp_world |> 
+  transpose() %>%
+  .$result |> 
+  list_rbind() |> 
+  arrange(desc(share_between))
+
+###Exploring those with the most between month variation
+decomp_var_world("GSDM-WBT_246560-99999_19810101-20201231.nc")
+# nc_open("misc/temp_world/GSDM-WBT_246560-99999_19810101-20201231.nc")
+```
+
+
+We can now compare that to our results and see where these cities would fall:
+
+```{r table_results_fe, code_folding=TRUE}
+summary_sim_fe |> 
+  filter(model == "fe") |> 
+  select(gamma, prop_fe_var, power, type_m, median_snr) |> 
+  kable(
+    col.names = c("Gamma", "Between-months variation (theorical share)", "Power", "Exaggeration",  "Median SNR"),
+    digits = 3
+  )
+```
+
+Based on this analysis, we can expect month fixed effects to lead to an exaggeration going up to 1.3. However, note that the simulations here largely simplify the reality and that the inclusion of other fixed effects, such as location ones, or controls more correlated with temperature than with productivity would further exaggerate exaggeration. This number is therefore likely a lower bound of possible exaggeration in this setting.
+
+In addition, here, the dependent variable is not the temperature per se but a dummy equal to 1 if the temperature falls into a given bin. As such, when the variance of temperature is large enough, this variance is roughly equal to 1/3, the variance of a uniform distribution over the interval `r str_c("(",baseline_param_fe$bin_interest_low, ", ", baseline_param_fe$bin_interest_low + 2, "]")` and does not vary much with the variance of the underlying distribution when that variance is large enough. In other settings, where the dependent variable is directly correlated with the fixed effects, we may expect them to more strongly affect exaggeration.
+
+
+### Representativeness of the estimation
+
+I calibrated the simulations to emulate a typical study from this literature.  To further check that the results are realistic, I compare the average Signal-to-Noise Ratio (SNR) of the regressions from the simulations to the range of $t$-stat of existing studies investigating similar questions.
+
+In @somanathan_impact_2021, the $t$-stats (in table 2) varies between 0.17 and 3.75. In @lopalo_temperature_2023, in table 2, 3, 5 and A4, the $t$-stats for the estimates of interest varies between 0.5 and 4 (and actually even 0.03 for South Asia in the heterogenity analysis). @stevens_temperature_2017 report $t$-stats varying between 0.5 and 2.5 (in table 2).
+
+As shown in the previous table, I find SNRs in a similar range and corresponding to substantial exaggeration ratios.
+
 

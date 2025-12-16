@@ -132,6 +132,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <!--/radix_placeholder_meta_tags-->
   
+  <meta name="citation_reference" content="citation_title=GSDM-WBT: Global station-based daily maximum wet-bulb temperature data for 1981–2020;citation_publisher=Copernicus GmbH;citation_volume=14;citation_doi=10.5194/essd-14-5651-2022;citation_issn=1866-3508;citation_author=Jianquan Dong;citation_author=Stefan Brönnimann;citation_author=Tao Hu;citation_author=Yanxu Liu;citation_author=Jian Peng"/>
   <meta name="citation_reference" content="citation_title=Temperature, Worker Productivity, and Adaptation: Evidence from Survey Data Production;citation_volume=15;citation_doi=10.1257/app.20200547;citation_issn=1945-7782;citation_author=Melissa LoPalo"/>
   <meta name="citation_reference" content="citation_title=The Impact of Temperature on Productivity and Labor Supply: Evidence from Indian Manufacturing;citation_publisher=The University of Chicago Press;citation_volume=129;citation_doi=10.1086/713733;citation_issn=0022-3808;citation_author=E. Somanathan;citation_author=Rohini Somanathan;citation_author=Anant Sudarshan;citation_author=Meenu Tewari"/>
   <meta name="citation_reference" content="citation_title=Wet-Bulb Globe Temperature, Universal Thermal Climate Index, and Other Heat Metrics for US Counties, 2000–2020;citation_publisher=Nature Publishing Group;citation_volume=9;citation_doi=10.1038/s41597-022-01405-3;citation_issn=2052-4463;citation_author=Keith R. Spangler;citation_author=Shixin Liang;citation_author=Gregory A. Wellenius"/>
@@ -2328,6 +2329,7 @@ Simulations
 <li><a href="#further-checks" id="toc-further-checks">Further checks</a>
 <ul>
 <li><a href="#variance-of-the-variables" id="toc-variance-of-the-variables">Variance of the variables</a></li>
+<li><a href="#magnitude-of-exaggeration" id="toc-magnitude-of-exaggeration">Magnitude of exaggeration</a></li>
 <li><a href="#representativeness-of-the-estimation" id="toc-representativeness-of-the-estimation">Representativeness of the estimation</a></li>
 </ul></li>
 </ul>
@@ -2388,7 +2390,7 @@ Show code
 <span>         y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>Prod <span class='op'>=</span> <span class='fl'>1</span>, Temp <span class='op'>=</span> <span class='fl'>1</span>, InBin <span class='op'>=</span> <span class='fl'>1</span>, Period <span class='op'>=</span> <span class='fl'>0</span>, e <span class='op'>=</span> <span class='fl'>1</span>, u <span class='op'>=</span> <span class='fl'>1.5</span>, Indiv <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></span>
 <span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://r-causal.github.io/ggdag/reference/status.html'>ggdag_status</a></span><span class='op'>(</span>text_size <span class='op'>=</span> <span class='fl'>3.5</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://r-causal.github.io/ggdag/reference/theme_dag_blank.html'>theme_dag_blank</a></span><span class='op'>(</span>base_family <span class='op'>=</span> <span class='st'>"Lato"</span>, legend.position <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://r-causal.github.io/ggdag/reference/theme_dag_blank.html'>theme_dag_blank</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/scale_mediocre_d.html'>scale_mediocre_d</a></span><span class='op'>(</span>pal <span class='op'>=</span> <span class='st'>"coty"</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span><span class='op'>(</span><span class='co'>#parameters</span></span>
 <span>    <span class='st'>"text"</span>, </span>
@@ -2415,7 +2417,7 @@ Including additional controls may however increase the precision of the resultin
 <p>where <span class="math inline">\(\mu_{Temp}\)</span> is an intercept representing the average temperature. <span class="math inline">\(\lambda_{\tau}\)</span> are period fixed-effects with mean 0 and variance 1, such that their variance can be modified <em>via</em> <span class="math inline">\(\gamma\)</span>. This particular structure of fixed effects allows to control for the intensity of the fixed effects via a parameter. It assumes that the data generating process for temperature is as follows:</p>
 <ol type="1">
 <li>Observations are drawn for all the time indexes (<em>e.g.</em> days) from a distribution shared across period (<em>e.g.</em> months): <span class="math inline">\(\epsilon\)</span></li>
-<li>These distributions are “shifted” period-by-period by adding period fixed-effects—drawn from a distribution with mean 0, leaving the average of temperature unchanged—: <span class="math inline">\(\gamma\lambda_{\tau}\)</span>.</li>
+<li>These distributions are “shifted” period-by-period by adding period fixed-effects—drawn from a distribution with mean 0, leaving the average of temperature unchanged: <span class="math inline">\(\gamma\lambda_{\tau}\)</span>.</li>
 </ol>
 <p>This is equivalent to assuming that the variance of temperature can be decomposed into a between-months component and a within-month one. This is quite representative of the distribution of existing temperatures, as discussed below. The same structure is retained for productivity.</p>
 <p><span class="math inline">\(Prod_{it\tau}\)</span>, the production of worker <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span> in period <span class="math inline">\(\tau\)</span> is defined as:</p>
@@ -2440,12 +2442,12 @@ where <span class="math inline">\(\eta_i\)</span> are individual fixed-effects. 
 <li>Bins: I do not parametrize the bins and set them as fixed, only parametrizing the bin of interest. In define bins of with 2 degree Celsius (or about 5 Fahrenheit) as most papers in this literature. I define the bin of interest by setting <span class="math inline">\(T_L\)</span> such that the bin of interest is <span class="math inline">\((T_L,T_L + 2]\)</span>.</li>
 <li><span class="math inline">\(FE_i = \eta_i \sim  \mathcal{N}(0, \sigma_{\eta}^{2})\)</span>, individual fixed effects.</li>
 <li><span class="math inline">\(u_{it} \sim \mathcal{N}(0, \sigma_{u}^{2})\)</span></li>
-<li><span class="math inline">\(Prod_{it\tau} = \beta_0 + \eta_i + \delta\lambda_{\tau} + \beta_1 \mathbb{1}\{Temp_{t\tau} \in (T_L,T_H ] \} + u_{it}\)</span>. For the variance of productivity to remain constant when <span class="math inline">\(\gamma\)</span> varies, I set <span class="math inline">\(\sigma_u^2 = \sigma_{P}^2 - \sigma_{\eta}^2 - \delta^2 - \beta_1^2\sigma_{InBin}^2   - 2\delta\beta_1\text{cov}(InBin_{t\tau}, \lambda_{\tau})\)</span>. There is a complex correlation structure between <span class="math inline">\(InBin\)</span> and <span class="math inline">\(\lambda_{\tau}\)</span>. I simplify this by assuming that <span class="math inline">\(\text{cov}(InBin_{t\tau}, \lambda_{\tau}) = \text{cov}(Temp_{t\tau}, \lambda_{\tau}) = \gamma\)</span> and therefore, the last term reduces to <span class="math inline">\(2\beta_1\delta\gamma = 2\beta_1\kappa\)</span>. Since <span class="math inline">\(\kappa = \gamma\delta\)</span> is fixed, this term does not vary with <span class="math inline">\(\gamma\)</span> and is therefore only a scaling parameter that one can adjust by modifying the value given of <span class="math inline">\(\sigma_P^2\)</span>. I double check post-hoc, that this hypothesis regarding the covariance holds (that <span class="math inline">\(\sigma_P^2\)</span> does not vary with <span class="math inline">\(\gamma\)</span>). Also note that this expression for <span class="math inline">\(\sigma_u^2\)</span> bounds <span class="math inline">\(\delta\)</span>.</li>
+<li><span class="math inline">\(Prod_{it\tau} = \beta_0 + \eta_i + \delta\lambda_{\tau} + \beta_1 \mathbb{1}\{Temp_{t\tau} \in (T_L,T_H ] \} + u_{it}\)</span>. For the variance of productivity to remain constant when <span class="math inline">\(\gamma\)</span> varies, I set <span class="math inline">\(\sigma_u^2 = \sigma_{P}^2 - \sigma_{\eta}^2 - \delta^2 - \beta_1^2\sigma_{InBin}^2   - 2\delta\beta_1\text{cov}(InBin_{t\tau}, \lambda_{\tau})\)</span>. There is a complex correlation structure between <span class="math inline">\(InBin\)</span> and <span class="math inline">\(\lambda_{\tau}\)</span>. I simplify this by assuming that <span class="math inline">\(\text{cov}(InBin_{t\tau}, \lambda_{\tau}) \propto \text{cov}(Temp_{t\tau}, \lambda_{\tau}) = \gamma\)</span> and therefore, the last term reduces to <span class="math inline">\(2\beta_1\delta\gamma = 2\beta_1\kappa C\)</span>. Since <span class="math inline">\(\kappa = \gamma\delta\)</span> is fixed, this term does not vary with <span class="math inline">\(\gamma\)</span> and is therefore only a scaling parameter that one can adjust by modifying the value given of <span class="math inline">\(\sigma_P^2\)</span>. I thus set C to 1 and adjust <span class="math inline">\(\sigma_P^2\)</span> to get a distribution of production as desired. I double check post-hoc, that the hypothesis regarding the covariance holds (that <span class="math inline">\(\sigma_P^2\)</span> does not vary with <span class="math inline">\(\gamma\)</span>). Also note that this expression for <span class="math inline">\(\sigma_u^2\)</span> bounds <span class="math inline">\(\delta\)</span>.</li>
 </ul>
 <h3 id="data-generation">Data generation</h3>
 <h4 id="generating-function">Generating function</h4>
 <p>I write a simple function that generates the data. It takes as input the values of the different parameters and returns a data frame containing all the variables for this analysis.</p>
-<p>Note that I use the <code>truncnorm</code> package to compute the theoretical mean and variance of high temperature (as they are drawn from a truncated normal).</p>
+<!-- Note that I use the `truncnorm` package to compute the theoretical mean and variance of high temperature (as they are drawn from a truncated normal). -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>generate_data_fe</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>N_i</span>,</span>
@@ -2491,7 +2493,7 @@ where <span class="math inline">\(\eta_i\)</span> are individual fixed-effects. 
 <span>        <span class='op'>-</span> <span class='va'>sigma_indiv_fe</span><span class='op'>^</span><span class='fl'>2</span></span>
 <span>        <span class='op'>-</span> <span class='va'>delta</span><span class='op'>^</span><span class='fl'>2</span></span>
 <span>        <span class='op'>-</span> <span class='va'>beta_1</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='fl'>0.3</span> <span class='co'>#roughly var of a uniform distribution of width 2</span></span>
-<span>        <span class='op'>-</span> <span class='fl'>2</span><span class='op'>*</span><span class='va'>kappa</span><span class='op'>*</span><span class='va'>beta_1</span> <span class='co'>#NEEDS TO BE CHANGED</span></span>
+<span>        <span class='op'>-</span> <span class='fl'>2</span><span class='op'>*</span><span class='va'>kappa</span><span class='op'>*</span><span class='va'>beta_1</span></span>
 <span>      <span class='op'>)</span>,</span>
 <span>      u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>N_i</span><span class='op'>*</span><span class='va'>N_t</span>, <span class='fl'>0</span>, <span class='va'>sigma_u</span><span class='op'>)</span>,</span>
 <span>      prod <span class='op'>=</span> <span class='va'>mu_prod</span> <span class='op'>+</span> <span class='va'>beta_1</span><span class='op'>*</span><span class='op'>(</span><span class='va'>bin_temp</span> <span class='op'>==</span> <span class='va'>bin_interest</span><span class='op'>)</span> <span class='op'>+</span> </span>
@@ -2506,15 +2508,15 @@ where <span class="math inline">\(\eta_i\)</span> are individual fixed-effects. 
 <h4 id="calibration-and-baseline-parameters-values">Calibration and baseline parameters’ values</h4>
 <p>I set baseline values for the parameters to emulate a realistic observational study in this field. These values are coherent with several analyses from the literature. However, not all analyses in this literature suffer from the issue discussed here but some likely do. I focus on such settings. I thus calibrate the parameters as follows:</p>
 <ul>
-<li><p><strong>Number of observations</strong>: <span class="citation" data-cites="burke_game_2023">Burke et al. (<a href="#ref-burke_game_2023" role="doc-biblioref">2023</a>)</span> summarises the number of observations in recent papers from this literature (table S1): it ranges from 202 to 19 milions, with a median of 140,000. <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span>, one of the most thorough papers in this literature. My simulation is closed to their “Temperature Effects on Worker Output” section in which the various specifications have between 9 and 147 units and between 365 and 3337 time steps for a number of observations ranging between 7300 and 54020. I select a number of observations in line with a typical analysis in this paper and literature, setting <span class="math inline">\(N_i = 70\)</span> and <span class="math inline">\(N_t = 700\)</span>, for a total of 49000 observations.</p></li>
+<li><p><strong>Number of observations</strong>: <span class="citation" data-cites="burke_game_2023">Burke et al. (<a href="#ref-burke_game_2023" role="doc-biblioref">2023</a>)</span> summarizes the number of observations in recent papers from this literature (table S1): it ranges from 202 to 19 millions, with a median of 140,000. <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span> is one of the most thorough papers in this literature. My simulation is closed to their “Temperature Effects on Worker Output” section in which the various specifications have between 9 and 147 units and between 365 and 3337 time steps for a number of observations ranging between 7300 and 54020. I select a number of observations in line with a typical analysis in this paper and literature, setting <code>N_i = 70</code> and <code>N_t = 700</code>, for a total of 49000 observations.</p></li>
 <li><p><strong>Distribution of the production</strong>: I consider that production is normally distributed. <span class="citation" data-cites="stevens_temperature_2017">Stevens (<a href="#ref-stevens_temperature_2017" role="doc-biblioref">2017</a>)</span> reports the distribution of the average productivity by worker (blueberry pickers) in Figure 3. While the distribution is not perfectly normal, it seems to be a relatively reasonable assumption. Production is a function of the way units are defined; any mean may be realistic. The value of interest is the ratio mean/standard deviation. In <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span>, this ratio is roughly equal to 0.9. In <span class="citation" data-cites="stevens_temperature_2017">Stevens (<a href="#ref-stevens_temperature_2017" role="doc-biblioref">2017</a>)</span>, it ranges between 0.4 and 0.6 (Table 1). To avoid negative values considering the normality assumption, I choose an intermediary value and set <code>mu_prod = 100</code> and <code>sigma_prod = 0.5*mu_prod</code>.</p></li>
 <li><p><strong>Individual fixed effects</strong>: <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span> reports the individual FEs observed in their setting in figure 7 panel A. The distribution is not exactly normal but it might be an acceptable approximation. In their setting, individual fixed effects account for about half of the standard deviation of the outcome. I thus set <code>sigma_indiv_fe = 0.5*sigma_prod</code>. I set their mean to 0, assuming that it is encompassed in <span class="math inline">\(\beta_0\)</span>.</p></li>
-<li><p><strong>Distribution of temperature</strong>: I set the mean and standard deviation of the wet bulb temperature to be equal to the values experienced in New York City. I set <code>mu_temp = 16.5</code> and <code>sigma_temp = 9</code>. The results hold with other distributions of temperature.</p></li>
+<li><p><strong>Distribution of temperature</strong>: I set the mean and standard deviation of the wet bulb temperature to be equal to the values experienced in New York City. I set <code>mu_temp = 16.5</code> and <code>sigma_temp = 9</code>. <!-- The results hold with other distributions of temperature. --></p></li>
 <li><p>Results from the literature: <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span> documents a reduction in productivity between 2 and 8% when a day below 19°C is swapped with a day above 35°C dry bulb (and comparable results between 33 and 35). <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span> finds that productivity decreases by 13.6% on a day with wet bulb temperature above 29.5°C as compared to a day between 10 and 15.5°C. <span class="citation" data-cites="stevens_temperature_2017">Stevens (<a href="#ref-stevens_temperature_2017" role="doc-biblioref">2017</a>)</span> documents a 12% reduction in productivity when a day in the (27, 29.5]°C bin is swapped with a day above 38°C. <span class="citation" data-cites="cai_impact_2018">Cai, Lu, and Wang (<a href="#ref-cai_impact_2018" role="doc-biblioref">2018</a>)</span> a 8.5% reduction in temperature above 35°C wet bulb as compared to a day between 24°C and 26.5°C. <span class="citation" data-cites="hsiang_temperatures_2010">Hsiang (<a href="#ref-hsiang_temperatures_2010" role="doc-biblioref">2010</a>)</span> finds effects above 25°C in wet bulb temperature.</p>
 <ul>
 <li><strong>Bin of interest</strong>: To keep the variance of temperature within the bin constant when <span class="math inline">\(\gamma\)</span> varies (to not affect the precision of the estimator through this mean), I consider a close bin. Since I model thew wet bulb temperature, I choose a bin of interest of (29, 31] such that <code>bin_interest_low = 29</code>.</li>
 <li><strong>Reference bin</strong>: Based on the literature above, in particular <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span>, I set a reference (or omitted) bin of (11, 13], such that <code>bin_ref_low = 11</code>.</li>
-<li><strong>Treatment effect size</strong>: Since I chose a relatively low bin of interest (and not temperature above a high threshold), I do not pick a very large treatment effect, since the magnitude of the effect is more limited for lower temperature. I however still choose a treatment effect size in line with what is observed in the literature : <code>beta_1 = -0.03*mu_prod</code></li>
+<li><strong>Treatment effect size</strong>: Since I chose a relatively low bin of interest (and not temperature above a high threshold), I do not pick a very large treatment effect, since the magnitude of the effect is more limited for lower temperature. I however still choose a treatment effect size in line with what is observed in the literature: <code>beta_1 = -0.03*mu_prod</code></li>
 </ul></li>
 <li><p><strong>Temperature fixed effects</strong>: As noted previously, <code>gamma</code> cannot be larger than <code>sigma_temp</code>. I will thus vary it between 4 and 8.9.</p></li>
 <li><p><strong>Omitted variable bias</strong>: I consider a very large OVB, twice the magnitude of the treatment effect (OVB = 2). The OVB is given by <span class="math inline">\(\dfrac{\kappa\sigma_{\lambda}^2}{\sigma_{InBin}^2}\)</span>. Therefore, I set <code>kappa = -15</code>. I also adjust it <em>post-hoc</em> since it only changes the bias of the estimator from the model with no fixed effects. The minus sign ensures that the OVB is upward biased and therefore goes in the same direction as exaggeration. This hypothesis clarifies the results but does not change the conclusions of the analysis.</p></li>
@@ -2861,7 +2863,7 @@ Show code
 </details>
 <p><img src="images/FE/ridge_temp-2.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<p>Then, I compare these generated distribution to some observed in actual settings. To do so, I retrieve wet bulb temperature data in the US from <span class="citation" data-cites="spangler_wetbulb_2022">Spangler, Liang, and Wellenius (<a href="#ref-spangler_wetbulb_2022" role="doc-biblioref">2022</a>)</span>. I wrangle it and focus San Diego and New York counties. I pick these counties because they respectively exhibit large and small variations in month-to-month temperature. Many other counties exhibit similar patterns.</p>
+<p>Then, I compare these generated distribution to some observed in actual settings. To do so, I retrieve wet bulb temperature data in the US from <span class="citation" data-cites="spangler_wetbulb_2022">Spangler, Liang, and Wellenius (<a href="#ref-spangler_wetbulb_2022" role="doc-biblioref">2022</a>)</span>. I wrangle it and focus on San Diego and New York counties. I picked these counties because they respectively exhibit large and small variations in month-to-month temperature. Many other counties exhibit similar patterns.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -2873,7 +2875,7 @@ Show code to wrangle the data
 <span>  fips <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"36061"</span>, <span class='st'>"06073"</span><span class='op'>)</span></span>
 <span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>temp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"misc"</span>, <span class='st'>"temp_data.Rds"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span><span class='va'>temp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"temp"</span>, <span class='st'>"temp_data.Rds"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'>janitor</span><span class='fu'>::</span><span class='fu'><a href='https://sfirke.github.io/janitor/reference/clean_names.html'>clean_names</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='co'># filter(year &gt; 2015) |&gt;</span></span>
@@ -2973,7 +2975,7 @@ Show code to make the graphs
 <!--   ) -->
 <!-- ``` -->
 <h3 id="estimation">Estimation</h3>
-<p>I then define a function to run the estimations (with and without fixed effects).</p>
+<p>I then define a function to run the estimations (with and without fixed effects). I cluster standard errors at the individual level, following <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>estimate_fe</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span> <span class='op'>{</span></span>
@@ -2999,10 +3001,8 @@ Show code to make the graphs
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>term</span> <span class='op'>==</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_c.html'>str_c</a></span><span class='op'>(</span><span class='st'>"bin_temp"</span>, <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>bin_interest</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>p_value <span class='op'>=</span> <span class='va'>p.value</span>, se <span class='op'>=</span> <span class='va'>std.error</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='co'>#to check that the variance of x and y do not vary with gamma</span></span>
-<span>      var_in_bin <span class='op'>=</span> <span class='va'>data</span> <span class='op'>|&gt;</span> </span>
-<span>        <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>bin_temp</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>bin_interest</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>        <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>temp</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>        <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span>na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>      var_u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>u</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>      var_temp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>temp</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
 <span>      var_prod <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>prod</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
 <span>    <span class='op'>)</span></span>
 <span><span class='op'>}</span></span></code></pre>
@@ -3010,16 +3010,17 @@ Show code to make the graphs
 </div>
 <p>Here is an example of an output of this function:</p>
 <div class="layout-chunk" data-layout="l-body">
-<table>
+<table style="width:100%;">
 <colgroup>
-<col style="width: 19%" />
-<col style="width: 12%" />
+<col style="width: 18%" />
 <col style="width: 11%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 7%" />
-<col style="width: 13%" />
+<col style="width: 10%" />
 <col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 6%" />
+<col style="width: 9%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -3029,7 +3030,8 @@ Show code to make the graphs
 <th style="text-align: right;">statistic</th>
 <th style="text-align: right;">p_value</th>
 <th style="text-align: left;">model</th>
-<th style="text-align: right;">var_in_bin</th>
+<th style="text-align: right;">var_u</th>
+<th style="text-align: right;">var_temp</th>
 <th style="text-align: right;">var_prod</th>
 </tr>
 </thead>
@@ -3041,7 +3043,8 @@ Show code to make the graphs
 <td style="text-align: right;">-1.622172</td>
 <td style="text-align: right;">0.1093274</td>
 <td style="text-align: left;">fe</td>
-<td style="text-align: right;">0.4053075</td>
+<td style="text-align: right;">1767.41</td>
+<td style="text-align: right;">72.62306</td>
 <td style="text-align: right;">2519.402</td>
 </tr>
 <tr class="even">
@@ -3051,7 +3054,8 @@ Show code to make the graphs
 <td style="text-align: right;">-4.611552</td>
 <td style="text-align: right;">0.0000178</td>
 <td style="text-align: left;">no_fe</td>
-<td style="text-align: right;">0.4053075</td>
+<td style="text-align: right;">1767.41</td>
+<td style="text-align: right;">72.62306</td>
 <td style="text-align: right;">2519.402</td>
 </tr>
 </tbody>
@@ -3099,7 +3103,10 @@ p_value
 model
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-var_in_bin
+var_u
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+var_temp
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 var_prod
@@ -3166,7 +3173,10 @@ bin_temp(29,31]
 fe
 </td>
 <td style="text-align:right;">
-0.2729781
+1759.949
+</td>
+<td style="text-align:right;">
+60.56018
 </td>
 <td style="text-align:right;">
 2270.595
@@ -3231,7 +3241,10 @@ bin_temp(29,31]
 no_fe
 </td>
 <td style="text-align:right;">
-0.2729781
+1759.949
+</td>
+<td style="text-align:right;">
+60.56018
 </td>
 <td style="text-align:right;">
 2270.595
@@ -3297,7 +3310,9 @@ no_fe
 <p>I then run the simulations by looping our <code>compute_sim_fe</code> function on <code>param_fe</code> using the <code>purrr</code> package (<code>pmap</code> function).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_fe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/pmap.html'>pmap</a></span><span class='op'>(</span><span class='va'>param_fe</span>, <span class='va'>compute_sim_fe</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>future</span><span class='fu'>::</span><span class='fu'><a href='https://future.futureverse.org/reference/plan.html'>plan</a></span><span class='op'>(</span><span class='va'>multisession</span>, workers <span class='op'>=</span> <span class='fu'><a href='https://parallelly.futureverse.org/reference/availableCores.html'>availableCores</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>sim_fe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://furrr.futureverse.org/reference/future_map2.html'>future_pmap</a></span><span class='op'>(</span><span class='va'>param_fe</span>, <span class='va'>compute_sim_fe</span>, .progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://purrr.tidyverse.org/reference/list_c.html'>list_rbind</a></span><span class='op'>(</span>names_to <span class='op'>=</span> <span class='st'>"sim_id"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='op'>)</span> </span>
 <span></span>
@@ -3377,7 +3392,7 @@ Show code
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summary_sim_fe</span> <span class='op'>&lt;-</span> <span class='va'>sim_fe</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>prop_fe_var <span class='op'>=</span> <span class='va'>gamma</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>/</span><span class='va'>sigma_temp</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'>summarise_sim</span><span class='op'>(</span> </span>
-<span>    varying_params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>prop_fe_var</span>, <span class='va'>model</span><span class='op'>)</span>, </span>
+<span>    varying_params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>prop_fe_var</span>, <span class='va'>model</span>, <span class='va'>gamma</span><span class='op'>)</span>, </span>
 <span>    true_effect <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>beta_1</span><span class='op'>)</span></span>
 <span>  <span class='op'>)</span></span>
 <span></span>
@@ -3385,7 +3400,7 @@ Show code
 </div>
 </div>
 <h3 id="main-graph">Main graph</h3>
-<p>I then build the main graph of this analysis, describing</p>
+<p>I then build the main graph of this analysis, describing the evolution of exaggeration with the proportion of the variance in temperature explained by the period fixed-effects.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -3401,23 +3416,24 @@ Show the code used to generate the graph
 <span>  <span class='fu'><a href='https://vincentbagilet.github.io/mediocrethemes/reference/scale_mediocre_d.html'>scale_mediocre_d</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/pretty_breaks.html'>pretty_breaks</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
-<span>    x <span class='op'>=</span> <span class='st'>"Proportion of the variance in X explained by the FEs"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Proportion of the variance in temperature explained by the FEs"</span>,</span>
 <span>    y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Average  "</span>, <span class='fu'>frac</span><span class='op'>(</span><span class='st'>"|Estimate|"</span>, <span class='st'>"|True Effect|"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,</span>
 <span>    color <span class='op'>=</span> <span class='st'>"Model"</span></span>
 <span>  <span class='op'>)</span> </span>
 <span></span>
 <span><span class='va'>main_graph</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
-<span>    title <span class='op'>=</span> <span class='st'>"Evolution of bias with the correlation between X and FEs"</span>,</span>
+<span>    title <span class='op'>=</span> <span class='st'>"Evolution of bias with the correlation between temperature and FEs"</span>,</span>
 <span>    subtitle <span class='op'>=</span> <span class='st'>"For statistically significant estimates, 1000 simulations"</span>,</span>
 <span>  <span class='op'>)</span> </span></code></pre>
 </div>
 </details>
 <p><img src="images/FE/main_graph_fe-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
+<p>Importantly, note that the explanatory variable of interest in the regression is not the temperature itself the but a dummy equal to one iff the temperature falls into the bin of interest (29, 31]. As a consequence, the fact that variation in temperature are mostly explained by FEs does not mean that it is also the case for our dependent variable of interest.</p>
 <h2 id="further-checks">Further checks</h2>
 <h3 id="variance-of-the-variables">Variance of the variables</h3>
-<p>I quickly check that the variance of the dependent and independent variables do not vary with gamma:</p>
+<p>I quickly check that the variance of the temperature, production and of the residuals do not vary with gamma:</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -3427,11 +3443,12 @@ Show code
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sim_fe</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>gamma</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span></span>
-<span>    var_in_bin <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>var_in_bin</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
-<span>    var_prod <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>var_prod</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
-<span>  <span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    var_temp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>var_temp</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>    var_prod <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>var_prod</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>    var_u <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>var_u</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span><span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span></span>
-<span>    col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Gamma"</span>, <span class='st'>"Variance Temperature (in bin)"</span>, <span class='st'>"Variance Produciton"</span><span class='op'>)</span>,</span>
+<span>    col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Gamma"</span>, <span class='st'>"Variance Temperature"</span>, <span class='st'>"Variance Production"</span>, <span class='st'>"Variance of u"</span><span class='op'>)</span>,</span>
 <span>    digits <span class='op'>=</span> <span class='fl'>2</span></span>
 <span>  <span class='op'>)</span></span></code></pre>
 </div>
@@ -3440,58 +3457,183 @@ Show code
 <thead>
 <tr class="header">
 <th style="text-align: right;">Gamma</th>
-<th style="text-align: right;">Variance Temperature (in bin)</th>
-<th style="text-align: right;">Variance Produciton</th>
+<th style="text-align: right;">Variance Temperature</th>
+<th style="text-align: right;">Variance Production</th>
+<th style="text-align: right;">Variance of u</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">6.0</td>
-<td style="text-align: right;">0.32</td>
-<td style="text-align: right;">2367.68</td>
+<td style="text-align: right;">79.57</td>
+<td style="text-align: right;">2359.32</td>
+<td style="text-align: right;">1743.99</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">7.0</td>
-<td style="text-align: right;">0.32</td>
-<td style="text-align: right;">2369.99</td>
+<td style="text-align: right;">79.04</td>
+<td style="text-align: right;">2360.32</td>
+<td style="text-align: right;">1745.81</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">8.0</td>
-<td style="text-align: right;">0.32</td>
-<td style="text-align: right;">2364.01</td>
+<td style="text-align: right;">77.40</td>
+<td style="text-align: right;">2366.75</td>
+<td style="text-align: right;">1746.50</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">8.2</td>
-<td style="text-align: right;">0.32</td>
-<td style="text-align: right;">2373.17</td>
+<td style="text-align: right;">78.44</td>
+<td style="text-align: right;">2364.42</td>
+<td style="text-align: right;">1747.14</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">8.4</td>
-<td style="text-align: right;">0.32</td>
-<td style="text-align: right;">2369.88</td>
+<td style="text-align: right;">77.88</td>
+<td style="text-align: right;">2365.08</td>
+<td style="text-align: right;">1747.21</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">8.6</td>
-<td style="text-align: right;">0.32</td>
-<td style="text-align: right;">2371.78</td>
+<td style="text-align: right;">77.89</td>
+<td style="text-align: right;">2370.93</td>
+<td style="text-align: right;">1746.96</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">8.8</td>
-<td style="text-align: right;">0.31</td>
-<td style="text-align: right;">2367.77</td>
+<td style="text-align: right;">78.24</td>
+<td style="text-align: right;">2372.76</td>
+<td style="text-align: right;">1747.27</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">8.9</td>
-<td style="text-align: right;">0.32</td>
-<td style="text-align: right;">2367.72</td>
+<td style="text-align: right;">78.20</td>
+<td style="text-align: right;">2369.56</td>
+<td style="text-align: right;">1746.84</td>
 </tr>
 </tbody>
 </table>
 </div>
-<h3 id="representativeness-of-the-estimation">Representativeness of the estimation</h3>
-<p>I calibrated the simulations to emulate a typical study from this literature. To further check that the results are realistic, I compare the average Signal-to-Noise Ratio (SNR) of the simulations to the range of SNR of an existing study.</p>
-<p>In <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span>, the SNR (in table 2) varies between 0.17 and 3.75. In <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span>, in table 2, 3, 5 and A4, the SNR for the estimates of interest varies between 0.5 and 4 (and actually even 0.03 for South Asia in the heterogenity analysis). <span class="citation" data-cites="stevens_temperature_2017">Stevens (<a href="#ref-stevens_temperature_2017" role="doc-biblioref">2017</a>)</span> report SNR varying between 0.5 and 2.5 (in table 2).</p>
-<p>The SNR for the FE model in my simulations are as follow:</p>
+<h3 id="magnitude-of-exaggeration">Magnitude of exaggeration</h3>
+<p>To be able to determine where an actual setting could fall on the graph above, I quickly explore the proportion of the variation in temperature coming from within vs between month variation for some example cities.</p>
+<p>I implement the decomposition by regressing wet bulb temperature on month fixed effects and computing the variance of the predicted values and residuals.</p>
+<p>For New York and San Diego, I use the data introduced above. I also implement this decomposition for the Indian capital, New Delhi, as <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span> focuses on this country. I did not hand-picked the city, just focused on the capital; one could probably identify cities that display more between-months variation. The data comes from <span class="citation" data-cites="dong_gsdmwbt_2022">Dong et al. (<a href="#ref-dong_gsdmwbt_2022" role="doc-biblioref">2022</a>)</span> and can be accessed <a href="https://zenodo.org/records/7014332">here</a>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Using the same data, I computed the same analysis for all weather stations and find, at the top of the distribution, stations for which about 94% of the variation in wet bulb temperature is explained by between months variation.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>decompose_var</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>indep_var</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>reg</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://lrberge.github.io/fixest/reference/feols.html'>feols</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/formula.html'>as.formula</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>indep_var</span>, <span class='st'>"~ -1 | period"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> </span>
+<span></span>
+<span>  <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span></span>
+<span>    var_between <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>reg</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    var_within  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>resid</a></span><span class='op'>(</span><span class='va'>reg</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    var_total   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>[[</span><span class='va'>indep_var</span><span class='op'>]</span><span class='op'>]</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span>    share_between <span class='op'>=</span> <span class='va'>var_between</span> <span class='op'>/</span> <span class='va'>var_total</span>,</span>
+<span>    share_within  <span class='op'>=</span> <span class='va'>var_within</span>  <span class='op'>/</span> <span class='va'>var_total</span></span>
+<span>  <span class='op'>)</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='co'>#share of temp explained by FEs</span></span>
+<span><span class='va'>temp_data_ex</span> <span class='op'>&lt;-</span> <span class='va'>small_temp_data</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    in_bin <span class='op'>=</span> <span class='op'>(</span><span class='va'>wbg_tmax_c</span> <span class='op'>&gt;</span> <span class='fl'>29</span> <span class='op'>&amp;</span> <span class='va'>wbg_tmax_c</span> <span class='op'>&lt;=</span> <span class='fl'>31</span><span class='op'>)</span>,</span>
+<span>    period <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='st'>"month"</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> </span>
+<span></span>
+<span><span class='co'># New York</span></span>
+<span><span class='va'>decomp_ny</span> <span class='op'>&lt;-</span> <span class='va'>temp_data_ex</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>county_name</span> <span class='op'>==</span> <span class='st'>"New York"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'>decompose_var</span><span class='op'>(</span><span class='st'>"wbg_tmax_c"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>region <span class='op'>=</span> <span class='st'>"New York"</span>, .before <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'>#San Diego</span></span>
+<span><span class='va'>decomp_sd</span> <span class='op'>&lt;-</span> <span class='va'>temp_data_ex</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>county_name</span> <span class='op'>==</span> <span class='st'>"San Diego"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'>decompose_var</span><span class='op'>(</span><span class='st'>"wbg_tmax_c"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>region <span class='op'>=</span> <span class='st'>"San Diego"</span>, .before <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'>#New Delhi</span></span>
+<span><span class='va'>nc_newdelhi</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/ncdf4/man/nc_open.html'>nc_open</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"temp"</span>, <span class='st'>"GSDM-WBT_421820-99999_19810101-20201231.nc"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>nc_newdelhi</span><span class='op'>$</span><span class='va'>var</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<pre><code>[1] &quot;WBT&quot;  &quot;flag&quot;</code></pre>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>nc_newdelhi</span><span class='op'>$</span><span class='va'>dim</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<pre><code>[1] &quot;time&quot;</code></pre>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>wbt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ncdf4/man/ncvar_get.html'>ncvar_get</a></span><span class='op'>(</span><span class='va'>nc_newdelhi</span>, <span class='st'>"WBT"</span><span class='op'>)</span></span>
+<span><span class='va'>measure_time</span> <span class='op'>&lt;-</span> <span class='va'>nc_newdelhi</span><span class='op'>$</span><span class='va'>dim</span><span class='op'>$</span><span class='va'>time</span><span class='op'>$</span><span class='va'>vals</span></span>
+<span><span class='va'>measure_date</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span><span class='op'>(</span><span class='va'>measure_time</span>, origin <span class='op'>=</span> <span class='st'>"1981-01-01"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>temp_delhi</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>date <span class='op'>=</span> <span class='va'>measure_date</span>, <span class='va'>wbt</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    period <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></span><span class='op'>(</span><span class='va'>date</span>, unit <span class='op'>=</span> <span class='st'>"month"</span><span class='op'>)</span>,</span>
+<span>    wbt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>wbt</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>decomp_delhi</span> <span class='op'>&lt;-</span> <span class='fu'>decompose_var</span><span class='op'>(</span><span class='va'>temp_delhi</span>, <span class='st'>"wbt"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>region <span class='op'>=</span> <span class='st'>"New Delhi"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind_rows.html'>bind_rows</a></span><span class='op'>(</span><span class='va'>decomp_sd</span>, <span class='va'>decomp_ny</span>, <span class='va'>decomp_delhi</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>region</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"share"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span></span>
+<span>    col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span>      <span class='st'>"Region"</span>, </span>
+<span>      <span class='st'>"Between-months variation (share)"</span>,</span>
+<span>      <span class='st'>"Within-month variation (share)"</span></span>
+<span>    <span class='op'>)</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 44%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Region</th>
+<th style="text-align: right;">Between-months variation (share)</th>
+<th style="text-align: right;">Within-month variation (share)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">San Diego</td>
+<td style="text-align: right;">0.6793151</td>
+<td style="text-align: right;">0.3206849</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">0.8084893</td>
+<td style="text-align: right;">0.1915107</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">New Delhi</td>
+<td style="text-align: right;">0.8867553</td>
+<td style="text-align: right;">0.1131557</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We can now compare that to our results and see where these cities would fall:</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -3500,67 +3642,97 @@ Show code
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summary_sim_fe</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>model</span> <span class='op'>==</span> <span class='st'>"fe"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>prop_fe_var</span>, <span class='va'>median_snr</span>, <span class='va'>type_m</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>gamma</span>, <span class='va'>prop_fe_var</span>, <span class='va'>power</span>, <span class='va'>type_m</span>, <span class='va'>median_snr</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span></span>
-<span>    digits <span class='op'>=</span> <span class='fl'>2</span>,</span>
-<span>    col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>""</span>, <span class='st'>"Median SNR"</span>, <span class='st'>"Exaggeration Ratio"</span><span class='op'>)</span></span>
+<span>    col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Gamma"</span>, <span class='st'>"Between-months variation (theorical share)"</span>, <span class='st'>"Power"</span>, <span class='st'>"Exaggeration"</span>,  <span class='st'>"Median SNR"</span><span class='op'>)</span>,</span>
+<span>    digits <span class='op'>=</span> <span class='fl'>3</span></span>
 <span>  <span class='op'>)</span></span></code></pre>
 </div>
 </details>
 <table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 53%" />
+<col style="width: 8%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;"></th>
+<th style="text-align: right;">Gamma</th>
+<th style="text-align: right;">Between-months variation (theorical share)</th>
+<th style="text-align: right;">Power</th>
+<th style="text-align: right;">Exaggeration</th>
 <th style="text-align: right;">Median SNR</th>
-<th style="text-align: right;">Exaggeration Ratio</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.44</td>
-<td style="text-align: right;">3.09</td>
-<td style="text-align: right;">1.09</td>
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">0.444</td>
+<td style="text-align: right;">84.300</td>
+<td style="text-align: right;">1.086</td>
+<td style="text-align: right;">3.011</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0.60</td>
-<td style="text-align: right;">2.92</td>
-<td style="text-align: right;">1.09</td>
+<td style="text-align: right;">7.0</td>
+<td style="text-align: right;">0.605</td>
+<td style="text-align: right;">82.100</td>
+<td style="text-align: right;">1.118</td>
+<td style="text-align: right;">2.958</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">0.79</td>
-<td style="text-align: right;">2.63</td>
-<td style="text-align: right;">1.17</td>
+<td style="text-align: right;">8.0</td>
+<td style="text-align: right;">0.790</td>
+<td style="text-align: right;">71.000</td>
+<td style="text-align: right;">1.180</td>
+<td style="text-align: right;">2.596</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0.83</td>
-<td style="text-align: right;">2.40</td>
-<td style="text-align: right;">1.22</td>
+<td style="text-align: right;">8.2</td>
+<td style="text-align: right;">0.830</td>
+<td style="text-align: right;">66.500</td>
+<td style="text-align: right;">1.188</td>
+<td style="text-align: right;">2.414</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">0.87</td>
-<td style="text-align: right;">2.28</td>
-<td style="text-align: right;">1.25</td>
+<td style="text-align: right;">8.4</td>
+<td style="text-align: right;">0.871</td>
+<td style="text-align: right;">61.600</td>
+<td style="text-align: right;">1.285</td>
+<td style="text-align: right;">2.314</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0.91</td>
-<td style="text-align: right;">2.01</td>
-<td style="text-align: right;">1.41</td>
+<td style="text-align: right;">8.6</td>
+<td style="text-align: right;">0.913</td>
+<td style="text-align: right;">49.400</td>
+<td style="text-align: right;">1.415</td>
+<td style="text-align: right;">1.984</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">0.96</td>
-<td style="text-align: right;">1.43</td>
-<td style="text-align: right;">1.76</td>
+<td style="text-align: right;">8.8</td>
+<td style="text-align: right;">0.956</td>
+<td style="text-align: right;">31.231</td>
+<td style="text-align: right;">1.768</td>
+<td style="text-align: right;">1.433</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0.98</td>
-<td style="text-align: right;">1.18</td>
-<td style="text-align: right;">2.28</td>
+<td style="text-align: right;">8.9</td>
+<td style="text-align: right;">0.978</td>
+<td style="text-align: right;">17.470</td>
+<td style="text-align: right;">2.323</td>
+<td style="text-align: right;">1.099</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>My simulations therefore display SNRs that are in line with many of those observed in the literature.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>Based on this analysis, we can expect month fixed effects to lead to an exaggeration going up to 1.3. However, note that the simulations here largely simplify the reality and that the inclusion of other fixed effects, such as location ones, or controls more correlated with temperature than with productivity would further exaggerate exaggeration. This number is therefore likely a lower bound of possible exaggeration in this setting.</p>
+<p>In addition, here, the dependent variable is not the temperature per se but a dummy equal to 1 if the temperature falls into a given bin. As such, when the variance of temperature is large enough, this variance is roughly equal to 1/3, the variance of a uniform distribution over the interval (29, 31] and does not vary much with the variance of the underlying distribution when that variance is large enough. In other settings, where the dependent variable is directly correlated with the fixed effects, we may expect them to more strongly affect exaggeration.</p>
+<h3 id="representativeness-of-the-estimation">Representativeness of the estimation</h3>
+<p>I calibrated the simulations to emulate a typical study from this literature. To further check that the results are realistic, I compare the average Signal-to-Noise Ratio (SNR) of the regressions from the simulations to the range of <span class="math inline">\(t\)</span>-stat of existing studies investigating similar questions.</p>
+<p>In <span class="citation" data-cites="somanathan_impact_2021">Somanathan et al. (<a href="#ref-somanathan_impact_2021" role="doc-biblioref">2021</a>)</span>, the <span class="math inline">\(t\)</span>-stats (in table 2) varies between 0.17 and 3.75. In <span class="citation" data-cites="lopalo_temperature_2023">LoPalo (<a href="#ref-lopalo_temperature_2023" role="doc-biblioref">2023</a>)</span>, in table 2, 3, 5 and A4, the <span class="math inline">\(t\)</span>-stats for the estimates of interest varies between 0.5 and 4 (and actually even 0.03 for South Asia in the heterogenity analysis). <span class="citation" data-cites="stevens_temperature_2017">Stevens (<a href="#ref-stevens_temperature_2017" role="doc-biblioref">2017</a>)</span> report <span class="math inline">\(t\)</span>-stats varying between 0.5 and 2.5 (in table 2).</p>
+<p>As shown in the previous table, I find SNRs in a similar range and corresponding to substantial exaggeration ratios.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-burke_game_2023" class="csl-entry" role="listitem">
 Burke, Marshall, Vincent Tanutama, Sam Heft-Neal, Miyuki Hino, and David Lobell. 2023. <span>“Game, <span>Sweat</span>, <span>Match</span>: <span>Temperature</span> and <span>Elite Worker Productivity</span>.”</span> Working {{Paper}}. Working <span>Paper Series</span>. National Bureau of Economic Research. <a href="https://doi.org/10.3386/w31650">https://doi.org/10.3386/w31650</a>.
@@ -3573,6 +3745,9 @@ Cai, Xiqian, Yi Lu, and Jin Wang. 2018. <span>“The Impact of Temperature on Ma
 </div>
 <div id="ref-chen_temperature_2019" class="csl-entry" role="listitem">
 Chen, Xiaoguang, and Lu Yang. 2019. <span>“Temperature and Industrial Output: <span class="nocase">Firm-level</span> Evidence from <span>China</span>.”</span> <em>Journal of Environmental Economics and Management</em> 95 (May): 257–74. <a href="https://doi.org/10.1016/j.jeem.2017.07.009">https://doi.org/10.1016/j.jeem.2017.07.009</a>.
+</div>
+<div id="ref-dong_gsdmwbt_2022" class="csl-entry" role="listitem">
+Dong, Jianquan, Stefan Brönnimann, Tao Hu, Yanxu Liu, and Jian Peng. 2022. <span>“<span>GSDM-WBT</span>: Global Station-Based Daily Maximum Wet-Bulb Temperature Data for 1981–2020.”</span> <em>Earth System Science Data</em> 14 (12): 5651–64. <a href="https://doi.org/10.5194/essd-14-5651-2022">https://doi.org/10.5194/essd-14-5651-2022</a>.
 </div>
 <div id="ref-hsiang_temperatures_2010" class="csl-entry" role="listitem">
 Hsiang, Solomon M. 2010. <span>“Temperatures and Cyclones Strongly Associated with Economic Production in the <span>Caribbean</span> and <span>Central America</span>.”</span> <em>Proceedings of the National Academy of Sciences</em> 107 (35): 15367–72. <a href="https://doi.org/10.1073/pnas.1009510107">https://doi.org/10.1073/pnas.1009510107</a>.
@@ -3603,6 +3778,8 @@ Zhang, Peng, Olivier Deschenes, Kyle Meng, and Junjie Zhang. 2018. <span>“Temp
 <hr />
 <ol>
 <li id="fn1"><p>Month-to-month variation is probably even more limited in other countries and settings.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The New Delhi weather station is from the Safdarjung Airport on and has id 421820-99999.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>These stations are located in Iakoutia, Siberia, <em>eg</em> station 246560<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->

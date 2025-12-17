@@ -2875,7 +2875,7 @@ Show code to wrangle the data
 <span>  fips <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"36061"</span>, <span class='st'>"06073"</span><span class='op'>)</span></span>
 <span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>temp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"temp"</span>, <span class='st'>"temp_data.Rds"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span><span class='va'>temp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"inputs"</span>, <span class='st'>"FE_temperature"</span>, <span class='st'>"temp_data.Rds"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'>janitor</span><span class='fu'>::</span><span class='fu'><a href='https://sfirke.github.io/janitor/reference/clean_names.html'>clean_names</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='co'># filter(year &gt; 2015) |&gt;</span></span>
@@ -3558,7 +3558,7 @@ Show code
 <span></span>
 <span><span class='co'>#New Delhi</span></span>
 <span><span class='va'>nc_newdelhi</span> <span class='op'>&lt;-</span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ncdf4/man/nc_open.html'>nc_open</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"temp"</span>, <span class='st'>"GSDM-WBT_421820-99999_19810101-20201231.nc"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/ncdf4/man/nc_open.html'>nc_open</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org/reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"inputs"</span>, <span class='st'>"FE_temperature"</span>, <span class='st'>"GSDM-WBT_421820-99999_19810101-20201231.nc"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>nc_newdelhi</span><span class='op'>$</span><span class='va'>var</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>

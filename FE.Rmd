@@ -380,7 +380,7 @@ fips_interest <- tibble(
   fips = c("36061", "06073")
 )
 
-temp_data <- readRDS(here("data", "temp", "temp_data.Rds")) |> 
+temp_data <- readRDS(here("inputs", "FE_temperature", "temp_data.Rds")) |> 
   as_tibble() |> 
   janitor::clean_names() |> 
   # filter(year > 2015) |>
@@ -735,7 +735,7 @@ decomp_sd <- temp_data_ex |>
 
 #New Delhi
 nc_newdelhi <- 
-  nc_open(here("data", "temp", "GSDM-WBT_421820-99999_19810101-20201231.nc"))
+  nc_open(here("inputs", "FE_temperature", "GSDM-WBT_421820-99999_19810101-20201231.nc"))
 names(nc_newdelhi$var)
 names(nc_newdelhi$dim)
 wbt <- ncvar_get(nc_newdelhi, "WBT")

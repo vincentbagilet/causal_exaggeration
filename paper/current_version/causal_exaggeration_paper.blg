@@ -1,0 +1,54 @@
+This is BibTeX, Version 0.99d (TeX Live 2023)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: causal_exaggeration_paper.aux
+The style file: aea.bst
+A level-1 auxiliary file: bu.aux
+Database file #1: ../causal_exaggeration.bib
+Warning--empty journal in bagilet_accurate_2023
+Warning--empty journal in bryan_jennybc_2017
+Warning--empty journal in gelman_garden_2013
+Warning--empty publisher in hernan_causal_2020
+Warning--empty journal in stevens_temperature_2017
+Warning--empty journal in vu_standard_2025
+You've used 74 entries,
+            2695 wiz_defined-function locations,
+            1020 strings with 18237 characters,
+and the built_in function-call counts, 477876 in all, are:
+= -- 80095
+> -- 5282
+< -- 2
++ -- 38987
+- -- 1662
+* -- 43057
+:= -- 92908
+add.period$ -- 515
+call.type$ -- 74
+change.case$ -- 962
+chr.to.int$ -- 74
+cite$ -- 80
+duplicate$ -- 1095
+empty$ -- 2987
+format.name$ -- 1698
+if$ -- 85928
+int.to.chr$ -- 5
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 229
+num.names$ -- 816
+pop$ -- 81
+preamble$ -- 1
+purify$ -- 1110
+quote$ -- 0
+skip$ -- 933
+stack$ -- 0
+substring$ -- 115307
+swap$ -- 448
+text.length$ -- 1038
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 278
+warning$ -- 6
+while$ -- 1848
+width$ -- 0
+write$ -- 370
+(There were 6 warnings)

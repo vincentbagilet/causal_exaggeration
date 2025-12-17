@@ -195,7 +195,7 @@ For clarity, I further assume that $\delta$ is negative to get an upward bias, w
 # I retrieve data for Gomez from here:
 #https://myweb.fsu.edu/bgomez/research.html
 library(readr)
-gomez <- read_csv(here("data", "vote", "Weather_publicfile.csv")) |> 
+gomez <- read_csv(here("inputs", "IV_vote", "Weather_publicfile.csv")) |> 
   janitor::clean_names() |>
   mutate(log_income = log(adj_income))
 
@@ -695,7 +695,7 @@ For SNRs of the order of magnitude of the $t$-stats observed in the literature, 
 # I retrieve data for Hansford and Gomez (2010) from here:
 #https://myweb.fsu.edu/bgomez/research.html
 library(readr)
-hansford <- read_csv(here("data", "vote", "HansfordGomez_data.csv"))
+hansford <- read_csv(here("inputs", "IV_vote", "HansfordGomez_data.csv"))
 
 #replication
 feols(

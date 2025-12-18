@@ -10,45 +10,45 @@ Warning--empty journal in gelman_garden_2013
 Warning--empty publisher in hernan_causal_2020
 Warning--empty journal in stevens_temperature_2017
 Warning--empty journal in vu_standard_2025
-You've used 74 entries,
+You've used 76 entries,
             2695 wiz_defined-function locations,
-            1020 strings with 18237 characters,
-and the built_in function-call counts, 477876 in all, are:
-= -- 80095
-> -- 5282
+            1033 strings with 18596 characters,
+and the built_in function-call counts, 486420 in all, are:
+= -- 81493
+> -- 5380
 < -- 2
-+ -- 38987
-- -- 1662
-* -- 43057
-:= -- 92908
-add.period$ -- 515
-call.type$ -- 74
-change.case$ -- 962
-chr.to.int$ -- 74
-cite$ -- 80
-duplicate$ -- 1095
-empty$ -- 2987
-format.name$ -- 1698
-if$ -- 85928
++ -- 39643
+- -- 1692
+* -- 43815
+:= -- 94616
+add.period$ -- 529
+call.type$ -- 76
+change.case$ -- 988
+chr.to.int$ -- 76
+cite$ -- 82
+duplicate$ -- 1125
+empty$ -- 3071
+format.name$ -- 1728
+if$ -- 87454
 int.to.chr$ -- 5
 int.to.str$ -- 0
 missing$ -- 0
-newline$ -- 229
-num.names$ -- 816
-pop$ -- 81
+newline$ -- 235
+num.names$ -- 838
+pop$ -- 83
 preamble$ -- 1
-purify$ -- 1110
+purify$ -- 1140
 quote$ -- 0
-skip$ -- 933
+skip$ -- 957
 stack$ -- 0
-substring$ -- 115307
-swap$ -- 448
-text.length$ -- 1038
+substring$ -- 117293
+swap$ -- 460
+text.length$ -- 1066
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 278
+type$ -- 286
 warning$ -- 6
-while$ -- 1848
+while$ -- 1900
 width$ -- 0
-write$ -- 370
+write$ -- 380
 (There were 6 warnings)

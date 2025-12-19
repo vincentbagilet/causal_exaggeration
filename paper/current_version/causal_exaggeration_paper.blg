@@ -4,51 +4,50 @@ The top-level auxiliary file: causal_exaggeration_paper.aux
 The style file: aea.bst
 A level-1 auxiliary file: bu.aux
 Database file #1: ../causal_exaggeration.bib
+Warning--I didn't find a database entry for "bryan_jennybc_2017"
 Warning--empty journal in bagilet_accurate_2023
-Warning--empty journal in bryan_jennybc_2017
 Warning--empty journal in gelman_garden_2013
-Warning--empty publisher in hernan_causal_2020
 Warning--empty journal in stevens_temperature_2017
 Warning--empty journal in vu_standard_2025
-You've used 76 entries,
+You've used 75 entries,
             2695 wiz_defined-function locations,
-            1033 strings with 18596 characters,
-and the built_in function-call counts, 486420 in all, are:
-= -- 81493
-> -- 5380
+            1026 strings with 18416 characters,
+and the built_in function-call counts, 478630 in all, are:
+= -- 80179
+> -- 5286
 < -- 2
-+ -- 39643
-- -- 1692
-* -- 43815
-:= -- 94616
-add.period$ -- 529
-call.type$ -- 76
-change.case$ -- 988
-chr.to.int$ -- 76
-cite$ -- 82
-duplicate$ -- 1125
-empty$ -- 3071
-format.name$ -- 1728
-if$ -- 87454
++ -- 38995
+- -- 1662
+* -- 43095
+:= -- 93118
+add.period$ -- 523
+call.type$ -- 75
+change.case$ -- 975
+chr.to.int$ -- 75
+cite$ -- 79
+duplicate$ -- 1110
+empty$ -- 3041
+format.name$ -- 1698
+if$ -- 86051
 int.to.chr$ -- 5
 int.to.str$ -- 0
 missing$ -- 0
-newline$ -- 235
-num.names$ -- 838
-pop$ -- 83
+newline$ -- 232
+num.names$ -- 827
+pop$ -- 80
 preamble$ -- 1
-purify$ -- 1140
+purify$ -- 1125
 quote$ -- 0
-skip$ -- 957
+skip$ -- 950
 stack$ -- 0
-substring$ -- 117293
-swap$ -- 460
-text.length$ -- 1066
+substring$ -- 115404
+swap$ -- 453
+text.length$ -- 1052
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 286
-warning$ -- 6
-while$ -- 1900
+type$ -- 282
+warning$ -- 4
+while$ -- 1875
 width$ -- 0
-write$ -- 380
-(There were 6 warnings)
+write$ -- 376
+(There were 5 warnings)

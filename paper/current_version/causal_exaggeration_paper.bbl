@@ -24,8 +24,8 @@
 \harvarditem[Angrist \harvardand\ Pischke]{Joshua~D. Angrist \harvardand\
   J{\"o}rn-Steffen Pischke}{2009}{angrist_mostly_2009}
 {\bf Angrist, Joshua~D., and J{\"o}rn-Steffen Pischke.} 2009. {\em Mostly
-  {{Harmless Econometrics}}: {{An Empiricist}}'s {{Companion}}.} . 1 edition
-  ed., Princeton:Princeton University Press.
+  {{Harmless Econometrics}}: {{An Empiricist}}'s {{Companion}}.} . First
+  Edition ed., Princeton University Press.
 
 \harvarditem[Angrist \harvardand\ Pischke]{Joshua~D. Angrist \harvardand\
   J{\"o}rn-Steffen Pischke}{2014}{angrist_mastering_2014}
@@ -39,7 +39,7 @@
 {\bf {Arel-Bundock}, Vincent, Ryan~C. Briggs, Hristos Doucouliagos, Marco~M.
   Avi{\~n}a, and T.~D. Stanley.} 2024. ``Quantitative {{Political Science
   Research Is Greatly Underpowered}}.'' {\em The Journal of Politics},
-  000--000.
+  88(1):~36--46.
 
 \harvarditem[Aronow \harvardand\ Samii]{Peter~M. Aronow \harvardand\ Cyrus
   Samii}{2016}{aronow_does_2016}
@@ -75,11 +75,6 @@
 {\bf Brodeur, Abel, Nikolai Cook, and Anthony Heyes.} 2020. ``Methods
   {{Matter}}: P-{{Hacking}} and {{Publication Bias}} in {{Causal Analysis}} in
   {{Economics}}.'' {\em American Economic Review}, 110(11):~3634--3660.
-
-\harvarditem[Bryan, Kim \harvardand\ MacDonald]{Jennifer Bryan, Albert~Y. Kim
-  \harvardand\ Andrew MacDonald}{2017}{bryan_jennybc_2017}
-{\bf Bryan, Jennifer, Albert~Y. Kim, and Andrew MacDonald.} 2017.
-  ``Jennybc/Gapminder: V0.3.0.''
 
 \harvarditem[Camerer et~al.]{Colin~F. Camerer, Anna Dreber, Eskil Forsell,
   Teck-Hua Ho, J{\"u}rgen Huber, Magnus Johannesson, Michael Kirchler, Johan
@@ -223,7 +218,7 @@
 \harvarditem[Hern{\'a}n \harvardand\ Robins]{Miguel~A Hern{\'a}n \harvardand\
   James~M Robins}{2020}{hernan_causal_2020}
 {\bf Hern{\'a}n, Miguel~A, and James~M Robins.} 2020. {\em Causal
-  {{Inference}}: {{What If}}.} . Boca Raton: Chapman \& Hall/CRC ed.
+  {{Inference}}: {{What If}}.} Boca Raton: Chapman \& Hall/CRC.
 
 \harvarditem[Hill]{Jennifer~L. Hill}{2011}{hill_bayesian_2011}
 {\bf Hill, Jennifer~L.} 2011. ``Bayesian {{Nonparametric Modeling}} for
@@ -233,8 +228,7 @@
 \harvarditem[{Huntington-Klein}]{Nick
   {Huntington-Klein}}{2021}{huntington-klein_effect_2021}
 {\bf {Huntington-Klein}, Nick.} 2021. {\em The {{Effect}}: {{An Introduction}}
-  to {{Research Design}} and {{Causality}}.} . 1 ed., Boca Raton:{Chapman and
-  Hall/CRC}.
+  to {{Research Design}} and {{Causality}}.} Boca Raton: Chapman \& Hall/CRC.
 
 \harvarditem[Imbens \harvardand\ Kalyanaraman]{Guido Imbens \harvardand\
   Karthik Kalyanaraman}{2012}{imbens_optimal_2012}
@@ -246,7 +240,7 @@
   Rubin}{2015}{imbens_causal_2015}
 {\bf Imbens, Guido~W., and Donald~B. Rubin.} 2015. {\em Causal {{Inference}}
   for {{Statistics}}, {{Social}}, and {{Biomedical Sciences}}: {{An
-  Introduction}}.} Cambridge:Cambridge University Press.
+  Introduction}}.} Cambridge University Press.
 
 \harvarditem[Ioannidis]{John P.~A. Ioannidis}{2008}{ioannidis_why_2008}
 {\bf Ioannidis, John P.~A.} 2008. ``Why {{Most Discovered True Associations Are
@@ -278,7 +272,7 @@
   Peng Zhang}{2023}{lai_effects_2023}
 {\bf Lai, Wangyang, Yun Qiu, Qu Tang, Chen Xi, and Peng Zhang.} 2023. ``The
   {{Effects}} of {{Temperature}} on {{Labor Productivity}}.'' {\em Annual
-  Review of Resource Economics}, 15(Volume 15, 2023):~213--232.
+  Review of Resource Economics}, 15:~213--232.
 
 \harvarditem[Lal et~al.]{Apoorva Lal, Mackenzie Lockhart, Yiqing Xu
   \harvardand\ Ziwen Zu}{2024}{lalHow2024}
@@ -296,8 +290,8 @@
 
 \harvarditem[Linden]{Ariel Linden}{2019}{linden_retrodesign_2019}
 {\bf Linden, Ariel.} 2019. ``{{RETRODESIGN}}: {{Stata}} Module to Compute
-  Type-{{S}} ({{Sign}}) and Type-{{M}} ({{Magnitude}}) Errors.'' {\em Boston
-  College Department of Economics}.
+  Type-{{S}} ({{Sign}}) and Type-{{M}} ({{Magnitude}}) Errors.'' {\em
+  Statistical Software Components}.
 
 \harvarditem[LoPalo]{Melissa LoPalo}{2023}{lopalo_temperature_2023}
 {\bf LoPalo, Melissa.} 2023. ``Temperature, {{Worker Productivity}}, and
@@ -338,7 +332,7 @@
 {\bf Ravallion, Martin.} 2020. ``Should the {{Randomistas}} ({{Continue}} to)
   {{Rule}}?'' In {\em Randomized {{Control Trials}} in the {{Field}} of
   {{Development}}: {{A Critical Perspective}}}. , ed. Florent
-  B{\'e}d{\'e}carrats, Isabelle Gu{\'e}rin and Fran{\c c}ois Roubaud, 0. Oxford
+  B{\'e}d{\'e}carrats, Isabelle Gu{\'e}rin and Fran{\c c}ois Roubaud. Oxford
   University Press.
 
 \harvarditem[Romer]{David Romer}{2020}{romer_praise_2020}

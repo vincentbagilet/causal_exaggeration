@@ -182,7 +182,7 @@ For a similar increment in air pollution, \cite{shah_short_2015} and \cite{deryu
 			
 			 \begin{figure}[!h] 
                     			\begin{center}
-                    				\caption{DAG of the data generating process}
+                    				\caption{DAG of the Data Generating Process}
                     				\label{DAG}
                     				\includegraphics[width=0.6\linewidth]{images/DAG_maths.png}
                                    \caption*{\footnotesize \textit{Notes}: for clarity the error terms are represented in this graph, in beige. Model parameters are noted as edge labels.}
@@ -366,7 +366,7 @@ For a similar increment in air pollution, \cite{shah_short_2015} and \cite{deryu
         
        			 \begin{figure}[!h] 
 				\begin{center}
-					\caption{Evolution of the Bias with Bandwidth Size in Regression Discontinuity Design, Conditional on Significance}
+					\caption{Evolution of the Bias with Bandwidth Size in the Regression Discontinuity Design Simulations, Conditional on Significance}
 					\label{graph_RDD}
 					\includegraphics[width=0.8\linewidth]{images/main_graph_RDD_paper_annotated.pdf}
 		      			\caption*{\footnotesize \textit{Notes}: 1000 iterations. Significativity level: 5\%, N = 60,000. The brown lines represent the average of significant estimates. The bandwidth size is expressed as the proportion of the total number of observations in the entire sample. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_exaggeration/RDD.html}{link}.}
@@ -394,7 +394,7 @@ For a similar increment in air pollution, \cite{shah_short_2015} and \cite{deryu
         
        			 \begin{figure}[!h] 
 				\begin{center}
-					\caption{Evolution of the Bias with the Proportion of the Variance in Temperature Explained by the Fixed Effects, for Statistically Significant Estimates}
+					\caption{Evolution of the Bias of Statistically Significant Estimates with the Proportion of the Variance in Temperature Explained by the Fixed Effects, in the FE Simulations}
 					\label{graph_fe}
 					\includegraphics[width=0.8\linewidth]{images/main_graph_fe_paper_annotated.pdf}
 		      			\caption*{\footnotesize \textit{Notes}: 1000 iterations. Significativity level: 5\%, N = 49,000. The blue line indicates the average bias ratio for statistically significant estimates from the model including period FEs. The orange line represents the same quantity but for the model without the fixed effects. Details on the simulation and calibration are available at this \href{https://vincentbagilet.github.io/causal_exaggeration/FE.html}{link}.}
@@ -421,7 +421,7 @@ For a similar increment in air pollution, \cite{shah_short_2015} and \cite{deryu
         		
                     		 \begin{figure}[!h] 
                     			\begin{center}
-                    				\caption{Evolution of the Bias of Statistically Significant Estimates Against Strength of the Instrument in the IV Case}
+                    				\caption{Evolution of the Bias of Statistically Significant Estimates Against Strength of the Instrument in the IV Simulations}
                     				\label{graph_IV}
                     				\includegraphics[width=0.8\linewidth]{images/main_graph_IV_paper_annotated.pdf}
                                     \caption*{\footnotesize \textit{Notes}: 1000 iterations. Significativity level: 5\%, N = 30,000. The blue line indicates the average bias ratio for IV statistically significant estimates. The orange line represents the same quantity for the OLS. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_exaggeration/IV.html}{link}.}
@@ -447,18 +447,20 @@ For a similar increment in air pollution, \cite{shah_short_2015} and \cite{deryu
 			To illustrate this trade-off, I simulate a study of the impact of air pollution reduction on newborn weight of babies. To avoid confounding, one can exploit exogenous shocks to air pollution such as plant closures, creation of a low emission zone or of an urban toll \citep{currie_environmental_2015, lavaine_energy_2017}. I simulate a typical analysis, at the zip code and monthly levels and focus on the example of toxic plant closures. I consider that the average birth weight in zip code $z$ at time period $t$, $bw_{zt}$, depends on a zip code fixed effect $\zeta_z$, a time fixed effect $\tau_t$, and the treatment status $T_{zt}$, equal to one if a plant is closed in this period and 0 otherwise. The average birth weight in zip code $z$ at time $t$ is defined as follows: $bw_{zt} = \beta_0 + \beta_1 T_{zt} + \zeta_z + \tau_t + u_{zt}$. To further facilitate the identification of the effect, I assume a random treatment allocation across periods and zip codes as well as constant and homogenous effects. I only vary the proportion of observations affected by toxic plant closings.
 
        I derive parameters values from studies from the literature \citep{currie_environmental_2015, lavaine_energy_2017, yang_impact_2018}. The simulations mimic the design of such studies, considering a similar number of observations (100,000), distributions of variables, treatment allocation procedure and treatment effect sizes. I generate datasets with an increasing number of treated observations, varying the proportion of treated units and estimate the correct two-way fixed effects model. The simulation procedure is described in details on the \href{https://vincentbagilet.github.io/causal_exaggeration/shocks.html}{project's website}.
-        
-			\paragraph{Results.} Figure \ref{graph_shocks} displays the results of these simulations. As expected, exaggeration is larger for a smaller number of treated observations, keeping every thing else constant. Even though the actual sample size is extremely large in this example, if the number of treated observations is small, as it can be the case in this literature, exaggeration can be substantial. For instance, one of the papers in this literature displays 240 treated observations (out of 120,000), a scale that would produce in my analogous, yet conservative, simulated setting an exaggeration ratio of about 2.4. A very large number of observations does not necessarily shield us from exaggeration. 
-
-			\begin{figure}[!h] 
+       
+       			\begin{figure}[!h] 
                     			\begin{center}
-                    				\caption{Evolution of Bias With the Number of Treated Observations, for Statistically Significant Estimates, in the Exogenous Shocks Case}
+                    				\caption{Evolution of Bias With the Number of Treated Observations, for Statistically Significant Estimates, in the Exogenous Shocks Simulations}
                     				\label{graph_shocks}
                     				\includegraphics[width=0.8\linewidth]{images/main_graph_shocks_paper.pdf}
                                     \caption*{\footnotesize \textit{Notes}: 1000 iterations. Significativity level: 5\%, N = 100,000. The line indicates the average bias ratio of statistically significant estimates. Details on the simulation are available at this \href{https://vincentbagilet.github.io/causal_exaggeration/shocks.html}{link}.}
                                     \end{center}
 				\vspace{-1cm}
                     		\end{figure} 
+        
+			\paragraph{Results.} Figure \ref{graph_shocks} displays the results of these simulations. As expected, exaggeration is larger for a smaller number of treated observations, keeping every thing else constant. Even though the actual sample size is extremely large in this example, if the number of treated observations is small, as it can be the case in this literature, exaggeration can be substantial. For instance, one of the papers in this literature displays 240 treated observations (out of 120,000), a scale that would produce in my analogous, yet conservative, simulated setting an exaggeration ratio of about 2.4. A very large number of observations does not necessarily shield us from exaggeration. 
+
+			
 		
 		
 %-----------------------------------------------------------------------------
@@ -560,6 +562,7 @@ For a similar increment in air pollution, \cite{shah_short_2015} and \cite{deryu
 			
 			\begin{landscape}
 				\begin{figure}[ht]
+					\centering
 					\caption{Illustrative Visualizations and Analyses Produced with \texttt{ididvar}}
 					\label{graph_ididvar}
 					\includegraphics[height=0.9\textheight]{images/ididvar.pdf}

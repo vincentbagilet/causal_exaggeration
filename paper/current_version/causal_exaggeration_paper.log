@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.27)  18 DEC 2025 18:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.27)  19 DEC 2025 17:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1502,11 +1502,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [23 <./images/main_graph_IV_paper_annotated.pdf>]
-<images/main_graph_shocks_paper.pdf, id=859, 578.16pt x 325.215pt>
+<images/main_graph_shocks_paper.pdf, id=858, 578.16pt x 325.215pt>
 File: images/main_graph_shocks_paper.pdf Graphic file (type pdf)
 <use images/main_graph_shocks_paper.pdf>
 Package pdftex.def Info: images/main_graph_shocks_paper.pdf  used on input line
- 457.
+ 455.
 (pdftex.def)             Requested size: 400.38872pt x 225.21738pt.
 
 
@@ -1567,6 +1567,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [29]
 
+Package natbib Warning: Citation `bryan_jennybc_2017' on page 30 undefined on i
+nput line 543.
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -1584,14 +1588,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [31]
-<images/ididvar.pdf, id=1045, 1445.4pt x 1011.78pt>
+<images/ididvar.pdf, id=1042, 1445.4pt x 1011.78pt>
 File: images/ididvar.pdf Graphic file (type pdf)
 <use images/ididvar.pdf>
-Package pdftex.def Info: images/ididvar.pdf  used on input line 565.
+Package pdftex.def Info: images/ididvar.pdf  used on input line 568.
 (pdftex.def)             Requested size: 643.47667pt x 450.43253pt.
 
 
-LaTeX Warning: Float too large for page by 2.54855pt on input line 567.
+LaTeX Warning: Float too large for page by 2.54855pt on input line 570.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1640,7 +1644,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [35]
-Underfull \hbox (badness 1308) in paragraph at lines 252--254
+Underfull \hbox (badness 1308) in paragraph at lines 246--248
 []\T1/cmr/bx/n/12 Ioannidis, John P. A. \T1/cmr/m/n/12 2008. ``Why Most Dis-cov
 -ered True As-so-ci-a-tions Are In-flated.''
  []
@@ -1654,7 +1658,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [36]
-Underfull \hbox (badness 1038) in paragraph at lines 353--355
+Underfull \hbox (badness 1038) in paragraph at lines 347--349
 []\T1/cmr/bx/n/12 Rosenthal, Robert. \T1/cmr/m/n/12 1979. ``The File Drawer Pro
 b-lem and Tol-er-ance for Null Re-sults.''
  []
@@ -1679,18 +1683,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [38]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 651.
+(hyperref)                removing `math shift' on input line 654.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 651.
+(hyperref)                removing `subscript' on input line 654.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 651.
+(hyperref)                removing `math shift' on input line 654.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 662--663
+Underfull \hbox (badness 10000) in paragraph at lines 665--666
 
  []
 
@@ -1712,19 +1716,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [40]
-Underfull \hbox (badness 6412) in paragraph at lines 780--781
+Underfull \hbox (badness 6412) in paragraph at lines 783--784
 []\T1/cmr/m/n/12 Thus, un-der our set of as-sump-tions, $\U/msb/m/n/12 E\OT1/cm
 r/m/n/12 [\OML/cmm/m/it/12 u[]\OMS/cmsy/m/n/12 j[][]\OT1/cmr/m/n/12 ]$ \T1/cmr/
 m/n/12 does not de-pend on $\OML/cmm/m/it/12 x[]$ \T1/cmr/m/n/12 and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 780--781
+Underfull \hbox (badness 10000) in paragraph at lines 783--784
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 782--783
+Underfull \hbox (badness 10000) in paragraph at lines 785--786
 
  []
 
@@ -1739,35 +1743,35 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [41]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 800.
+(hyperref)                removing `math shift' on input line 803.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 800.
+(hyperref)                removing `subscript' on input line 803.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 800.
+(hyperref)                removing `math shift' on input line 803.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 831--832
+Underfull \hbox (badness 10000) in paragraph at lines 834--835
 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 854.
+(hyperref)                removing `math shift' on input line 857.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 854.
+(hyperref)                removing `subscript' on input line 857.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 854.
+(hyperref)                removing `math shift' on input line 857.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 862--863
+Underfull \hbox (badness 10000) in paragraph at lines 865--866
 
  []
 
@@ -1780,21 +1784,24 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [42]
-Overfull \hbox (23.03137pt too wide) detected at line 895
+Overfull \hbox (23.03137pt too wide) detected at line 898
  \U/msb/m/n/12 E\OT1/cmr/m/n/12 [[][][][]] = [] = [] = []
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 935.
+(hyperref)                removing `math shift' on input line 938.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 935.
+(hyperref)                removing `subscript' on input line 938.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 935.
+(hyperref)                removing `math shift' on input line 938.
+
+
+Package natbib Warning: There were undefined citations.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1813,13 +1820,13 @@ ed.
 (rerunfilecheck)             Checksum: 2641AFA8F8DD2296188DC9BC0F8273F8;7764.
  ) 
 Here is how much of TeX's memory you used:
- 22782 strings out of 476025
- 386615 string characters out of 5790016
- 1876388 words of memory out of 5000000
- 42580 multiletter control sequences out of 15000+600000
+ 22778 strings out of 476025
+ 386514 string characters out of 5790016
+ 1877388 words of memory out of 5000000
+ 42577 multiletter control sequences out of 15000+600000
  551175 words of font info for 133 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,18n,90p,2493b,740s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,18n,90p,2493b,742s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
 , replaced by a fixed one
@@ -1859,10 +1866,10 @@ mf-dist/fonts/type1/public/cm-super/sftt1200.pfb></usr/local/texlive/2023/texmf
 ist/fonts/type1/public/cm-super/sfxc1440.pfb></usr/local/texlive/2023/texmf-dis
 t/fonts/type1/public/cm-super/sfxc1728.pfb></usr/local/texlive/2023/texmf-dist/
 fonts/type1/public/cm-super/sfxc2074.pfb>
-Output written on causal_exaggeration_paper.pdf (43 pages, 3397166 bytes).
+Output written on causal_exaggeration_paper.pdf (43 pages, 3396942 bytes).
 PDF statistics:
- 1352 PDF objects out of 1440 (max. 8388607)
- 1110 compressed objects within 12 object streams
- 211 named destinations out of 1000 (max. 500000)
+ 1348 PDF objects out of 1440 (max. 8388607)
+ 1106 compressed objects within 12 object streams
+ 210 named destinations out of 1000 (max. 500000)
  321 words of extra memory for PDF output out of 10000 (max. 10000000)
 

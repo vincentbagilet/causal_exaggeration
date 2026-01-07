@@ -4,31 +4,34 @@ The top-level auxiliary file: causal_exaggeration_paper.aux
 The style file: aea.bst
 A level-1 auxiliary file: bu.aux
 Database file #1: ../causal_exaggeration.bib
+Warning--I didn't find a database entry for "ferraro_featureis_2020"
+Warning--I didn't find a database entry for ""
 Warning--I didn't find a database entry for "bryan_jennybc_2017"
+Warning--I didn't find a database entry for "simmons_false-positive_2011"
 Warning--empty journal in bagilet_accurate_2023
 Warning--empty journal in gelman_garden_2013
 Warning--empty journal in stevens_temperature_2017
 Warning--empty journal in vu_standard_2025
 You've used 75 entries,
             2695 wiz_defined-function locations,
-            1026 strings with 18416 characters,
-and the built_in function-call counts, 478630 in all, are:
-= -- 80179
-> -- 5286
+            1026 strings with 18331 characters,
+and the built_in function-call counts, 476639 in all, are:
+= -- 79840
+> -- 5256
 < -- 2
-+ -- 38995
-- -- 1662
-* -- 43095
-:= -- 93118
++ -- 38819
+- -- 1652
+* -- 42906
+:= -- 92753
 add.period$ -- 523
 call.type$ -- 75
 change.case$ -- 975
 chr.to.int$ -- 75
 cite$ -- 79
 duplicate$ -- 1110
-empty$ -- 3041
-format.name$ -- 1698
-if$ -- 86051
+empty$ -- 3038
+format.name$ -- 1688
+if$ -- 85689
 int.to.chr$ -- 5
 int.to.str$ -- 0
 missing$ -- 0
@@ -40,7 +43,7 @@ purify$ -- 1125
 quote$ -- 0
 skip$ -- 950
 stack$ -- 0
-substring$ -- 115404
+substring$ -- 114897
 swap$ -- 453
 text.length$ -- 1052
 text.prefix$ -- 0
@@ -50,4 +53,4 @@ warning$ -- 4
 while$ -- 1875
 width$ -- 0
 write$ -- 376
-(There were 5 warnings)
+(There were 8 warnings)

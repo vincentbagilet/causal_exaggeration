@@ -76,6 +76,9 @@
   {{Matter}}: P-{{Hacking}} and {{Publication Bias}} in {{Causal Analysis}} in
   {{Economics}}.'' {\em American Economic Review}, 110(11):~3634--3660.
 
+\harvarditem[Bryan]{Jennifer Bryan}{2025}{bryan_gapminder_2025}
+{\bf Bryan, Jennifer.} 2025. ``Gapminder: {{Data}} from {{Gapminder}}.''
+
 \harvarditem[Camerer et~al.]{Colin~F. Camerer, Anna Dreber, Eskil Forsell,
   Teck-Hua Ho, J{\"u}rgen Huber, Magnus Johannesson, Michael Kirchler, Johan
   Almenberg, Adam Altmejd, Taizan Chan, Emma Heikensten, Felix Holzmeister,
@@ -191,18 +194,6 @@
   {{Republicans Should Pray}} for {{Rain}}: {{Weather}}, {{Turnout}}, and
   {{Voting}} in {{U}}.{{S}}. {{Presidential Elections}}.'' {\em The Journal of
   Politics}, 69(3):~649--663.
-
-\harvarditem[Gray, Shadbegian \harvardand\ Wolverton]{Wayne~B. Gray, Ron
-  Shadbegian \harvardand\ Ann Wolverton}{2023}{gray_environmental_2023}
-{\bf Gray, Wayne~B., Ron Shadbegian, and Ann Wolverton.} 2023. ``Environmental
-  {{Regulation}} and {{Labor Demand}}: {{What Does}} the {{Evidence Tell
-  Us}}?'' {\em Annual Review of Resource Economics}, 15(1):~177--197.
-
-\harvarditem[Greenstone]{Michael Greenstone}{2002}{greenstone_impacts_2002}
-{\bf Greenstone, Michael.} 2002. ``The {{Impacts}} of {{Environmental
-  Regulations}} on {{Industrial Activity}}: {{Evidence}} from the 1970 and 1977
-  {{Clean Air Act Amendments}} and the {{Census}} of {{Manufactures}}.'' {\em
-  Journal of Political Economy}, 110(6):~1175--1219.
 
 \harvarditem[Hansford \harvardand\ Gomez]{Thomas~G. Hansford \harvardand\
   Brad~T. Gomez}{2010}{hansford_estimating_2010}
@@ -346,8 +337,8 @@
   AEA Papers and Proceedings}, 110:~55--60.
 
 \harvarditem[Rosenbaum]{Paul~R. Rosenbaum}{2002}{rosenbaum_observational_2002}
-{\bf Rosenbaum, Paul~R.} 2002. {\em Observational {{Studies}}.} {\em Springer
-  {{Series}} in {{Statistics}}}, New York, NY:Springer New York.
+{\bf Rosenbaum, Paul~R.} 2002. {\em Observational {{Studies}}.} New York,
+  NY:Springer New York.
 
 \harvarditem[Rosenthal]{Robert Rosenthal}{1979}{rosenthal_file_1979}
 {\bf Rosenthal, Robert.} 1979. ``The File Drawer Problem and Tolerance for Null
@@ -373,6 +364,13 @@
   Harish Nair, William Whiteley, Jeremy~P. Langrish, David~E. Newby, and
   Nicholas~L. Mills.} 2015. ``Short Term Exposure to Air Pollution and Stroke:
   Systematic Review and Meta-Analysis.'' {\em BMJ}, 350:~h1295.
+
+\harvarditem[Simmons, Nelson \harvardand\ Simonsohn]{Joseph~P. Simmons, Leif~D.
+  Nelson \harvardand\ Uri Simonsohn}{2011}{simmons_falsepositive_2011}
+{\bf Simmons, Joseph~P., Leif~D. Nelson, and Uri Simonsohn.} 2011.
+  ``False-{{Positive Psychology}}: {{Undisclosed Flexibility}} in {{Data
+  Collection}} and {{Analysis Allows Presenting Anything}} as
+  {{Significant}}.'' {\em Psychological Science}, 22(11):~1359--1366.
 
 \harvarditem[Somanathan et~al.]{E. Somanathan, Rohini Somanathan, Anant
   Sudarshan \harvardand\ Meenu Tewari}{2021}{somanathan_impact_2021}
@@ -412,11 +410,6 @@
 \harvarditem[Vu]{Patrick Vu}{2025}{vu_standard_2025}
 {\bf Vu, Patrick.} 2025. ``Do {{Standard Error Corrections Exacerbate
   Publication Bias}}?''
-
-\harvarditem[Walker]{W.~Reed Walker}{2011}{walker_environmental_2011}
-{\bf Walker, W.~Reed.} 2011. ``Environmental {{Regulation}} and {{Labor
-  Reallocation}}: {{Evidence}} from the {{Clean Air Act}}.'' {\em The American
-  Economic Review}, 101(3):~442--447.
 
 \harvarditem[Yang \harvardand\ Chou]{Muzhe Yang \harvardand\ Shin-Yi
   Chou}{2018}{yang_impact_2018}

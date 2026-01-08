@@ -1,444 +1,428 @@
-
-
-% Bibstyle aea.bst version 2009.05.20
-
-\begin{thebibliography}{xx}
-
-\harvarditem[Abadie]{Alberto Abadie}{2020}{abadie_statistical_2020}
-{\bf Abadie, Alberto.} 2020. ``Statistical {{Nonsignificance}} in {{Empirical
-  Economics}}.'' {\em American Economic Review: Insights}, 2(2):~193--208.
-
-\harvarditem[Amrhein, Trafimow \harvardand\ Greenland]{Valentin Amrhein, David
-  Trafimow \harvardand\ Sander Greenland}{2019}{amrhein_inferential_2019}
-{\bf Amrhein, Valentin, David Trafimow, and Sander Greenland.} 2019.
-  ``Inferential {{Statistics}} as {{Descriptive Statistics}}: {{There Is No
-  Replication Crisis}} If {{We Don}}'t {{Expect Replication}}.'' {\em The
-  American Statistician}, 73(sup1):~262--270.
-
-\harvarditem[Andrews \harvardand\ Kasy]{Isaiah Andrews \harvardand\ Maximilian
-  Kasy}{2019}{andrews_identification_2019}
-{\bf Andrews, Isaiah, and Maximilian Kasy.} 2019. ``Identification of and
-  {{Correction}} for {{Publication Bias}}.'' {\em American Economic Review},
-  109(8):~2766--2794.
-
-\harvarditem[Angrist \harvardand\ Pischke]{Joshua~D. Angrist \harvardand\
-  J{\"o}rn-Steffen Pischke}{2009}{angrist_mostly_2009}
-{\bf Angrist, Joshua~D., and J{\"o}rn-Steffen Pischke.} 2009. {\em Mostly
-  {{Harmless Econometrics}}: {{An Empiricist}}'s {{Companion}}.} . First
-  Edition ed., Princeton University Press.
-
-\harvarditem[Angrist \harvardand\ Pischke]{Joshua~D. Angrist \harvardand\
-  J{\"o}rn-Steffen Pischke}{2014}{angrist_mastering_2014}
-{\bf Angrist, Joshua~D., and J{\"o}rn-Steffen Pischke.} 2014. {\em Mastering
-  '{{Metrics}}: {{The Path}} from {{Cause}} to {{Effect}}.} Princeton
-  University Press.
-
-\harvarditem[{Arel-Bundock} et~al.]{Vincent {Arel-Bundock}, Ryan~C. Briggs,
-  Hristos Doucouliagos, Marco~M. Avi{\~n}a \harvardand\ T.~D.
-  Stanley}{2024}{arel-bundock_quantitative_2024}
-{\bf {Arel-Bundock}, Vincent, Ryan~C. Briggs, Hristos Doucouliagos, Marco~M.
-  Avi{\~n}a, and T.~D. Stanley.} 2024. ``Quantitative {{Political Science
-  Research Is Greatly Underpowered}}.'' {\em The Journal of Politics},
-  88(1):~36--46.
-
-\harvarditem[Aronow \harvardand\ Samii]{Peter~M. Aronow \harvardand\ Cyrus
-  Samii}{2016}{aronow_does_2016}
-{\bf Aronow, Peter~M., and Cyrus Samii.} 2016. ``Does {{Regression Produce
-  Representative Estimates}} of {{Causal Effects}}?'' {\em American Journal of
-  Political Science}, 60(1):~250--267.
-
-\harvarditem[Athey \harvardand\ Imbens]{Susan Athey \harvardand\ Guido
-  Imbens}{2017}{athey_econometrics_2017}
-{\bf Athey, Susan, and Guido Imbens.} 2017. ``The {{Econometrics}} of
-  {{Randomized Experiments}}.'' In {\em Handbook of {{Economic Field
-  Experiments}}}. Vol.~1, 73--140. North-Holland.
-
-\harvarditem[Bagilet]{Vincent Bagilet}{2023}{bagilet_accurate_2023}
-{\bf Bagilet, Vincent.} 2023. ``Accurate {{Estimation}} of {{Small Effects}}:
-  {{Illustration Through Air Pollution}} and {{Health}}.''
-
-\harvarditem[Black et~al.]{Bernard Black, Alex Hollingsworth, Let{\'i}cia Nunes
-  \harvardand\ Kosali Simon}{2022}{black_simulated_2022}
-{\bf Black, Bernard, Alex Hollingsworth, Let{\'i}cia Nunes, and Kosali Simon.}
-  2022. ``Simulated Power Analyses for Observational Studies: {{An}}
-  Application to the {{Affordable Care Act Medicaid}} Expansion.'' {\em Journal
-  of Public Economics}, 213:~104713.
-
-\harvarditem[Brodeur et~al.]{Abel Brodeur, Mathias L{\'e}, Marc Sangnier
-  \harvardand\ Yanos Zylberberg}{2016}{brodeur_star_2016}
-{\bf Brodeur, Abel, Mathias L{\'e}, Marc Sangnier, and Yanos Zylberberg.} 2016.
-  ``Star {{Wars}}: {{The Empirics Strike Back}}.'' {\em American Economic
-  Journal: Applied Economics}, 8(1):~1--32.
-
-\harvarditem[Brodeur, Cook \harvardand\ Heyes]{Abel Brodeur, Nikolai Cook
-  \harvardand\ Anthony Heyes}{2020}{brodeur_methods_2020}
-{\bf Brodeur, Abel, Nikolai Cook, and Anthony Heyes.} 2020. ``Methods
-  {{Matter}}: P-{{Hacking}} and {{Publication Bias}} in {{Causal Analysis}} in
-  {{Economics}}.'' {\em American Economic Review}, 110(11):~3634--3660.
-
-\harvarditem[Bryan]{Jennifer Bryan}{2025}{bryan_gapminder_2025}
-{\bf Bryan, Jennifer.} 2025. ``Gapminder: {{Data}} from {{Gapminder}}.''
-
-\harvarditem[Camerer et~al.]{Colin~F. Camerer, Anna Dreber, Eskil Forsell,
-  Teck-Hua Ho, J{\"u}rgen Huber, Magnus Johannesson, Michael Kirchler, Johan
-  Almenberg, Adam Altmejd, Taizan Chan, Emma Heikensten, Felix Holzmeister,
-  Taisuke Imai, Siri Isaksson, Gideon Nave, Thomas Pfeiffer, Michael Razen
-  \harvardand\ Hang Wu}{2016}{camerer_evaluating_2016}
-{\bf Camerer, Colin~F., Anna Dreber, Eskil Forsell, Teck-Hua Ho, J{\"u}rgen
-  Huber, Magnus Johannesson, Michael Kirchler, Johan Almenberg, Adam Altmejd,
-  Taizan Chan, Emma Heikensten, Felix Holzmeister, Taisuke Imai, Siri Isaksson,
-  Gideon Nave, Thomas Pfeiffer, Michael Razen, and Hang Wu.} 2016. ``Evaluating
-  Replicability of Laboratory Experiments in Economics.'' {\em Science},
-  351(6280):~1433--1436.
-
-\harvarditem[Card]{David Card}{1993}{card_using_1993}
-{\bf Card, David.} 1993. ``Using {{Geographic Variation}} in {{College
-  Proximity}} to {{Estimate}} the {{Return}} to {{Schooling}}.'' National
-  Bureau of Economic Research Working {{Paper}} 4483.
-
-\harvarditem[Christensen \harvardand\ Miguel]{Garret Christensen \harvardand\
-  Edward Miguel}{2018}{christensen_transparency_2018}
-{\bf Christensen, Garret, and Edward Miguel.} 2018. ``Transparency,
-  {{Reproducibility}}, and the {{Credibility}} of {{Economics Research}}.''
-  {\em Journal of Economic Literature}, 56(3):~920--980.
-
-\harvarditem[Cinelli \harvardand\ Hazlett]{Carlos Cinelli \harvardand\ Chad
-  Hazlett}{2020}{cinelli_making_2020}
-{\bf Cinelli, Carlos, and Chad Hazlett.} 2020. ``Making Sense of Sensitivity:
-  Extending Omitted Variable Bias.'' {\em Journal of the Royal Statistical
-  Society: Series B (Statistical Methodology)}, 82(1):~39--67.
-
-\harvarditem[Cooperman]{Alicia~Dailey
-  Cooperman}{2017}{cooperman_randomization_2017}
-{\bf Cooperman, Alicia~Dailey.} 2017. ``Randomization {{Inference}} with
-  {{Rainfall Data}}: {{Using Historical Weather Patterns}} for {{Variance
-  Estimation}}.'' {\em Political Analysis}, 25(3):~277--288.
-
-\harvarditem[Cunningham]{Scott Cunningham}{2021}{cunningham_causal_2021}
-{\bf Cunningham, Scott.} 2021. {\em Causal {{Inference}}: {{The Mixtape}}.}
-  Yale University Press.
-
-\harvarditem[Currie et~al.]{Janet Currie, Lucas Davis, Michael Greenstone
-  \harvardand\ Reed Walker}{2015}{currie_environmental_2015}
-{\bf Currie, Janet, Lucas Davis, Michael Greenstone, and Reed Walker.} 2015.
-  ``Environmental {{Health Risks}} and {{Housing Values}}: {{Evidence}} from
-  1,600 {{Toxic Plant Openings}} and {{Closings}}.'' {\em American Economic
-  Review}, 105(2):~678--709.
-
-\harvarditem[Deaton \harvardand\ Cartwright]{Angus Deaton \harvardand\ Nancy
-  Cartwright}{2018}{deaton_understanding_2018}
-{\bf Deaton, Angus, and Nancy Cartwright.} 2018. ``Understanding and
-  Misunderstanding Randomized Controlled Trials.'' {\em Social Science \&
-  Medicine}, 210:~2--21.
-
-\harvarditem[DellaVigna \harvardand\ Linos]{Stefano DellaVigna \harvardand\
-  Elizabeth Linos}{2022}{dellavigna_rcts_2022}
-{\bf DellaVigna, Stefano, and Elizabeth Linos.} 2022. ``{{RCTs}} to {{Scale}}:
-  {{Comprehensive Evidence From Two Nudge Units}}.'' {\em Econometrica},
-  90(1):~81--116.
-
-\harvarditem[Deryugina et~al.]{Tatyana Deryugina, Garth Heutel, Nolan~H.
-  Miller, David Molitor \harvardand\ Julian
-  Reif}{2019}{deryugina_mortality_2019}
-{\bf Deryugina, Tatyana, Garth Heutel, Nolan~H. Miller, David Molitor, and
-  Julian Reif.} 2019. ``The {{Mortality}} and {{Medical Costs}} of {{Air
-  Pollution}}: {{Evidence}} from {{Changes}} in {{Wind Direction}}.'' {\em
-  American Economic Review}, 109(12):~4178--4219.
-
-\harvarditem[Duflo, Glennerster \harvardand\ Kremer]{Esther Duflo, Rachel
-  Glennerster \harvardand\ Michael Kremer}{2007}{duflo_using_2007}
-{\bf Duflo, Esther, Rachel Glennerster, and Michael Kremer.} 2007. ``Using
-  {{Randomization}} in {{Development Economics Research}}: {{A Toolkit}}.'' In
-  {\em Handbook of {{Development Economics}}}. Vol.~4, , ed. T.~Paul Schultz
-  and John~A. Strauss, 3895--3962. Elsevier.
-
-\harvarditem[Ferraro \harvardand\ Shukla]{Paul~J. Ferraro \harvardand\ Pallavi
-  Shukla}{2020}{ferraro_feature_2020}
-{\bf Ferraro, Paul~J., and Pallavi Shukla.} 2020. ``Feature---{{Is}} a
-  {{Replicability Crisis}} on the {{Horizon}} for {{Environmental}} and
-  {{Resource Economics}}?'' {\em Review of Environmental Economics and Policy},
-  14(2):~339--351.
-
-\harvarditem[Fujiwara, Meng \harvardand\ Vogl]{Thomas Fujiwara, Kyle Meng
-  \harvardand\ Tom Vogl}{2016}{fujiwara_habit_2016}
-{\bf Fujiwara, Thomas, Kyle Meng, and Tom Vogl.} 2016. ``Habit {{Formation}} in
-  {{Voting}}: {{Evidence}} from {{Rainy Elections}}.'' {\em American Economic
-  Journal: Applied Economics}, 8(4):~160--188.
-
-\harvarditem[Gelman]{Andrew Gelman}{2020}{gelman_regression_2020}
-{\bf Gelman, Andrew.} 2020. {\em {Regression and Other Stories}.} Cambridge New
-  York, NY Port Melbourne, VIC New Delhi Singapore:Cambridge University Press.
-
-\harvarditem[Gelman \harvardand\ Loken]{Andrew Gelman \harvardand\ Eric
-  Loken}{2013}{gelman_garden_2013}
-{\bf Gelman, Andrew, and Eric Loken.} 2013. ``The Garden of Forking Paths:
-  {{Why}} Multiple Comparisons Can Be a Problem, Even When There Is No
-  ``Fishing Expedition'' or ``p-Hacking'' and the Research Hypothesis Was
-  Posited Ahead of Time.''
-
-\harvarditem[Gelman \harvardand\ Tuerlinckx]{Andrew Gelman \harvardand\ Francis
-  Tuerlinckx}{2000}{gelmanType2000}
-{\bf Gelman, Andrew, and Francis Tuerlinckx.} 2000. ``Type {{S}} Error Rates
-  for Classical and {{Bayesian}} Single and Multiple Comparison Procedures.''
-  {\em Computational Statistics}, 15(3):~373--390.
-
-\harvarditem[Gelman \harvardand\ Carlin]{Andrew Gelman \harvardand\ John
-  Carlin}{2014}{gelman_beyond_2014}
-{\bf Gelman, Andrew, and John Carlin.} 2014. ``Beyond {{Power Calculations}}:
-  {{Assessing Type S}} ({{Sign}}) and {{Type M}} ({{Magnitude}}) {{Errors}}.''
-  {\em Perspectives on Psychological Science}, 9(6):~641--651.
-
-\harvarditem[Gomez, Hansford \harvardand\ Krause]{Brad~T. Gomez, Thomas~G.
-  Hansford \harvardand\ George~A. Krause}{2007}{gomez_republicans_2007}
-{\bf Gomez, Brad~T., Thomas~G. Hansford, and George~A. Krause.} 2007. ``The
-  {{Republicans Should Pray}} for {{Rain}}: {{Weather}}, {{Turnout}}, and
-  {{Voting}} in {{U}}.{{S}}. {{Presidential Elections}}.'' {\em The Journal of
-  Politics}, 69(3):~649--663.
-
-\harvarditem[Hansford \harvardand\ Gomez]{Thomas~G. Hansford \harvardand\
-  Brad~T. Gomez}{2010}{hansford_estimating_2010}
-{\bf Hansford, Thomas~G., and Brad~T. Gomez.} 2010. ``Estimating the
-  {{Electoral Effects}} of {{Voter Turnout}}.'' {\em American Political Science
-  Review}, 104(2):~268--288.
-
-\harvarditem[He, Liu \harvardand\ Zhou]{Guojun He, Tong Liu \harvardand\
-  Maigeng Zhou}{2020}{he_straw_2020}
-{\bf He, Guojun, Tong Liu, and Maigeng Zhou.} 2020. ``Straw Burning, {{PM2}}.5,
-  and Death: {{Evidence}} from {{China}}.'' {\em Journal of Development
-  Economics}, 145:~102468.
-
-\harvarditem[Hern{\'a}n]{Miguel~A. Hern{\'a}n}{2022}{hernan_causal_2022}
-{\bf Hern{\'a}n, Miguel~A.} 2022. ``Causal Analyses of Existing Databases: No
-  Power Calculations Required.'' {\em Journal of Clinical Epidemiology},
-  144:~203--205.
-
-\harvarditem[Hern{\'a}n \harvardand\ Robins]{Miguel~A Hern{\'a}n \harvardand\
-  James~M Robins}{2020}{hernan_causal_2020}
-{\bf Hern{\'a}n, Miguel~A, and James~M Robins.} 2020. {\em Causal
-  {{Inference}}: {{What If}}.} Boca Raton: Chapman \& Hall/CRC.
-
-\harvarditem[Hill]{Jennifer~L. Hill}{2011}{hill_bayesian_2011}
-{\bf Hill, Jennifer~L.} 2011. ``Bayesian {{Nonparametric Modeling}} for
-  {{Causal Inference}}.'' {\em Journal of Computational and Graphical
-  Statistics}, 20(1):~217--240.
-
-\harvarditem[{Huntington-Klein}]{Nick
-  {Huntington-Klein}}{2021}{huntington-klein_effect_2021}
-{\bf {Huntington-Klein}, Nick.} 2021. {\em The {{Effect}}: {{An Introduction}}
-  to {{Research Design}} and {{Causality}}.} Boca Raton: Chapman \& Hall/CRC.
-
-\harvarditem[Imbens \harvardand\ Kalyanaraman]{Guido Imbens \harvardand\
-  Karthik Kalyanaraman}{2012}{imbens_optimal_2012}
-{\bf Imbens, Guido, and Karthik Kalyanaraman.} 2012. ``Optimal {{Bandwidth
-  Choice}} for the {{Regression Discontinuity Estimator}}.'' {\em The Review of
-  Economic Studies}, 79(3):~933--959.
-
-\harvarditem[Imbens \harvardand\ Rubin]{Guido~W. Imbens \harvardand\ Donald~B.
-  Rubin}{2015}{imbens_causal_2015}
-{\bf Imbens, Guido~W., and Donald~B. Rubin.} 2015. {\em Causal {{Inference}}
-  for {{Statistics}}, {{Social}}, and {{Biomedical Sciences}}: {{An
-  Introduction}}.} Cambridge University Press.
-
-\harvarditem[Ioannidis]{John P.~A. Ioannidis}{2008}{ioannidis_why_2008}
-{\bf Ioannidis, John P.~A.} 2008. ``Why {{Most Discovered True Associations Are
-  Inflated}}.'' {\em Epidemiology}, 19(5):~640--648.
-
-\harvarditem[Ioannidis, Stanley \harvardand\ Doucouliagos]{John P.~A.
-  Ioannidis, T.~D. Stanley \harvardand\ Hristos
-  Doucouliagos}{2017}{ioannidis_power_2017}
-{\bf Ioannidis, John P.~A., T.~D. Stanley, and Hristos Doucouliagos.} 2017.
-  ``The {{Power}} of {{Bias}} in {{Economics Research}}.'' {\em The Economic
-  Journal}, 127(605):~F236--F265.
-
-\harvarditem[Jacob \harvardand\ Lefgren]{Brian~A. Jacob \harvardand\ Lars
-  Lefgren}{2004}{jacob_remedial_2004}
-{\bf Jacob, Brian~A., and Lars Lefgren.} 2004. ``Remedial {{Education}} and
-  {{Student Achievement}}: {{A Regression-Discontinuity Analysis}}.'' {\em The
-  Review of Economics and Statistics}, 86(1):~226--244.
-
-\harvarditem[Kasy]{Maximilian Kasy}{2021}{kasy_forking_2021}
-{\bf Kasy, Maximilian.} 2021. ``Of {{Forking Paths}} and {{Tied Hands}}:
-  {{Selective Publication}} of {{Findings}}, and {{What Economists Should Do}}
-  about {{It}}.'' {\em Journal of Economic Perspectives}, 35(3):~175--192.
-
-\harvarditem[Kraft]{Matthew~A. Kraft}{2020}{kraft_interpreting_2020}
-{\bf Kraft, Matthew~A.} 2020. ``Interpreting {{Effect Sizes}} of {{Education
-  Interventions}}.'' {\em Educational Researcher}, 49(4):~241--253.
-
-\harvarditem[Lai et~al.]{Wangyang Lai, Yun Qiu, Qu Tang, Chen Xi \harvardand\
-  Peng Zhang}{2023}{lai_effects_2023}
-{\bf Lai, Wangyang, Yun Qiu, Qu Tang, Chen Xi, and Peng Zhang.} 2023. ``The
-  {{Effects}} of {{Temperature}} on {{Labor Productivity}}.'' {\em Annual
-  Review of Resource Economics}, 15:~213--232.
-
-\harvarditem[Lal et~al.]{Apoorva Lal, Mackenzie Lockhart, Yiqing Xu
-  \harvardand\ Ziwen Zu}{2024}{lalHow2024}
-{\bf Lal, Apoorva, Mackenzie Lockhart, Yiqing Xu, and Ziwen Zu.} 2024. ``How
-  {{Much Should We Trust Instrumental Variable Estimates}} in {{Political
-  Science}}? {{Practical Advice Based}} on 67 {{Replicated Studies}}.'' {\em
-  Political Analysis}, 1--20.
-
-\harvarditem[Lavaine \harvardand\ Neidell]{Emmanuelle Lavaine \harvardand\
-  Mathew Neidell}{2017}{lavaine_energy_2017}
-{\bf Lavaine, Emmanuelle, and Mathew Neidell.} 2017. ``Energy {{Production}}
-  and {{Health Externalities}}: {{Evidence}} from {{Oil Refinery Strikes}} in
-  {{France}}.'' {\em Journal of the Association of Environmental and Resource
-  Economists}, 4(2):~447--477.
-
-\harvarditem[Linden]{Ariel Linden}{2019}{linden_retrodesign_2019}
-{\bf Linden, Ariel.} 2019. ``{{RETRODESIGN}}: {{Stata}} Module to Compute
-  Type-{{S}} ({{Sign}}) and Type-{{M}} ({{Magnitude}}) Errors.'' {\em
-  Statistical Software Components}.
-
-\harvarditem[LoPalo]{Melissa LoPalo}{2023}{lopalo_temperature_2023}
-{\bf LoPalo, Melissa.} 2023. ``Temperature, {{Worker Productivity}}, and
-  {{Adaptation}}: {{Evidence}} from {{Survey Data Production}}.'' {\em American
-  Economic Journal: Applied Economics}, 15(1):~192--229.
-
-\harvarditem[Lu, Qiu \harvardand\ Deng]{Jiannan Lu, Yixuan Qiu \harvardand\
-  Alex Deng}{2019}{lu_note_2019}
-{\bf Lu, Jiannan, Yixuan Qiu, and Alex Deng.} 2019. ``A Note on {{Type
-  S}}/{{M}} Errors in Hypothesis Testing.'' {\em British Journal of
-  Mathematical and Statistical Psychology}, 72(1):~1--17.
-
-\harvarditem[McConnell \harvardand\ {Vera-Hern{\'a}ndez}]{Brendon McConnell
-  \harvardand\ Marcos {Vera-Hern{\'a}ndez}}{2025}{mcconnell_going_2025}
-{\bf McConnell, Brendon, and Marcos {Vera-Hern{\'a}ndez}.} 2025. ``Going beyond
-  Simple Sample Size Calculations: A Practitioner's Guide.'' {\em Fiscal
-  Studies}, 46(3):~323--348.
-
-\harvarditem[McShane et~al.]{Blakeley~B. McShane, David Gal, Andrew Gelman,
-  Christian Robert \harvardand\ Jennifer~L.
-  Tackett}{2019}{mcshane_abandon_2019}
-{\bf McShane, Blakeley~B., David Gal, Andrew Gelman, Christian Robert, and
-  Jennifer~L. Tackett.} 2019. ``Abandon {{Statistical Significance}}.'' {\em
-  The American Statistician}, 73(sup1):~235--245.
-
-\harvarditem[Middleton et~al.]{Joel~A. Middleton, Marc~A. Scott, Ronli Diakow
-  \harvardand\ Jennifer~L. Hill}{2016}{middleton_bias_2016}
-{\bf Middleton, Joel~A., Marc~A. Scott, Ronli Diakow, and Jennifer~L. Hill.}
-  2016. ``Bias {{Amplification}} and {{Bias Unmasking}}.'' {\em Political
-  Analysis}, 24(3):~307--323.
-
-\harvarditem[Oster]{Emily Oster}{2019}{oster_unobservable_2019}
-{\bf Oster, Emily.} 2019. ``Unobservable {{Selection}} and {{Coefficient
-  Stability}}: {{Theory}} and {{Evidence}}.'' {\em Journal of Business \&
-  Economic Statistics}, 37(2):~187--204.
-
-\harvarditem[Ravallion]{Martin Ravallion}{2020}{ravallion_should_2020a}
-{\bf Ravallion, Martin.} 2020. ``Should the {{Randomistas}} ({{Continue}} to)
-  {{Rule}}?'' In {\em Randomized {{Control Trials}} in the {{Field}} of
-  {{Development}}: {{A Critical Perspective}}}. , ed. Florent
-  B{\'e}d{\'e}carrats, Isabelle Gu{\'e}rin and Fran{\c c}ois Roubaud. Oxford
-  University Press.
-
-\harvarditem[Romer]{David Romer}{2020}{romer_praise_2020}
-{\bf Romer, David.} 2020. ``In {{Praise}} of {{Confidence Intervals}}.'' {\em
-  AEA Papers and Proceedings}, 110:~55--60.
-
-\harvarditem[Rosenbaum]{Paul~R. Rosenbaum}{2002}{rosenbaum_observational_2002}
-{\bf Rosenbaum, Paul~R.} 2002. {\em Observational {{Studies}}.} New York,
-  NY:Springer New York.
-
-\harvarditem[Rosenthal]{Robert Rosenthal}{1979}{rosenthal_file_1979}
-{\bf Rosenthal, Robert.} 1979. ``The File Drawer Problem and Tolerance for Null
-  Results.'' {\em Psychological Bulletin}, 86(3):~638--641.
-
-\harvarditem[Schell, Griffin \harvardand\ Morral]{Terry~L. Schell, Beth~Ann
-  Griffin \harvardand\ Andrew~R.
-  Morral}{2018}{schellEvaluatingMethodsEstimate2018}
-{\bf Schell, Terry~L., Beth~Ann Griffin, and Andrew~R. Morral.} 2018.
-  ``Evaluating {{Methods}} to {{Estimate}} the {{Effect}} of {{State Laws}} on
-  {{Firearm Deaths}}: {{A Simulation Study}}.'' RAND Corporation.
-
-\harvarditem[Shadish, Cook \harvardand\ Campbell]{William~R. Shadish, Thomas~D.
-  Cook \harvardand\ Donald~Thomas Campbell}{2002}{shadish_experimental_2002}
-{\bf Shadish, William~R., Thomas~D. Cook, and Donald~Thomas Campbell.} 2002.
-  {\em Experimental and {{Quasi-experimental Designs}} for {{Generalized Causal
-  Inference}}.} Houghton Mifflin.
-
-\harvarditem[Shah et~al.]{Anoop S.~V. Shah, Kuan~Ken Lee, David~A. McAllister,
-  Amanda Hunter, Harish Nair, William Whiteley, Jeremy~P. Langrish, David~E.
-  Newby \harvardand\ Nicholas~L. Mills}{2015}{shah_short_2015}
-{\bf Shah, Anoop S.~V., Kuan~Ken Lee, David~A. McAllister, Amanda Hunter,
-  Harish Nair, William Whiteley, Jeremy~P. Langrish, David~E. Newby, and
-  Nicholas~L. Mills.} 2015. ``Short Term Exposure to Air Pollution and Stroke:
-  Systematic Review and Meta-Analysis.'' {\em BMJ}, 350:~h1295.
-
-\harvarditem[Simmons, Nelson \harvardand\ Simonsohn]{Joseph~P. Simmons, Leif~D.
-  Nelson \harvardand\ Uri Simonsohn}{2011}{simmons_falsepositive_2011}
-{\bf Simmons, Joseph~P., Leif~D. Nelson, and Uri Simonsohn.} 2011.
-  ``False-{{Positive Psychology}}: {{Undisclosed Flexibility}} in {{Data
-  Collection}} and {{Analysis Allows Presenting Anything}} as
-  {{Significant}}.'' {\em Psychological Science}, 22(11):~1359--1366.
-
-\harvarditem[Somanathan et~al.]{E. Somanathan, Rohini Somanathan, Anant
-  Sudarshan \harvardand\ Meenu Tewari}{2021}{somanathan_impact_2021}
-{\bf Somanathan, E., Rohini Somanathan, Anant Sudarshan, and Meenu Tewari.}
-  2021. ``The {{Impact}} of {{Temperature}} on {{Productivity}} and {{Labor
-  Supply}}: {{Evidence}} from {{Indian Manufacturing}}.'' {\em Journal of
-  Political Economy}, 129(6):~1797--1827.
-
-\harvarditem[Stevens]{Andrew Stevens}{2017}{stevens_temperature_2017}
-{\bf Stevens, Andrew.} 2017. ``Temperature, {{Wages}}, and {{Agricultural Labor
-  Productivity}}.''
-
-\harvarditem[Stommes, Aronow \harvardand\ S{\"a}vje]{Drew Stommes, P.~M. Aronow
-  \harvardand\ Fredrik S{\"a}vje}{2023}{stommes_reliability_2023}
-{\bf Stommes, Drew, P.~M. Aronow, and Fredrik S{\"a}vje.} 2023. ``On the
-  Reliability of Published Findings Using the Regression Discontinuity Design
-  in Political Science.'' {\em Research \& Politics}, 10(2).
-
-\harvarditem[Thistlethwaite \harvardand\ Campbell]{Donald~L. Thistlethwaite
-  \harvardand\ Donald~T.
-  Campbell}{1960}{thistlethwaite_regression-discontinuity_1960}
-{\bf Thistlethwaite, Donald~L., and Donald~T. Campbell.} 1960.
-  ``Regression-Discontinuity Analysis: {{An}} Alternative to the Ex Post Facto
-  Experiment.'' {\em Journal of Educational Psychology}, 51(6):~309--317.
-
-\harvarditem[Timm, Gelman \harvardand\ Carlin]{Andrew Timm, Andrew Gelman
-  \harvardand\ John Carlin}{2019}{timm_retrodesign_2019}
-{\bf Timm, Andrew, Andrew Gelman, and John Carlin.} 2019. ``Retrodesign:
-  {{Tools}} for {{Type S}} ({{Sign}}) and {{Type M}} ({{Magnitude}})
-  {{Errors}}.''
-
-\harvarditem[Vivalt]{Eva Vivalt}{2019}{vivalt_specification_2019}
-{\bf Vivalt, Eva.} 2019. ``Specification {{Searching}} and {{Significance
-  Inflation Across Time}}, {{Methods}} and {{Disciplines}}.'' {\em Oxford
-  Bulletin of Economics and Statistics}, 81(4):~797--816.
-
-\harvarditem[Vu]{Patrick Vu}{2025}{vu_standard_2025}
-{\bf Vu, Patrick.} 2025. ``Do {{Standard Error Corrections Exacerbate
-  Publication Bias}}?''
-
-\harvarditem[Yang \harvardand\ Chou]{Muzhe Yang \harvardand\ Shin-Yi
-  Chou}{2018}{yang_impact_2018}
-{\bf Yang, Muzhe, and Shin-Yi Chou.} 2018. ``The Impact of Environmental
-  Regulation on Fetal Health: {{Evidence}} from the Shutdown of a Coal-Fired
-  Power Plant Located Upwind of {{New Jersey}}.'' {\em Journal of Environmental
-  Economics and Management}, 90:~269--293.
-
-\harvarditem[Young]{Alwyn Young}{2022}{young_consistency_2022}
-{\bf Young, Alwyn.} 2022. ``Consistency without {{Inference}}: {{Instrumental
-  Variables}} in {{Practical Application}}.'' {\em European Economic Review},
-  147:~104112.
-
-\harvarditem[Zwet \harvardand\ Gelman]{Erik Zwet \harvardand\ Andrew
-  Gelman}{2021}{zwet_proposal_2021}
-{\bf Zwet, Erik, and Andrew Gelman.} 2021. ``A {{Proposal}} for {{Informative
-  Default Priors Scaled}} by the {{Standard Error}} of {{Estimates}}.'' {\em
-  The American Statistician}, 1--9.
-
-\harvarditem[Zwet, Schwab \harvardand\ Senn]{Erik Zwet, Simon Schwab
-  \harvardand\ Stephen Senn}{2021}{zwet_statistical_2021}
-{\bf Zwet, Erik, Simon Schwab, and Stephen Senn.} 2021. ``The Statistical
-  Properties of {{RCTs}} and a Proposal for Shrinkage.'' {\em Statistics in
-  Medicine}, 40(27):~6107--6117.
-
-\harvarditem[Zwet \harvardand\ Cator]{Erik~W. Zwet \harvardand\ Eric~A.
-  Cator}{2021}{zwet_significance_2021}
-{\bf Zwet, Erik~W., and Eric~A. Cator.} 2021. ``The Significance Filter, the
-  Winner's Curse and the Need to Shrink.'' {\em Statistica Neerlandica},
-  75(4):~437--452.
+\begin{thebibliography}{}
+
+\bibitem[Abadie, 2020]{abadie_statistical_2020}
+Abadie, A. (2020).
+\newblock Statistical {{Nonsignificance}} in {{Empirical Economics}}.
+\newblock {\em American Economic Review: Insights}, 2(2):193--208.
+
+\bibitem[Amrhein et~al., 2019]{amrhein_inferential_2019}
+Amrhein, V., Trafimow, D., and Greenland, S. (2019).
+\newblock Inferential {{Statistics}} as {{Descriptive Statistics}}: {{There Is
+  No Replication Crisis}} if {{We Don}}'t {{Expect Replication}}.
+\newblock {\em The American Statistician}, 73(sup1):262--270.
+
+\bibitem[Andrews and Kasy, 2019]{andrews_identification_2019}
+Andrews, I. and Kasy, M. (2019).
+\newblock Identification of and {{Correction}} for {{Publication Bias}}.
+\newblock {\em American Economic Review}, 109(8):2766--2794.
+
+\bibitem[Angrist and Pischke, 2009]{angrist_mostly_2009}
+Angrist, J.~D. and Pischke, J.-S. (2009).
+\newblock {\em Mostly {{Harmless Econometrics}}: {{An Empiricist}}'s
+  {{Companion}}}.
+\newblock Princeton University Press, first edition edition.
+
+\bibitem[Angrist and Pischke, 2014]{angrist_mastering_2014}
+Angrist, J.~D. and Pischke, J.-S. (2014).
+\newblock {\em Mastering '{{Metrics}}: {{The Path}} from {{Cause}} to
+  {{Effect}}}.
+\newblock Princeton University Press.
+
+\bibitem[{Arel-Bundock} et~al., 2024]{arel-bundock_quantitative_2024}
+{Arel-Bundock}, V., Briggs, R.~C., Doucouliagos, H., Avi{\~n}a, M.~M., and
+  Stanley, T.~D. (2024).
+\newblock Quantitative {{Political Science Research Is Greatly Underpowered}}.
+\newblock {\em The Journal of Politics}, 88(1):36--46.
+
+\bibitem[Aronow and Samii, 2016]{aronow_does_2016}
+Aronow, P.~M. and Samii, C. (2016).
+\newblock Does {{Regression Produce Representative Estimates}} of {{Causal
+  Effects}}?
+\newblock {\em American Journal of Political Science}, 60(1):250--267.
+
+\bibitem[Athey and Imbens, 2017]{athey_econometrics_2017}
+Athey, S. and Imbens, G. (2017).
+\newblock The {{Econometrics}} of {{Randomized Experiments}}.
+\newblock In {\em Handbook of {{Economic Field Experiments}}}, volume~1, pages
+  73--140. North-Holland.
+
+\bibitem[Bagilet, 2023]{bagilet_accurate_2023}
+Bagilet, V. (2023).
+\newblock Accurate {{Estimation}} of {{Small Effects}}: {{Illustration Through
+  Air Pollution}} and {{Health}}.
+
+\bibitem[Black et~al., 2022]{black_simulated_2022}
+Black, B., Hollingsworth, A., Nunes, L., and Simon, K. (2022).
+\newblock Simulated power analyses for observational studies: {{An}}
+  application to the {{Affordable Care Act Medicaid}} expansion.
+\newblock {\em Journal of Public Economics}, 213:104713.
+
+\bibitem[Brodeur et~al., 2020]{brodeur_methods_2020}
+Brodeur, A., Cook, N., and Heyes, A. (2020).
+\newblock Methods {{Matter}}: P-{{Hacking}} and {{Publication Bias}} in
+  {{Causal Analysis}} in {{Economics}}.
+\newblock {\em American Economic Review}, 110(11):3634--3660.
+
+\bibitem[Brodeur et~al., 2016]{brodeur_star_2016}
+Brodeur, A., L{\'e}, M., Sangnier, M., and Zylberberg, Y. (2016).
+\newblock Star {{Wars}}: {{The Empirics Strike Back}}.
+\newblock {\em American Economic Journal: Applied Economics}, 8(1):1--32.
+
+\bibitem[Bryan, 2025]{bryan_gapminder_2025}
+Bryan, J. (2025).
+\newblock Gapminder: {{Data}} from {{Gapminder}}.
+
+\bibitem[Camerer et~al., 2016]{camerer_evaluating_2016}
+Camerer, C.~F., Dreber, A., Forsell, E., Ho, T.-H., Huber, J., Johannesson, M.,
+  Kirchler, M., Almenberg, J., Altmejd, A., Chan, T., Heikensten, E.,
+  Holzmeister, F., Imai, T., Isaksson, S., Nave, G., Pfeiffer, T., Razen, M.,
+  and Wu, H. (2016).
+\newblock Evaluating replicability of laboratory experiments in economics.
+\newblock {\em Science}, 351(6280):1433--1436.
+
+\bibitem[Card, 1993]{card_using_1993}
+Card, D. (1993).
+\newblock Using {{Geographic Variation}} in {{College Proximity}} to
+  {{Estimate}} the {{Return}} to {{Schooling}}.
+\newblock Working {{Paper}} 4483, National Bureau of Economic Research.
+
+\bibitem[Christensen and Miguel, 2018]{christensen_transparency_2018}
+Christensen, G. and Miguel, E. (2018).
+\newblock Transparency, {{Reproducibility}}, and the {{Credibility}} of
+  {{Economics Research}}.
+\newblock {\em Journal of Economic Literature}, 56(3):920--980.
+
+\bibitem[Cinelli and Hazlett, 2020]{cinelli_making_2020}
+Cinelli, C. and Hazlett, C. (2020).
+\newblock Making sense of sensitivity: Extending omitted variable bias.
+\newblock {\em Journal of the Royal Statistical Society: Series B (Statistical
+  Methodology)}, 82(1):39--67.
+
+\bibitem[Cooperman, 2017]{cooperman_randomization_2017}
+Cooperman, A.~D. (2017).
+\newblock Randomization {{Inference}} with {{Rainfall Data}}: {{Using
+  Historical Weather Patterns}} for {{Variance Estimation}}.
+\newblock {\em Political Analysis}, 25(3):277--288.
+
+\bibitem[Cunningham, 2021]{cunningham_causal_2021}
+Cunningham, S. (2021).
+\newblock {\em Causal {{Inference}}: {{The Mixtape}}}.
+\newblock Yale University Press.
+
+\bibitem[Currie et~al., 2015]{currie_environmental_2015}
+Currie, J., Davis, L., Greenstone, M., and Walker, R. (2015).
+\newblock Environmental {{Health Risks}} and {{Housing Values}}: {{Evidence}}
+  from 1,600 {{Toxic Plant Openings}} and {{Closings}}.
+\newblock {\em American Economic Review}, 105(2):678--709.
+
+\bibitem[Deaton and Cartwright, 2018]{deaton_understanding_2018}
+Deaton, A. and Cartwright, N. (2018).
+\newblock Understanding and misunderstanding randomized controlled trials.
+\newblock {\em Social Science \& Medicine}, 210:2--21.
+
+\bibitem[DellaVigna and Linos, 2022]{dellavigna_rcts_2022}
+DellaVigna, S. and Linos, E. (2022).
+\newblock {{RCTs}} to {{Scale}}: {{Comprehensive Evidence From Two Nudge
+  Units}}.
+\newblock {\em Econometrica}, 90(1):81--116.
+
+\bibitem[Deryugina et~al., 2019]{deryugina_mortality_2019}
+Deryugina, T., Heutel, G., Miller, N.~H., Molitor, D., and Reif, J. (2019).
+\newblock The {{Mortality}} and {{Medical Costs}} of {{Air Pollution}}:
+  {{Evidence}} from {{Changes}} in {{Wind Direction}}.
+\newblock {\em American Economic Review}, 109(12):4178--4219.
+
+\bibitem[Duflo et~al., 2007]{duflo_using_2007}
+Duflo, E., Glennerster, R., and Kremer, M. (2007).
+\newblock Using {{Randomization}} in {{Development Economics Research}}: {{A
+  Toolkit}}.
+\newblock In Schultz, T.~P. and Strauss, J.~A., editors, {\em Handbook of
+  {{Development Economics}}}, volume~4, pages 3895--3962. Elsevier.
+
+\bibitem[Ferraro and Shukla, 2020]{ferraro_feature_2020}
+Ferraro, P.~J. and Shukla, P. (2020).
+\newblock Feature---{{Is}} a {{Replicability Crisis}} on the {{Horizon}} for
+  {{Environmental}} and {{Resource Economics}}?
+\newblock {\em Review of Environmental Economics and Policy}, 14(2):339--351.
+
+\bibitem[Fujiwara et~al., 2016]{fujiwara_habit_2016}
+Fujiwara, T., Meng, K., and Vogl, T. (2016).
+\newblock Habit {{Formation}} in {{Voting}}: {{Evidence}} from {{Rainy
+  Elections}}.
+\newblock {\em American Economic Journal: Applied Economics}, 8(4):160--188.
+
+\bibitem[Gelman, 2020]{gelman_regression_2020}
+Gelman, A. (2020).
+\newblock {\em {Regression and Other Stories}}.
+\newblock Cambridge University Press, Cambridge New York, NY Port Melbourne,
+  VIC New Delhi Singapore.
+
+\bibitem[Gelman and Carlin, 2014]{gelman_beyond_2014}
+Gelman, A. and Carlin, J. (2014).
+\newblock Beyond {{Power Calculations}}: {{Assessing Type S}} ({{Sign}}) and
+  {{Type M}} ({{Magnitude}}) {{Errors}}.
+\newblock {\em Perspectives on Psychological Science}, 9(6):641--651.
+
+\bibitem[Gelman and Loken, 2013]{gelman_garden_2013}
+Gelman, A. and Loken, E. (2013).
+\newblock The garden of forking paths: {{Why}} multiple comparisons can be a
+  problem, even when there is no ``fishing expedition'' or ``p-hacking'' and
+  the research hypothesis was posited ahead of time.
+
+\bibitem[Gelman and Tuerlinckx, 2000]{gelmanType2000}
+Gelman, A. and Tuerlinckx, F. (2000).
+\newblock Type {{S}} error rates for classical and {{Bayesian}} single and
+  multiple comparison procedures.
+\newblock {\em Computational Statistics}, 15(3):373--390.
+
+\bibitem[Gomez et~al., 2007]{gomez_republicans_2007}
+Gomez, B.~T., Hansford, T.~G., and Krause, G.~A. (2007).
+\newblock The {{Republicans Should Pray}} for {{Rain}}: {{Weather}},
+  {{Turnout}}, and {{Voting}} in {{U}}.{{S}}. {{Presidential Elections}}.
+\newblock {\em The Journal of Politics}, 69(3):649--663.
+
+\bibitem[Hansford and Gomez, 2010]{hansford_estimating_2010}
+Hansford, T.~G. and Gomez, B.~T. (2010).
+\newblock Estimating the {{Electoral Effects}} of {{Voter Turnout}}.
+\newblock {\em American Political Science Review}, 104(2):268--288.
+
+\bibitem[He et~al., 2020]{he_straw_2020}
+He, G., Liu, T., and Zhou, M. (2020).
+\newblock Straw burning, {{PM2}}.5, and death: {{Evidence}} from {{China}}.
+\newblock {\em Journal of Development Economics}, 145:102468.
+
+\bibitem[Hern{\'a}n, 2022]{hernan_causal_2022}
+Hern{\'a}n, M.~A. (2022).
+\newblock Causal analyses of existing databases: No power calculations
+  required.
+\newblock {\em Journal of Clinical Epidemiology}, 144:203--205.
+
+\bibitem[Hern{\'a}n and Robins, 2020]{hernan_causal_2020}
+Hern{\'a}n, M.~A. and Robins, J.~M. (2020).
+\newblock {\em Causal {{Inference}}: {{What If}}}.
+\newblock Boca Raton: Chapman \& Hall/CRC.
+
+\bibitem[Hill, 2011]{hill_bayesian_2011}
+Hill, J.~L. (2011).
+\newblock Bayesian {{Nonparametric Modeling}} for {{Causal Inference}}.
+\newblock {\em Journal of Computational and Graphical Statistics},
+  20(1):217--240.
+
+\bibitem[{Huntington-Klein}, 2021]{huntington-klein_effect_2021}
+{Huntington-Klein}, N. (2021).
+\newblock {\em The {{Effect}}: {{An Introduction}} to {{Research Design}} and
+  {{Causality}}}.
+\newblock Boca Raton: Chapman \& Hall/CRC.
+
+\bibitem[Imbens and Kalyanaraman, 2012]{imbens_optimal_2012}
+Imbens, G. and Kalyanaraman, K. (2012).
+\newblock Optimal {{Bandwidth Choice}} for the {{Regression Discontinuity
+  Estimator}}.
+\newblock {\em The Review of Economic Studies}, 79(3):933--959.
+
+\bibitem[Imbens and Rubin, 2015]{imbens_causal_2015}
+Imbens, G.~W. and Rubin, D.~B. (2015).
+\newblock {\em Causal {{Inference}} for {{Statistics}}, {{Social}}, and
+  {{Biomedical Sciences}}: {{An Introduction}}}.
+\newblock Cambridge University Press.
+
+\bibitem[Ioannidis, 2008]{ioannidis_why_2008}
+Ioannidis, J. P.~A. (2008).
+\newblock Why {{Most Discovered True Associations Are Inflated}}.
+\newblock {\em Epidemiology}, 19(5):640--648.
+
+\bibitem[Ioannidis et~al., 2017]{ioannidis_power_2017}
+Ioannidis, J. P.~A., Stanley, T.~D., and Doucouliagos, H. (2017).
+\newblock The {{Power}} of {{Bias}} in {{Economics Research}}.
+\newblock {\em The Economic Journal}, 127(605):F236--F265.
+
+\bibitem[Jacob and Lefgren, 2004]{jacob_remedial_2004}
+Jacob, B.~A. and Lefgren, L. (2004).
+\newblock Remedial {{Education}} and {{Student Achievement}}: {{A
+  Regression-Discontinuity Analysis}}.
+\newblock {\em The Review of Economics and Statistics}, 86(1):226--244.
+
+\bibitem[Kasy, 2021]{kasy_forking_2021}
+Kasy, M. (2021).
+\newblock Of {{Forking Paths}} and {{Tied Hands}}: {{Selective Publication}} of
+  {{Findings}}, and {{What Economists Should Do}} about {{It}}.
+\newblock {\em Journal of Economic Perspectives}, 35(3):175--192.
+
+\bibitem[Kraft, 2020]{kraft_interpreting_2020}
+Kraft, M.~A. (2020).
+\newblock Interpreting {{Effect Sizes}} of {{Education Interventions}}.
+\newblock {\em Educational Researcher}, 49(4):241--253.
+
+\bibitem[Lai et~al., 2023]{lai_effects_2023}
+Lai, W., Qiu, Y., Tang, Q., Xi, C., and Zhang, P. (2023).
+\newblock The {{Effects}} of {{Temperature}} on {{Labor Productivity}}.
+\newblock {\em Annual Review of Resource Economics}, 15:213--232.
+
+\bibitem[Lal et~al., 2024]{lalHow2024}
+Lal, A., Lockhart, M., Xu, Y., and Zu, Z. (2024).
+\newblock How {{Much Should We Trust Instrumental Variable Estimates}} in
+  {{Political Science}}? {{Practical Advice Based}} on 67 {{Replicated
+  Studies}}.
+\newblock {\em Political Analysis}, pages 1--20.
+
+\bibitem[Lavaine and Neidell, 2017]{lavaine_energy_2017}
+Lavaine, E. and Neidell, M. (2017).
+\newblock Energy {{Production}} and {{Health Externalities}}: {{Evidence}} from
+  {{Oil Refinery Strikes}} in {{France}}.
+\newblock {\em Journal of the Association of Environmental and Resource
+  Economists}, 4(2):447--477.
+
+\bibitem[Linden, 2019]{linden_retrodesign_2019}
+Linden, A. (2019).
+\newblock {{RETRODESIGN}}: {{Stata}} module to compute type-{{S}} ({{Sign}})
+  and type-{{M}} ({{Magnitude}}) errors.
+\newblock {\em Statistical Software Components}.
+
+\bibitem[LoPalo, 2023]{lopalo_temperature_2023}
+LoPalo, M. (2023).
+\newblock Temperature, {{Worker Productivity}}, and {{Adaptation}}:
+  {{Evidence}} from {{Survey Data Production}}.
+\newblock {\em American Economic Journal: Applied Economics}, 15(1):192--229.
+
+\bibitem[Lu et~al., 2019]{lu_note_2019}
+Lu, J., Qiu, Y., and Deng, A. (2019).
+\newblock A note on {{Type S}}/{{M}} errors in hypothesis testing.
+\newblock {\em British Journal of Mathematical and Statistical Psychology},
+  72(1):1--17.
+
+\bibitem[McConnell and {Vera-Hern{\'a}ndez}, 2025]{mcconnell_going_2025}
+McConnell, B. and {Vera-Hern{\'a}ndez}, M. (2025).
+\newblock Going beyond simple sample size calculations: A practitioner's guide.
+\newblock {\em Fiscal Studies}, 46(3):323--348.
+
+\bibitem[McShane et~al., 2019]{mcshane_abandon_2019}
+McShane, B.~B., Gal, D., Gelman, A., Robert, C., and Tackett, J.~L. (2019).
+\newblock Abandon {{Statistical Significance}}.
+\newblock {\em The American Statistician}, 73(sup1):235--245.
+
+\bibitem[Middleton et~al., 2016]{middleton_bias_2016}
+Middleton, J.~A., Scott, M.~A., Diakow, R., and Hill, J.~L. (2016).
+\newblock Bias {{Amplification}} and {{Bias Unmasking}}.
+\newblock {\em Political Analysis}, 24(3):307--323.
+
+\bibitem[Oster, 2019]{oster_unobservable_2019}
+Oster, E. (2019).
+\newblock Unobservable {{Selection}} and {{Coefficient Stability}}: {{Theory}}
+  and {{Evidence}}.
+\newblock {\em Journal of Business \& Economic Statistics}, 37(2):187--204.
+
+\bibitem[Ravallion, 2020]{ravallion_should_2020a}
+Ravallion, M. (2020).
+\newblock Should the {{Randomistas}} ({{Continue}} to) {{Rule}}?
+\newblock In B{\'e}d{\'e}carrats, F., Gu{\'e}rin, I., and Roubaud, F., editors,
+  {\em Randomized {{Control Trials}} in the {{Field}} of {{Development}}: {{A
+  Critical Perspective}}}. Oxford University Press.
+
+\bibitem[Romer, 2020]{romer_praise_2020}
+Romer, D. (2020).
+\newblock In {{Praise}} of {{Confidence Intervals}}.
+\newblock {\em AEA Papers and Proceedings}, 110:55--60.
+
+\bibitem[Rosenbaum, 2002]{rosenbaum_observational_2002}
+Rosenbaum, P.~R. (2002).
+\newblock {\em Observational {{Studies}}}.
+\newblock Springer New York, New York, NY.
+
+\bibitem[Rosenthal, 1979]{rosenthal_file_1979}
+Rosenthal, R. (1979).
+\newblock The file drawer problem and tolerance for null results.
+\newblock {\em Psychological Bulletin}, 86(3):638--641.
+
+\bibitem[Schell et~al., 2018]{schellEvaluatingMethodsEstimate2018}
+Schell, T.~L., Griffin, B.~A., and Morral, A.~R. (2018).
+\newblock Evaluating {{Methods}} to {{Estimate}} the {{Effect}} of {{State
+  Laws}} on {{Firearm Deaths}}: {{A Simulation Study}}.
+\newblock Technical report, RAND Corporation.
+
+\bibitem[Shadish et~al., 2002]{shadish_experimental_2002}
+Shadish, W.~R., Cook, T.~D., and Campbell, D.~T. (2002).
+\newblock {\em Experimental and {{Quasi-experimental Designs}} for
+  {{Generalized Causal Inference}}}.
+\newblock Houghton Mifflin.
+
+\bibitem[Shah et~al., 2015]{shah_short_2015}
+Shah, A. S.~V., Lee, K.~K., McAllister, D.~A., Hunter, A., Nair, H., Whiteley,
+  W., Langrish, J.~P., Newby, D.~E., and Mills, N.~L. (2015).
+\newblock Short term exposure to air pollution and stroke: Systematic review
+  and meta-analysis.
+\newblock {\em BMJ}, 350:h1295.
+
+\bibitem[Simmons et~al., 2011]{simmons_falsepositive_2011}
+Simmons, J.~P., Nelson, L.~D., and Simonsohn, U. (2011).
+\newblock False-{{Positive Psychology}}: {{Undisclosed Flexibility}} in {{Data
+  Collection}} and {{Analysis Allows Presenting Anything}} as {{Significant}}.
+\newblock {\em Psychological Science}, 22(11):1359--1366.
+
+\bibitem[Somanathan et~al., 2021]{somanathan_impact_2021}
+Somanathan, E., Somanathan, R., Sudarshan, A., and Tewari, M. (2021).
+\newblock The {{Impact}} of {{Temperature}} on {{Productivity}} and {{Labor
+  Supply}}: {{Evidence}} from {{Indian Manufacturing}}.
+\newblock {\em Journal of Political Economy}, 129(6):1797--1827.
+
+\bibitem[Stevens, 2017]{stevens_temperature_2017}
+Stevens, A. (2017).
+\newblock Temperature, {{Wages}}, and {{Agricultural Labor Productivity}}.
+
+\bibitem[Stommes et~al., 2023]{stommes_reliability_2023}
+Stommes, D., Aronow, P.~M., and S{\"a}vje, F. (2023).
+\newblock On the reliability of published findings using the regression
+  discontinuity design in political science.
+\newblock {\em Research \& Politics}, 10(2).
+
+\bibitem[Thistlethwaite and Campbell,
+  1960]{thistlethwaite_regression-discontinuity_1960}
+Thistlethwaite, D.~L. and Campbell, D.~T. (1960).
+\newblock Regression-discontinuity analysis: {{An}} alternative to the ex post
+  facto experiment.
+\newblock {\em Journal of Educational Psychology}, 51(6):309--317.
+
+\bibitem[Timm et~al., 2019]{timm_retrodesign_2019}
+Timm, A., Gelman, A., and Carlin, J. (2019).
+\newblock Retrodesign: {{Tools}} for {{Type S}} ({{Sign}}) and {{Type M}}
+  ({{Magnitude}}) {{Errors}}.
+
+\bibitem[Vivalt, 2019]{vivalt_specification_2019}
+Vivalt, E. (2019).
+\newblock Specification {{Searching}} and {{Significance Inflation Across
+  Time}}, {{Methods}} and {{Disciplines}}.
+\newblock {\em Oxford Bulletin of Economics and Statistics}, 81(4):797--816.
+
+\bibitem[Vu, 2025]{vu_standard_2025}
+Vu, P. (2025).
+\newblock Do {{Standard Error Corrections Exacerbate Publication Bias}}?
+
+\bibitem[Yang and Chou, 2018]{yang_impact_2018}
+Yang, M. and Chou, S.-Y. (2018).
+\newblock The impact of environmental regulation on fetal health: {{Evidence}}
+  from the shutdown of a coal-fired power plant located upwind of {{New
+  Jersey}}.
+\newblock {\em Journal of Environmental Economics and Management}, 90:269--293.
+
+\bibitem[Young, 2022]{young_consistency_2022}
+Young, A. (2022).
+\newblock Consistency without {{Inference}}: {{Instrumental Variables}} in
+  {{Practical Application}}.
+\newblock {\em European Economic Review}, 147:104112.
+
+\bibitem[Zwet and Gelman, 2021]{zwet_proposal_2021}
+Zwet, E. and Gelman, A. (2021).
+\newblock A {{Proposal}} for {{Informative Default Priors Scaled}} by the
+  {{Standard Error}} of {{Estimates}}.
+\newblock {\em The American Statistician}, pages 1--9.
+
+\bibitem[Zwet et~al., 2021]{zwet_statistical_2021}
+Zwet, E., Schwab, S., and Senn, S. (2021).
+\newblock The statistical properties of {{RCTs}} and a proposal for shrinkage.
+\newblock {\em Statistics in Medicine}, 40(27):6107--6117.
+
+\bibitem[Zwet and Cator, 2021]{zwet_significance_2021}
+Zwet, E.~W. and Cator, E.~A. (2021).
+\newblock The significance filter, the winner's curse and the need to shrink.
+\newblock {\em Statistica Neerlandica}, 75(4):437--452.
 
 \end{thebibliography}

@@ -1,7 +1,7 @@
 This is BibTeX, Version 0.99d (TeX Live 2023)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: causal_exaggeration_paper.aux
-The style file: aea.bst
+The style file: apalike.bst
 A level-1 auxiliary file: bu.aux
 Database file #1: ../causal_exaggeration.bib
 Warning--empty journal in bagilet_accurate_2023
@@ -9,44 +9,44 @@ Warning--empty journal in gelman_garden_2013
 Warning--empty journal in stevens_temperature_2017
 Warning--empty journal in vu_standard_2025
 You've used 74 entries,
-            2695 wiz_defined-function locations,
-            1016 strings with 17950 characters,
-and the built_in function-call counts, 473149 in all, are:
-= -- 79288
-> -- 5222
-< -- 2
-+ -- 38570
-- -- 1642
-* -- 42593
-:= -- 92052
-add.period$ -- 515
+            1935 wiz_defined-function locations,
+            904 strings with 17843 characters,
+and the built_in function-call counts, 29156 in all, are:
+= -- 2879
+> -- 1142
+< -- 55
++ -- 403
+- -- 375
+* -- 2536
+:= -- 5081
+add.period$ -- 219
 call.type$ -- 74
-change.case$ -- 962
+change.case$ -- 548
 chr.to.int$ -- 74
 cite$ -- 78
-duplicate$ -- 1092
-empty$ -- 2978
-format.name$ -- 1678
-if$ -- 85067
-int.to.chr$ -- 5
+duplicate$ -- 1057
+empty$ -- 2062
+format.name$ -- 497
+if$ -- 5631
+int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 229
-num.names$ -- 816
-pop$ -- 80
+missing$ -- 79
+newline$ -- 367
+num.names$ -- 226
+pop$ -- 441
 preamble$ -- 1
-purify$ -- 1110
+purify$ -- 555
 quote$ -- 0
-skip$ -- 934
+skip$ -- 808
 stack$ -- 0
-substring$ -- 114105
-swap$ -- 445
-text.length$ -- 1038
+substring$ -- 2233
+swap$ -- 97
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 278
+type$ -- 426
 warning$ -- 4
-while$ -- 1847
+while$ -- 257
 width$ -- 0
-write$ -- 370
+write$ -- 943
 (There were 4 warnings)

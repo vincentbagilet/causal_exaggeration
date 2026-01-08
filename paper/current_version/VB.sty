@@ -7,7 +7,7 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[english, francais]{babel}
-\RequirePackage[top=2.6cm,bottom=2.6cm,left=2cm,right=2cm]{geometry}
+\RequirePackage[top=2.5cm,bottom=2.5cm,left=2cm,right=2cm]{geometry}
 \RequirePackage[pdftex]{graphicx}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
@@ -50,7 +50,7 @@ hyperindex=true, %ajoute des liens dans les index.
 colorlinks=true, %colorise les liens
 breaklinks=true, %permet le retour à la ligne dans les liens trop longs
 urlcolor= {green_website}, %couleur des hyperliens
-linkcolor={green_website},, %couleur des liens internes
+linkcolor={green_website}, %couleur des liens internes
 citecolor={green_website},
 bookmarks=true, %créé des signets pour Acrobat
 bookmarksopen=true,
@@ -72,6 +72,7 @@ pdftitle={\@title}, pdfauthor={\@author}, pdfsubject={}
 \fancypagestyle{plain}{
 \fancyhead{}
 \renewcommand{\headrulewidth}{0pt}}
+\setlength{\headsep}{17pt}
 \renewcommand{\footrulewidth}{0.5pt}
 \fancyfoot[C]{\textbf{Page \thepage}} 
 %\fancyfoot[R]{\begin{picture}(63,12) \put(-80,-13){\includegraphics[width=5cm]{logo.png}}
@@ -121,8 +122,8 @@ pdftitle={\@title}, pdfauthor={\@author}, pdfsubject={}
 
 %%%%%%% Colors %%%%%%%%%
 
-\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
-\renewcommand{\emph}[1]{\textcolor{darkblue}{#1}}
+%\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+%\renewcommand{\emph}[1]{\textcolor{darkblue}{#1}}
 
 %%%%% Tables %%%%%%
 

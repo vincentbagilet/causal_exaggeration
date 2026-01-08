@@ -26,7 +26,7 @@
 	\title{Causal Exaggeration: \\ Unconfounded but Inflated Causal Estimates}
 
 	\author{Vincent Bagilet
-		\thanks{Center for Economic Research on Governance, Inequality and Conflict, Ecole Normale Superieure de Lyon, CNRS. Email: \url{vincent.bagilet@ens-lyon.fr}. 
+		\thanks{Center for Economic Research on Governance, Inequality and Conflict, Ecole Normale Superieure de Lyon, CNRS, Lyon, France. Email: \url{vincent.bagilet@ens-lyon.fr}. 
 			A previous version of this paper (\textit{CEEP Working Paper Series}, 20) was co-authored with Léo Zabrocki-Hallak; I cannot thank him enough for his invaluable and far-reaching contributions to the project. I am very grateful to Jeffrey Shrader for his guidance and thank Gaetan Bakalli, Stéphane Bonhomme, Sylvain Chabé-Ferret, Mathieu Couttenier, Clément De Chaisemartin, Jesse McDevitt-Irwin, Andrew Gelman, Sophie Hatte, David McKenzie, José Luis Montiel Olea, Elisa Mougin, Hélène Ollivier, Suresh Naidu, Claire Palandri, Julian Reif, Stephan Thies and Roberto Zuniga Valladares for helpful comments, as well as lab members at Columbia University and seminars participants at Columbia University, Ecole Normale Supérieure de Lyon, EM Lyon, the Institute for Public Policy, IPWSD, the Paris School of Economics and the Toulouse School of Economics. I am very grateful to Alwyn Young for providing data from his analysis of the IV literature.}
 	}
 	
@@ -576,7 +576,7 @@ For a similar increment in air pollution, \cite{shah_short_2015} and \cite{deryu
 
 \section{Conclusion} \label{conclusion}
 
-	The economic literature suffers from an extensive lack of statistical power \citep{ioannidis_power_2017} and strongly favors statistically significant findings \citep[for instance]{rosenthal_file_1979, andrews_identification_2019, vivalt_specification_2019, abadie_statistical_2020, brodeur_methods_2020}. In such situations, significant estimates from underpowered studies always exaggerate true effect sizes, even when the estimators are ``unbiased'' in the usual sense of $\mathbb{E}[\hat{\beta}] = \beta$ \citep{gelmanType2000, ioannidis_why_2008, gelman_beyond_2014}. It is therefore not surprising that many estimates published in economics have been found to be considerably exaggerated \citep{ioannidis_power_2017}, despite the extensive use of convincing causal inference methods. Yet, the determinants of these exaggeration and power problems have remained largely understudied. I argue that exaggeration is exacerbated by the foundational component of causal inference: the fact that it only leverages subsets of the variation for identification. Although causal methods enable avoiding confounding, they also reduce statistical power and thus increase the risk of exaggeration. The same aspect that makes these methods credible can create another type of bias. Systematically reporting statistical power and examining the variation actually used for identification could help avoid falling into this exaggeration trap.
+	The economic literature suffers from an extensive lack of statistical power \citep{ioannidis_power_2017} and favors statistically significant findings \citep[for instance]{rosenthal_file_1979, andrews_identification_2019, vivalt_specification_2019, abadie_statistical_2020, brodeur_methods_2020}. In such situations, significant estimates from underpowered studies always exaggerate true effect sizes, even when the estimators are ``unbiased'' in the usual sense of $\mathbb{E}[\hat{\beta}] = \beta$ \citep{gelmanType2000, ioannidis_why_2008, gelman_beyond_2014}. It is therefore not surprising that many estimates published in economics have been found to be considerably exaggerated \citep{ioannidis_power_2017}, despite the extensive use of convincing causal inference methods. Yet, the determinants of these exaggeration and power problems have remained largely understudied. I argue that exaggeration is exacerbated by the foundational component of causal inference: the fact that it only leverages subsets of the variation for identification. Although causal methods enable avoiding confounding, they also reduce statistical power and thus increase the risk of exaggeration. The same aspect that makes these methods credible can create another type of bias. Systematically reporting statistical power and examining the variation actually used for identification could help avoid falling into this exaggeration trap.
 
 %-----------------------------------------------------------------------------
 
@@ -617,8 +617,12 @@ For a similar increment in air pollution, \cite{shah_short_2015} and \cite{deryu
 
 \singlespacing
 \setlength\bibsep{5pt}
-\bibliographystyle{aea}
+\bibliographystyle{apalike}
+\begingroup
+\renewcommand{\em}{\itshape}
+\renewcommand{\emph}{\textit}
 \bibliography{../causal_exaggeration}
+\endgroup
 \onehalfspacing
 
 \newpage

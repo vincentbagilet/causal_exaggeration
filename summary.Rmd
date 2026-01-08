@@ -82,7 +82,7 @@ non_technical_summary <-
 
 #### Tweet 1/N
 
-We published a working paper arguing that causal inference methods can produce inflated published estimates.
+I updated my working paper arguing that causal inference methods can produce inflated published estimates.
 
 They intrinsically reduce statistical power. It creates a trade-off between confounding and exaggerating true effect sizes.
 
@@ -125,7 +125,7 @@ tibble(estimate = rnorm(true_effect, sd, n = n_iter)) %>%
 
 Causal id strat throw out part of the variation, reducing power, leading significant estimates to exaggerate true effects sizes. The same aspect that makes causal identification strategies credible can also induce "bias".
 
-We build fake data MC simulations to illustrate this.
+I built fake data MC simulations to illustrate this.
 
 #### Tweet 4/N
 
@@ -156,19 +156,27 @@ In DiD event studies, the variation used to identify an effect sometimes only co
 knitr::include_graphics("images/shocks/main_graph_shocks-1.png")
 ```
 
-#### Tweet 7/N
-
-Matching prunes treated units that cannot be matched to untreated ones, reducing the effective sample size.
-
-On average significant estimates may never get close to the true effect.
-
-```{r echo=FALSE, fig.align="center"} 
-knitr::include_graphics("images/matching/main_graph_matching-1.png")
-```
-
 #### Tweet 8/N
 
 A systematic reporting of pre and post analysis power calculations in observational studies would help gauge the risk of falling into this low power trap.
+
+#### Tweet 9/N
+
+I also developed a R package, ididvar, that provides tools to easily identify the identifying variation in a regression: [vincentbagilet.github.io/ididvar/](vincentbagilet.github.io/ididvar/)
+
+The following vignette introduces it in details: [vincentbagilet.github.io/causal_exaggeration/ididvar.html](vincentbagilet.github.io/causal_exaggeration/ididvar.html)
+
+#### Tweet 10/N
+
+It computes identification weights as the leverage of each observation but after having partialled out the controls. 
+
+Some observations, whose treatment status is well explained by controls and fixed effects do not contribute to identification.
+
+```{r echo=FALSE, fig.align="center"} 
+knitr::include_graphics("images/ididvar/idid_viz_contrib_agg-1.png")
+knitr::include_graphics("images/ididvar/idid_viz_contrib_map-1.png")
+knitr::include_graphics("images/ididvar/idid_viz_weights-1.png")
+```
 
 #### Tweet N/N
 

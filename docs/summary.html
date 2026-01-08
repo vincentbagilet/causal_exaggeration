@@ -2288,7 +2288,7 @@ Simulations
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>The credibility revolution has made causal inference methods ubiquitous in economics, yet it coexists with selection on significance. I show that these two phenomena interact in ways that reduce the reliability of published estimates: while causal identification strategies alleviate bias from confounders, they reduce statistical power and can generate another type of bias–exaggeration–when combined with selection on significance. I characterize this confounding-exaggeration trade-off theoretically and via realistic Monte Carlo simulations, and document its prevalence in the literature. I then propose practical solutions, including a tool to identify the variation actually driving identification.</p>
+<p>The credibility revolution has made causal inference methods ubiquitous in economics. Yet there is widespread evidence of selection on statistical significance and associated biases in the literature. I show that these two phenomena interact to reduce the reliability of published estimates: while causal identification strategies alleviate bias from confounders, by restricting the variation used for identification they reduce statistical power and can exacerbate another bias–exaggeration. I characterize this confounding-exaggeration trade-off theoretically and through realistic Monte Carlo simulations, and explore its prevalence in the literature. In realistic settings, exaggeration can exceed the confounding bias these methods aim to eliminate. Finally, I propose practical solutions to navigate this trade-off, including a versatile tool to identify the variation and observations actually driving identification in applied causal studies.</p>
 <h2 id="non-technical-summary">Non-technical summary</h2>
 <div class="layout-chunk" data-layout="l-body">
 
@@ -2310,7 +2310,7 @@ Simulations
 <!-- ``` -->
 <h2 id="a-twitter-summary">A Twitter summary</h2>
 <h4 id="tweet-1n">Tweet 1/N</h4>
-<p>We published a working paper arguing that causal inference methods can produce inflated published estimates.</p>
+<p>I updated my working paper arguing that causal inference methods can produce inflated published estimates.</p>
 <p>They intrinsically reduce statistical power. It creates a trade-off between confounding and exaggerating true effect sizes.</p>
 <h4 id="tweet-2n">Tweet 2/N</h4>
 <p>When power is low, the distribution of estimates is spread out. Only estimates that are roughly 2 sd away from 0 are statistically significant. Significant estimates overestimate the true effect size.</p>
@@ -2319,7 +2319,7 @@ Simulations
 </div>
 <h4 id="tweet-3n">Tweet 3/N</h4>
 <p>Causal id strat throw out part of the variation, reducing power, leading significant estimates to exaggerate true effects sizes. The same aspect that makes causal identification strategies credible can also induce “bias”.</p>
-<p>We build fake data MC simulations to illustrate this.</p>
+<p>I built fake data MC simulations to illustrate this.</p>
 <h4 id="tweet-4n">Tweet 4/N</h4>
 <p>RDD discards variation by only considering observations within the bandwidth. It decreases the effective sample size.</p>
 <p>On average significant estimates may never get close to the true effect.</p>
@@ -2337,14 +2337,17 @@ Simulations
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/shocks/main_graph_shocks-1.png" width="85%" style="display: block; margin: auto;" /></p>
 </div>
-<h4 id="tweet-7n">Tweet 7/N</h4>
-<p>Matching prunes treated units that cannot be matched to untreated ones, reducing the effective sample size.</p>
-<p>On average significant estimates may never get close to the true effect.</p>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="images/matching/main_graph_matching-1.png" width="85%" style="display: block; margin: auto;" /></p>
-</div>
 <h4 id="tweet-8n">Tweet 8/N</h4>
 <p>A systematic reporting of pre and post analysis power calculations in observational studies would help gauge the risk of falling into this low power trap.</p>
+<h4 id="tweet-9n">Tweet 9/N</h4>
+<p>I also developed a R package, ididvar, that provides tools to easily identify the identifying variation in a regression: <a href="vincentbagilet.github.io/ididvar/">vincentbagilet.github.io/ididvar/</a></p>
+<p>The following vignette introduces it in details: <a href="vincentbagilet.github.io/causal_exaggeration/ididvar.html">vincentbagilet.github.io/causal_exaggeration/ididvar.html</a></p>
+<h4 id="tweet-10n">Tweet 10/N</h4>
+<p>It computes identification weights as the leverage of each observation but after having partialled out the controls.</p>
+<p>Some observations, whose treatment status is well explained by controls and fixed effects do not contribute to identification.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/ididvar/idid_viz_contrib_agg-1.png" width="85%" style="display: block; margin: auto;" /><img src="images/ididvar/idid_viz_contrib_map-1.png" width="85%" style="display: block; margin: auto;" /><img src="images/ididvar/idid_viz_weights-1.png" width="85%" style="display: block; margin: auto;" /></p>
+</div>
 <h4 id="tweet-nn">Tweet N/N</h4>
 <p>The paper summed up in a picture:</p>
 <div class="layout-chunk" data-layout="l-body">

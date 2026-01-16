@@ -133,6 +133,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_meta_tags-->
   
   <meta name="citation_reference" content="citation_title=Reference Points and Effort Provision;citation_volume=101;citation_doi=10.1257/aer.101.2.470;citation_issn=0002-8282;citation_author=Johannes Abeler;citation_author=Armin Falk;citation_author=Lorenz Goette;citation_author=David Huffman"/>
+  <meta name="citation_reference" content="citation_title=Quantitative Political Science Research Is Greatly Underpowered;citation_publisher=The University of Chicago Press;citation_volume=88;citation_doi=10.1086/734279;citation_issn=0022-3816;citation_author=Vincent Arel-Bundock;citation_author=Ryan C. Briggs;citation_author=Hristos Doucouliagos;citation_author=Marco M. Aviña;citation_author=T. D. Stanley"/>
+  <meta name="citation_reference" content="citation_title=Accurate Estimation of Small Effects: Illustration Through Air Pollution and Health;citation_author=Vincent Bagilet"/>
+  <meta name="citation_reference" content="citation_title=RCTs to Scale: Comprehensive Evidence From Two Nudge Units;citation_volume=90;citation_doi=10.3982/ECTA18709;citation_issn=1468-0262;citation_author=Stefano DellaVigna;citation_author=Elizabeth Linos"/>
+  <meta name="citation_reference" content="citation_title=Feature—Is a Replicability Crisis on the Horizon for Environmental and Resource Economics?;citation_publisher=The University of Chicago Press;citation_volume=14;citation_doi=10.1093/reep/reaa011;citation_issn=1750-6816;citation_author=Paul J. Ferraro;citation_author=Pallavi Shukla"/>
+  <meta name="citation_reference" content="citation_title=The Power of Bias in Economics Research;citation_publisher=Oxford Academic;citation_volume=127;citation_doi=10.1111/ecoj.12461;citation_issn=0013-0133;citation_author=John P. A. Ioannidis;citation_author=T. D. Stanley;citation_author=Hristos Doucouliagos"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
@@ -2303,8 +2308,10 @@ Simulations
 <h3>Contents</h3>
 <ul>
 <li><a href="#what-is-exaggeration" id="toc-what-is-exaggeration">What is exaggeration?</a></li>
-<li><a href="#why-does-imprecision-lead-to-exaggeration" id="toc-why-does-imprecision-lead-to-exaggeration">Why does imprecision lead to exaggeration?</a></li>
 <li><a href="#do-we-actually-see-exaggeration-in-the-literature" id="toc-do-we-actually-see-exaggeration-in-the-literature">Do we actually see exaggeration in the literature?</a></li>
+<li><a href="#why-does-imprecision-lead-to-exaggeration" id="toc-why-does-imprecision-lead-to-exaggeration">Why does imprecision lead to exaggeration?</a></li>
+<li><a href="#why-dont-i-provide-definitive-figures-on-the-magnitude-of-exaggeration-in-the-literature-and-my-simulations" id="toc-why-dont-i-provide-definitive-figures-on-the-magnitude-of-exaggeration-in-the-literature-and-my-simulations">Why don’t I provide definitive figures on the magnitude of exaggeration in the literature and my simulations?</a></li>
+<li><a href="#how-are-statistical-power-and-exaggeration-related" id="toc-how-are-statistical-power-and-exaggeration-related">How are statistical power and exaggeration related?</a></li>
 </ul>
 </nav>
 </div>
@@ -2360,6 +2367,22 @@ Show code
 <p>If the study was more precise, the standard error of the estimator would be smaller and more estimates would be statistically significant. The study would have more statistical power. But since the power is low here (or equivalently since the estimator is relatively imprecise), statistically significant estimates only represent a subset of the estimate and on average overestimate the true effect. They overestimate it by a factor 2.85 (average of 0.23 while the true effect is 0.079).</p>
 <p>On average, statistically significant estimates overestimate true effect sizes when statistical power is low.</p>
 <!-- The way we calculated the standard error is not perfectly accurate so we use the information available in the [replication report](http://experimentaleconreplications.com/replicationreports.html). -->
+<h2 id="do-we-actually-see-exaggeration-in-the-literature">Do we actually see exaggeration in the literature?</h2>
+<p>Evidence of <strong>consequential exaggeration in the literature as been established</strong> by previous studies:</p>
+<ul>
+<li><span class="citation" data-cites="ioannidis_power_2017">Ioannidis, Stanley, and Doucouliagos (<a href="#ref-ioannidis_power_2017" role="doc-biblioref">2017</a>)</span> finds that nearly 80% of estimates in a wide range of areas in economics are likely exaggerated by a factor of two. They use meta-analyses to compute the statistical power of published studies.</li>
+<li><span class="citation" data-cites="ferraro_feature_2020">Ferraro and Shukla (<a href="#ref-ferraro_feature_2020" role="doc-biblioref">2020</a>)</span> estimates that 56% of results in environmental economics are exaggerated by a factor of two or more. They use a methodology close to <span class="citation" data-cites="ioannidis_power_2017">Ioannidis, Stanley, and Doucouliagos (<a href="#ref-ioannidis_power_2017" role="doc-biblioref">2017</a>)</span> (but slightly more conservative).</li>
+<li><span class="citation" data-cites="dellavigna_rcts_2022">DellaVigna and Linos (<a href="#ref-dellavigna_rcts_2022" role="doc-biblioref">2022</a>)</span> shows that, due to exaggeration, academic papers on nudge experiments find results that are typically 6 times larger than in large-scale experiments</li>
+<li><span class="citation" data-cites="arel-bundock_quantitative_2024">Arel-Bundock et al. (<a href="#ref-arel-bundock_quantitative_2024" role="doc-biblioref">2024</a>)</span> finds that estimates in the political science are about 3 times too large.</li>
+</ul>
+<p>I further investigate this question for a set of different literatures:</p>
+<ul>
+<li><a href="lit_top_journals.html">Studies from top economics journals</a>,</li>
+<li><a href="lit_IVs.html">IV studies published in top economics journals</a>,</li>
+<li>An <a href="lit_air_pollution.html">example literature</a>, that on the short-term health effects of air pollution that I further explore in a companion paper <span class="citation" data-cites="bagilet_accurate_2023">(<a href="#ref-bagilet_accurate_2023" role="doc-biblioref">Bagilet 2023</a>)</span></li>
+<li>The <a href="lit_exp.html">experimental literature</a></li>
+</ul>
+<p>I begin by examining broad literatures that require strong assumptions about true effect sizes, then progressively narrow my focus to more specific literatures that allow me to relax these assumptions. I find <strong>heterogeneity across studies</strong>: while exaggeration might be limited in some analyses, it is likely substantial in many others.</p>
 <h2 id="why-does-imprecision-lead-to-exaggeration">Why does imprecision lead to exaggeration?</h2>
 <p>The confounding / exaggeration trade-off described in this paper arises due to differences in precision between estimators. To illustrate this, I generate estimates from two unbiased estimators with identical mean but different variances.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2377,22 +2400,34 @@ Show code
 </div>
 <p>Even though the estimator is unbiased, the set of statistically significant estimates is a biased sample of the distribution.</p>
 <p>Note that this figure also suggests that, the less precise the estimator, the larger the exaggeration.</p>
-<h2 id="do-we-actually-see-exaggeration-in-the-literature">Do we actually see exaggeration in the literature?</h2>
-<p>I investigate this question for a set of different literatures:</p>
-<ul>
-<li><a href="lit_top_journals.html">Studies from top economics journals</a>,</li>
-<li><a href="lit_IVs.html">IV studies published in top economics journals</a>,</li>
-<li>An <a href="lit_air_pollution.html">example literature</a>, that on the short-term health effects of air pollution,</li>
-<li>The <a href="lit_exp.html">experimental literature</a></li>
-</ul>
-<p>I begin by examining broad literatures that require strong assumptions about true effect sizes, then progressively narrow my focus to more specific literatures that allow me to relax these assumptions.</p>
+<h2 id="why-dont-i-provide-definitive-figures-on-the-magnitude-of-exaggeration-in-the-literature-and-my-simulations">Why don’t I provide definitive figures on the magnitude of exaggeration in the literature and my simulations?</h2>
+<p>Exaggeration is in essence impossible to measure as its computation depends on the true effect, which is always unknown. One can only hypothesize this true effect size, deriving plausible effect sizes from meta-analyses, credible studies (<em>e.g.</em>, large RCTs), or theoretical findings.</p>
+<p>This why I turn to simulations. Yet, while simulations allow to know the true effect size, the resulting exaggeration is quite dependent on the calibration choices and the context, preventing me from drawing definitive numerical conclusions from these analyses.</p>
+<h2 id="how-are-statistical-power-and-exaggeration-related">How are statistical power and exaggeration related?</h2>
+<p>There is a bijection between statistical power and exaggeration of significant estimates: the lower statistical power, the greater exaggeration.</p>
+<p>When statistical power is low, only a few estimates are significant. They are located in the tails of the distribution and are therefore not located at the center of the distribution (the true effect, if the estimator is unbiased in the traditional sense of <span class="math inline">\(\mathbb{E}[\hat{\beta}] = \beta\)</span>).</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-abeler_reference_2011" class="csl-entry" role="listitem">
 Abeler, Johannes, Armin Falk, Lorenz Goette, and David Huffman. 2011. <span>“Reference <span>Points</span> and <span>Effort Provision</span>.”</span> <em>American Economic Review</em> 101 (2): 470–92. <a href="https://doi.org/10.1257/aer.101.2.470">https://doi.org/10.1257/aer.101.2.470</a>.
 </div>
+<div id="ref-arel-bundock_quantitative_2024" class="csl-entry" role="listitem">
+Arel-Bundock, Vincent, Ryan C. Briggs, Hristos Doucouliagos, Marco M. Aviña, and T. D. Stanley. 2024. <span>“Quantitative <span>Political Science Research Is Greatly Underpowered</span>.”</span> <em>The Journal of Politics</em> 88 (1): 36–46. <a href="https://doi.org/10.1086/734279">https://doi.org/10.1086/734279</a>.
+</div>
+<div id="ref-bagilet_accurate_2023" class="csl-entry" role="listitem">
+Bagilet, Vincent. 2023. <span>“Accurate <span>Estimation</span> of <span>Small Effects</span>: <span>Illustration Through Air Pollution</span> and <span>Health</span>,”</span> March.
+</div>
 <div id="ref-camerer_evaluating_2016" class="csl-entry" role="listitem">
 Camerer, Colin F., Anna Dreber, Eskil Forsell, Teck-Hua Ho, Jürgen Huber, Magnus Johannesson, Michael Kirchler, et al. 2016. <span>“Evaluating Replicability of Laboratory Experiments in Economics.”</span> <em>Science</em> 351 (6280): 1433–36. <a href="https://doi.org/10.1126/science.aaf0918">https://doi.org/10.1126/science.aaf0918</a>.
+</div>
+<div id="ref-dellavigna_rcts_2022" class="csl-entry" role="listitem">
+DellaVigna, Stefano, and Elizabeth Linos. 2022. <span>“<span>RCTs</span> to <span>Scale</span>: <span>Comprehensive Evidence From Two Nudge Units</span>.”</span> <em>Econometrica</em> 90 (1): 81–116. <a href="https://doi.org/10.3982/ECTA18709">https://doi.org/10.3982/ECTA18709</a>.
+</div>
+<div id="ref-ferraro_feature_2020" class="csl-entry" role="listitem">
+Ferraro, Paul J., and Pallavi Shukla. 2020. <span>“Feature—<span>Is</span> a <span>Replicability Crisis</span> on the <span>Horizon</span> for <span>Environmental</span> and <span>Resource Economics</span>?”</span> <em>Review of Environmental Economics and Policy</em> 14 (2): 339–51. <a href="https://doi.org/10.1093/reep/reaa011">https://doi.org/10.1093/reep/reaa011</a>.
+</div>
+<div id="ref-ioannidis_power_2017" class="csl-entry" role="listitem">
+Ioannidis, John P. A., T. D. Stanley, and Hristos Doucouliagos. 2017. <span>“The <span>Power</span> of <span>Bias</span> in <span>Economics Research</span>.”</span> <em>The Economic Journal</em> 127 (605): F236–65. <a href="https://doi.org/10.1111/ecoj.12461">https://doi.org/10.1111/ecoj.12461</a>.
 </div>
 </div>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">

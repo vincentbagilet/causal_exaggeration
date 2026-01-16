@@ -209,6 +209,24 @@ On average, statistically significant estimates overestimate true effect sizes w
 
 <!-- The way we calculated the standard error is not perfectly accurate so we use the information available in the [replication report](http://experimentaleconreplications.com/replicationreports.html). -->
 
+## Do we actually see exaggeration in the literature?
+
+Evidence of **consequential exaggeration in the literature as been established** by previous studies:
+
+- @ioannidis_power_2017 finds that nearly 80% of estimates in a wide range of areas in economics are likely exaggerated by a factor of two. They use meta-analyses to compute the statistical power of published studies.
+- @ferraro_feature_2020 estimates that 56% of results in environmental economics are exaggerated by a factor of two or more. They use a methodology close to @ioannidis_power_2017 (but slightly more conservative).
+- @dellavigna_rcts_2022 shows that, due to exaggeration, academic papers on nudge experiments find results that are typically 6 times larger than in large-scale experiments
+- @arel-bundock_quantitative_2024 finds that estimates in the political science are about 3 times too large.
+
+I further investigate this question for a set of different literatures:
+
+- [Studies from top economics journals](lit_top_journals.html),
+- [IV studies published in top economics journals](lit_IVs.html),
+- An [example literature](lit_air_pollution.html), that on the short-term health effects of air pollution that I further explore in a companion paper [@bagilet_accurate_2023]
+- The [experimental literature](lit_exp.html)
+
+I begin by examining broad literatures that require strong assumptions about true effect sizes, then progressively narrow my focus to more specific literatures that allow me to relax these assumptions. I find **heterogeneity across studies**: while exaggeration might be limited in some analyses, it is likely substantial in many others.  
+
 ## Why does imprecision lead to exaggeration?
 
 The confounding / exaggeration trade-off described in this paper arises due to differences in precision between estimators. To illustrate this, I generate estimates from two unbiased estimators with identical mean but different variances.
@@ -309,16 +327,18 @@ Even though the estimator is unbiased, the set of statistically significant esti
 
 Note that this figure also suggests that, the less precise the estimator, the larger the exaggeration.
 
-## Do we actually see exaggeration in the literature?
+## Why don't I provide definitive figures on the magnitude of exaggeration in the literature and my simulations?
 
-I investigate this question for a set of different literatures:
+Exaggeration is in essence impossible to measure as its computation depends on the true effect, which is always unknown. One can only hypothesize this true effect size, deriving plausible effect sizes from meta-analyses, credible studies (*e.g.*, large RCTs), or theoretical findings.
 
-- [Studies from top economics journals](lit_top_journals.html),
-- [IV studies published in top economics journals](lit_IVs.html),
-- An [example literature](lit_air_pollution.html), that on the short-term health effects of air pollution,
-- The [experimental literature](lit_exp.html)
+This why I turn to simulations. Yet, while simulations allow to know the true effect size, the resulting exaggeration is quite dependent on the calibration choices and the context, preventing me from drawing definitive numerical conclusions from these analyses.
 
-I begin by examining broad literatures that require strong assumptions about true effect sizes, then progressively narrow my focus to more specific literatures that allow me to relax these assumptions.
+## How are statistical power and exaggeration related?
+
+There is a bijection between statistical power and exaggeration of significant estimates: the lower statistical power, the greater exaggeration.
+
+When statistical power is low, only a few estimates are significant. They are located in the tails of the distribution and are therefore not located at the center of the distribution (the true effect, if the estimator is unbiased in the traditional sense of $\mathbb{E}[\hat{\beta}] = \beta$).
+
 
 
 

@@ -78,69 +78,53 @@ non_technical_summary <-
 <!-- ``` -->
 
 
-## A Twitter summary
+## A social network summary
 
-#### Tweet 1/N
+#### Post 1/N
 
-I updated my working paper arguing that causal inference methods can produce inflated published estimates.
+I updated my working paper showing that causal inference methods induce a trade of between confoundings and exaggerating true effect sizes.
 
-They intrinsically reduce statistical power. It creates a trade-off between confounding and exaggerating true effect sizes.
+By limiting the variation used for identification, they reduce statistical power and precision and can exacerbate another bias, exaggeration.
 
-#### Tweet 2/N
-
-When power is low, the distribution of estimates is spread out. Only estimates that are roughly 2 sd away from 0 are statistically significant. Significant estimates overestimate the true effect size.
-
-```{r illustration_typeM, echo = FALSE}
-n_iter <- 5000
-true_effect <- 0.8
-sd <- 1
-
-tibble(estimate = rnorm(true_effect, sd, n = n_iter)) %>% 
-  mutate(
-    n = row_number(),
-    non_significant = dplyr::between(
-      estimate, 
-      - 1.96*sd(estimate), 
-      1.96*sd(estimate)
-    ),
-    significant = ifelse(non_significant, "Non significant", "Significant") 
-  ) %>% 
-  ggplot(aes(x = estimate, fill = significant)) +
-  geom_histogram() +
-  geom_vline(xintercept = true_effect) +
-  labs(
-    title = "Illustration of the exaggeration and power issues",
-    subtitle = str_c(
-      "Distribution of ", n_iter,
-      " draws of an estimate ~ N(", true_effect, ",", sd, ")"),
-    x = "Point estimate",
-    y = "Count",
-    fill = "",
-    caption = "The vertical line represents the true effect"
-  ) 
-  
+```{r echo=FALSE, fig.align="center"} 
+knitr::include_graphics("images/abstract.png")
 ```
 
-#### Tweet 3/N
+#### Post 2/N
 
-Causal id strat throw out part of the variation, reducing power, leading significant estimates to exaggerate true effects sizes. The same aspect that makes causal identification strategies credible can also induce "bias".
+When power is low, the distribution of estimates is spread out. Only estimates that are 1.96 sd away from 0 are statistically significant. 
 
-I built fake data MC simulations to illustrate this.
+With low statistical power, significant estimates are *always* exaggerated.
 
-#### Tweet 4/N
+```{r echo=FALSE, fig.align="center"} 
+knitr::include_graphics("images/intuition/intuition_trade_off_signif_mean-1.png")
+```
+
+#### Post 3/N
+
+Causal id strat reduce power because they throw out part of the variation. Using too little variation can create an exaggeration bias, even if this variation is exogenous.
+
+I characterize this trade-off theoretically and through realistic MC simulations, and explore its prevalence in the literature
+
+#### Post 4/N
+
+Consequential exaggeration has been documented in econ (often by a factor 2 to 4). Its two ingredients, present in the lit, are selection on significance and lack of statistical power.
+
+I highlight a mechanism explaining exaggeration despite our extensive use of convincing causal inference methods.
+
+#### Post 5/N
 
 RDD discards variation by only considering observations within the bandwidth. It decreases the effective sample size.
 
 On average significant estimates may never get close to the true effect.
 
 ```{r echo=FALSE, fig.align="center"} 
-knitr::include_graphics("images/RDD/graph_distrib_RDD-3.png")
-knitr::include_graphics("images/RDD/main_graph_RDD-1.png")
+knitr::include_graphics("images/RDD/graph_distrib_RDD-4.png")
 ```
 
-#### Tweet 5/N
+#### Post 6/N
 
-IV only uses part of the variation in the treatment, the portion explained by the instrument. When the "strength" of the instrument is low, the IV is imprecise. 
+IV only uses part of the variation in the treatment, the portion explained by the instrument. When the "strength" of the instrument is low, the IV is imprecise and can induce exaggeration.
 
 A "naive" OLS can, on average, produce significant estimates that are closer to the true effect than the IV.
 
@@ -148,42 +132,63 @@ A "naive" OLS can, on average, produce significant estimates that are closer to 
 knitr::include_graphics("images/IV/main_graph_IV-1.png")
 ```
 
-#### Tweet 6/N
+#### Post 7/N
 
-In DiD event studies, the variation used to identify an effect sometimes only comes from a limited number of treated observations. Power can thus be low and estimates inflated.
+When leveraging exogenous shocks, the variation sometimes only comes from a limited number of treated observations. Power can thus be low and estimates inflated.
 
 ```{r echo=FALSE, fig.align="center"} 
 knitr::include_graphics("images/shocks/main_graph_shocks-1.png")
 ```
 
-#### Tweet 8/N
+#### Post 8/N
+
+If fixed effects or controls absorb a lot of the variation in X (more than in Y), the resulting identifying variation might be limited, leading to imprecision and exaggeration.
+
+```{r echo=FALSE, fig.align="center"} 
+knitr::include_graphics("images/FE/main_graph_fe-1.png")
+```
+
+```{r echo=FALSE, fig.align="center", out.width="60%"} 
+knitr::include_graphics("images/memes/FE_burn.png")
+```
+
+#### Post 9/N
 
 A systematic reporting of pre and post analysis power calculations in observational studies would help gauge the risk of falling into this low power trap.
 
-#### Tweet 9/N
+The confounding-exaggeration trade-off is mediated by the variation used for identification, I provide tools to explore it.
 
-I also developed a R package, ididvar, that provides tools to easily identify the identifying variation in a regression: [vincentbagilet.github.io/ididvar/](vincentbagilet.github.io/ididvar/)
+```{r echo=FALSE, fig.align="center"} 
+knitr::include_graphics("images/intuition/intuition_trade_off_signif_mean-1.png")
+```
 
-The following vignette introduces it in details: [vincentbagilet.github.io/causal_exaggeration/ididvar.html](vincentbagilet.github.io/causal_exaggeration/ididvar.html)
+#### Post 10/N
 
-#### Tweet 10/N
+I developed a R package, ididvar, that provides tools to easily identify the identifying variation in a regression: vincentbagilet.github.io/ididvar/
 
-It computes identification weights as the leverage of each observation but after having partialled out the controls. 
-
-Some observations, whose treatment status is well explained by controls and fixed effects do not contribute to identification.
+The following vignette introduces in details: vincentbagilet.github.io/causal_exaggeration/ididvar.html
 
 ```{r echo=FALSE, fig.align="center"} 
 knitr::include_graphics("images/ididvar/idid_viz_contrib_agg-1.png")
+```
+
+#### Post 11/N
+
+ididvar computes identifying variation weights as the leverage of each observation but after having partialled out the controls (including those identification-related) and FE. 
+
+Some observations do not contribute to identification and dropping them would not change the estimate.
+
+```{r echo=FALSE, fig.align="center"} 
 knitr::include_graphics("images/ididvar/idid_viz_contrib_map-1.png")
 knitr::include_graphics("images/ididvar/idid_viz_weights-1.png")
 ```
 
-#### Tweet N/N
+#### Post N/N
 
-The paper summed up in a picture:
+The paper summed up in a few pictures:
 
 ```{r echo=FALSE, out.width=400, fig.align="center"} 
-knitr::include_graphics("images/summary/drowning.jpg")
+knitr::include_graphics("images/memes/drowning.jpg")
 ```
 
 

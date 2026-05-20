@@ -87,7 +87,7 @@ I updated my working paper showing that causal inference methods induce a trade 
 By limiting the variation used for identification, they reduce statistical power and precision and can exacerbate another bias, exaggeration.
 
 ```{r echo=FALSE, fig.align="center"} 
-knitr::include_graphics("images/abstract.png")
+knitr::include_graphics("images/summary/abstract.png")
 ```
 
 #### Post 2/N
@@ -104,7 +104,7 @@ knitr::include_graphics("images/intuition/intuition_trade_off_signif_mean-1.png"
 
 Causal id strat reduce power because they throw out part of the variation. Using too little variation can create an exaggeration bias, even if this variation is exogenous.
 
-I characterize this trade-off theoretically and through realistic MC simulations, and explore its prevalence in the literature
+I characterize this trade-off theoretically and through realistic MC simulations, and explore its prevalence in the literature.
 
 #### Post 4/N
 
@@ -158,10 +158,6 @@ A systematic reporting of pre and post analysis power calculations in observatio
 
 The confounding-exaggeration trade-off is mediated by the variation used for identification, I provide tools to explore it.
 
-```{r echo=FALSE, fig.align="center"} 
-knitr::include_graphics("images/intuition/intuition_trade_off_signif_mean-1.png")
-```
-
 #### Post 10/N
 
 I developed a R package, ididvar, that provides tools to easily identify the identifying variation in a regression: vincentbagilet.github.io/ididvar/
@@ -185,7 +181,7 @@ knitr::include_graphics("images/ididvar/idid_viz_weights-1.png")
 
 #### Post N/N
 
-The paper summed up in a few pictures:
+The paper summed up in a picture:
 
 ```{r echo=FALSE, out.width=400, fig.align="center"} 
 knitr::include_graphics("images/memes/drowning.jpg")
